@@ -2,7 +2,7 @@
 
     python3 son.py sortie.wav
 
-Une pulsation à 120 BPM, une montée avant l'éclatement, un impact, des « pops » pour
+Une pulsation à 120 BPM, la brosse sur l'ardoise, un impact, des « pops » pour
 les étiquettes et les mots, des souffles pour les transitions, un carillon sur le bouton.
 Sur Instagram, on peut ajouter un son tendance par-dessus, volume bas.
 """
@@ -65,18 +65,32 @@ def carillon(t0):
         ajoute(t0 + d, 1.2, lambda t, f0=f0: 0.12 * math.sin(2 * math.pi * f0 * t) * math.exp(-4 * t))
 
 
+def frotte(t0, duree, vol=0.3, allers=1):
+    # la brosse sur l'ardoise : bruit grave et granuleux, modulé à chaque aller-retour
+    etat = [0.0]
+
+    def f(t):
+        k = t / duree
+        mod = 0.55 + 0.45 * abs(math.sin(math.pi * allers * k))
+        etat[0] += 0.18 * ((alea.random() * 2 - 1) - etat[0])
+        grain = 1.0 + (2.5 if alea.random() < 0.01 else 0.0)
+        return vol * math.sin(math.pi * k) ** 0.6 * mod * etat[0] * grain
+    ajoute(t0, duree, f)
+
+
 # pulsation 120 BPM, coupée pendant le ralenti puis relancée
 for b in range(30):
     t = b * 0.5
     if 2.2 <= t < 4.5:
         continue
-    kick(t, 0.32 if t < 12.5 else 0.42)
+    kick(t, 0.32 if t < 11.75 else 0.42)
     hat(t + 0.25)
 
-# accroche : un pop par mot
-for t in (0.0, 0.09, 0.2, 0.29, 0.55, 0.64):
+# accroche sur l'ardoise : un pop par mot, deux coups de brosse
+for t in (0.0, 0.0, 0.12, 0.21, 0.3):
     pop(t, 0.12, 700)
-souffle(1.2, 1.0, 0.3, montee=True)  # montée avant l'éclatement
+frotte(0.62, 0.45, 0.5)  # « menu PDF. »
+frotte(1.1, 1.08, 0.55, allers=3)  # toute l'ardoise
 impact(2.2)
 for t in (4.3, 4.6, 4.9, 5.2, 5.5):  # étiquettes
     pop(t + 0.18, 0.2, 1100)
@@ -85,12 +99,14 @@ for t in (6.0, 6.09, 6.25):  # « Chaque ingrédient, montré. »
 souffle(8.6, 0.8, 0.28)  # zoom arrière vers le téléphone
 for t in (9.35, 9.44, 9.53, 9.6, 9.69, 9.78, 9.87):
     pop(t, 0.1, 700)
-souffle(9.6, 1.3, 0.12)  # glissements du doigt
-souffle(11.4, 1.1, 0.12)
-souffle(12.45, 0.6, 0.35)  # rideau jaune
-impact_doux = 12.95
-kick(impact_doux, 0.7)
-carillon(13.6)  # bouton
+souffle(9.55, 0.9, 0.12)  # glissements du doigt
+souffle(10.65, 0.95, 0.12)
+souffle(11.65, 0.6, 0.35)  # rideau jaune
+souffle(12.15, 0.45, 0.18, montee=True)  # le N s'allume
+for t in (12.35, 12.44, 12.5, 12.59):
+    pop(t, 0.1, 700)
+frotte(12.95, 0.45, 0.45)  # « ancien site. »
+carillon(13.45)  # bouton
 
 # normalisation et petit fondu final pour une boucle propre
 crete = max(abs(x) for x in piste) or 1
