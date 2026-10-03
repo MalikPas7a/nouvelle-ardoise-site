@@ -17,6 +17,7 @@
 </head>
 <body>
 <canvas width="1080" height="1920"></canvas>
+<script src="ardoise.js"></script>
 <script>
 const L = 1080, H = 1920, DUREE = 15;
 const ARDOISE = '#1E2A2C', JAUNE = '#FFD23F', NAPPE = '#F5F7F4';
@@ -24,6 +25,10 @@ const toile = document.querySelector('canvas');
 const ctx = toile.getContext('2d');
 const hors = Object.assign(document.createElement('canvas'), { width: L, height: H });
 const hctx = hors.getContext('2d');
+// l'ardoise de l'accroche et de la fin, et le calque qu'on efface à l'éponge
+const ARDOISE_FOND = peindreArdoise(L, H);
+const couche = Object.assign(document.createElement('canvas'), { width: L, height: H });
+const cctx = couche.getContext('2d');
 
 // ---------- outils ----------
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
@@ -48,9 +53,7 @@ for (let i = 1; i <= N; i++) {
   images.push(img);
   chargement.push(charge(img));
 }
-const logo = new Image();
-logo.src = '../logo/logo-empile-blanc.svg';
-chargement.push(charge(logo), document.fonts.load('800 100px Brico'), document.fonts.load('600 40px Instru'));
+chargement.push(document.fonts.load('800 100px Brico'), document.fonts.load('600 40px Instru'));
 window.pret = Promise.all(chargement);
 
 // Index d'image (flottant) selon le temps : rotation lente, éclatement rapide, ralenti
@@ -187,10 +190,6 @@ function scenePleinEcran(c, t, { etiquettes = true, textes = true } = {}) {
   c.fillStyle = g; c.fillRect(0, 0, L, H);
 
   if (textes) {
-    // accroche
-    ligneMots(c, ['Votre', 'plat'], t, -0.3, 290, 128, { sortieA: 2.05 });
-    ligneMots(c, ['mérite', 'mieux'], t, 0.2, 430, 128, { surligne: 1, sortieA: 2.05 });
-    ligneMots(c, ['qu’une', 'photo.'], t, 0.55, 570, 128, { sortieA: 2.05 });
     // titre de la phase des ingrédients
     ligneMots(c, ['Chaque', 'ingrédient,'], t, 6.0, 300, 104, { sortieA: 8.55 });
     ligneMots(c, ['montré.'], t, 6.25, 420, 104, { surligne: 0, sortieA: 8.55 });
@@ -201,10 +200,45 @@ function scenePleinEcran(c, t, { etiquettes = true, textes = true } = {}) {
       etiquette(c, e, px, py, prog(t, e.t, e.t + 0.45), prog(t, 8.5, 8.75));
     }
   }
+  if (textes && t < 2.2) accroche(c, t);
   // flash blanc sur le temps fort
   const flash = t >= 2.2 ? 1 - prog(t, 2.2, 2.36) : 0;
   if (flash > 0) { c.fillStyle = `rgba(255,255,255,${0.85 * flash})`; c.fillRect(0, 0, L, H); }
 }
+// ---------- accroche : « Passez l'éponge sur votre menu PDF. » ----------
+// L'ardoise couvre le maki ; la brosse efface d'abord « menu PDF. » puis toute l'ardoise.
+const ESSUYAGE = [1.1, 2.18];
+const PISTE = { l: L, h: H, bande: 700, passes: 3 };
+function accroche(c, t) {
+  cctx.globalCompositeOperation = 'source-over'; cctx.globalAlpha = 1;
+  cctx.drawImage(ARDOISE_FOND, 0, 0);
+  traitJaune(cctx, 92, 250, 120);
+  ligneMots(cctx, ['Passez'], t, -0.3, 640, 160);
+  ligneMots(cctx, ['l’éponge'], t, -0.15, 820, 160, { surligne: 0 });
+  ligneMots(cctx, ['sur', 'votre'], t, 0.12, 1000, 160);
+  // « menu PDF. » à la craie, effacé par la brosse entre 0,62 et 1,05 s
+  const kApparait = prog(t, 0.3, 0.42);
+  let brosseMot = null;
+  if (kApparait > 0) {
+    const pol = '800 160px Brico';
+    cctx.font = pol;
+    const lw = cctx.measureText('menu PDF.').width, x0 = (L - lw) / 2;
+    const kE = dansSortie(prog(t, 0.62, 1.05));
+    const xE = mix(x0 - 60, x0 + lw + 80, kE);
+    cctx.globalAlpha = kApparait;
+    texteEfface(cctx, 'menu PDF.', x0, 1180, xE, { police: pol });
+    cctx.globalAlpha = 1;
+    if (kE > 0 && kE < 1) brosseMot = [xE, 1130];
+  }
+  // le grand coup d'éponge qui révèle le plat
+  const kW = prog(t, ...ESSUYAGE);
+  let tete = null;
+  if (kW > 0) tete = essuyage(cctx, dansSortie(kW), PISTE);
+  c.drawImage(couche, 0, 0);
+  if (brosseMot) brosse(c, brosseMot[0], brosseMot[1], 300, Math.PI / 2 - 0.14);
+  if (tete && kW < 1) brosse(c, tete[0], tete[1], PISTE.bande * 0.92, Math.PI / 2 + (bruit(t * 40) - 0.5) * 0.12);
+}
+
 function sushiPos(cam, dx, dy) {
   const h = cam.w * 1440 / 2560;
   return { ox: L / 2 + dx - cam.cx * cam.w, oy: cam.y + dy - cam.cy * h, h };
@@ -215,7 +249,7 @@ const TEL = { x: 540 - 290, y: 560, w: 580, h: 1190, r: 78 };
 
 // Position du doigt (0 = bas, 1 = haut de sa course) et image correspondante
 function doigt(t) {
-  const a = 9.6, b = 10.9, c2 = 11.4, d = 12.5;
+  const a = 9.55, b = 10.45, c2 = 10.65, d = 11.6;
   if (t < a) return { k: 0, image: 95, appui: 0 };
   if (t < b) { const k = dansSortie(prog(t, a, b)); return { k, image: mix(95, 0, k), appui: 1 }; }
   if (t < c2) return { k: 1, image: 0, appui: 1 - prog(t, b, b + 0.15) };
@@ -288,15 +322,13 @@ function telephone(c, t, k) {
 }
 
 function sceneSite(c, t) {
-  c.fillStyle = '#000'; c.fillRect(0, 0, L, H);
   const k = dansSortie(prog(t, 8.7, 9.5));
-  // halo d'ambiance derrière le téléphone
-  const g = c.createRadialGradient(540, 1150, 50, 540, 1150, 900);
-  g.addColorStop(0, `rgba(43,58,60,${0.9 * k})`); g.addColorStop(1, 'rgba(0,0,0,0)');
-  c.fillStyle = g; c.fillRect(0, 0, L, H);
+  // le téléphone est posé sur l'ardoise
+  c.drawImage(ARDOISE_FOND, 0, 0);
+  c.fillStyle = 'rgba(0,0,0,0.25)'; c.fillRect(0, 0, L, H);
   telephone(c, t, k);
-  ligneMots(c, ['Sur', 'votre', 'site,'], t, 9.35, 270, 100, { sortieA: 12.55 });
-  ligneMots(c, ['il', 's’ouvre', 'au', 'doigt.'], t, 9.6, 400, 100, { surligne: 1, sortieA: 12.55 });
+  ligneMots(c, ['Sur', 'votre', 'site,'], t, 9.35, 270, 100, { sortieA: 11.75 });
+  ligneMots(c, ['il', 's’ouvre', 'au', 'doigt.'], t, 9.6, 400, 100, { surligne: 1, sortieA: 11.75 });
 }
 
 // ---------- scène 3 : appel à l'action ----------
@@ -304,59 +336,70 @@ const appel = Object.assign(document.createElement('canvas'), { width: L, height
 const actx = appel.getContext('2d');
 
 function sceneAppel(c, t) {
-  // fond : le maki entier, assombri (même cadrage que la première image, pour la boucle)
-  c.fillStyle = '#000'; c.fillRect(0, 0, L, H);
-  sushi(c, 0, mix(2300, 2450, prog(t, 12.6, 15)), 0.49, 0.48, L / 2, 1090);
-  c.fillStyle = `rgba(30,42,44,${0.78 * (1 - prog(t, 14.72, 15))})`; c.fillRect(0, 0, L, H);
-  const out = prog(t, 14.72, 14.97);
-  c.save();
-  c.globalAlpha = 1 - out;
-  // logo
-  const kl = prog(t, 12.85, 13.2);
-  if (kl > 0) {
-    const lw = 620, lh = lw * logo.naturalHeight / logo.naturalWidth;
-    c.save(); c.translate(540, 330); c.scale(rebond(kl), rebond(kl));
-    c.drawImage(logo, -lw / 2, -lh / 2, lw, lh);
-    c.restore();
-  }
+  c.drawImage(ARDOISE_FOND, 0, 0);
+  const out = prog(t, 14.7, 14.97);
+  if (out >= 1) return;
+  // le N lumineux se trace, puis le trait jaune
+  const kn = prog(t, 12.15, 12.6);
+  c.save(); c.globalAlpha = 1 - out;
+  if (kn > 0) nLumineux(c, 540 - 190, 300, 380, { trace: sortie(kn), eclat: 0.6 + 0.4 * Math.abs(Math.sin(t * 7)) * (1 - prog(t, 12.6, 12.9)) + 0.4 * prog(t, 12.6, 12.9) });
   c.restore();
-  ligneMots(c, ['Votre', 'carte,'], t, 13.05, 760, 132, { sortieA: 14.72 });
-  ligneMots(c, ['en', 'mouvement.'], t, 13.25, 910, 132, { surligne: 1, sortieA: 14.72 });
+  // « Passez l'éponge sur votre ancien site. », puis « ancien site. » s'efface
+  cctx.globalCompositeOperation = 'source-over'; cctx.globalAlpha = 1;
+  cctx.clearRect(0, 0, L, H);
+  ligneMots(cctx, ['Passez', 'l’éponge'], t, 12.35, 820, 112);
+  ligneMots(cctx, ['sur', 'votre'], t, 12.5, 950, 112);
+  let brosseMot = null;
+  const ka = prog(t, 12.62, 12.75);
+  if (ka > 0) {
+    const pol = '800 112px Brico';
+    cctx.font = pol;
+    const lw = cctx.measureText('ancien site.').width, x0 = (L - lw) / 2;
+    const kE = dansSortie(prog(t, 12.95, 13.4));
+    const xE = mix(x0 - 50, x0 + lw + 60, kE);
+    cctx.globalAlpha = ka;
+    texteEfface(cctx, 'ancien site.', x0, 1080, xE, { police: pol });
+    cctx.globalAlpha = 1;
+    if (kE > 0 && kE < 1) brosseMot = [xE, 1045];
+  }
+  c.save(); c.globalAlpha = 1 - out; c.drawImage(couche, 0, 0); c.restore();
+  if (brosseMot) brosse(c, brosseMot[0], brosseMot[1], 230, Math.PI / 2 - 0.14);
   c.save();
   c.globalAlpha = 1 - out;
   // bouton
-  const kb = prog(t, 13.6, 13.95);
+  const kb = prog(t, 13.45, 13.8);
   if (kb > 0) {
-    const pulse = 1 + Math.sin((t - 13.95) * 9) * 0.035 * prog(t, 13.95, 14.1);
+    const pulse = 1 + Math.sin((t - 13.8) * 9) * 0.035 * prog(t, 13.8, 13.95);
     police(c, 60, 800);
     const texte = 'Demandez votre démo';
     const w = c.measureText(texte).width + 240, h = 150;
-    c.save(); c.translate(540, 1150); c.scale(rebond(kb) * pulse, rebond(kb) * pulse);
-    c.shadowColor = 'rgba(255,210,63,0.55)'; c.shadowBlur = 60;
+    c.save(); c.translate(540, 1290); c.scale(rebond(kb) * pulse, rebond(kb) * pulse);
+    c.shadowColor = 'rgba(255,210,63,0.5)'; c.shadowBlur = 60;
     c.fillStyle = JAUNE; arrondi(c, -w / 2, -h / 2, w, h, h / 2); c.fill();
     c.shadowColor = 'transparent';
     c.fillStyle = ARDOISE; c.textAlign = 'left'; c.textBaseline = 'middle';
     c.fillText(texte, -w / 2 + 62, 4);
-    // flèche
     const ax = w / 2 - 82 + Math.sin(t * 10) * 5;
     c.strokeStyle = ARDOISE; c.lineWidth = 9; c.lineCap = 'round'; c.lineJoin = 'round';
     c.beginPath(); c.moveTo(ax - 26, 2); c.lineTo(ax + 22, 2); c.moveTo(ax + 2, -20); c.lineTo(ax + 24, 2); c.lineTo(ax + 2, 24); c.stroke();
     c.restore();
   }
-  const ks = prog(t, 13.9, 14.2);
+  const ks = prog(t, 13.7, 14.0);
   if (ks > 0) {
     c.globalAlpha = (1 - out) * ks;
     c.textAlign = 'center'; c.textBaseline = 'alphabetic';
-    police(c, 54, 700, 'Instru'); c.fillStyle = '#fff';
-    c.fillText('Lien en bio  ·  nouvelleardoise.ch', 540, 1340 + (1 - sortie(ks)) * 30);
-    police(c, 40, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.7)';
-    c.fillText('Sites, cartes et menus 3D · Genève & Vaud', 540, 1415 + (1 - sortie(ks)) * 30);
+    police(c, 64, 800); c.fillStyle = '#fff';
+    c.fillText('Nouvelle Ardoise', 540, 1500 + (1 - sortie(ks)) * 30);
+    police(c, 42, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.75)';
+    c.fillText('Lien en bio · nouvelleardoise.ch', 540, 1572 + (1 - sortie(ks)) * 30);
   }
   c.restore();
+  // le petit trait jaune de la carte
+  if (t > 12.2) { c.save(); c.globalAlpha = (1 - out) * prog(t, 12.2, 12.4); traitJaune(c, 92, 250, 120 * sortie(prog(t, 12.2, 12.5))); c.restore(); }
 }
 
 // ---------- montage ----------
-const RIDEAU = [12.55, 12.95];
+const RIDEAU = [11.75, 12.15];
 window.rendu = function (t) {
   if (t < 8.7) return scenePleinEcran(ctx, t);
   if (t < RIDEAU[0]) return sceneSite(ctx, t);
