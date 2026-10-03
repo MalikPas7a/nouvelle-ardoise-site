@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Publication de lancement</title>
+<!-- Publication Instagram 4:5 (1080×1350). Exportée en PNG par publication.mjs. -->
+<style>
+  @font-face { font-family: Brico; src: url(fonts/bricolage-grotesque-latin-standard-normal.woff2) format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: Instru; src: url(fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  :root { --ardoise: #1E2A2C; --jaune: #FFD23F; --nappe: #F5F7F4; }
+  html, body { margin: 0; }
+  .pub { position: relative; width: 1080px; height: 1350px; overflow: hidden; background: #000; color: #fff; font-family: Instru, sans-serif; }
+  .pub__photo { position: absolute; left: 50%; top: 735px; width: 1420px; transform: translate(-50%, -50%); }
+  .pub::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0) 30%, rgb(0 0 0 / 0) 68%, rgb(0 0 0 / 0.9) 100%); }
+  .pub > :not(img) { position: absolute; z-index: 1; left: 72px; right: 72px; }
+  .pub__logo { position: absolute; z-index: 1; top: 60px; left: 72px; width: 380px; }
+  .pub__titre { top: 175px; margin: 0; font-family: Brico; font-weight: 800; font-size: 104px; line-height: 1.06; letter-spacing: -0.02em; }
+  .pub__titre mark { background: var(--jaune); color: var(--ardoise); padding: 0 14px; border-radius: 12px; }
+  .pub__bas { bottom: 64px; display: flex; align-items: end; justify-content: space-between; gap: 32px; }
+  .pub__bas p { margin: 0; font-size: 34px; line-height: 1.3; font-weight: 500; max-width: 600px; text-wrap: balance; color: rgb(255 255 255 / 0.88); }
+  .pub__lien { flex: none; background: var(--jaune); color: var(--ardoise); font-family: Brico; font-weight: 800; font-size: 36px; padding: 22px 34px; border-radius: 999px; }
+</style>
+</head>
+<body>
+<article class="pub">
+  <img class="pub__photo" src="../../../public/sequences/sushi/x/096.webp" alt="">
+  <img class="pub__logo" src="../logo/logo-horizontal-blanc.svg" alt="Nouvelle Ardoise">
+  <h1 class="pub__titre">Chaque ingrédient,<br><mark>montré.</mark></h1>
+  <div class="pub__bas">
+    <p>Sites, cartes et menus 3D pour les restaurants de Genève et Vaud.</p>
+    <span class="pub__lien">nouvelleardoise.ch</span>
+  </div>
+</article>
+</body>
+</html>
