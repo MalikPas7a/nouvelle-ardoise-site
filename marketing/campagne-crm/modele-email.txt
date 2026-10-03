@@ -1,0 +1,32 @@
+OBJET : Une idée pour le site de {RESTAURANT}
+
+Bonjour,
+
+Je m'appelle Malik Younes. Je suis le fondateur de Nouvelle Ardoise, à Genève, et je tiens aussi Pasta Mo', une enseigne de street food italienne : le service du midi, je le connais de l'intérieur.
+
+{OBSERVATION}
+
+Aujourd'hui, la plupart des clients choisissent leur restaurant sur leur téléphone, en quelques secondes. Un site qui ne s'affiche pas, qui oblige à zoomer ou qui renvoie vers une carte en PDF, et ils passent au suivant.
+
+Nous créons des sites et des cartes pensés pour le téléphone, avec quelque chose que vos clients n'ont encore jamais vu : votre plat signature qui s'ouvre au fil du doigt et révèle ses ingrédients, et un plat en 3D qu'ils peuvent poser sur leur propre table, en réalité augmentée.
+
+Le plus simple est de le voir : ouvrez nouvelleardoise.ch sur votre téléphone et faites défiler l'écran, trois restaurants de démonstration vous attendent.
+
+Si cela vous parle, répondez simplement à ce message : je passe volontiers vous montrer ce que cela donnerait pour {RESTAURANT}.
+
+Belle journée,
+
+Malik Younes
+Fondateur, Nouvelle Ardoise
+Chemin des Sports 16, 1203 Genève
+078 213 38 68 · nouvelleardoise.ch
+
+Vous ne souhaitez plus recevoir de message de ma part ? Répondez « stop » et je ne vous écrirai plus.
+
+---
+RÈGLES POUR {OBSERVATION} (une ou deux phrases, ton bienveillant, jamais moqueur) :
+- Commence par « En visitant le site de {RESTAURANT}, j'ai remarqué que… » ou une tournure proche.
+- Ne cite qu'un défaut vérifié le jour même en ouvrant le site (page vide, erreur, « Coming soon »,
+  pas de https, pas adapté au téléphone, adresse Wix gratuite, carte en PDF, site qui ne répond pas).
+- Si le défaut noté dans le CRM n'est plus vrai (site refait, domaine déplacé), ne pas écrire.
+- Aucun prix, aucune promesse chiffrée, aucune critique de la cuisine.
