@@ -2,7 +2,7 @@
 
     python3 marketing/kit-lancement/_sources/logo.py
 
-Le symbole reprend celui du site (src/layouts/Base.astro) : une ardoise arrondie
+Le symbole est celui du site (src/components/Logo.astro) et de la charte du Drive : une ardoise arrondie
 et un N tracé d'un seul geste à la craie jaune.
 """
 from pathlib import Path
@@ -42,13 +42,13 @@ def texte(chaine, taille, x, y, approche=-0.008):
     return pen.getCommands(), curseur - approche * taille
 
 
-def symbole(x, y, cote, fond=ARDOISE, craie=JAUNE):
+def symbole(x, y, cote, fond=TUILE_SOMBRE, craie=JAUNE):
     """L'ardoise et son N à la craie, dessinés sur une grille de 28."""
     k = cote / 28
     return (
         f'<g transform="translate({x} {y}) scale({k:.4f})">'
-        f'<rect width="28" height="28" rx="6" fill="{fond}"/>'
-        f'<path d="M7 20V8l14 12V8" fill="none" stroke="{craie}" stroke-width="2.6" '
+        f'<rect width="28" height="28" rx="5.5" fill="{fond}"/>'
+        f'<path d="M7.4 19.6V8.4l13.2 11.2V8.4" fill="none" stroke="{craie}" stroke-width="2.3" '
         f'stroke-linecap="round" stroke-linejoin="round"/></g>'
     )
 
@@ -62,14 +62,14 @@ def svg(largeur, hauteur, corps, fond=None):
     )
 
 
-def horizontal(encre, nom, fond_symbole=ARDOISE, craie=JAUNE, fond=None):
+def horizontal(encre, nom, fond_symbole=TUILE_SOMBRE, craie=JAUNE, fond=None):
     d, l = texte("Nouvelle Ardoise", 88, 156, 92)
     marge = 24
     corps = symbole(marge, marge, 112, fond=fond_symbole, craie=craie) + f'<path d="{d}" fill="{encre}"/>'
     (SORTIE / nom).write_text(svg(156 + l + marge, 160, corps, fond))
 
 
-def empile(encre, nom, fond_symbole=ARDOISE, craie=JAUNE, fond=None):
+def empile(encre, nom, fond_symbole=TUILE_SOMBRE, craie=JAUNE, fond=None):
     d1, l1 = texte("Nouvelle", 92, 212, 104)
     d2, l2 = texte("Ardoise", 92, 212, 196)
     corps = (

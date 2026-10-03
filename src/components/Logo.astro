@@ -1,0 +1,9 @@
+---
+// Le logo de la charte (carte de visite, visuels du Drive) : l'ardoise sombre et son N
+// à la craie jaune, le nom sur deux lignes, un trait de craie sous « Ardoise ».
+const { href = '/', label = 'Nouvelle Ardoise, accueil', class: classe = '' } = Astro.props;
+---
+<a class:list={['logo', classe]} href={href} aria-label={label}>
+  <svg class="logo__symbole" viewBox="0 0 28 28" width="36" height="36" aria-hidden="true"><rect width="28" height="28" rx="5.5" fill="#11191B"/><path d="M7.4 19.6V8.4l13.2 11.2V8.4" fill="none" stroke="#FFD23F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <span class="logo__nom" aria-hidden="true"><span>Nouvelle</span><span class="logo__ardoise">Ardoise</span></span>
+</a>
