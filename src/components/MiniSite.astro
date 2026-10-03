@@ -1,0 +1,47 @@
+---
+// Le site miniature d'un restaurant, affiché dans le téléphone du haut de page.
+const { resto, photos = {} } = Astro.props;
+const ALT = {
+  osteria: 'Tagliatelle al ragù, parmesan et basilic',
+  leonie: 'Filets de perche meunière, frites et sauce tartare',
+  sora: 'Ramen shoyu vu de dessus',
+};
+---
+<article class={`mini mini--${resto.id}`} data-mini={resto.id} hidden={resto.id !== 'osteria'}>
+  <header class="mini__tete">
+    <span class="mini__nom">{resto.nom}</span>
+    <span class="mini__resa">Réserver</span>
+  </header>
+
+  <div class="mini__accueil">
+    <p class="mini__genre">{resto.genre}, {resto.quartier}</p>
+    <h3>{resto.accroche}</h3>
+    <p class="mini__horaires"><i aria-hidden="true"></i>{resto.horaires}</p>
+  </div>
+
+  {resto.id === 'leonie' && (
+    <div class="mini__ardoise" aria-label="Ardoise du jour">
+      <span>Plat du jour</span>
+      <b data-ardoise-nom>Filets de perche meunière</b>
+      <em>CHF <span data-ardoise-prix>36</span></em>
+    </div>
+  )}
+
+  <img class="mini__photo" src={photos[resto.id]} alt={ALT[resto.id]} width="1100" height="825" loading={resto.id === 'osteria' ? 'eager' : 'lazy'} decoding="async" />
+
+  {resto.carte.map((section) => (
+    <section class="mini__section">
+      <h4>{section.titre}</h4>
+      <ul>
+        {section.plats.map((p) => (
+          <li>
+            <span><b>{p.nom}</b><small>{p.desc}</small></span>
+            <span class="mini__prix">{p.prix}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+
+  <p class="mini__fin">Réserver une table</p>
+</article>

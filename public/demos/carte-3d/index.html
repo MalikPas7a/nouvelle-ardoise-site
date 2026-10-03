@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tagliatelle al ragù en 3D — Osteria del Lago</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="/demos/fonts/fonts.css">
+<script>self.ModelViewerElement=self.ModelViewerElement||{};self.ModelViewerElement.dracoDecoderLocation="/vendor/draco/";</script>
+<script type="module" src="/demos/vendor/model-viewer.min.js"></script>
+<style>
+:root{--lac:#0F2E2C;--farine:#F3EEE2;--tuorlo:#F5B82E;--pomodoro:#E0452B;--salvia:#9DB596;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="light"],:root[data-theme="dark"]{--lac:#0F2E2C}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--lac:#0F2E2C}}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:#0F2E2C;color:#F3EEE2;font-family:"Work Sans",system-ui,sans-serif}
+main{min-height:100%;display:flex;flex-direction:column}
+header{padding:20px 22px 0;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:"Bodoni Moda",Georgia,serif;font-size:20px}
+.brand i{color:var(--tuorlo)}
+.tag{font-size:13px;color:var(--salvia)}
+model-viewer{flex:1;width:100%;min-height:62vh;--poster-color:transparent;background:radial-gradient(ellipse at 50% 60%,#1B4744 0%,#0F2E2C 70%)}
+.info{padding:18px 22px 26px;display:flex;flex-direction:column;gap:12px}
+h1{margin:0;font-family:"Bodoni Moda",Georgia,serif;font-weight:500;font-size:34px;line-height:1.05}
+p{margin:0;color:#D8D1C0;line-height:1.55;max-width:60ch}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.price{font-family:"Bodoni Moda",serif;font-size:28px;color:var(--tuorlo)}
+.btn{appearance:none;border:0;background:var(--tuorlo);color:#0F2E2C;font:600 16px "Work Sans",sans-serif;padding:15px 22px;border-radius:999px;cursor:pointer}
+.btn:focus-visible{outline:3px solid var(--farine);outline-offset:3px}
+.hint{font-size:13px;color:var(--salvia)}
+.err{display:none;color:var(--tuorlo);font-size:14px}
+model-viewer::part(default-ar-button){display:none}
+</style>
+</head>
+<body>
+<main>
+<header><div class="brand">Osteria <i>del Lago</i></div><div class="tag">Démo · Nouvelle Ardoise</div></header>
+<model-viewer id="mv" alt="Tagliatelle al ragù en 3D" camera-controls touch-action="pan-y" auto-rotate auto-rotate-delay="800" rotation-per-second="18deg" shadow-intensity="1.2" shadow-softness="0.8" exposure="1.05" environment-image="neutral" camera-orbit="25deg 62deg 0.42m" min-camera-orbit="auto 10deg auto" max-camera-orbit="auto 88deg 0.8m" ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed" interaction-prompt="auto"></model-viewer>
+<section class="info">
+<h1>Tagliatelle al ragù</h1>
+<p>Pâtes fraîches du jour, ragù de bœuf mijoté six heures, parmesan 24 mois et basilic. Tournez l'assiette du doigt, puis posez-la sur votre table.</p>
+<div class="row"><span class="price">CHF 24</span><button class="btn" id="arBtn" type="button">Voir sur ma table</button></div>
+<div class="hint" id="hint">Fonctionne avec la caméra de votre téléphone.</div>
+<div class="err" id="err">La réalité augmentée n'est pas disponible sur cet appareil : vous pouvez faire tourner le plat en 3D ci-dessus.</div>
+</section>
+</main>
+<script>
+(function(){
+  var url="/models/tagliatelle-ragu-ar.glb";
+  var mv=document.getElementById("mv");
+  mv.src=url;
+  var btn=document.getElementById("arBtn"),err=document.getElementById("err");
+  btn.addEventListener("click",function(){
+    if(mv.canActivateAR){mv.activateAR();}else{err.style.display="block";}
+  });
+  mv.addEventListener("error",function(){err.textContent="Le modèle 3D n'a pas pu se charger sur cet appareil.";err.style.display="block";});
+})();
+</script>
+<a href="/" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#141414;color:#F4F4F1;font:700 13px/1 system-ui,sans-serif;padding:10px 12px;text-decoration:none;border:2px solid #E4002B">← Démo Nouvelle Ardoise</a>
+</body>
+</html>

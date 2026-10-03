@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config.js';
+---
+<Base page="legal" title="Mentions légales | Nouvelle Ardoise" description="Éditeur, responsable et conditions d’utilisation du site nouvelleardoise.ch.">
+<article class="legal cadre">
+  <h1 class="titre-2">Mentions légales</h1>
+
+  <h2>Éditeur du site</h2>
+  <address>
+    {SITE.nom}<br>
+    {SITE.responsable}, {SITE.forme.toLowerCase()}<br>
+    {SITE.adresse}<br>
+    {SITE.localite}, {SITE.pays}<br>
+    {SITE.ide && <>IDE : {SITE.ide}<br></>}
+    Email : <a href={'mailto:' + SITE.email}>{SITE.email}</a>
+    {SITE.telephone && <><br>Téléphone : <a href={'tel:' + SITE.telephone.replace(/\s/g, '')}>{SITE.telephone}</a></>}
+  </address>
+  <p>Responsable de la publication : {SITE.responsable}.</p>
+
+  <h2>Hébergement</h2>
+  {SITE.hebergeur
+    ? <p>{SITE.hebergeur}</p>
+    : <p>Le site n’est pas encore en ligne. Le nom et l’adresse de l’hébergeur seront indiqués ici à la mise en ligne.</p>}
+
+  <h2>Démonstrations</h2>
+  <p>Osteria del Lago, Chez Léonie et Sora sont des restaurants inventés pour montrer notre travail : ils n’existent pas, et leurs cartes, prix et horaires sont fictifs. Les photos, vidéos et modèles 3D de plats de ces démonstrations ont été créés avec des outils d’intelligence artificielle. Les réservations faites dans les démonstrations ne sont pas enregistrées.</p>
+  <p>Pasta Mo’ est une enseigne réelle, exploitée par le responsable de ce site.</p>
+
+  <h2>Prix</h2>
+  <p>Les prix sont indiqués en francs suisses, hors TVA éventuelle. Ils correspondent aux prestations décrites sur ce site ; le devis signé fait foi.</p>
+
+  <h2>Propriété intellectuelle</h2>
+  <p>Les textes, les visuels, les animations et le code de ce site appartiennent à {SITE.nom}, sauf mention contraire. Toute reprise nécessite notre accord écrit.</p>
+
+  <h2>Responsabilité</h2>
+  <p>Nous veillons à l’exactitude des informations publiées, sans pouvoir garantir qu’elles soient complètes ou à jour à tout moment. Ce site contient des liens vers d’autres sites, dont nous ne maîtrisons pas le contenu.</p>
+
+  <h2>Droit applicable</h2>
+  <p>Ce site est soumis au droit suisse. Le for est à Genève.</p>
+
+  <p class="legal__maj">Dernière mise à jour : {SITE.majLegal}. Voir aussi la <a href="/confidentialite/">politique de confidentialité et de cookies</a>.</p>
+</article>
+</Base>

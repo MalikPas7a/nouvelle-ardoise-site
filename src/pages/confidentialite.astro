@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config.js';
+---
+<Base page="legal" title="Confidentialité et cookies | Nouvelle Ardoise" description="Quelles données nous traitons, pourquoi, combien de temps, et vos droits. Ce site n’utilise aucun cookie.">
+<article class="legal cadre">
+  <h1 class="titre-2">Confidentialité et cookies</h1>
+  <p class="chapo">En bref : ce site ne dépose aucun cookie et ne vous suit pas. Nous ne traitons que les informations que vous nous envoyez pour demander un devis.</p>
+
+  <h2>Responsable du traitement</h2>
+  <address>
+    {SITE.nom}, {SITE.responsable}<br>
+    {SITE.adresse}, {SITE.localite}, {SITE.pays}<br>
+    <a href={'mailto:' + SITE.email}>{SITE.email}</a>
+  </address>
+
+  <h2>Les données que nous traitons</h2>
+  <ul>
+    <li><strong>Votre demande de devis.</strong> Le formulaire de contact prépare un email dans votre propre messagerie : rien n’est enregistré sur ce site. Quand vous envoyez cet email, nous recevons votre nom, le nom de votre restaurant, votre adresse email, votre téléphone si vous l’indiquez, et votre message.</li>
+    <li><strong>Les données techniques.</strong> Comme tout site, l’hébergeur enregistre dans ses journaux l’adresse IP, la date, la page demandée et le type de navigateur, pour assurer le fonctionnement et la sécurité du site.</li>
+  </ul>
+
+  <h2>Pourquoi nous les utilisons</h2>
+  <p>Pour vous répondre, établir un devis et, si vous devenez client, réaliser la prestation et tenir notre comptabilité. Nous n’envoyons pas de publicité et nous ne vendons ni ne cédons vos données.</p>
+
+  <h2 id="cookies">Cookies et traceurs</h2>
+  <p>Ce site n’utilise aucun cookie, aucun outil de mesure d’audience et aucun traceur publicitaire. Les polices, les animations et le lecteur 3D sont servis par le site lui-même, sans appel à un service tiers. C’est pourquoi aucun bandeau de consentement ne s’affiche.</p>
+  <p>Si nous ajoutons un jour un outil qui dépose des cookies non indispensables, cette page sera mise à jour et votre accord sera demandé avant tout dépôt.</p>
+
+  <h2>Réalité augmentée</h2>
+  <p>Le bouton « Voir sur ma table » utilise la caméra de votre téléphone pour afficher le plat chez vous. L’image reste sur votre appareil : nous ne la recevons pas et ne l’enregistrons pas.</p>
+
+  <h2>Qui y a accès</h2>
+  <p>{SITE.responsable}, ainsi que nos prestataires techniques dans la limite de leur mission : l’hébergeur du site ({SITE.hebergeurCourt}) et notre fournisseur de messagerie ({SITE.messagerie}). Si l’un d’eux traite des données hors de Suisse, nous veillons à ce que le pays concerné offre une protection adéquate ou que des garanties contractuelles soient en place.</p>
+
+  <h2>Combien de temps</h2>
+  <ul>
+    <li>Demande restée sans suite : douze mois au plus.</li>
+    <li>Clients : pendant la relation, puis dix ans pour les pièces comptables, comme l’exige le Code des obligations.</li>
+  </ul>
+
+  <h2>Vos droits</h2>
+  <p>Vous pouvez demander l’accès à vos données, leur rectification, leur effacement ou leur remise, et vous opposer à leur traitement. Écrivez à <a href={'mailto:' + SITE.email}>{SITE.email}</a> : nous répondons dans les trente jours. Vous pouvez aussi vous adresser au Préposé fédéral à la protection des données et à la transparence (PFPDT).</p>
+
+  <h2>Liens vers d’autres sites</h2>
+  <p>Ce site renvoie vers pastamo.ch. Les sites que nous réalisons pour des restaurants peuvent renvoyer vers un outil de réservation externe. Chacun de ces sites applique sa propre politique de confidentialité.</p>
+
+  <p class="legal__maj">Dernière mise à jour : {SITE.majLegal}. Voir aussi les <a href="/mentions-legales/">mentions légales</a>.</p>
+</article>
+</Base>
