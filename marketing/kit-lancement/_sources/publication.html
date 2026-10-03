@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <title>Publication et avatar</title>
 <!--
-  Publication Instagram 4:5 (1080×1350) et photo de profil (1080×1080), sur l'ardoise,
-  dans le style de la carte de visite. ?quoi=avatar affiche la photo de profil.
+  Publication Instagram sur l'ardoise, dans le style de la carte de visite, en trois formats :
+  ?quoi=publication (4:5), ?quoi=carre (1:1), ?quoi=story (9:16).
   Exportées en PNG par publication.mjs.
 -->
 <style>
@@ -21,7 +21,15 @@
 <script>
 const toile = document.querySelector('canvas');
 const ctx = toile.getContext('2d');
-const avatar = new URLSearchParams(location.search).get('quoi') === 'avatar';
+const quoi = new URLSearchParams(location.search).get('quoi') || 'publication';
+
+// Les trois formats Instagram : publication 4:5, carré 1:1, story 9:16.
+// La story garde 250 px libres en haut et en bas pour l'interface d'Instagram.
+const FORMATS = {
+  publication: { l: 1080, h: 1350, titre: 104, lignes: [350, 460, 570], n: [812, 82, 190], trait: 112, sushi: [1180, 915], pied: 1218 },
+  carre: { l: 1080, h: 1080, titre: 92, lignes: [300, 398, 496], n: [842, 70, 160], trait: 100, sushi: [860, 700], pied: 950 },
+  story: { l: 1080, h: 1920, titre: 116, lignes: [560, 682, 804], n: [790, 270, 210], trait: 300, sushi: [1300, 1220], pied: 1590 },
+};
 
 const sushi = new Image();
 sushi.src = '../../../public/sequences/sushi/x/096.webp';
@@ -29,48 +37,42 @@ sushi.src = '../../../public/sequences/sushi/x/096.webp';
 window.pret = Promise.all([
   new Promise((ok) => (sushi.complete ? ok() : (sushi.onload = ok))),
   document.fonts.load('800 100px Brico'), document.fonts.load('500 30px Instru'),
-]).then(() => (avatar ? dessinerAvatar() : dessinerPublication()));
+]).then(() => dessiner(FORMATS[quoi]));
 
-function dessinerAvatar() {
-  toile.width = toile.height = 1080;
-  ctx.drawImage(peindreArdoise(1080, 1080, 8), 0, 0);
-  // le N tient dans le rond de la photo de profil
-  nLumineux(ctx, 540 - 230, 540 - 197, 460);
-}
-
-function dessinerPublication() {
-  const L = 1080, H = 1350;
+function dessiner(f) {
+  const { l: L, h: H } = f;
   toile.width = L; toile.height = H;
   ctx.drawImage(peindreArdoise(L, H, 4), 0, 0);
   // le maki éclaté, posé sur l'ardoise (le noir de la photo disparaît)
   ctx.save();
   ctx.globalCompositeOperation = 'lighten';
-  const w = 1180, h = w * 1440 / 2560;
-  ctx.drawImage(sushi, L / 2 - w * 0.49, 915 - h * 0.47, w, h);
+  const [w, cy] = f.sushi, h = w * 1440 / 2560;
+  ctx.drawImage(sushi, L / 2 - w * 0.49, cy - h * 0.47, w, h);
   ctx.restore();
 
-  traitJaune(ctx, 80, 112, 120);
-  nLumineux(ctx, 812, 82, 190);
+  traitJaune(ctx, 80, f.trait, 120);
+  nLumineux(ctx, f.n[0], f.n[1], f.n[2]);
 
-  const pol = '800 104px Brico';
+  const pol = `800 ${f.titre}px Brico`;
   ctx.fillStyle = '#fff'; ctx.font = pol; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
   ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 24;
-  ctx.fillText('Passez l’éponge', 80, 350);
-  ctx.fillText('sur votre', 80, 460);
+  ctx.fillText('Passez l’éponge', 80, f.lignes[0]);
+  ctx.fillText('sur votre', 80, f.lignes[1]);
   ctx.shadowColor = 'transparent';
-  // « ancien menu. » déjà essuyé : il n'en reste qu'une traînée
-  texteEfface(ctx, 'ancien menu.', 80, 570, 2000, { police: pol });
+  // « ancien menu. » déjà essuyé : il n'en reste qu'une traînée, comme sur la carte
+  texteEfface(ctx, 'ancien menu.', 80, f.lignes[2], 4000, { police: pol });
 
   // pied : la signature et le site
   ctx.fillStyle = '#fff'; ctx.font = '800 54px Brico';
-  ctx.fillText('Nouvelle Ardoise', 80, 1218);
+  ctx.fillText('Nouvelle Ardoise', 80, f.pied);
   ctx.fillStyle = 'rgba(255,255,255,0.75)'; ctx.font = '500 30px Instru';
-  ctx.fillText('Sites et menus 3D · Genève & Vaud', 80, 1268);
+  ctx.fillText('Sites, cartes, menus 3D', 80, f.pied + 48);
+  ctx.fillText('et réseaux sociaux pour restaurants', 80, f.pied + 88);
   ctx.font = '800 34px Brico';
   const lien = 'nouvelleardoise.ch', lw = ctx.measureText(lien).width + 64;
-  ctx.fillStyle = ARD.jaune; ctx.beginPath(); ctx.roundRect(L - 80 - lw, 1196, lw, 84, 42); ctx.fill();
+  ctx.fillStyle = ARD.jaune; ctx.beginPath(); ctx.roundRect(L - 80 - lw, f.pied - 4, lw, 84, 42); ctx.fill();
   ctx.fillStyle = ARD.ardoise; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText(lien, L - 80 - lw / 2, 1240);
+  ctx.fillText(lien, L - 80 - lw / 2, f.pied + 40);
 }
 </script>
 </body>

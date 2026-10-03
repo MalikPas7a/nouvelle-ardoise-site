@@ -16,6 +16,7 @@ ICI = Path(__file__).parent
 SORTIE = ICI.parent / "logo"
 
 ARDOISE = "#1E2A2C"
+TUILE_SOMBRE = "#11191B"  # la tuile du logo officiel (Drive), sur fond ardoise
 JAUNE = "#FFD23F"
 NAPPE = "#F5F7F4"
 
@@ -93,9 +94,9 @@ def avatar(nom):
 
 SORTIE.mkdir(exist_ok=True)
 horizontal(ARDOISE, "logo-horizontal.svg")
-horizontal(NAPPE, "logo-horizontal-blanc.svg", fond_symbole=JAUNE, craie=ARDOISE)
+horizontal(NAPPE, "logo-horizontal-blanc.svg", fond_symbole=TUILE_SOMBRE)
 empile(ARDOISE, "logo-empile.svg")
-empile(NAPPE, "logo-empile-blanc.svg", fond_symbole=JAUNE, craie=ARDOISE)
+empile(NAPPE, "logo-empile-blanc.svg", fond_symbole=TUILE_SOMBRE)
 avatar("avatar-instagram.svg")
 (SORTIE / "symbole.svg").write_text(svg(28, 28, symbole(0, 0, 28)))
 print("Logos écrits dans", SORTIE)

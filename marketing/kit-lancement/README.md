@@ -10,8 +10,11 @@ Aucun prix n'apparaît dans les visuels ni dans les légendes.
 | `reel/reel-sushi-15s.mp4` | Réel 15 s, 1080×1920, 30 i/s, habillage sonore inclus |
 | `reel/reel-sushi-15s-sans-son.mp4` | Le même sans son, à utiliser si vous posez un son tendance |
 | `reel/couverture-reel.jpg` | Image de couverture du réel (le maki éclaté avec ses étiquettes) |
-| `publication/publication-lancement.png` | Publication 4:5, 1080×1350 : « Passez l'éponge sur votre ancien menu. » |
-| `logo/avatar-instagram-ardoise.png` | Photo de profil conseillée : le N lumineux sur l'ardoise, comme la carte de visite |
+| `publication/publication-4x5.png` | Publication du fil, 1080×1350 (le format qui prend le plus de place à l'écran) |
+| `publication/publication-carre-1x1.png` | La même en carré, 1080×1080 |
+| `publication/story-9x16.png` | La même en story, 1080×1920, avec les marges pour l'interface d'Instagram |
+| `logo/avatar-instagram-ardoise.png` | Photo de profil : le N lumineux sur l'ardoise (fichier du Drive) |
+| `logo/instagram-logo-complet-1080.png` | Logo complet sur l'ardoise, 1080×1080 (fichier du Drive) |
 | `logo/avatar-instagram.png` | Photo de profil en aplat (version simple, sans texture) |
 | `logo/logo-horizontal(-blanc).svg/.png` | Logo en ligne, pour fond clair ou fond sombre |
 | `logo/logo-empile(-blanc).svg/.png` | Logo sur deux lignes, avec le trait de craie |
@@ -20,12 +23,16 @@ Aucun prix n'apparaît dans les visuels ni dans les légendes.
 Les SVG sont entièrement vectoriels (le texte est converti en tracés) : ils s'ouvrent
 dans Illustrator, Figma ou Canva sans la police.
 
-**L'univers** : comme sur la carte de visite, une ardoise usée, le N à la craie jaune qui
+**L'univers** : celui de la carte de visite et des visuels du dossier Drive « Nouvelle Ardoise » :
+une ardoise vert-gris avec un fin quadrillage, le N à la craie jaune qui
 brille, un petit trait jaune en haut à gauche, et des mots effacés d'un coup d'éponge
 (« Passez l'éponge sur votre ancien site. »). Ces effets sont dans `_sources/ardoise.js`.
 
 **Couleurs** : ardoise `#1E2A2C`, jaune craie `#FFD23F`, nappe `#F5F7F4`.
 **Polices** : Bricolage Grotesque (titres), Instrument Sans (texte).
+
+**Formats Instagram** : réel 9:16 (1080×1920), publication 4:5 (1080×1350), carré 1:1
+(1080×1080), story 9:16 (1080×1920), photo de profil 1080×1080 (affichée en rond).
 
 ## Le réel, seconde par seconde
 
@@ -83,7 +90,7 @@ Lien : `https://nouvelleardoise.ch`
 
 - **Ordre** : la photo de profil et la bio d'abord, puis la publication, puis le réel 1 à 2 jours plus tard (ou le même jour, le réel en premier).
 - **Son** : le réel a son propre habillage sonore. Pour plus de portée, utilisez la version sans son et ajoutez un son tendance dans Instagram, volume à 20-30 %.
-- **Photo de profil** : `avatar-instagram-ardoise.png` ; elle rappelle la carte de visite, ce qui aide à vous reconnaître d'un support à l'autre.
+- **Photo de profil** : `avatar-instagram-ardoise.png` (celle du Drive) ; elle rappelle la carte de visite, ce qui aide à vous reconnaître d'un support à l'autre.
 - **Couverture** : choisissez `couverture-reel.jpg` comme couverture pour garder une grille propre.
 - **Créneau** : en semaine, 11 h 30 ou 18 h, quand les restaurateurs regardent leur téléphone entre deux services. Évitez le coup de feu de midi.
 - **Zone sûre** : les textes restent hors des 320 px du bas et des bords, où Instagram place ses boutons.
@@ -97,7 +104,7 @@ cd marketing/kit-lancement/_sources
 python3 logo.py && node png.mjs   # logos SVG puis PNG
 node render.mjs                   # réel (environ 3 minutes)
 node render.mjs --apercu 1,5,14   # captures de quelques instants, pour vérifier
-node publication.mjs              # publication et photo de profil sur l'ardoise
+node publication.mjs              # publication en 4:5, 1:1 et story 9:16
 ```
 
 Ouvrir `_sources/reel.html` dans un navigateur joue le réel en boucle. Le texte et le

@@ -20,39 +20,27 @@ function hasard(graine) {
   };
 }
 
-// Peint une ardoise usée dans un canvas neuf de taille l×h et le renvoie
+// Peint l'ardoise de la charte (carte de visite, visuels du Drive) : vert-gris éclairé au
+// centre, fin quadrillage de 90 px pour 1080 px de large, léger grain
 function peindreArdoise(l, h, graine = 3) {
   const c = Object.assign(document.createElement('canvas'), { width: l, height: h });
   const x = c.getContext('2d');
   const r = hasard(graine);
-  // fond, plus clair en haut à gauche comme sous une lampe
-  x.fillStyle = '#1B2527'; x.fillRect(0, 0, l, h);
-  const lum = x.createRadialGradient(l * 0.3, h * 0.22, 0, l * 0.3, h * 0.22, Math.max(l, h) * 0.9);
-  lum.addColorStop(0, 'rgba(70,92,96,0.55)'); lum.addColorStop(0.5, 'rgba(46,62,65,0.25)'); lum.addColorStop(1, 'rgba(0,0,0,0)');
+  const lum = x.createRadialGradient(l / 2, h * 0.45, 0, l / 2, h * 0.45, Math.hypot(l, h) * 0.55);
+  lum.addColorStop(0, '#2B3B3D'); lum.addColorStop(0.55, '#1F2B2D'); lum.addColorStop(1, '#172022');
   x.fillStyle = lum; x.fillRect(0, 0, l, h);
-  // traces de craie mal effacées : de grands arcs flous, presque invisibles
-  x.filter = `blur(${Math.round(Math.min(l, h) * 0.025)}px)`;
-  for (let i = 0; i < 46; i++) {
-    x.strokeStyle = `rgba(230,240,240,${0.012 + r() * 0.03})`;
-    x.lineWidth = Math.min(l, h) * (0.06 + r() * 0.16);
-    x.lineCap = 'round';
-    x.beginPath();
-    const cx = r() * l, cy = r() * h, rx = l * (0.15 + r() * 0.5), ry = rx * (0.15 + r() * 0.4), a0 = r() * 6.3;
-    x.ellipse(cx, cy, rx, ry, (r() - 0.5) * 0.6, a0, a0 + 0.8 + r() * 2.2);
-    x.stroke();
-  }
-  x.filter = 'none';
-  // grain de la pierre
+  // le quadrillage, aligné comme sur les visuels du Drive (traits à 45, 135, 225…)
+  const pas = l / 12, trait = Math.max(1, l / 540);
+  x.fillStyle = 'rgba(255,255,255,0.035)';
+  for (let gx = pas / 2; gx < l; gx += pas) x.fillRect(Math.round(gx - trait / 2), 0, trait, h);
+  for (let gy = pas / 2; gy < h; gy += pas) x.fillRect(0, Math.round(gy - trait / 2), l, trait);
+  // grain très léger, pour éviter les aplats en bandes
   const img = x.getImageData(0, 0, l, h), d = img.data;
   for (let i = 0; i < d.length; i += 4) {
-    const g = (r() - 0.5) * 14 + (r() < 0.004 ? 22 : 0);
+    const g = (r() - 0.5) * 4;
     d[i] += g; d[i + 1] += g; d[i + 2] += g;
   }
   x.putImageData(img, 0, 0);
-  // vignette
-  const v = x.createRadialGradient(l / 2, h / 2, Math.min(l, h) * 0.35, l / 2, h / 2, Math.max(l, h) * 0.75);
-  v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,0.45)');
-  x.fillStyle = v; x.fillRect(0, 0, l, h);
   return c;
 }
 
@@ -162,8 +150,6 @@ function nLumineux(ctx, x, y, taille, { trace = 1, eclat = 1 } = {}) {
   chemin(ctx); ctx.stroke();
   ctx.shadowBlur = 2 * k; chemin(ctx); ctx.stroke();
   ctx.restore();
-  // un léger grain sur le trait
-  craie(ctx, (c) => { c.lineCap = 'round'; c.lineJoin = 'round'; c.strokeStyle = 'rgba(255,244,200,0.22)'; c.lineWidth = 2.3 * k; chemin(c); c.stroke(); });
 }
 
 // Le petit trait de craie jaune de la carte de visite
