@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Réel sushi</title>
+<!--
+  Réel Instagram 15 s, 1080×1920. Chaque image est calculée par rendu(t) :
+  render.mjs l'appelle 450 fois (30 i/s) et assemble la vidéo avec ffmpeg.
+  Ouvrir ce fichier dans un navigateur le joue en boucle pour prévisualiser.
+-->
+<style>
+  @font-face { font-family: Brico; src: url(fonts/bricolage-grotesque-latin-standard-normal.woff2) format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: Instru; src: url(fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; width: 1080px; height: 1920px; }
+</style>
+</head>
+<body>
+<canvas width="1080" height="1920"></canvas>
+<script>
+const L = 1080, H = 1920, DUREE = 15;
+const ARDOISE = '#1E2A2C', JAUNE = '#FFD23F', NAPPE = '#F5F7F4';
+const toile = document.querySelector('canvas');
+const ctx = toile.getContext('2d');
+const hors = Object.assign(document.createElement('canvas'), { width: L, height: H });
+const hctx = hors.getContext('2d');
+
+// ---------- outils ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const mix = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const sortie = (k) => 1 - Math.pow(1 - k, 3);
+const sortieQ = (k) => 1 - Math.pow(1 - k, 5);
+const dansSortie = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const rebond = (k) => { const c = 1.9; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+// bruit déterministe pour la secousse
+const bruit = (x) => { const s = Math.sin(x * 127.1) * 43758.5453; return s - Math.floor(s); };
+
+// ---------- images de la séquence ----------
+const N = 96;
+const images = [];
+const chargement = [];
+// onload plutôt que decode() : 96 décodages simultanés en 2560 px peuvent échouer
+const charge = (img) => new Promise((ok, ko) => { if (img.complete && img.naturalWidth) ok(); img.onload = ok; img.onerror = () => ko(new Error(img.src)); });
+for (let i = 1; i <= N; i++) {
+  const img = new Image();
+  img.src = `../../../public/sequences/sushi/x/${String(i).padStart(3, '0')}.webp`;
+  images.push(img);
+  chargement.push(charge(img));
+}
+const logo = new Image();
+logo.src = '../logo/logo-empile-blanc.svg';
+chargement.push(charge(logo), document.fonts.load('800 100px Brico'), document.fonts.load('600 40px Instru'));
+window.pret = Promise.all(chargement);
+
+// Index d'image (flottant) selon le temps : rotation lente, éclatement rapide, ralenti
+function imageAuTemps(t) {
+  if (t < 2.2) return mix(0, 34, t / 2.2);
+  if (t < 2.75) return mix(34, 70, sortie(prog(t, 2.2, 2.75)) * 0.9 + prog(t, 2.2, 2.75) * 0.1);
+  return mix(70, 95, sortieQ(prog(t, 2.75, 5.4)));
+}
+
+// Dessine l'image i (fondu entre deux images voisines) : largeur w, le point (cx, cy)
+// de la source (en fraction) placé en (x, y) à l'écran
+function sushi(c, i, w, cx, cy, x, y) {
+  const h = w * 1440 / 2560;
+  const a = clamp(Math.floor(i), 0, N - 1), b = clamp(a + 1, 0, N - 1), k = i - Math.floor(i);
+  const ox = x - cx * w, oy = y - cy * h;
+  c.globalAlpha = 1; c.drawImage(images[a], ox, oy, w, h);
+  if (k > 0.02 && b !== a) { c.globalAlpha = k; c.drawImage(images[b], ox, oy, w, h); c.globalAlpha = 1; }
+  return { ox, oy, h };
+}
+
+// ---------- typo ----------
+function police(c, taille, graisse = 800, famille = 'Brico') { c.font = `${graisse} ${taille}px ${famille}`; }
+
+// Une ligne de mots qui apparaissent un à un, avec un mot surligné en jaune
+function ligneMots(c, mots, t, t0, y, taille, { surligne = -1, ecart = 0.09, sortieA = 1e9, couleur = '#fff' } = {}) {
+  police(c, taille);
+  c.textBaseline = 'alphabetic';
+  const espace = taille * 0.27;
+  // le mot surligné prend la place de son fond jaune
+  const largeurs = mots.map((m, j) => c.measureText(m).width + (j === surligne ? 40 : 0));
+  const total = largeurs.reduce((a, b) => a + b, 0) + espace * (mots.length - 1);
+  let x = (L - total) / 2;
+  const kOut = prog(t, sortieA, sortieA + 0.16);
+  mots.forEach((m, j) => {
+    const k = prog(t, t0 + j * ecart, t0 + j * ecart + 0.28);
+    if (k <= 0) { x += largeurs[j] + espace; return; }
+    const s = rebond(k) * (1 + kOut * 0.35);
+    const alpha = clamp(k * 3) * (1 - kOut);
+    const cxm = x + largeurs[j] / 2, cym = y - taille * 0.35;
+    c.save();
+    c.globalAlpha = alpha;
+    c.translate(cxm, cym + (1 - sortie(k)) * 40);
+    c.scale(s, s);
+    c.rotate((1 - sortie(k)) * (j % 2 ? 0.08 : -0.08));
+    if (j === surligne) {
+      const p = sortie(prog(t, t0 + j * ecart + 0.12, t0 + j * ecart + 0.4));
+      c.fillStyle = JAUNE;
+      arrondi(c, -largeurs[j] / 2 + 4, -taille * 0.62, (largeurs[j] - 8) * p, taille * 1.04, 14);
+      c.fill();
+    }
+    c.fillStyle = j === surligne ? ARDOISE : couleur;
+    c.shadowColor = j === surligne ? 'transparent' : 'rgba(0,0,0,0.55)';
+    c.shadowBlur = 28; c.shadowOffsetY = 6;
+    c.textAlign = 'center';
+    c.fillText(m, 0, taille * 0.35);
+    c.restore();
+    x += largeurs[j] + espace;
+  });
+}
+
+function arrondi(c, x, y, w, h, r) {
+  r = Math.min(r, Math.abs(w) / 2, Math.abs(h) / 2);
+  c.beginPath(); c.roundRect(x, y, w, h, r);
+}
+
+// ---------- étiquettes des ingrédients ----------
+const ETIQUETTES = [
+  { nom: 'Saumon', p: [0.40, 0.47], e: [300, 560], t: 4.3 },
+  { nom: 'Avocat', p: [0.515, 0.50], e: [540, 1430], t: 4.6 },
+  { nom: 'Concombre', p: [0.60, 0.46], e: [790, 640], t: 4.9 },
+  { nom: 'Riz vinaigré', p: [0.30, 0.55], e: [250, 1540], t: 5.2 },
+  { nom: 'Nori grillée', p: [0.845, 0.52], e: [820, 1540], t: 5.5 },
+];
+
+function etiquette(c, { nom, e }, px, py, k, kOut) {
+  if (k <= 0 || kOut >= 1) return;
+  const a = 1 - kOut;
+  // le trait se dessine du point vers l'étiquette
+  const kl = sortie(clamp(k * 1.6));
+  c.save();
+  c.globalAlpha = a;
+  c.strokeStyle = 'rgba(255,255,255,0.9)'; c.lineWidth = 4; c.lineCap = 'round';
+  c.beginPath(); c.moveTo(px, py); c.lineTo(mix(px, e[0], kl), mix(py, e[1], kl)); c.stroke();
+  // pastille sur l'ingrédient, qui pulse
+  c.fillStyle = JAUNE;
+  c.beginPath(); c.arc(px, py, 11 * rebond(clamp(k * 2)), 0, Math.PI * 2); c.fill();
+  c.strokeStyle = `rgba(255,210,63,${0.6 * (1 - prog(k, 0.2, 1))})`; c.lineWidth = 4;
+  c.beginPath(); c.arc(px, py, 11 + 40 * prog(k, 0.2, 1), 0, Math.PI * 2); c.stroke();
+  // pilule
+  const kp = clamp((k - 0.35) / 0.65);
+  if (kp > 0) {
+    police(c, 50, 700);
+    const w = c.measureText(nom).width + 56, h = 84;
+    c.translate(e[0], e[1]);
+    c.scale(rebond(kp) * (1 - kOut * 0.3), rebond(kp) * (1 - kOut * 0.3));
+    c.shadowColor = 'rgba(0,0,0,0.45)'; c.shadowBlur = 30; c.shadowOffsetY = 8;
+    c.fillStyle = NAPPE; arrondi(c, -w / 2, -h / 2, w, h, 42); c.fill();
+    c.shadowColor = 'transparent';
+    c.fillStyle = ARDOISE; c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.fillText(nom, 0, 3);
+  }
+  c.restore();
+}
+
+// ---------- scène 1 : le sushi plein écran ----------
+function camera(t) {
+  // largeur affichée de la source et point visé
+  if (t < 2.2) return { w: mix(2450, 2800, sortie(t / 2.2)), cx: 0.49, cy: 0.48, y: 1090 };
+  const k = sortieQ(prog(t, 2.2, 4.2));
+  const derive = prog(t, 4.2, 9.5) * 70;
+  return { w: mix(3150, 1300, k) + derive, cx: 0.49, cy: mix(0.48, 0.47, k), y: mix(1090, 990, k) };
+}
+
+function scenePleinEcran(c, t, { etiquettes = true, textes = true } = {}) {
+  c.fillStyle = '#000'; c.fillRect(0, 0, L, H);
+  const cam = camera(t);
+  // secousse au moment de l'éclatement
+  const s = Math.max(0, 1 - prog(t, 2.2, 2.6)) * (t >= 2.2 ? 1 : 0);
+  const dx = (bruit(t * 60) - 0.5) * 46 * s, dy = (bruit(t * 60 + 9) - 0.5) * 46 * s;
+  const i = imageAuTemps(t);
+  // flou de mouvement pendant l'éclatement : on superpose les images précédentes
+  const flou = t > 2.2 && t < 2.9 ? 3 : 0;
+  for (let f = flou; f >= 1; f--) {
+    c.globalAlpha = 0.22;
+    const { ox, oy, h } = { ...sushiPos(cam, dx, dy) };
+    c.drawImage(images[clamp(Math.round(i - f * 2.2), 0, N - 1)], ox, oy, cam.w, h);
+  }
+  c.globalAlpha = 1;
+  const { ox, oy, h } = sushi(c, i, cam.w, cam.cx, cam.cy, L / 2 + dx, cam.y + dy);
+  // vignette et dégradés pour la lisibilité des textes
+  const g = c.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, 'rgba(0,0,0,0.55)'); g.addColorStop(0.28, 'rgba(0,0,0,0)');
+  g.addColorStop(0.72, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,0.6)');
+  c.fillStyle = g; c.fillRect(0, 0, L, H);
+
+  if (textes) {
+    // accroche
+    ligneMots(c, ['Votre', 'plat'], t, -0.3, 290, 128, { sortieA: 2.05 });
+    ligneMots(c, ['mérite', 'mieux'], t, 0.2, 430, 128, { surligne: 1, sortieA: 2.05 });
+    ligneMots(c, ['qu’une', 'photo.'], t, 0.55, 570, 128, { sortieA: 2.05 });
+    // titre de la phase des ingrédients
+    ligneMots(c, ['Chaque', 'ingrédient,'], t, 6.0, 300, 104, { sortieA: 8.55 });
+    ligneMots(c, ['montré.'], t, 6.25, 420, 104, { surligne: 0, sortieA: 8.55 });
+  }
+  if (etiquettes) {
+    for (const e of ETIQUETTES) {
+      const px = ox + e.p[0] * cam.w, py = oy + e.p[1] * h;
+      etiquette(c, e, px, py, prog(t, e.t, e.t + 0.45), prog(t, 8.5, 8.75));
+    }
+  }
+  // flash blanc sur le temps fort
+  const flash = t >= 2.2 ? 1 - prog(t, 2.2, 2.36) : 0;
+  if (flash > 0) { c.fillStyle = `rgba(255,255,255,${0.85 * flash})`; c.fillRect(0, 0, L, H); }
+}
+function sushiPos(cam, dx, dy) {
+  const h = cam.w * 1440 / 2560;
+  return { ox: L / 2 + dx - cam.cx * cam.w, oy: cam.y + dy - cam.cy * h, h };
+}
+
+// ---------- scène 2 : le même plat, dans le site, au doigt ----------
+const TEL = { x: 540 - 290, y: 560, w: 580, h: 1190, r: 78 };
+
+// Position du doigt (0 = bas, 1 = haut de sa course) et image correspondante
+function doigt(t) {
+  const a = 9.6, b = 10.9, c2 = 11.4, d = 12.5;
+  if (t < a) return { k: 0, image: 95, appui: 0 };
+  if (t < b) { const k = dansSortie(prog(t, a, b)); return { k, image: mix(95, 0, k), appui: 1 }; }
+  if (t < c2) return { k: 1, image: 0, appui: 1 - prog(t, b, b + 0.15) };
+  const k = dansSortie(prog(t, c2, d));
+  return { k: 1 - k, image: mix(0, 95, k), appui: t < d ? 1 : 0 };
+}
+
+// Le contenu de l'écran du téléphone, dessiné à 1080×1920 puis réduit
+function siteMobile(c, t) {
+  c.fillStyle = '#0B0B0D'; c.fillRect(0, 0, L, H);
+  const { image } = doigt(t);
+  sushi(c, image, 1900, 0.49, 0.47, L / 2, 860);
+  const g = c.createLinearGradient(0, 1150, 0, 1500);
+  g.addColorStop(0, 'rgba(11,11,13,0)'); g.addColorStop(1, 'rgba(11,11,13,1)');
+  c.fillStyle = g; c.fillRect(0, 1150, L, 770);
+  // barre de navigation du restaurant
+  c.fillStyle = 'rgba(11,11,13,0.82)'; c.fillRect(0, 0, L, 230);
+  police(c, 64, 800); c.fillStyle = '#fff'; c.textAlign = 'left'; c.textBaseline = 'middle';
+  c.fillText('Votre resto', 70, 150);
+  c.fillStyle = JAUNE; arrondi(c, L - 70 - 280, 108, 280, 88, 44); c.fill();
+  police(c, 40, 600, 'Instru'); c.fillStyle = ARDOISE; c.textAlign = 'center';
+  c.fillText('Réserver', L - 70 - 140, 153);
+  // fiche du plat, sans prix
+  c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  police(c, 96, 800); c.fillStyle = '#fff'; c.fillText('Maki saumon', 70, 1530);
+  police(c, 96, 800); c.fillText('avocat', 70, 1630);
+  police(c, 44, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.7)';
+  c.fillText('Saumon · avocat · concombre · riz · nori', 70, 1720);
+}
+
+function telephone(c, t, k) {
+  // k : 0 = plein écran, 1 = rangé dans le téléphone
+  const x = mix(0, TEL.x, k), y = mix(0, TEL.y, k), w = mix(L, TEL.w, k), h = mix(H, TEL.h, k), r = mix(0, TEL.r, k);
+  // ombre et coque
+  if (k > 0) {
+    c.save();
+    c.globalAlpha = k;
+    c.shadowColor = 'rgba(255,210,63,0.25)'; c.shadowBlur = 120;
+    c.fillStyle = '#1a1a1c'; arrondi(c, x - 22, y - 22, w + 44, h + 44, r + 22); c.fill();
+    c.shadowColor = 'transparent';
+    c.strokeStyle = '#3a3d40'; c.lineWidth = 4; arrondi(c, x - 22, y - 22, w + 44, h + 44, r + 22); c.stroke();
+    c.restore();
+  }
+  // contenu : la scène plein écran glisse vers le site mobile
+  const fondu = prog(t, 9.0, 9.45);
+  hctx.save();
+  if (fondu < 1) scenePleinEcran(hctx, t, { etiquettes: true, textes: false });
+  if (fondu > 0) { hctx.globalAlpha = fondu; siteMobile(hctx, t); hctx.globalAlpha = 1; }
+  hctx.restore();
+  c.save();
+  arrondi(c, x, y, w, h, r); c.clip();
+  c.drawImage(hors, x, y, w, h);
+  c.restore();
+  // îlot de la caméra
+  if (k > 0.5) {
+    c.globalAlpha = prog(k, 0.5, 1);
+    c.fillStyle = '#000'; arrondi(c, 540 - 70, y + 22, 140, 40, 20); c.fill();
+    c.globalAlpha = 1;
+  }
+  // le doigt
+  const d = doigt(t);
+  if (d.appui > 0 && k >= 1) {
+    const fx = TEL.x + TEL.w * 0.72, fy = TEL.y + mix(TEL.h * 0.78, TEL.h * 0.32, d.k);
+    c.save();
+    c.globalAlpha = d.appui;
+    c.fillStyle = 'rgba(255,255,255,0.35)'; c.beginPath(); c.arc(fx, fy, 58, 0, Math.PI * 2); c.fill();
+    c.strokeStyle = 'rgba(255,255,255,0.9)'; c.lineWidth = 5; c.stroke();
+    c.restore();
+  }
+}
+
+function sceneSite(c, t) {
+  c.fillStyle = '#000'; c.fillRect(0, 0, L, H);
+  const k = dansSortie(prog(t, 8.7, 9.5));
+  // halo d'ambiance derrière le téléphone
+  const g = c.createRadialGradient(540, 1150, 50, 540, 1150, 900);
+  g.addColorStop(0, `rgba(43,58,60,${0.9 * k})`); g.addColorStop(1, 'rgba(0,0,0,0)');
+  c.fillStyle = g; c.fillRect(0, 0, L, H);
+  telephone(c, t, k);
+  ligneMots(c, ['Sur', 'votre', 'site,'], t, 9.35, 270, 100, { sortieA: 12.55 });
+  ligneMots(c, ['il', 's’ouvre', 'au', 'doigt.'], t, 9.6, 400, 100, { surligne: 1, sortieA: 12.55 });
+}
+
+// ---------- scène 3 : appel à l'action ----------
+const appel = Object.assign(document.createElement('canvas'), { width: L, height: H });
+const actx = appel.getContext('2d');
+
+function sceneAppel(c, t) {
+  // fond : le maki entier, assombri (même cadrage que la première image, pour la boucle)
+  c.fillStyle = '#000'; c.fillRect(0, 0, L, H);
+  sushi(c, 0, mix(2300, 2450, prog(t, 12.6, 15)), 0.49, 0.48, L / 2, 1090);
+  c.fillStyle = `rgba(30,42,44,${0.78 * (1 - prog(t, 14.72, 15))})`; c.fillRect(0, 0, L, H);
+  const out = prog(t, 14.72, 14.97);
+  c.save();
+  c.globalAlpha = 1 - out;
+  // logo
+  const kl = prog(t, 12.85, 13.2);
+  if (kl > 0) {
+    const lw = 620, lh = lw * logo.naturalHeight / logo.naturalWidth;
+    c.save(); c.translate(540, 330); c.scale(rebond(kl), rebond(kl));
+    c.drawImage(logo, -lw / 2, -lh / 2, lw, lh);
+    c.restore();
+  }
+  c.restore();
+  ligneMots(c, ['Votre', 'carte,'], t, 13.05, 760, 132, { sortieA: 14.72 });
+  ligneMots(c, ['en', 'mouvement.'], t, 13.25, 910, 132, { surligne: 1, sortieA: 14.72 });
+  c.save();
+  c.globalAlpha = 1 - out;
+  // bouton
+  const kb = prog(t, 13.6, 13.95);
+  if (kb > 0) {
+    const pulse = 1 + Math.sin((t - 13.95) * 9) * 0.035 * prog(t, 13.95, 14.1);
+    police(c, 60, 800);
+    const texte = 'Demandez votre démo';
+    const w = c.measureText(texte).width + 240, h = 150;
+    c.save(); c.translate(540, 1150); c.scale(rebond(kb) * pulse, rebond(kb) * pulse);
+    c.shadowColor = 'rgba(255,210,63,0.55)'; c.shadowBlur = 60;
+    c.fillStyle = JAUNE; arrondi(c, -w / 2, -h / 2, w, h, h / 2); c.fill();
+    c.shadowColor = 'transparent';
+    c.fillStyle = ARDOISE; c.textAlign = 'left'; c.textBaseline = 'middle';
+    c.fillText(texte, -w / 2 + 62, 4);
+    // flèche
+    const ax = w / 2 - 82 + Math.sin(t * 10) * 5;
+    c.strokeStyle = ARDOISE; c.lineWidth = 9; c.lineCap = 'round'; c.lineJoin = 'round';
+    c.beginPath(); c.moveTo(ax - 26, 2); c.lineTo(ax + 22, 2); c.moveTo(ax + 2, -20); c.lineTo(ax + 24, 2); c.lineTo(ax + 2, 24); c.stroke();
+    c.restore();
+  }
+  const ks = prog(t, 13.9, 14.2);
+  if (ks > 0) {
+    c.globalAlpha = (1 - out) * ks;
+    c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    police(c, 54, 700, 'Instru'); c.fillStyle = '#fff';
+    c.fillText('Lien en bio  ·  nouvelleardoise.ch', 540, 1340 + (1 - sortie(ks)) * 30);
+    police(c, 40, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.7)';
+    c.fillText('Sites, cartes et menus 3D · Genève & Vaud', 540, 1415 + (1 - sortie(ks)) * 30);
+  }
+  c.restore();
+}
+
+// ---------- montage ----------
+const RIDEAU = [12.55, 12.95];
+window.rendu = function (t) {
+  if (t < 8.7) return scenePleinEcran(ctx, t);
+  if (t < RIDEAU[0]) return sceneSite(ctx, t);
+  if (t >= RIDEAU[1]) return sceneAppel(ctx, t);
+  // rideau jaune en diagonale : le site dessous, l'appel à l'action révélé derrière lui
+  sceneSite(ctx, t);
+  sceneAppel(actx, t);
+  const y0 = mix(H + 260, -H * 0.55, dansSortie(prog(t, ...RIDEAU)));
+  const bande = 420;
+  ctx.save();
+  ctx.beginPath(); ctx.moveTo(0, y0 + bande); ctx.lineTo(L, y0 + bande - 260); ctx.lineTo(L, H); ctx.lineTo(0, H); ctx.clip();
+  ctx.drawImage(appel, 0, 0);
+  ctx.restore();
+  ctx.fillStyle = JAUNE;
+  ctx.beginPath(); ctx.moveTo(0, y0); ctx.lineTo(L, y0 - 260); ctx.lineTo(L, y0 - 260 + bande); ctx.lineTo(0, y0 + bande); ctx.fill();
+};
+
+// Prévisualisation dans un navigateur : lecture en boucle
+if (!navigator.webdriver) {
+  window.pret.then(() => {
+    const debut = performance.now();
+    const boucle = () => { window.rendu(((performance.now() - debut) / 1000) % DUREE); requestAnimationFrame(boucle); };
+    boucle();
+  });
+}
+</script>
+</body>
+</html>
