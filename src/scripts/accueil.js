@@ -123,3 +123,22 @@ $('[data-contact]').addEventListener('submit', (e) => {
   location.href = `mailto:${SITE.email}?subject=${encodeURIComponent('Demande de devis – ' + d.get('resto'))}&body=${encodeURIComponent(corps)}`;
   $('[data-contact-msg]').textContent = `Merci ${d.get('nom')}. Votre messagerie s’ouvre : il reste à envoyer le message.`;
 });
+
+/* ---------- Voir plus : les plats en mouvement ---------- */
+// Les deux séquences (pizza, maki) ne se chargent qu'une fois ouvertes : la page
+// d'accueil reste légère sur téléphone.
+const voirPlus = $('[data-voir-plus]');
+const sequencesPlus = $('#plus-sequences');
+voirPlus?.addEventListener('click', () => {
+  const ouvert = voirPlus.getAttribute('aria-expanded') === 'true';
+  voirPlus.setAttribute('aria-expanded', String(!ouvert));
+  sequencesPlus.hidden = ouvert;
+  const libelle = ouvert ? 'Voir plus' : 'Masquer';
+  voirPlus.querySelectorAll('.btn__roule > span').forEach((s) => { s.textContent = libelle; });
+  if (!voirPlus.querySelector('.btn__roule')) voirPlus.textContent = libelle;
+  // les toiles étaient cachées : on leur redonne leur taille
+  if (!ouvert) {
+    dispatchEvent(new Event('resize'));
+    sequencesPlus.scrollIntoView({ behavior: calme ? 'auto' : 'smooth' });
+  }
+});
