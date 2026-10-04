@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Vidéo concept Nouvelle Ardoise : le site, les plateformes, les réseaux</title>
+<!--
+  Vidéo de présentation d'environ 57 s avec voix off, direction « ardoise épurée » : photos plein
+  cadre, serif Fraunces, le jaune craie seulement en touches, un seul coup d'éponge.
+  Format vertical par défaut (1080×1920) ; video-concept.html?f=16x9 donne la version 1920×1080.
+  Les plans et leur durée sont dans voix/plan.js, le texte de la voix dans voix/texte.txt.
+  Pasta Mo' (la vraie séquence du site) · le restaurant tel qu'on le trouve en ligne, effacé d'un
+  coup d'éponge · le photographe · votre histoire · le site d'Osteria del Lago (démo du site) ·
+  Google, réservation, Instagram · les réseaux (tournage, réel, menu du jour, notifications ;
+  vidéos Mixkit et Pexels, voir videos/) · le café et le contact de chaque jour · la fin.
+  sh videos/extraire-concept.sh, sh voix/generer.sh puis node render-concept.mjs assemblent la vidéo.
+-->
+<style>
+  @font-face { font-family: Brico; src: url(fonts/bricolage-grotesque-latin-standard-normal.woff2) format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: Instru; src: url(fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  @font-face { font-family: Fraunces; src: url(fonts/fraunces-latin-wght-normal.woff2) format('woff2'); font-weight: 100 900; font-style: normal; }
+  @font-face { font-family: Fraunces; src: url(fonts/fraunces-latin-wght-italic.woff2) format('woff2'); font-weight: 100 900; font-style: italic; }
+  @font-face { font-family: Bodoni; src: url(fonts/bodoni-moda-latin-wght-normal.woff2) format('woff2'); font-weight: 400 900; }
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas></canvas>
+<script src="ardoise.js"></script>
+<script src="videos/concept/index.js"></script>
+<script src="voix/plan.js"></script>
+<script>
+const PAYSAGE = new URLSearchParams(location.search).get('f') === '16x9';
+const L = PAYSAGE ? 1920 : 1080, H = PAYSAGE ? 1080 : 1920;
+const cv = document.querySelector('canvas');
+cv.width = L; cv.height = H; cv.style.width = L + 'px'; cv.style.height = H + 'px';
+const ctx = cv.getContext('2d');
+const JAUNE = '#FFD23F', ARDOISE = '#1E2A2C';
+// la charte d'Osteria del Lago (public/demos/osteria)
+const OST = { farine: '#F3EEE2', lac: '#0F2E2C', pomodoro: '#E0452B', tuorlo: '#F5B82E', salvia: '#9DB596' };
+const FOND = peindreArdoise(L, H);
+const toile = (l, h) => Object.assign(document.createElement('canvas'), { width: Math.ceil(l), height: Math.ceil(h) });
+
+// ---------- outils ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const mix = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const sortie = (k) => 1 - Math.pow(1 - k, 3);
+const douce = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const expo = (k) => (k >= 1 ? 1 : 1 - Math.pow(2, -10 * k));
+const fonte = (c, taille, graisse = 400, famille = 'Instru', italique = false) => { c.font = `${italique ? 'italic ' : ''}${graisse} ${taille}px ${famille}`; };
+const charger = (src) => new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ko(new Error(src)); i.src = src; });
+const IMG = {}, SEQ = { pastamo: [], salle: [], nouilles: [], cliente: [] };
+const plan = (nom, t, t0, vitesse = 1) => { const l = SEQ[nom]; return l[clamp(Math.floor((t - t0) * 30 * vitesse), 0, l.length - 1)]; };
+
+// Image plein cadre dans un rectangle : (fx, fy) = point de l'image placé au centre, z = grossissement
+function cadrer(c, img, fx = 0.5, fy = 0.5, z = 1, { x = 0, y = 0, l = L, h = H, rayon = 0, alpha = 1 } = {}) {
+  const s = Math.max(l / img.width, h / img.height) * z;
+  const w = img.width * s, hh = img.height * s;
+  const ix = clamp(x + l / 2 - fx * w, x + l - w, x), iy = clamp(y + h / 2 - fy * hh, y + h - hh, y);
+  c.save(); c.globalAlpha *= alpha;
+  if (rayon) { c.beginPath(); c.roundRect(x, y, l, h, rayon); c.clip(); }
+  c.drawImage(img, ix, iy, w, hh);
+  c.restore();
+}
+function voile(c, haut, bas, force) {
+  const g = c.createLinearGradient(0, haut, 0, bas);
+  g.addColorStop(0, 'rgba(10,14,15,0)'); g.addColorStop(1, `rgba(10,14,15,${force})`);
+  c.fillStyle = g; c.fillRect(0, Math.min(haut, bas), L, Math.abs(bas - haut));
+}
+function ardoise(c) { c.drawImage(FOND, 0, 0); }
+
+// ---------- les titres : serif, un mot en italique souligné à la craie ----------
+// lignes : [[texte, accent], …] par ligne. pos : 'haut' ou 'bas'
+const T = PAYSAGE ? { taille: 84, sur: 24, marge: 150 } : { taille: 100, sur: 28, marge: 90 };
+function titre(c, t, t0, sur, lignes, { pos = 'haut', ombre = false, centre = !PAYSAGE, x0 = T.marge, y0 } = {}) {
+  const taille = T.taille, interligne = taille * 1.1;
+  const hauteur = lignes.length * interligne;
+  let y = y0 ?? (PAYSAGE
+    ? (pos === 'haut' ? H / 2 - hauteur / 2 + taille * 0.4 : H - 130 - hauteur + taille * 0.85)
+    : (pos === 'haut' ? 250 : H - 260 - hauteur + taille));
+  // le surtitre : petites capitales espacées, en jaune
+  if (sur) {
+    const k = sortie(prog(t, t0, t0 + 0.6));
+    c.save();
+    fonte(c, T.sur, 600, 'Instru'); c.letterSpacing = `${T.sur * 0.22}px`;
+    c.textAlign = centre ? 'center' : 'left'; c.globalAlpha = k;
+    c.fillStyle = JAUNE;
+    if (ombre) { c.shadowColor = 'rgba(0,0,0,0.6)'; c.shadowBlur = 20; }
+    c.fillText(sur.toUpperCase(), centre ? L / 2 : x0, y - taille * 1.05 + (1 - k) * 12);
+    c.restore();
+  }
+  lignes.forEach((segments, i) => {
+    const ti = t0 + 0.12 + i * 0.13;
+    const k = expo(prog(t, ti, ti + 0.9));
+    if (k <= 0) return;
+    const largeurs = segments.map(([texte, accent]) => { fonte(c, taille, accent ? 380 : 340, 'Fraunces', accent); return c.measureText(texte).width; });
+    const total = largeurs.reduce((a, b) => a + b, 0);
+    let x = centre ? L / 2 - total / 2 : x0;
+    c.save();
+    c.beginPath(); c.rect(0, y - taille * 1.0, L, taille * 1.35); c.clip();
+    const dy = (1 - k) * taille * 1.1;
+    segments.forEach(([texte, accent], j) => {
+      c.save();
+      fonte(c, taille, accent ? 380 : 340, 'Fraunces', accent);
+      c.fillStyle = '#F6F3EC';
+      if (ombre) { c.shadowColor = 'rgba(0,0,0,0.55)'; c.shadowBlur = 30; c.shadowOffsetY = 4; }
+      c.fillText(texte, x, y + dy);
+      c.restore();
+      if (accent) {
+        // le trait de craie jaune sous le mot, comme sous « Ardoise » dans le logo
+        const p = douce(prog(t, ti + 0.55, ti + 1.05));
+        const w = largeurs[j] - (texte.endsWith('.') ? taille * 0.28 : 0);
+        if (p > 0) {
+          const yy = y + taille * 0.2;
+          craie(c, (cc) => {
+            cc.strokeStyle = JAUNE; cc.lineWidth = taille * 0.075; cc.lineCap = 'round';
+            cc.beginPath(); cc.moveTo(x + 6, yy + 3);
+            cc.quadraticCurveTo(x + w * p * 0.5, yy - 5, x + 6 + (w - 12) * p, yy + 1); cc.stroke();
+          });
+        }
+      }
+      x += largeurs[j];
+    });
+    c.restore();
+    y += interligne;
+  });
+}
+
+// ---------- le téléphone : écran logique de 390 × 844 ----------
+const ECRAN = { w: 390, h: 844 };
+const BORD = 14;
+function geoTel(cx, cy, hauteur) {
+  const s = hauteur / (ECRAN.h + BORD * 2);
+  const W = (ECRAN.w + BORD * 2) * s;
+  return { s, W, H: hauteur, ex: cx - W / 2 + BORD * s, ey: cy - hauteur / 2 + BORD * s };
+}
+function telephone(c, cx, cy, hauteur, dessin, { alpha = 1, echelle = 1, dy = 0 } = {}) {
+  const g = geoTel(cx, cy, hauteur);
+  c.save();
+  c.globalAlpha *= alpha;
+  c.translate(cx, cy + dy); c.scale(echelle, echelle); c.translate(-cx, -cy);
+  c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 70 * g.s; c.shadowOffsetY = 30 * g.s;
+  c.fillStyle = '#0B0D0E';
+  c.beginPath(); c.roundRect(cx - g.W / 2, cy - g.H / 2, g.W, g.H, 64 * g.s); c.fill();
+  c.shadowColor = 'transparent';
+  c.strokeStyle = '#3A4245'; c.lineWidth = 2.5 * g.s; c.stroke();
+  c.save();
+  c.beginPath(); c.roundRect(g.ex, g.ey, ECRAN.w * g.s, ECRAN.h * g.s, 52 * g.s); c.clip();
+  c.translate(g.ex, g.ey); c.scale(g.s, g.s);
+  dessin(c, g);
+  c.restore();
+  c.fillStyle = '#000';
+  c.beginPath(); c.roundRect(cx - 56 * g.s, g.ey + 12 * g.s, 112 * g.s, 33 * g.s, 17 * g.s); c.fill();
+  c.restore();
+  return g;
+}
+function barreEtat(c, couleur) {
+  fonte(c, 16, 600); c.fillStyle = couleur; c.textAlign = 'left';
+  c.fillText('9:41', 34, 36);
+  c.fillRect(318, 26, 22, 11); c.fillRect(344, 24, 12, 14);
+}
+function photo(c, img, x, y, w, h, r = 0, fx = 0.5, fy = 0.5, z = 1) { cadrer(c, img, fx, fy, z, { x, y, l: w, h, rayon: r }); }
+function texte(c, s, x, y, taille, { graisse = 400, famille = 'Instru', couleur = '#000', aligne = 'left', italique = false, alpha = 1 } = {}) {
+  c.save(); fonte(c, taille, graisse, famille, italique); c.fillStyle = couleur; c.textAlign = aligne; c.globalAlpha *= alpha;
+  c.fillText(s, x, y); c.restore();
+}
+function pastille(c, x, y, w, h, fond, s, couleur, taille = 15, graisse = 600) {
+  c.fillStyle = fond; c.beginPath(); c.roundRect(x, y, w, h, h / 2); c.fill();
+  texte(c, s, x + w / 2, y + h / 2 + taille * 0.36, taille, { graisse, couleur, aligne: 'center' });
+}
+function etoiles(c, x, y, n, taille, couleur = JAUNE, vide = '#C9C4B8') {
+  for (let i = 0; i < 5; i++) {
+    c.save(); c.translate(x + i * taille * 1.15, y); c.beginPath();
+    for (let k = 0; k < 10; k++) { const r = k % 2 ? taille * 0.22 : taille * 0.5, a = -Math.PI / 2 + k * Math.PI / 5; c.lineTo(Math.cos(a) * r, Math.sin(a) * r); }
+    c.closePath(); c.fillStyle = i < n ? couleur : vide; c.fill(); c.restore();
+  }
+}
+// le doigt : un rond clair, et une onde quand il touche
+function doigt(c, x, y, tTouche, t, alpha = 1) {
+  const k = prog(t, tTouche, tTouche + 0.5);
+  c.save(); c.globalAlpha *= alpha;
+  if (t >= tTouche && k < 1) {
+    c.strokeStyle = `rgba(255,255,255,${0.8 * (1 - k)})`; c.lineWidth = 4;
+    c.beginPath(); c.arc(x, y, 26 + 50 * sortie(k), 0, Math.PI * 2); c.stroke();
+  }
+  const enfonce = t >= tTouche && t < tTouche + 0.15 ? 0.85 : 1;
+  c.fillStyle = 'rgba(255,255,255,0.55)'; c.strokeStyle = 'rgba(0,0,0,0.15)'; c.lineWidth = 2;
+  c.beginPath(); c.arc(x, y, 28 * enfonce, 0, Math.PI * 2); c.fill(); c.stroke();
+  c.restore();
+}
+
+// Chaque plan reçoit u, le temps depuis son début, et D, sa durée (voix/plan.js).
+const TEL = PAYSAGE ? { cx: L * 0.7, cy: H / 2 + 10, h: H * 0.86 } : { cx: L / 2, cy: H * 0.6, h: H * 0.6 };
+const L1 = (...segs) => segs.map((s) => (Array.isArray(s) ? s : [s, false]));
+
+// ---------- Pasta Mo' : « Votre cuisine est belle. » ----------
+function scenePastamo(c, u, D) {
+  const img = SEQ.pastamo[clamp(Math.floor(u / D * 37), 0, 36)];
+  cadrer(c, img, 0.5, PAYSAGE ? 0.5 : 0.52, mix(PAYSAGE ? 1.02 : 1.08, PAYSAGE ? 1.1 : 1.16, douce(prog(u, 0, D))));
+  voile(c, H * (PAYSAGE ? 0.4 : 0.5), H, 0.92);
+  titre(c, u, 0.3, '', [L1('Votre cuisine'), L1('est ', ['belle.', true])], { pos: 'bas', ombre: true, x0: PAYSAGE ? L * 0.66 : T.marge });
+}
+
+// ---------- En ligne, personne ne la voit, puis le coup d'éponge ----------
+let ecranVieux;
+function vieuxSite(c) {
+  c.fillStyle = '#ECECEC'; c.fillRect(0, 0, ECRAN.w, ECRAN.h);
+  barreEtat(c, '#333');
+  c.fillStyle = '#fff'; c.beginPath(); c.roundRect(18, 62, 354, 46, 23); c.fill();
+  texte(c, 'osteria del lago genève', 46, 92, 16, { couleur: '#555' });
+  // fiche sans photo
+  c.fillStyle = '#fff'; c.beginPath(); c.roundRect(18, 126, 354, 230, 18); c.fill();
+  c.fillStyle = '#DADADA'; c.beginPath(); c.roundRect(32, 140, 326, 110, 10); c.fill();
+  texte(c, 'Aucune photo', 195, 202, 15, { couleur: '#999', aligne: 'center' });
+  texte(c, 'Osteria del Lago', 34, 284, 20, { graisse: 600, couleur: '#333' });
+  etoiles(c, 42, 306, 3, 15, '#E8A93A', '#CCC');
+  texte(c, '3,1 · 12 avis', 130, 311, 14, { couleur: '#888' });
+  texte(c, 'Horaires non renseignés', 34, 338, 14, { couleur: '#B04A3A' });
+  // le menu en PDF
+  c.fillStyle = '#fff'; c.beginPath(); c.roundRect(18, 372, 354, 76, 18); c.fill();
+  c.fillStyle = '#D9443A'; c.beginPath(); c.roundRect(32, 386, 44, 48, 6); c.fill();
+  texte(c, 'PDF', 54, 416, 13, { graisse: 700, couleur: '#fff', aligne: 'center' });
+  texte(c, 'menu_2019_final.pdf', 90, 406, 16, { graisse: 600, couleur: '#333' });
+  texte(c, '4,2 Mo · téléchargement…', 90, 428, 13, { couleur: '#999' });
+  // Instagram endormi
+  c.fillStyle = '#fff'; c.beginPath(); c.roundRect(18, 464, 354, 300, 18); c.fill();
+  c.fillStyle = '#D0D0D0'; c.beginPath(); c.arc(60, 512, 26, 0, Math.PI * 2); c.fill();
+  texte(c, 'osteria_lago', 100, 506, 16, { graisse: 600, couleur: '#333' });
+  texte(c, '3 publications', 100, 528, 13, { couleur: '#999' });
+  texte(c, 'Dernière publication : il y a 47 semaines', 34, 576, 13.5, { couleur: '#B04A3A' });
+  for (let i = 0; i < 3; i++) { c.fillStyle = ['#D6D6D6', '#CFCFCF', '#DADADA'][i]; c.fillRect(34 + i * 109, 596, 105, 105); }
+  // la poussière
+  const r = hasard(21);
+  c.fillStyle = 'rgba(120,110,95,0.10)'; c.fillRect(0, 0, ECRAN.w, ECRAN.h);
+  for (let i = 0; i < 260; i++) { c.fillStyle = `rgba(90,80,70,${0.05 + r() * 0.12})`; c.beginPath(); c.arc(r() * 390, r() * 844, 0.6 + r() * 1.8, 0, 7); c.fill(); }
+}
+function sceneProbleme(c, u, D) {
+  ardoise(c);
+  titre(c, u, 0.1, '', [L1('En ligne,'), L1('personne ', ['ne la voit.', true])]);
+  const g = geoTel(TEL.cx, TEL.cy, TEL.h);
+  if (!ecranVieux) ecranVieux = toile(ECRAN.w * g.s, ECRAN.h * g.s);
+  const vc = ecranVieux.getContext('2d');
+  vc.setTransform(g.s, 0, 0, g.s, 0, 0); vc.globalCompositeOperation = 'source-over';
+  vieuxSite(vc);
+  vc.setTransform(1, 0, 0, 1, 0, 0);
+  const p = douce(prog(u, D - 1.45, D - 0.2));
+  let tete = null;
+  if (p > 0) tete = essuyage(vc, p, { l: ecranVieux.width, h: ecranVieux.height, bande: ecranVieux.width * 0.42, passes: 5 });
+  const k = sortie(prog(u, 0.1, 0.9));
+  telephone(c, TEL.cx, TEL.cy, TEL.h, (cc) => {
+    siteOsteria(cc, 0);
+    cc.drawImage(ecranVieux, 0, 0, ECRAN.w, ECRAN.h);
+  }, { alpha: k, dy: (1 - k) * 80 });
+  if (tete && p < 1) {
+    c.save(); c.globalAlpha = clamp(Math.min(p * 8, (1 - p) * 8));
+    brosse(c, g.ex + tete[0], g.ey + tete[1], g.W * 0.62, tete[0] > ecranVieux.width / 2 ? -0.1 : 0.1);
+    c.restore();
+  }
+}
+
+// ---------- Un photographe chez vous : déclenchements sur les plats ----------
+const CLICHES = [['burrata', 0.5, 0.45], ['ragu', 0.5, 0.5], ['pesto', 0.5, 0.5], ['tiramisu', 0.5, 0.5], ['pomodoro', 0.5, 0.5]];
+function scenePhotographe(c, u, D) {
+  const pas = D / CLICHES.length;
+  const i = clamp(Math.floor(u / pas), 0, CLICHES.length - 1), v = u - i * pas;
+  const [nom, fx, fy] = CLICHES[i];
+  // la mise au point : léger flou qui se resserre, puis le déclenchement
+  const net = sortie(prog(v, 0, 0.35));
+  c.save();
+  if (net < 1) c.filter = `blur(${(1 - net) * 10}px)`;
+  cadrer(c, IMG[nom], fx, fy, mix(1.16, 1.1, net) + v * 0.02);
+  c.restore();
+  voile(c, H * 0.5, H, 0.8);
+  // la grille du viseur et le cadre de mise au point
+  c.save();
+  c.strokeStyle = 'rgba(255,255,255,0.22)'; c.lineWidth = 2;
+  for (const f of [1 / 3, 2 / 3]) { c.beginPath(); c.moveTo(L * f, 0); c.lineTo(L * f, H); c.moveTo(0, H * f); c.lineTo(L, H * f); c.stroke(); }
+  const taille = mix(300, 220, net), cx = L / 2, cy = H * (PAYSAGE ? 0.45 : 0.42), b = 40;
+  c.strokeStyle = net >= 1 ? JAUNE : 'rgba(255,255,255,0.9)'; c.lineWidth = 5; c.lineCap = 'round';
+  [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([sx, sy]) => {
+    const x = cx + sx * taille / 2, y = cy + sy * taille / 2;
+    c.beginPath(); c.moveTo(x, y - sy * b); c.lineTo(x, y); c.lineTo(x - sx * b, y); c.stroke();
+  });
+  texte(c, 'f/2.8   1/125   ISO 400', L / 2, PAYSAGE ? 80 : 120, PAYSAGE ? 26 : 30, { graisse: 600, couleur: 'rgba(255,255,255,0.85)', aligne: 'center' });
+  c.restore();
+  // l'éclair du déclenchement, à chaque changement de plat
+  if (i > 0 || u > 0.05) {
+    const e = prog(v, 0, 0.18);
+    if (e < 1 && i > 0) { c.fillStyle = `rgba(255,255,255,${0.85 * (1 - e)})`; c.fillRect(0, 0, L, H); }
+  }
+  titre(c, u, 0.2, '', [L1('Un photographe,'), L1(['chez vous.', true])], { pos: 'bas', ombre: true });
+}
+
+// ---------- On raconte votre histoire ----------
+function sceneHistoire(c, u, D) {
+  cadrer(c, IMG.salle, mix(0.42, 0.55, u / D), 0.5, mix(1.12, 1.2, douce(u / D)));
+  voile(c, H * 0.4, H, 0.88);
+  titre(c, u, 0.25, 'On vous écoute', [L1('Votre histoire,'), L1(['à votre image.', true])], { pos: 'bas', ombre: true });
+}
+
+// ---------- Le site : « Un site qui donne faim. » ----------
+const TAP = { heure: 4.55, ok: 5.25 };
+function siteOsteria(c, u) {
+  c.fillStyle = OST.farine; c.fillRect(0, 0, ECRAN.w, ECRAN.h);
+  const defile = 560 * douce(prog(u, 1.9, 3.1)) + 470 * douce(prog(u, 3.5, 4.3));
+  c.save(); c.translate(0, -defile);
+  const kp = u > 0 ? expo(prog(u, 0.35, 1.5)) : 1;
+  c.save(); c.beginPath(); c.rect(0, 0, ECRAN.w, 560 * kp); c.clip();
+  photo(c, IMG.ragu, 0, 0, ECRAN.w, 560, 0, 0.5, 0.55, mix(1.25, 1.05, kp) + u * 0.01);
+  const gr = c.createLinearGradient(0, 280, 0, 560); gr.addColorStop(0, 'rgba(15,46,44,0)'); gr.addColorStop(1, 'rgba(15,46,44,0.85)');
+  c.fillStyle = gr; c.fillRect(0, 280, ECRAN.w, 280);
+  const kt = u > 0 ? sortie(prog(u, 0.9, 1.6)) : 1;
+  texte(c, 'Pâtes fraîches,', 24, 470 + (1 - kt) * 20, 36, { famille: 'Bodoni', graisse: 500, couleur: OST.farine, alpha: kt });
+  texte(c, 'au bord du lac.', 24, 512 + (1 - kt) * 20, 36, { famille: 'Bodoni', graisse: 500, couleur: OST.farine, alpha: kt, italique: true });
+  c.restore();
+  texte(c, 'La carte', 24, 626, 34, { famille: 'Bodoni', graisse: 500, couleur: OST.lac });
+  let fx = 24;
+  [['Végétarien', 112], ['Épicé', 76], ['EN', 52]].forEach(([f, w], i) => {
+    const actif = i === 0 && u > 2.6;
+    c.strokeStyle = OST.lac; c.lineWidth = 1.5; c.fillStyle = actif ? OST.lac : 'transparent';
+    c.beginPath(); c.roundRect(fx, 648, w, 34, 17); c.fill(); c.stroke();
+    texte(c, f, fx + w / 2, 670, 14, { graisse: 600, couleur: actif ? OST.farine : OST.lac, aligne: 'center' });
+    fx += w + 8;
+  });
+  const plats = [[IMG.burrata, 'Burrata', 'tomates anciennes, basilic'], [IMG.ragu, 'Tagliatelle al ragù', 'six heures de cuisson'], [IMG.pesto, 'Linguine al pesto', 'basilic du jardin, pignons'], [IMG.tiramisu, 'Tiramisù', 'mascarpone, café serré']];
+  plats.forEach(([img, nom, desc], i) => {
+    const y = 706 + i * 96;
+    const k = u > 0 ? sortie(prog(u, 1.7 + i * 0.12, 2.3 + i * 0.12)) : 1;
+    c.save(); c.globalAlpha = k; c.translate((1 - k) * 30, 0);
+    photo(c, img, 24, y, 76, 76, 12);
+    texte(c, nom, 116, y + 34, 20, { famille: 'Bodoni', graisse: 600, couleur: OST.lac });
+    texte(c, desc, 116, y + 58, 14, { couleur: '#5F6B66' });
+    c.fillStyle = 'rgba(15,46,44,0.12)'; c.fillRect(116, y + 86, 250, 1);
+    c.restore();
+  });
+  const yR = 1110;
+  c.fillStyle = OST.lac; c.beginPath(); c.roundRect(16, yR, 358, 330, 26); c.fill();
+  texte(c, 'Réserver une table', 34, yR + 50, 28, { famille: 'Bodoni', graisse: 500, couleur: OST.farine });
+  texte(c, 'Ce soir · 2 personnes', 34, yR + 82, 15, { couleur: OST.salvia });
+  ['19:00', '19:30', '20:00', '20:30'].forEach((h, i) => {
+    const choisi = i === 2 && u > TAP.heure;
+    const x = 34 + i * 82;
+    c.fillStyle = choisi ? OST.tuorlo : 'rgba(243,238,226,0.1)';
+    c.beginPath(); c.roundRect(x, yR + 108, 72, 44, 12); c.fill();
+    texte(c, h, x + 36, yR + 136, 16, { graisse: 600, couleur: choisi ? OST.lac : OST.farine, aligne: 'center' });
+  });
+  const fait = u > TAP.ok + 0.12;
+  c.fillStyle = fait ? OST.salvia : OST.farine;
+  c.beginPath(); c.roundRect(34, yR + 176, 322, 56, 28); c.fill();
+  texte(c, fait ? '✓  Table réservée' : 'Confirmer', 195, yR + 211, 18, { graisse: 700, couleur: OST.lac, aligne: 'center' });
+  texte(c, 'Aucun appel pendant le service.', 195, yR + 272, 14, { couleur: OST.salvia, aligne: 'center' });
+  c.restore();
+  // l'en-tête, toujours visible
+  c.save(); c.globalAlpha = u > 0 ? sortie(prog(u, 0, 0.6)) : 1;
+  c.fillStyle = OST.farine; c.fillRect(0, 0, ECRAN.w, 104);
+  barreEtat(c, OST.lac);
+  texte(c, 'Osteria del Lago', 24, 86, 22, { famille: 'Bodoni', graisse: 600, couleur: OST.lac });
+  pastille(c, 262, 64, 104, 34, OST.pomodoro, 'Réserver', '#fff', 14);
+  c.restore();
+}
+function sceneSite(c, u, D) {
+  ardoise(c);
+  titre(c, u, 0.1, '01 · Le site', [L1('Un site qui'), L1(['donne faim.', true])]);
+  const g = telephone(c, TEL.cx, TEL.cy, TEL.h, (cc) => siteOsteria(cc, u + 0.001));
+  const ecran = (x, y) => [g.ex + x * g.s, g.ey + y * g.s];
+  const fin = 1030;
+  const p1 = ecran(34 + 2 * 82 + 36, 1110 + 130 - fin), p2 = ecran(195, 1110 + 204 - fin);
+  const a = prog(u, TAP.heure - 0.5, TAP.heure - 0.2) * (1 - prog(u, TAP.ok + 0.5, TAP.ok + 0.8));
+  if (a > 0) {
+    const m = douce(prog(u, TAP.heure + 0.25, TAP.ok - 0.1));
+    const x = mix(p1[0], p2[0], m), y = mix(p1[1], p2[1], m) + (1 - prog(u, TAP.heure - 0.5, TAP.heure - 0.1)) * 60;
+    doigt(c, x, y, u < TAP.ok ? TAP.heure : TAP.ok, u, a);
+  }
+}
+
+// ---------- Les plateformes : Google, réservation, Instagram ----------
+function carteGoogle(c, w, h, k) {
+  c.fillStyle = '#fff'; c.beginPath(); c.roundRect(0, 0, w, h, 22); c.fill();
+  photo(c, IMG.salle, 16, 16, 230, h - 32, 14, 0.5, 0.6);
+  const x = 270;
+  texte(c, 'Osteria del Lago', x, 50, 28, { famille: 'Bodoni', graisse: 600, couleur: '#1D1D1D' });
+  etoiles(c, x + 10, 78, 5, 18);
+  texte(c, '4,8 · 212 avis', x + 112, 84, 16, { graisse: 600, couleur: '#555' });
+  texte(c, 'Ouvert · ferme à 23 h', x, 114, 16, { couleur: '#2E7D4F', graisse: 600 });
+  if (k > 0) photo(c, IMG.perche, x, 134, 76 * k, 76, 10);
+  photo(c, IMG.ragu, x + 84, 134, 76, 76, 10);
+  photo(c, IMG.burrata, x + 168, 134, 76, 76, 10);
+  photo(c, IMG.pesto, x + 252, 134, 76, 76, 10);
+}
+function carteResa(c, w, h, k) {
+  c.fillStyle = OST.lac; c.beginPath(); c.roundRect(0, 0, w, h, 22); c.fill();
+  texte(c, 'Réservation en ligne', 28, 44, 17, { graisse: 600, couleur: OST.salvia });
+  texte(c, 'Ce soir, 20 h · 2 personnes', 28, 84, 28, { famille: 'Bodoni', graisse: 500, couleur: OST.farine });
+  c.fillStyle = '#6FCF8E'; c.beginPath(); c.arc(36, 114, 7, 0, 7); c.fill();
+  texte(c, 'Confirmée', 52, 120, 17, { graisse: 600, couleur: '#6FCF8E' });
+  c.save(); c.globalAlpha = k;
+  c.fillStyle = 'rgba(243,238,226,0.1)'; c.beginPath(); c.roundRect(28, 140, w - 56, 68, 12); c.fill();
+  photo(c, IMG.perche, 38, 148, 52, 52, 8);
+  texte(c, 'Plat du jour : filets de perche meunière', 106, 180, 17, { couleur: OST.farine });
+  c.restore();
+}
+function carteInsta(c, w, h, k) {
+  c.fillStyle = '#fff'; c.beginPath(); c.roundRect(0, 0, w, h, 22); c.fill();
+  const ph = h - 32, pw = ph;
+  c.save(); c.beginPath(); c.roundRect(16, 16, pw, ph, 12); c.clip();
+  photo(c, IMG.perche, 16, 16, pw, ph, 0, 0.5, 0.45, mix(1.3, 1, k));
+  c.restore();
+  const x = pw + 44;
+  const g = c.createLinearGradient(x, 24, x + 44, 68); g.addColorStop(0, '#F9CE34'); g.addColorStop(0.5, '#EE2A7B'); g.addColorStop(1, '#6228D7');
+  c.strokeStyle = g; c.lineWidth = 3.5; c.beginPath(); c.arc(x + 22, 46, 22, 0, 7); c.stroke();
+  photo(c, IMG.ragu, x + 5, 29, 34, 34, 17);
+  texte(c, 'osteria.lago', x + 58, 44, 18, { graisse: 700, couleur: '#111' });
+  texte(c, 'Plat du jour', x + 58, 66, 15, { couleur: '#777' });
+  texte(c, 'Filets de perche meunière,', x, 118, 17, { couleur: '#222' });
+  texte(c, 'servis jusqu’à 14 h.', x, 142, 17, { couleur: '#222' });
+  const b = 1 + 0.3 * Math.sin(Math.PI * prog(k, 0.6, 1));
+  c.save(); c.translate(x + 14, 190); c.scale(b * 1.3, b * 1.3);
+  c.fillStyle = '#FF3B5C'; c.beginPath(); c.moveTo(0, 6); c.bezierCurveTo(-14, -4, -8, -16, 0, -8); c.bezierCurveTo(8, -16, 14, -4, 0, 6); c.fill();
+  c.restore();
+  texte(c, `${Math.round(48 + 140 * k)} j’aime`, x + 40, 196, 16, { graisse: 600, couleur: '#222' });
+}
+function scenePlateformes(c, u, D) {
+  ardoise(c);
+  titre(c, u, 0.1, '02 · Partout', [L1('Partout,'), L1(['toujours à jour.', true])]);
+  const BW = 700, BH = 226, e = PAYSAGE ? 1.1 : 1.286;
+  const w = BW * e, h = BH * e;
+  [['Google', carteGoogle], ['Réservation', carteResa], ['Instagram', carteInsta]].forEach(([nom, f], i) => {
+    const x = PAYSAGE ? L - w - 130 : (L - w) / 2;
+    const y = PAYSAGE ? 150 + i * (h + 56) : 640 + i * (h + 100);
+    const t0 = 0.5 + i * 0.75;
+    const k = expo(prog(u, t0, t0 + 0.9));
+    const kp = sortie(prog(u, t0 + 0.8, t0 + 1.5));
+    c.save();
+    c.globalAlpha = k; c.translate(x + (1 - k) * 120, y);
+    fonte(c, PAYSAGE ? 20 : 26, 600); c.letterSpacing = '4px'; c.fillStyle = 'rgba(246,243,236,0.7)';
+    c.fillText(nom.toUpperCase(), 6, -18);
+    c.letterSpacing = '0px';
+    c.shadowColor = 'rgba(0,0,0,0.35)'; c.shadowBlur = 40; c.shadowOffsetY = 16;
+    c.fillStyle = '#000'; c.beginPath(); c.roundRect(0, 0, w, h, 26); c.fill();
+    c.shadowColor = 'transparent';
+    c.scale(e, e);
+    f(c, BW, BH, kp);
+    c.restore();
+    // un éclat de craie quand le plat du jour arrive
+    const ec = prog(u, t0 + 0.8, t0 + 1.4);
+    if (ec > 0 && ec < 1) {
+      c.save(); c.globalAlpha = (1 - ec) * 0.9; c.strokeStyle = JAUNE; c.lineWidth = 4;
+      c.beginPath(); c.roundRect(x - 10 * ec - 4, y - 10 * ec - 4, w + 20 * ec + 8, h + 20 * ec + 8, 30); c.stroke(); c.restore();
+    }
+  });
+}
+
+// ---------- Les réseaux : on filme chaque mois ----------
+function sceneTournage(c, u, D) {
+  cadrer(c, plan('salle', u, 0, SEQ.salle.length / 30 / D), 0.5, 0.45, mix(1.0, 1.08, u / D));
+  voile(c, H * 0.45, H, 0.85);
+  const m = 70, b = 70;
+  c.save(); c.strokeStyle = 'rgba(255,255,255,0.85)'; c.lineWidth = 5; c.lineCap = 'round';
+  [[m, m, 1, 1], [L - m, m, -1, 1], [m, H - m, 1, -1], [L - m, H - m, -1, -1]].forEach(([x, y, sx, sy]) => {
+    c.beginPath(); c.moveTo(x, y + sy * b); c.lineTo(x, y); c.lineTo(x + sx * b, y); c.stroke();
+  });
+  if (Math.floor(u * 2) % 2 === 0) { c.fillStyle = '#FF3B30'; c.beginPath(); c.arc(m + 40, m + 52, 12, 0, 7); c.fill(); }
+  texte(c, 'REC', m + 64, m + 62, 30, { graisse: 600, couleur: '#fff' });
+  texte(c, `00:00:0${Math.floor(u)}:${String(Math.floor(u * 30) % 30).padStart(2, '0')}`, L - m - 30, m + 62, 30, { graisse: 500, couleur: '#fff', aligne: 'right' });
+  c.restore();
+  titre(c, u, 0.15, '03 · Les réseaux', [L1('On filme'), L1(['chaque mois.', true])], { pos: 'bas', ombre: true });
+}
+// des réels qui donnent envie
+function sceneReel(c, u, D) {
+  ardoise(c);
+  titre(c, u, 0.1, '', [L1('Des réels'), L1(['qui donnent envie.', true])]);
+  const k = expo(prog(u, 0, 0.8));
+  telephone(c, TEL.cx, TEL.cy, TEL.h, (cc) => {
+    cadrer(cc, plan('nouilles', u, 0), 0.5, 0.5, 1.05 + u * 0.02, { l: ECRAN.w, h: ECRAN.h });
+    const g = cc.createLinearGradient(0, 520, 0, ECRAN.h); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,0.75)');
+    cc.fillStyle = g; cc.fillRect(0, 520, ECRAN.w, ECRAN.h - 520);
+    cc.fillStyle = 'rgba(255,255,255,0.35)'; cc.fillRect(20, 58, 350, 3);
+    cc.fillStyle = '#fff'; cc.fillRect(20, 58, 350 * clamp(u / D), 3);
+    const ke = sortie(prog(u, 0.6, 1.1));
+    cc.save(); cc.globalAlpha = ke; cc.translate(195, 300); cc.rotate(-0.04); cc.scale(mix(1.3, 1, ke), mix(1.3, 1, ke));
+    cc.fillStyle = OST.farine; cc.beginPath(); cc.roundRect(-130, -34, 260, 68, 10); cc.fill();
+    texte(cc, 'Ramen du jour', 0, 12, 30, { famille: 'Fraunces', graisse: 500, couleur: OST.lac, aligne: 'center', italique: true });
+    cc.restore();
+    [['♥', '2 418'], ['●', '96'], ['➤', '']].forEach(([s, n], i) => {
+      texte(cc, s, 352, 560 + i * 74, 30, { couleur: i === 0 && u > 1.6 ? '#FF3B5C' : '#fff', aligne: 'center' });
+      if (n) texte(cc, n, 352, 586 + i * 74, 13, { graisse: 600, couleur: '#fff', aligne: 'center' });
+    });
+    photo(cc, IMG.ramen, 24, 710, 32, 32, 16);
+    texte(cc, 'sora.ramen', 66, 732, 16, { graisse: 700, couleur: '#fff' });
+    texte(cc, 'Le bouillon mijote depuis ce matin.', 24, 770, 15, { couleur: '#fff' });
+    texte(cc, '♫  son original', 24, 798, 13, { couleur: 'rgba(255,255,255,0.8)' });
+  }, { alpha: k, echelle: mix(0.92, 1, k) });
+}
+// on publie pour vous, avec le menu du jour chaque matin
+function sceneCalendrier(c, u, D) {
+  ardoise(c);
+  titre(c, u, 0.1, '', [L1('Votre menu du jour,'), L1(['chaque matin.', true])]);
+  const w = PAYSAGE ? 740 : 920, x = PAYSAGE ? L - w - 110 : (L - w) / 2;
+  const cell = (w - 60) / 7, hh = 150 + cell * 5 + 30;
+  const y = PAYSAGE ? (H - hh) / 2 : 640;
+  const k = expo(prog(u, 0, 0.7));
+  c.save(); c.globalAlpha = k; c.translate(x, y + (1 - k) * 60);
+  c.shadowColor = 'rgba(0,0,0,0.35)'; c.shadowBlur = 50; c.shadowOffsetY = 20;
+  c.fillStyle = OST.farine; c.beginPath(); c.roundRect(0, 0, w, hh, 30); c.fill();
+  c.shadowColor = 'transparent';
+  texte(c, 'Octobre', 34, 72, 46, { famille: 'Fraunces', graisse: 400, couleur: ARDOISE });
+  texte(c, 'Menu du jour · Réels', w - 34, 66, 20, { graisse: 600, couleur: '#7A847F', aligne: 'right' });
+  ['L', 'M', 'M', 'J', 'V', 'S', 'D'].forEach((j, i) => texte(c, j, 30 + i * cell + cell / 2, 128, 20, { graisse: 600, couleur: '#9AA19D', aligne: 'center' }));
+  const photos = [IMG.ragu, IMG.burrata, IMG.ramen, IMG.pesto, IMG.perche, IMG.tiramisu, IMG.pomodoro];
+  for (let n = 0; n < 31; n++) {
+    const col = (n + 3) % 7, ligne = Math.floor((n + 3) / 7);
+    const cx = 30 + col * cell, cy = 150 + ligne * cell;
+    const t0 = 0.45 + n * 0.085;
+    const kn = sortie(prog(u, t0, t0 + 0.3));
+    texte(c, String(n + 1), cx + 10, cy + 24, 17, { graisse: 600, couleur: '#7A847F' });
+    if (kn <= 0) continue;
+    c.save(); c.globalAlpha = kn;
+    const pad = 6, s2 = cell - pad * 2;
+    if (col === 2 || col === 5) {
+      c.translate(cx + cell / 2, cy + cell / 2); c.scale(mix(0.6, 1, kn), mix(0.6, 1, kn)); c.translate(-cx - cell / 2, -cy - cell / 2);
+      photo(c, photos[(ligne * 2 + (col === 5 ? 1 : 0)) % photos.length], cx + pad, cy + pad, s2, s2, 12);
+      c.fillStyle = 'rgba(255,255,255,0.92)'; c.beginPath();
+      c.moveTo(cx + cell / 2 - 9, cy + cell / 2 - 12); c.lineTo(cx + cell / 2 + 13, cy + cell / 2); c.lineTo(cx + cell / 2 - 9, cy + cell / 2 + 12); c.fill();
+    } else if (col < 6) {
+      c.fillStyle = JAUNE; c.beginPath(); c.roundRect(cx + pad, cy + cell - pad - 30, s2 * kn, 22, 11); c.fill();
+      texte(c, 'menu', cx + pad + 10, cy + cell - pad - 14, 14, { graisse: 700, couleur: ARDOISE });
+    }
+    c.restore();
+  }
+  c.restore();
+}
+// vos clients vous voient : les notifications
+const NOTIFS = [
+  ['Réservation', 'Ce soir, 20 h 30 · 4 personnes'],
+  ['Google', 'Nouvel avis ★★★★★ « Les meilleures pâtes du quartier »'],
+  ['Instagram', '34 nouveaux abonnés cette semaine'],
+  ['Instagram', 'lea.gva a aimé votre réel'],
+];
+const NOTIF_T = NOTIFS.map((_, i) => 0.3 + i * 0.55);
+function sceneNotifs(c, u, D) {
+  const img = plan('cliente', u, 0);
+  if (PAYSAGE) {
+    // vidéo verticale : un cadre 9:16 sur la même image floutée
+    c.save(); c.filter = 'blur(40px)'; cadrer(c, img, 0.5, 0.5, 1.1); c.restore();
+    c.fillStyle = 'rgba(10,14,15,0.55)'; c.fillRect(0, 0, L, H);
+    const vh = H * 0.84, vw = vh * 9 / 16, vx = L * 0.56 - vw / 2, vy = (H - vh) / 2;
+    c.save(); c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 60; c.fillStyle = '#000';
+    c.beginPath(); c.roundRect(vx, vy, vw, vh, 28); c.fill(); c.restore();
+    cadrer(c, img, 0.5, 0.5, mix(1.02, 1.08, u / D), { x: vx, y: vy, l: vw, h: vh, rayon: 28 });
+    voile(c, H * 0.5, H, 0.7);
+  } else {
+    cadrer(c, img, 0.55, 0.5, mix(1.02, 1.08, u / D));
+    voile(c, H * 0.4, H, 0.88);
+    c.fillStyle = 'rgba(10,14,15,0.18)'; c.fillRect(0, 0, L, H);
+  }
+  const w = PAYSAGE ? 720 : 940, h = PAYSAGE ? 120 : 150, x = PAYSAGE ? L - w - 70 : (L - w) / 2, y0 = PAYSAGE ? 150 : 170;
+  NOTIFS.forEach(([app, msg], i) => {
+    const k = expo(prog(u, NOTIF_T[i], NOTIF_T[i] + 0.55));
+    if (k <= 0) return;
+    // chaque nouvelle notification pousse les autres vers le bas
+    const rang = NOTIF_T.reduce((a, tt, j) => a + (j > i ? expo(prog(u, tt, tt + 0.55)) : 0), 0);
+    const y = y0 + rang * (h + 20) - (1 - k) * 60;
+    c.save(); c.globalAlpha = k;
+    c.shadowColor = 'rgba(0,0,0,0.3)'; c.shadowBlur = 30; c.shadowOffsetY = 10;
+    c.fillStyle = 'rgba(246,243,236,0.95)'; c.beginPath(); c.roundRect(x, y, w, h, 30); c.fill();
+    c.shadowColor = 'transparent';
+    c.fillStyle = { Réservation: OST.lac, Google: '#4285F4', Instagram: '#E1306C' }[app];
+    c.beginPath(); c.roundRect(x + 24, y + (h - 72) / 2, 72, 72, 18); c.fill();
+    texte(c, app[0], x + 60, y + h / 2 + 13, 36, { graisse: 700, couleur: '#fff', aligne: 'center' });
+    const tp = PAYSAGE ? 23 : 29;
+    texte(c, app, x + 120, y + h / 2 - 10, tp, { graisse: 700, couleur: '#1D1D1D' });
+    texte(c, 'maintenant', x + w - 28, y + h / 2 - 10, tp - 3, { couleur: '#888', aligne: 'right' });
+    let m = msg; fonte(c, tp, 400);
+    if (c.measureText(m).width > w - 150) { while (c.measureText(m + '…').width > w - 150) m = m.slice(0, -1); m += '…'; }
+    texte(c, m, x + 120, y + h / 2 + 26, tp, { couleur: '#333' });
+    c.restore();
+  });
+  titre(c, u, 0.2, '', [L1('Vos clients'), L1(['vous voient.', true])], { pos: 'bas', ombre: true });
+}
+// vous, vous cuisinez
+function sceneCuisinez(c, u, D) {
+  cadrer(c, IMG.perche, 0.5, 0.5, mix(1.12, 1.2, u / D));
+  voile(c, H * 0.4, H, 0.85);
+  titre(c, u, 0.15, '', [L1('Vous, vous'), L1(['cuisinez.', true])], { pos: 'bas', ombre: true });
+}
+
+// ---------- La confiance : un café, puis le contact de chaque jour ----------
+function tasse(c, cx, cy, k, u) {
+  // une tasse dessinée à la craie, et sa vapeur
+  craie(c, (cc) => {
+    cc.strokeStyle = '#F6F3EC'; cc.lineWidth = 9; cc.lineCap = 'round'; cc.lineJoin = 'round';
+    cc.setLineDash([1200]); cc.lineDashOffset = 1200 * (1 - k);
+    cc.beginPath(); cc.moveTo(cx - 120, cy - 60); cc.lineTo(cx - 100, cy + 70); cc.quadraticCurveTo(cx, cy + 110, cx + 100, cy + 70); cc.lineTo(cx + 120, cy - 60); cc.closePath(); cc.stroke();
+    cc.beginPath(); cc.arc(cx + 132, cy, 38, -1.2, 1.4); cc.stroke();
+    cc.beginPath(); cc.ellipse(cx, cy + 110, 190, 26, 0, 0, Math.PI * 2); cc.stroke();
+    cc.setLineDash([]);
+    cc.strokeStyle = JAUNE; cc.lineWidth = 7;
+    for (let i = 0; i < 3; i++) {
+      const x = cx - 50 + i * 50, ph = u * 3 + i;
+      cc.globalAlpha = clamp(k * 2 - 1) * 0.9;
+      cc.beginPath();
+      for (let s = 0; s <= 20; s++) { const yy = cy - 90 - s * 7; cc.lineTo(x + Math.sin(ph + s * 0.35) * 14, yy); }
+      cc.stroke();
+    }
+  });
+}
+function conversation(c, u) {
+  c.fillStyle = '#EFE9DF'; c.fillRect(0, 0, ECRAN.w, ECRAN.h);
+  c.fillStyle = '#fff'; c.fillRect(0, 0, ECRAN.w, 112);
+  barreEtat(c, '#111');
+  c.fillStyle = ARDOISE; c.beginPath(); c.arc(52, 82, 20, 0, 7); c.fill();
+  nLumineux(c, 43, 74, 18, { eclat: 0.3 });
+  texte(c, 'Nouvelle Ardoise', 84, 80, 17, { graisse: 700, couleur: '#111' });
+  texte(c, 'en ligne', 84, 99, 13, { couleur: '#2E7D4F' });
+  // 1. le restaurateur envoie la photo de son ardoise
+  const k1 = sortie(prog(u, 0.2, 0.6));
+  if (k1 > 0) {
+    c.save(); c.globalAlpha = k1; c.translate(0, (1 - k1) * 20);
+    c.fillStyle = '#D9F2D0'; c.beginPath(); c.roundRect(130, 140, 240, 290, 16); c.fill();
+    photo(c, IMG.ardoise, 138, 148, 224, 224, 10, 0.5, 0.42);
+    texte(c, 'Le plat du jour !', 146, 398, 16, { couleur: '#111' });
+    texte(c, '7:41', 358, 420, 11, { couleur: '#667', aligne: 'right' });
+    c.restore();
+  }
+  // 2. on répond : c'est en ligne
+  const k2 = sortie(prog(u, 1.2, 1.6));
+  if (k2 > 0) {
+    c.save(); c.globalAlpha = k2; c.translate(0, (1 - k2) * 20);
+    c.fillStyle = '#fff'; c.beginPath(); c.roundRect(20, 450, 270, 92, 16); c.fill();
+    texte(c, 'Merci ! C’est en ligne sur le site,', 34, 480, 15.5, { couleur: '#111' });
+    texte(c, 'Google et Instagram.', 34, 502, 15.5, { couleur: '#111' });
+    texte(c, '7:43  ✓✓', 278, 530, 11, { couleur: '#3B82C4', aligne: 'right' });
+    c.restore();
+  }
+  // 3. le plat du jour publié, en aperçu
+  const k3 = sortie(prog(u, 1.9, 2.4));
+  if (k3 > 0) {
+    c.save(); c.globalAlpha = k3; c.translate(0, (1 - k3) * 20);
+    c.fillStyle = '#fff'; c.beginPath(); c.roundRect(20, 556, 270, 200, 16); c.fill();
+    photo(c, IMG.perche, 28, 564, 254, 140, 10);
+    texte(c, 'Plat du jour : filets de perche', 34, 730, 14.5, { graisse: 600, couleur: '#111' });
+    c.restore();
+  }
+}
+function sceneContact(c, u, D) {
+  ardoise(c);
+  const bascule = 2.6;
+  const a1 = 1 - prog(u, bascule - 0.3, bascule);
+  if (a1 > 0) {
+    c.save(); c.globalAlpha *= a1;
+    titre(c, u, 0.1, 'Confiance', [L1('Tout commence'), L1('par ', ['un café.', true])]);
+    tasse(c, TEL.cx, TEL.cy, douce(prog(u, 0.2, 1.4)), u);
+    c.restore();
+  }
+  if (u > bascule - 0.3) {
+    const a2 = prog(u, bascule - 0.1, bascule + 0.3);
+    c.save(); c.globalAlpha *= a2;
+    titre(c, u, bascule, '', [L1('On se parle'), L1(['chaque jour.', true])]);
+    c.restore();
+    const k = expo(prog(u, bascule, bascule + 0.8));
+    telephone(c, TEL.cx, TEL.cy, TEL.h, (cc) => conversation(cc, u - bascule - 0.3), { alpha: k, dy: (1 - k) * 100 });
+  }
+}
+
+// ---------- La fin ----------
+function sceneFin(c, u, D) {
+  ardoise(c);
+  const echelle = PAYSAGE ? 0.85 : 1;
+  const cy = PAYSAGE ? H * 0.3 : H * 0.33;
+  const taille = 150 * echelle;
+  const kN = douce(prog(u, 0.1, 0.9));
+  fonte(c, 84 * echelle, 650, 'Brico');
+  const largeurNom = c.measureText('Nouvelle').width;
+  const x0 = L / 2 - (taille + 40 * echelle + largeurNom) / 2;
+  nLumineux(c, x0, cy - taille * 0.43, taille, { trace: kN, eclat: 0.5 + 0.5 * prog(u, 0.8, 1.3) });
+  const kNom = sortie(prog(u, 0.6, 1.3));
+  const xn = x0 + taille + 40 * echelle + (1 - kNom) * 20;
+  c.save(); c.globalAlpha *= kNom;
+  fonte(c, 84 * echelle, 650, 'Brico'); c.fillStyle = '#F6F3EC'; c.letterSpacing = '-1px';
+  c.fillText('Nouvelle', xn, cy - 8 * echelle);
+  c.fillText('Ardoise', xn, cy + 74 * echelle);
+  const lArd = c.measureText('Ardoise').width;
+  c.restore();
+  if (kNom > 0) traitJaune(c, xn + 2, cy + 98 * echelle, lArd * 0.98, douce(prog(u, 1.0, 1.5)));
+  const yP = PAYSAGE ? H * 0.56 : H * 0.53;
+  const k1 = sortie(prog(u, 1.3, 2.0)), k2 = sortie(prog(u, 1.6, 2.3));
+  c.save(); c.textAlign = 'center';
+  fonte(c, PAYSAGE ? 50 : 58, 340, 'Fraunces'); c.fillStyle = 'rgba(246,243,236,0.8)'; c.globalAlpha *= k1;
+  c.fillText('Site, plateformes, réseaux :', L / 2, yP + (1 - k1) * 20);
+  c.restore();
+  c.save(); c.textAlign = 'center';
+  fonte(c, PAYSAGE ? 70 : 82, 380, 'Fraunces', true); c.fillStyle = '#F6F3EC'; c.globalAlpha *= k2;
+  c.fillText('on s’occupe de tout.', L / 2, yP + (PAYSAGE ? 90 : 104) + (1 - k2) * 20);
+  c.restore();
+  const k3 = expo(prog(u, 2.3, 3.0));
+  const yB = PAYSAGE ? H * 0.72 : H * 0.68;
+  const bw = PAYSAGE ? 460 : 560, bh = PAYSAGE ? 92 : 110;
+  const pouls = 1 + 0.025 * Math.sin(Math.max(0, u - 3) * 5);
+  c.save(); c.globalAlpha *= k3; c.translate(L / 2, yB + bh / 2); c.scale(mix(0.9, 1, k3) * pouls, mix(0.9, 1, k3) * pouls);
+  c.fillStyle = JAUNE; c.beginPath(); c.roundRect(-bw / 2, -bh / 2, bw, bh, bh / 2); c.fill();
+  const tb = PAYSAGE ? 36 : 42;
+  texte(c, 'Prenons un café', 0, tb * 0.36, tb, { graisse: 650, couleur: ARDOISE, aligne: 'center' });
+  c.restore();
+  const k4 = sortie(prog(u, 2.7, 3.3));
+  texte(c, 'WhatsApp 078 213 38 68', L / 2, yB + bh + (PAYSAGE ? 64 : 84), PAYSAGE ? 34 : 40, { graisse: 600, couleur: '#F6F3EC', aligne: 'center', alpha: k4 });
+  texte(c, 'nouvelleardoise.ch', L / 2, yB + bh + (PAYSAGE ? 112 : 142), PAYSAGE ? 30 : 34, { couleur: 'rgba(246,243,236,0.7)', aligne: 'center', alpha: k4 });
+}
+
+// ---------- le montage : les plans de voix/plan.js, fondus de 0,4 s ----------
+const SCENES = { pastamo: scenePastamo, probleme: sceneProbleme, photographe: scenePhotographe, histoire: sceneHistoire, site: sceneSite, plateformes: scenePlateformes, tournage: sceneTournage, reel: sceneReel, calendrier: sceneCalendrier, notifs: sceneNotifs, cuisinez: sceneCuisinez, contact: sceneContact, fin: sceneFin };
+let debut = 0;
+const PLANS = window.PLAN.map((p) => { const r = { ...p, debut, f: SCENES[p.id] }; debut += p.duree; return r; });
+const DUREE = debut;
+window.DUREE = DUREE;
+const FONDU = 0.4;
+window.rendu = (t) => {
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1;
+  ctx.fillStyle = '#000'; ctx.fillRect(0, 0, L, H);
+  PLANS.forEach((p, i) => {
+    const a = i === 0 ? 0 : p.debut - FONDU / 2, b = i === PLANS.length - 1 ? DUREE + 1 : p.debut + p.duree + FONDU / 2;
+    if (t < a || t >= b) return;
+    ctx.save();
+    ctx.globalAlpha = i === 0 ? 1 : clamp((t - a) / FONDU);
+    p.f(ctx, t - p.debut, p.duree);
+    ctx.restore();
+  });
+};
+
+window.pret = (async () => {
+  const fonts = ['400 20px Instru', '600 20px Instru', '700 20px Instru', '340 20px Fraunces', 'italic 380 20px Fraunces', '500 20px Bodoni', '600 20px Bodoni', 'italic 500 20px Bodoni', '650 20px Brico'];
+  await Promise.all(fonts.map((f) => document.fonts.load(f)));
+  const photos = ['ragu', 'burrata', 'pesto', 'tiramisu', 'perche', 'salle', 'ramen', 'pomodoro'];
+  await Promise.all(photos.map(async (p) => { IMG[p] = await charger(`../../../src/assets/photo-${p}.jpg`); }));
+  IMG.ardoise = await charger('photos/menu-du-jour-ardoise.jpg');
+  const n = (i) => String(i).padStart(3, '0');
+  const seq = [['pastamo', 37, (i) => `../../../public/sequences/pastamo/g/${n(i)}.webp`]]
+    .concat(Object.entries(window.VIDEOS).map(([k, v]) => [k, v, (i) => `videos/concept/${k}/${n(i)}.jpg`]));
+  await Promise.all(seq.map(async ([k, v, src]) => { SEQ[k] = await Promise.all(Array.from({ length: v }, (_, i) => charger(src(i + 1)))); }));
+  window.rendu(0);
+})();
+</script>
+</body>
+</html>

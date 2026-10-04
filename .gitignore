@@ -23,3 +23,7 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 __pycache__/
+
+# vidéo concept : images extraites et voix générées (voir marketing/kit-lancement/_sources)
+marketing/kit-lancement/_sources/videos/concept/
+marketing/kit-lancement/_sources/voix/*.wav
