@@ -14,9 +14,9 @@ const ici = dirname(fileURLToPath(import.meta.url));
 const sortie = join(ici, '..', 'reel');
 const IPS = 30;
 const REEL = process.env.REEL ?? 'reel';
-const NOM = { reel: 'reel-sushi-15s', 'reel-carte': 'reel-carte-15s', 'reel-reseaux': 'reel-reseaux-18s', 'reel-menu': 'reel-menu-du-jour-16s', 'reel-ardoise': 'reel-votre-ardoise-17s' }[REEL];
+const NOM = { reel: 'reel-sushi-15s', 'reel-carte': 'reel-carte-15s', 'reel-reseaux': 'reel-reseaux-18s', 'reel-menu': 'reel-menu-du-jour-16s', 'reel-ardoise': 'reel-votre-ardoise-20s' }[REEL];
 const SON = { reel: 'son.py', 'reel-carte': 'son_carte.py', 'reel-reseaux': 'son_reseaux.py', 'reel-menu': 'son_menu.py', 'reel-ardoise': 'son_ardoise.py' }[REEL];
-const COUVERTURE = { reel: '0210', 'reel-carte': '0240', 'reel-reseaux': '0165', 'reel-menu': '0330', 'reel-ardoise': '0360' }[REEL];
+const COUVERTURE = { reel: '0210', 'reel-carte': '0240', 'reel-reseaux': '0165', 'reel-menu': '0330', 'reel-ardoise': '0470' }[REEL];
 const tmp = process.env.TMP_REEL ?? mkdtempSync(join(tmpdir(), 'reel-'));
 
 const nav = await chromium.launch({ args: ['--allow-file-access-from-files'] });

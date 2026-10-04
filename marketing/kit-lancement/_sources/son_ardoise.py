@@ -13,7 +13,7 @@ import sys
 import wave
 
 TAUX = 44100
-DUREE = 17.0
+DUREE = 20.0
 n = int(TAUX * DUREE)
 piste = [0.0] * n
 alea = random.Random(7)
@@ -109,41 +109,48 @@ def salle(t0, duree, vol=0.05):
     ajoute(t0, duree, f)
 
 
-for t in (0.12, 0.18, 0.24, 0.3, 0.36, 0.42, 0.48, 0.54):  # « Et si on prenait en main votre ardoise ? »
+for t in (0.1, 0.16, 0.22, 0.28, 0.34, 0.42, 0.48):  # « Et si on prenait en main votre ardoise ? »
     pop(t, 0.06, 700)
-souffle(2.05, 0.5, 0.18)  # la brosse arrive
-frotte(2.55, 1.35, 0.5, allers=7)  # le coup d'éponge
-# la pulsation du motion design
+souffle(2.0, 0.45, 0.18)  # la brosse arrive
+frotte(2.4, 1.25, 0.5, allers=7)  # le coup d'éponge
+# la plongée sur Genève
+souffle(3.5, 3.1, 0.3, montee=True)
+souffle(3.6, 1.0, 0.18)
+for t in (3.65, 3.77):
+    pop(t, 0.1, 650)
+for t in (5.3, 5.42, 5.54):
+    pop(t, 0.1, 700)
 B = 60 / 110
-for b in range(12):
-    t = 4.0 + b * B / 2
-    if b % 2 == 0:
-        kick(t, 0.32)
-    else:
-        hat(t, 0.06)
-for t, f0 in ((4.0, 520), (4.0 + B / 2, 620)):  # MENU, DU
-    pop(t, 0.18, f0)
-impact(4.0 + B)  # JOUR
-for i in range(5):  # les cartes du menu
-    pop(5.05 + i * B / 2, 0.16, 800 + i * 110)
-    clic(5.1 + i * B / 2, 0.12)
-souffle(6.75, 0.4, 0.2)  # les cartes s'envolent
-souffle(6.85, 0.9, 0.3, montee=True)  # on plonge dans la carte corail
-# le bistrot
-salle(7.2, 3.4, 0.05)
-tinte(8.25, 0.07)
-souffle(9.9, 0.7, 0.22, montee=True)  # la caméra arrive sur la table
-# l'assiette
-souffle(10.4, 0.5, 0.16)
-gresille(10.45, 3.2, 0.06)
-pop(11.25, 0.14, 900)  # étiquette « plat du jour »
-for b in range(6):
-    kick(11.25 + b * B, 0.2)
-souffle(13.6, 0.45, 0.18)  # l'ardoise remonte
-souffle(14.0, 0.5, 0.12, montee=True)  # le N s'allume
+for b in range(30):  # pulsation, de la ville jusqu'au plat
+    t = 5.3 + b * B
+    if t < 16.6:
+        kick(t, 0.22 if 7.0 <= t < 9.9 else 0.28)
+        hat(t + B / 2, 0.05)
+impact(6.55)  # l'épingle se plante
+souffle(6.8, 0.6, 0.28, montee=True)  # on plonge vers la place
+# on pousse la porte : la salle
+souffle(7.0, 0.5, 0.2)
+salle(7.0, 3.0, 0.05)
+tinte(8.4, 0.06)
+for t in (7.45, 7.57, 7.69):
+    pop(t, 0.08, 800)
+# le menu à la craie
+for i, dt in enumerate((0, 0.35, 0.42, 0.5, 0.62, 0.7, 0.78, 0.95, 1.02, 1.1, 1.22, 1.3, 1.48, 1.55)):
+    pop(9.95 + dt, 0.1, 700 + 40 * i)
+frotte(11.75, 0.45, 0.25, allers=2)  # le cercle à la craie
+souffle(12.2, 0.5, 0.25, montee=True)  # on plonge dans le plat
+# le plat
+gresille(12.5, 2.6, 0.08)
+souffle(12.5, 0.4, 0.15)
+pop(12.75, 0.12, 900)
+souffle(14.75, 0.45, 0.14)
+gresille(14.8, 2.0, 0.04)
+pop(15.1, 0.14, 950)  # étiquette « plat du jour »
+souffle(16.65, 0.45, 0.18)  # l'ardoise remonte
+souffle(17.0, 0.5, 0.12, montee=True)  # le N s'allume
 for i in range(3):  # vidéo, photo, motion design
-    pop(14.75 + i * B / 2, 0.14, 1000 + i * 150)
-carillon(15.5)
+    pop(17.7 + i * B / 2, 0.14, 1000 + i * 150)
+carillon(18.45)
 
 # normalisation et petit fondu final pour une boucle propre
 crete = max(abs(x) for x in piste) or 1
