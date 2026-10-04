@@ -56,12 +56,13 @@ function sequence(section) {
     const couvre = Math.max(W / img.width, H / img.height);
     // Les images pour téléphone sont déjà recadrées sur le plat
     const portrait = (W * (img.width / img.height > 1.5 ? 1.75 : 1.08)) / img.width;
-    const k = W / H < 1 ? Math.min(couvre, portrait) : couvre;
+    // data-couvre : images téléphone déjà cadrées en hauteur, elles couvrent tout l'écran
+    const k = W / H < 1 && !('couvre' in section.dataset) ? Math.min(couvre, portrait) : couvre;
     const w = img.width * k;
     const h = img.height * k;
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, W, H);
-    ctx.drawImage(img, (W - w) / 2, (H - h) * (W / H < 1 ? 0.38 : 0.5), w, h);
+    ctx.drawImage(img, (W - w) / 2, (H - h) * (W / H < 1 && !('couvre' in section.dataset) ? 0.38 : 0.5), w, h);
   }
 
   tailler();

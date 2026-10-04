@@ -1,0 +1,92 @@
+---
+// Une animation au défilement, seule sur sa page et en plein écran.
+// Ouverte depuis les onglets « Vos plats, en mouvement » de l'accueil.
+import Base from '../../layouts/Base.astro';
+import { ANIMATIONS } from '../../data/animations.js';
+
+export function getStaticPaths() {
+  return ANIMATIONS.map((a) => ({ params: { id: a.id }, props: { a } }));
+}
+const { a } = Astro.props;
+const autres = ANIMATIONS.filter((x) => x.id !== a.id);
+---
+<Base page="animation" title={`${a.titre} | Nouvelle Ardoise`} description={a.resume}>
+
+<section class={`sequence sequence--${a.id}`} data-sequence={a.id} data-images={a.images} data-tailles={a.tailles} data-couvre={a.couvre ? '' : undefined} aria-label={a.titre}>
+  <div class="sequence__colle">
+    <canvas class="sequence__toile" aria-hidden="true"></canvas>
+    <div class="sequence__voile" aria-hidden="true"></div>
+    <div class="cadre sequence__textes">
+      {a.id === 'kebab' && (
+        <Fragment>
+          <div class="sequence__texte" data-de="-0.1" data-a="0.36">
+            <h1 class="titre-2">La broche tourne depuis 11 h.</h1>
+            <p class="chapo">Veau et poulet marinés la veille, tranchés à la minute.</p>
+            <p class="sequence__indice"><span></span>Faites défiler</p>
+          </div>
+          <div class="sequence__texte" data-de="0.37" data-a="0.49">
+            <p class="titre-2">Crudités du jour, sauces maison.</p>
+          </div>
+          <div class="sequence__texte" data-de="0.5" data-a="0.73">
+            <p class="titre-2">Le pain, garni à ras bord.</p>
+            <p class="chapo">Viande, tomates grillées, feta. Rien n’est préparé à l’avance.</p>
+          </div>
+          <div class="sequence__texte" data-de="0.75" data-a="1.01">
+            <p class="titre-2">Emballé, prêt en trois minutes.</p>
+            <p class="chapo">Nous filmons votre broche, votre comptoir et vos sauces, puis nous construisons le site autour.</p>
+            <div class="actions"><a class="btn btn--jaune" href="/#contact">Demander un devis</a></div>
+          </div>
+        </Fragment>
+      )}
+      {a.id === 'pizza' && (
+        <Fragment>
+          <div class="sequence__texte" data-de="-0.1" data-a="0.34">
+            <h1 class="titre-2">Votre produit au centre.</h1>
+            <p class="chapo">Continuez à défiler : la pizza s’assemble au feu de bois.</p>
+            <p class="sequence__indice"><span></span>Faites défiler</p>
+          </div>
+          <div class="sequence__texte sequence__texte--droite" data-de="0.36" data-a="0.66">
+            <p class="titre-2">La sauce, la mozzarella, le basilic.</p>
+            <p class="chapo">La pizza s’assemble au rythme du doigt. Vos clients ne lisent plus une liste, ils regardent votre savoir-faire.</p>
+          </div>
+          <div class="sequence__texte" data-de="0.74" data-a="1.01">
+            <p class="titre-2">Le feu de bois pour une pizzeria. La broche pour un kebab.</p>
+            <p class="chapo">Nous filmons ou créons la séquence de votre plat signature, puis nous construisons le site autour.</p>
+            <div class="actions"><a class="btn btn--jaune" href="/#contact">Demander un devis</a></div>
+          </div>
+        </Fragment>
+      )}
+      {a.id === 'sushi' && (
+        <Fragment>
+          <div class="sequence__texte" data-de="-0.1" data-a="0.34">
+            <h1 class="titre-2">Chaque ingrédient, montré.</h1>
+            <p class="chapo">Continuez à défiler : le maki s’ouvre et révèle ce qui le compose.</p>
+            <p class="sequence__indice"><span></span>Faites défiler</p>
+          </div>
+          <ul class="sequence__liste" data-de="0.45" data-a="1.01">
+            <li>Saumon label rouge</li><li>Avocat mûr à point</li><li>Concombre croquant</li><li>Riz vinaigré maison</li><li>Algue nori grillée</li>
+          </ul>
+        </Fragment>
+      )}
+    </div>
+  </div>
+</section>
+
+<section class="bloc bloc--ardoise anim-fin">
+  <div class="cadre anim-fin__in">
+    <h2 class="titre-2">La même chose avec votre plat ?</h2>
+    <p>Nous filmons chez vous, ou nous créons l’animation de votre plat signature, puis nous l’installons sur votre site.</p>
+    <div class="actions">
+      <a class="btn btn--jaune" href="/#contact">Demander un devis</a>
+      {autres.map((x) => <a class="lien" href={`/animations/${x.id}/`}>Voir l’animation {x.onglet.toLowerCase()}</a>)}
+      <a class="lien" href="/#en-mouvement">Retour aux exemples</a>
+    </div>
+    {a.credit && <p class="anim-fin__credit"><a href={a.creditLien}>{a.credit}</a></p>}
+  </div>
+</section>
+
+</Base>
+
+<script>
+  import '../../scripts/defilement.js';
+</script>

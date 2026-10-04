@@ -19,6 +19,7 @@ import imgPomodoro from '../assets/photo-pomodoro.jpg';
 import imgTiramisu from '../assets/photo-tiramisu.jpg';
 import { RESTAURANTS, parId } from '../data/restaurants.js';
 import { SITE } from '../config.js';
+import { ANIMATIONS } from '../data/animations.js';
 
 // Photos converties en WebP à la compilation, à la taille où elles sont affichées
 const webp = (src, width) => getImage({ src, format: 'webp', width, quality: 72 });
@@ -239,55 +240,34 @@ const jsonLd = JSON.stringify({
       </div>
 </section>
 
-<!-- ============ Voir plus : les plats en mouvement, chargés seulement à la demande ============ -->
-<section class="bloc bloc--ardoise plus" id="en-mouvement">
-  <div class="cadre plus__tete">
-    <h2 class="titre-2">Vos plats, en mouvement</h2>
-    <p>Deux séquences au défilement : une pizza qui s’assemble, un maki qui s’ouvre. Nous filmons ou créons celle de votre plat signature.</p>
-    <button type="button" class="btn btn--jaune" data-voir-plus aria-expanded="false" aria-controls="plus-sequences">Voir plus</button>
-  </div>
-</section>
-<div id="plus-sequences" class="plus__sequences" hidden>
-<!-- La pizza s'assemble au rythme du défilement -->
-<section class="sequence" data-sequence="pizza" data-images="96" data-tailles="m,g,x" data-paresse aria-label="Une pizza s’assemble au feu de bois pendant que vous faites défiler la page">
-  <div class="sequence__colle">
-    <canvas class="sequence__toile" aria-hidden="true"></canvas>
-    <div class="sequence__voile" aria-hidden="true"></div>
-    <div class="cadre sequence__textes">
-      <div class="sequence__texte" data-de="-0.1" data-a="0.34">
-        <h3 class="titre-2">Votre produit au centre.</h3>
-        <p class="chapo">Continuez à défiler : la pizza s’assemble au feu de bois.</p>
-      </div>
-      <div class="sequence__texte sequence__texte--droite" data-de="0.36" data-a="0.66">
-        <p class="titre-2">La sauce, la mozzarella, le basilic.</p>
-        <p class="chapo">La sauce, la mozzarella, le basilic : la pizza s’assemble au rythme de votre doigt. Vos clients ne lisent plus une liste, ils regardent votre savoir-faire.</p>
-      </div>
-      <div class="sequence__texte" data-de="0.74" data-a="1.01">
-        <p class="titre-2">Le feu de bois pour une pizzeria. La broche qui tourne pour un chawarma.</p>
-        <p class="chapo">Nous filmons ou créons la séquence de votre plat signature, puis nous construisons le site autour.</p>
-        <div class="actions"><a class="btn btn--jaune" href="#contact">Demander un devis</a><a class="lien" href="#essayer">Essayer trois exemples</a></div>
-      </div>
+<!-- ============ Vos plats en mouvement : un onglet par animation, chacune s'ouvre sur sa propre page ============ -->
+<section class="bloc bloc--ardoise mouvement" id="en-mouvement">
+  <div class="cadre">
+    <div class="mouvement__tete">
+      <h2 class="titre-2">Vos plats, en mouvement</h2>
+      <p>Des animations qui avancent au rythme du doigt, en plein écran. Choisissez un exemple, puis ouvrez-le.</p>
     </div>
-  </div>
-</section>
-
-<!-- Le maki se décompose -->
-<section class="sequence sequence--sushi" data-sequence="sushi" data-images="96" data-tailles="m,g,x" data-paresse aria-label="Un sushi se décompose en ses ingrédients pendant que vous faites défiler la page">
-  <div class="sequence__colle">
-    <canvas class="sequence__toile" aria-hidden="true"></canvas>
-    <div class="cadre sequence__textes">
-      <div class="sequence__texte" data-de="-0.1" data-a="0.34">
-        <h3 class="titre-2">Chaque ingrédient, montré.</h3>
-        <p class="chapo">Continuez à défiler : le maki s’ouvre et révèle ce qui le compose.</p>
-      </div>
-      <ul class="sequence__liste" data-de="0.45" data-a="1.01">
-        <li>Saumon label rouge</li><li>Avocat mûr à point</li><li>Concombre croquant</li><li>Riz vinaigré maison</li><li>Algue nori grillée</li>
-      </ul>
+    <div class="onglets onglets--sombre" role="tablist" aria-label="Choisir une animation" data-onglets>
+      {ANIMATIONS.map((a, i) => (
+        <button type="button" role="tab" id={`onglet-${a.id}`} aria-controls={`anim-${a.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? undefined : '-1'}><b>{a.onglet}</b><span>{a.sous}</span></button>
+      ))}
     </div>
+    {ANIMATIONS.map((a) => (
+      <div class="anim" id={`anim-${a.id}`} role="tabpanel" aria-labelledby={`onglet-${a.id}`}>
+        <a class="anim__apercu" href={`/animations/${a.id}/`} target="_blank" rel="noopener">
+          <img src={a.apercu} alt="" width="1600" height="900" loading="lazy" decoding="async" />
+          <span class="anim__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+        </a>
+        <div class="anim__texte">
+          <h3>{a.titre}</h3>
+          <p>{a.resume}</p>
+          <a class="btn btn--jaune" href={`/animations/${a.id}/`} target="_blank" rel="noopener">Lancer l’animation</a>
+          <p class="anim__note">S’ouvre en plein écran dans un nouvel onglet. Faites défiler pour la faire avancer.</p>
+        </div>
+      </div>
+    ))}
   </div>
 </section>
-
-</div>
 
 <!-- ============ La carte qui défile ============ -->
 <section class="defile" data-defile aria-label="La carte de l’Osteria del Lago défile à l’horizontale">
