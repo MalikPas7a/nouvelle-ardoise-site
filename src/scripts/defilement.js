@@ -22,10 +22,12 @@ function sequence(section) {
   const ctx = toile.getContext('2d');
   const textes = [...section.querySelectorAll('[data-de]')];
   const sujet = section.dataset.sujet?.split(',').map(Number);
-  // Trois tailles d'images : téléphone (m), ordinateur (g), grand écran très défini (x) quand elle existe
+  // Tailles d'images : téléphone recadré (m) ou complet mais plus léger (p), ordinateur (g),
+  // grand écran très défini (x), selon celles qui existent pour la séquence
   const tailles = (section.dataset.tailles || 'm,g').split(',');
   const pixels = innerWidth * Math.min(devicePixelRatio || 1, 2);
-  const taille = innerWidth < 760 && tailles.includes('m') ? 'm' : pixels >= 2300 && tailles.includes('x') ? 'x' : 'g';
+  const telephone = innerWidth < 760;
+  const taille = telephone && tailles.includes('m') ? 'm' : telephone && tailles.includes('p') ? 'p' : pixels >= 2300 && tailles.includes('x') ? 'x' : 'g';
   const dossier = `/sequences/${nom}/${taille}`;
   const images = new Array(total);
   let affichee = -1;
@@ -88,8 +90,11 @@ function sequence(section) {
   charger(0).then(() => { dessiner(0); affichee = 0; });
   // D'abord une image sur huit, puis une sur quatre, etc. : le défilement répond très tôt,
   // la fluidité arrive ensuite. Six images se chargent en même temps.
+  // Sur téléphone, une image sur deux suffit : la page pèse deux fois moins lourd
+  const finesse = innerWidth < 760 ? 2 : 1;
   const ordre = [];
-  for (let pas = 8; pas >= 1; pas /= 2) for (let i = 0; i < total; i += pas) if (!ordre.includes(i)) ordre.push(i);
+  for (let pas = 8; pas >= finesse; pas /= 2) for (let i = 0; i < total; i += pas) if (!ordre.includes(i)) ordre.push(i);
+  if (!ordre.includes(total - 1)) ordre.push(total - 1);
   const suite = async () => {
     let n = 0;
     const ouvrier = async () => {
@@ -134,21 +139,6 @@ function sequence(section) {
 }
 document.querySelectorAll('[data-sequence]').forEach(sequence);
 
-/* ---------- la carte qui défile à l'horizontale ---------- */
-document.querySelectorAll('[data-defile]').forEach((section) => {
-  const piste = section.querySelector('[data-piste]');
-  const barre = section.querySelector('[data-barre]');
-  let courant = 0;
-  taches.push(() => {
-    const r = section.getBoundingClientRect();
-    if (r.bottom < -200 || r.top > innerHeight + 200) return;
-    courant += (avancement(section) - courant) * 0.16;
-    const course = Math.max(0, piste.scrollWidth - innerWidth);
-    piste.style.transform = `translate3d(${(-courant * course).toFixed(1)}px,0,0)`;
-    barre.style.setProperty('--p', courant.toFixed(4));
-  });
-});
-
 /* ---------- le plat en 3D tourne quand on fait défiler ---------- */
 const zone3d = document.querySelector('[data-plat3d]');
 if (zone3d && !calme) {
@@ -164,36 +154,6 @@ if (zone3d && !calme) {
     const p = borne((innerHeight - r.top) / (innerHeight + r.height));
     const orbite = `${(-110 + p * 250).toFixed(1)}deg 60deg 0.78m`;
     if (orbite !== dernier) { mv.cameraOrbit = orbite; dernier = orbite; }
-  });
-}
-
-/* ---------- la ligne de la méthode se trace ---------- */
-const etapes = document.querySelector('[data-etapes]');
-if (etapes) taches.push(() => {
-  const r = etapes.getBoundingClientRect();
-  etapes.style.setProperty('--p', borne((innerHeight * 0.85 - r.top) / (innerHeight * 0.5)).toFixed(3));
-});
-
-/* ---------- l'ouverture : l'éponge passe sur « ancien site » ---------- */
-const eponge = document.querySelector('[data-eponge]');
-if (eponge) {
-  let e = 0;
-  let r = 0;
-  const poser = () => {
-    eponge.style.setProperty('--e', e.toFixed(4));
-    eponge.style.setProperty('--r', r.toFixed(4));
-    // la brosse n'apparaît que pendant qu'elle essuie
-    eponge.style.setProperty('--b', borne(Math.min(e * 12, (1 - e) * 12)).toFixed(3));
-    eponge.classList.toggle('lu', r > 0.5);
-  };
-  if (calme) { e = 1; r = 1; poser(); }
-  else taches.push(() => {
-    const rect = eponge.getBoundingClientRect();
-    if (rect.bottom < -200 || rect.top > innerHeight + 200) return;
-    const p = avancement(eponge);
-    e += (borne((p - 0.04) / 0.42) - e) * 0.18;
-    r += (borne((p - 0.42) / 0.28) - r) * 0.18;
-    poser();
   });
 }
 

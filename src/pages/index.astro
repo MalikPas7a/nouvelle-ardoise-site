@@ -13,10 +13,6 @@ import imgPerche from '../assets/photo-perche.jpg';
 import imgRamen from '../assets/photo-ramen.jpg';
 import imgSalle from '../assets/photo-salle.jpg';
 import imgComptoir from '../assets/photo-comptoir.jpg';
-import imgBurrata from '../assets/photo-burrata.jpg';
-import imgPesto from '../assets/photo-pesto.jpg';
-import imgPomodoro from '../assets/photo-pomodoro.jpg';
-import imgTiramisu from '../assets/photo-tiramisu.jpg';
 import { RESTAURANTS, parId } from '../data/restaurants.js';
 import { SITE } from '../config.js';
 import { ANIMATIONS } from '../data/animations.js';
@@ -27,15 +23,9 @@ const [ragu, perche, ramen, salle] = await Promise.all([webp(imgRagu, 1100), web
 const comptoir = await webp(imgComptoir, 1600);
 const photos = { osteria: ragu.src, leonie: perche.src, sora: ramen.src };
 
-// La carte qui défile : cinq plats de l'Osteria, photographiés dans la même lumière
-const [burrata, pesto, pomodoro, tiramisu] = await Promise.all([imgBurrata, imgPesto, imgPomodoro, imgTiramisu].map((i) => webp(i, 900)));
-const defile = [
-  { nom: 'Burrata, tomates anciennes', desc: 'Huile d’olive des Pouilles, basilic', prix: 16, img: burrata.src },
-  { nom: 'Tagliatelle al ragù', desc: 'Bœuf et porc mijotés six heures', prix: 24, img: ragu.src },
-  { nom: 'Linguine al pesto', desc: 'Basilic, pignons, pecorino', prix: 22, img: pesto.src },
-  { nom: 'Spaghetti al pomodoro', desc: 'Tomates San Marzano, ail, basilic', prix: 19, img: pomodoro.src },
-  { nom: 'Tiramisù', desc: 'Mascarpone, café serré, cacao', prix: 11, img: tiramisu.src },
-];
+// Photo d'ouverture, en trois tailles : le téléphone ne charge que la petite
+const ouverture = await Promise.all([800, 1200, 1600].map((w) => webp(imgRagu, w)));
+const ouvertureSrcset = ouverture.map((o, i) => `${o.src} ${[800, 1200, 1600][i]}w`).join(', ');
 
 // QR code vers le plat en 3D : il suit l'adresse du site définie dans config.js
 const qr = (await QRCode.toString(SITE.url + '/demos/carte-3d/', { type: 'svg', margin: 0, color: { dark: '#1E2A2C', light: '#0000' } }))
@@ -51,6 +41,7 @@ const jsonLd = JSON.stringify({
   name: SITE.nom,
   url: SITE.url,
   email: SITE.email,
+  telephone: SITE.telephone || undefined,
   areaServed: ['Genève', 'Vaud'],
   description: 'Sites web, gestion des réseaux sociaux, vidéo et menus en 3D pour les restaurants.',
   priceRange: 'CHF 999 – 3490',
@@ -59,18 +50,34 @@ const jsonLd = JSON.stringify({
 <Base page="accueil" title="Nouvelle Ardoise | Sites, réseaux sociaux et menus 3D pour restaurants à Genève" description="Marketing digital pour les restaurants de Genève et Vaud : sites web, gestion des réseaux sociaux, vidéo et menus en 3D. Prix affichés, sites dès CHF 999.">
 <script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
 
-<!-- ============ Ouverture : un coup d'éponge sur l'ancien site ============ -->
-<section class="eponge" data-eponge aria-labelledby="titre-accueil">
-  <div class="eponge__colle">
-    <div class="cadre eponge__contenu">
-      <p class="eponge__sur"><svg class="eponge__n" viewBox="0 0 28 28" width="34" height="34" aria-hidden="true"><path d="M7.4 21.6V6.4l13.2 15.2V6.4" fill="none" stroke="#FFD23F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Sites, réseaux sociaux et menus 3D · Genève et Vaud</p>
-      <h1 class="eponge__titre" id="titre-accueil" aria-label="Envie de passer l’éponge sur votre ancien site ?">
-        <span aria-hidden="true">Envie de passer l’éponge sur votre <span class="efface"><span class="efface__mot">ancien site</span><span class="efface__trace">ancien site</span><svg class="efface__brosse" viewBox="0 0 40 120"><rect x="2" y="2" width="22" height="116" rx="7" fill="#C9975C"/><rect x="2" y="2" width="9" height="116" rx="5" fill="#E2B57A"/><rect x="22" y="4" width="15" height="112" rx="4" fill="#3C4245"/><rect x="33" y="6" width="3" height="108" fill="#E8EDEC" opacity=".35"/></svg></span>&nbsp;?</span>
-      </h1>
-      <p class="eponge__nouveau">Place à votre <mark>nouveau site.</mark></p>
-      <p class="chapo eponge__chapo">Un site rapide, une carte lisible au pouce et vos plats en mouvement, pour les restaurants de Genève et Vaud.</p>
-      <div class="actions eponge__actions"><a class="btn btn--jaune" href="#contact">Demander un devis</a><a class="lien" href="#essayer">Essayer trois exemples</a></div>
-      <p class="sequence__indice eponge__indice" aria-hidden="true"><span></span>Faites défiler</p>
+<!-- ============ Ouverture : un plat plein écran, tout est visible dès l'arrivée ============ -->
+<section class="ouvre" aria-labelledby="titre-accueil">
+  <img class="ouvre__photo" src={ouverture[1].src} srcset={ouvertureSrcset} sizes="100vw" alt="" width="1600" height="1194" fetchpriority="high" decoding="async" />
+  <div class="ouvre__voile" aria-hidden="true"></div>
+  <div class="cadre ouvre__contenu">
+    <p class="ouvre__sur"><svg class="ouvre__n" viewBox="0 0 28 28" width="30" height="30" aria-hidden="true"><path d="M7.4 21.6V6.4l13.2 15.2V6.4" fill="none" stroke="#FFD23F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Sites, réseaux sociaux et menus 3D · Genève et Vaud</p>
+    <h1 class="ouvre__titre" id="titre-accueil">Envie de passer l’éponge sur votre <span class="efface"><span class="efface__mot">ancien site</span><span class="efface__trace" aria-hidden="true">ancien site</span></span>&nbsp;?</h1>
+    <p class="ouvre__nouveau">Place à votre <mark>nouveau site.</mark></p>
+    <p class="chapo ouvre__chapo">Un site rapide, une carte lisible au pouce et vos plats en mouvement, pour les restaurants de Genève et Vaud. Sites dès CHF 999, prix affichés.</p>
+    <div class="actions"><a class="btn btn--jaune" href="#contact">Demander un devis</a><a class="lien" href="#essayer">Essayer trois exemples</a></div>
+  </div>
+</section>
+
+<!-- ============ Déjà fait : Pasta Mo', au défilement ============ -->
+<section class="sequence sequence--pastamo" data-sequence="pastamo" data-images="72" data-tailles="p,g" data-sujet="0.385,0.58" aria-label="Pasta Mo’ : le parmesan tombe sur la bolognese, puis l’huile d’olive coule sur le pesto, au rythme du défilement">
+  <div class="sequence__colle">
+    <canvas class="sequence__toile" aria-hidden="true"></canvas>
+    <div class="sequence__voile" aria-hidden="true"></div>
+    <div class="cadre sequence__textes">
+      <div class="sequence__texte sequence__texte--droite" data-de="-0.2" data-a="0.42">
+        <h2 class="titre-2">Déjà fait : Pasta Mo’</h2>
+        <p class="chapo">Notre propre enseigne de street food italienne, à Genève, et son site fait par nous. Faites défiler : le parmesan tombe sur la bolognese.</p>
+      </div>
+      <div class="sequence__texte sequence__texte--droite" data-de="0.52" data-a="1.2">
+        <p class="titre-2">Puis l’huile d’olive, sur le pesto.</p>
+        <p class="chapo">C’est le principe du site de Pasta Mo’ : un geste, un plan. Nous connaissons le service du midi de l’intérieur.</p>
+        <div class="actions"><a class="btn btn--jaune" href="https://pastamo.ch" target="_blank" rel="noopener">Voir pastamo.ch</a></div>
+      </div>
     </div>
   </div>
 </section>
@@ -269,26 +276,6 @@ const jsonLd = JSON.stringify({
   </div>
 </section>
 
-<!-- ============ La carte qui défile ============ -->
-<section class="defile" data-defile aria-label="La carte de l’Osteria del Lago défile à l’horizontale">
-  <div class="defile__colle">
-    <div class="cadre defile__tete">
-      <h2 class="titre-2">Une carte qui se feuillette</h2>
-      <p>Le défilement fait glisser les plats, un par un, comme on tourne les pages. Photos d’un même reportage, même lumière, même cadrage.</p>
-    </div>
-    <ul class="defile__piste" data-piste>
-      {defile.map((p, i) => (
-        <li class="plat">
-          <img src={p.img} alt={p.nom} width="900" height="675" loading="lazy" decoding="async" />
-          <div class="plat__bas"><div><h3>{p.nom}</h3><p>{p.desc}</p></div><span>{p.prix}.–</span></div>
-        </li>
-      ))}
-      <li class="plat plat--fin"><p>Osteria del Lago</p><a class="lien" href="/demos/osteria/">Ouvrir le site complet</a></li>
-    </ul>
-    <div class="defile__barre" aria-hidden="true"><i data-barre></i></div>
-  </div>
-</section>
-
 <!-- ============ Avant / après ============ -->
 <section class="bloc bloc--ardoise">
   <div class="cadre">
@@ -452,31 +439,18 @@ const jsonLd = JSON.stringify({
   </div>
 </section>
 
-<!-- ============ Déjà fait : Pasta Mo', au défilement ============ -->
-<section class="sequence sequence--pastamo" data-sequence="pastamo" data-images="72" data-tailles="g" data-sujet="0.385,0.58" data-paresse aria-label="Pasta Mo’ : le parmesan tombe sur la bolognese, puis l’huile d’olive coule sur le pesto, au rythme du défilement">
-  <div class="sequence__colle">
-    <canvas class="sequence__toile" aria-hidden="true"></canvas>
-    <div class="sequence__voile" aria-hidden="true"></div>
-    <div class="cadre sequence__textes">
-      <div class="sequence__texte sequence__texte--droite" data-de="-0.2" data-a="0.42">
-        <h2 class="titre-2">Déjà fait : Pasta Mo’</h2>
-        <p class="chapo">Notre propre enseigne de street food italienne, à Genève. Faites défiler : le parmesan tombe sur la bolognese.</p>
-      </div>
-      <div class="sequence__texte sequence__texte--droite" data-de="0.52" data-a="1.2">
-        <p class="titre-2">Puis l’huile d’olive, sur le pesto.</p>
-        <p class="chapo">C’est le principe du site de Pasta Mo’ : un geste, un plan. Nous connaissons le service du midi de l’intérieur.</p>
-        <div class="actions"><a class="btn btn--jaune" href="https://pastamo.ch" target="_blank" rel="noopener">Voir pastamo.ch</a></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ Contact ============ -->
 <section class="bloc bloc--ardoise" id="contact">
   <div class="cadre contact">
     <div>
       <h2 class="titre-2">Parlons de votre restaurant</h2>
       <p>Réponse sous 24 heures avec un devis clair. Le premier rendez-vous est offert, chez vous.</p>
+      {(SITE.telephone || SITE.whatsapp) && (
+        <div class="actions contact__direct">
+          {SITE.telephone && <a class="btn btn--clair" href={'tel:' + SITE.telephone.replace(/[^+\d]/g, '')}>Appeler le {SITE.telephone}</a>}
+          {SITE.whatsapp && <a class="btn btn--jaune" href={'https://wa.me/' + SITE.whatsapp.replace(/\D/g, '')} target="_blank" rel="noopener">Écrire sur WhatsApp</a>}
+        </div>
+      )}
     </div>
     <form class="formulaire" data-contact>
       <label>Votre nom<input name="nom" autocomplete="name" required></label>

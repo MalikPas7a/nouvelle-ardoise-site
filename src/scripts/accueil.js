@@ -3,7 +3,6 @@
 // ne gère que la logique des démonstrations. C'est ce qui garde la page rapide.
 import { SITE } from '../config.js';
 import './defilement.js';
-import './boutons.js';
 import './onglets.js';
 
 const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
