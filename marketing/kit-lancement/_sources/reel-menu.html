@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Réel menu du jour</title>
+<!--
+  Réel Instagram 16 s, 1080×1920 : le menu du jour d'un restaurant de Genève.
+  Plongée aérienne du lac Léman à la place du Bourg-de-Four (SWISSIMAGE © swisstopo,
+  python3 vue-aerienne.py), épingle sur l'adresse, la vraie ardoise du matin en photo
+  (photos/menu-du-jour-ardoise.jpg, domaine public CC0), un coup d'éponge, puis le même
+  menu remis au propre et animé, et l'appel à l'action.
+  REEL=reel-menu node render.mjs assemble la vidéo.
+-->
+<style>
+  @font-face { font-family: Brico; src: url(fonts/bricolage-grotesque-latin-standard-normal.woff2) format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: Instru; src: url(fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; width: 1080px; height: 1920px; }
+</style>
+</head>
+<body>
+<canvas width="1080" height="1920"></canvas>
+<script src="ardoise.js"></script>
+<script src="carte/index.js"></script>
+<script>
+const L = 1080, H = 1920, DUREE = 16;
+window.DUREE = DUREE;
+const JAUNE = '#FFD23F', ARDOISE = '#1E2A2C';
+const ctx = document.querySelector('canvas').getContext('2d');
+const FOND = peindreArdoise(L, H);
+const toile = (l, h) => Object.assign(document.createElement('canvas'), { width: l, height: h });
+
+// ---------- outils ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const mix = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const sortie = (k) => 1 - Math.pow(1 - k, 3);
+const dansSortie = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const lisse = (k) => k * k * k * (k * (k * 6 - 15) + 10);
+const rebond = (k) => { const c = 1.7; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+const police = (c, taille, graisse = 800, famille = 'Brico') => { c.font = `${graisse} ${taille}px ${famille}`; };
+const charger = (src) => new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; });
+
+// Lignes de texte (fondu montant), un mot surligné en jaune
+function ligne(c, mots, t, t0, y, taille, { surligne = -1, fin = 1e9, ecart = 0.06, couleur = '#fff', ombre = 0.45 } = {}) {
+  police(c, taille);
+  c.textBaseline = 'alphabetic';
+  const espace = taille * 0.27;
+  const largeurs = mots.map((m, j) => c.measureText(m).width + (j === surligne ? 36 : 0));
+  let x = (L - largeurs.reduce((a, b) => a + b, 0) - espace * (mots.length - 1)) / 2;
+  const kOut = prog(t, fin, fin + 0.2);
+  mots.forEach((m, j) => {
+    const k = sortie(prog(t, t0 + j * ecart, t0 + j * ecart + 0.32));
+    if (k > 0 && kOut < 1) {
+      c.save();
+      c.globalAlpha = k * (1 - kOut);
+      c.translate(x + largeurs[j] / 2, y + (1 - k) * 26 - kOut * 26);
+      if (j === surligne) {
+        const p = sortie(prog(t, t0 + j * ecart + 0.12, t0 + j * ecart + 0.45));
+        c.fillStyle = JAUNE;
+        c.beginPath(); c.roundRect(-largeurs[j] / 2 + 4, -taille * 0.82, (largeurs[j] - 8) * p, taille * 1.04, 12); c.fill();
+      }
+      c.fillStyle = j === surligne ? ARDOISE : couleur;
+      c.shadowColor = j === surligne ? 'transparent' : `rgba(0,0,0,${ombre})`; c.shadowBlur = 26; c.shadowOffsetY = 4;
+      c.textAlign = 'center';
+      c.fillText(m, 0, 0);
+      c.restore();
+    }
+    x += largeurs[j] + espace;
+  });
+}
+
+// ---------- 1. la plongée aérienne ----------
+const NIVEAUX = Object.keys(window.CARTE).map(Number).sort((a, b) => a - b);
+const MOSAIQUES = {};
+const Z0 = 10, Z1 = 19.35;
+const zoomA = (t) => mix(Z0, Z1, lisse(prog(t, 0.0, 4.3))) + 0.9 * dansSortie(prog(t, 4.3, 5.0));
+
+function niveau(c, z, Z, rot, alpha) {
+  const img = MOSAIQUES[z], p = window.CARTE[z];
+  if (!img || alpha <= 0) return;
+  const s = Math.pow(2, Z - z);
+  c.save();
+  c.globalAlpha = alpha;
+  c.translate(L / 2, H * 0.52); c.rotate(rot); c.scale(s, s); c.translate(-p.x, -p.y);
+  c.drawImage(img, 0, 0);
+  c.restore();
+}
+
+const NUAGE = (() => {
+  const n = toile(512, 512), c = n.getContext('2d'), r = hasard(21);
+  for (let i = 0; i < 26; i++) {
+    const x = 256 + (r() - 0.5) * 300, y = 256 + (r() - 0.5) * 160, rr = 60 + r() * 110;
+    const g = c.createRadialGradient(x, y, 0, x, y, rr);
+    g.addColorStop(0, 'rgba(255,255,255,0.55)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+    c.fillStyle = g; c.beginPath(); c.arc(x, y, rr, 0, 7); c.fill();
+  }
+  return n;
+})();
+const NUAGES = [[-0.9, -0.5, 0.0], [0.7, -0.2, 0.25], [-0.2, 0.6, 0.45], [0.9, 0.7, 0.15], [-0.7, 0.1, 0.6]];
+
+const vue = toile(L, H), vctx = vue.getContext('2d');
+function aerien(c, t) {
+  const Z = zoomA(t), rot = mix(-0.32, 0, lisse(prog(t, 0, 4.4)));
+  vctx.fillStyle = '#1B2426'; vctx.fillRect(0, 0, L, H);
+  const z = clamp(Math.floor(Z), NIVEAUX[0], NIVEAUX[NIVEAUX.length - 1]);
+  niveau(vctx, z - 1, Z, rot, 1);
+  niveau(vctx, z, Z, rot, 1);
+  niveau(vctx, z + 1, Z, rot, lisse(clamp((Z - z - 0.45) / 0.55)));
+  // flou de vitesse : quelques copies agrandies, plus fortes quand on descend vite
+  const vitesse = clamp((zoomA(t + 0.05) - Z) / 0.25);
+  c.drawImage(vue, 0, 0);
+  for (let i = 1; i <= 3 && vitesse > 0.05; i++) {
+    const k = 1 + 0.018 * i * vitesse;
+    c.save(); c.globalAlpha = 0.22 * vitesse;
+    c.translate(L / 2, H * 0.52); c.scale(k, k); c.translate(-L / 2, -H * 0.52);
+    c.drawImage(vue, 0, 0); c.restore();
+  }
+  // traversée des nuages
+  NUAGES.forEach(([nx, ny, d]) => {
+    const k = prog(t, d, d + 1.5);
+    if (k <= 0 || k >= 1) return;
+    const e = Math.pow(6, k);
+    c.save(); c.globalAlpha = Math.sin(Math.PI * k) * 0.9;
+    c.translate(L / 2 + nx * 420 * e, H * 0.52 + ny * 520 * e); c.scale(e * 1.4, e);
+    c.drawImage(NUAGE, -256, -256); c.restore();
+  });
+  // lisibilité du texte et vignette
+  const haut = c.createLinearGradient(0, 0, 0, 760);
+  haut.addColorStop(0, 'rgba(12,18,19,0.78)'); haut.addColorStop(1, 'rgba(12,18,19,0)');
+  c.fillStyle = haut; c.fillRect(0, 0, L, 760);
+  const vig = c.createRadialGradient(L / 2, H * 0.52, H * 0.3, L / 2, H * 0.52, H * 0.75);
+  vig.addColorStop(0, 'rgba(0,0,0,0)'); vig.addColorStop(1, 'rgba(0,0,0,0.45)');
+  c.fillStyle = vig; c.fillRect(0, 0, L, H);
+  // mention obligatoire de la source des images
+  c.save(); police(c, 26, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.75)'; c.textAlign = 'left';
+  c.shadowColor = 'rgba(0,0,0,0.6)'; c.shadowBlur = 8; c.fillText('Images aériennes © swisstopo', 40, H - 46); c.restore();
+}
+
+// l'épingle jaune qui tombe sur l'adresse
+function epingle(c, t) {
+  const k = prog(t, 3.55, 4.05);
+  if (k <= 0) return;
+  const x = L / 2, sol = H * 0.52;
+  const y = sol - (1 - rebond(k)) * -1 - (1 - sortie(k)) * 520;
+  // ondes au sol
+  for (let i = 0; i < 2; i++) {
+    const o = prog(t, 3.95 + i * 0.25, 4.75 + i * 0.25);
+    if (o > 0 && o < 1) {
+      c.save(); c.strokeStyle = `rgba(255,210,63,${0.8 * (1 - o)})`; c.lineWidth = 8 * (1 - o) + 2;
+      c.beginPath(); c.ellipse(x, sol, 40 + o * 220, (40 + o * 220) * 0.42, 0, 0, 7); c.stroke(); c.restore();
+    }
+  }
+  c.save();
+  c.fillStyle = 'rgba(0,0,0,0.35)'; c.beginPath(); c.ellipse(x, sol + 4, 34 * sortie(k), 12 * sortie(k), 0, 0, 7); c.fill();
+  c.translate(x, y); c.scale(1.5, 1.5);
+  c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 24; c.shadowOffsetY = 10;
+  c.fillStyle = JAUNE; c.beginPath(); c.arc(0, -78, 46, Math.PI * 0.85, Math.PI * 0.15); c.lineTo(0, 0); c.closePath(); c.fill();
+  c.shadowColor = 'transparent';
+  c.fillStyle = ARDOISE; c.beginPath(); c.arc(0, -80, 19, 0, 7); c.fill();
+  c.restore();
+  // l'étiquette de l'adresse
+  const ke = sortie(prog(t, 3.9, 4.25));
+  if (ke > 0) {
+    c.save(); c.globalAlpha = ke * (1 - prog(t, 4.45, 4.65));
+    c.translate(x, sol + 120 + (1 - ke) * 30);
+    police(c, 46, 800); const w1 = c.measureText('Votre restaurant').width;
+    police(c, 32, 600, 'Instru'); const w2 = c.measureText('Place du Bourg-de-Four · Genève').width;
+    const w = Math.max(w1, w2) + 90;
+    c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 40; c.shadowOffsetY = 12;
+    c.fillStyle = 'rgba(22,31,33,0.94)'; c.beginPath(); c.roundRect(-w / 2, -64, w, 150, 34); c.fill();
+    c.shadowColor = 'transparent'; c.strokeStyle = 'rgba(255,210,63,0.5)'; c.lineWidth = 2; c.stroke();
+    c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    police(c, 46, 800); c.fillStyle = '#fff'; c.fillText('Votre restaurant', 0, 2);
+    police(c, 32, 600, 'Instru'); c.fillStyle = JAUNE; c.fillText('Place du Bourg-de-Four · Genève', 0, 56);
+    c.restore();
+  }
+}
+
+// ---------- 2. la vraie ardoise du matin, puis le coup d'éponge ----------
+let PHOTO;
+const photo = toile(L, H), phctx = photo.getContext('2d');
+// le prix sur l'ardoise d'origine (coordonnées dans la photo 1200 × 1600) : on le gomme
+const PRIX = { x: 752, y: 222, w: 178, h: 112 };
+const VIERGE = { x: 805, y: 345, w: 130, h: 98 };   // un coin d'ardoise sans craie, juste dessous
+let RUSTINE;
+function preparerRustine() {
+  RUSTINE = toile(PRIX.w, PRIX.h);
+  const c = RUSTINE.getContext('2d');
+  c.drawImage(PHOTO, VIERGE.x, VIERGE.y, VIERGE.w, VIERGE.h, 0, 0, PRIX.w, PRIX.h);
+  // bords fondus pour que la retouche ne se voie pas
+  c.globalCompositeOperation = 'destination-in';
+  const g = c.createRadialGradient(PRIX.w / 2, PRIX.h / 2, 20, PRIX.w / 2, PRIX.h / 2, PRIX.w * 0.55);
+  g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(0.78, 'rgba(0,0,0,1)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+  c.fillStyle = g; c.fillRect(0, 0, PRIX.w, PRIX.h);
+}
+function peindrePhoto(t) {
+  const s = (H / PHOTO.height) * mix(1.0, 1.08, prog(t, 4.4, 7.3));
+  const w = PHOTO.width * s, h = PHOTO.height * s;
+  const x = (L - w) / 2 - 40 * prog(t, 4.4, 7.3), y = (H - h) / 2;
+  phctx.globalCompositeOperation = 'source-over';
+  phctx.drawImage(PHOTO, x, y, w, h);
+  // le prix, effacé d'un doigt : recouvert d'un morceau d'ardoise vierge pris juste dessous
+  phctx.drawImage(RUSTINE, x + PRIX.x * s, y + PRIX.y * s, PRIX.w * s, PRIX.h * s);
+  const bas = phctx.createLinearGradient(0, H - 560, 0, H);
+  bas.addColorStop(0, 'rgba(12,18,19,0)'); bas.addColorStop(1, 'rgba(12,18,19,0.9)');
+  phctx.fillStyle = bas; phctx.fillRect(0, H - 560, L, 560);
+}
+const PISTE = { l: L, h: H, bande: 360, passes: 7 };
+function scenePhoto(c, t) {
+  peindrePhoto(t);
+  let tete = null;
+  const p = prog(t, 7.0, 8.45);
+  if (p > 0) tete = essuyage(phctx, dansSortie(p), PISTE);
+  // apparition : la photo s'ouvre depuis l'épingle
+  const k = dansSortie(prog(t, 4.35, 4.95));
+  c.save();
+  if (k < 1) {
+    const w = mix(120, L, k), h = mix(120, H, k), r = mix(60, 0, k);
+    c.beginPath(); c.roundRect((L - w) / 2, mix(H * 0.52 - 140, 0, k), w, h, r); c.clip();
+  }
+  c.drawImage(photo, 0, 0);
+  c.restore();
+  return tete && p < 1 ? tete : null;
+}
+
+// ---------- 3. le menu remis au propre ----------
+const MENU = [
+  { type: 'titre', t: 8.55 },
+  { type: 'rubrique', texte: 'ENTRÉE', y: 600, t: 8.95 },
+  { type: 'plat', texte: ['Terrine aux deux poissons,', 'sauce curry'], y: 690, t: 9.1 },
+  { type: 'ou', y: 838, t: 9.45 },
+  { type: 'plat', texte: ['Feuilleté de poireaux', 'et mousse de roquefort'], y: 930, t: 9.55 },
+  { type: 'rubrique', texte: 'PLAT', y: 1130, t: 9.95 },
+  { type: 'plat', texte: ['Filet mignon', 'aux champignons'], y: 1220, t: 10.1 },
+  { type: 'ou', y: 1368, t: 10.45 },
+  { type: 'plat', texte: ['Filet de truite', 'aux baies roses'], y: 1460, t: 10.55 },
+  { type: 'rubrique', texte: 'FROMAGE OU DESSERT', y: 1660, t: 10.95 },
+];
+
+function menu(c, t) {
+  const kOut = dansSortie(prog(t, 12.85, 13.35));
+  if (t < 8.4 || kOut >= 1) return;
+  c.save();
+  c.translate(0, -kOut * 260); c.globalAlpha = 1 - kOut;
+  for (const e of MENU) {
+    const k = sortie(prog(t, e.t, e.t + 0.45));
+    if (k <= 0) continue;
+    c.save(); c.globalAlpha *= k;
+    if (e.type === 'titre') {
+      const kn = prog(t, e.t, e.t + 0.5);
+      nLumineux(c, 92, 236, 74, { trace: sortie(kn) });
+      police(c, 104, 800); c.fillStyle = '#fff'; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+      c.fillText('Menu du jour', 200 + (1 - k) * 30, 316);
+      police(c, 38, 600, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.72)';
+      c.fillText('Aujourd’hui à midi', 202 + (1 - k) * 30, 384);
+      const kt = prog(t, e.t + 0.25, e.t + 0.7);
+      if (kt > 0) traitJaune(c, 204, 432, 220, sortie(kt));
+    } else if (e.type === 'rubrique') {
+      police(c, 34, 700, 'Instru'); c.fillStyle = JAUNE; c.textAlign = 'center';
+      c.letterSpacing = '6px';
+      c.fillText(e.texte, L / 2, e.y + (1 - k) * 16);
+      const w = c.measureText(e.texte).width;
+      c.letterSpacing = '0px';
+      c.fillStyle = 'rgba(255,210,63,0.45)';
+      c.fillRect(L / 2 - w / 2 - 90, e.y - 12, 60 * k, 3); c.fillRect(L / 2 + w / 2 + 30 + 60 * (1 - k), e.y - 12, 60 * k, 3);
+    } else if (e.type === 'plat') {
+      police(c, 62, 700); c.fillStyle = '#fff'; c.textAlign = 'center';
+      e.texte.forEach((l, i) => {
+        const kl = prog(t, e.t + i * 0.12, e.t + i * 0.12 + 0.5);
+        const w = c.measureText(l).width;
+        c.save();
+        c.beginPath(); c.rect(L / 2 - w / 2 - 20, e.y + i * 76 - 70, (w + 40) * sortie(kl), 100); c.clip();
+        c.shadowColor = 'rgba(0,0,0,0.35)'; c.shadowBlur = 16;
+        c.fillText(l, L / 2, e.y + i * 76);
+        c.restore();
+      });
+    } else if (e.type === 'ou') {
+      const s = rebond(prog(t, e.t, e.t + 0.4));
+      c.save(); c.translate(L / 2, e.y - 16); c.scale(s, s);
+      craie(c, (x) => {
+        x.setTransform(c.getTransform());
+        x.strokeStyle = JAUNE; x.lineWidth = 5; x.beginPath(); x.ellipse(0, 0, 54, 36, -0.1, 0, Math.PI * 2 * sortie(prog(t, e.t, e.t + 0.5))); x.stroke();
+        police(x, 40, 500, 'Instru'); x.fillStyle = JAUNE; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('ou', 0, 2);
+      });
+      c.restore();
+    }
+    c.restore();
+  }
+  // en ligne partout
+  const kc = prog(t, 11.45, 12.85);
+  if (kc > 0) {
+    const CANAUX = ['Votre site', 'Google', 'Instagram'];
+    police(c, 36, 700, 'Instru');
+    const ws = CANAUX.map((m) => c.measureText(m).width + 120), gap = 22;
+    let x = (L - ws.reduce((a, b) => a + b, 0) - gap * 2) / 2;
+    CANAUX.forEach((m, i) => {
+      const k = rebond(prog(t, 11.5 + i * 0.16, 11.9 + i * 0.16));
+      if (k <= 0) { x += ws[i] + gap; return; }
+      c.save(); c.translate(x + ws[i] / 2, 1800); c.scale(k, k);
+      c.fillStyle = JAUNE; c.beginPath(); c.roundRect(-ws[i] / 2, -38, ws[i], 76, 38); c.fill();
+      c.fillStyle = ARDOISE; c.beginPath(); c.arc(-ws[i] / 2 + 40, 0, 17, 0, 7); c.fill();
+      c.strokeStyle = JAUNE; c.lineWidth = 5; c.lineCap = 'round'; c.lineJoin = 'round';
+      c.beginPath(); c.moveTo(-ws[i] / 2 + 32, 1); c.lineTo(-ws[i] / 2 + 38, 7); c.lineTo(-ws[i] / 2 + 49, -6); c.stroke();
+      c.fillStyle = ARDOISE; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(m, -ws[i] / 2 + 70, 2);
+      c.restore();
+      x += ws[i] + gap;
+    });
+  }
+  c.restore();
+}
+
+// ---------- 4. l'appel à l'action ----------
+function appel(c, t) {
+  if (t < 13.2) return;
+  const kn = prog(t, 13.25, 13.7);
+  nLumineux(c, 540 - 120, 250, 240, { trace: sortie(kn), eclat: 0.7 + 0.3 * prog(t, 13.7, 14) });
+  ligne(c, ['Votre', 'menu', 'du', 'jour,'], t, 13.45, 700, 100);
+  ligne(c, ['enfin'], t, 13.62, 830, 100);
+  ligne(c, ['appétissant.'], t, 13.75, 960, 100, { surligne: 0 });
+  const kb = sortie(prog(t, 14.2, 14.6));
+  if (kb > 0) {
+    const souffle = 1 + Math.sin((t - 14.6) * 6) * 0.025 * prog(t, 14.6, 14.8);
+    police(c, 54, 800);
+    const texte = 'Demandez votre démo';
+    const w = c.measureText(texte).width + 220, h = 132;
+    c.save(); c.translate(540, 1200 + (1 - kb) * 30); c.scale(souffle, souffle); c.globalAlpha = kb;
+    c.shadowColor = 'rgba(255,210,63,0.45)'; c.shadowBlur = 50;
+    c.fillStyle = JAUNE; c.beginPath(); c.roundRect(-w / 2, -h / 2, w, h, h / 2); c.fill();
+    c.shadowColor = 'transparent';
+    c.fillStyle = ARDOISE; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(texte, -w / 2 + 58, 4);
+    const ax = w / 2 - 78 + Math.sin(t * 8) * 4;
+    c.strokeStyle = ARDOISE; c.lineWidth = 8; c.lineCap = 'round'; c.lineJoin = 'round';
+    c.beginPath(); c.moveTo(ax - 24, 2); c.lineTo(ax + 20, 2); c.moveTo(ax + 2, -18); c.lineTo(ax + 22, 2); c.lineTo(ax + 2, 22); c.stroke();
+    c.restore();
+  }
+  const ks = sortie(prog(t, 14.45, 14.8));
+  if (ks > 0) {
+    c.save(); c.globalAlpha = ks; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    police(c, 60, 800); c.fillStyle = '#fff'; c.fillText('Nouvelle Ardoise', 540, 1430 + (1 - ks) * 24);
+    police(c, 42, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.75)'; c.fillText('Lien en bio · nouvelleardoise.ch', 540, 1500 + (1 - ks) * 24);
+    c.restore();
+  }
+}
+
+// ---------- montage ----------
+const LEGENDES = [
+  { de: 0.1, a: 1.95, l1: ['Il', 'est', '11 h 45'], l2: ['à', 'Genève.'], h: 1 },
+  { de: 2.1, a: 4.2, l1: ['Vos', 'clients'], l2: ['cherchent', 'où', 'manger.'], h: 2 },
+  { de: 5.0, a: 6.85, l1: ['Votre', 'ardoise', 'du', 'matin…'], l2: ['illisible', 'en', 'photo.'], h: 0, y: 1640 },
+  { de: 7.05, a: 8.3, l1: ['Un', 'coup'], l2: ['d’éponge…'], h: 0, y: 1640 },
+];
+
+window.pret = Promise.all([
+  document.fonts.load('800 100px Brico'), document.fonts.load('700 60px Brico'),
+  document.fonts.load('500 40px Instru'), document.fonts.load('600 40px Instru'), document.fonts.load('700 40px Instru'),
+  charger('photos/menu-du-jour-ardoise.jpg').then((i) => { PHOTO = i; preparerRustine(); }),
+  ...NIVEAUX.map((z) => charger(`carte/z${z}.jpg`).then((i) => { MOSAIQUES[z] = i; })),
+]);
+
+window.rendu = function (t) {
+  ctx.drawImage(FOND, 0, 0);
+  let tete = null;
+  if (t < 4.95) { aerien(ctx, t); epingle(ctx, t); }
+  if (t > 4.35 && t < 8.5) tete = scenePhoto(ctx, t);
+  menu(ctx, t);
+  appel(ctx, t);
+  if (tete) brosse(ctx, tete[0], tete[1], PISTE.bande * 0.8, Math.PI / 2 + Math.sin(t * 40) * 0.06);
+  for (const g of LEGENDES) {
+    if (t < g.de - 0.1 || t > g.a + 0.3) continue;
+    const y = g.y ?? 250;
+    ligne(ctx, g.l1, t, g.de, y, 92, { fin: g.a });
+    ligne(ctx, g.l2, t, g.de + 0.12, y + 120, 92, { fin: g.a, surligne: g.h });
+  }
+};
+
+if (!navigator.webdriver) {
+  window.pret.then(() => {
+    const debut = performance.now();
+    const boucle = () => { window.rendu(((performance.now() - debut) / 1000) % DUREE); requestAnimationFrame(boucle); };
+    boucle();
+  });
+}
+</script>
+</body>
+</html>

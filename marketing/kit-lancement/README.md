@@ -11,6 +11,8 @@ Aucun prix n'apparaît dans les visuels ni dans les légendes.
 | `reel/reel-carte-15s-sans-son.mp4` · `reel/couverture-reel-carte.jpg` | La même sans son, et sa couverture |
 | `reel/reel-reseaux-18s.mp4` | Réel de 18 s « gestion des réseaux sociaux et vidéos en motion design » : profil poussiéreux, coup d'éponge, publications qui se retournent, réel animé, planning, puis la confiance (basés à Genève, on en parle autour d’un café, on s’occupe de tout) et « Confiez-nous-en la gestion, dynamisez votre activité. ». 100 % dessiné, sans photo |
 | `reel/reel-reseaux-18s-sans-son.mp4` · `reel/couverture-reel-reseaux.jpg` | La même sans son, et sa couverture |
+| `reel/reel-menu-du-jour-16s.mp4` | Réel de 16 s « menu du jour » : plongée aérienne du lac Léman jusqu'à la place du Bourg-de-Four (Genève), épingle « Votre restaurant », la vraie ardoise du matin en photo, un coup d'éponge, puis le même menu remis au propre et animé, en ligne sur le site, Google et Instagram. Sans prix |
+| `reel/reel-menu-du-jour-16s-sans-son.mp4` · `reel/couverture-reel-menu.jpg` | La même sans son, et sa couverture |
 | `reel/reel-sushi-15s.mp4` | Réel 15 s, 1080×1920, 30 i/s, habillage sonore inclus |
 | `reel/reel-sushi-15s-sans-son.mp4` | Le même sans son, à utiliser si vous posez un son tendance |
 | `reel/couverture-reel.jpg` | Image de couverture du réel (le maki éclaté avec ses étiquettes) |
@@ -51,7 +53,31 @@ brille, un petit trait jaune en haut à gauche, et des mots effacés d'un coup d
 | 11,8 à 15 s | Rideau jaune, puis la carte de visite en mouvement : le N s'allume, « Passez l'éponge sur votre ancien site. », « ancien site. » s'efface, bouton « Demandez votre démo » | Appel à l'action clair, bouton qui pulse |
 | 15 s | Il ne reste que l'ardoise, et l'accroche revient | Boucle sans couture : la fin raccorde avec le début, les gens revoient le réel |
 
+## Sources du réel « menu du jour »
+
+- **Vue aérienne** : SWISSIMAGE, © swisstopo (Office fédéral de topographie). Usage libre, y compris
+  commercial, à condition de citer la source : la mention « Images aériennes © swisstopo » est
+  dans la vidéo, et à reprendre dans la légende.
+- **Photo de l'ardoise** : « La Cocagne (Lyon) – menu du jour », Benoît Prieur, Wikimedia Commons,
+  domaine public (CC0). Le prix inscrit sur l'ardoise a été retouché. Le menu est retranscrit tel
+  quel ; « Votre restaurant » sur la place du Bourg-de-Four est un exemple, pas un vrai client.
+
 ## Légendes prêtes à copier
+
+**Réel « menu du jour »**
+
+```
+11 h 45 à Genève. Vos clients cherchent où manger… et tombent sur une photo d'ardoise illisible. 🧽
+
+On efface, on remet au propre, et votre menu du jour devient appétissant : sur votre site, sur Google et sur Instagram, chaque matin.
+
+Nouvelle Ardoise, sites et menus pour les restaurants de Genève et Vaud.
+👉 Demandez votre démo : lien en bio
+
+Images aériennes © swisstopo
+
+#restaurantgeneve #genève #menudujour #platdujour #motiondesign #restaurateur #vieilleville #bourgdefour #suisseromande
+```
 
 **Réel**
 
@@ -110,6 +136,7 @@ node render.mjs                   # réel sushi (environ 3 minutes)
 # réel carte : site en local (npx astro preview --port 4399), node filmer-carte.mjs . (réduire les
 # images comme indiqué en fin de script), puis REEL=reel-carte node render.mjs
 # réel réseaux sociaux : REEL=reel-reseaux node render.mjs
+# réel menu du jour : python3 vue-aerienne.py (vue aérienne swisstopo), puis REEL=reel-menu node render.mjs
 node render.mjs --apercu 1,5,14   # captures de quelques instants, pour vérifier
 node publication.mjs              # publication en 4:5, 1:1 et story 9:16
 ```
