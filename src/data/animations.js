@@ -1,5 +1,7 @@
 // Les animations au défilement montrées en exemple. Chacune a sa page plein écran
 // (/animations/<id>/) et un onglet dans la section « Vos plats, en mouvement » de l'accueil.
+// Pasta Mo' (realisation: true) n'est pas un exemple : c'est notre propre enseigne. Elle a sa page
+// plein écran comme les autres, mais elle est présentée dans « Nos réalisations », pas dans ces onglets.
 // Images : public/sequences/<id>/m (téléphone) et g (ordinateur), fabriquées à partir de vraies
 // vidéos par marketing/kit-lancement/_sources/sequences/fabriquer.py.
 export const ANIMATIONS = [
@@ -35,5 +37,16 @@ export const ANIMATIONS = [
     images: 192,
     credit: 'Images : Pexels, licence Pexels. Extraits recadrés et enchaînés.',
     creditLien: 'https://www.pexels.com/search/videos/sushi%20chef/',
+  },
+  {
+    id: 'pastamo',
+    realisation: true,
+    onglet: 'Pasta Mo’',
+    sous: 'Bolognese, pesto',
+    titre: 'Pasta Mo’, au rythme du défilement',
+    resume: 'Le parmesan tombe sur la bolognese, puis l’huile d’olive coule sur le pesto. C’est le principe du site de Pasta Mo’, notre propre enseigne à Genève.',
+    apercu: '/sequences/pastamo/g/020.webp',
+    images: 72,
+    sujet: '0.385,0.58',
   },
 ];
