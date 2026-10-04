@@ -68,9 +68,11 @@ brille, un petit trait jaune en haut à gauche, et des mots effacés d'un coup d
 
 - Ardoise : B. Prieur, Wikimedia Commons, CC0 (prix retouché).
 - Vue aérienne : SWISSIMAGE © swisstopo (mention dans la vidéo et la légende).
-- Vidéos de la salle, des nouilles, de la cliente et de la table : Mixkit (mixkit.co, n° 51239,
-  46401, 51257 et 46790), licence gratuite Mixkit, usage commercial autorisé sans mention ; à ne
-  pas revendre telles quelles.
+- Vidéos de la salle et de la cliente : Mixkit (mixkit.co, n° 51239 et 51257), licence gratuite
+  Mixkit, usage commercial autorisé sans mention ; à ne pas revendre telles quelles.
+- Vidéo des nouilles : Pexels (n° 4224218), licence Pexels, usage commercial autorisé. Elle
+  remplace Mixkit 46401, sous « Mixkit Restricted License » (usage personnel seulement).
+  Avant d'utiliser une vidéo Mixkit, vérifier sa licence sur sa page.
 - Sora est le restaurant inventé des démos du site : sa charte (noir, crème, rouge #FF4B2B,
   police Syne) vient de src/styles/global.css. La vidéo l'indique (« Exemple : Sora, restaurant
   de démonstration »). Aucune image générée par IA.
