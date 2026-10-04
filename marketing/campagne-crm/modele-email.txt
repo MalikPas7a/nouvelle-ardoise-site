@@ -1,0 +1,73 @@
+TROIS STYLES, CHOISIS SELON LE RESTAURANT
+- IMPACTANT : le site est cassé (page blanche, erreur, « Coming soon », site qui ne répond plus,
+  domaine non relié).
+- DIRECT : restauration rapide (kebab, chawarma, pizzeria à emporter, snack, burger, food truck),
+  quel que soit le défaut.
+- CHALEUREUX : tous les autres cas (pas adapté au téléphone, « non sécurisé », adresse Wix
+  gratuite, carte en PDF, site vieillissant).
+
+RÈGLES COMMUNES
+- {RESTAURANT} : le nom, avec les élisions françaises (« d'Asia Garden », « du Cyrano »).
+- {OBSERVATION} : un seul défaut, vérifié le jour même, ton bienveillant, jamais moqueur.
+  Écrire « votre site », sans recopier son adresse web. Commencer directement par le constat
+  (« Votre site… », « Sur téléphone, votre site… »), sans « en cherchant sur Google » ni « en ligne ».
+- Aucun prix, aucune promesse chiffrée, aucune critique de la cuisine.
+- Seul lien : nouvelleardoise.ch.
+- Ne pas parler de Pasta Mo'.
+
+======================================================================
+IMPACTANT
+OBJET : {RESTAURANT} : votre site ne s'affiche plus
+Bonjour,
+
+{OBSERVATION}
+
+Ce soir, un client qui hésite entre plusieurs restaurants choisira celui dont il voit les plats.
+
+Je m'appelle Malik Younes, fondateur de Nouvelle Ardoise, à Genève. Nous créons des sites où votre plat signature s'ouvre en 3D sous le doigt du client et dévoile ses ingrédients, un par un.
+
+Voyez par vous-même, sur votre téléphone : nouvelleardoise.ch
+
+Une réponse à ce message suffit pour que je vous montre ce que cela donnerait pour {RESTAURANT}.
+
+{SIGNATURE}
+
+======================================================================
+CHALEUREUX
+OBJET : Une idée pour le site de {RESTAURANT}
+Bonjour,
+
+Je m'appelle Malik Younes et j'ai lancé Nouvelle Ardoise, à Genève, pour aider les restaurants d'ici à se montrer sous leur meilleur jour en ligne. Je sais que le site passe souvent après la cuisine.
+
+{OBSERVATION} C'est dommage, parce que c'est justement là que vos futurs clients vous cherchent.
+
+Nous créons des sites pensés pour le téléphone, avec une touche que vos clients n'auront jamais vue : votre plat qui s'ouvre au fil du doigt et révèle ses ingrédients. Trois restaurants de démonstration vous attendent sur nouvelleardoise.ch.
+
+Si l'idée vous plaît, je passe volontiers prendre un café et vous montrer ce que cela donnerait pour {RESTAURANT}.
+
+{SIGNATURE}
+
+======================================================================
+DIRECT
+OBJET : {RESTAURANT} : votre site sur téléphone
+Bonjour,
+
+Malik Younes, Nouvelle Ardoise, Genève.
+
+{OBSERVATION}
+
+Nous faisons des sites de restaurants pensés pour le téléphone : carte claire, réservation et plat signature en 3D.
+
+Exemples : nouvelleardoise.ch
+
+Intéressé ? Répondez « oui » et je vous appelle.
+
+{SIGNATURE}
+
+======================================================================
+{SIGNATURE} =
+Malik Younes
+Fondateur, Nouvelle Ardoise
+078 213 38 68 · nouvelleardoise.ch
+
+Vous ne souhaitez plus recevoir de message de ma part ? Répondez « stop » et je ne vous écrirai plus.

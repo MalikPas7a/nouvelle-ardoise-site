@@ -58,26 +58,18 @@ const jsonLd = JSON.stringify({
 <Base page="accueil" title="Nouvelle Ardoise | Sites, cartes et menus 3D pour restaurants à Genève" description="Sites immersifs, cartes et menus en 3D pour les restaurants de Genève et Vaud. Trois offres à prix fixe, dès CHF 999.">
 <script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
 
-<!-- ============ Ouverture : la pizza s'assemble au rythme du défilement ============ -->
-<section class="sequence" data-sequence="pizza" data-images="96" data-tailles="m,g,x" aria-label="Une pizza s’assemble au feu de bois pendant que vous faites défiler la page">
-  <div class="sequence__colle">
-    <canvas class="sequence__toile" aria-hidden="true"></canvas>
-    <div class="sequence__voile" aria-hidden="true"></div>
-    <div class="cadre sequence__textes">
-      <div class="sequence__texte" data-de="-0.2" data-a="0.3" style="--o:1">
-        <h1 class="titre-1" aria-label="Votre restaurant mérite mieux qu’un menu en PDF.">{'Votre restaurant mérite mieux qu’un menu en PDF.'.split(' ').map((mot, i) => <><span class="mot" aria-hidden="true" style={`--i:${i}`}>{mot}</span>{' '}</>)}</h1>
-        <p class="chapo">Sites, cartes et menus en 3D pour les restaurants de Genève et Vaud.</p>
-        <p class="sequence__indice" aria-hidden="true"><span></span>Faites défiler</p>
-      </div>
-      <div class="sequence__texte sequence__texte--droite" data-de="0.36" data-a="0.66">
-        <p class="titre-2">Votre produit au centre.</p>
-        <p class="chapo">La sauce, la mozzarella, le basilic : la pizza s’assemble au rythme de votre doigt. Vos clients ne lisent plus une liste, ils regardent votre savoir-faire.</p>
-      </div>
-      <div class="sequence__texte" data-de="0.74" data-a="1.01">
-        <p class="titre-2">Le feu de bois pour une pizzeria. La broche qui tourne pour un chawarma.</p>
-        <p class="chapo">Nous filmons ou créons la séquence de votre plat signature, puis nous construisons le site autour.</p>
-        <div class="actions"><a class="btn btn--jaune" href="#contact">Demander un devis</a><a class="lien" href="#essayer">Essayer trois exemples</a></div>
-      </div>
+<!-- ============ Ouverture : un coup d'éponge sur l'ancien site ============ -->
+<section class="eponge" data-eponge aria-labelledby="titre-accueil">
+  <div class="eponge__colle">
+    <div class="cadre eponge__contenu">
+      <p class="eponge__sur"><svg class="eponge__n" viewBox="0 0 28 28" width="34" height="34" aria-hidden="true"><path d="M7.4 21.6V6.4l13.2 15.2V6.4" fill="none" stroke="#FFD23F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Sites, cartes et menus 3D · Genève et Vaud</p>
+      <h1 class="eponge__titre" id="titre-accueil" aria-label="Envie de passer l’éponge sur votre ancien site ?">
+        <span aria-hidden="true">Envie de passer l’éponge sur votre <span class="efface"><span class="efface__mot">ancien site</span><span class="efface__trace">ancien site</span><svg class="efface__brosse" viewBox="0 0 40 120"><rect x="2" y="2" width="22" height="116" rx="7" fill="#C9975C"/><rect x="2" y="2" width="9" height="116" rx="5" fill="#E2B57A"/><rect x="22" y="4" width="15" height="112" rx="4" fill="#3C4245"/><rect x="33" y="6" width="3" height="108" fill="#E8EDEC" opacity=".35"/></svg></span>&nbsp;?</span>
+      </h1>
+      <p class="eponge__nouveau">Place à votre <mark>nouveau site.</mark></p>
+      <p class="chapo eponge__chapo">Un site rapide, une carte lisible au pouce et vos plats en mouvement, pour les restaurants de Genève et Vaud.</p>
+      <div class="actions eponge__actions"><a class="btn btn--jaune" href="#contact">Demander un devis</a><a class="lien" href="#essayer">Essayer trois exemples</a></div>
+      <p class="sequence__indice eponge__indice" aria-hidden="true"><span></span>Faites défiler</p>
     </div>
   </div>
 </section>
@@ -247,13 +239,45 @@ const jsonLd = JSON.stringify({
       </div>
 </section>
 
-<!-- ============ Le plat décomposé ============ -->
+<!-- ============ Voir plus : les plats en mouvement, chargés seulement à la demande ============ -->
+<section class="bloc bloc--ardoise plus" id="en-mouvement">
+  <div class="cadre plus__tete">
+    <h2 class="titre-2">Vos plats, en mouvement</h2>
+    <p>Deux séquences au défilement : une pizza qui s’assemble, un maki qui s’ouvre. Nous filmons ou créons celle de votre plat signature.</p>
+    <button type="button" class="btn btn--jaune" data-voir-plus aria-expanded="false" aria-controls="plus-sequences">Voir plus</button>
+  </div>
+</section>
+<div id="plus-sequences" class="plus__sequences" hidden>
+<!-- La pizza s'assemble au rythme du défilement -->
+<section class="sequence" data-sequence="pizza" data-images="96" data-tailles="m,g,x" data-paresse aria-label="Une pizza s’assemble au feu de bois pendant que vous faites défiler la page">
+  <div class="sequence__colle">
+    <canvas class="sequence__toile" aria-hidden="true"></canvas>
+    <div class="sequence__voile" aria-hidden="true"></div>
+    <div class="cadre sequence__textes">
+      <div class="sequence__texte" data-de="-0.1" data-a="0.34">
+        <h3 class="titre-2">Votre produit au centre.</h3>
+        <p class="chapo">Continuez à défiler : la pizza s’assemble au feu de bois.</p>
+      </div>
+      <div class="sequence__texte sequence__texte--droite" data-de="0.36" data-a="0.66">
+        <p class="titre-2">La sauce, la mozzarella, le basilic.</p>
+        <p class="chapo">La sauce, la mozzarella, le basilic : la pizza s’assemble au rythme de votre doigt. Vos clients ne lisent plus une liste, ils regardent votre savoir-faire.</p>
+      </div>
+      <div class="sequence__texte" data-de="0.74" data-a="1.01">
+        <p class="titre-2">Le feu de bois pour une pizzeria. La broche qui tourne pour un chawarma.</p>
+        <p class="chapo">Nous filmons ou créons la séquence de votre plat signature, puis nous construisons le site autour.</p>
+        <div class="actions"><a class="btn btn--jaune" href="#contact">Demander un devis</a><a class="lien" href="#essayer">Essayer trois exemples</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Le maki se décompose -->
 <section class="sequence sequence--sushi" data-sequence="sushi" data-images="96" data-tailles="m,g,x" data-paresse aria-label="Un sushi se décompose en ses ingrédients pendant que vous faites défiler la page">
   <div class="sequence__colle">
     <canvas class="sequence__toile" aria-hidden="true"></canvas>
     <div class="cadre sequence__textes">
       <div class="sequence__texte" data-de="-0.1" data-a="0.34">
-        <h2 class="titre-2">Chaque ingrédient, montré.</h2>
+        <h3 class="titre-2">Chaque ingrédient, montré.</h3>
         <p class="chapo">Continuez à défiler : le maki s’ouvre et révèle ce qui le compose.</p>
       </div>
       <ul class="sequence__liste" data-de="0.45" data-a="1.01">
@@ -262,6 +286,8 @@ const jsonLd = JSON.stringify({
     </div>
   </div>
 </section>
+
+</div>
 
 <!-- ============ La carte qui défile ============ -->
 <section class="defile" data-defile aria-label="La carte de l’Osteria del Lago défile à l’horizontale">
