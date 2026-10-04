@@ -12,7 +12,10 @@ RÈGLES COMMUNES
   Écrire « votre site », sans recopier son adresse web. Commencer directement par le constat
   (« Votre site… », « Sur téléphone, votre site… »), sans « en cherchant sur Google » ni « en ligne ».
 - Aucun prix, aucune promesse chiffrée, aucune critique de la cuisine.
-- Seul lien : nouvelleardoise.ch.
+- Seul lien : nouvelleardoise.ch. Créer le brouillon en HTML seulement (htmlBody, sans body),
+  chaque mention écrite <a href="http://nouvelleardoise.ch">nouvelleardoise.ch</a> et les
+  retours à la ligne en <br>. En texte brut, le connecteur Gmail affiche le lien en entier
+  (https://www.google.com/url?q=…), ce qui fait suspect.
 - Ne pas parler de Pasta Mo'.
 
 ======================================================================
