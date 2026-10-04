@@ -376,7 +376,8 @@ ul, ol { padding: 0; list-style: none; }
 
 /* ---------- séquences d'images : le plat s'anime au rythme du doigt ---------- */
 .sequence { position: relative; height: 340vh; background: #000; color: #fff; }
-.sequence--sushi { height: 300vh; }
+.sequence--sushi { height: 400vh; }
+.sequence--pizza { height: 460vh; }
 .sequence--pastamo { height: 320vh; }
 .sequence__colle { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
 .sequence__toile { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -559,3 +560,12 @@ model-viewer:not(:defined) > * { display: none; }
 .anim-fin__in > p { max-width: 56ch; }
 .anim-fin__credit { font-size: 0.82rem; }
 .anim-fin__credit a { color: #A9B6B1; }
+/* la carte de la pizzeria d'exemple */
+.carte-pizzas__tete { display: grid; gap: 12px; max-width: 760px; margin-bottom: 24px; }
+.carte-pizzas__tete p { max-width: 56ch; color: var(--gris); }
+.onglets--trois { grid-template-columns: repeat(3, 1fr); }
+.pizzas { list-style: none; margin: 0; padding: 0; max-width: 760px; border-top: 1px solid var(--trait); }
+.pizzas li { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 16px 0; border-bottom: 1px solid var(--trait); }
+.pizzas b { font-family: var(--titre); font-size: 1.25rem; line-height: 1.2; }
+.pizzas__prix { font-family: var(--titre); font-weight: 700; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.pizzas small { grid-column: 1 / -1; color: var(--gris); font-size: 0.98rem; }

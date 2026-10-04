@@ -4,6 +4,7 @@
 import { SITE } from '../config.js';
 import './defilement.js';
 import './boutons.js';
+import './onglets.js';
 
 const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = (sel, racine = document) => racine.querySelector(sel);
@@ -112,28 +113,6 @@ $('[data-reserver]', resa).addEventListener('click', () => {
 const compare = $('[data-compare]');
 $('input', compare).addEventListener('input', (e) => compare.style.setProperty('--p', e.target.value + '%'));
 
-/* ---------- onglets : les offres, et les animations « en mouvement » ---------- */
-// Chaque groupe [data-onglets] fonctionne seul. Sans JavaScript, tous les panneaux restent visibles.
-const groupesOnglets = $$('[data-onglets]').map((groupe) => {
-  const onglets = $$('[role="tab"]', groupe);
-  const montrer = (onglet, focus = false) => {
-    onglets.forEach((o) => {
-      const actif = o === onglet;
-      o.setAttribute('aria-selected', String(actif));
-      o.tabIndex = actif ? 0 : -1;
-      document.getElementById(o.getAttribute('aria-controls')).hidden = !actif;
-    });
-    if (focus) onglet.focus();
-  };
-  onglets.forEach((o, i) => {
-    o.addEventListener('click', () => montrer(o));
-    o.addEventListener('keydown', (e) => {
-      const pas = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
-      if (pas) { e.preventDefault(); montrer(onglets[(i + pas + onglets.length) % onglets.length], true); }
-    });
-  });
-  return { groupe, onglets, montrer };
-});
 // la vidéo d'exemple ne se charge et ne joue que lorsqu'elle est à l'écran
 const exemple = $('[data-video-exemple]');
 if (exemple && calme) exemple.controls = true;
@@ -154,12 +133,6 @@ $$('[data-ouvrir-video]').forEach((b) => b.addEventListener('click', (e) => {
 visionneuse?.addEventListener('close', () => grande.pause());
 visionneuse?.addEventListener('click', (e) => { if (e.target === visionneuse) visionneuse.close(); });
 if (location.hash === '#exemple-sora') addEventListener('load', () => $('[data-ouvrir-video]')?.click());
-
-groupesOnglets.forEach(({ groupe, onglets, montrer }) => {
-  // offres : #reseaux ou #exemple-sora ouvrent l'onglet réseaux sociaux
-  const reseaux = groupe.closest('#offres') && ['#reseaux', '#exemple-sora'].includes(location.hash);
-  montrer(reseaux ? onglets[1] : onglets[0]);
-});
 
 /* ---------- choisir une offre la présélectionne dans le formulaire ---------- */
 $$('[data-offre]').forEach((b) => b.addEventListener('click', () => { $('[data-offre-choix]').value = b.dataset.offre; }));
