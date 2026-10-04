@@ -6,7 +6,8 @@
 <!--
   Vidéo de présentation d'environ 57 s avec voix off, direction « ardoise épurée » : photos plein
   cadre, serif Fraunces, le jaune craie seulement en touches, un seul coup d'éponge.
-  Format vertical par défaut (1080×1920) ; video-concept.html?f=16x9 donne la version 1920×1080.
+  Format vertical par défaut (1080×1920) ; ?f=16x9 donne la version 1920×1080, ?plan=rythme le réel
+  rythmé de 30 s sans voix (voix/plan-rythme.js), ?plan=court la version courte avec voix.
   Les plans et leur durée sont dans voix/plan.js, le texte de la voix dans voix/texte.txt.
   Pasta Mo' (la vraie séquence du site) · le restaurant tel qu'on le trouve en ligne, effacé d'un
   coup d'éponge · le photographe · votre histoire · le site d'Osteria del Lago (démo du site) ·
@@ -19,6 +20,7 @@
   @font-face { font-family: Instru; src: url(fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
   @font-face { font-family: Fraunces; src: url(fonts/fraunces-latin-wght-normal.woff2) format('woff2'); font-weight: 100 900; font-style: normal; }
   @font-face { font-family: Fraunces; src: url(fonts/fraunces-latin-wght-italic.woff2) format('woff2'); font-weight: 100 900; font-style: italic; }
+  @font-face { font-family: Caveat; src: url(fonts/caveat-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
   @font-face { font-family: Bodoni; src: url(fonts/bodoni-moda-latin-wght-normal.woff2) format('woff2'); font-weight: 400 900; }
   html, body { margin: 0; background: #000; }
   canvas { display: block; }
@@ -28,7 +30,7 @@
 <canvas></canvas>
 <script src="ardoise.js"></script>
 <script src="videos/concept/index.js"></script>
-<script src="voix/plan.js"></script>
+<script>document.write(`<script src="voix/plan${new URLSearchParams(location.search).get('plan') ? '-' + new URLSearchParams(location.search).get('plan') : ''}.js"><\/script>`);</script>
 <script>
 const PAYSAGE = new URLSearchParams(location.search).get('f') === '16x9';
 const L = PAYSAGE ? 1920 : 1080, H = PAYSAGE ? 1080 : 1920;
@@ -84,7 +86,7 @@ function titre(c, t, t0, sur, lignes, { pos = 'haut', ombre = false, centre = !P
     const k = sortie(prog(t, t0, t0 + 0.6));
     c.save();
     fonte(c, T.sur, 600, 'Instru'); c.letterSpacing = `${T.sur * 0.22}px`;
-    c.textAlign = centre ? 'center' : 'left'; c.globalAlpha = k;
+    c.textAlign = centre ? 'center' : 'left'; c.globalAlpha *= k;
     c.fillStyle = JAUNE;
     if (ombre) { c.shadowColor = 'rgba(0,0,0,0.6)'; c.shadowBlur = 20; }
     c.fillText(sur.toUpperCase(), centre ? L / 2 : x0, y - taille * 1.05 + (1 - k) * 12);
@@ -202,6 +204,51 @@ function scenePastamo(c, u, D) {
   titre(c, u, 0.3, '', [L1('Votre cuisine'), L1('est ', ['belle.', true])], { pos: 'bas', ombre: true, x0: PAYSAGE ? L * 0.66 : T.marge });
 }
 
+// ---------- L'ouverture sur l'ardoise : les plats tombent, la craie écrit ----------
+const POLAS = PAYSAGE
+  ? [['burrata', 0.17, 0.3, -0.12], ['ragu', 0.83, 0.28, 0.1], ['tiramisu', 0.15, 0.74, 0.08], ['perche', 0.85, 0.75, -0.09]]
+  : [['burrata', 0.27, 0.2, -0.12], ['ragu', 0.75, 0.17, 0.1], ['tiramisu', 0.25, 0.82, 0.08], ['perche', 0.74, 0.8, -0.09]];
+function sceneOuverture(c, u, D) {
+  // un léger coup de zoom sur chaque temps
+  const pulse = 1 + 0.018 * Math.exp(-((u * 2) % 1) * 6);
+  c.save(); c.translate(L / 2, H / 2); c.scale(pulse, pulse); c.translate(-L / 2, -H / 2);
+  ardoise(c);
+  const cote = PAYSAGE ? 330 : 400;
+  POLAS.forEach(([nom, fx, fy, rot], i) => {
+    const t0 = 0.1 + i * 0.5;
+    const k = prog(u, t0, t0 + 0.35);
+    if (k <= 0) return;
+    const s = mix(1.6, 1, sortie(k));
+    c.save();
+    c.translate(L * fx, H * fy); c.rotate(rot + (1 - k) * 0.3); c.scale(s, s);
+    c.globalAlpha *= clamp(k * 3);
+    c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 40 * (2 - k); c.shadowOffsetY = 18;
+    c.fillStyle = '#F6F3EC'; c.fillRect(-cote / 2 - 16, -cote / 2 - 16, cote + 32, cote + 70);
+    c.shadowColor = 'transparent';
+    photo(c, IMG[nom], -cote / 2, -cote / 2, cote, cote, 0);
+    c.restore();
+  });
+  // la phrase écrite à la craie, de gauche à droite
+  const lignes = [['Votre cuisine', '#F6F3EC'], ['est belle.', JAUNE]];
+  const taille = PAYSAGE ? 150 : 170;
+  lignes.forEach(([txt, coul], i) => {
+    const p = douce(prog(u, 0.25 + i * 0.55, 0.85 + i * 0.55));
+    if (p <= 0) return;
+    const y = H / 2 + (i - 0.5) * taille * 0.95 + taille * 0.3;
+    fonte(c, taille, 700, 'Caveat');
+    const w = c.measureText(txt).width;
+    c.save();
+    c.beginPath(); c.rect(L / 2 - w / 2 - 20, y - taille, (w + 40) * p, taille * 1.4); c.clip();
+    craie(c, (cc) => {
+      fonte(cc, taille, 700, 'Caveat'); cc.textAlign = 'center'; cc.fillStyle = coul;
+      cc.shadowColor = 'rgba(0,0,0,0.6)'; cc.shadowBlur = 30;
+      cc.fillText(txt, L / 2, y);
+    });
+    c.restore();
+  });
+  c.restore();
+}
+
 // ---------- En ligne, personne ne la voit, puis le coup d'éponge ----------
 let ecranVieux;
 function vieuxSite(c) {
@@ -253,7 +300,7 @@ function sceneProbleme(c, u, D) {
     cc.drawImage(ecranVieux, 0, 0, ECRAN.w, ECRAN.h);
   }, { alpha: k, dy: (1 - k) * 80 });
   if (tete && p < 1) {
-    c.save(); c.globalAlpha = clamp(Math.min(p * 8, (1 - p) * 8));
+    c.save(); c.globalAlpha *= clamp(Math.min(p * 8, (1 - p) * 8));
     brosse(c, g.ex + tete[0], g.ey + tete[1], g.W * 0.62, tete[0] > ecranVieux.width / 2 ? -0.1 : 0.1);
     c.restore();
   }
@@ -303,7 +350,7 @@ function sceneHistoire(c, u, D) {
 const TAP = { heure: 4.55, ok: 5.25 };
 function siteOsteria(c, u) {
   c.fillStyle = OST.farine; c.fillRect(0, 0, ECRAN.w, ECRAN.h);
-  const defile = 560 * douce(prog(u, 1.9, 3.1)) + 470 * douce(prog(u, 3.5, 4.3));
+  const defile = 560 * douce(prog(u, 1.9, 3.1)) + 300 * douce(prog(u, 3.5, 4.3));
   c.save(); c.translate(0, -defile);
   const kp = u > 0 ? expo(prog(u, 0.35, 1.5)) : 1;
   c.save(); c.beginPath(); c.rect(0, 0, ECRAN.w, 560 * kp); c.clip();
@@ -327,7 +374,7 @@ function siteOsteria(c, u) {
   plats.forEach(([img, nom, desc], i) => {
     const y = 706 + i * 96;
     const k = u > 0 ? sortie(prog(u, 1.7 + i * 0.12, 2.3 + i * 0.12)) : 1;
-    c.save(); c.globalAlpha = k; c.translate((1 - k) * 30, 0);
+    c.save(); c.globalAlpha *= k; c.translate((1 - k) * 30, 0);
     photo(c, img, 24, y, 76, 76, 12);
     texte(c, nom, 116, y + 34, 20, { famille: 'Bodoni', graisse: 600, couleur: OST.lac });
     texte(c, desc, 116, y + 58, 14, { couleur: '#5F6B66' });
@@ -352,7 +399,7 @@ function siteOsteria(c, u) {
   texte(c, 'Aucun appel pendant le service.', 195, yR + 272, 14, { couleur: OST.salvia, aligne: 'center' });
   c.restore();
   // l'en-tête, toujours visible
-  c.save(); c.globalAlpha = u > 0 ? sortie(prog(u, 0, 0.6)) : 1;
+  c.save(); c.globalAlpha *= u > 0 ? sortie(prog(u, 0, 0.6)) : 1;
   c.fillStyle = OST.farine; c.fillRect(0, 0, ECRAN.w, 104);
   barreEtat(c, OST.lac);
   texte(c, 'Osteria del Lago', 24, 86, 22, { famille: 'Bodoni', graisse: 600, couleur: OST.lac });
@@ -364,7 +411,7 @@ function sceneSite(c, u, D) {
   titre(c, u, 0.1, '01 · Le site', [L1('Un site qui'), L1(['donne faim.', true])]);
   const g = telephone(c, TEL.cx, TEL.cy, TEL.h, (cc) => siteOsteria(cc, u + 0.001));
   const ecran = (x, y) => [g.ex + x * g.s, g.ey + y * g.s];
-  const fin = 1030;
+  const fin = 860;
   const p1 = ecran(34 + 2 * 82 + 36, 1110 + 130 - fin), p2 = ecran(195, 1110 + 204 - fin);
   const a = prog(u, TAP.heure - 0.5, TAP.heure - 0.2) * (1 - prog(u, TAP.ok + 0.5, TAP.ok + 0.8));
   if (a > 0) {
@@ -394,7 +441,7 @@ function carteResa(c, w, h, k) {
   texte(c, 'Ce soir, 20 h · 2 personnes', 28, 84, 28, { famille: 'Bodoni', graisse: 500, couleur: OST.farine });
   c.fillStyle = '#6FCF8E'; c.beginPath(); c.arc(36, 114, 7, 0, 7); c.fill();
   texte(c, 'Confirmée', 52, 120, 17, { graisse: 600, couleur: '#6FCF8E' });
-  c.save(); c.globalAlpha = k;
+  c.save(); c.globalAlpha *= k;
   c.fillStyle = 'rgba(243,238,226,0.1)'; c.beginPath(); c.roundRect(28, 140, w - 56, 68, 12); c.fill();
   photo(c, IMG.perche, 38, 148, 52, 52, 8);
   texte(c, 'Plat du jour : filets de perche meunière', 106, 180, 17, { couleur: OST.farine });
@@ -432,7 +479,7 @@ function scenePlateformes(c, u, D) {
     const k = expo(prog(u, t0, t0 + 0.9));
     const kp = sortie(prog(u, t0 + 0.8, t0 + 1.5));
     c.save();
-    c.globalAlpha = k; c.translate(x + (1 - k) * 120, y);
+    c.globalAlpha *= k; c.translate(x + (1 - k) * 120, y);
     fonte(c, PAYSAGE ? 20 : 26, 600); c.letterSpacing = '4px'; c.fillStyle = 'rgba(246,243,236,0.7)';
     c.fillText(nom.toUpperCase(), 6, -18);
     c.letterSpacing = '0px';
@@ -445,7 +492,7 @@ function scenePlateformes(c, u, D) {
     // un éclat de craie quand le plat du jour arrive
     const ec = prog(u, t0 + 0.8, t0 + 1.4);
     if (ec > 0 && ec < 1) {
-      c.save(); c.globalAlpha = (1 - ec) * 0.9; c.strokeStyle = JAUNE; c.lineWidth = 4;
+      c.save(); c.globalAlpha *= (1 - ec) * 0.9; c.strokeStyle = JAUNE; c.lineWidth = 4;
       c.beginPath(); c.roundRect(x - 10 * ec - 4, y - 10 * ec - 4, w + 20 * ec + 8, h + 20 * ec + 8, 30); c.stroke(); c.restore();
     }
   });
@@ -453,7 +500,7 @@ function scenePlateformes(c, u, D) {
 
 // ---------- Les réseaux : on filme chaque mois ----------
 function sceneTournage(c, u, D) {
-  cadrer(c, plan('salle', u, 0, SEQ.salle.length / 30 / D), 0.5, 0.45, mix(1.0, 1.08, u / D));
+  cadrer(c, plan('salle', UREEL, 0, Math.max(1, SEQ.salle.length / 30 / DREEL)), 0.5, 0.45, mix(1.0, 1.08, u / D));
   voile(c, H * 0.45, H, 0.85);
   const m = 70, b = 70;
   c.save(); c.strokeStyle = 'rgba(255,255,255,0.85)'; c.lineWidth = 5; c.lineCap = 'round';
@@ -472,13 +519,13 @@ function sceneReel(c, u, D) {
   titre(c, u, 0.1, '', [L1('Des réels'), L1(['qui donnent envie.', true])]);
   const k = expo(prog(u, 0, 0.8));
   telephone(c, TEL.cx, TEL.cy, TEL.h, (cc) => {
-    cadrer(cc, plan('nouilles', u, 0), 0.5, 0.5, 1.05 + u * 0.02, { l: ECRAN.w, h: ECRAN.h });
+    cadrer(cc, plan('nouilles', UREEL, 0), 0.5, 0.5, 1.05 + u * 0.02, { l: ECRAN.w, h: ECRAN.h });
     const g = cc.createLinearGradient(0, 520, 0, ECRAN.h); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,0.75)');
     cc.fillStyle = g; cc.fillRect(0, 520, ECRAN.w, ECRAN.h - 520);
     cc.fillStyle = 'rgba(255,255,255,0.35)'; cc.fillRect(20, 58, 350, 3);
     cc.fillStyle = '#fff'; cc.fillRect(20, 58, 350 * clamp(u / D), 3);
     const ke = sortie(prog(u, 0.6, 1.1));
-    cc.save(); cc.globalAlpha = ke; cc.translate(195, 300); cc.rotate(-0.04); cc.scale(mix(1.3, 1, ke), mix(1.3, 1, ke));
+    cc.save(); cc.globalAlpha *= ke; cc.translate(195, 300); cc.rotate(-0.04); cc.scale(mix(1.3, 1, ke), mix(1.3, 1, ke));
     cc.fillStyle = OST.farine; cc.beginPath(); cc.roundRect(-130, -34, 260, 68, 10); cc.fill();
     texte(cc, 'Ramen du jour', 0, 12, 30, { famille: 'Fraunces', graisse: 500, couleur: OST.lac, aligne: 'center', italique: true });
     cc.restore();
@@ -500,7 +547,7 @@ function sceneCalendrier(c, u, D) {
   const cell = (w - 60) / 7, hh = 150 + cell * 5 + 30;
   const y = PAYSAGE ? (H - hh) / 2 : 640;
   const k = expo(prog(u, 0, 0.7));
-  c.save(); c.globalAlpha = k; c.translate(x, y + (1 - k) * 60);
+  c.save(); c.globalAlpha *= k; c.translate(x, y + (1 - k) * 60);
   c.shadowColor = 'rgba(0,0,0,0.35)'; c.shadowBlur = 50; c.shadowOffsetY = 20;
   c.fillStyle = OST.farine; c.beginPath(); c.roundRect(0, 0, w, hh, 30); c.fill();
   c.shadowColor = 'transparent';
@@ -515,7 +562,7 @@ function sceneCalendrier(c, u, D) {
     const kn = sortie(prog(u, t0, t0 + 0.3));
     texte(c, String(n + 1), cx + 10, cy + 24, 17, { graisse: 600, couleur: '#7A847F' });
     if (kn <= 0) continue;
-    c.save(); c.globalAlpha = kn;
+    c.save(); c.globalAlpha *= kn;
     const pad = 6, s2 = cell - pad * 2;
     if (col === 2 || col === 5) {
       c.translate(cx + cell / 2, cy + cell / 2); c.scale(mix(0.6, 1, kn), mix(0.6, 1, kn)); c.translate(-cx - cell / 2, -cy - cell / 2);
@@ -539,7 +586,7 @@ const NOTIFS = [
 ];
 const NOTIF_T = NOTIFS.map((_, i) => 0.3 + i * 0.55);
 function sceneNotifs(c, u, D) {
-  const img = plan('cliente', u, 0);
+  const img = plan('cliente', UREEL, 0);
   if (PAYSAGE) {
     // vidéo verticale : un cadre 9:16 sur la même image floutée
     c.save(); c.filter = 'blur(40px)'; cadrer(c, img, 0.5, 0.5, 1.1); c.restore();
@@ -561,7 +608,7 @@ function sceneNotifs(c, u, D) {
     // chaque nouvelle notification pousse les autres vers le bas
     const rang = NOTIF_T.reduce((a, tt, j) => a + (j > i ? expo(prog(u, tt, tt + 0.55)) : 0), 0);
     const y = y0 + rang * (h + 20) - (1 - k) * 60;
-    c.save(); c.globalAlpha = k;
+    c.save(); c.globalAlpha *= k;
     c.shadowColor = 'rgba(0,0,0,0.3)'; c.shadowBlur = 30; c.shadowOffsetY = 10;
     c.fillStyle = 'rgba(246,243,236,0.95)'; c.beginPath(); c.roundRect(x, y, w, h, 30); c.fill();
     c.shadowColor = 'transparent';
@@ -616,7 +663,7 @@ function conversation(c, u) {
   // 1. le restaurateur envoie la photo de son ardoise
   const k1 = sortie(prog(u, 0.2, 0.6));
   if (k1 > 0) {
-    c.save(); c.globalAlpha = k1; c.translate(0, (1 - k1) * 20);
+    c.save(); c.globalAlpha *= k1; c.translate(0, (1 - k1) * 20);
     c.fillStyle = '#D9F2D0'; c.beginPath(); c.roundRect(130, 140, 240, 290, 16); c.fill();
     photo(c, IMG.ardoise, 138, 148, 224, 224, 10, 0.5, 0.42);
     texte(c, 'Le plat du jour !', 146, 398, 16, { couleur: '#111' });
@@ -626,7 +673,7 @@ function conversation(c, u) {
   // 2. on répond : c'est en ligne
   const k2 = sortie(prog(u, 1.2, 1.6));
   if (k2 > 0) {
-    c.save(); c.globalAlpha = k2; c.translate(0, (1 - k2) * 20);
+    c.save(); c.globalAlpha *= k2; c.translate(0, (1 - k2) * 20);
     c.fillStyle = '#fff'; c.beginPath(); c.roundRect(20, 450, 270, 92, 16); c.fill();
     texte(c, 'Merci ! C’est en ligne sur le site,', 34, 480, 15.5, { couleur: '#111' });
     texte(c, 'Google et Instagram.', 34, 502, 15.5, { couleur: '#111' });
@@ -636,7 +683,7 @@ function conversation(c, u) {
   // 3. le plat du jour publié, en aperçu
   const k3 = sortie(prog(u, 1.9, 2.4));
   if (k3 > 0) {
-    c.save(); c.globalAlpha = k3; c.translate(0, (1 - k3) * 20);
+    c.save(); c.globalAlpha *= k3; c.translate(0, (1 - k3) * 20);
     c.fillStyle = '#fff'; c.beginPath(); c.roundRect(20, 556, 270, 200, 16); c.fill();
     photo(c, IMG.perche, 28, 564, 254, 140, 10);
     texte(c, 'Plat du jour : filets de perche', 34, 730, 14.5, { graisse: 600, couleur: '#111' });
@@ -708,9 +755,12 @@ function sceneFin(c, u, D) {
 }
 
 // ---------- le montage : les plans de voix/plan.js, fondus de 0,4 s ----------
-const SCENES = { pastamo: scenePastamo, probleme: sceneProbleme, photographe: scenePhotographe, histoire: sceneHistoire, site: sceneSite, plateformes: scenePlateformes, tournage: sceneTournage, reel: sceneReel, calendrier: sceneCalendrier, notifs: sceneNotifs, cuisinez: sceneCuisinez, contact: sceneContact, fin: sceneFin };
+const SCENES = { ouverture: sceneOuverture, pastamo: scenePastamo, probleme: sceneProbleme, photographe: scenePhotographe, histoire: sceneHistoire, site: sceneSite, plateformes: scenePlateformes, tournage: sceneTournage, reel: sceneReel, calendrier: sceneCalendrier, notifs: sceneNotifs, cuisinez: sceneCuisinez, contact: sceneContact, fin: sceneFin };
 let debut = 0;
-const PLANS = window.PLAN.map((p) => { const r = { ...p, debut, f: SCENES[p.id] }; debut += p.duree; return r; });
+// durée pour laquelle chaque plan est animé ; un plan plus court est joué en accéléré
+const NOMINAL = { ouverture: 2.5, pastamo: 3.0, probleme: 4.6, photographe: 4.4, histoire: 4.2, site: 6.6, plateformes: 5.4, tournage: 4.6, reel: 2.8, calendrier: 4.0, notifs: 3.4, cuisinez: 2.4, contact: 6.2, fin: 5.6 };
+const PLANS = window.PLAN.map((p) => { const r = { ...p, debut, f: SCENES[p.id], k: Math.max(1, NOMINAL[p.id] / p.duree) }; debut += p.duree; return r; });
+let UREEL = 0, DREEL = 1;
 const DUREE = debut;
 window.DUREE = DUREE;
 const FONDU = 0.4;
@@ -722,13 +772,14 @@ window.rendu = (t) => {
     if (t < a || t >= b) return;
     ctx.save();
     ctx.globalAlpha = i === 0 ? 1 : clamp((t - a) / FONDU);
-    p.f(ctx, t - p.debut, p.duree);
+    UREEL = t - p.debut; DREEL = p.duree;
+    p.f(ctx, (t - p.debut) * p.k, p.duree * p.k);
     ctx.restore();
   });
 };
 
 window.pret = (async () => {
-  const fonts = ['400 20px Instru', '600 20px Instru', '700 20px Instru', '340 20px Fraunces', 'italic 380 20px Fraunces', '500 20px Bodoni', '600 20px Bodoni', 'italic 500 20px Bodoni', '650 20px Brico'];
+  const fonts = ['400 20px Instru', '600 20px Instru', '700 20px Instru', '340 20px Fraunces', 'italic 380 20px Fraunces', '500 20px Bodoni', '600 20px Bodoni', 'italic 500 20px Bodoni', '650 20px Brico', '700 20px Caveat'];
   await Promise.all(fonts.map((f) => document.fonts.load(f)));
   const photos = ['ragu', 'burrata', 'pesto', 'tiramisu', 'perche', 'salle', 'ramen', 'pomodoro'];
   await Promise.all(photos.map(async (p) => { IMG[p] = await charger(`../../../src/assets/photo-${p}.jpg`); }));

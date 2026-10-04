@@ -2,7 +2,7 @@
 voix/generer.sh), une musique douce synthétisée (aucun droit à payer) qui s'efface sous la voix,
 et quelques bruitages calés sur l'image (éponge, déclencheur, doigt, notifications, carillon).
 
-    python3 son_concept.py sortie.wav
+    python3 son_concept.py sortie.wav [court]
 """
 import json
 import re
@@ -14,7 +14,8 @@ import numpy as np
 
 ICI = Path(__file__).parent
 TAUX = 44100
-PLAN = json.loads(re.search(r'\[.*\]', (ICI / 'voix' / 'plan.js').read_text(), re.S).group(0))
+FICHIER = 'plan-court.js' if sys.argv[2:] == ['court'] else 'plan.js'
+PLAN = json.loads(re.search(r'\[.*\]', (ICI / 'voix' / FICHIER).read_text(), re.S).group(0))
 debut = 0.0
 for p in PLAN:
     p['debut'] = debut
@@ -84,8 +85,9 @@ ACCORDS = [  # (basse, notes de la nappe)
     (55.00, [220.00, 277.18, 329.63, 369.99]),   # La 6
 ]
 nappe, arpege, basse, batterie = piste(), piste(), piste(), piste()
-t_res = A['tournage']['debut']          # les réseaux : le rythme s'installe
-t_calme = A['cuisinez']['debut']        # respiration avant la fin
+t_res = A['tournage']['debut']
+t_site = A['site']['debut'] if 'site' in A else A['photographe']['debut']          # les réseaux : le rythme s'installe
+t_calme = A['cuisinez']['debut'] if 'cuisinez' in A else A['contact']['debut']  # respiration avant la fin
 t_fin = A['fin']['debut']
 m = 0
 while m * mesure < DUREE:
@@ -97,7 +99,7 @@ while m * mesure < DUREE:
     s = sum(np.sin(2 * np.pi * f * t) + 0.6 * np.sin(2 * np.pi * f * 1.004 * t) + 0.15 * np.sin(4 * np.pi * f * t) for f in notes)
     poser(nappe, t0, s * env / 8)
     # arpège en croches, à partir du site
-    if t0 >= A['site']['debut'] - mesure:
+    if t0 >= t_site - mesure:
         for k in range(8):
             f = notes[[0, 2, 1, 3, 2, 1, 3, 2][k]] * 2
             poser(arpege, t0 + k * temps / 2, note(f, 0.6, 0.004, 6, (1, 0.25, 0.05)), 0.12)
@@ -107,7 +109,7 @@ while m * mesure < DUREE:
     # batterie : grosse caisse douce et charleston léger pendant les réseaux
     for k in range(4):
         tb = t0 + k * temps
-        if A['site']['debut'] <= tb < t_calme:
+        if t_site <= tb < t_calme:
             tt = np.arange(int(0.35 * TAUX)) / TAUX
             kick = np.sin(2 * np.pi * (48 * tt + (80 / 25) * (1 - np.exp(-25 * tt)))) * np.exp(-10 * tt)
             poser(batterie, tb, kick, 0.38 if k % 2 == 0 else 0.22)
@@ -150,17 +152,17 @@ for i in range(5):
     poser(sfx, tc, clic, 0.5)
     poser(sfx, tc + 0.07, clic, 0.3)
 # le doigt sur l'écran
-for tt0 in (4.55, 5.25):
+for tt0 in ((4.55, 5.25) if 'site' in A else ()):
     poser(sfx, A['site']['debut'] + tt0, note(1800, 0.05, 0.001, 90, (1,)), 0.25)
 # les cartes des plateformes, et le plat du jour qui s'y pose
-for i in range(3):
+for i in range(3 if 'plateformes' in A else 0):
     t0 = A['plateformes']['debut'] + 0.5 + i * 0.75
     poser(sfx, t0 + 0.8, note(880 * (1.25 ** i), 0.25, 0.003, 18, (1, 0.2)), 0.18)
 # le calendrier qui se remplit
 for n in range(31):
     poser(sfx, A['calendrier']['debut'] + 0.45 + n * 0.085, note(1400 + (n % 7) * 60, 0.04, 0.001, 70, (1,)), 0.05)
 # les notifications
-for i in range(4):
+for i in range(4 if 'notifs' in A else 0):
     tn = A['notifs']['debut'] + 0.3 + i * 0.55
     poser(sfx, tn, note(1318.5, 0.25, 0.002, 14, (1, 0.1)), 0.14)
     poser(sfx, tn + 0.08, note(1760, 0.3, 0.002, 12, (1, 0.1)), 0.12)
