@@ -137,7 +137,22 @@ if (exemple && calme) exemple.controls = true;
 if (exemple && !calme) {
   new IntersectionObserver(([e]) => { if (e.isIntersecting) exemple.play().catch(() => {}); else exemple.pause(); }, { threshold: 0.4 }).observe(exemple);
 }
-if (onglets.length) montrerOnglet(location.hash === '#reseaux' ? onglets[1] : onglets[0]);
+// clic sur l'exemple : la vidéo s'ouvre en grand, avec le son (chargée seulement à ce moment-là)
+const visionneuse = $('[data-visionneuse]');
+const grande = $('[data-video-grande]');
+$$('[data-ouvrir-video]').forEach((b) => b.addEventListener('click', (e) => {
+  if (!visionneuse?.showModal) return;          // vieux navigateur : le lien ouvre la vidéo seule
+  e.preventDefault();
+  if (!grande.src) grande.src = '/media/exemple-sora-hd.mp4';
+  visionneuse.showModal();
+  grande.currentTime = 0;
+  grande.play().catch(() => {});
+}));
+visionneuse?.addEventListener('close', () => grande.pause());
+visionneuse?.addEventListener('click', (e) => { if (e.target === visionneuse) visionneuse.close(); });
+if (location.hash === '#exemple-sora') addEventListener('load', () => $('[data-ouvrir-video]')?.click());
+
+if (onglets.length) montrerOnglet(['#reseaux', '#exemple-sora'].includes(location.hash) ? onglets[1] : onglets[0]);
 
 /* ---------- choisir une offre la présélectionne dans le formulaire ---------- */
 $$('[data-offre]').forEach((b) => b.addEventListener('click', () => { $('[data-offre-choix]').value = b.dataset.offre; }));

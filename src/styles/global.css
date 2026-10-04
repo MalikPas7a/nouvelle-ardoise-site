@@ -293,6 +293,15 @@ ul, ol { padding: 0; list-style: none; }
   .reseaux__exemple { grid-template-columns: 1fr; align-content: start; padding: 16px; }
   .offres.offres--deux { grid-template-columns: repeat(2, 1fr); }
 }
+.reseaux__lecture { position: relative; display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; border-radius: 16px; }
+.reseaux__lecture:focus-visible { outline: 3px solid var(--jaune); outline-offset: 3px; }
+.reseaux__play { position: absolute; inset: 50% auto auto 50%; display: grid; place-items: center; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; background: var(--jaune); color: var(--ardoise); box-shadow: 0 6px 20px rgb(0 0 0 / 0.35); transition: transform 0.2s; }
+.reseaux__lecture:hover .reseaux__play { transform: scale(1.1); }
+.reseaux__voir { display: inline-block; margin-top: 8px; color: var(--jaune); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.visionneuse { padding: 0; border: 0; background: transparent; max-width: min(92vw, 420px); overflow: visible; }
+.visionneuse::backdrop { background: rgb(10 14 15 / 0.88); }
+.visionneuse video { display: block; width: 100%; height: auto; max-height: 86vh; aspect-ratio: 9 / 16; border-radius: 22px; background: #000; }
+.visionneuse__fermer { position: absolute; top: -14px; right: -14px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--jaune); color: var(--ardoise); font-size: 28px; line-height: 1; cursor: pointer; }
 .pub { margin-top: 16px; border-radius: 18px; background: var(--nappe); }
 .pub summary { cursor: pointer; padding: 16px 20px; font-weight: 700; }
 .pub p { padding: 0 20px 18px; color: var(--gris); max-width: 70ch; }
