@@ -112,6 +112,27 @@ $('[data-reserver]', resa).addEventListener('click', () => {
 const compare = $('[data-compare]');
 $('input', compare).addEventListener('input', (e) => compare.style.setProperty('--p', e.target.value + '%'));
 
+/* ---------- offres : onglets « site internet » et « vidéo et réseaux sociaux » ---------- */
+// Sans JavaScript, les deux panneaux restent visibles l'un sous l'autre.
+const onglets = $$('[data-onglets] [role="tab"]');
+const montrerOnglet = (onglet, focus = false) => {
+  onglets.forEach((o) => {
+    const actif = o === onglet;
+    o.setAttribute('aria-selected', String(actif));
+    o.tabIndex = actif ? 0 : -1;
+    document.getElementById(o.getAttribute('aria-controls')).hidden = !actif;
+  });
+  if (focus) onglet.focus();
+};
+onglets.forEach((o, i) => {
+  o.addEventListener('click', () => montrerOnglet(o));
+  o.addEventListener('keydown', (e) => {
+    const pas = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+    if (pas) { e.preventDefault(); montrerOnglet(onglets[(i + pas + onglets.length) % onglets.length], true); }
+  });
+});
+if (onglets.length) montrerOnglet(location.hash === '#reseaux' ? onglets[1] : onglets[0]);
+
 /* ---------- choisir une offre la présélectionne dans le formulaire ---------- */
 $$('[data-offre]').forEach((b) => b.addEventListener('click', () => { $('[data-offre-choix]').value = b.dataset.offre; }));
 
