@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Réel carte</title>
+<!--
+  Réel Instagram 15 s, 1080×1920, version sobre : la vraie carte de démo (Sora) filmée au
+  téléphone par filmer-carte.mjs (défilement, filtres, passage en anglais), posée sur l'ardoise.
+  Chaque image est calculée par rendu(t) ; render.mjs (REEL=reel-carte) assemble la vidéo.
+-->
+<style>
+  @font-face { font-family: Brico; src: url(fonts/bricolage-grotesque-latin-standard-normal.woff2) format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: Instru; src: url(fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; width: 1080px; height: 1920px; }
+</style>
+</head>
+<body>
+<canvas width="1080" height="1920"></canvas>
+<script src="ardoise.js"></script>
+<script src="ecran/index.js"></script>
+<script>
+const L = 1080, H = 1920, DUREE = 15;
+const JAUNE = '#FFD23F', ARDOISE = '#1E2A2C';
+const ctx = document.querySelector('canvas').getContext('2d');
+const FOND = peindreArdoise(L, H);
+const couche = Object.assign(document.createElement('canvas'), { width: L, height: H });
+const cctx = couche.getContext('2d');
+
+// ---------- outils ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const mix = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const sortie = (k) => 1 - Math.pow(1 - k, 3);
+const dansSortie = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const police = (c, taille, graisse = 800, famille = 'Brico') => { c.font = `${graisse} ${taille}px ${famille}`; };
+
+// Une ligne de mots qui monte en fondu (sobre), avec un mot surligné en jaune
+function ligne(c, mots, t, t0, y, taille, { surligne = -1, fin = 1e9, ecart = 0.06 } = {}) {
+  police(c, taille);
+  c.textBaseline = 'alphabetic';
+  const espace = taille * 0.27;
+  const largeurs = mots.map((m, j) => c.measureText(m).width + (j === surligne ? 36 : 0));
+  let x = (L - largeurs.reduce((a, b) => a + b, 0) - espace * (mots.length - 1)) / 2;
+  const kOut = prog(t, fin, fin + 0.22);
+  mots.forEach((m, j) => {
+    const k = sortie(prog(t, t0 + j * ecart, t0 + j * ecart + 0.35));
+    if (k > 0 && kOut < 1) {
+      c.save();
+      c.globalAlpha = k * (1 - kOut);
+      c.translate(x + largeurs[j] / 2, y + (1 - k) * 26 - kOut * 26);
+      if (j === surligne) {
+        const p = sortie(prog(t, t0 + j * ecart + 0.15, t0 + j * ecart + 0.5));
+        c.fillStyle = JAUNE;
+        c.beginPath(); c.roundRect(-largeurs[j] / 2 + 4, -taille * 0.82, (largeurs[j] - 8) * p, taille * 1.04, 12); c.fill();
+      }
+      c.fillStyle = j === surligne ? ARDOISE : '#fff';
+      c.shadowColor = j === surligne ? 'transparent' : 'rgba(0,0,0,0.45)'; c.shadowBlur = 22; c.shadowOffsetY = 4;
+      c.textAlign = 'center';
+      c.fillText(m, 0, 0);
+      c.restore();
+    }
+    x += largeurs[j] + espace;
+  });
+}
+
+// ---------- l'écran filmé ----------
+let ECRAN = { temps: [], taps: [] };
+const images = [];
+const charge = (img) => new Promise((ok, ko) => { img.onload = ok; img.onerror = () => ko(new Error(img.src)); });
+window.pret = Promise.resolve(window.ECRAN_DONNEES).then((d) => {
+  ECRAN = d;
+  const attente = d.temps.map((_, i) => {
+    const img = new Image();
+    img.src = `ecran/p/${String(i).padStart(4, '0')}.jpg`;
+    images.push(img);
+    return charge(img);
+  });
+  return Promise.all([...attente, document.fonts.load('800 100px Brico'), document.fonts.load('500 40px Instru')]);
+});
+const imageEcran = (s) => {
+  let i = 0;
+  while (i + 1 < ECRAN.temps.length && ECRAN.temps[i + 1] <= s) i++;
+  return images[i];
+};
+
+// ---------- montage ----------
+const DEBUT = 2.5;                     // le film de l'écran commence ici
+const TEL = { w: 700, h: 1516, x: 190, y: 480, r: 84 };
+const FIN_TEL = 11.75;
+
+function telephone(c, t) {
+  const kIn = dansSortie(prog(t, 1.7, 2.5)), kOut = dansSortie(prog(t, FIN_TEL, FIN_TEL + 0.45));
+  if (kIn <= 0 || kOut >= 1) return;
+  const y = mix(H + 40, TEL.y, kIn) + kOut * 260;
+  c.save();
+  c.globalAlpha = 1 - kOut;
+  // coque
+  c.shadowColor = 'rgba(0,0,0,0.55)'; c.shadowBlur = 80; c.shadowOffsetY = 30;
+  c.fillStyle = '#0d1112'; c.beginPath(); c.roundRect(TEL.x - 18, y - 18, TEL.w + 36, TEL.h + 36, TEL.r + 18); c.fill();
+  c.shadowColor = 'transparent';
+  c.strokeStyle = '#33403f'; c.lineWidth = 3; c.stroke();
+  // écran
+  const s = Math.max(0, t - DEBUT);
+  c.save();
+  c.beginPath(); c.roundRect(TEL.x, y, TEL.w, TEL.h, TEL.r); c.clip();
+  c.drawImage(imageEcran(s), TEL.x, y, TEL.w, TEL.h);
+  c.restore();
+  // îlot caméra
+  c.fillStyle = '#000'; c.beginPath(); c.roundRect(L / 2 - 64, y + 20, 128, 36, 18); c.fill();
+  // le doigt : un rond qui s'enfonce, puis une onde jaune
+  for (const tap of ECRAN.taps) {
+    const d = s - tap.t;
+    if (d < -0.25 || d > 0.6) continue;
+    const px = TEL.x + tap.x * TEL.w, py = y + tap.y * TEL.h;
+    const kApp = prog(d, -0.25, -0.05), kPart = prog(d, 0.15, 0.45);
+    const appui = d > -0.05 && d < 0.12 ? 0.82 : 1;
+    c.save();
+    c.globalAlpha = kApp * (1 - kPart);
+    c.fillStyle = 'rgba(255,255,255,0.32)'; c.strokeStyle = 'rgba(255,255,255,0.95)'; c.lineWidth = 4;
+    c.beginPath(); c.arc(px, py, 40 * appui, 0, Math.PI * 2); c.fill(); c.stroke();
+    c.restore();
+    if (d > 0) {
+      const k = prog(d, 0, 0.5);
+      c.save();
+      c.globalAlpha = 1 - k;
+      c.strokeStyle = JAUNE; c.lineWidth = 6;
+      c.beginPath(); c.arc(px, py, 40 + 50 * sortie(k), 0, Math.PI * 2); c.stroke();
+      c.restore();
+    }
+  }
+  c.restore();
+}
+
+// Légendes au-dessus du téléphone, calées sur le film (s = temps du film)
+const LEGENDES = [
+  { de: 0.2, a: 3.95, l1: ['Votre', 'carte,'], l2: ['lisible', 'au', 'pouce.'], h: 2 },
+  { de: 4.25, a: 5.55, l1: ['Un', 'clic', ':'], l2: ['végétarien.'], h: 0 },
+  { de: 5.6, a: 6.9, l1: ['Un', 'autre', ':'], l2: ['en', 'anglais.'], h: 1 },
+  { de: 6.95, a: 8.05, l1: ['Épicé', '?'], l2: ['Un', 'clic.'], h: 1 },
+  { de: 8.1, a: 9.05, l1: ['Sans', 'PDF.'], l2: ['Sans', 'zoomer.'], h: 1 },
+];
+
+function accroche(c, t) {
+  // « Passez l'éponge sur votre menu PDF. » : la brosse efface « menu PDF. », puis tout s'en va
+  const kOut = dansSortie(prog(t, 1.35, 1.85));
+  if (kOut >= 1) return;
+  cctx.clearRect(0, 0, L, H);
+  ligne(cctx, ['Passez'], t, -0.3, 640, 150);
+  ligne(cctx, ['l’éponge'], t, -0.2, 810, 150, { surligne: 0 });
+  ligne(cctx, ['sur', 'votre'], t, 0.05, 980, 150);
+  let brosseMot = null;
+  const kA = prog(t, 0.25, 0.4);
+  if (kA > 0) {
+    const pol = '800 150px Brico';
+    cctx.font = pol;
+    const lw = cctx.measureText('menu PDF.').width, x0 = (L - lw) / 2;
+    const kE = dansSortie(prog(t, 0.6, 1.05));
+    const xE = mix(x0 - 60, x0 + lw + 80, kE);
+    cctx.save(); cctx.globalAlpha = kA;
+    texteEfface(cctx, 'menu PDF.', x0, 1150, xE, { police: pol });
+    cctx.restore();
+    if (kE > 0 && kE < 1) brosseMot = [xE, 1105];
+  }
+  c.save();
+  c.globalAlpha = 1 - kOut;
+  c.drawImage(couche, 0, -kOut * 160);
+  c.restore();
+  if (brosseMot) brosse(c, brosseMot[0], brosseMot[1], 290, Math.PI / 2 - 0.14);
+}
+
+function appel(c, t) {
+  const out = prog(t, 14.7, 14.97);
+  if (t < 12 || out >= 1) return;
+  c.save();
+  c.globalAlpha = 1 - out;
+  const kn = prog(t, 12.0, 12.45);
+  if (kn > 0) nLumineux(c, 540 - 170, 300, 340, { trace: sortie(kn), eclat: 0.7 + 0.3 * prog(t, 12.45, 12.8) });
+  c.restore();
+  cctx.clearRect(0, 0, L, H);
+  ligne(cctx, ['Passez', 'l’éponge'], t, 12.25, 820, 108);
+  ligne(cctx, ['sur', 'votre'], t, 12.4, 945, 108);
+  let brosseMot = null;
+  const ka = prog(t, 12.5, 12.65);
+  if (ka > 0) {
+    const pol = '800 108px Brico';
+    cctx.font = pol;
+    const lw = cctx.measureText('ancien menu.').width, x0 = (L - lw) / 2;
+    const kE = dansSortie(prog(t, 12.85, 13.3));
+    const xE = mix(x0 - 50, x0 + lw + 60, kE);
+    cctx.save(); cctx.globalAlpha = ka;
+    texteEfface(cctx, 'ancien menu.', x0, 1070, xE, { police: pol });
+    cctx.restore();
+    if (kE > 0 && kE < 1) brosseMot = [xE, 1036];
+  }
+  c.save(); c.globalAlpha = 1 - out; c.drawImage(couche, 0, 0); c.restore();
+  if (brosseMot) brosse(c, brosseMot[0], brosseMot[1], 220, Math.PI / 2 - 0.14);
+  c.save();
+  c.globalAlpha = 1 - out;
+  // bouton : il apparaît, puis respire doucement, la flèche avance
+  const kb = sortie(prog(t, 13.4, 13.8));
+  if (kb > 0) {
+    const souffle = 1 + Math.sin((t - 13.8) * 6) * 0.025 * prog(t, 13.8, 14.0);
+    police(c, 58, 800);
+    const texte = 'Demandez votre démo';
+    const w = c.measureText(texte).width + 230, h = 140;
+    c.save(); c.translate(540, 1280 + (1 - kb) * 30); c.scale(souffle, souffle);
+    c.globalAlpha *= kb;
+    c.shadowColor = 'rgba(255,210,63,0.45)'; c.shadowBlur = 50;
+    c.fillStyle = JAUNE; c.beginPath(); c.roundRect(-w / 2, -h / 2, w, h, h / 2); c.fill();
+    c.shadowColor = 'transparent';
+    c.fillStyle = ARDOISE; c.textAlign = 'left'; c.textBaseline = 'middle';
+    c.fillText(texte, -w / 2 + 60, 4);
+    const ax = w / 2 - 80 + Math.sin(t * 8) * 4;
+    c.strokeStyle = ARDOISE; c.lineWidth = 8; c.lineCap = 'round'; c.lineJoin = 'round';
+    c.beginPath(); c.moveTo(ax - 24, 2); c.lineTo(ax + 20, 2); c.moveTo(ax + 2, -18); c.lineTo(ax + 22, 2); c.lineTo(ax + 2, 22); c.stroke();
+    c.restore();
+  }
+  const ks = sortie(prog(t, 13.65, 14.0));
+  if (ks > 0) {
+    c.globalAlpha = (1 - out) * ks;
+    c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    police(c, 62, 800); c.fillStyle = '#fff';
+    c.fillText('Nouvelle Ardoise', 540, 1490 + (1 - ks) * 24);
+    police(c, 42, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.75)';
+    c.fillText('Lien en bio · nouvelleardoise.ch', 540, 1560 + (1 - ks) * 24);
+  }
+  c.restore();
+}
+
+window.rendu = function (t) {
+  ctx.drawImage(FOND, 0, 0);
+  traitJaune(ctx, 92, 140, 120);
+  accroche(ctx, t);
+  telephone(ctx, t);
+  const s = t - DEBUT;
+  for (const g of LEGENDES) {
+    if (s < g.de - 0.1 || s > g.a + 0.3) continue;
+    ligne(ctx, g.l1, s, g.de, 250, 92, { fin: g.a });
+    ligne(ctx, g.l2, s, g.de + 0.12, 365, 92, { fin: g.a, surligne: g.h });
+  }
+  appel(ctx, t);
+};
+
+if (!navigator.webdriver) {
+  window.pret.then(() => {
+    const debut = performance.now();
+    const boucle = () => { window.rendu(((performance.now() - debut) / 1000) % DUREE); requestAnimationFrame(boucle); };
+    boucle();
+  });
+}
+</script>
+</body>
+</html>
