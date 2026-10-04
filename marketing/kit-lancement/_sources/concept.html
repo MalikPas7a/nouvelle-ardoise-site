@@ -24,8 +24,8 @@ const ctx = toile.getContext('2d');
 const quoi = new URLSearchParams(location.search).get('quoi') || 'publication';
 // y du titre, y de la grille, hauteur des cases, y du pied (la story garde 250 px libres en haut et en bas)
 const FORMATS = {
-  publication: { l: 1080, h: 1350, tete: 96, titre: 305, grille: 560, caseH: 300, pied: 1262 },
-  story: { l: 1080, h: 1920, tete: 300, titre: 535, grille: 800, caseH: 330, pied: 1600 },
+  publication: { l: 1080, h: 1350, tete: 46, titre: 360, grille: 610, caseH: 286, pied: 1268 },
+  story: { l: 1080, h: 1920, tete: 250, titre: 600, grille: 860, caseH: 318, pied: 1610 },
 };
 const JAUNE = ARD.jaune;
 
@@ -65,10 +65,9 @@ const METIERS = [
 function dessiner(F) {
   toile.width = F.l; toile.height = F.h;
   ctx.drawImage(peindreArdoise(F.l, F.h), 0, 0);
-  // en-tête : le N et le nom
-  nLumineux(ctx, 80, F.tete, 58);
-  police(ctx, 40, 800); ctx.fillStyle = '#fff'; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
-  ctx.fillText('Nouvelle Ardoise', 168, F.tete + 26);
+  // en-tête : le logo complet (tuile au N, « Nouvelle Ardoise » et son trait de craie)
+  const k = 170 / LOGO.height;
+  ctx.drawImage(LOGO, 80 - 24 * k, F.tete, LOGO.width * k, LOGO.height * k);
 
   // titre : « On efface. On redessine. »
   ctx.textBaseline = 'alphabetic';
@@ -108,7 +107,10 @@ function dessiner(F) {
   ctx.fillStyle = ARD.ardoise; ctx.textAlign = 'center'; ctx.fillText(site, F.l - 80 - ws / 2, F.pied + 2);
 }
 
-window.pret = Promise.all([document.fonts.load('800 100px Brico'), document.fonts.load('500 30px Instru'), document.fonts.load('600 30px Instru')])
+const LOGO = new Image();
+LOGO.src = '../logo/logo-empile-blanc.svg';
+
+window.pret = Promise.all([new Promise((ok) => (LOGO.complete ? ok() : (LOGO.onload = ok))),document.fonts.load('800 100px Brico'), document.fonts.load('500 30px Instru'), document.fonts.load('600 30px Instru')])
   .then(() => dessiner(FORMATS[quoi]));
 </script>
 </body>
