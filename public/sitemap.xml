@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://nouvelleardoise.ch/</loc></url>
+  <url><loc>https://nouvelleardoise.ch/animations/kebab/</loc></url>
+  <url><loc>https://nouvelleardoise.ch/animations/pizza/</loc></url>
+  <url><loc>https://nouvelleardoise.ch/animations/sushi/</loc></url>
   <url><loc>https://nouvelleardoise.ch/mentions-legales/</loc></url>
   <url><loc>https://nouvelleardoise.ch/confidentialite/</loc></url>
 </urlset>

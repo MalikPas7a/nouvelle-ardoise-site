@@ -4,6 +4,7 @@
 import { SITE } from '../config.js';
 import './defilement.js';
 import './boutons.js';
+import './onglets.js';
 
 const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = (sel, racine = document) => racine.querySelector(sel);
@@ -112,25 +113,6 @@ $('[data-reserver]', resa).addEventListener('click', () => {
 const compare = $('[data-compare]');
 $('input', compare).addEventListener('input', (e) => compare.style.setProperty('--p', e.target.value + '%'));
 
-/* ---------- offres : onglets « site internet » et « vidéo et réseaux sociaux » ---------- */
-// Sans JavaScript, les deux panneaux restent visibles l'un sous l'autre.
-const onglets = $$('[data-onglets] [role="tab"]');
-const montrerOnglet = (onglet, focus = false) => {
-  onglets.forEach((o) => {
-    const actif = o === onglet;
-    o.setAttribute('aria-selected', String(actif));
-    o.tabIndex = actif ? 0 : -1;
-    document.getElementById(o.getAttribute('aria-controls')).hidden = !actif;
-  });
-  if (focus) onglet.focus();
-};
-onglets.forEach((o, i) => {
-  o.addEventListener('click', () => montrerOnglet(o));
-  o.addEventListener('keydown', (e) => {
-    const pas = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
-    if (pas) { e.preventDefault(); montrerOnglet(onglets[(i + pas + onglets.length) % onglets.length], true); }
-  });
-});
 // la vidéo d'exemple ne se charge et ne joue que lorsqu'elle est à l'écran
 const exemple = $('[data-video-exemple]');
 if (exemple && calme) exemple.controls = true;
@@ -152,8 +134,6 @@ visionneuse?.addEventListener('close', () => grande.pause());
 visionneuse?.addEventListener('click', (e) => { if (e.target === visionneuse) visionneuse.close(); });
 if (location.hash === '#exemple-sora') addEventListener('load', () => $('[data-ouvrir-video]')?.click());
 
-if (onglets.length) montrerOnglet(['#reseaux', '#exemple-sora'].includes(location.hash) ? onglets[1] : onglets[0]);
-
 /* ---------- choisir une offre la présélectionne dans le formulaire ---------- */
 $$('[data-offre]').forEach((b) => b.addEventListener('click', () => { $('[data-offre-choix]').value = b.dataset.offre; }));
 
@@ -166,21 +146,3 @@ $('[data-contact]').addEventListener('submit', (e) => {
   $('[data-contact-msg]').textContent = `Merci ${d.get('nom')}. Votre messagerie s’ouvre : il reste à envoyer le message.`;
 });
 
-/* ---------- Voir plus : les plats en mouvement ---------- */
-// Les deux séquences (pizza, maki) ne se chargent qu'une fois ouvertes : la page
-// d'accueil reste légère sur téléphone.
-const voirPlus = $('[data-voir-plus]');
-const sequencesPlus = $('#plus-sequences');
-voirPlus?.addEventListener('click', () => {
-  const ouvert = voirPlus.getAttribute('aria-expanded') === 'true';
-  voirPlus.setAttribute('aria-expanded', String(!ouvert));
-  sequencesPlus.hidden = ouvert;
-  const libelle = ouvert ? 'Voir plus' : 'Masquer';
-  voirPlus.querySelectorAll('.btn__roule > span').forEach((s) => { s.textContent = libelle; });
-  if (!voirPlus.querySelector('.btn__roule')) voirPlus.textContent = libelle;
-  // les toiles étaient cachées : on leur redonne leur taille
-  if (!ouvert) {
-    dispatchEvent(new Event('resize'));
-    sequencesPlus.scrollIntoView({ behavior: calme ? 'auto' : 'smooth' });
-  }
-});
