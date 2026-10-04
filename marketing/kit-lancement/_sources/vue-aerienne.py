@@ -1,24 +1,28 @@
 """Télécharge la vue aérienne du réel « menu du jour » : SWISSIMAGE de swisstopo, du lac Léman
 jusqu'à la place du Bourg-de-Four, à Genève.
 
-    python3 vue-aerienne.py
+    python3 vue-aerienne.py                              # Bourg-de-Four → carte/
+    python3 vue-aerienne.py 46.1978524 6.1428830 carte-plainpalais   # autre adresse, autre dossier
 
 Écrit dans carte/ une mosaïque par niveau de zoom (9 à 19), centrée sur l'adresse, et
 carte/index.js (window.CARTE) pour que reel-menu.html la lise en file://. Les images
 SWISSIMAGE sont libres d'usage, y compris commercial, avec la mention « © swisstopo ».
 """
 import json
+import sys
 import math
 import subprocess
 import urllib.request
 from pathlib import Path
 
 LAT, LON = 46.2003229, 6.1491365     # Place du Bourg-de-Four, Genève (OpenStreetMap)
+if len(sys.argv) > 3:
+    LAT, LON = float(sys.argv[1]), float(sys.argv[2])
 ZOOMS = range(9, 20)
 COLS, LIGNES = 5, 9                  # 1280 × 2304 px : couvre 1080 × 1920 à tout facteur ≥ 1
 URL = "https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.swissimage/default/current/3857/{z}/{x}/{y}.jpeg"
 ICI = Path(__file__).parent
-SORTIE = ICI / "carte"
+SORTIE = ICI / (sys.argv[3] if len(sys.argv) > 3 else "carte")
 
 
 def tuile(z):

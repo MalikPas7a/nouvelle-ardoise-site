@@ -1,5 +1,5 @@
-"""Habillage sonore du réel « Et si on prenait en main votre ardoise ? », synthétisé (aucun droit
-à payer), calé sur reel-ardoise.html.
+"""Habillage sonore du réel « sur mesure » (votre restaurant, votre vidéo, votre site), synthétisé
+(aucun droit à payer), calé sur reel-ardoise.html.
 
     python3 son_ardoise.py sortie.wav
 
@@ -13,7 +13,7 @@ import sys
 import wave
 
 TAUX = 44100
-DUREE = 20.0
+DUREE = 23.0
 n = int(TAUX * DUREE)
 piste = [0.0] * n
 alea = random.Random(7)
@@ -109,48 +109,46 @@ def salle(t0, duree, vol=0.05):
     ajoute(t0, duree, f)
 
 
-for t in (0.1, 0.16, 0.22, 0.28, 0.34, 0.42, 0.48):  # « Et si on prenait en main votre ardoise ? »
+for t in (0.1, 0.16, 0.22, 0.28, 0.34, 0.42, 0.48):  # « Votre menu du jour mérite mieux qu'une ardoise. »
     pop(t, 0.06, 700)
 souffle(2.0, 0.45, 0.18)  # la brosse arrive
 frotte(2.4, 1.25, 0.5, allers=7)  # le coup d'éponge
-# la plongée sur Genève
-souffle(3.5, 3.1, 0.3, montee=True)
+souffle(3.5, 3.1, 0.3, montee=True)  # la plongée sur Genève
 souffle(3.6, 1.0, 0.18)
-for t in (3.65, 3.77):
-    pop(t, 0.1, 650)
-for t in (5.3, 5.42, 5.54):
-    pop(t, 0.1, 700)
+for t in (3.65, 3.77, 5.3, 5.42):
+    pop(t, 0.1, 680)
 B = 60 / 110
-for b in range(30):  # pulsation, de la ville jusqu'au plat
+for b in range(34):  # pulsation, de la ville jusqu'à l'appel
     t = 5.3 + b * B
-    if t < 16.6:
-        kick(t, 0.22 if 7.0 <= t < 9.9 else 0.28)
+    if t < 21.2:
+        kick(t, 0.2 if 7.0 <= t < 12.3 else 0.27)
         hat(t + B / 2, 0.05)
-impact(6.55)  # l'épingle se plante
-souffle(6.8, 0.6, 0.28, montee=True)  # on plonge vers la place
-# on pousse la porte : la salle
+impact(6.25)  # l'épingle de Sora se plante
+pop(6.3, 0.12, 900)
+souffle(6.8, 0.6, 0.26, montee=True)  # on plonge vers la porte
+# le tournage
 souffle(7.0, 0.5, 0.2)
-salle(7.0, 3.0, 0.05)
-tinte(8.4, 0.06)
-for t in (7.45, 7.57, 7.69):
-    pop(t, 0.08, 800)
-# le menu à la craie
-for i, dt in enumerate((0, 0.35, 0.42, 0.5, 0.62, 0.7, 0.78, 0.95, 1.02, 1.1, 1.22, 1.3, 1.48, 1.55)):
-    pop(9.95 + dt, 0.1, 700 + 40 * i)
-frotte(11.75, 0.45, 0.25, allers=2)  # le cercle à la craie
-souffle(12.2, 0.5, 0.25, montee=True)  # on plonge dans le plat
-# le plat
-gresille(12.5, 2.6, 0.08)
-souffle(12.5, 0.4, 0.15)
-pop(12.75, 0.12, 900)
-souffle(14.75, 0.45, 0.14)
-gresille(14.8, 2.0, 0.04)
-pop(15.1, 0.14, 950)  # étiquette « plat du jour »
-souffle(16.65, 0.45, 0.18)  # l'ardoise remonte
-souffle(17.0, 0.5, 0.12, montee=True)  # le N s'allume
-for i in range(3):  # vidéo, photo, motion design
-    pop(17.7 + i * B / 2, 0.14, 1000 + i * 150)
-carillon(18.45)
+salle(7.0, 2.8, 0.05)
+for t in (7.5, 9.9):
+    clic(t, 0.2)  # « REC »
+tinte(8.3, 0.05)
+gresille(9.6, 2.7, 0.06)  # les nouilles
+pop(10.5, 0.12, 900)  # étiquette « ramen du jour »
+# le site
+souffle(12.25, 0.45, 0.2)
+souffle(12.4, 0.5, 0.15)
+frotte(13.9, 0.7, 0.3, allers=2)  # l'éponge sur le site
+pop(14.6, 0.14, 1200)  # « À l'instant »
+clic(14.65, 0.14)
+# le réel
+souffle(16.3, 0.45, 0.2)
+for i in range(8):  # les cœurs
+    pop(16.95 + i * 0.2, 0.07, 1300 + 60 * i)
+souffle(18.6, 0.45, 0.16)  # les deux téléphones côte à côte
+souffle(19.6, 0.5, 0.12, montee=True)  # le N s'allume
+for i in range(3):  # vidéo sur place, site, réseaux
+    pop(20.45 + i * B / 2, 0.14, 1000 + i * 150)
+carillon(21.25)
 
 # normalisation et petit fondu final pour une boucle propre
 crete = max(abs(x) for x in piste) or 1
