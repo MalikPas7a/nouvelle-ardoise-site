@@ -1,0 +1,46 @@
+# Certificat HTTPS de nouvelleardoise.ch (GitHub Pages), à lancer à la main depuis l'onglet Actions.
+#   diagnostic         : affiche le domaine, l'état du certificat et le HTTPS forcé ou non
+#   relancer-certificat: retire puis remet le domaine, ce qui relance la demande de certificat
+#                        (le site peut être indisponible quelques minutes)
+#   forcer-https       : coche « Enforce HTTPS » une fois le certificat délivré
+name: HTTPS
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: Que faire ?
+        type: choice
+        options: [diagnostic, relancer-certificat, forcer-https]
+        default: diagnostic
+
+permissions:
+  pages: write
+
+jobs:
+  https:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DEPOT: ${{ github.repository }}
+      DOMAINE: nouvelleardoise.ch
+    steps:
+      - name: État actuel
+        run: |
+          gh api "repos/$DEPOT/pages" | jq '{cname, status, build_type, https_enforced, https_certificate, protected_domain_state, pending_domain_unverified_at}'
+          gh api "repos/$DEPOT/pages/health" 2>/dev/null | jq '.domain | {host, is_pages_domain, dns_resolves, is_proxied, is_valid, uri, enforces_https, responds_to_https, https_error, is_https_eligible, caa_error, reason}' || echo "Contrôle de santé indisponible (le domaine est peut-être en cours de vérification)."
+
+      - name: Relancer la demande de certificat
+        if: inputs.action == 'relancer-certificat'
+        run: |
+          gh api -X PUT "repos/$DEPOT/pages" -F "cname=" >/dev/null && echo "Domaine retiré."
+          sleep 20
+          gh api -X PUT "repos/$DEPOT/pages" -f "cname=$DOMAINE" >/dev/null && echo "Domaine remis : $DOMAINE."
+          sleep 20
+          gh api "repos/$DEPOT/pages" | jq '{cname, https_enforced, https_certificate}'
+
+      - name: Forcer le HTTPS
+        if: inputs.action == 'forcer-https'
+        run: |
+          gh api -X PUT "repos/$DEPOT/pages" -F https_enforced=true >/dev/null && echo "HTTPS forcé."
+          gh api "repos/$DEPOT/pages" | jq '{cname, https_enforced, https_certificate}'
