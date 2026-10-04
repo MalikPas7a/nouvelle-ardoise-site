@@ -533,6 +533,29 @@ model-viewer:not(:defined) > * { display: none; }
 .eponge__indice { opacity: calc(1 - var(--r) * 2); }
 .eponge__actions { pointer-events: none; } .eponge.lu .eponge__actions { pointer-events: auto; }
 
-/* Voir plus : les séquences de plats, chargées seulement quand on les ouvre */
-.plus__tete { display: grid; gap: 20px; justify-items: start; max-width: 760px; }
-.plus__tete p { max-width: 56ch; }
+/* Vos plats en mouvement : un onglet par animation, l'animation s'ouvre sur sa propre page */
+.mouvement__tete { display: grid; gap: 14px; max-width: 760px; margin-bottom: 26px; }
+.mouvement__tete p { max-width: 56ch; }
+.onglets--sombre { grid-template-columns: repeat(3, 1fr); background: rgb(255 255 255 / 0.06); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12); }
+.onglets--sombre button { color: var(--blanc); }
+.onglets--sombre span { color: #A9B6B1; }
+.onglets--sombre button[aria-selected='true'] { background: var(--jaune); color: var(--ardoise); }
+.onglets--sombre button[aria-selected='true'] span { color: var(--ardoise); }
+.anim { display: grid; gap: 22px; align-items: center; }
+.anim__apercu { position: relative; display: block; overflow: hidden; border-radius: 22px; background: #000; aspect-ratio: 16 / 9; max-width: 100%; }
+.anim__apercu img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.anim__apercu:hover img { transform: scale(1.04); }
+.anim__play { position: absolute; inset: 50% auto auto 50%; display: grid; place-items: center; width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: 50%; background: var(--jaune); color: var(--ardoise); box-shadow: 0 8px 26px rgb(0 0 0 / 0.4); }
+.anim__apercu:focus-visible { outline: 3px solid var(--jaune); outline-offset: 3px; }
+.anim__texte { display: grid; gap: 14px; justify-items: start; min-width: 0; }
+.anim__texte h3 { margin: 0; font-family: var(--titre); font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.1; color: var(--blanc); }
+.anim__texte .anim__note { font-size: 0.88rem; color: #A9B6B1; }
+@media (min-width: 900px) { .anim { grid-template-columns: 1.35fr 1fr; gap: 40px; } }
+@media (max-width: 420px) { .onglets--sombre button { padding: 12px 10px; } .onglets--sombre span { font-size: 0.78rem; } }
+
+/* page d'une animation seule */
+.sequence--kebab { height: 420vh; }
+.anim-fin__in { display: grid; gap: 18px; justify-items: start; }
+.anim-fin__in > p { max-width: 56ch; }
+.anim-fin__credit { font-size: 0.82rem; }
+.anim-fin__credit a { color: #A9B6B1; }
