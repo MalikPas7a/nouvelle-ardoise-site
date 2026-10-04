@@ -1,6 +1,10 @@
 """Vérifie dans BounceBan les adresses d'un CSV produit par liste_a_verifier.py.
 
-    BOUNCEBAN_API_KEY=… python3 verifier_bounceban.py liste.csv resultats.csv
+    python3 verifier_bounceban.py liste.csv resultats.csv
+
+La clé est rangée dans l'environnement cloud comme « identifiant API » (en-tête Authorization,
+sans préfixe, site api-waterfall.bounceban.com) : le proxy de la session l'ajoute lui-même aux
+requêtes, le programme ne la voit jamais. À défaut, il prend la variable BOUNCEBAN_API_KEY.
 
 Une requête par adresse sur l'API « waterfall », qui attend le résultat (1 crédit par adresse).
 Si elle répond 408 (vérification encore en cours), on renvoie la même demande : c'est gratuit
@@ -20,7 +24,8 @@ API = "https://api-waterfall.bounceban.com/v1/verify/single?email="
 
 
 def verifier(email, cle):
-    req = urllib.request.Request(API + urllib.parse.quote(email), headers={"Authorization": cle})
+    entetes = {"Authorization": cle} if cle else {}
+    req = urllib.request.Request(API + urllib.parse.quote(email), headers=entetes)
     for essai in range(4):
         try:
             with urllib.request.urlopen(req, timeout=100) as r:
@@ -30,7 +35,8 @@ def verifier(email, cle):
             if erreur.code == 408:
                 continue
             if erreur.code in (401, 402, 403):
-                sys.exit(f"BounceBan refuse la clé ou n'a plus de crédits (HTTP {erreur.code}).")
+                sys.exit(f"BounceBan refuse la clé ou n'a plus de crédits (HTTP {erreur.code}) : vérifier "
+                         "l'identifiant API de l'environnement (ou la variable BOUNCEBAN_API_KEY).")
             if erreur.code == 429:
                 time.sleep(5)
                 continue
@@ -41,9 +47,7 @@ def verifier(email, cle):
 
 
 def main(entree, sortie):
-    cle = os.environ.get("BOUNCEBAN_API_KEY")
-    if not cle:
-        sys.exit("Variable BOUNCEBAN_API_KEY absente : ajoutez-la dans les réglages de l'environnement.")
+    cle = os.environ.get("BOUNCEBAN_API_KEY")  # sinon, ajoutée par le proxy (identifiant API)
     lignes = list(csv.DictReader(open(entree, encoding="utf-8")))
     with open(sortie, "w", newline="", encoding="utf-8") as f:
         ecrire = csv.writer(f)
