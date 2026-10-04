@@ -399,9 +399,16 @@ const jsonLd = JSON.stringify({
     <div class="offres__panneau" id="offres-reseaux" role="tabpanel" aria-labelledby="onglet-reseaux">
     <div class="reseaux">
       <figure class="reseaux__exemple">
-        <video src="/media/exemple-sora.mp4" poster="/media/exemple-sora.jpg" muted loop playsinline preload="none" width="432" height="768" data-video-exemple aria-label="Exemple de réel pour Sora, comptoir à ramen"></video>
-        <figcaption><b>Exemple : Sora, comptoir à ramen</b> On filme la salle et le plat du jour, puis la même vidéo part sur le site et en réel sur Instagram, aux couleurs du restaurant.</figcaption>
+        <button type="button" class="reseaux__lecture" data-ouvrir-video aria-label="Regarder la vidéo d’exemple, avec le son">
+          <video src="/media/exemple-sora.mp4" poster="/media/exemple-sora.jpg" muted loop playsinline preload="none" width="432" height="768" data-video-exemple aria-hidden="true"></video>
+          <span class="reseaux__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
+        </button>
+        <figcaption><b>Exemple : Sora, comptoir à ramen</b> On filme la salle et le plat du jour, puis la même vidéo part sur le site et en réel sur Instagram, aux couleurs du restaurant. <a class="reseaux__voir" href="/media/exemple-sora-hd.mp4" data-ouvrir-video>Regarder la vidéo</a></figcaption>
       </figure>
+      <dialog class="visionneuse" data-visionneuse aria-label="Vidéo d’exemple : Sora, comptoir à ramen">
+        <video controls playsinline preload="none" poster="/media/exemple-sora.jpg" width="720" height="1280" data-video-grande></video>
+        <form method="dialog"><button class="visionneuse__fermer" aria-label="Fermer la vidéo">×</button></form>
+      </dialog>
       <div class="offres offres--deux">
         <article class="offre">
           <h3>Pack lancement</h3>
