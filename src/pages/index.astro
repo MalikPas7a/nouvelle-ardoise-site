@@ -51,18 +51,18 @@ const jsonLd = JSON.stringify({
   url: SITE.url,
   email: SITE.email,
   areaServed: ['Genève', 'Vaud'],
-  description: 'Sites web, cartes et menus en 3D pour les restaurants.',
+  description: 'Sites web, gestion des réseaux sociaux, vidéo et menus en 3D pour les restaurants.',
   priceRange: 'CHF 999 – 3490',
 });
 ---
-<Base page="accueil" title="Nouvelle Ardoise | Sites, cartes et menus 3D pour restaurants à Genève" description="Sites immersifs, cartes et menus en 3D pour les restaurants de Genève et Vaud. Offres à prix fixe, dès CHF 999. Vidéo et réseaux sociaux : pack lancement et abonnement mensuel.">
+<Base page="accueil" title="Nouvelle Ardoise | Sites, réseaux sociaux et menus 3D pour restaurants à Genève" description="Marketing digital pour les restaurants de Genève et Vaud : sites web, gestion des réseaux sociaux, vidéo et menus en 3D. Prix affichés, sites dès CHF 999.">
 <script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
 
 <!-- ============ Ouverture : un coup d'éponge sur l'ancien site ============ -->
 <section class="eponge" data-eponge aria-labelledby="titre-accueil">
   <div class="eponge__colle">
     <div class="cadre eponge__contenu">
-      <p class="eponge__sur"><svg class="eponge__n" viewBox="0 0 28 28" width="34" height="34" aria-hidden="true"><path d="M7.4 21.6V6.4l13.2 15.2V6.4" fill="none" stroke="#FFD23F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Sites, cartes et menus 3D · Genève et Vaud</p>
+      <p class="eponge__sur"><svg class="eponge__n" viewBox="0 0 28 28" width="34" height="34" aria-hidden="true"><path d="M7.4 21.6V6.4l13.2 15.2V6.4" fill="none" stroke="#FFD23F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Sites, réseaux sociaux et menus 3D · Genève et Vaud</p>
       <h1 class="eponge__titre" id="titre-accueil" aria-label="Envie de passer l’éponge sur votre ancien site ?">
         <span aria-hidden="true">Envie de passer l’éponge sur votre <span class="efface"><span class="efface__mot">ancien site</span><span class="efface__trace">ancien site</span><svg class="efface__brosse" viewBox="0 0 40 120"><rect x="2" y="2" width="22" height="116" rx="7" fill="#C9975C"/><rect x="2" y="2" width="9" height="116" rx="5" fill="#E2B57A"/><rect x="22" y="4" width="15" height="112" rx="4" fill="#3C4245"/><rect x="33" y="6" width="3" height="108" fill="#E8EDEC" opacity=".35"/></svg></span>&nbsp;?</span>
       </h1>
@@ -348,7 +348,7 @@ const jsonLd = JSON.stringify({
     </header>
     <div class="onglets" role="tablist" aria-label="Choisir le type d’offre" data-onglets>
       <button type="button" role="tab" id="onglet-site" aria-controls="offres-site" aria-selected="true"><b>Créer votre site</b><span>3 offres, dès CHF 999</span></button>
-      <button type="button" role="tab" id="onglet-reseaux" aria-controls="offres-reseaux" aria-selected="false" tabindex="-1"><b>Vidéo et réseaux sociaux</b><span>Sans toucher à votre site</span></button>
+      <button type="button" role="tab" id="onglet-reseaux" aria-controls="offres-reseaux" aria-selected="false" tabindex="-1"><b>Vidéo et réseaux sociaux</b><span>Dès CHF 490 par mois</span></button>
     </div>
     <div class="offres__panneau" id="offres-site" role="tabpanel" aria-labelledby="onglet-site">
     <p class="demo__ou offres__note">Nous réalisons la carte des plats et des boissons sans alcool. La carte des vins et des alcools n’entre pas dans nos prestations : elle se découvre sur place.</p>
@@ -409,37 +409,50 @@ const jsonLd = JSON.stringify({
         <video controls playsinline preload="none" poster="/media/exemple-sora.jpg" width="720" height="1280" data-video-grande></video>
         <form method="dialog"><button class="visionneuse__fermer" aria-label="Fermer la vidéo">×</button></form>
       </dialog>
-      <div class="offres offres--deux">
+      <div class="offres">
+        <article class="offre">
+          <h3>Essentiel</h3>
+          <p class="offre__prix">CHF 490 <small>par mois</small></p>
+          <p class="offre__pour">Pour être vu chaque semaine, sans y penser.</p>
+          <ul>
+            <li>Une heure de tournage chez vous chaque mois</li>
+            <li>4 réels montés et publiés par mois</li>
+            <li>Votre menu du jour publié chaque matin</li>
+          </ul>
+          <p class="offre__suivi">Trois mois minimum, puis sans engagement.</p>
+          <a class="btn btn--clair" href="#contact" data-offre="Réseaux Essentiel">Choisir Essentiel</a>
+        </article>
+        <article class="offre offre--phare">
+          <h3>Premium</h3>
+          <p class="offre__prix">CHF 990 <small>par mois</small></p>
+          <p class="offre__pour">Pour remplir la salle, avec la publicité.</p>
+          <ul>
+            <li>Deux heures de tournage chaque mois</li>
+            <li>4 réels et 8 publications par mois</li>
+            <li>Toute votre carte en photo</li>
+            <li>Votre menu du jour publié chaque matin</li>
+            <li>Publicité Facebook et Instagram gérée</li>
+          </ul>
+          <p class="offre__suivi">Trois mois minimum, puis sans engagement.</p>
+          <a class="btn btn--jaune" href="#contact" data-offre="Réseaux Premium">Choisir Premium</a>
+        </article>
         <article class="offre">
           <h3>Pack lancement</h3>
-          <p class="offre__prix">CHF 1’900 <small>une seule fois</small></p>
-          <p class="offre__pour">Pour démarrer avec de vraies images de chez vous.</p>
+          <p class="offre__prix">CHF 990 <small>une seule fois</small></p>
+          <p class="offre__pour">Sans abonnement : un tournage, et c’est parti.</p>
           <ul>
-            <li>Une demi-journée de tournage au restaurant</li>
+            <li>Deux heures de tournage au restaurant</li>
             <li>4 réels montés, prêts à publier</li>
             <li>Photos de vos plats, sans limite pendant le tournage</li>
           </ul>
           <p class="offre__suivi">Les images sont à vous.</p>
           <a class="btn btn--clair" href="#contact" data-offre="Pack lancement">Choisir le pack</a>
         </article>
-        <article class="offre offre--phare">
-          <h3>Abonnement réseaux</h3>
-          <p class="offre__prix">CHF 1’490 <small>par mois</small></p>
-          <p class="offre__pour">Vos réseaux vivent, on s’occupe de tout.</p>
-          <ul>
-            <li>Un tournage chez vous chaque mois</li>
-            <li>4 réels et 8 publications par mois</li>
-            <li>Votre menu du jour publié chaque matin</li>
-            <li>Publicité Facebook et Instagram gérée</li>
-          </ul>
-          <p class="offre__suivi">Trois mois minimum, puis sans engagement.</p>
-          <a class="btn btn--jaune" href="#contact" data-offre="Abonnement réseaux">S’abonner</a>
-        </article>
       </div>
     </div>
     <details class="pub">
       <summary>Et le budget de la publicité ?</summary>
-      <p>Vous le payez directement à Facebook (Meta), avec votre carte, dans votre propre compte : vous gardez la main et vous ne payez aucune commission dessus. On vous conseille de commencer avec 10 à 15 francs par jour. Nous créons les campagnes, ciblons les gens autour du restaurant à l’heure des repas, et vous envoyons un bilan clair chaque mois.</p>
+      <p>Dans l’offre Premium, nous gérons votre publicité. Le budget, vous le payez directement à Facebook (Meta), avec votre carte, dans votre propre compte : vous gardez la main et vous ne payez aucune commission dessus. On vous conseille de commencer avec 10 à 15 francs par jour. Nous créons les campagnes, ciblons les gens autour du restaurant à l’heure des repas, et vous envoyons un bilan clair chaque mois.</p>
     </details>
     </div>
   </div>
@@ -496,8 +509,9 @@ const jsonLd = JSON.stringify({
           <option>Essentiel</option>
           <option>Signature</option>
           <option>Maison</option>
+          <option>Réseaux Essentiel</option>
+          <option>Réseaux Premium</option>
           <option>Pack lancement</option>
-          <option>Abonnement réseaux</option>
         </select>
       </label>
       <label class="formulaire__large">Votre projet<textarea name="msg" rows="3"></textarea></label>
