@@ -131,6 +131,12 @@ onglets.forEach((o, i) => {
     if (pas) { e.preventDefault(); montrerOnglet(onglets[(i + pas + onglets.length) % onglets.length], true); }
   });
 });
+// la vidéo d'exemple ne se charge et ne joue que lorsqu'elle est à l'écran
+const exemple = $('[data-video-exemple]');
+if (exemple && calme) exemple.controls = true;
+if (exemple && !calme) {
+  new IntersectionObserver(([e]) => { if (e.isIntersecting) exemple.play().catch(() => {}); else exemple.pause(); }, { threshold: 0.4 }).observe(exemple);
+}
 if (onglets.length) montrerOnglet(location.hash === '#reseaux' ? onglets[1] : onglets[0]);
 
 /* ---------- choisir une offre la présélectionne dans le formulaire ---------- */
