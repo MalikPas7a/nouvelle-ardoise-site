@@ -52,7 +52,7 @@ const police = (c, taille, graisse = 800, famille = 'Brico') => { c.font = `${gr
 const charger = (src) => new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; });
 const B = 60 / 110;
 const IMG = {};
-const IMAGES = { salle: [], nouilles: [], cliente: [], table: [] };
+const IMAGES = { salle: [], nouilles: [], cliente: [] };
 const image = (plan, t, t0) => { const l = IMAGES[plan]; return l[clamp(Math.floor((t - t0) * 30), 0, l.length - 1)]; };
 
 // Image plein cadre : (fx, fy) = point de l'image placé au centre, z = grossissement

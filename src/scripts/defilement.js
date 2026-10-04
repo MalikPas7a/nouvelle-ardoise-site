@@ -21,10 +21,11 @@ function sequence(section) {
   const toile = section.querySelector('canvas');
   const ctx = toile.getContext('2d');
   const textes = [...section.querySelectorAll('[data-de]')];
+  const sujet = section.dataset.sujet?.split(',').map(Number);
   // Trois tailles d'images : téléphone (m), ordinateur (g), grand écran très défini (x) quand elle existe
   const tailles = (section.dataset.tailles || 'm,g').split(',');
   const pixels = innerWidth * Math.min(devicePixelRatio || 1, 2);
-  const taille = innerWidth < 760 ? 'm' : pixels >= 2300 && tailles.includes('x') ? 'x' : 'g';
+  const taille = innerWidth < 760 && tailles.includes('m') ? 'm' : pixels >= 2300 && tailles.includes('x') ? 'x' : 'g';
   const dossier = `/sequences/${nom}/${taille}`;
   const images = new Array(total);
   let affichee = -1;
@@ -62,6 +63,22 @@ function sequence(section) {
     const h = img.height * k;
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, W, H);
+    // data-sujet="centre,largeur" (en part de l'image) : le sujet (un pot, une assiette) reste entier.
+    // Écran en hauteur : il occupe toute la largeur, dans le haut de l'écran.
+    // Écran large : il passe au tiers gauche, pour laisser la droite au texte.
+    if (sujet) {
+      const [cx, larg] = sujet;
+      if (W / H < 1) {
+        const ks = (W * 0.92) / (larg * img.width);
+        ctx.drawImage(img, W / 2 - cx * img.width * ks, H * 0.1, img.width * ks, img.height * ks);
+      } else {
+        const cible = 0.32;
+        const ws = Math.max(w, (W * (1 - cible)) / (1 - cx));
+        const hs = ws * (img.height / img.width);
+        ctx.drawImage(img, cible * W - cx * ws, (H - hs) / 2, ws, hs);
+      }
+      return;
+    }
     ctx.drawImage(img, (W - w) / 2, (H - h) * (W / H < 1 && !('couvre' in section.dataset) ? 0.38 : 0.5), w, h);
   }
 
