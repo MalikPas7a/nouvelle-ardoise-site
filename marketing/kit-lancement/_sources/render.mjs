@@ -15,8 +15,8 @@ const sortie = join(ici, '..', 'reel');
 const IPS = 30, DUREE = 15;
 const REEL = process.env.REEL ?? 'reel';
 const NOM = REEL === 'reel' ? 'reel-sushi-15s' : `${REEL}-15s`;
-const SON = REEL === 'reel' ? 'son.py' : 'son_carte.py';
-const COUVERTURE = REEL === 'reel' ? '0210' : '0240';
+const SON = { reel: 'son.py', 'reel-carte': 'son_carte.py', 'reel-reseaux': 'son_reseaux.py' }[REEL];
+const COUVERTURE = { reel: '0210', 'reel-carte': '0240', 'reel-reseaux': '0165' }[REEL];
 const tmp = process.env.TMP_REEL ?? mkdtempSync(join(tmpdir(), 'reel-'));
 
 const nav = await chromium.launch({ args: ['--allow-file-access-from-files'] });
