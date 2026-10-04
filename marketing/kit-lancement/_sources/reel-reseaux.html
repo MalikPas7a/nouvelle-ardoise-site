@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Réel réseaux sociaux</title>
+<!--
+  Réel Instagram 15 s, 1080×1920 : la gestion des réseaux sociaux et les vidéos en motion design.
+  Tout est dessiné (aucune photo) : un profil poussiéreux, un coup d'éponge, des publications
+  qui se retournent, un réel animé, un planning, puis l'appel à l'action sur l'ardoise.
+  REEL=reel-reseaux node render.mjs assemble la vidéo.
+-->
+<style>
+  @font-face { font-family: Brico; src: url(fonts/bricolage-grotesque-latin-standard-normal.woff2) format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: Instru; src: url(fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; width: 1080px; height: 1920px; }
+</style>
+</head>
+<body>
+<canvas width="1080" height="1920"></canvas>
+<script src="ardoise.js"></script>
+<script>
+const L = 1080, H = 1920, DUREE = 15;
+const JAUNE = '#FFD23F', ARDOISE = '#1E2A2C', NAPPE = '#F5F7F4', ROUGE = '#FF4B2B', VERT = '#5FA85A', NUIT = '#121617';
+const ctx = document.querySelector('canvas').getContext('2d');
+const FOND = peindreArdoise(L, H);
+const toile = (l, h) => Object.assign(document.createElement('canvas'), { width: l, height: h });
+
+// ---------- outils ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const mix = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const sortie = (k) => 1 - Math.pow(1 - k, 3);
+const dansSortie = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const rebond = (k) => { const c = 1.6; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+const police = (c, taille, graisse = 800, famille = 'Brico') => { c.font = `${graisse} ${taille}px ${famille}`; };
+const millier = (n) => Math.round(n).toLocaleString('fr-CH').replace(/ | /g, ' ');
+
+function coeur(c, x, y, r, couleur) {
+  c.save(); c.translate(x, y); c.scale(r / 10, r / 10);
+  c.fillStyle = couleur; c.beginPath();
+  c.moveTo(0, 9); c.bezierCurveTo(-12, 1, -10, -9, -4.5, -9); c.bezierCurveTo(-2, -9, 0, -7, 0, -5);
+  c.bezierCurveTo(0, -7, 2, -9, 4.5, -9); c.bezierCurveTo(10, -9, 12, 1, 0, 9); c.fill();
+  c.restore();
+}
+function coche(c, x, y, r, couleur, k = 1) {
+  c.save(); c.strokeStyle = couleur; c.lineWidth = r * 0.28; c.lineCap = 'round'; c.lineJoin = 'round';
+  c.beginPath(); c.moveTo(x - r * 0.5, y); c.lineTo(x - r * 0.12, y + r * 0.4 * Math.min(1, k * 2));
+  if (k > 0.5) c.lineTo(x - r * 0.12 + (r * 0.72) * (k - 0.5) * 2, y + r * 0.4 - (r * 0.85) * (k - 0.5) * 2);
+  c.stroke(); c.restore();
+}
+
+// Lignes de texte sobres (fondu montant), mot surligné en jaune
+function ligne(c, mots, t, t0, y, taille, { surligne = -1, fin = 1e9, ecart = 0.06, couleur = '#fff' } = {}) {
+  police(c, taille);
+  c.textBaseline = 'alphabetic';
+  const espace = taille * 0.27;
+  const largeurs = mots.map((m, j) => c.measureText(m).width + (j === surligne ? 36 : 0));
+  let x = (L - largeurs.reduce((a, b) => a + b, 0) - espace * (mots.length - 1)) / 2;
+  const kOut = prog(t, fin, fin + 0.2);
+  mots.forEach((m, j) => {
+    const k = sortie(prog(t, t0 + j * ecart, t0 + j * ecart + 0.32));
+    if (k > 0 && kOut < 1) {
+      c.save();
+      c.globalAlpha = k * (1 - kOut);
+      c.translate(x + largeurs[j] / 2, y + (1 - k) * 26 - kOut * 26);
+      if (j === surligne) {
+        const p = sortie(prog(t, t0 + j * ecart + 0.12, t0 + j * ecart + 0.45));
+        c.fillStyle = JAUNE;
+        c.beginPath(); c.roundRect(-largeurs[j] / 2 + 4, -taille * 0.82, (largeurs[j] - 8) * p, taille * 1.04, 12); c.fill();
+      }
+      c.fillStyle = j === surligne ? ARDOISE : couleur;
+      c.shadowColor = j === surligne ? 'transparent' : 'rgba(0,0,0,0.45)'; c.shadowBlur = 22; c.shadowOffsetY = 4;
+      c.textAlign = 'center';
+      c.fillText(m, 0, 0);
+      c.restore();
+    }
+    x += largeurs[j] + espace;
+  });
+}
+
+// ---------- l'écran du téléphone (620 × 1300) ----------
+const EL = 620, EH = 1300;
+const avant = toile(EL, EH), apres = toile(EL, EH), poussiere = toile(EL, EH);
+const actx = avant.getContext('2d'), pctx = apres.getContext('2d'), dctx = poussiere.getContext('2d');
+const COTE = 196, GX = 8, GY = 520;     // grille 3 × 3
+
+// Les neuf publications, dessinées en aplats (aucune photo)
+const TUILES = [
+  (c) => { c.fillStyle = JAUNE; c.fillRect(0, 0, COTE, COTE); police(c, 30); c.fillStyle = ARDOISE; c.textAlign = 'center'; c.fillText('PLAT', 98, 86); c.fillText('DU JOUR', 98, 122); },
+  (c) => { c.fillStyle = NUIT; c.fillRect(0, 0, COTE, COTE); c.fillStyle = NAPPE; c.beginPath(); c.arc(98, 98, 64, 0, 7); c.fill(); c.fillStyle = '#e9ece8'; c.beginPath(); c.arc(98, 98, 44, 0, 7); c.fill(); [[ROUGE, 84, 86], [VERT, 112, 92], [JAUNE, 98, 114]].forEach(([k, x, y]) => { c.fillStyle = k; c.beginPath(); c.arc(x, y, 13, 0, 7); c.fill(); }); },
+  (c) => { c.fillStyle = ROUGE; c.fillRect(0, 0, COTE, COTE); police(c, 34); c.fillStyle = '#fff'; c.textAlign = 'center'; c.fillText('NOUVEAU', 98, 108); },
+  (c) => { c.fillStyle = NAPPE; c.fillRect(0, 0, COTE, COTE); c.fillStyle = '#E8A400'; police(c, 30); c.textAlign = 'center'; c.fillText('★★★★★', 98, 92); police(c, 19, 600, 'Instru'); c.fillStyle = ARDOISE; c.fillText('« On revient', 98, 128); c.fillText('dimanche ! »', 98, 152); },
+  (c) => { c.fillStyle = ARDOISE; c.fillRect(0, 0, COTE, COTE); c.fillStyle = JAUNE; c.beginPath(); c.moveTo(80, 70); c.lineTo(80, 126); c.lineTo(128, 98); c.closePath(); c.fill(); },
+  (c) => { c.fillStyle = VERT; c.fillRect(0, 0, COTE, COTE); police(c, 40); c.fillStyle = '#fff'; c.textAlign = 'center'; c.fillText('VÉGÉ', 98, 112); },
+  (c) => { c.fillStyle = NUIT; c.fillRect(0, 0, COTE, COTE); police(c, 30); c.fillStyle = '#fff'; c.textAlign = 'center'; c.fillText('CE SOIR', 98, 90); c.fillStyle = JAUNE; police(c, 40); c.fillText('21 h', 98, 134); },
+  (c) => { c.fillStyle = JAUNE; c.fillRect(0, 0, COTE, COTE); coeur(c, 98, 92, 34, ROUGE); police(c, 24); c.fillStyle = ARDOISE; c.textAlign = 'center'; c.fillText('MERCI !', 98, 160); },
+  (c) => { c.fillStyle = '#2B3A3C'; c.fillRect(0, 0, COTE, COTE); c.strokeStyle = JAUNE; c.lineWidth = 6; c.beginPath(); c.roundRect(38, 62, 120, 66, 12); c.stroke(); police(c, 28); c.fillStyle = JAUNE; c.textAlign = 'center'; c.fillText('OUVERT', 98, 106); },
+];
+// dessinées une fois les polices chargées (sinon le navigateur prend une police de secours)
+let imagesTuiles = [];
+const dessinerTuiles = () => { imagesTuiles = TUILES.map((dessin) => { const t = toile(COTE, COTE); const c = t.getContext('2d'); c.textBaseline = 'alphabetic'; dessin(c); return t; }); };
+
+function profil(c, t, propre) {
+  c.fillStyle = '#0B0E0F'; c.fillRect(0, 0, EL, EH);
+  // barre du haut
+  police(c, 30, 700); c.fillStyle = '#fff'; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+  c.fillText('votre.resto', EL / 2, 128);
+  // avatar
+  c.fillStyle = propre ? ARDOISE : '#30363a'; c.beginPath(); c.arc(92, 236, 66, 0, 7); c.fill();
+  c.strokeStyle = propre ? JAUNE : '#555c60'; c.lineWidth = 5; c.stroke();
+  police(c, 40); c.fillStyle = propre ? JAUNE : '#80878a'; c.fillText('VR', 92, 250);
+  // compteurs
+  const k = propre ? sortie(prog(t, 3.3, 5.6)) : 0;
+  const stats = [[mix(12, 48, k), 'publications'], [mix(214, 1284, k), 'abonnés'], [80, 'suivis']];
+  stats.forEach(([n, mot], i) => {
+    const x = 270 + i * 128;
+    police(c, 34); c.fillStyle = '#fff'; c.fillText(millier(n), x, 230);
+    police(c, 21, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.7)'; c.fillText(mot, x, 262);
+  });
+  // bio
+  c.textAlign = 'left';
+  police(c, 26, 700, 'Instru'); c.fillStyle = '#fff'; c.fillText('Votre Resto · Genève', 30, 360);
+  police(c, 23, 500, 'Instru');
+  if (propre) { c.fillStyle = JAUNE; c.fillText('Nouveau post chaque semaine', 30, 398); }
+  else { c.fillStyle = '#80878a'; c.fillText('Dernière publication : il y a 7 mois', 30, 398); }
+  // onglets
+  c.fillStyle = 'rgba(255,255,255,0.12)'; c.fillRect(0, 470, EL, 2);
+  c.fillStyle = '#fff'; c.fillRect(0, 470, EL / 3, 2);
+  // grille
+  for (let i = 0; i < 9; i++) {
+    const x = GX + (i % 3) * (COTE + 6), y = GY + Math.floor(i / 3) * (COTE + 6);
+    if (!propre) {
+      c.fillStyle = i < 3 ? '#2a2f31' : '#23282a'; c.fillRect(x, y, COTE, COTE);
+      c.fillStyle = '#3a4144'; police(c, 60); c.textAlign = 'center'; c.fillText('?', x + COTE / 2, y + COTE / 2 + 22);
+      continue;
+    }
+    // chaque case se retourne, l'une après l'autre
+    const kf = prog(t, 2.35 + i * 0.09, 2.35 + i * 0.09 + 0.32);
+    const sx = Math.abs(Math.cos(kf * Math.PI));
+    c.save(); c.translate(x + COTE / 2, y + COTE / 2); c.scale(Math.max(0.02, sx), 1);
+    if (kf < 0.5) { c.fillStyle = '#2a2f31'; c.fillRect(-COTE / 2, -COTE / 2, COTE, COTE); }
+    else c.drawImage(imagesTuiles[i], -COTE / 2, -COTE / 2);
+    c.restore();
+    c.textAlign = 'left';
+  }
+  // poussière sur l'ancien profil
+  if (!propre) {
+    c.fillStyle = 'rgba(170,165,150,0.16)'; c.fillRect(0, 0, EL, EH);
+    c.drawImage(poussiere, 0, 0);
+  }
+}
+
+// grains de poussière, une fois pour toutes
+(() => {
+  const r = hasard(21);
+  for (let i = 0; i < 2600; i++) {
+    dctx.fillStyle = `rgba(200,195,180,${0.05 + r() * 0.18})`;
+    dctx.beginPath(); dctx.arc(r() * EL, r() * EH, 0.6 + r() * 2.4, 0, 7); dctx.fill();
+  }
+  dctx.filter = 'blur(18px)';
+  for (let i = 0; i < 14; i++) { dctx.fillStyle = 'rgba(190,185,170,0.10)'; dctx.beginPath(); dctx.ellipse(r() * EL, r() * EH, 80 + r() * 140, 40 + r() * 90, r() * 3, 0, 7); dctx.fill(); }
+  dctx.filter = 'none';
+})();
+
+// Notifications qui glissent en haut de l'écran
+const NOTIFS = [
+  { t: 3.7, icone: 'coeur', texte: '38 nouveaux j’aime' },
+  { t: 4.5, icone: 'plus', texte: '+52 abonnés cette semaine' },
+  { t: 5.3, icone: 'bulle', texte: '« Vous avez une table pour 4 ? »' },
+];
+function notifications(c, t) {
+  NOTIFS.forEach((n, i) => {
+    // une notification à la fois, sous la grille : la suivante pousse la précédente
+    const finN = i + 1 < NOTIFS.length ? NOTIFS[i + 1].t : 6.7;
+    const k = sortie(prog(t, n.t, n.t + 0.3)), kOut = sortie(prog(t, finN, finN + 0.25));
+    if (k <= 0 || kOut >= 1) return;
+    const y = 1150 + (1 - k) * 90 - kOut * 90;
+    c.save(); c.globalAlpha = k * (1 - kOut);
+    c.beginPath(); c.rect(0, 1130, EL, 170); c.clip();
+    c.fillStyle = 'rgba(245,247,244,0.96)'; c.beginPath(); c.roundRect(22, y, EL - 44, 88, 26); c.fill();
+    const ix = 72, iy = y + 44;
+    c.fillStyle = n.icone === 'coeur' ? ROUGE : n.icone === 'plus' ? VERT : ARDOISE;
+    c.beginPath(); c.arc(ix, iy, 26, 0, 7); c.fill();
+    if (n.icone === 'coeur') coeur(c, ix, iy + 2, 15, '#fff');
+    if (n.icone === 'plus') { c.strokeStyle = '#fff'; c.lineWidth = 6; c.lineCap = 'round'; c.beginPath(); c.moveTo(ix - 11, iy); c.lineTo(ix + 11, iy); c.moveTo(ix, iy - 11); c.lineTo(ix, iy + 11); c.stroke(); }
+    if (n.icone === 'bulle') { c.fillStyle = '#fff'; c.beginPath(); c.roundRect(ix - 14, iy - 11, 28, 20, 7); c.fill(); c.beginPath(); c.moveTo(ix - 6, iy + 8); c.lineTo(ix - 10, iy + 15); c.lineTo(ix + 2, iy + 8); c.fill(); }
+    police(c, 25, 600, 'Instru'); c.fillStyle = ARDOISE; c.textAlign = 'left'; c.textBaseline = 'middle';
+    c.fillText(n.texte, 116, iy + 1);
+    c.textBaseline = 'alphabetic';
+    c.restore();
+  });
+}
+
+// Le réel en motion design qui passe dans le téléphone (7,1 s → 10,4 s)
+function reelAnime(c, t) {
+  const s = t - 7.1;
+  const fonds = [ROUGE, NUIT, JAUNE];
+  const scene = s < 1.1 ? 0 : s < 2.2 ? 1 : 2;
+  c.fillStyle = fonds[scene]; c.fillRect(0, 0, EL, EH);
+  c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+  if (scene === 0) {
+    ['MENU', 'DU', 'JOUR'].forEach((m, i) => {
+      const k = prog(s, i * 0.18, i * 0.18 + 0.3);
+      if (k <= 0) return;
+      c.save(); c.translate(EL / 2, 430 + i * 190); c.scale(rebond(k), rebond(k)); c.rotate((1 - k) * (i % 2 ? 0.2 : -0.2));
+      police(c, 170); c.fillStyle = '#fff'; c.fillText(m, 0, 60); c.restore();
+    });
+  } else if (scene === 1) {
+    const k = sortie(prog(s, 1.1, 1.6));
+    c.save(); c.translate(EL / 2, 600); c.rotate((s - 1.1) * 0.8); c.scale(k, k);
+    c.fillStyle = NAPPE; c.beginPath(); c.arc(0, 0, 210, 0, 7); c.fill();
+    c.fillStyle = '#e4e8e3'; c.beginPath(); c.arc(0, 0, 150, 0, 7); c.fill();
+    c.restore();
+    [[ROUGE, -70, -40], [VERT, 60, -60], [JAUNE, 10, 70], ['#E8A400', -60, 60], [VERT, 80, 40]].forEach(([k2, x, y], i) => {
+      const kk = rebond(prog(s, 1.35 + i * 0.1, 1.65 + i * 0.1));
+      if (kk <= 0) return;
+      c.fillStyle = k2; c.beginPath(); c.arc(EL / 2 + x * kk + (1 - kk) * (i % 2 ? 300 : -300), 600 + y, 34, 0, 7); c.fill();
+    });
+    police(c, 64); c.fillStyle = '#fff'; c.globalAlpha = prog(s, 1.6, 1.85);
+    c.fillText('Fait maison', EL / 2, 960); c.globalAlpha = 1;
+  } else {
+    const k = rebond(prog(s, 2.2, 2.55));
+    c.save(); c.translate(EL / 2, 560); c.scale(k, k); coeur(c, 0, 0, 120, ROUGE); c.restore();
+    police(c, 90); c.fillStyle = ARDOISE; c.fillText(millier(mix(0, 2341, sortie(prog(s, 2.3, 3.1)))), EL / 2, 860);
+    police(c, 40, 600, 'Instru'); c.fillText('j’aime', EL / 2, 920);
+  }
+  // barre de progression et icônes du réel
+  c.fillStyle = 'rgba(255,255,255,0.35)'; c.fillRect(30, 70, EL - 60, 6);
+  c.fillStyle = '#fff'; c.fillRect(30, 70, (EL - 60) * prog(s, 0, 3.3), 6);
+  coeur(c, EL - 60, 1060, 22, scene === 2 ? ROUGE : '#fff');
+}
+
+// Le planning de la semaine (10,4 s → 12 s)
+function planning(c, t) {
+  c.fillStyle = '#0B0E0F'; c.fillRect(0, 0, EL, EH);
+  c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  police(c, 40); c.fillStyle = '#fff'; c.fillText('Cette semaine', 40, 190);
+  const JOURS = [['Lun', 'Réel', ROUGE], ['Mer', 'Publication', JAUNE], ['Ven', 'Story', VERT], ['Sam', 'Réel', ROUGE], ['Dim', 'Réponses aux avis', NAPPE]];
+  JOURS.forEach(([j, quoi, couleur], i) => {
+    const y = 260 + i * 150, k = sortie(prog(t, 10.5 + i * 0.12, 10.8 + i * 0.12));
+    if (k <= 0) return;
+    c.save(); c.globalAlpha = k; c.translate((1 - k) * 60, 0);
+    c.fillStyle = 'rgba(255,255,255,0.07)'; c.beginPath(); c.roundRect(30, y, EL - 60, 120, 24); c.fill();
+    police(c, 30, 700, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.7)'; c.fillText(j, 60, y + 72);
+    c.fillStyle = couleur; c.beginPath(); c.roundRect(150, y + 30, 260, 60, 30); c.fill();
+    police(c, 27, 700, 'Instru'); c.fillStyle = couleur === NAPPE || couleur === JAUNE ? ARDOISE : '#fff';
+    c.fillText(quoi.length > 14 ? 'Avis' : quoi, 175, y + 70);
+    const kc = prog(t, 10.9 + i * 0.15, 11.15 + i * 0.15);
+    c.fillStyle = kc > 0 ? VERT : 'rgba(255,255,255,0.15)'; c.beginPath(); c.arc(EL - 90, y + 60, 32, 0, 7); c.fill();
+    if (kc > 0) coche(c, EL - 90, y + 58, 34, '#fff', kc);
+    c.restore();
+  });
+}
+
+// ---------- composition de l'écran ----------
+const ecran = toile(EL, EH), ectx = ecran.getContext('2d');
+const tmp = toile(EL, EH), tctx = tmp.getContext('2d');
+const PISTE = { l: EL, h: EH, bande: 520, passes: 3 };
+const ESSUYAGE = [1.55, 2.35];
+
+function contenuEcran(t) {
+  if (t < 6.9) {
+    profil(pctx, t, true);
+    ectx.drawImage(apres, 0, 0);
+    if (t < ESSUYAGE[1]) {
+      profil(actx, t, false);
+      tctx.globalCompositeOperation = 'source-over';
+      tctx.clearRect(0, 0, EL, EH); tctx.drawImage(avant, 0, 0);
+      const kW = prog(t, ...ESSUYAGE);
+      let tete = null;
+      if (kW > 0) tete = essuyage(tctx, dansSortie(kW), PISTE);
+      ectx.drawImage(tmp, 0, 0);
+      return tete && kW < 1 ? tete : null;
+    }
+    notifications(ectx, t);
+  } else if (t < 10.4) {
+    // le profil glisse vers la gauche, le réel arrive
+    const k = dansSortie(prog(t, 6.9, 7.2));
+    if (k < 1) { profil(pctx, t, true); ectx.drawImage(apres, -k * EL, 0); }
+    reelAnime(tctx, Math.max(t, 7.1));
+    ectx.drawImage(tmp, EL * (1 - k), 0);
+    if (t > 10.1) { ectx.globalAlpha = prog(t, 10.1, 10.4); planning(tctx, t); ectx.drawImage(tmp, 0, 0); ectx.globalAlpha = 1; }
+  } else {
+    planning(ectx, t);
+  }
+  return null;
+}
+
+// ---------- montage ----------
+const TEL = { w: 620, h: 1300, x: 230, y: 520, r: 76 };
+const LEGENDES = [
+  { de: 0.0, a: 1.45, l1: ['Vos', 'réseaux'], l2: ['prennent', 'la', 'poussière', '?'], h: 2 },
+  { de: 1.55, a: 4.1, l1: ['Un', 'coup', 'd’éponge'], l2: ['sur', 'vos', 'réseaux.'], h: 2 },
+  { de: 4.2, a: 6.8, l1: ['Des', 'publications'], l2: ['qui', 'donnent', 'faim.'], h: 2 },
+  { de: 7.0, a: 10.3, l1: ['Des', 'vidéos', 'en'], l2: ['motion', 'design.'], h: 0 },
+  { de: 10.45, a: 11.85, l1: ['On', 'gère.'], l2: ['Vous', 'cuisinez.'], h: 1 },
+];
+
+function telephone(c, t) {
+  const kOut = dansSortie(prog(t, 11.9, 12.35));
+  if (kOut >= 1) return;
+  const tete = contenuEcran(t);
+  const y = TEL.y + kOut * 300;
+  c.save();
+  c.globalAlpha = 1 - kOut;
+  c.shadowColor = 'rgba(0,0,0,0.55)'; c.shadowBlur = 80; c.shadowOffsetY = 30;
+  c.fillStyle = '#0d1112'; c.beginPath(); c.roundRect(TEL.x - 18, y - 18, TEL.w + 36, TEL.h + 36, TEL.r + 18); c.fill();
+  c.shadowColor = 'transparent'; c.strokeStyle = '#33403f'; c.lineWidth = 3; c.stroke();
+  c.save(); c.beginPath(); c.roundRect(TEL.x, y, TEL.w, TEL.h, TEL.r); c.clip();
+  c.drawImage(ecran, TEL.x, y); c.restore();
+  c.fillStyle = '#000'; c.beginPath(); c.roundRect(L / 2 - 62, y + 22, 124, 36, 18); c.fill();
+  c.restore();
+  if (tete) brosse(c, TEL.x + tete[0], y + tete[1], PISTE.bande * 0.75, Math.PI / 2 + (Math.sin(t * 40) * 0.06));
+}
+
+function appel(c, t) {
+  const out = prog(t, 14.7, 14.97);
+  if (t < 12.2 || out >= 1) return;
+  c.save(); c.globalAlpha = 1 - out;
+  const kn = prog(t, 12.2, 12.6);
+  if (kn > 0) nLumineux(c, 540 - 150, 300, 300, { trace: sortie(kn), eclat: 0.7 + 0.3 * prog(t, 12.6, 12.9) });
+  c.restore();
+  const g = { fin: 14.7 };
+  ligne(c, ['Confiez-nous-en'], t, 12.45, 760, 104, g);
+  ligne(c, ['la', 'gestion,'], t, 12.6, 880, 104, g);
+  ligne(c, ['dynamisez'], t, 12.8, 1010, 104, { ...g, surligne: 0 });
+  ligne(c, ['votre', 'activité.'], t, 12.95, 1130, 104, g);
+  c.save(); c.globalAlpha = 1 - out;
+  const kb = sortie(prog(t, 13.4, 13.8));
+  if (kb > 0) {
+    const souffle = 1 + Math.sin((t - 13.8) * 6) * 0.025 * prog(t, 13.8, 14.0);
+    police(c, 56, 800);
+    const texte = 'Parlons de vos réseaux';
+    const w = c.measureText(texte).width + 220, h = 136;
+    c.save(); c.translate(540, 1330 + (1 - kb) * 30); c.scale(souffle, souffle); c.globalAlpha *= kb;
+    c.shadowColor = 'rgba(255,210,63,0.45)'; c.shadowBlur = 50;
+    c.fillStyle = JAUNE; c.beginPath(); c.roundRect(-w / 2, -h / 2, w, h, h / 2); c.fill();
+    c.shadowColor = 'transparent';
+    c.fillStyle = ARDOISE; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(texte, -w / 2 + 58, 4);
+    const ax = w / 2 - 78 + Math.sin(t * 8) * 4;
+    c.strokeStyle = ARDOISE; c.lineWidth = 8; c.lineCap = 'round'; c.lineJoin = 'round';
+    c.beginPath(); c.moveTo(ax - 24, 2); c.lineTo(ax + 20, 2); c.moveTo(ax + 2, -18); c.lineTo(ax + 22, 2); c.lineTo(ax + 2, 22); c.stroke();
+    c.restore();
+  }
+  const ks = sortie(prog(t, 13.65, 14.0));
+  if (ks > 0) {
+    c.globalAlpha = (1 - out) * ks; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    police(c, 60, 800); c.fillStyle = '#fff'; c.fillText('Nouvelle Ardoise', 540, 1530 + (1 - ks) * 24);
+    police(c, 42, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.75)'; c.fillText('Lien en bio · nouvelleardoise.ch', 540, 1600 + (1 - ks) * 24);
+  }
+  c.restore();
+}
+
+window.pret = Promise.all([document.fonts.load('800 100px Brico'), document.fonts.load('500 40px Instru'), document.fonts.load('600 40px Instru'), document.fonts.load('700 40px Instru')]).then(dessinerTuiles);
+
+window.rendu = function (t) {
+  ctx.drawImage(FOND, 0, 0);
+  traitJaune(ctx, 92, 140, 120);
+  telephone(ctx, t);
+  for (const g of LEGENDES) {
+    if (t < g.de - 0.1 || t > g.a + 0.3) continue;
+    ligne(ctx, g.l1, t, g.de, 270, 92, { fin: g.a });
+    ligne(ctx, g.l2, t, g.de + 0.12, 390, 92, { fin: g.a, surligne: g.h });
+  }
+  appel(ctx, t);
+};
+
+if (!navigator.webdriver) {
+  window.pret.then(() => {
+    const debut = performance.now();
+    const boucle = () => { window.rendu(((performance.now() - debut) / 1000) % DUREE); requestAnimationFrame(boucle); };
+    boucle();
+  });
+}
+</script>
+</body>
+</html>
