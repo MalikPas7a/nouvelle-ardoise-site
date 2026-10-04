@@ -3,6 +3,7 @@
 // ne gère que la logique des démonstrations. C'est ce qui garde la page rapide.
 import { SITE } from '../config.js';
 import './defilement.js';
+import './boutons.js';
 import './onglets.js';
 
 const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -89,6 +90,12 @@ new IntersectionObserver((entrees, obs) => {
     mv.src = mv.dataset.src;
   });
 }, { rootMargin: '600px' }).observe(zone3d);
+
+/* ---------- la boucle Pasta Mo' : elle ne tourne que lorsqu'on la voit ---------- */
+document.querySelectorAll('video[data-boucle]').forEach((v) => {
+  if (calme) { v.controls = true; return; }
+  new IntersectionObserver(([e]) => { if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }, { threshold: 0.3 }).observe(v);
+});
 
 /* ---------- la réservation ---------- */
 const resa = $('[data-resa]');

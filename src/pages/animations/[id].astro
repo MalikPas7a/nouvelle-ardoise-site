@@ -8,7 +8,7 @@ export function getStaticPaths() {
   return ANIMATIONS.map((a) => ({ params: { id: a.id }, props: { a } }));
 }
 const { a } = Astro.props;
-const autres = ANIMATIONS.filter((x) => x.id !== a.id);
+const autres = ANIMATIONS.filter((x) => x.id !== a.id && !x.realisation);
 // La carte de la pizzeria d'exemple (restaurant inventé, prix d'exemple)
 const CARTE = [
   { id: 'classiques', nom: 'Les classiques', sous: '5 pizzas', lignes: [
@@ -35,11 +35,25 @@ const CARTE = [
 ---
 <Base page="animation" title={`${a.titre} | Nouvelle Ardoise`} description={a.resume}>
 
-<section class={`sequence sequence--${a.id}`} data-sequence={a.id} data-images={a.images} data-tailles="m,g" data-couvre aria-label={a.titre}>
+<section class={`sequence sequence--${a.id}`} data-sequence={a.id} data-images={a.images} data-tailles="m,g" data-sujet={a.sujet} data-couvre aria-label={a.titre}>
   <div class="sequence__colle">
     <canvas class="sequence__toile" aria-hidden="true"></canvas>
     <div class="sequence__voile" aria-hidden="true"></div>
     <div class="cadre sequence__textes">
+      {a.id === 'pastamo' && (
+        <Fragment>
+          <div class="sequence__texte" data-de="-0.1" data-a="0.42">
+            <h1 class="titre-2">Le parmesan, sur la bolognese.</h1>
+            <p class="chapo">Pasta Mo’, notre propre enseigne de street food italienne, à Genève.</p>
+            <p class="sequence__indice"><span></span>Faites défiler</p>
+          </div>
+          <div class="sequence__texte" data-de="0.52" data-a="1.01">
+            <p class="titre-2">Puis l’huile d’olive, sur le pesto.</p>
+            <p class="chapo">C’est le principe du site de Pasta Mo’ : un geste, un plan.</p>
+            <div class="actions"><a class="btn btn--jaune" href="https://pastamo.ch" target="_blank" rel="noopener">Voir pastamo.ch</a></div>
+          </div>
+        </Fragment>
+      )}
       {a.id === 'kebab' && (
         <Fragment>
           <div class="sequence__texte" data-de="-0.1" data-a="0.36">
@@ -143,7 +157,7 @@ const CARTE = [
     <div class="actions">
       <a class="btn btn--jaune" href="/#contact">Demander un devis</a>
       {autres.map((x) => <a class="lien" href={`/animations/${x.id}/`}>Voir l’animation {x.onglet.toLowerCase()}</a>)}
-      <a class="lien" href="/#en-mouvement">Retour aux exemples</a>
+      <a class="lien" href={a.realisation ? '/#realisations' : '/#en-mouvement'}>Retour aux exemples</a>
     </div>
     {a.credit && <p class="anim-fin__credit"><a href={a.creditLien}>{a.credit}</a></p>}
   </div>
