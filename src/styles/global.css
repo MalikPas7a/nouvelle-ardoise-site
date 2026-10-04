@@ -273,15 +273,30 @@ ul, ol { padding: 0; list-style: none; }
 
 /* ---------- offres ---------- */
 .offres { display: grid; gap: 16px; }
-/* Onglets des offres : site internet, ou vidéo et réseaux sociaux */
-.onglets { display: inline-flex; gap: 4px; padding: 5px; margin-bottom: 18px; border-radius: 999px; background: var(--nappe); box-shadow: inset 0 0 0 1px var(--trait); max-width: 100%; }
-.onglets button { font: 600 0.98rem/1.2 var(--texte); padding: 12px 20px; border: 0; border-radius: 999px; background: transparent; color: var(--ardoise); cursor: pointer; }
-.onglets button[aria-selected='true'] { background: var(--ardoise); color: var(--blanc); }
+/* Onglets des offres : créer votre site, ou vidéo et réseaux sociaux */
+.onglets { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 6px; margin-bottom: 22px; border-radius: 22px; background: var(--nappe); box-shadow: inset 0 0 0 1px var(--trait); max-width: 640px; }
+.onglets button { display: grid; gap: 3px; text-align: left; font: inherit; padding: 14px 18px; border: 0; border-radius: 16px; background: transparent; color: var(--ardoise); cursor: pointer; }
+.onglets b { font-family: var(--titre); font-size: 1.08rem; font-weight: 700; line-height: 1.15; }
+.onglets span { font-size: 0.86rem; color: var(--gris); }
+.onglets button[aria-selected='true'] { background: var(--ardoise); color: var(--blanc); box-shadow: 0 6px 18px rgb(0 0 0 / 0.14); }
+.onglets button[aria-selected='true'] span { color: var(--jaune); }
 .onglets button:focus-visible { outline: 3px solid var(--jaune); outline-offset: 2px; }
 .offres__note { margin-bottom: 16px; }
-.offres__plus { max-width: 860px; margin-top: 18px; padding: 16px 20px; border-radius: 18px; background: var(--nappe); font-weight: 600; }
-@media (min-width: 900px) { .offres--deux { grid-template-columns: repeat(2, 1fr); max-width: 860px; } }
-@media (max-width: 420px) { .onglets button { padding: 11px 14px; font-size: 0.92rem; } }
+/* Onglet réseaux : l'exemple de Sora à côté des deux offres */
+.reseaux { display: grid; gap: 16px; }
+.reseaux__exemple { margin: 0; display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: center; padding: 14px; border-radius: 24px; background: var(--ardoise); color: var(--blanc); }
+.reseaux__exemple video { width: 100%; height: auto; aspect-ratio: 9 / 16; border-radius: 16px; background: #000; object-fit: cover; }
+.reseaux__exemple figcaption { font-size: 0.95rem; color: #C6D0CC; }
+.reseaux__exemple b { display: block; margin-bottom: 4px; color: var(--jaune); font-family: var(--titre); font-size: 1.05rem; }
+@media (min-width: 900px) {
+  .reseaux { grid-template-columns: 260px 1fr; align-items: stretch; }
+  .reseaux__exemple { grid-template-columns: 1fr; align-content: start; padding: 16px; }
+  .offres.offres--deux { grid-template-columns: repeat(2, 1fr); }
+}
+.pub { margin-top: 16px; border-radius: 18px; background: var(--nappe); }
+.pub summary { cursor: pointer; padding: 16px 20px; font-weight: 700; }
+.pub p { padding: 0 20px 18px; color: var(--gris); max-width: 70ch; }
+@media (max-width: 420px) { .onglets button { padding: 12px 12px; } .onglets b { font-size: 0.98rem; } }
 @media (min-width: 900px) { .offres { grid-template-columns: repeat(3, 1fr); align-items: stretch; } }
 .offre { display: grid; gap: 14px; align-content: start; padding: clamp(22px, 3vw, 32px); border-radius: 24px; background: var(--nappe); }
 .offre h3 { font-family: var(--titre); font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; }
