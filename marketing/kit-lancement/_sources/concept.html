@@ -57,7 +57,7 @@ const ICONES = {
 };
 const METIERS = [
   ['site', 'Sites web', ['Rapides, pensés', 'pour le téléphone']],
-  ['reseaux', 'Réseaux sociaux', ['Tournage, réels,', 'publication']],
+  ['reseaux', 'Réseaux sociaux', ['Gestion, tournage,', 'réels et publicité']],
   ['motion', 'Motion design', ['Vos plats', 'en mouvement']],
   ['menu3d', 'Menus en 3D', ['Le plat s’ouvre', 'sous le doigt']],
 ];
@@ -79,7 +79,7 @@ function dessiner(F) {
   ctx.fillStyle = '#fff'; ctx.fillText('On', 80, F.titre + 118);
   ctx.fillStyle = ARD.ardoise; ctx.fillText('redessine.', xr, F.titre + 118);
   police(ctx, 36, 500, 'Instru'); ctx.fillStyle = 'rgba(255,255,255,0.78)';
-  ctx.fillText('Tout le digital de votre restaurant, au même endroit.', 82, F.grille - 48);
+  ctx.fillText('Le marketing digital de votre restaurant, au même endroit.', 82, F.grille - 48);
 
   // la grille des quatre métiers
   const gap = 24, cw = (F.l - 160 - gap) / 2;
