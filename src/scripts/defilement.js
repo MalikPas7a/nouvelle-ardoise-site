@@ -156,6 +156,29 @@ if (etapes) taches.push(() => {
   etapes.style.setProperty('--p', borne((innerHeight * 0.85 - r.top) / (innerHeight * 0.5)).toFixed(3));
 });
 
+/* ---------- l'ouverture : l'éponge passe sur « ancien site » ---------- */
+const eponge = document.querySelector('[data-eponge]');
+if (eponge) {
+  let e = 0;
+  let r = 0;
+  const poser = () => {
+    eponge.style.setProperty('--e', e.toFixed(4));
+    eponge.style.setProperty('--r', r.toFixed(4));
+    // la brosse n'apparaît que pendant qu'elle essuie
+    eponge.style.setProperty('--b', borne(Math.min(e * 12, (1 - e) * 12)).toFixed(3));
+    eponge.classList.toggle('lu', r > 0.5);
+  };
+  if (calme) { e = 1; r = 1; poser(); }
+  else taches.push(() => {
+    const rect = eponge.getBoundingClientRect();
+    if (rect.bottom < -200 || rect.top > innerHeight + 200) return;
+    const p = avancement(eponge);
+    e += (borne((p - 0.04) / 0.42) - e) * 0.18;
+    r += (borne((p - 0.42) / 0.28) - r) * 0.18;
+    poser();
+  });
+}
+
 // Une seule boucle pour tout, calée sur le rafraîchissement de l'écran
 (function boucle() {
   taches.forEach((t) => t());
