@@ -5,7 +5,10 @@ export const SITE = {
   url: 'https://nouvelleardoise.ch',
   // Adresse affichée sur le site (elle arrive dans la boîte Google de Malik)
   email: 'contact@nouvelleardoise.ch',
-  telephone: '',
+  // Numéro affiché sur le site (bouton « Appeler »), par exemple '+41 79 123 45 67'. Vide : rien n'est affiché.
+  telephone: '+41 78 213 38 68',
+  // Numéro WhatsApp, au même format. Vide : pas de bouton WhatsApp.
+  whatsapp: '+41 78 213 38 68',
   responsable: 'Younes Malik',
   forme: 'Entreprise individuelle',
   adresse: 'Chemin des Sports 16',
