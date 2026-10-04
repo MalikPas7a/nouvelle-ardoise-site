@@ -20,7 +20,8 @@
 <canvas width="1080" height="1920"></canvas>
 <script src="ardoise.js"></script>
 <script>
-const L = 1080, H = 1920, DUREE = 15;
+const L = 1080, H = 1920, DUREE = 18;
+window.DUREE = DUREE;
 const JAUNE = '#FFD23F', ARDOISE = '#1E2A2C', NAPPE = '#F5F7F4', ROUGE = '#FF4B2B', VERT = '#5FA85A', NUIT = '#121617';
 const ctx = document.querySelector('canvas').getContext('2d');
 const FOND = peindreArdoise(L, H);
@@ -314,24 +315,63 @@ function telephone(c, t) {
   if (tete) brosse(c, TEL.x + tete[0], y + tete[1], PISTE.bande * 0.75, Math.PI / 2 + (Math.sin(t * 40) * 0.06));
 }
 
+// ---------- la confiance : trois engagements, avant l'appel à l'action ----------
+function epingle(c, x, y, r) {
+  c.fillStyle = JAUNE; c.beginPath(); c.arc(x, y - r * 0.35, r * 0.62, Math.PI, 0);
+  c.lineTo(x, y + r * 0.85); c.closePath(); c.fill();
+  c.fillStyle = ARDOISE; c.beginPath(); c.arc(x, y - r * 0.35, r * 0.24, 0, 7); c.fill();
+}
+function tasse(c, x, y, r, t) {
+  c.fillStyle = JAUNE; c.beginPath(); c.roundRect(x - r * 0.6, y - r * 0.3, r * 1.0, r * 0.95, [0, 0, r * 0.3, r * 0.3]); c.fill();
+  c.strokeStyle = JAUNE; c.lineWidth = r * 0.16; c.beginPath(); c.arc(x + r * 0.45, y + r * 0.12, r * 0.25, -1.4, 1.4); c.stroke();
+  c.strokeStyle = 'rgba(255,255,255,0.7)'; c.lineWidth = r * 0.09; c.lineCap = 'round';
+  for (let i = 0; i < 2; i++) { const ox = x - r * 0.28 + i * r * 0.34, o = Math.sin(t * 5 + i) * r * 0.06; c.beginPath(); c.moveTo(ox, y - r * 0.45); c.quadraticCurveTo(ox + r * 0.12 + o, y - r * 0.65, ox, y - r * 0.85); c.stroke(); }
+}
+const ENGAGEMENTS = [
+  { t: 12.75, icone: epingle, texte: 'Basés à Genève' },
+  { t: 13.25, icone: tasse, texte: 'On en parle autour d’un café' },
+  { t: 13.75, icone: 'coche', texte: 'On s’occupe de tout' },
+];
+function confiance(c, t) {
+  if (t < 12.3 || t > 15.3) return;
+  const fin = 14.85;
+  ligne(c, ['Une', 'équipe'], t, 12.35, 520, 100, { fin });
+  ligne(c, ['près', 'de', 'chez', 'vous.'], t, 12.47, 640, 100, { fin, surligne: 3 });
+  ENGAGEMENTS.forEach((e, i) => {
+    const k = sortie(prog(t, e.t, e.t + 0.4)), kOut = prog(t, fin, fin + 0.25);
+    if (k <= 0 || kOut >= 1) return;
+    const y = 860 + i * 190;
+    c.save(); c.globalAlpha = k * (1 - kOut); c.translate((1 - k) * -50, 0);
+    c.fillStyle = 'rgba(255,255,255,0.06)'; c.beginPath(); c.roundRect(110, y - 72, 860, 144, 72); c.fill();
+    c.strokeStyle = 'rgba(255,210,63,0.35)'; c.lineWidth = 2; c.stroke();
+    c.fillStyle = 'rgba(255,210,63,0.14)'; c.beginPath(); c.arc(190, y, 52, 0, 7); c.fill();
+    if (e.icone === 'coche') { c.fillStyle = JAUNE; c.beginPath(); c.arc(190, y, 36, 0, 7); c.fill(); coche(c, 190, y - 2, 40, ARDOISE, prog(t, e.t + 0.15, e.t + 0.5)); }
+    else e.icone(c, 190, y, 50, t);
+    police(c, 48, 700, 'Instru'); c.fillStyle = '#fff'; c.textAlign = 'left'; c.textBaseline = 'middle';
+    c.fillText(e.texte, 270, y + 2);
+    c.textBaseline = 'alphabetic';
+    c.restore();
+  });
+}
+
 function appel(c, t) {
-  const out = prog(t, 14.7, 14.97);
-  if (t < 12.2 || out >= 1) return;
+  const out = prog(t, 17.7, 17.97);
+  if (t < 15.2 || out >= 1) return;
   c.save(); c.globalAlpha = 1 - out;
-  const kn = prog(t, 12.2, 12.6);
-  if (kn > 0) nLumineux(c, 540 - 150, 300, 300, { trace: sortie(kn), eclat: 0.7 + 0.3 * prog(t, 12.6, 12.9) });
+  const kn = prog(t, 15.2, 15.6);
+  if (kn > 0) nLumineux(c, 540 - 150, 300, 300, { trace: sortie(kn), eclat: 0.7 + 0.3 * prog(t, 15.6, 15.9) });
   c.restore();
-  const g = { fin: 14.7 };
-  ligne(c, ['Confiez-nous-en'], t, 12.45, 760, 104, g);
-  ligne(c, ['la', 'gestion,'], t, 12.6, 880, 104, g);
-  ligne(c, ['dynamisez'], t, 12.8, 1010, 104, { ...g, surligne: 0 });
-  ligne(c, ['votre', 'activité.'], t, 12.95, 1130, 104, g);
+  const g = { fin: 17.7 };
+  ligne(c, ['Confiez-nous-en'], t, 15.45, 760, 104, g);
+  ligne(c, ['la', 'gestion,'], t, 15.6, 880, 104, g);
+  ligne(c, ['dynamisez'], t, 15.8, 1010, 104, { ...g, surligne: 0 });
+  ligne(c, ['votre', 'activité.'], t, 15.95, 1130, 104, g);
   c.save(); c.globalAlpha = 1 - out;
-  const kb = sortie(prog(t, 13.4, 13.8));
+  const kb = sortie(prog(t, 16.4, 16.8));
   if (kb > 0) {
-    const souffle = 1 + Math.sin((t - 13.8) * 6) * 0.025 * prog(t, 13.8, 14.0);
+    const souffle = 1 + Math.sin((t - 16.8) * 6) * 0.025 * prog(t, 16.8, 17);
     police(c, 56, 800);
-    const texte = 'Parlons de vos réseaux';
+    const texte = 'Prenons un café';
     const w = c.measureText(texte).width + 220, h = 136;
     c.save(); c.translate(540, 1330 + (1 - kb) * 30); c.scale(souffle, souffle); c.globalAlpha *= kb;
     c.shadowColor = 'rgba(255,210,63,0.45)'; c.shadowBlur = 50;
@@ -343,7 +383,7 @@ function appel(c, t) {
     c.beginPath(); c.moveTo(ax - 24, 2); c.lineTo(ax + 20, 2); c.moveTo(ax + 2, -18); c.lineTo(ax + 22, 2); c.lineTo(ax + 2, 22); c.stroke();
     c.restore();
   }
-  const ks = sortie(prog(t, 13.65, 14.0));
+  const ks = sortie(prog(t, 16.65, 17));
   if (ks > 0) {
     c.globalAlpha = (1 - out) * ks; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
     police(c, 60, 800); c.fillStyle = '#fff'; c.fillText('Nouvelle Ardoise', 540, 1530 + (1 - ks) * 24);
@@ -363,6 +403,7 @@ window.rendu = function (t) {
     ligne(ctx, g.l1, t, g.de, 270, 92, { fin: g.a });
     ligne(ctx, g.l2, t, g.de + 0.12, 390, 92, { fin: g.a, surligne: g.h });
   }
+  confiance(ctx, t);
   appel(ctx, t);
 };
 

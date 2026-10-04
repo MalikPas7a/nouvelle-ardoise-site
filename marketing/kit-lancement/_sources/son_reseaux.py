@@ -13,7 +13,7 @@ import sys
 import wave
 
 TAUX = 44100
-DUREE = 15.0
+DUREE = 18.0
 n = int(TAUX * DUREE)
 piste = [0.0] * n
 alea = random.Random(7)
@@ -85,7 +85,7 @@ def clic(t0, vol=0.22):
 
 
 # pulsation entraînante à 110 BPM
-for b in range(28):
+for b in range(33):
     t = b * 60 / 110
     kick(t, 0.26)
     hat(t + 30 / 110, 0.05)
@@ -107,8 +107,11 @@ pop(9.3, 0.2, 500)  # cœur
 for i in range(5):  # coches du planning
     clic(10.9 + i * 0.15, 0.16)
 souffle(11.9, 0.5, 0.16)
-souffle(12.15, 0.45, 0.12, montee=True)  # le N s'allume
-carillon(13.4)
+for t in (12.75, 13.25, 13.75):  # les trois engagements
+    pop(t, 0.12, 800)
+clic(13.9, 0.16)
+souffle(15.15, 0.45, 0.12, montee=True)  # le N s'allume
+carillon(16.4)
 
 # normalisation et petit fondu final pour une boucle propre
 crete = max(abs(x) for x in piste) or 1
