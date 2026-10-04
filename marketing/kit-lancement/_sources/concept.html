@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Concept Nouvelle Ardoise</title>
+<!--
+  Publication « le concept en une image » : les quatre métiers de Nouvelle Ardoise sur l'ardoise
+  de la charte. ?quoi=publication (4:5, par défaut) ou ?quoi=story (9:16).
+  Exportée en PNG par concept.mjs.
+-->
+<style>
+  @font-face { font-family: Brico; src: url(fonts/bricolage-grotesque-latin-standard-normal.woff2) format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: Instru; src: url(fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas></canvas>
+<script src="ardoise.js"></script>
+<script>
+const toile = document.querySelector('canvas');
+const ctx = toile.getContext('2d');
+const quoi = new URLSearchParams(location.search).get('quoi') || 'publication';
+// y du titre, y de la grille, hauteur des cases, y du pied (la story garde 250 px libres en haut et en bas)
+const FORMATS = {
+  publication: { l: 1080, h: 1350, tete: 96, titre: 305, grille: 560, caseH: 300, pied: 1262 },
+  story: { l: 1080, h: 1920, tete: 300, titre: 535, grille: 800, caseH: 330, pied: 1600 },
+};
+const JAUNE = ARD.jaune;
+
+const police = (c, taille, graisse = 800, famille = 'Brico') => { c.font = `${graisse} ${taille}px ${famille}`; };
+
+// Les quatre icônes, au trait jaune, dans un carré de 64 px centré en (0, 0)
+const ICONES = {
+  site(c) {
+    c.beginPath(); c.roundRect(-30, -24, 60, 46, 8); c.stroke();
+    c.beginPath(); c.moveTo(-30, -10); c.lineTo(30, -10); c.stroke();
+    c.beginPath(); c.arc(-21, -17, 2.5, 0, 7); c.arc(-13, -17, 2.5, 0, 7); c.fill();
+    c.beginPath(); c.moveTo(-18, 4); c.lineTo(8, 4); c.moveTo(-18, 12); c.lineTo(18, 12); c.stroke();
+  },
+  reseaux(c) {
+    c.beginPath(); c.roundRect(-26, -30, 52, 60, 14); c.stroke();
+    c.beginPath(); c.moveTo(-7, -11); c.lineTo(-7, 11); c.lineTo(12, 0); c.closePath(); c.fill();
+  },
+  motion(c) {
+    c.beginPath(); c.arc(0, 0, 26, -2.4, 1.9); c.stroke();
+    c.beginPath(); c.moveTo(-10, 25); c.lineTo(-18, 18); c.lineTo(-8, 13); c.stroke();
+    for (let i = 0; i < 3; i++) { c.beginPath(); c.arc(-26 - i * 9, -6 + i * 7, 2.6 - i * 0.6, 0, 7); c.fill(); }
+  },
+  menu3d(c) {
+    c.beginPath();
+    c.moveTo(0, -28); c.lineTo(26, -14); c.lineTo(26, 16); c.lineTo(0, 30); c.lineTo(-26, 16); c.lineTo(-26, -14); c.closePath();
+    c.moveTo(-26, -14); c.lineTo(0, 0); c.lineTo(26, -14); c.moveTo(0, 0); c.lineTo(0, 30);
+    c.stroke();
+  },
+};
+const METIERS = [
+  ['site', 'Sites web', ['Rapides, pensés', 'pour le téléphone']],
+  ['reseaux', 'Réseaux sociaux', ['Tournage, réels,', 'publication']],
+  ['motion', 'Motion design', ['Vos plats', 'en mouvement']],
+  ['menu3d', 'Menus en 3D', ['Le plat s’ouvre', 'sous le doigt']],
+];
+
+function dessiner(F) {
+  toile.width = F.l; toile.height = F.h;
+  ctx.drawImage(peindreArdoise(F.l, F.h), 0, 0);
+  // en-tête : le N et le nom
+  nLumineux(ctx, 80, F.tete, 58);
+  police(ctx, 40, 800); ctx.fillStyle = '#fff'; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+  ctx.fillText('Nouvelle Ardoise', 168, F.tete + 26);
+
+  // titre : « On efface. On redessine. »
+  ctx.textBaseline = 'alphabetic';
+  police(ctx, 118, 800); ctx.fillStyle = '#fff';
+  ctx.fillText('On efface.', 80, F.titre - 10);
+  police(ctx, 118, 800);
+  const w = ctx.measureText('redessine.').width, xr = 80 + ctx.measureText('On ').width;
+  ctx.fillStyle = JAUNE; ctx.beginPath(); ctx.roundRect(xr - 14, F.titre + 22, w + 28, 128, 16); ctx.fill();
+  ctx.fillStyle = '#fff'; ctx.fillText('On', 80, F.titre + 118);
+  ctx.fillStyle = ARD.ardoise; ctx.fillText('redessine.', xr, F.titre + 118);
+  police(ctx, 36, 500, 'Instru'); ctx.fillStyle = 'rgba(255,255,255,0.78)';
+  ctx.fillText('Tout le digital de votre restaurant, au même endroit.', 82, F.grille - 48);
+
+  // la grille des quatre métiers
+  const gap = 24, cw = (F.l - 160 - gap) / 2;
+  METIERS.forEach(([icone, titre, lignes], i) => {
+    const x = 80 + (i % 2) * (cw + gap), y = F.grille + Math.floor(i / 2) * (F.caseH + gap);
+    ctx.fillStyle = 'rgba(255,255,255,0.055)'; ctx.beginPath(); ctx.roundRect(x, y, cw, F.caseH, 30); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,210,63,0.28)'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.save(); ctx.translate(x + 74, y + 78);
+    ctx.fillStyle = 'rgba(255,210,63,0.12)'; ctx.beginPath(); ctx.arc(0, 0, 50, 0, 7); ctx.fill();
+    ctx.strokeStyle = JAUNE; ctx.fillStyle = JAUNE; ctx.lineWidth = 5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.scale(0.95, 0.95); ICONES[icone](ctx);
+    ctx.restore();
+    police(ctx, 46, 800); ctx.fillStyle = '#fff'; ctx.textAlign = 'left';
+    ctx.fillText(titre, x + 34, y + F.caseH - 92);
+    police(ctx, 28, 500, 'Instru'); ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    lignes.forEach((l, j) => ctx.fillText(l, x + 34, y + F.caseH - 52 + j * 34));
+  });
+
+  // pied : Genève · Vaud et l'adresse du site
+  police(ctx, 30, 600, 'Instru'); ctx.fillStyle = 'rgba(255,255,255,0.75)'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+  ctx.fillText('Restaurants · Genève et Vaud', 80, F.pied);
+  police(ctx, 32, 800);
+  const site = 'nouvelleardoise.ch', ws = ctx.measureText(site).width + 56;
+  ctx.fillStyle = JAUNE; ctx.beginPath(); ctx.roundRect(F.l - 80 - ws, F.pied - 32, ws, 64, 32); ctx.fill();
+  ctx.fillStyle = ARD.ardoise; ctx.textAlign = 'center'; ctx.fillText(site, F.l - 80 - ws / 2, F.pied + 2);
+}
+
+window.pret = Promise.all([document.fonts.load('800 100px Brico'), document.fonts.load('500 30px Instru'), document.fonts.load('600 30px Instru')])
+  .then(() => dessiner(FORMATS[quoi]));
+</script>
+</body>
+</html>
