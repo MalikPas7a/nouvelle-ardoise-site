@@ -7,6 +7,8 @@ Aucun prix n'apparaît dans les visuels ni dans les légendes.
 
 | Fichier | Usage |
 | --- | --- |
+| `reel/reel-carte-15s.mp4` | **Réel conseillé**, version sobre : la vraie carte de démo filmée au téléphone (défilement, filtre végétarien, passage en anglais, épicé), sans prix, 1080×1920, avec son |
+| `reel/reel-carte-15s-sans-son.mp4` · `reel/couverture-reel-carte.jpg` | La même sans son, et sa couverture |
 | `reel/reel-sushi-15s.mp4` | Réel 15 s, 1080×1920, 30 i/s, habillage sonore inclus |
 | `reel/reel-sushi-15s-sans-son.mp4` | Le même sans son, à utiliser si vous posez un son tendance |
 | `reel/couverture-reel.jpg` | Image de couverture du réel (le maki éclaté avec ses étiquettes) |
@@ -102,7 +104,9 @@ Les sources sont dans `_sources/` (dépendances : Playwright avec Chromium, ffmp
 ```sh
 cd marketing/kit-lancement/_sources
 python3 logo.py && node png.mjs   # logos SVG puis PNG
-node render.mjs                   # réel (environ 3 minutes)
+node render.mjs                   # réel sushi (environ 3 minutes)
+# réel carte : site en local (npx astro preview --port 4399), node filmer-carte.mjs . (réduire les
+# images comme indiqué en fin de script), puis REEL=reel-carte node render.mjs
 node render.mjs --apercu 1,5,14   # captures de quelques instants, pour vérifier
 node publication.mjs              # publication en 4:5, 1:1 et story 9:16
 ```
