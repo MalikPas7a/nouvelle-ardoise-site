@@ -569,3 +569,9 @@ model-viewer:not(:defined) > * { display: none; }
 .pizzas b { font-family: var(--titre); font-size: 1.25rem; line-height: 1.2; }
 .pizzas__prix { font-family: var(--titre); font-weight: 700; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
 .pizzas small { grid-column: 1 / -1; color: var(--gris); font-size: 0.98rem; }
+
+/* Pasta Mo' : le pot est à gauche de l'image, le texte passe à droite et le voile aussi */
+@media (min-width: 900px) {
+  .sequence--pastamo .sequence__voile { background: linear-gradient(270deg, rgb(0 0 0 / 0.72) 0%, rgb(0 0 0 / 0.25) 45%, transparent 60%), linear-gradient(0deg, rgb(0 0 0 / 0.5), transparent 30%); }
+}
+@media (min-width: 900px) { .sequence--pastamo .sequence__texte { max-width: 400px; } }
