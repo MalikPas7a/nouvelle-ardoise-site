@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Réel « Et si on prenait en main votre ardoise ? »</title>
+<!--
+  Réel Instagram 17 s, 1080×1920, pour les prestations vidéo de Nouvelle Ardoise.
+  1. La vraie ardoise du matin (photos/menu-du-jour-ardoise.jpg, CC0) : « Et si on prenait en main
+     votre ardoise ? », puis un coup d'éponge.
+  2. Du motion design en rythme : le menu du jour en cartes de couleur.
+  3. L'immersion : la caméra entre dans un vrai bistrot (photos/salle-bistrot.jpg, Unsplash, CC0),
+     descend jusqu'à la table, et l'on découvre la vraie assiette, fumante
+     (photos/plat-filet-mignon.jpg, Naotake Murayama, CC BY 2.0).
+  4. L'appel à l'action : réserver un appel.
+  REEL=reel-ardoise node render.mjs assemble la vidéo.
+-->
+<style>
+  @font-face { font-family: Brico; src: url(fonts/bricolage-grotesque-latin-standard-normal.woff2) format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: Instru; src: url(fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; width: 1080px; height: 1920px; }
+</style>
+</head>
+<body>
+<canvas width="1080" height="1920"></canvas>
+<script src="ardoise.js"></script>
+<script>
+const L = 1080, H = 1920, DUREE = 17;
+window.DUREE = DUREE;
+const JAUNE = '#FFD23F', ARDOISE = '#1E2A2C', NAPPE = '#F5F7F4', CORAIL = '#FF6B4A', VERT = '#5FA85A', BLEU = '#4F8FD9';
+const ctx = document.querySelector('canvas').getContext('2d');
+const FOND = peindreArdoise(L, H);
+const toile = (l, h) => Object.assign(document.createElement('canvas'), { width: l, height: h });
+
+// ---------- outils ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const mix = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const sortie = (k) => 1 - Math.pow(1 - k, 3);
+const entree = (k) => k * k * k;
+const dansSortie = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const lisse = (k) => k * k * k * (k * (k * 6 - 15) + 10);
+const rebond = (k) => { const c = 1.7; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+const police = (c, taille, graisse = 800, famille = 'Brico') => { c.font = `${graisse} ${taille}px ${famille}`; };
+const charger = (src) => new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; });
+const IMG = {};
+
+// Dessine une photo plein cadre (9:16) : (fx, fy) = point de la photo (0 → 1) placé au centre de
+// l'écran, z = grossissement par rapport au simple remplissage. Le cadrage ne sort jamais de la photo.
+function cadrer(c, img, fx, fy, z = 1, { flou = 0, alpha = 1 } = {}) {
+  const s = Math.max(L / img.width, H / img.height) * z;
+  const w = img.width * s, h = img.height * s;
+  const x = clamp(L / 2 - fx * w, L - w, 0), y = clamp(H / 2 - fy * h, H - h, 0);
+  c.save();
+  c.globalAlpha *= alpha;
+  if (flou > 0.2) c.filter = `blur(${flou}px)`;
+  c.drawImage(img, x, y, w, h);
+  c.restore();
+  return { x, y, s };
+}
+
+// Lignes de texte (fondu montant), un mot surligné en jaune
+function ligne(c, mots, t, t0, y, taille, { surligne = -1, fin = 1e9, ecart = 0.06, couleur = '#fff' } = {}) {
+  police(c, taille);
+  c.textBaseline = 'alphabetic';
+  const espace = taille * 0.27;
+  const largeurs = mots.map((m, j) => c.measureText(m).width + (j === surligne ? 36 : 0));
+  let x = (L - largeurs.reduce((a, b) => a + b, 0) - espace * (mots.length - 1)) / 2;
+  const kOut = prog(t, fin, fin + 0.2);
+  mots.forEach((m, j) => {
+    const k = sortie(prog(t, t0 + j * ecart, t0 + j * ecart + 0.3));
+    if (k > 0 && kOut < 1) {
+      c.save();
+      c.globalAlpha = k * (1 - kOut);
+      c.translate(x + largeurs[j] / 2, y + (1 - k) * 26 - kOut * 26);
+      if (j === surligne) {
+        const p = sortie(prog(t, t0 + j * ecart + 0.1, t0 + j * ecart + 0.42));
+        c.fillStyle = JAUNE;
+        c.beginPath(); c.roundRect(-largeurs[j] / 2 + 4, -taille * 0.82, (largeurs[j] - 8) * p, taille * 1.04, 12); c.fill();
+      }
+      c.fillStyle = j === surligne ? ARDOISE : couleur;
+      c.shadowColor = j === surligne ? 'transparent' : 'rgba(0,0,0,0.5)'; c.shadowBlur = 26; c.shadowOffsetY = 4;
+      c.textAlign = 'center';
+      c.fillText(m, 0, 0);
+      c.restore();
+    }
+    x += largeurs[j] + espace;
+  });
+}
+
+function degradeBas(c, haut = 700, force = 0.88) {
+  const g = c.createLinearGradient(0, H - haut, 0, H);
+  g.addColorStop(0, 'rgba(10,14,15,0)'); g.addColorStop(1, `rgba(10,14,15,${force})`);
+  c.fillStyle = g; c.fillRect(0, H - haut, L, haut);
+}
+
+// ---------- 1. la vraie ardoise, puis le coup d'éponge ----------
+// le prix écrit sur l'ardoise (photo 1200 × 1600), recouvert d'un coin d'ardoise vierge
+const PRIX = { x: 752, y: 222, w: 178, h: 112 }, VIERGE = { x: 805, y: 345, w: 130, h: 98 };
+let ARDOISE_RETOUCHEE;
+function preparerArdoise() {
+  const p = IMG.ardoise;
+  ARDOISE_RETOUCHEE = toile(p.width, p.height);
+  const c = ARDOISE_RETOUCHEE.getContext('2d');
+  c.drawImage(p, 0, 0);
+  const r = toile(PRIX.w, PRIX.h), rc = r.getContext('2d');
+  rc.drawImage(p, VIERGE.x, VIERGE.y, VIERGE.w, VIERGE.h, 0, 0, PRIX.w, PRIX.h);
+  rc.globalCompositeOperation = 'destination-in';
+  const g = rc.createRadialGradient(PRIX.w / 2, PRIX.h / 2, 20, PRIX.w / 2, PRIX.h / 2, PRIX.w * 0.55);
+  g.addColorStop(0, '#000'); g.addColorStop(0.78, '#000'); g.addColorStop(1, 'rgba(0,0,0,0)');
+  rc.fillStyle = g; rc.fillRect(0, 0, PRIX.w, PRIX.h);
+  c.drawImage(r, PRIX.x, PRIX.y);
+}
+
+const calqueArdoise = toile(L, H), cactx = calqueArdoise.getContext('2d');
+const PISTE = { l: L, h: H, bande: 380, passes: 7 };
+function intro(c, t) {
+  if (t > 4.0) return null;
+  cactx.globalCompositeOperation = 'source-over';
+  cadrer(cactx, ARDOISE_RETOUCHEE, 0.5, 0.42, mix(1.0, 1.12, prog(t, 0, 3.9)));
+  degradeBas(cactx, 820, 0.92);
+  const p = prog(t, 2.55, 3.9);
+  const tete = p > 0 ? essuyage(cactx, dansSortie(p), PISTE) : null;
+  c.drawImage(calqueArdoise, 0, 0);
+  ligne(c, ['Et', 'si', 'on', 'prenait'], t, 0.12, 1440, 96, { fin: 2.45 });
+  ligne(c, ['en', 'main', 'votre'], t, 0.3, 1560, 96, { fin: 2.45 });
+  ligne(c, ['ardoise', '?'], t, 0.48, 1680, 96, { fin: 2.45, surligne: 0 });
+  // la brosse entre par la droite, puis frotte
+  if (t > 2.1 && t < 2.55) {
+    const k = dansSortie(prog(t, 2.1, 2.55));
+    return [mix(L + 260, -PISTE.bande * 0.6, k), PISTE.bande * 0.45];
+  }
+  return p > 0 && p < 1 ? tete : null;
+}
+
+// ---------- 2. motion design : le menu du jour en cartes de couleur ----------
+const B = 60 / 110;   // un temps à 110 BPM
+const CARTES = [
+  { rubrique: 'ENTRÉE', plat: 'Terrine aux deux poissons', fond: JAUNE, encre: ARDOISE, t: 5.05, angle: -0.035 },
+  { rubrique: 'OU', plat: 'Feuilleté de poireaux', fond: NAPPE, encre: ARDOISE, t: 5.05 + B / 2, angle: 0.03 },
+  { rubrique: 'PLAT', plat: 'Filet mignon aux champignons', fond: CORAIL, encre: '#fff', t: 5.05 + B, angle: -0.02, star: true },
+  { rubrique: 'OU', plat: 'Truite aux baies roses', fond: BLEU, encre: '#fff', t: 5.05 + B * 1.5, angle: 0.035 },
+  { rubrique: 'DESSERT', plat: 'Fromage ou dessert', fond: VERT, encre: '#fff', t: 5.05 + B * 2, angle: -0.03 },
+];
+const CH = 196, CY0 = 640, CPAS = 214;
+
+function carte(c, e, x, y, s, angle, alpha = 1) {
+  c.save();
+  c.globalAlpha *= alpha;
+  c.translate(x, y); c.rotate(angle); c.scale(s, s);
+  c.shadowColor = 'rgba(0,0,0,0.45)'; c.shadowBlur = 40; c.shadowOffsetY = 16;
+  c.fillStyle = e.fond; c.beginPath(); c.roundRect(-460, -CH / 2, 920, CH, 34); c.fill();
+  c.shadowColor = 'transparent';
+  police(c, 30, 700, 'Instru'); c.fillStyle = e.encre; c.globalAlpha *= 0.75; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  c.letterSpacing = '5px'; c.fillText(e.rubrique, -410, -26); c.letterSpacing = '0px';
+  c.globalAlpha /= 0.75;
+  police(c, 60, 800); c.fillText(e.plat, -410, 50);
+  c.restore();
+}
+
+function motion(c, t) {
+  if (t < 3.7 || t > 7.75) return;
+  // MENU / DU / JOUR qui claquent sur les temps
+  const MOTS = [['MENU', 4.0, '#fff'], ['DU', 4.0 + B / 2, '#fff'], ['JOUR', 4.0 + B, JAUNE]];
+  const kTitreOut = prog(t, 4.95, 5.2);
+  MOTS.forEach(([m, t0, coul], i) => {
+    const k = prog(t, t0, t0 + 0.28);
+    if (k <= 0 || kTitreOut >= 1) return;
+    const s = mix(2.4, 1, sortie(k)) * mix(1, 0.62, sortie(kTitreOut));
+    const yBase = mix(700 + i * 230, 300, sortie(kTitreOut));
+    c.save(); c.globalAlpha = clamp(k * 2) ;
+    c.translate(L / 2, yBase); c.scale(s, s);
+    police(c, 230, 800); c.textAlign = 'center'; c.textBaseline = 'middle';
+    if (coul === JAUNE) {
+      const w = c.measureText(m).width + 60;
+      c.fillStyle = JAUNE; c.beginPath(); c.roundRect(-w / 2, -125, w, 250, 30); c.fill();
+      c.fillStyle = ARDOISE;
+    } else c.fillStyle = coul;
+    c.fillText(m, 0, 10);
+    c.restore();
+  });
+  // le titre reste en haut, petit
+  if (kTitreOut > 0) {
+    const out = prog(t, 6.95, 7.2);
+    c.save(); c.globalAlpha = sortie(kTitreOut) * (1 - out);
+    police(c, 92, 800); c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    c.fillStyle = '#fff'; c.fillText('Menu du jour', L / 2, 430);
+    traitJaune(c, L / 2 - 140, 470, 280, sortie(prog(t, 5.1, 5.5)));
+    c.restore();
+  }
+  // les cartes tombent une par une, en rythme
+  const kSortie = prog(t, 6.75, 7.1);
+  CARTES.forEach((e, i) => {
+    const k = prog(t, e.t, e.t + 0.32);
+    if (k <= 0) return;
+    const cote = i % 2 ? 1 : -1;
+    let x = L / 2 + cote * (1 - sortie(k)) * 900, y = CY0 + i * CPAS, s = 1, a = e.angle * (1 + (1 - k) * 4), alpha = 1;
+    // un petit rebond au moment où la carte suivante arrive
+    s *= 1 + 0.04 * Math.sin(Math.PI * prog(t, e.t + 0.25, e.t + 0.45));
+    if (!e.star && kSortie > 0) { x += cote * entree(kSortie) * 1200; alpha = 1 - kSortie; }
+    if (e.star) {
+      const kz = dansSortie(prog(t, 6.85, 7.75));
+      y = mix(y, H / 2, dansSortie(prog(t, 6.75, 7.15)));
+      s *= mix(1, 9, entree(kz)); a = mix(a, 0, kz);
+    }
+    carte(c, e, x, y, s, a, alpha);
+  });
+}
+
+// ---------- 3. l'immersion : on entre dans le bistrot, jusqu'à l'assiette ----------
+const POUSSIERES = (() => { const r = hasard(8); return Array.from({ length: 70 }, () => ({ x: r(), y: r(), v: 0.2 + r() * 0.8, p: r() * 6, s: 1 + r() * 2.6 })); })();
+const calqueSalle = toile(L, H);
+function salle(sortieCtx, t) {
+  const k = prog(t, 7.15, 10.55);
+  if (k <= 0 || k >= 1) return;
+  const c = calqueSalle.getContext('2d');
+  c.globalCompositeOperation = 'source-over';
+  c.clearRect(0, 0, L, H);
+  const m = lisse(k), acc = entree(prog(t, 9.9, 10.55));
+  // travelling : de la lampe vers la table, la caméra avance et plonge
+  const z = mix(1.0, 1.55, m) + acc * 1.6;
+  const fx = mix(0.52, 0.56, m), fy = mix(0.36, 0.86, m) + acc * 0.06;
+  // arrière-plan : la mise au point quitte la salle pour la table
+  cadrer(c, IMG.salle, fx, fy, z, { flou: mix(0, 7, m) + acc * 18 });
+  // premier plan (la table) : avance plus vite que le fond, et reste net
+  const avant = toile2(); const a = avant.getContext('2d');
+  a.clearRect(0, 0, L, H);
+  const r = cadrer(a, IMG.salle, fx, fy, z * (1 + 0.16 * m), { flou: acc * 14 });
+  a.globalCompositeOperation = 'destination-in';
+  const bordTable = r.y + 0.835 * IMG.salle.height * r.s;
+  const g = a.createLinearGradient(0, bordTable - 120, 0, bordTable + 40);
+  g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, '#000');
+  a.fillStyle = g; a.fillRect(0, 0, L, H);
+  a.globalCompositeOperation = 'source-over';
+  c.drawImage(avant, 0, 0);
+  // poussière dans la lumière des lampes
+  c.save(); c.globalCompositeOperation = 'lighter';
+  for (const d of POUSSIERES) {
+    const x = ((d.x + Math.sin(t * 0.6 * d.v + d.p) * 0.02) % 1) * L;
+    const y = ((d.y - t * 0.012 * d.v + 1) % 1) * H * 0.75;
+    c.fillStyle = `rgba(255,214,150,${0.18 * (0.5 + 0.5 * Math.sin(t * 2 * d.v + d.p)) * (1 - acc)})`;
+    c.beginPath(); c.arc(x, y, d.s, 0, 7); c.fill();
+  }
+  c.restore();
+  // vignette chaude
+  const v = c.createRadialGradient(L / 2, H * 0.5, H * 0.25, L / 2, H * 0.5, H * 0.75);
+  v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(8,5,2,0.55)');
+  c.fillStyle = v; c.fillRect(0, 0, L, H);
+  const haut = c.createLinearGradient(0, 0, 0, 520);
+  haut.addColorStop(0, 'rgba(8,5,2,0.7)'); haut.addColorStop(1, 'rgba(8,5,2,0)');
+  c.fillStyle = haut; c.fillRect(0, 0, L, 520);
+  // l'iris d'entrée depuis la carte corail
+  const ki = prog(t, 7.15, 7.75);
+  if (ki < 1) {
+    c.save(); c.globalCompositeOperation = 'destination-in';
+    c.beginPath(); c.arc(L / 2, H / 2, mix(0, Math.hypot(L, H) / 2, dansSortie(ki)), 0, 7); c.fill();
+    c.restore();
+  }
+  sortieCtx.drawImage(calqueSalle, 0, 0);
+  ligne(sortieCtx, ['Midi,', 'table', '4.'], t, 7.9, 260, 84, { fin: 9.7 });
+}
+let _avant;
+const toile2 = () => (_avant ??= toile(L, H));
+
+// la vapeur qui monte de l'assiette
+const BOUFFEE = (() => {
+  const b = toile(256, 256), c = b.getContext('2d');
+  const g = c.createRadialGradient(128, 128, 0, 128, 128, 128);
+  g.addColorStop(0, 'rgba(255,255,255,0.55)'); g.addColorStop(0.5, 'rgba(255,255,255,0.18)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+  c.fillStyle = g; c.fillRect(0, 0, 256, 256);
+  return b;
+})();
+const VAPEUR = (() => { const r = hasard(14); return Array.from({ length: 22 }, () => ({ x: 0.3 + r() * 0.45, d: r() * 2.4, v: 0.7 + r() * 0.5, p: r() * 6 })); })();
+
+function assiette(c, t) {
+  const k = prog(t, 10.35, 13.9);
+  if (k <= 0 || k >= 1) return;
+  const net = sortie(prog(t, 10.4, 11.2));                      // mise au point
+  const z = mix(1.18, 1.0, sortie(prog(t, 10.35, 11.4))) * mix(1, 1.1, lisse(prog(t, 11.2, 13.9)));
+  cadrer(c, IMG.plat, mix(0.5, 0.53, k), 0.5, z, { flou: (1 - net) * 22, alpha: sortie(prog(t, 10.35, 10.7)) });
+  // la vapeur
+  c.save(); c.globalCompositeOperation = 'screen';
+  for (const b of VAPEUR) {
+    const vie = ((t - 10.4) * b.v * 0.45 + b.d / 2.4) % 1;
+    const y = mix(H * 0.56, H * 0.12, vie), x = b.x * L + Math.sin(vie * 6 + b.p + t) * 60 * vie;
+    const s = mix(0.7, 2.6, vie);
+    c.globalAlpha = 0.2 * Math.sin(Math.PI * vie) * net;
+    c.drawImage(BOUFFEE, x - 128 * s, y - 128 * s, 256 * s, 256 * s);
+  }
+  c.restore();
+  degradeBas(c, 760, 0.9);
+  // l'étiquette du plat du jour
+  const ke = sortie(prog(t, 11.25, 11.7));
+  if (ke > 0) {
+    const out = prog(t, 13.55, 13.85);
+    c.save(); c.globalAlpha = ke * (1 - out);
+    c.translate((1 - ke) * -60, 0);
+    police(c, 30, 700, 'Instru'); c.letterSpacing = '5px';
+    const wl = c.measureText('PLAT DU JOUR').width + 60;
+    c.fillStyle = JAUNE; c.beginPath(); c.roundRect(80, 1418, wl, 58, 29); c.fill();
+    c.fillStyle = ARDOISE; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText('PLAT DU JOUR', 110, 1449);
+    c.letterSpacing = '0px';
+    c.textBaseline = 'alphabetic'; c.fillStyle = '#fff';
+    c.shadowColor = 'rgba(0,0,0,0.55)'; c.shadowBlur = 24;
+    police(c, 86, 800); c.fillText('Filet mignon', 80, 1580); c.fillText('aux champignons', 80, 1680);
+    c.shadowColor = 'transparent';
+    traitJaune(c, 84, 1712, 300, sortie(prog(t, 11.6, 12.0)));
+    c.restore();
+  }
+  // crédit de la photo (CC BY 2.0)
+  c.save(); police(c, 22, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.6)'; c.textAlign = 'right';
+  c.fillText('Photo : Naotake Murayama, CC BY 2.0', L - 36, H - 34); c.restore();
+}
+
+// ---------- 4. l'appel à l'action ----------
+const OFFRES = [['Vidéo', CORAIL, '#fff'], ['Photo', JAUNE, ARDOISE], ['Motion design', VERT, '#fff']];
+function appel(c, t) {
+  if (t < 13.6) return;
+  const ko = dansSortie(prog(t, 13.6, 14.05));
+  // l'ardoise remonte par-dessus l'assiette
+  c.save(); c.beginPath(); c.rect(0, H * (1 - ko), L, H * ko); c.clip();
+  c.drawImage(FOND, 0, 0);
+  c.restore();
+  if (ko < 1) return;
+  nLumineux(c, 540 - 110, 230, 220, { trace: sortie(prog(t, 14.05, 14.45)), eclat: 0.7 + 0.3 * prog(t, 14.45, 14.7) });
+  ligne(c, ['Vos', 'plats', 'méritent'], t, 14.15, 640, 104);
+  ligne(c, ['d’être', 'vus.'], t, 14.3, 770, 104, { surligne: 1 });
+  police(c, 40, 700, 'Instru');
+  const ws = OFFRES.map(([m]) => c.measureText(m).width + 70), gap = 20;
+  let x = (L - ws.reduce((a, b) => a + b, 0) - gap * 2) / 2;
+  OFFRES.forEach(([m, fond, encre], i) => {
+    const k = rebond(prog(t, 14.75 + i * B / 2, 15.1 + i * B / 2));
+    if (k > 0) {
+      c.save(); c.translate(x + ws[i] / 2, 940); c.scale(k, k);
+      c.fillStyle = fond; c.beginPath(); c.roundRect(-ws[i] / 2, -40, ws[i], 80, 40); c.fill();
+      police(c, 40, 700, 'Instru'); c.fillStyle = encre; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(m, 0, 2);
+      c.restore();
+    }
+    x += ws[i] + gap;
+  });
+  const kb = sortie(prog(t, 15.45, 15.85));
+  if (kb > 0) {
+    const souffle = 1 + Math.sin((t - 15.85) * 6) * 0.03 * prog(t, 15.85, 16.05);
+    police(c, 60, 800);
+    const texte = 'Réservez un appel';
+    const w = c.measureText(texte).width + 230, h = 140;
+    c.save(); c.translate(540, 1180 + (1 - kb) * 30); c.scale(souffle, souffle); c.globalAlpha = kb;
+    c.shadowColor = 'rgba(255,210,63,0.5)'; c.shadowBlur = 56;
+    c.fillStyle = JAUNE; c.beginPath(); c.roundRect(-w / 2, -h / 2, w, h, h / 2); c.fill();
+    c.shadowColor = 'transparent';
+    c.fillStyle = ARDOISE; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(texte, -w / 2 + 60, 4);
+    const ax = w / 2 - 80 + Math.sin(t * 8) * 4;
+    c.strokeStyle = ARDOISE; c.lineWidth = 8; c.lineCap = 'round'; c.lineJoin = 'round';
+    c.beginPath(); c.moveTo(ax - 24, 2); c.lineTo(ax + 20, 2); c.moveTo(ax + 2, -18); c.lineTo(ax + 22, 2); c.lineTo(ax + 2, 22); c.stroke();
+    c.restore();
+  }
+  const ks = sortie(prog(t, 15.7, 16.05));
+  if (ks > 0) {
+    c.save(); c.globalAlpha = ks; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    police(c, 60, 800); c.fillStyle = '#fff'; c.fillText('Nouvelle Ardoise', 540, 1420 + (1 - ks) * 24);
+    police(c, 42, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.75)'; c.fillText('Lien en bio · nouvelleardoise.ch', 540, 1490 + (1 - ks) * 24);
+    police(c, 22, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.45)';
+    c.fillText('Photos : ardoise B. Prieur (CC0) · bistrot Unsplash (CC0) · plat N. Murayama (CC BY 2.0)', 540, H - 40);
+    c.restore();
+  }
+}
+
+window.pret = Promise.all([
+  document.fonts.load('800 100px Brico'), document.fonts.load('700 60px Brico'),
+  document.fonts.load('500 40px Instru'), document.fonts.load('600 40px Instru'), document.fonts.load('700 40px Instru'),
+  charger('photos/menu-du-jour-ardoise.jpg').then((i) => { IMG.ardoise = i; preparerArdoise(); }),
+  charger('photos/salle-bistrot.jpg').then((i) => { IMG.salle = i; }),
+  charger('photos/plat-filet-mignon.jpg').then((i) => { IMG.plat = i; }),
+]);
+
+window.rendu = function (t) {
+  ctx.drawImage(FOND, 0, 0);
+  const tete = intro(ctx, t);
+  motion(ctx, t);
+  salle(ctx, t);
+  assiette(ctx, t);
+  appel(ctx, t);
+  if (tete) brosse(ctx, tete[0], tete[1], PISTE.bande * 0.8, Math.PI / 2 + Math.sin(t * 40) * 0.06);
+};
+
+if (!navigator.webdriver) {
+  window.pret.then(() => {
+    const debut = performance.now();
+    const boucle = () => { window.rendu(((performance.now() - debut) / 1000) % DUREE); requestAnimationFrame(boucle); };
+    boucle();
+  });
+}
+</script>
+</body>
+</html>
