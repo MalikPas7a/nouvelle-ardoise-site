@@ -1,32 +1,73 @@
-OBJET : Une idée pour le site de {RESTAURANT}
+TROIS STYLES, CHOISIS SELON LE RESTAURANT
+- IMPACTANT : le site est cassé (page blanche, erreur, « Coming soon », site qui ne répond plus,
+  domaine non relié).
+- DIRECT : restauration rapide (kebab, chawarma, pizzeria à emporter, snack, burger, food truck),
+  quel que soit le défaut.
+- CHALEUREUX : tous les autres cas (pas adapté au téléphone, « non sécurisé », adresse Wix
+  gratuite, carte en PDF, site vieillissant).
 
+RÈGLES COMMUNES
+- {RESTAURANT} : le nom, avec les élisions françaises (« d'Asia Garden », « du Cyrano »).
+- {OBSERVATION} : un seul défaut, vérifié le jour même, ton bienveillant, jamais moqueur.
+  Écrire « votre site », sans recopier son adresse web. Commencer directement par le constat
+  (« Votre site… », « Sur téléphone, votre site… »), sans « en cherchant sur Google » ni « en ligne ».
+- Aucun prix, aucune promesse chiffrée, aucune critique de la cuisine.
+- Seul lien : nouvelleardoise.ch.
+- Ne pas parler de Pasta Mo'.
+
+======================================================================
+IMPACTANT
+OBJET : {RESTAURANT} : votre site ne s'affiche plus
 Bonjour,
-
-Je m'appelle Malik Younes. Je suis le fondateur de Nouvelle Ardoise, à Genève, et je tiens aussi Pasta Mo', une enseigne de street food italienne : le service du midi, je le connais de l'intérieur.
 
 {OBSERVATION}
 
-Aujourd'hui, la plupart des clients choisissent leur restaurant sur leur téléphone, en quelques secondes. Un site qui ne s'affiche pas, qui oblige à zoomer ou qui renvoie vers une carte en PDF, et ils passent au suivant.
+Ce soir, un client qui hésite entre plusieurs restaurants choisira celui dont il voit les plats.
 
-Nous créons des sites et des cartes pensés pour le téléphone, avec quelque chose que vos clients n'ont encore jamais vu : votre plat signature qui s'ouvre au fil du doigt et révèle ses ingrédients, et un plat en 3D qu'ils peuvent poser sur leur propre table, en réalité augmentée.
+Je m'appelle Malik Younes, fondateur de Nouvelle Ardoise, à Genève. Nous créons des sites où votre plat signature s'ouvre en 3D sous le doigt du client et dévoile ses ingrédients, un par un.
 
-Le plus simple est de le voir : ouvrez nouvelleardoise.ch sur votre téléphone et faites défiler l'écran, trois restaurants de démonstration vous attendent.
+Voyez par vous-même, sur votre téléphone : nouvelleardoise.ch
 
-Si cela vous parle, répondez simplement à ce message : je passe volontiers vous montrer ce que cela donnerait pour {RESTAURANT}.
+Une réponse à ce message suffit pour que je vous montre ce que cela donnerait pour {RESTAURANT}.
 
-Belle journée,
+{SIGNATURE}
 
+======================================================================
+CHALEUREUX
+OBJET : Une idée pour le site de {RESTAURANT}
+Bonjour,
+
+Je m'appelle Malik Younes et j'ai lancé Nouvelle Ardoise, à Genève, pour aider les restaurants d'ici à se montrer sous leur meilleur jour en ligne. Je sais que le site passe souvent après la cuisine.
+
+{OBSERVATION} C'est dommage, parce que c'est justement là que vos futurs clients vous cherchent.
+
+Nous créons des sites pensés pour le téléphone, avec une touche que vos clients n'auront jamais vue : votre plat qui s'ouvre au fil du doigt et révèle ses ingrédients. Trois restaurants de démonstration vous attendent sur nouvelleardoise.ch.
+
+Si l'idée vous plaît, je passe volontiers prendre un café et vous montrer ce que cela donnerait pour {RESTAURANT}.
+
+{SIGNATURE}
+
+======================================================================
+DIRECT
+OBJET : {RESTAURANT} : votre site sur téléphone
+Bonjour,
+
+Malik Younes, Nouvelle Ardoise, Genève.
+
+{OBSERVATION}
+
+Nous faisons des sites de restaurants pensés pour le téléphone : carte claire, réservation et plat signature en 3D.
+
+Exemples : nouvelleardoise.ch
+
+Intéressé ? Répondez « oui » et je vous appelle.
+
+{SIGNATURE}
+
+======================================================================
+{SIGNATURE} =
 Malik Younes
 Fondateur, Nouvelle Ardoise
-Chemin des Sports 16, 1203 Genève
 078 213 38 68 · nouvelleardoise.ch
 
 Vous ne souhaitez plus recevoir de message de ma part ? Répondez « stop » et je ne vous écrirai plus.
-
----
-RÈGLES POUR {OBSERVATION} (une ou deux phrases, ton bienveillant, jamais moqueur) :
-- Commence par « En visitant le site de {RESTAURANT}, j'ai remarqué que… » ou une tournure proche.
-- Ne cite qu'un défaut vérifié le jour même en ouvrant le site (page vide, erreur, « Coming soon »,
-  pas de https, pas adapté au téléphone, adresse Wix gratuite, carte en PDF, site qui ne répond pas).
-- Si le défaut noté dans le CRM n'est plus vrai (site refait, domaine déplacé), ne pas écrire.
-- Aucun prix, aucune promesse chiffrée, aucune critique de la cuisine.
