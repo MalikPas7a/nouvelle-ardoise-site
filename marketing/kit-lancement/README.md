@@ -11,8 +11,8 @@ Aucun prix n'apparaît dans les visuels ni dans les légendes.
 | `reel/reel-carte-15s-sans-son.mp4` · `reel/couverture-reel-carte.jpg` | La même sans son, et sa couverture |
 | `reel/reel-reseaux-18s.mp4` | Réel de 18 s « gestion des réseaux sociaux et vidéos en motion design » : profil poussiéreux, coup d'éponge, publications qui se retournent, réel animé, planning, puis la confiance (basés à Genève, on en parle autour d’un café, on s’occupe de tout) et « Confiez-nous-en la gestion, dynamisez votre activité. ». 100 % dessiné, sans photo |
 | `reel/reel-reseaux-18s-sans-son.mp4` · `reel/couverture-reel-reseaux.jpg` | La même sans son, et sa couverture |
-| `reel/reel-votre-ardoise-20s.mp4` | Réel de 20 s pour les prestations vidéo : « Et si on prenait en main votre ardoise ? » sur la vraie ardoise ; le coup d'éponge découvre Genève vue du ciel, plongée jusqu'à la place du Bourg-de-Four ; « On pousse la porte » (vraie vidéo de salle) ; le menu réécrit à la craie en rythme, le plat entouré ; vraie vidéo de viande au beurre qui grésille ; l'assiette entière ; « Réservez un appel » |
-| `reel/reel-votre-ardoise-20s-sans-son.mp4` · `reel/couverture-reel-ardoise.jpg` | La même sans son, et sa couverture |
+| `reel/reel-sur-mesure-23s.mp4` | Réel de 23 s « sur mesure » : on comprend qu'on fait un contenu propre à chaque restaurant, avec l'exemple de Sora (comptoir à ramen de démonstration du site, Plainpalais), à ses couleurs. La vraie ardoise effacée découvre Genève vue du ciel ; plongée jusqu'à l'adresse du restaurant ; « On filme votre salle, votre plat du jour » (vraies vidéos) ; le même plat du jour sur son site, mis à jour d'un coup d'éponge ; et en réel sur ses réseaux ; « Réservez un appel » |
+| `reel/reel-sur-mesure-23s-sans-son.mp4` · `reel/couverture-reel-ardoise.jpg` | La même sans son, et sa couverture |
 | `reel/reel-menu-du-jour-16s.mp4` | Réel de 16 s « menu du jour » : plongée aérienne du lac Léman jusqu'à la place du Bourg-de-Four (Genève), épingle « Votre restaurant », la vraie ardoise du matin en photo, un coup d'éponge, puis le même menu remis au propre et animé, en ligne sur le site, Google et Instagram. Sans prix |
 | `reel/reel-menu-du-jour-16s-sans-son.mp4` · `reel/couverture-reel-menu.jpg` | La même sans son, et sa couverture |
 | `reel/reel-sushi-15s.mp4` | Réel 15 s, 1080×1920, 30 i/s, habillage sonore inclus |
@@ -64,32 +64,33 @@ brille, un petit trait jaune en haut à gauche, et des mots effacés d'un coup d
   domaine public (CC0). Le prix inscrit sur l'ardoise a été retouché. Le menu est retranscrit tel
   quel ; « Votre restaurant » sur la place du Bourg-de-Four est un exemple, pas un vrai client.
 
-## Sources du réel « Et si on prenait en main votre ardoise ? »
+## Sources du réel « sur mesure »
 
 - Ardoise : B. Prieur, Wikimedia Commons, CC0 (prix retouché).
 - Vue aérienne : SWISSIMAGE © swisstopo (mention dans la vidéo et la légende).
-- Vidéos de la salle et de la viande au beurre : Mixkit (mixkit.co, n° 29050 et 45724), licence
-  gratuite Mixkit, usage commercial autorisé sans mention ; à ne pas revendre telles quelles.
-- Assiette : « Filet mignon with mushroom-cream sauce », Naotake Murayama, Wikimedia Commons,
-  CC BY 2.0 : le nom de l'auteur et la licence doivent être cités. C'est fait dans la vidéo et
-  dans la légende ci-dessous ; garder cette mention si la vidéo est reprise ailleurs.
-- La vapeur et les mouvements de caméra sont ajoutés en animation. Aucune image générée par IA.
+- Vidéos de la salle, des nouilles, de la cliente et de la table : Mixkit (mixkit.co, n° 51239,
+  46401, 51257 et 46790), licence gratuite Mixkit, usage commercial autorisé sans mention ; à ne
+  pas revendre telles quelles.
+- Sora est le restaurant inventé des démos du site : sa charte (noir, crème, rouge #FF4B2B,
+  police Syne) vient de src/styles/global.css. La vidéo l'indique (« Exemple : Sora, restaurant
+  de démonstration »). Aucune image générée par IA.
 
 ## Légendes prêtes à copier
 
-**Réel « Et si on prenait en main votre ardoise ? »**
+**Réel « sur mesure »**
 
 ```
-Et si on prenait en main votre ardoise ? 🧽
+Votre menu du jour mérite mieux qu'une ardoise. 🧽
 
-11 h 45, place du Bourg-de-Four. De la craie du matin à une vidéo qui donne faim : on filme vos plats, on anime votre menu du jour, on le publie partout.
+On vient chez vous : on filme votre salle et votre plat du jour, puis on le publie sur votre site, à vos couleurs, et en réel sur vos réseaux. Chaque restaurant a sa vidéo.
 
-Vidéo · photo · motion design pour les restaurants de Genève et Vaud.
+Exemple : Sora, notre restaurant de démonstration.
+Vidéo · site · réseaux sociaux pour les restaurants de Genève et Vaud.
 👉 Réservez un appel : lien en bio
 
-Images : swisstopo · Mixkit · ardoise B. Prieur (CC0) · plat Naotake Murayama (CC BY 2.0)
+Images aériennes © swisstopo
 
-#restaurantgeneve #genève #motiondesign #videorestaurant #menudujour #restaurateur #foodvideo #suisseromande #vaud
+#restaurantgeneve #genève #plainpalais #ramen #motiondesign #videorestaurant #menudujour #restaurateur #suisseromande
 ```
 
 **Réel « menu du jour »**
@@ -164,7 +165,7 @@ node render.mjs                   # réel sushi (environ 3 minutes)
 # réel carte : site en local (npx astro preview --port 4399), node filmer-carte.mjs . (réduire les
 # images comme indiqué en fin de script), puis REEL=reel-carte node render.mjs
 # réel réseaux sociaux : REEL=reel-reseaux node render.mjs
-# réel « votre ardoise » : python3 vue-aerienne.py, sh videos/extraire.sh, puis REEL=reel-ardoise node render.mjs
+# réel « sur mesure » : python3 vue-aerienne.py 46.1978524 6.1428830 carte-plainpalais, sh videos/extraire.sh, puis REEL=reel-ardoise node render.mjs
 # réel menu du jour : python3 vue-aerienne.py (vue aérienne swisstopo), puis REEL=reel-menu node render.mjs
 node render.mjs --apercu 1,5,14   # captures de quelques instants, pour vérifier
 node publication.mjs              # publication en 4:5, 1:1 et story 9:16
