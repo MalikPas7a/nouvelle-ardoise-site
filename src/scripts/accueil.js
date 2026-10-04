@@ -112,6 +112,48 @@ $('[data-reserver]', resa).addEventListener('click', () => {
 const compare = $('[data-compare]');
 $('input', compare).addEventListener('input', (e) => compare.style.setProperty('--p', e.target.value + '%'));
 
+/* ---------- offres : onglets « site internet » et « vidéo et réseaux sociaux » ---------- */
+// Sans JavaScript, les deux panneaux restent visibles l'un sous l'autre.
+const onglets = $$('[data-onglets] [role="tab"]');
+const montrerOnglet = (onglet, focus = false) => {
+  onglets.forEach((o) => {
+    const actif = o === onglet;
+    o.setAttribute('aria-selected', String(actif));
+    o.tabIndex = actif ? 0 : -1;
+    document.getElementById(o.getAttribute('aria-controls')).hidden = !actif;
+  });
+  if (focus) onglet.focus();
+};
+onglets.forEach((o, i) => {
+  o.addEventListener('click', () => montrerOnglet(o));
+  o.addEventListener('keydown', (e) => {
+    const pas = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+    if (pas) { e.preventDefault(); montrerOnglet(onglets[(i + pas + onglets.length) % onglets.length], true); }
+  });
+});
+// la vidéo d'exemple ne se charge et ne joue que lorsqu'elle est à l'écran
+const exemple = $('[data-video-exemple]');
+if (exemple && calme) exemple.controls = true;
+if (exemple && !calme) {
+  new IntersectionObserver(([e]) => { if (e.isIntersecting) exemple.play().catch(() => {}); else exemple.pause(); }, { threshold: 0.4 }).observe(exemple);
+}
+// clic sur l'exemple : la vidéo s'ouvre en grand, avec le son (chargée seulement à ce moment-là)
+const visionneuse = $('[data-visionneuse]');
+const grande = $('[data-video-grande]');
+$$('[data-ouvrir-video]').forEach((b) => b.addEventListener('click', (e) => {
+  if (!visionneuse?.showModal) return;          // vieux navigateur : le lien ouvre la vidéo seule
+  e.preventDefault();
+  if (!grande.src) grande.src = '/media/exemple-sora-hd.mp4';
+  visionneuse.showModal();
+  grande.currentTime = 0;
+  grande.play().catch(() => {});
+}));
+visionneuse?.addEventListener('close', () => grande.pause());
+visionneuse?.addEventListener('click', (e) => { if (e.target === visionneuse) visionneuse.close(); });
+if (location.hash === '#exemple-sora') addEventListener('load', () => $('[data-ouvrir-video]')?.click());
+
+if (onglets.length) montrerOnglet(['#reseaux', '#exemple-sora'].includes(location.hash) ? onglets[1] : onglets[0]);
+
 /* ---------- choisir une offre la présélectionne dans le formulaire ---------- */
 $$('[data-offre]').forEach((b) => b.addEventListener('click', () => { $('[data-offre-choix]').value = b.dataset.offre; }));
 
