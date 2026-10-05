@@ -1,10 +1,7 @@
-// Page d'accueil : tout ce qui réagit aux gestes du visiteur.
+// Page Restaurants : les démonstrations à essayer (téléphone, carte, ardoise, 3D, réservation, avant / après).
 // Aucune bibliothèque d'animation : le navigateur fait le travail (CSS), ce fichier
 // ne gère que la logique des démonstrations. C'est ce qui garde la page rapide.
-import { SITE } from '../config.js';
 import './defilement.js';
-import './boutons.js';
-import './onglets.js';
 
 const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = (sel, racine = document) => racine.querySelector(sel);
@@ -112,37 +109,3 @@ $('[data-reserver]', resa).addEventListener('click', () => {
 /* ---------- avant / après ---------- */
 const compare = $('[data-compare]');
 $('input', compare).addEventListener('input', (e) => compare.style.setProperty('--p', e.target.value + '%'));
-
-// la vidéo d'exemple ne se charge et ne joue que lorsqu'elle est à l'écran
-const exemple = $('[data-video-exemple]');
-if (exemple && calme) exemple.controls = true;
-if (exemple && !calme) {
-  new IntersectionObserver(([e]) => { if (e.isIntersecting) exemple.play().catch(() => {}); else exemple.pause(); }, { threshold: 0.4 }).observe(exemple);
-}
-// clic sur l'exemple : la vidéo s'ouvre en grand, avec le son (chargée seulement à ce moment-là)
-const visionneuse = $('[data-visionneuse]');
-const grande = $('[data-video-grande]');
-$$('[data-ouvrir-video]').forEach((b) => b.addEventListener('click', (e) => {
-  if (!visionneuse?.showModal) return;          // vieux navigateur : le lien ouvre la vidéo seule
-  e.preventDefault();
-  if (!grande.src) grande.src = '/media/exemple-sora-hd.mp4';
-  visionneuse.showModal();
-  grande.currentTime = 0;
-  grande.play().catch(() => {});
-}));
-visionneuse?.addEventListener('close', () => grande.pause());
-visionneuse?.addEventListener('click', (e) => { if (e.target === visionneuse) visionneuse.close(); });
-if (location.hash === '#exemple-sora') addEventListener('load', () => $('[data-ouvrir-video]')?.click());
-
-/* ---------- choisir une offre la présélectionne dans le formulaire ---------- */
-$$('[data-offre]').forEach((b) => b.addEventListener('click', () => { $('[data-offre-choix]').value = b.dataset.offre; }));
-
-/* ---------- contact : sans serveur, on ouvre la messagerie du visiteur ---------- */
-$('[data-contact]').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const d = new FormData(e.target);
-  const corps = `Offre : ${d.get('offre') || 'à définir'}\nNom : ${d.get('nom')}\nRestaurant : ${d.get('resto')}\nTéléphone : ${d.get('tel') || ''}\nEmail : ${d.get('email')}\n\n${d.get('msg') || ''}`;
-  location.href = `mailto:${SITE.email}?subject=${encodeURIComponent('Demande de devis – ' + d.get('resto'))}&body=${encodeURIComponent(corps)}`;
-  $('[data-contact-msg]').textContent = `Merci ${d.get('nom')}. Votre messagerie s’ouvre : il reste à envoyer le message.`;
-});
-
