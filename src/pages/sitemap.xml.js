@@ -2,7 +2,7 @@
 import { SITE } from '../config.js';
 import { ANIMATIONS } from '../data/animations.js';
 
-const PAGES = ['/', '/restaurants/', '/artisans/', '/realisations/', '/offres/', '/contact/',
+const PAGES = ['/', '/restaurants/', '/artisans/', '/realisations/', '/offres/', '/questions/', '/contact/',
   ...ANIMATIONS.map((a) => `/animations/${a.id}/`), '/mentions-legales/', '/confidentialite/'];
 
 export function GET() {

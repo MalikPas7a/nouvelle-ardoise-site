@@ -3,8 +3,23 @@
 import Base from '../layouts/Base.astro';
 import Appel from '../components/Appel.astro';
 const lien = (offre) => '/contact/?offre=' + encodeURIComponent(offre);
+// Catalogue des offres, lu par Google et les moteurs de réponse (prix hors offre de lancement)
+const offre = (nom, prix, description, unite) => ({ '@type': 'Offer', name: nom, description, priceCurrency: 'CHF', price: prix,
+  ...(unite ? { priceSpecification: { '@type': 'UnitPriceSpecification', price: prix, priceCurrency: 'CHF', unitText: unite } } : {}) });
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'OfferCatalog', name: 'Offres Nouvelle Ardoise', url: 'https://nouvelleardoise.ch/offres/',
+  itemListElement: [
+    offre('Site Essentiel', 999, 'Site sur mesure pour téléphone, carte en ligne, horaires, plan, fiche Google.'),
+    offre('Site Signature', 1999, 'Site Essentiel, plat signature animé, carte redessinée, deux heures de shooting offertes.'),
+    offre('Site Maison', 3490, 'Site Signature avec entretien, photographe, plats en 3D, carte en deux langues ; puis CHF 790 par mois.'),
+    offre('Réseaux Essentiel', 490, 'Une heure de shooting par mois, 4 réels, menu du jour publié chaque matin, entretien du site.', 'MON'),
+    offre('Réseaux Premium', 990, 'Deux heures de tournage par mois, 4 réels et 8 publications, publicité Facebook, Instagram et Google gérée.', 'MON'),
+    offre('Pack lancement', 990, 'Deux heures de tournage, 4 réels montés, photos des plats. Sans abonnement.'),
+  ],
+});
 ---
 <Base page="offres" title="Prix : site web et réseaux sociaux pour restaurants à Genève | Nouvelle Ardoise" description="Sites web dès CHF 999, vidéo et réseaux sociaux dès CHF 490 par mois. Prix affichés, −20 % jusqu’au 31 octobre 2026.">
+<script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
 
 <!-- ============ Offres ============ -->
 <section class="bloc" id="offres">

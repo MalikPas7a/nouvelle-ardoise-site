@@ -1,4 +1,23 @@
+# Tous les robots sont les bienvenus, y compris ceux des moteurs de réponse par IA :
+# être lu par eux, c'est pouvoir être cité quand quelqu'un cherche une agence pour son restaurant.
 User-agent: *
+Allow: /
+
+# Moteurs de recherche et de réponse par IA (autorisés explicitement)
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: Google-Extended
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: DuckAssistBot
 Allow: /
 
 Sitemap: https://nouvelleardoise.ch/sitemap.xml
