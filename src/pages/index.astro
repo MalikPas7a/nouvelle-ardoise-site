@@ -16,7 +16,11 @@ const jsonLd = JSON.stringify({
   name: SITE.nom,
   url: SITE.url,
   email: SITE.email,
+  image: SITE.url + '/partage.jpg',
+  founder: { '@type': 'Person', name: SITE.responsable },
+  address: { '@type': 'PostalAddress', streetAddress: SITE.adresse, postalCode: SITE.localite.split(' ')[0], addressLocality: 'Genève', addressCountry: 'CH' },
   areaServed: ['Genève', 'Vaud'],
+  knowsAbout: ['Création de sites web pour restaurants', 'Gestion des réseaux sociaux', 'Réels Instagram', 'Shooting photo culinaire', 'Publicité Facebook, Instagram et Google'],
   description: 'Agence de marketing digital pour restaurants et boutiques gourmandes : sites web, vidéo, réseaux sociaux et menus en 3D.',
   priceRange: 'CHF 999 – 3490',
 });
