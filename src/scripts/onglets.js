@@ -21,4 +21,9 @@ document.querySelectorAll('[data-onglets]').forEach((groupe) => {
   });
   const vise = onglets.find((o) => location.hash && (o.dataset.ancres || '').split(' ').includes(location.hash));
   montrer(vise || onglets[0]);
+  // Un lien vers une ancre d'un onglet fermé (ex. « Voir l'abonnement ») l'ouvre et y amène
+  addEventListener('hashchange', () => {
+    const o = onglets.find((x) => (x.dataset.ancres || '').split(' ').includes(location.hash));
+    if (o) { montrer(o); groupe.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
 });

@@ -7,10 +7,19 @@ import { SITE } from '../config.js';
 
 const { title, description, page } = Astro.props;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
-const lien = (ancre) => (page === 'accueil' ? ancre : '/' + ancre);
+// Le menu : une page par sujet. La page en cours est signalée (aria-current).
+const MENU = [
+  { href: '/restaurants/', nom: 'Restaurants', page: 'restaurants' },
+  { href: '/artisans/', nom: 'Artisans', page: 'artisans' },
+  { href: '/realisations/', nom: 'Réalisations', page: 'realisations' },
+  { href: '/offres/', nom: 'Offres', page: 'offres' },
+];
+const actuel = (p) => (p === page ? 'page' : undefined);
+// Le rappel de l'offre de lancement, en haut de chaque page (sauf les animations plein écran)
+const lancement = page !== 'animation';
 ---
 <!doctype html>
-<html lang="fr" data-resto="osteria">
+<html lang="fr-CH" data-resto="osteria">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -22,6 +31,13 @@ const lien = (ancre) => (page === 'accueil' ? ancre : '/' + ancre);
 <meta property="og:type" content="website">
 <meta property="og:url" content={canonical}>
 <meta property="og:locale" content="fr_CH">
+<meta property="og:site_name" content="Nouvelle Ardoise">
+<!-- Image affichée quand le lien est partagé (WhatsApp, Facebook, LinkedIn…) -->
+<meta property="og:image" content={new URL('/partage.jpg', SITE.url).href}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nouvelle Ardoise, agence de marketing digital pour restaurants et boutiques gourmandes">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1E2A2C">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -36,15 +52,23 @@ const lien = (ancre) => (page === 'accueil' ? ancre : '/' + ancre);
 <div class="avancee" aria-hidden="true"></div>
 <header class="nav">
   <Logo />
-  <nav aria-label="Navigation principale">
-    <a href={lien('#exemples')}>Exemples</a>
-    <a href={lien('#offres')}>Offres</a>
-    <a href={lien('#methode')}>Méthode</a>
-    <a class="btn btn--petit" href={lien('#contact')}><span class="nav__long">Demander un devis</span><span class="nav__court">Devis</span></a>
+  <nav class="nav__liens" aria-label="Navigation principale">
+    {MENU.map((m) => <a href={m.href} aria-current={actuel(m.page)}>{m.nom}</a>)}
+    <a class="btn btn--petit" href="/contact/" aria-current={actuel('contact')}><span class="nav__long">Demander un devis</span><span class="nav__court">Devis</span></a>
   </nav>
+  <!-- Sur téléphone, les pages passent dans un menu déroulant (sans JavaScript) -->
+  <details class="menu">
+    <summary>Menu</summary>
+    <nav class="menu__liste" aria-label="Menu">
+      <a href="/" aria-current={actuel('accueil')}>Accueil</a>
+      {MENU.map((m) => <a href={m.href} aria-current={actuel(m.page)}>{m.nom}</a>)}
+      <a href="/contact/" aria-current={actuel('contact')}>Contact</a>
+    </nav>
+  </details>
 </header>
 
 <main id="contenu">
+{lancement && <a class="lancement" href="/offres/"><b>Offre de lancement</b> −20 % sur toutes nos offres jusqu’au 31 octobre 2026 <span aria-hidden="true">→</span></a>}
 <slot />
 </main>
 
@@ -52,11 +76,15 @@ const lien = (ancre) => (page === 'accueil' ? ancre : '/' + ancre);
   <div class="cadre pied__in">
     <div class="pied__marque">
       <Logo label="Nouvelle Ardoise, retour à l’accueil" />
-      <p>Sites web, gestion des réseaux sociaux et menus en 3D pour les restaurants de Genève et Vaud.</p>
+      <p>Agence de marketing digital pour les restaurants et boutiques gourmandes de Genève et Vaud : sites, vidéo et réseaux sociaux.</p>
     </div>
-    <p>Osteria del Lago, Chez Léonie, Sora et la pizzeria des animations sont des restaurants inventés pour ces démonstrations.</p>
-    <p><a href={lien('#offres')}>Offres et prix</a><br><a href={'mailto:' + SITE.email}>{SITE.email}</a><br><a href="/mentions-legales/">Mentions légales</a><br><a href="/confidentialite/">Confidentialité et cookies</a></p>
+    <p>Osteria del Lago, Chez Léonie, Sora, la pizzeria des animations et Maison Fève sont des adresses inventées pour ces démonstrations.</p>
+    <p><a href="/restaurants/">Restaurants</a><br><a href="/artisans/">Artisans</a><br><a href="/realisations/">Réalisations</a><br><a href="/offres/">Offres et prix</a><br><a href="/questions/">Questions fréquentes</a><br><a href="/contact/">Contact</a></p>
+    <p><a href={'mailto:' + SITE.email}>{SITE.email}</a><br><a href="/mentions-legales/">Mentions légales</a><br><a href="/confidentialite/">Confidentialité et cookies</a></p>
   </div>
 </footer>
+<script>
+  import '../scripts/boutons.js';
+</script>
 </body>
 </html>

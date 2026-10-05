@@ -1,0 +1,11 @@
+---
+// Fin de page : une phrase et le bouton vers le formulaire de contact.
+const { titre = 'Parlons de votre restaurant ou de votre boutique', texte = 'Réponse sous 24 heures avec un devis clair. Le premier rendez-vous est offert, chez vous.' } = Astro.props;
+---
+<section class="bloc bloc--ardoise appel">
+  <div class="cadre appel__in">
+    <h2 class="titre-2">{titre}</h2>
+    <p>{texte}</p>
+    <a class="btn btn--jaune" href="/contact/">Demander un devis</a>
+  </div>
+</section>

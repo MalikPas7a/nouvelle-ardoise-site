@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base page="contact" title="Contact et devis | Nouvelle Ardoise" description="Demandez un devis : réponse sous 24 heures, premier rendez-vous offert chez vous, à Genève et Vaud.">
+
+<!-- ============ Contact ============ -->
+<section class="bloc bloc--ardoise" id="contact">
+  <div class="cadre contact">
+    <div>
+      <h1 class="titre-2">Parlons de votre restaurant ou de votre boutique</h1>
+      <p>Réponse sous 24 heures avec un devis clair. Le premier rendez-vous est offert, chez vous.</p>
+    </div>
+    <form class="formulaire" data-contact>
+      <label>Votre nom<input name="nom" autocomplete="name" required></label>
+      <label>Nom de votre établissement<input name="resto" autocomplete="organization" required></label>
+      <label>Téléphone<input name="tel" type="tel" autocomplete="tel"></label>
+      <label>Email<input name="email" type="email" autocomplete="email" required></label>
+      <label class="formulaire__large">Offre qui vous intéresse
+        <select name="offre" data-offre-choix>
+          <option value="">Je ne sais pas encore</option>
+          <option>Essentiel</option>
+          <option>Signature</option>
+          <option>Maison</option>
+          <option>Réseaux Essentiel</option>
+          <option>Réseaux Premium</option>
+          <option>Pack lancement</option>
+        </select>
+      </label>
+      <label class="formulaire__large">Votre projet<textarea name="msg" rows="3"></textarea></label>
+      <button class="btn btn--jaune" type="submit">Envoyer ma demande</button>
+      <p class="formulaire__msg" role="status" aria-live="polite" data-contact-msg></p>
+      <p class="formulaire__note">Vos coordonnées servent uniquement à vous répondre. <a href="/confidentialite/">Confidentialité et cookies</a></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  import '../scripts/contact.js';
+</script>
+</Base>
