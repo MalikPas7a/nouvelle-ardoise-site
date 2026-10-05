@@ -59,6 +59,9 @@ const jsonLd = JSON.stringify({
 <Base page="accueil" title="Nouvelle Ardoise | Sites, réseaux sociaux et menus 3D pour restaurants à Genève" description="Marketing digital pour les restaurants de Genève et Vaud : sites web, gestion des réseaux sociaux, vidéo et menus en 3D. Prix affichés, sites dès CHF 999.">
 <script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
 
+<!-- ============ Offre de lancement : rappel en haut de page ============ -->
+<a class="lancement" href="#offres"><b>Offre de lancement</b> −20 % sur toutes nos offres jusqu’au 31 décembre 2026 <span aria-hidden="true">→</span></a>
+
 <!-- ============ Ouverture : un coup d'éponge sur l'ancien site ============ -->
 <section class="eponge" data-eponge aria-labelledby="titre-accueil">
   <div class="eponge__colle">
@@ -92,7 +95,7 @@ const jsonLd = JSON.stringify({
       </div>
 
       <div class="actions">
-        <a class="lien" href="#offres">Voir les offres, dès CHF 999</a>
+        <a class="lien" href="#offres">Voir les offres, −20 % jusqu’au 31 décembre</a>
       </div>
     </div>
 
@@ -325,17 +328,18 @@ const jsonLd = JSON.stringify({
     <header class="bloc__tete">
       <h2 class="titre-2">Nos offres, des prix affichés</h2>
       <p>Un prix fixe, annoncé avant de commencer. Pas d’options à cocher, pas de surprise sur la facture.</p>
+      <p class="lancement-note"><b>Offre de lancement : −20 % sur toutes nos offres</b> pour toute commande avant le 31 décembre 2026. Pour les abonnements, la remise vaut pendant les 3 premiers mois.</p>
     </header>
     <div class="onglets" role="tablist" aria-label="Choisir le type d’offre" data-onglets>
-      <button type="button" role="tab" id="onglet-site" aria-controls="offres-site" aria-selected="true"><b>Créer votre site</b><span>3 offres, dès CHF 999</span></button>
-      <button type="button" role="tab" id="onglet-reseaux" data-ancres="#reseaux #exemple-sora" aria-controls="offres-reseaux" aria-selected="false" tabindex="-1"><b>Vidéo et réseaux sociaux</b><span>Dès CHF 490 par mois</span></button>
+      <button type="button" role="tab" id="onglet-site" aria-controls="offres-site" aria-selected="true"><b>Créer votre site</b><span>3 offres, dès CHF 799 (−20 %)</span></button>
+      <button type="button" role="tab" id="onglet-reseaux" data-ancres="#reseaux #exemple-sora" aria-controls="offres-reseaux" aria-selected="false" tabindex="-1"><b>Vidéo et réseaux sociaux</b><span>Dès CHF 392 par mois (−20 %)</span></button>
     </div>
     <div class="offres__panneau" id="offres-site" role="tabpanel" aria-labelledby="onglet-site">
     <p class="demo__ou offres__note">Nous réalisons la carte des plats et des boissons sans alcool. La carte des vins et des alcools n’entre pas dans nos prestations : elle se découvre sur place.</p>
     <div class="offres">
       <article class="offre">
         <h3>Essentiel</h3>
-        <p class="offre__prix">CHF 999</p>
+        <p class="offre__prix"><s>CHF 999</s> CHF 799 <span class="offre__remise">−20 %</span></p>
         <p class="offre__pour">Pour être trouvé et joignable, vite.</p>
         <ul>
           <li>Une page sur mesure, pensée pour le téléphone</li>
@@ -348,13 +352,13 @@ const jsonLd = JSON.stringify({
       </article>
       <article class="offre offre--phare">
         <h3>Signature</h3>
-        <p class="offre__prix">CHF 1’999</p>
+        <p class="offre__prix"><s>CHF 1’999</s> CHF 1’599 <span class="offre__remise">−20 %</span></p>
         <p class="offre__pour">Pour donner faim avant même d’entrer.</p>
         <ul>
           <li>Tout l’Essentiel</li>
           <li>Votre plat signature animé au défilement</li>
           <li>Carte redessinée : web, imprimable, QR codes</li>
-          <li>Ardoise du jour modifiable par vous</li>
+          <li>Plat du jour mis en ligne chaque matin</li>
           <li>Réservation branchée sur votre outil</li>
         </ul>
         <p class="offre__suivi">Entretien en option, CHF 89 par mois : carte et horaires mis à jour sous 48 heures.</p>
@@ -362,7 +366,7 @@ const jsonLd = JSON.stringify({
       </article>
       <article class="offre">
         <h3>Maison</h3>
-        <p class="offre__prix">CHF 3’490 <small>puis CHF 790 par mois</small></p>
+        <p class="offre__prix"><s>CHF 3’490</s> CHF 2’792 <span class="offre__remise">−20 %</span> <small>puis CHF 790 par mois</small></p>
         <p class="offre__pour">Pour que vos plats se vendent tout seuls.</p>
         <ul>
           <li>Tout le Signature, entretien compris</li>
@@ -392,7 +396,7 @@ const jsonLd = JSON.stringify({
       <div class="offres">
         <article class="offre">
           <h3>Essentiel</h3>
-          <p class="offre__prix">CHF 490 <small>par mois</small></p>
+          <p class="offre__prix"><s>CHF 490</s> CHF 392 <span class="offre__remise">−20 %</span> <small>par mois les 3 premiers mois, puis CHF 490</small></p>
           <p class="offre__pour">Pour être vu chaque semaine, sans y penser.</p>
           <ul>
             <li>Une heure de tournage chez vous chaque mois</li>
@@ -404,7 +408,7 @@ const jsonLd = JSON.stringify({
         </article>
         <article class="offre offre--phare">
           <h3>Premium</h3>
-          <p class="offre__prix">CHF 990 <small>par mois</small></p>
+          <p class="offre__prix"><s>CHF 990</s> CHF 792 <span class="offre__remise">−20 %</span> <small>par mois les 3 premiers mois, puis CHF 990</small></p>
           <p class="offre__pour">Pour remplir la salle, avec la publicité.</p>
           <ul>
             <li>Deux heures de tournage chaque mois</li>
@@ -418,7 +422,7 @@ const jsonLd = JSON.stringify({
         </article>
         <article class="offre">
           <h3>Pack lancement</h3>
-          <p class="offre__prix">CHF 990 <small>une seule fois</small></p>
+          <p class="offre__prix"><s>CHF 990</s> CHF 792 <span class="offre__remise">−20 %</span> <small>une seule fois</small></p>
           <p class="offre__pour">Sans abonnement : un tournage, et c’est parti.</p>
           <ul>
             <li>Deux heures de tournage au restaurant</li>
