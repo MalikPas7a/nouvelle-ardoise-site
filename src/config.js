@@ -6,6 +6,8 @@ export const SITE = {
   // Adresse affichée sur le site (elle arrive dans la boîte Google de Malik)
   email: 'contact@nouvelleardoise.ch',
   telephone: '',
+  // Compte Instagram (sans @) : le logo et le QR code du pied de page pointent vers ce profil
+  instagram: 'nouvelleardoise.ch',
   responsable: 'Malik Younes',
   forme: 'Entreprise individuelle',
   adresse: 'Chemin des Sports 16',

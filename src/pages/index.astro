@@ -16,6 +16,7 @@ const jsonLd = JSON.stringify({
   name: SITE.nom,
   url: SITE.url,
   email: SITE.email,
+  sameAs: ['https://www.instagram.com/' + SITE.instagram + '/'],
   image: SITE.url + '/partage.jpg',
   founder: { '@type': 'Person', name: SITE.responsable },
   address: { '@type': 'PostalAddress', streetAddress: SITE.adresse, postalCode: SITE.localite.split(' ')[0], addressLocality: 'Genève', addressCountry: 'CH' },
