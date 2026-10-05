@@ -20,7 +20,7 @@ export const ANIMATIONS = [
     sous: 'Pâte, sauce, four',
     titre: 'La pizza, de la pâte au four',
     resume: 'La pâte étalée à la main, la sauce, le fromage, le four : chaque étape avance au rythme du doigt. Avec la carte des pizzas et l’origine des produits.',
-    apercu: '/sequences/pizza/g/200.webp',
+    apercu: '/sequences/pizza/g/015.webp',
     images: 221,
     credit: 'Images : Mixkit, licence gratuite Mixkit. Extraits recadrés et enchaînés.',
     creditLien: 'https://mixkit.co/free-stock-video/pizza/',
