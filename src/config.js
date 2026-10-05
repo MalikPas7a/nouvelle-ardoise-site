@@ -6,7 +6,7 @@ export const SITE = {
   // Adresse affichée sur le site (elle arrive dans la boîte Google de Malik)
   email: 'contact@nouvelleardoise.ch',
   telephone: '',
-  responsable: 'Malik Lemus',
+  responsable: 'Malik Younes',
   forme: 'Entreprise individuelle',
   adresse: 'Chemin des Sports 16',
   localite: '1203 Genève',
