@@ -5,7 +5,7 @@
 export const QUESTIONS = [
   {
     q: 'Qu’est-ce que Nouvelle Ardoise ?',
-    r: 'Nouvelle Ardoise est une agence de marketing digital pour les restaurants et les boutiques gourmandes de Genève et Vaud : restaurants, cafés, boulangeries, pâtisseries, chocolateries. Elle crée des sites web, tourne des photos et des réels chez ses clients, et gère leurs réseaux sociaux. L’agence est dirigée par Malik Lemus, qui exploite aussi Pasta Mo’, une enseigne de street food italienne à Genève.',
+    r: 'Nouvelle Ardoise est une agence de marketing digital pour les restaurants et les boutiques gourmandes de Genève et Vaud : restaurants, cafés, boulangeries, pâtisseries, chocolateries. Elle crée des sites web, tourne des photos et des réels chez ses clients, et gère leurs réseaux sociaux. L’agence est dirigée par Malik Younes, qui exploite aussi Pasta Mo’, une enseigne de street food italienne à Genève.',
   },
   {
     q: 'Combien coûte un site web pour un restaurant à Genève ?',
