@@ -585,3 +585,4 @@ model-viewer:not(:defined) > * { display: none; }
 .offre__remise { display: inline-block; vertical-align: middle; margin-left: 6px; padding: 4px 8px; border-radius: 999px; background: var(--jaune); color: var(--ardoise); font-family: var(--texte); font-size: 0.85rem; font-weight: 700; letter-spacing: 0; }
 .offre--phare .offre__remise { background: var(--blanc); }
 .lancement-note { margin-top: 10px; padding: 12px 16px; border-radius: 14px; background: #FFF6D1; color: var(--ardoise); max-width: 60ch; }
+.offre__prix small s { display: inline; margin: 0; font-size: inherit; opacity: 0.6; }
