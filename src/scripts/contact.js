@@ -11,7 +11,7 @@ if (offre && [...choix.options].some((o) => o.value === offre || o.text === offr
 $('[data-contact]').addEventListener('submit', (e) => {
   e.preventDefault();
   const d = new FormData(e.target);
-  const corps = `Offre : ${d.get('offre') || 'à définir'}\nNom : ${d.get('nom')}\nRestaurant : ${d.get('resto')}\nTéléphone : ${d.get('tel') || ''}\nEmail : ${d.get('email')}\n\n${d.get('msg') || ''}`;
+  const corps = `Offre : ${d.get('offre') || 'à définir'}\nNom : ${d.get('nom')}\nÉtablissement : ${d.get('resto')}\nTéléphone : ${d.get('tel') || ''}\nEmail : ${d.get('email')}\n\n${d.get('msg') || ''}`;
   location.href = `mailto:${SITE.email}?subject=${encodeURIComponent('Demande de devis – ' + d.get('resto'))}&body=${encodeURIComponent(corps)}`;
   $('[data-contact-msg]').textContent = `Merci ${d.get('nom')}. Votre messagerie s’ouvre : il reste à envoyer le message.`;
 });
