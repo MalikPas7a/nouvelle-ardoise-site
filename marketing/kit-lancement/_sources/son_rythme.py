@@ -2,7 +2,7 @@
 payer). Grosse caisse sur chaque temps, claquement sur 2 et 4, charleston en doubles croches,
 basse décalée, accords en notes piquées, un impact à chaque coupe et une montée avant la fin.
 
-    python3 son_rythme.py sortie.wav
+    python3 son_rythme.py sortie.wav [artisans]   (voix/plan-rythme.js ou voix/plan-artisans.js)
 """
 import json
 import re
@@ -14,7 +14,7 @@ import numpy as np
 
 ICI = Path(__file__).parent
 TAUX = 44100
-PLAN = json.loads(re.search(r'\[.*\]', (ICI / 'voix' / 'plan-rythme.js').read_text(), re.S).group(0))
+PLAN = json.loads(re.search(r'\[.*\]', (ICI / 'voix' / f"plan-{sys.argv[2] if len(sys.argv) > 2 else 'rythme'}.js").read_text(), re.S).group(0))
 debut = 0.0
 for p in PLAN:
     p['debut'] = debut
@@ -94,7 +94,7 @@ for b in range(n_temps):
     coupe = t_fin - TEMPS <= t0 < t_fin          # un temps de silence avant la fin
     if coupe or t0 >= DUREE - 1.0:
         continue
-    intro = t0 < A['probleme']['debut']
+    intro = t0 < PLAN[1]['debut']
     poser(batt, t0, K, 0.9)
     if b % 2 == 1 and not intro:
         poser(batt, t0, C, 0.45)
@@ -128,11 +128,18 @@ for k, f in enumerate((587.33, 880, 1174.66)):
     t = tps(2.0)
     poser(sfx, t_fin + 0.3 + k * 0.08, (np.sin(2 * np.pi * f * t) + 0.3 * np.sin(4 * np.pi * f * t)) * np.exp(-2 * t), 0.12)
 # les petits bruitages de l'image
-ph = A['photographe']
+ph = A.get('photographe') or A.get('gestes')
 for i in range(5):
     poser(sfx, ph['debut'] + i * ph['duree'] / 5 + (0.16 if i == 0 else 0), hat() * 3, 0.25)
-for i in range(4):
-    poser(sfx, A['notifs']['debut'] + (0.3 + i * 0.55) / (3.4 / A['notifs']['duree']), pique(1760, 0.2), 0.1)
+if 'notifs' in A:
+    for i in range(4):
+        poser(sfx, A['notifs']['debut'] + (0.3 + i * 0.55) / (3.4 / A['notifs']['duree']), pique(1760, 0.2), 0.1)
+if 'clients' in A:
+    for i in range(3):
+        poser(sfx, A['clients']['debut'] + 0.25 + i * 0.5, pique(1760, 0.2), 0.1)
+if 'reels' in A:
+    for i in range(4):
+        poser(sfx, A['reels']['debut'] + 0.8 + i * 0.5, pique(1318.5, 0.15), 0.08)
 
 fondu = np.minimum(1, (DUREE - T) / 0.6)
 batt, harmo, sfx = batt * fondu, harmo * fondu, sfx * fondu

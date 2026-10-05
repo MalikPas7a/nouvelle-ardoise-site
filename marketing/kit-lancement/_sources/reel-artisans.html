@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Réel artisans : on filme votre savoir-faire, on sublime vos créations</title>
+<!--
+  Réel Instagram d'environ 28 s pour les artisans du goût (chocolatiers, pâtissiers, boulangers),
+  sans prix et sans voix, coupes à 120 BPM (son_rythme.py voix/plan-artisans.js) : ce que vos
+  clients ne voient jamais, le tournage chez vous, les créations sublimées (avant / après), quatre
+  réels par mois, les clients qui reviennent, les images qui vous appartiennent, prenons un café.
+  Images : vidéos Pexels en 4K (licence Pexels), voir videos/extraire-artisans.sh.
+  sh videos/extraire-artisans.sh puis PAGE=reel-artisans PLAN=artisans node render-concept.mjs.
+-->
+<style>
+  @font-face { font-family: Brico; src: url(fonts/bricolage-grotesque-latin-standard-normal.woff2) format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: Instru; src: url(fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  @font-face { font-family: Fraunces; src: url(fonts/fraunces-latin-wght-normal.woff2) format('woff2'); font-weight: 100 900; font-style: normal; }
+  @font-face { font-family: Fraunces; src: url(fonts/fraunces-latin-wght-italic.woff2) format('woff2'); font-weight: 100 900; font-style: italic; }
+  @font-face { font-family: Caveat; src: url(fonts/caveat-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  @font-face { font-family: Bodoni; src: url(fonts/bodoni-moda-latin-wght-normal.woff2) format('woff2'); font-weight: 400 900; }
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas></canvas>
+<script src="ardoise.js"></script>
+<script src="videos/artisans/index.js"></script>
+<script src="voix/plan-artisans.js"></script>
+<script>
+const PAYSAGE = new URLSearchParams(location.search).get('f') === '16x9';
+const L = PAYSAGE ? 1920 : 1080, H = PAYSAGE ? 1080 : 1920;
+const cv = document.querySelector('canvas');
+cv.width = L; cv.height = H; cv.style.width = L + 'px'; cv.style.height = H + 'px';
+const ctx = cv.getContext('2d');
+const JAUNE = '#FFD23F', ARDOISE = '#1E2A2C';
+// la charte d'Osteria del Lago (public/demos/osteria)
+const OST = { farine: '#F3EEE2', lac: '#0F2E2C', pomodoro: '#E0452B', tuorlo: '#F5B82E', salvia: '#9DB596' };
+const FOND = peindreArdoise(L, H);
+const toile = (l, h) => Object.assign(document.createElement('canvas'), { width: Math.ceil(l), height: Math.ceil(h) });
+
+// ---------- outils ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const mix = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const sortie = (k) => 1 - Math.pow(1 - k, 3);
+const douce = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const expo = (k) => (k >= 1 ? 1 : 1 - Math.pow(2, -10 * k));
+const fonte = (c, taille, graisse = 400, famille = 'Instru', italique = false) => { c.font = `${italique ? 'italic ' : ''}${graisse} ${taille}px ${famille}`; };
+const charger = (src) => new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ko(new Error(src)); i.src = src; });
+const IMG = {}, SEQ = {};
+const plan = (nom, t, t0, vitesse = 1) => { const l = SEQ[nom]; return l[clamp(Math.floor((t - t0) * 30 * vitesse), 0, l.length - 1)]; };
+
+// Image plein cadre dans un rectangle : (fx, fy) = point de l'image placé au centre, z = grossissement
+function cadrer(c, img, fx = 0.5, fy = 0.5, z = 1, { x = 0, y = 0, l = L, h = H, rayon = 0, alpha = 1 } = {}) {
+  const s = Math.max(l / img.width, h / img.height) * z;
+  const w = img.width * s, hh = img.height * s;
+  const ix = clamp(x + l / 2 - fx * w, x + l - w, x), iy = clamp(y + h / 2 - fy * hh, y + h - hh, y);
+  c.save(); c.globalAlpha *= alpha;
+  if (rayon) { c.beginPath(); c.roundRect(x, y, l, h, rayon); c.clip(); }
+  c.drawImage(img, ix, iy, w, hh);
+  c.restore();
+}
+function voile(c, haut, bas, force) {
+  const g = c.createLinearGradient(0, haut, 0, bas);
+  g.addColorStop(0, 'rgba(10,14,15,0)'); g.addColorStop(1, `rgba(10,14,15,${force})`);
+  c.fillStyle = g; c.fillRect(0, Math.min(haut, bas), L, Math.abs(bas - haut));
+}
+function ardoise(c) { c.drawImage(FOND, 0, 0); }
+
+// ---------- les titres : serif, un mot en italique souligné à la craie ----------
+// lignes : [[texte, accent], …] par ligne. pos : 'haut' ou 'bas'
+const T = PAYSAGE ? { taille: 84, sur: 24, marge: 150 } : { taille: 100, sur: 28, marge: 90 };
+function titre(c, t, t0, sur, lignes, { pos = 'haut', ombre = false, centre = !PAYSAGE, x0 = T.marge, y0 } = {}) {
+  const taille = T.taille, interligne = taille * 1.1;
+  const hauteur = lignes.length * interligne;
+  let y = y0 ?? (PAYSAGE
+    ? (pos === 'haut' ? H / 2 - hauteur / 2 + taille * 0.4 : H - 130 - hauteur + taille * 0.85)
+    : (pos === 'haut' ? 250 : H - 260 - hauteur + taille));
+  // le surtitre : petites capitales espacées, en jaune
+  if (sur) {
+    const k = sortie(prog(t, t0, t0 + 0.6));
+    c.save();
+    fonte(c, T.sur, 600, 'Instru'); c.letterSpacing = `${T.sur * 0.22}px`;
+    c.textAlign = centre ? 'center' : 'left'; c.globalAlpha *= k;
+    c.fillStyle = JAUNE;
+    if (ombre) { c.shadowColor = 'rgba(0,0,0,0.6)'; c.shadowBlur = 20; }
+    c.fillText(sur.toUpperCase(), centre ? L / 2 : x0, y - taille * 1.05 + (1 - k) * 12);
+    c.restore();
+  }
+  lignes.forEach((segments, i) => {
+    const ti = t0 + 0.12 + i * 0.13;
+    const k = expo(prog(t, ti, ti + 0.9));
+    if (k <= 0) return;
+    const largeurs = segments.map(([texte, accent]) => { fonte(c, taille, accent ? 380 : 340, 'Fraunces', accent); return c.measureText(texte).width; });
+    const total = largeurs.reduce((a, b) => a + b, 0);
+    let x = centre ? L / 2 - total / 2 : x0;
+    c.save();
+    c.beginPath(); c.rect(0, y - taille * 1.0, L, taille * 1.35); c.clip();
+    const dy = (1 - k) * taille * 1.1;
+    segments.forEach(([texte, accent], j) => {
+      c.save();
+      fonte(c, taille, accent ? 380 : 340, 'Fraunces', accent);
+      c.fillStyle = '#F6F3EC';
+      if (ombre) { c.shadowColor = 'rgba(0,0,0,0.55)'; c.shadowBlur = 30; c.shadowOffsetY = 4; }
+      c.fillText(texte, x, y + dy);
+      c.restore();
+      if (accent) {
+        // le trait de craie jaune sous le mot, comme sous « Ardoise » dans le logo
+        const p = douce(prog(t, ti + 0.55, ti + 1.05));
+        const w = largeurs[j] - (texte.endsWith('.') ? taille * 0.28 : 0);
+        if (p > 0) {
+          const yy = y + taille * 0.2;
+          craie(c, (cc) => {
+            cc.strokeStyle = JAUNE; cc.lineWidth = taille * 0.075; cc.lineCap = 'round';
+            cc.beginPath(); cc.moveTo(x + 6, yy + 3);
+            cc.quadraticCurveTo(x + w * p * 0.5, yy - 5, x + 6 + (w - 12) * p, yy + 1); cc.stroke();
+          });
+        }
+      }
+      x += largeurs[j];
+    });
+    c.restore();
+    y += interligne;
+  });
+}
+
+// ---------- le téléphone : écran logique de 390 × 844 ----------
+const ECRAN = { w: 390, h: 844 };
+const BORD = 14;
+function geoTel(cx, cy, hauteur) {
+  const s = hauteur / (ECRAN.h + BORD * 2);
+  const W = (ECRAN.w + BORD * 2) * s;
+  return { s, W, H: hauteur, ex: cx - W / 2 + BORD * s, ey: cy - hauteur / 2 + BORD * s };
+}
+function telephone(c, cx, cy, hauteur, dessin, { alpha = 1, echelle = 1, dy = 0 } = {}) {
+  const g = geoTel(cx, cy, hauteur);
+  c.save();
+  c.globalAlpha *= alpha;
+  c.translate(cx, cy + dy); c.scale(echelle, echelle); c.translate(-cx, -cy);
+  c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 70 * g.s; c.shadowOffsetY = 30 * g.s;
+  c.fillStyle = '#0B0D0E';
+  c.beginPath(); c.roundRect(cx - g.W / 2, cy - g.H / 2, g.W, g.H, 64 * g.s); c.fill();
+  c.shadowColor = 'transparent';
+  c.strokeStyle = '#3A4245'; c.lineWidth = 2.5 * g.s; c.stroke();
+  c.save();
+  c.beginPath(); c.roundRect(g.ex, g.ey, ECRAN.w * g.s, ECRAN.h * g.s, 52 * g.s); c.clip();
+  c.translate(g.ex, g.ey); c.scale(g.s, g.s);
+  dessin(c, g);
+  c.restore();
+  c.fillStyle = '#000';
+  c.beginPath(); c.roundRect(cx - 56 * g.s, g.ey + 12 * g.s, 112 * g.s, 33 * g.s, 17 * g.s); c.fill();
+  c.restore();
+  return g;
+}
+function barreEtat(c, couleur) {
+  fonte(c, 16, 600); c.fillStyle = couleur; c.textAlign = 'left';
+  c.fillText('9:41', 34, 36);
+  c.fillRect(318, 26, 22, 11); c.fillRect(344, 24, 12, 14);
+}
+function photo(c, img, x, y, w, h, r = 0, fx = 0.5, fy = 0.5, z = 1) { cadrer(c, img, fx, fy, z, { x, y, l: w, h, rayon: r }); }
+function texte(c, s, x, y, taille, { graisse = 400, famille = 'Instru', couleur = '#000', aligne = 'left', italique = false, alpha = 1 } = {}) {
+  c.save(); fonte(c, taille, graisse, famille, italique); c.fillStyle = couleur; c.textAlign = aligne; c.globalAlpha *= alpha;
+  c.fillText(s, x, y); c.restore();
+}
+function pastille(c, x, y, w, h, fond, s, couleur, taille = 15, graisse = 600) {
+  c.fillStyle = fond; c.beginPath(); c.roundRect(x, y, w, h, h / 2); c.fill();
+  texte(c, s, x + w / 2, y + h / 2 + taille * 0.36, taille, { graisse, couleur, aligne: 'center' });
+}
+function etoiles(c, x, y, n, taille, couleur = JAUNE, vide = '#C9C4B8') {
+  for (let i = 0; i < 5; i++) {
+    c.save(); c.translate(x + i * taille * 1.15, y); c.beginPath();
+    for (let k = 0; k < 10; k++) { const r = k % 2 ? taille * 0.22 : taille * 0.5, a = -Math.PI / 2 + k * Math.PI / 5; c.lineTo(Math.cos(a) * r, Math.sin(a) * r); }
+    c.closePath(); c.fillStyle = i < n ? couleur : vide; c.fill(); c.restore();
+  }
+}
+// le doigt : un rond clair, et une onde quand il touche
+function doigt(c, x, y, tTouche, t, alpha = 1) {
+  const k = prog(t, tTouche, tTouche + 0.5);
+  c.save(); c.globalAlpha *= alpha;
+  if (t >= tTouche && k < 1) {
+    c.strokeStyle = `rgba(255,255,255,${0.8 * (1 - k)})`; c.lineWidth = 4;
+    c.beginPath(); c.arc(x, y, 26 + 50 * sortie(k), 0, Math.PI * 2); c.stroke();
+  }
+  const enfonce = t >= tTouche && t < tTouche + 0.15 ? 0.85 : 1;
+  c.fillStyle = 'rgba(255,255,255,0.55)'; c.strokeStyle = 'rgba(0,0,0,0.15)'; c.lineWidth = 2;
+  c.beginPath(); c.arc(x, y, 28 * enfonce, 0, Math.PI * 2); c.fill(); c.stroke();
+  c.restore();
+}
+
+// Chaque plan reçoit u, le temps depuis son début, et D, sa durée (voix/plan-artisans.js).
+const L1 = (...segs) => segs.map((s) => (Array.isArray(s) ? s : [s, false]));
+const CREME = '#F6F3EC';
+// un plan vidéo plein cadre, joué à sa vitesse, avec un léger zoom
+function video(c, nom, u, { debut = 0, vitesse = 1, fx = 0.5, fy = 0.5, z0 = 1.04, z1 = 1.1, D = 3, rect } = {}) {
+  const l = SEQ[nom];
+  const img = l[clamp(Math.floor(debut + u * 30 * vitesse), 0, l.length - 1)];
+  cadrer(c, img, fx, fy, mix(z0, z1, clamp(u / D)), rect ?? {});
+}
+// le viseur de la caméra : coins, REC qui clignote, compteur
+function viseur(c, u) {
+  const m = 64, b = 70;
+  c.save(); c.strokeStyle = 'rgba(255,255,255,0.9)'; c.lineWidth = 5; c.lineCap = 'round';
+  [[m, m, 1, 1], [L - m, m, -1, 1], [m, H - m, 1, -1], [L - m, H - m, -1, -1]].forEach(([x, y, sx, sy]) => {
+    c.beginPath(); c.moveTo(x, y + sy * b); c.lineTo(x, y); c.lineTo(x + sx * b, y); c.stroke();
+  });
+  if (Math.floor(u * 2) % 2 === 0) { c.fillStyle = '#FF3B30'; c.beginPath(); c.arc(m + 40, m + 52, 12, 0, 7); c.fill(); }
+  texte(c, 'REC', m + 64, m + 62, 30, { graisse: 600, couleur: '#fff' });
+  texte(c, '4K · 60 i/s', L - m - 30, m + 62, 30, { graisse: 600, couleur: '#fff', aligne: 'right' });
+  c.restore();
+}
+// éclair blanc bref, sur une coupe
+function eclair(c, u, t0, force = 0.7) {
+  const e = prog(u, t0, t0 + 0.16);
+  if (u >= t0 && e < 1) { c.fillStyle = `rgba(255,255,255,${force * (1 - e)})`; c.fillRect(0, 0, L, H); }
+}
+
+// 1. Ce que vos clients ne voient jamais
+function sceneAccroche(c, u, D) {
+  video(c, 'chocolat', u, { D, z0: 1.15, z1: 1.02 });
+  voile(c, H * 0.45, H, 0.9);
+  titre(c, u, 0.1, 'Artisans du goût', [L1('Ce que vos clients'), L1('ne voient ', ['jamais.', true])], { pos: 'bas', ombre: true });
+}
+// 2. les gestes, une coupe par temps
+const GESTES = [['moules', 0, 0.5, 0.5], ['raclage', 0, 0.5, 0.5], ['coulage', 0, 0.5, 0.5], ['fraises', 0, 0.5, 0.55], ['poche', 18, 0.5, 0.5]];
+function sceneGestes(c, u, D) {
+  const i = clamp(Math.floor(u / 0.5), 0, GESTES.length - 1), v = u - i * 0.5;
+  const [nom, debut, fx, fy] = GESTES[i];
+  video(c, nom, v, { debut, fx, fy, D: 0.5, z0: 1.12, z1: 1.04 });
+  eclair(c, v, 0, i ? 0.35 : 0);
+  voile(c, H * 0.45, H, 0.9);
+  titre(c, u, -0.6, '', [L1('c’est votre plus'), L1(['belle vitrine.', true])], { pos: 'bas', ombre: true });
+}
+// 3. on filme votre savoir-faire
+function sceneTournage(c, u, D) {
+  video(c, 'glacage', u, { D, fy: 0.5, z0: 1.0, z1: 1.08 });
+  voile(c, H * 0.45, H, 0.88);
+  viseur(c, u);
+  titre(c, u, 0.1, '01 · On vient chez vous', [L1('On filme'), L1(['votre savoir-faire.', true])], { pos: 'bas', ombre: true });
+}
+// 4. vous travaillez, on filme
+function sceneAtelier(c, u, D) {
+  video(c, 'boulanger', u, { D, fx: 0.5, fy: 0.55, z0: 1.5, z1: 1.38 });
+  voile(c, H * 0.45, H, 0.88);
+  viseur(c, u + 3);
+  titre(c, u, 0.1, 'Pendant la production', [L1('Vous travaillez,'), L1(['on filme.', true])], { pos: 'bas', ombre: true });
+}
+// 5. on sublime vos créations : avant / après
+function sceneSublime(c, u, D) {
+  ardoise(c);
+  titre(c, u, 0.1, '02 · Vos créations', [L1('On sublime'), L1(['vos produits.', true])]);
+  const w = PAYSAGE ? 760 : 900, h = PAYSAGE ? 760 : 1120, x = PAYSAGE ? L - w - 130 : (L - w) / 2, y = PAYSAGE ? (H - h) / 2 : 600;
+  const k = expo(prog(u, 0, 0.6));
+  const img = SEQ.tarte[clamp(Math.floor(u * 22), 0, SEQ.tarte.length - 1)];
+  // la ligne de partage glisse de droite à gauche et découvre l'après
+  const p = douce(prog(u, 0.9, 2.6));
+  const xs = x + w * (1 - p);
+  c.save(); c.globalAlpha *= k; c.translate(0, (1 - k) * 60);
+  c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 60; c.shadowOffsetY = 24;
+  c.fillStyle = '#000'; c.beginPath(); c.roundRect(x, y, w, h, 28); c.fill();
+  c.shadowColor = 'transparent';
+  c.save(); c.beginPath(); c.roundRect(x, y, w, h, 28); c.clip();
+  // avant : photo prise au téléphone, terne, de travers
+  c.save(); c.filter = 'saturate(0.45) brightness(0.78) contrast(0.8) blur(1.5px)';
+  c.translate(x + w / 2, y + h / 2); c.rotate(0.035); c.translate(-x - w / 2, -y - h / 2);
+  cadrer(c, img, 0.36, 0.52, 1.18, { x, y, l: w, h });
+  c.restore();
+  c.fillStyle = 'rgba(255,240,200,0.08)'; c.fillRect(x, y, w, h);
+  // après : lumière, contraste, couleur, vignette
+  c.save(); c.beginPath(); c.rect(xs, y, x + w - xs, h); c.clip();
+  c.filter = 'saturate(1.25) contrast(1.12) brightness(1.04)';
+  cadrer(c, img, 0.34, 0.5, mix(1.08, 1.0, prog(u, 0.9, D)), { x, y, l: w, h });
+  c.filter = 'none';
+  const v = c.createRadialGradient(x + w / 2, y + h * 0.5, h * 0.2, x + w / 2, y + h * 0.5, h * 0.75);
+  v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,0.45)');
+  c.fillStyle = v; c.fillRect(x, y, w, h);
+  c.restore();
+  c.restore();
+  // la poignée de la ligne
+  if (p > 0 && p < 1) {
+    c.fillStyle = CREME; c.fillRect(xs - 3, y, 6, h);
+    c.beginPath(); c.arc(xs, y + h / 2, 34, 0, 7); c.fill();
+    texte(c, '‹ ›', xs, y + h / 2 + 11, 30, { graisse: 700, couleur: ARDOISE, aligne: 'center' });
+  }
+  const pill = (s, px, a, fond, coul) => { if (a > 0) { c.save(); c.globalAlpha *= a; fonte(c, 26, 700); const lw = c.measureText(s).width + 44; pastille(c, px - lw / 2, y + 30, lw, 50, fond, s, coul, 26, 700); c.restore(); } };
+  pill('Avant', x + 110, 1 - prog(p, 0.7, 0.9), 'rgba(0,0,0,0.55)', CREME);
+  pill('Après', x + w - 110, prog(p, 0.15, 0.35), JAUNE, ARDOISE);
+  c.restore();
+  // le nom de la création, quand tout est sublimé
+  const kn = sortie(prog(u, 2.7, 3.3));
+  if (kn > 0) {
+    texte(c, 'Tarte chocolat framboise', x + 40, y + h - 70 + (1 - kn) * 20, 44, { famille: 'Fraunces', graisse: 400, couleur: CREME, alpha: kn, italique: true });
+    texte(c, 'Photographiée chez vous, dans la même lumière', x + 40, y + h - 30 + (1 - kn) * 20, 24, { couleur: 'rgba(246,243,236,0.8)', alpha: kn });
+  }
+}
+// 6. quatre réels par mois
+const SEMAINES = [['Semaine 1', 'Les coulisses'], ['Semaine 2', 'La création du mois'], ['Semaine 3', 'L’équipe'], ['Semaine 4', 'La saison']];
+function sceneReels(c, u, D) {
+  ardoise(c);
+  titre(c, u, 0.1, '03 · Vos réseaux', [L1('4 réels montés,'), L1(['chaque mois.', true])]);
+  const tel = PAYSAGE ? { cx: L * 0.66, cy: H / 2, h: H * 0.86 } : { cx: L / 2, cy: H * 0.62, h: H * 0.56 };
+  const k = expo(prog(u, 0, 0.7));
+  const g = telephone(c, tel.cx, tel.cy, tel.h, (cc) => {
+    const l = SEQ.poche, n = l.length;
+    const img = u < 1.6 ? l[clamp(18 + Math.floor(u * 30) % (n - 18), 0, n - 1)] : SEQ.truffes[clamp(Math.floor((u - 1.6) * 30), 0, SEQ.truffes.length - 1)];
+    cadrer(cc, img, 0.5, 0.5, 1.02, { l: ECRAN.w, h: ECRAN.h });
+    const gr = cc.createLinearGradient(0, 560, 0, ECRAN.h); gr.addColorStop(0, 'rgba(0,0,0,0)'); gr.addColorStop(1, 'rgba(0,0,0,0.7)');
+    cc.fillStyle = gr; cc.fillRect(0, 560, ECRAN.w, ECRAN.h - 560);
+    cc.fillStyle = 'rgba(255,255,255,0.35)'; cc.fillRect(20, 58, 350, 3);
+    cc.fillStyle = '#fff'; cc.fillRect(20, 58, 350 * clamp(u / D), 3);
+    texte(cc, 'maison.feve', 24, 742, 17, { graisse: 700, couleur: '#fff' });
+    texte(cc, 'Les truffes du matin, roulées à la main.', 24, 770, 15, { couleur: '#fff' });
+    [['♥', '3 106'], ['●', '128'], ['➤', '']].forEach(([s, nb], i) => {
+      texte(cc, s, 352, 580 + i * 70, 30, { couleur: i === 0 && u > 2 ? '#FF3B5C' : '#fff', aligne: 'center' });
+      if (nb) texte(cc, nb, 352, 604 + i * 70, 13, { graisse: 600, couleur: '#fff', aligne: 'center' });
+    });
+  }, { alpha: k, echelle: mix(0.9, 1, k) });
+  // les étiquettes des semaines, une par temps, de part et d'autre du téléphone
+  SEMAINES.forEach(([sem, sujet], i) => {
+    const t0 = 0.8 + i * 0.5;
+    const ke = expo(prog(u, t0, t0 + 0.4));
+    if (ke <= 0) return;
+    const gauche = i % 2 === 0;
+    const w = PAYSAGE ? 420 : 460, h = 104;
+    const x = PAYSAGE ? tel.cx - g.W / 2 - w + 60 : (gauche ? 40 : L - w - 40);
+    const y = PAYSAGE ? H * 0.2 + i * 160 : tel.cy - tel.h * 0.32 + i * (tel.h * 0.2);
+    c.save(); c.globalAlpha *= ke; c.translate((gauche ? -1 : 1) * (1 - ke) * 80, 0);
+    c.shadowColor = 'rgba(0,0,0,0.4)'; c.shadowBlur = 30; c.shadowOffsetY = 10;
+    c.fillStyle = CREME; c.beginPath(); c.roundRect(x, y, w, h, 22); c.fill();
+    c.shadowColor = 'transparent';
+    c.fillStyle = JAUNE; c.beginPath(); c.roundRect(x + 18, y + 18, 68, 68, 16); c.fill();
+    texte(c, String(i + 1), x + 52, y + 66, 40, { famille: 'Fraunces', graisse: 500, couleur: ARDOISE, aligne: 'center' });
+    texte(c, sem.toUpperCase(), x + 106, y + 44, 20, { graisse: 700, couleur: '#7A847F' });
+    texte(c, sujet, x + 106, y + 80, 31, { famille: 'Fraunces', graisse: 450, couleur: ARDOISE });
+    c.restore();
+  });
+}
+// 7. vos clients en redemandent
+const NOTIFS = [
+  ['Click and collect', 'Nouvelle commande · 2 coffrets de truffes, 16 h', '#1E2A2C'],
+  ['Instagram', '52 nouveaux abonnés cette semaine', '#E1306C'],
+  ['Google', '★★★★★ « On voit tout le travail derrière »', '#4285F4'],
+];
+function sceneClients(c, u, D) {
+  video(c, 'truffes', u, { D, z0: 1.02, z1: 1.1 });
+  voile(c, H * 0.4, H, 0.9);
+  c.fillStyle = 'rgba(10,14,15,0.15)'; c.fillRect(0, 0, L, H);
+  const w = PAYSAGE ? 760 : 940, h = PAYSAGE ? 120 : 150, x = PAYSAGE ? L - w - 70 : (L - w) / 2, y0 = PAYSAGE ? 150 : 170;
+  const T0 = NOTIFS.map((_, i) => 0.25 + i * 0.5);
+  NOTIFS.forEach(([app, msg, coul], i) => {
+    const k = expo(prog(u, T0[i], T0[i] + 0.45));
+    if (k <= 0) return;
+    const rang = T0.reduce((a, tt, j) => a + (j > i ? expo(prog(u, tt, tt + 0.45)) : 0), 0);
+    const y = y0 + rang * (h + 20) - (1 - k) * 60;
+    c.save(); c.globalAlpha *= k;
+    c.shadowColor = 'rgba(0,0,0,0.3)'; c.shadowBlur = 30; c.shadowOffsetY = 10;
+    c.fillStyle = 'rgba(246,243,236,0.96)'; c.beginPath(); c.roundRect(x, y, w, h, 30); c.fill();
+    c.shadowColor = 'transparent';
+    c.fillStyle = coul; c.beginPath(); c.roundRect(x + 24, y + (h - 72) / 2, 72, 72, 18); c.fill();
+    if (app === 'Click and collect') nLumineux(c, x + 41, y + h / 2 - 16, 38, { eclat: 0.4 });
+    else texte(c, app[0], x + 60, y + h / 2 + 13, 36, { graisse: 700, couleur: '#fff', aligne: 'center' });
+    const tp = PAYSAGE ? 23 : 29;
+    texte(c, app, x + 120, y + h / 2 - 10, tp, { graisse: 700, couleur: '#1D1D1D' });
+    texte(c, 'maintenant', x + w - 28, y + h / 2 - 10, tp - 3, { couleur: '#888', aligne: 'right' });
+    let m = msg; fonte(c, tp, 400);
+    if (c.measureText(m).width > w - 150) { while (c.measureText(m + '…').width > w - 150) m = m.slice(0, -1); m += '…'; }
+    texte(c, m, x + 120, y + h / 2 + 26, tp, { couleur: '#333' });
+    c.restore();
+  });
+  titre(c, u, 0.3, '', [L1('Vos clients'), L1(['en redemandent.', true])], { pos: 'bas', ombre: true });
+}
+// 8. les images sont à vous
+const GRILLE = [['tarte', 40, 0.34], ['glacage', 60, 0.5], ['truffes', 70, 0.5], ['moules', 10, 0.5], ['fraises', 30, 0.5], ['boulanger', 60, 0.5]];
+function sceneImages(c, u, D) {
+  ardoise(c);
+  const col = PAYSAGE ? 3 : 2, rangs = PAYSAGE ? 2 : 3, gap = 18;
+  const zone = PAYSAGE ? { x: L * 0.42, y: 90, w: L * 0.52, h: H - 180 } : { x: 60, y: 520, w: L - 120, h: H - 700 };
+  const cw = (zone.w - gap * (col - 1)) / col, ch = (zone.h - gap * (rangs - 1)) / rangs;
+  GRILLE.forEach(([nom, i0, fx], i) => {
+    const t0 = 0.1 + i * 0.25;
+    const k = sortie(prog(u, t0, t0 + 0.35));
+    if (k <= 0) return;
+    const cx = zone.x + (i % col) * (cw + gap), cy = zone.y + Math.floor(i / col) * (ch + gap);
+    c.save(); c.globalAlpha *= k;
+    c.translate(cx + cw / 2, cy + ch / 2); c.scale(mix(1.15, 1, k), mix(1.15, 1, k)); c.translate(-cx - cw / 2, -cy - ch / 2);
+    const l = SEQ[nom];
+    cadrer(c, l[clamp(i0, 0, l.length - 1)], nom === 'boulanger' ? 0.5 : fx, nom === 'boulanger' ? 0.55 : 0.5, nom === 'boulanger' ? 1.4 : 1, { x: cx, y: cy, l: cw, h: ch, rayon: 18 });
+    c.restore();
+    eclair(c, u, t0, 0.12);
+  });
+  titre(c, u, 0.2, 'Site, Instagram, vitrine', [L1('Les images'), L1(['sont à vous.', true])], PAYSAGE ? {} : { y0: 250 });
+}
+// 9. la fin
+function sceneFin(c, u, D) {
+  ardoise(c);
+  const echelle = PAYSAGE ? 0.85 : 1;
+  const cy = PAYSAGE ? H * 0.3 : H * 0.32;
+  const taille = 150 * echelle;
+  const kN = douce(prog(u, 0.05, 0.6));
+  fonte(c, 84 * echelle, 650, 'Brico');
+  const largeurNom = c.measureText('Nouvelle').width;
+  const x0 = L / 2 - (taille + 40 * echelle + largeurNom) / 2;
+  nLumineux(c, x0, cy - taille * 0.43, taille, { trace: kN, eclat: 0.5 + 0.5 * prog(u, 0.5, 0.9) });
+  const kNom = sortie(prog(u, 0.35, 0.9));
+  const xn = x0 + taille + 40 * echelle + (1 - kNom) * 20;
+  c.save(); c.globalAlpha *= kNom;
+  fonte(c, 84 * echelle, 650, 'Brico'); c.fillStyle = CREME; c.letterSpacing = '-1px';
+  c.fillText('Nouvelle', xn, cy - 8 * echelle);
+  c.fillText('Ardoise', xn, cy + 74 * echelle);
+  const lArd = c.measureText('Ardoise').width;
+  c.restore();
+  if (kNom > 0) traitJaune(c, xn + 2, cy + 98 * echelle, lArd * 0.98, douce(prog(u, 0.7, 1.1)));
+  const yP = PAYSAGE ? H * 0.56 : H * 0.52;
+  const k1 = sortie(prog(u, 0.8, 1.3)), k2 = sortie(prog(u, 1.0, 1.5));
+  c.save(); c.textAlign = 'center';
+  fonte(c, PAYSAGE ? 26 : 30, 600); c.letterSpacing = '6px'; c.fillStyle = JAUNE; c.globalAlpha *= k1;
+  c.fillText('ARTISANS DU GOÛT · GENÈVE ET VAUD', L / 2, yP + (1 - k1) * 20);
+  c.restore();
+  c.save(); c.textAlign = 'center';
+  fonte(c, PAYSAGE ? 64 : 76, 380, 'Fraunces', true); c.fillStyle = CREME; c.globalAlpha *= k2;
+  c.fillText('Montrez enfin', L / 2, yP + (PAYSAGE ? 90 : 110) + (1 - k2) * 20);
+  c.fillText('tout votre travail.', L / 2, yP + (PAYSAGE ? 165 : 200) + (1 - k2) * 20);
+  c.restore();
+  const k3 = expo(prog(u, 1.4, 1.9));
+  const yB = PAYSAGE ? H * 0.8 : H * 0.72;
+  const bw = PAYSAGE ? 460 : 560, bh = PAYSAGE ? 92 : 110;
+  const pouls = 1 + 0.03 * Math.exp(-((u * 2) % 1) * 5);
+  c.save(); c.globalAlpha *= k3; c.translate(L / 2, yB + bh / 2); c.scale(mix(0.9, 1, k3) * pouls, mix(0.9, 1, k3) * pouls);
+  c.fillStyle = JAUNE; c.beginPath(); c.roundRect(-bw / 2, -bh / 2, bw, bh, bh / 2); c.fill();
+  const tb = PAYSAGE ? 36 : 42;
+  texte(c, 'Prenons un café', 0, tb * 0.36, tb, { graisse: 650, couleur: ARDOISE, aligne: 'center' });
+  c.restore();
+  const k4 = sortie(prog(u, 1.7, 2.2));
+  texte(c, 'WhatsApp 078 213 38 68', L / 2, yB + bh + (PAYSAGE ? 60 : 84), PAYSAGE ? 32 : 40, { graisse: 600, couleur: CREME, aligne: 'center', alpha: k4 });
+  texte(c, 'nouvelleardoise.ch', L / 2, yB + bh + (PAYSAGE ? 104 : 142), PAYSAGE ? 28 : 34, { couleur: 'rgba(246,243,236,0.7)', aligne: 'center', alpha: k4 });
+}
+
+// ---------- le montage : coupes franches sur le temps, fondu court ----------
+const SCENES = { accroche: sceneAccroche, gestes: sceneGestes, tournage: sceneTournage, atelier: sceneAtelier, sublime: sceneSublime, reels: sceneReels, clients: sceneClients, images: sceneImages, fin: sceneFin };
+let debut = 0;
+const PLANS = window.PLAN.map((p) => { const r = { ...p, debut, f: SCENES[p.id] }; debut += p.duree; return r; });
+const DUREE = debut;
+window.DUREE = DUREE;
+const FONDU = 0.16;
+window.rendu = (t) => {
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1;
+  ctx.fillStyle = '#000'; ctx.fillRect(0, 0, L, H);
+  PLANS.forEach((p, i) => {
+    const a = i === 0 ? 0 : p.debut - FONDU / 2, b = i === PLANS.length - 1 ? DUREE + 1 : p.debut + p.duree + FONDU / 2;
+    if (t < a || t >= b) return;
+    ctx.save();
+    ctx.globalAlpha = i === 0 ? 1 : clamp((t - a) / FONDU);
+    p.f(ctx, t - p.debut, p.duree);
+    ctx.restore();
+  });
+};
+
+window.pret = (async () => {
+  const fonts = ['400 20px Instru', '600 20px Instru', '700 20px Instru', '340 20px Fraunces', '450 20px Fraunces', 'italic 380 20px Fraunces', 'italic 400 20px Fraunces', '650 20px Brico'];
+  await Promise.all(fonts.map((f) => document.fonts.load(f)));
+  const n = (i) => String(i).padStart(3, '0');
+  await Promise.all(Object.entries(window.VIDEOS).map(async ([k, v]) => {
+    SEQ[k] = await Promise.all(Array.from({ length: v }, (_, i) => charger(`videos/artisans/${k}/${n(i + 1)}.jpg`)));
+  }));
+  window.rendu(0);
+})();
+</script>
+</body>
+</html>

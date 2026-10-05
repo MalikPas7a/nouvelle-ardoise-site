@@ -5,6 +5,7 @@
 //   node render-concept.mjs --apercu 1,4,9     → captures PNG de ces instants
 //   PLAN=rythme node render-concept.mjs       → le réel rythmé de 30 s sans voix (voix/plan-rythme.js)
 //   PLAN=court node render-concept.mjs        → la version courte avec voix (voix/plan-court.js)
+//   PAGE=reel-artisans PLAN=artisans node render-concept.mjs → le réel artisans
 //   SORTIE=dossier                              → où écrire les MP4 (par défaut ../video-concept)
 import { createRequire } from 'node:module';
 import { mkdirSync, mkdtempSync, rmSync } from 'node:fs';
@@ -24,7 +25,7 @@ const IPS = 30;
 const tmp = process.env.TMP_REEL ?? mkdtempSync(join(tmpdir(), 'concept-'));
 
 const nav = await chromium.launch({ args: ['--allow-file-access-from-files'] });
-const adresse = pathToFileURL(join(ici, 'video-concept.html')).href + '?' + new URLSearchParams({ ...(PAYSAGE && { f: '16x9' }), ...(PLAN && { plan: PLAN }) });
+const adresse = pathToFileURL(join(ici, `${process.env.PAGE ?? 'video-concept'}.html`)).href + '?' + new URLSearchParams({ ...(PAYSAGE && { f: '16x9' }), ...(PLAN && !process.env.PAGE && { plan: PLAN }) });
 const pages = await Promise.all(Array.from({ length: PAGES }, async () => {
   const p = await nav.newPage({ viewport: { width: l, height: h } });
   p.on('pageerror', (e) => { console.error(e); process.exit(1); });
@@ -35,7 +36,7 @@ const pages = await Promise.all(Array.from({ length: PAGES }, async () => {
 const page = pages[0];
 const DUREE = await page.evaluate(() => window.DUREE);
 const canvas = page.locator('canvas');
-const nom = `nouvelle-ardoise-${PLAN === 'rythme' ? 'reel' : 'concept'}-${Math.round(DUREE)}s-${PAYSAGE ? '16x9' : '9x16'}`;
+const nom = `nouvelle-ardoise-${PLAN === 'artisans' ? 'reel-artisans' : PLAN === 'rythme' ? 'reel' : 'concept'}-${Math.round(DUREE)}s-${PAYSAGE ? '16x9' : '9x16'}`;
 
 const apercu = process.argv.indexOf('--apercu');
 if (apercu > 0) {
@@ -55,7 +56,7 @@ if (apercu > 0) {
       if (i % 300 === 0) console.log(`${i}/${n}`);
     }
   }));
-  const son = PLAN === 'rythme' ? ['son_rythme.py'] : ['son_concept.py', ...(PLAN === 'court' ? ['court'] : [])];
+  const son = PLAN === 'artisans' ? ['son_rythme.py', 'artisans'] : PLAN === 'rythme' ? ['son_rythme.py'] : ['son_concept.py', ...(PLAN === 'court' ? ['court'] : [])];
   execFileSync('python3', [join(ici, son[0]), join(tmp, 'son.wav'), ...son.slice(1)], { stdio: 'inherit' });
   const x264 = ['-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p', '-movflags', '+faststart'];
   execFileSync('ffmpeg', ['-v', 'error', '-y', '-framerate', String(IPS), '-i', join(tmp, '%04d.png'), '-i', join(tmp, 'son.wav'),
@@ -63,7 +64,7 @@ if (apercu > 0) {
   execFileSync('ffmpeg', ['-v', 'error', '-y', '-framerate', String(IPS), '-i', join(tmp, '%04d.png'), ...x264, '-an',
     join(sortie, `${nom}-sans-son.mp4`)]);
   // couverture : le site d'Osteria del Lago dans le téléphone
-  execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', join(tmp, `${String(Math.round(IPS * (PLAN === 'rythme' ? 2 : PLAN === 'court' ? 9 : 21))).padStart(4, '0')}.png`), '-q:v', '2',
+  execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', join(tmp, `${String(Math.round(IPS * (PLAN === 'artisans' ? 12.5 : PLAN === 'rythme' ? 2 : PLAN === 'court' ? 9 : 21))).padStart(4, '0')}.png`), '-q:v', '2',
     join(sortie, `couverture-${nom}.jpg`)]);
   if (!process.env.TMP_REEL) rmSync(tmp, { recursive: true });
   console.log('Vidéo écrite dans', sortie, nom);
