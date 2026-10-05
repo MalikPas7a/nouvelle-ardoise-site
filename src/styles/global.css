@@ -357,6 +357,15 @@ ul, ol { padding: 0; list-style: none; }
 @media (min-width: 800px) { .pied__in { grid-template-columns: 1.2fr 1.2fr 0.8fr; gap: 48px; } }
 .pied strong { color: var(--ardoise); font-family: var(--titre); font-size: 1.05rem; }
 .pied__marque { display: grid; gap: 14px; justify-items: start; }
+.insta { display: flex; align-items: center; gap: 16px; margin-top: 6px; }
+.insta__qr { flex: none; width: 104px; padding: 10px; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 1.5px var(--ardoise); }
+.insta__qr svg { width: 100%; height: auto; }
+.insta__texte { display: grid; gap: 6px; justify-items: start; min-width: 0; }
+.insta__texte b { color: var(--ardoise); font-family: var(--titre); font-size: 1.05rem; }
+.insta__lien { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px 8px 10px; border-radius: 999px; background: var(--ardoise); color: var(--blanc); font-weight: 600; text-decoration: none; transition: background 0.2s ease; }
+.insta__lien:hover { background: #2E3D40; }
+.insta__lien:focus-visible { outline: 3px solid var(--jaune); outline-offset: 2px; }
+.insta__texte span { font-size: 0.85rem; }
 
 /* ==========================================================================
    Mouvement
