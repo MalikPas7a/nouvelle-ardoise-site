@@ -57,7 +57,7 @@ const CARTE = [
           <div class="sequence__texte" data-de="0.75" data-a="1.01">
             <p class="titre-2">Emballé, prêt en trois minutes.</p>
             <p class="chapo">Nous filmons votre broche, votre comptoir et vos sauces, puis nous construisons le site autour.</p>
-            <div class="actions"><a class="btn btn--jaune" href="/#contact">Demander un devis</a></div>
+            <div class="actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a></div>
           </div>
         </Fragment>
       )}
@@ -103,7 +103,7 @@ const CARTE = [
           <div class="sequence__texte" data-de="0.69" data-a="1.01">
             <p class="titre-2">Prêt à déguster.</p>
             <p class="chapo">Nous filmons votre chef et vos plats, puis nous construisons le site autour.</p>
-            <div class="actions"><a class="btn btn--jaune" href="/#contact">Demander un devis</a></div>
+            <div class="actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a></div>
           </div>
         </Fragment>
       )}
@@ -141,9 +141,9 @@ const CARTE = [
     <h2 class="titre-2">La même chose avec votre plat ?</h2>
     <p>Nous filmons chez vous, ou nous créons l’animation de votre plat signature, puis nous l’installons sur votre site.</p>
     <div class="actions">
-      <a class="btn btn--jaune" href="/#contact">Demander un devis</a>
+      <a class="btn btn--jaune" href="/contact/">Demander un devis</a>
       {autres.map((x) => <a class="lien" href={`/animations/${x.id}/`}>Voir l’animation {x.onglet.toLowerCase()}</a>)}
-      <a class="lien" href="/#en-mouvement">Retour aux exemples</a>
+      <a class="lien" href="/realisations/#en-mouvement">Retour aux exemples</a>
     </div>
     {a.credit && <p class="anim-fin__credit"><a href={a.creditLien}>{a.credit}</a></p>}
   </div>

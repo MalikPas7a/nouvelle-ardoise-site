@@ -1,48 +1,13 @@
 ---
-import '@fontsource-variable/bodoni-moda/standard-italic.css';
-import '@fontsource-variable/bodoni-moda/standard.css';
-import '@fontsource-variable/fraunces/opsz.css';
-import '@fontsource-variable/syne/wght.css';
-import '@fontsource/caveat/600.css';
+// Accueil : l'ouverture, puis les portes vers chaque page. Le détail est sur les pages.
 import Base from '../layouts/Base.astro';
-import MiniSite from '../components/MiniSite.astro';
+import Appel from '../components/Appel.astro';
 import { getImage } from 'astro:assets';
-import QRCode from 'qrcode';
 import imgRagu from '../assets/photo-ragu.jpg';
-import imgPerche from '../assets/photo-perche.jpg';
-import imgRamen from '../assets/photo-ramen.jpg';
 import imgSalle from '../assets/photo-salle.jpg';
-import imgComptoir from '../assets/photo-comptoir.jpg';
-import imgBurrata from '../assets/photo-burrata.jpg';
-import imgPesto from '../assets/photo-pesto.jpg';
-import imgPomodoro from '../assets/photo-pomodoro.jpg';
-import imgTiramisu from '../assets/photo-tiramisu.jpg';
-import { RESTAURANTS, parId } from '../data/restaurants.js';
 import { SITE } from '../config.js';
-import { ANIMATIONS } from '../data/animations.js';
 
-// Photos converties en WebP à la compilation, à la taille où elles sont affichées
-const webp = (src, width) => getImage({ src, format: 'webp', width, quality: 72 });
-const [ragu, perche, ramen, salle] = await Promise.all([webp(imgRagu, 1100), webp(imgPerche, 1100), webp(imgRamen, 1000), webp(imgSalle, 1200)]);
-const comptoir = await webp(imgComptoir, 1600);
-const photos = { osteria: ragu.src, leonie: perche.src, sora: ramen.src };
-
-// La carte qui défile : cinq plats de l'Osteria, photographiés dans la même lumière
-const [burrata, pesto, pomodoro, tiramisu] = await Promise.all([imgBurrata, imgPesto, imgPomodoro, imgTiramisu].map((i) => webp(i, 900)));
-const defile = [
-  { nom: 'Burrata, tomates anciennes', desc: 'Huile d’olive des Pouilles, basilic', prix: 16, img: burrata.src },
-  { nom: 'Tagliatelle al ragù', desc: 'Bœuf et porc mijotés six heures', prix: 24, img: ragu.src },
-  { nom: 'Linguine al pesto', desc: 'Basilic, pignons, pecorino', prix: 22, img: pesto.src },
-  { nom: 'Spaghetti al pomodoro', desc: 'Tomates San Marzano, ail, basilic', prix: 19, img: pomodoro.src },
-  { nom: 'Tiramisù', desc: 'Mascarpone, café serré, cacao', prix: 11, img: tiramisu.src },
-];
-
-// QR code vers le plat en 3D : il suit l'adresse du site définie dans config.js
-const qr = (await QRCode.toString(SITE.url + '/demos/carte-3d/', { type: 'svg', margin: 0, color: { dark: '#1E2A2C', light: '#0000' } }))
-  .replace('<svg ', '<svg role="img" aria-label="QR code vers le plat en 3D" ');
-
-const sora = parId('sora');
-const nbSora = sora.carte.reduce((n, s) => n + s.plats.length, 0);
+const [ragu, salle] = await Promise.all([imgRagu, imgSalle].map((src) => getImage({ src, format: 'webp', width: 900, quality: 72 })));
 
 // Données lues par Google pour comprendre qui est Nouvelle Ardoise
 const jsonLd = JSON.stringify({
@@ -51,465 +16,71 @@ const jsonLd = JSON.stringify({
   name: SITE.nom,
   url: SITE.url,
   email: SITE.email,
+  image: SITE.url + '/partage.jpg',
+  founder: { '@type': 'Person', name: SITE.responsable },
+  address: { '@type': 'PostalAddress', streetAddress: SITE.adresse, postalCode: SITE.localite.split(' ')[0], addressLocality: 'Genève', addressCountry: 'CH' },
   areaServed: ['Genève', 'Vaud'],
-  description: 'Sites web, gestion des réseaux sociaux, vidéo et menus en 3D pour les restaurants.',
+  knowsAbout: ['Création de sites web pour restaurants', 'Gestion des réseaux sociaux', 'Réels Instagram', 'Shooting photo culinaire', 'Publicité Facebook, Instagram et Google'],
+  description: 'Agence de marketing digital pour restaurants et boutiques gourmandes : sites web, vidéo, réseaux sociaux et menus en 3D.',
   priceRange: 'CHF 999 – 3490',
 });
 ---
-<Base page="accueil" title="Nouvelle Ardoise | Sites, réseaux sociaux et menus 3D pour restaurants à Genève" description="Marketing digital pour les restaurants de Genève et Vaud : sites web, gestion des réseaux sociaux, vidéo et menus en 3D. Prix affichés, sites dès CHF 999.">
+<Base page="accueil" title="Nouvelle Ardoise | Agence de marketing digital pour restaurants et boutiques gourmandes à Genève" description="Marketing digital pour les restaurants, cafés, boulangeries et chocolatiers de Genève et Vaud : sites web, gestion des réseaux sociaux, vidéo et menus en 3D. Prix affichés, sites dès CHF 999.">
 <script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
-
-<!-- ============ Offre de lancement : rappel en haut de page ============ -->
-<a class="lancement" href="#offres"><b>Offre de lancement</b> −20 % sur toutes nos offres jusqu’au 31 octobre 2026 <span aria-hidden="true">→</span></a>
+<!-- Les anciens liens (nouvelleardoise.ch/#offres, envoyés dans les emails) mènent à la bonne page -->
+<script slot="head" is:inline>
+  (function () {
+    var vers = { '#offres': '/offres/', '#reseaux': '/offres/#reseaux', '#exemple-sora': '/offres/#exemple-sora', '#methode': '/offres/#methode', '#contact': '/contact/', '#exemples': '/restaurants/#exemples', '#essayer': '/restaurants/#essayer', '#en-mouvement': '/realisations/#en-mouvement' };
+    if (vers[location.hash]) location.replace(vers[location.hash]);
+  })();
+</script>
 
 <!-- ============ Ouverture : un coup d'éponge sur l'ancien site ============ -->
 <section class="eponge" data-eponge aria-labelledby="titre-accueil">
   <div class="eponge__colle">
     <div class="cadre eponge__contenu">
-      <p class="eponge__sur"><svg class="eponge__n" viewBox="0 0 28 28" width="34" height="34" aria-hidden="true"><path d="M7.4 21.6V6.4l13.2 15.2V6.4" fill="none" stroke="#FFD23F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Sites, réseaux sociaux et menus 3D · Genève et Vaud</p>
+      <p class="eponge__sur"><svg class="eponge__n" viewBox="0 0 28 28" width="34" height="34" aria-hidden="true"><path d="M7.4 21.6V6.4l13.2 15.2V6.4" fill="none" stroke="#FFD23F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Restaurants, cafés, boulangeries, chocolatiers · Genève et Vaud</p>
       <h1 class="eponge__titre" id="titre-accueil" aria-label="Envie de passer l’éponge sur votre ancien site ?">
         <span aria-hidden="true">Envie de passer l’éponge sur votre <span class="efface"><span class="efface__mot">ancien site</span><span class="efface__trace">ancien site</span><svg class="efface__brosse" viewBox="0 0 40 120"><rect x="2" y="2" width="22" height="116" rx="7" fill="#C9975C"/><rect x="2" y="2" width="9" height="116" rx="5" fill="#E2B57A"/><rect x="22" y="4" width="15" height="112" rx="4" fill="#3C4245"/><rect x="33" y="6" width="3" height="108" fill="#E8EDEC" opacity=".35"/></svg></span>&nbsp;?</span>
       </h1>
       <p class="eponge__nouveau">Place à votre <mark>nouveau site.</mark></p>
-      <p class="chapo eponge__chapo">Un site rapide, une carte lisible au pouce et vos plats en mouvement, pour les restaurants de Genève et Vaud.</p>
-      <div class="actions eponge__actions"><a class="btn btn--jaune" href="#contact">Demander un devis</a><a class="lien" href="#essayer">Essayer trois exemples</a></div>
+      <p class="chapo eponge__chapo">Un site rapide, vos produits en grand et des réels qui racontent votre savoir-faire, pour les restaurants et boutiques gourmandes de Genève et Vaud.</p>
+      <div class="actions eponge__actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a><a class="lien" href="/restaurants/">Essayer trois exemples</a></div>
       <p class="sequence__indice eponge__indice" aria-hidden="true"><span></span>Faites défiler</p>
     </div>
   </div>
 </section>
 
-<!-- ============ Le téléphone : trois restaurants à essayer ============ -->
-<section class="ouverture" id="essayer">
-  <div class="cadre ouverture__grille">
-    <div class="ouverture__texte">
-      <h2 class="titre-2">Trois restaurants, trois univers</h2>
-      <p class="chapo">Choisissez un restaurant inventé pour l’occasion : le site, la carte et les couleurs changent. Faites défiler l’écran du téléphone, c’est un vrai site.</p>
-
-      <div class="choix" role="group" aria-label="Choisir un restaurant de démonstration">
-        {RESTAURANTS.map((r) => (
-          <button type="button" class="choix__btn" data-choix={r.id} aria-pressed={r.id === 'osteria' ? 'true' : 'false'}>
-            <b>{r.nom}</b>
-            <span>{r.genre}, {r.quartier}</span>
-          </button>
-        ))}
-      </div>
-
-      <div class="actions">
-        <a class="lien" href="#offres">Voir les offres, −20 % jusqu’au 31 octobre</a>
-      </div>
-    </div>
-
-    <div class="scene">
-      <div class="telephone">
-        <div class="telephone__ecran" data-ecran tabindex="0" aria-label="Aperçu du site sur téléphone, à faire défiler">
-          {RESTAURANTS.map((r) => <MiniSite resto={r} photos={photos} />)}
-        </div>
-      </div>
-      <p class="scene__note">Faites défiler l’écran : c’est un vrai site, pas une image.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ Exemples : quatre choses que vos clients pourront faire ============ -->
-<section class="bloc" id="exemples">
+<!-- ============ Les portes : une page par sujet ============ -->
+<section class="bloc">
   <div class="cadre">
     <header class="bloc__tete">
-      <h2 class="titre-2">Ce que vos clients pourront faire</h2>
-      <p>Quatre exemples à essayer. Tout fonctionne sur téléphone, là où vos clients vous cherchent.</p>
+      <h2 class="titre-2">Par où commencer ?</h2>
     </header>
-
-    <!-- 1. La carte filtrable -->
-    <article class="demo">
-      <div class="demo__texte">
-        <h3 class="titre-3">Lire la carte sans zoomer</h3>
-        <p>La carte s’affiche en texte, lisible au pouce. Vos clients filtrent les plats végétariens ou épicés et passent en anglais d’un geste. Google lit chaque plat, ce qu’il ne fait pas dans un PDF.</p>
-        <p class="demo__ou">Carte en ligne incluse dans toutes les offres. Deuxième langue incluse dans l’offre Maison.</p>
-      </div>
-      <div class="demo__live vitrine vitrine--sora" data-carte>
-        <img class="vitrine__photo" src={ramen.src} alt="Ramen shoyu de Sora, vu de dessus" width="1000" height="1000" loading="lazy" decoding="async" />
-        <div class="vitrine__tete">
-          <span class="vitrine__nom">Sora</span>
-          <div class="langue" role="group" aria-label="Langue de la carte">
-            <button type="button" data-langue="fr" aria-pressed="true">FR</button>
-            <button type="button" data-langue="en" aria-pressed="false">EN</button>
-          </div>
-        </div>
-        <div class="filtres" role="group" aria-label="Filtrer la carte">
-          <button type="button" data-filtre="tout" aria-pressed="true" data-fr="Tout" data-en="All">Tout</button>
-          <button type="button" data-filtre="vege" aria-pressed="false" data-fr="Végétarien" data-en="Vegetarian">Végétarien</button>
-          <button type="button" data-filtre="epice" aria-pressed="false" data-fr="Épicé" data-en="Spicy">Épicé</button>
-          <span class="filtres__n" aria-live="polite"><span data-compte>{nbSora}</span> <span data-fr="plats" data-en="dishes">plats</span></span>
-        </div>
-        {sora.carte.map((section) => (
-          <div class="carte__section">
-            <h4 data-fr={section.titre} data-en={section.en}>{section.titre}</h4>
-            <ul>
-              {section.plats.map((p) => (
-                <li data-plat data-vege={p.vege ? '1' : '0'} data-epice={p.epice ? '1' : '0'}>
-                  <div>
-                    <b data-fr={p.nom} data-en={p.nomEn ?? p.nom}>{p.nom}</b>
-                    {p.vege && <span class="pastille pastille--vege" data-fr="végé" data-en="veggie">végé</span>}
-                    {p.epice && <span class="pastille pastille--epice" data-fr="épicé" data-en="spicy">épicé</span>}
-                    <small data-fr={p.desc} data-en={p.en}>{p.desc}</small>
-                  </div>
-                  <span class="carte__prix">{p.prix}.–</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </article>
-
-    <!-- 2. L'ardoise du jour -->
-    <article class="demo demo--inverse">
-      <div class="demo__texte">
-        <h3 class="titre-3">Voir le plat du jour, à jour</h3>
-        <p>Le matin, vous nous envoyez une photo de votre ardoise ou un simple message. Nous mettons votre plat du jour en ligne le matin même, sur votre site et sur vos réseaux. Essayez : écrivez le vôtre, il s’inscrit sur l’ardoise et sur le site de Chez Léonie, dans le téléphone en haut de page.</p>
-        <form class="saisie" data-ardoise-form>
-          <label>Plat du jour<input name="plat" maxlength="32" value="Filets de perche meunière" autocomplete="off"></label>
-          <label class="saisie__prix">Prix (CHF)<input name="prix" inputmode="numeric" maxlength="3" value="36" autocomplete="off"></label>
-        </form>
-        <p class="demo__ou">Plat du jour mis en ligne chaque matin, inclus dans l’abonnement Réseaux Essentiel et l’offre Maison.</p>
-      </div>
-      <div class="demo__live ardoise" aria-live="polite">
-        <p class="ardoise__resto">Chez Léonie</p>
-        <p class="ardoise__titre">Plat du jour</p>
-        <p class="ardoise__plat" data-ardoise-tableau>Filets de perche meunière</p>
-        <svg class="ardoise__trait" viewBox="0 0 300 16" aria-hidden="true"><path d="M3 10C60 2 120 15 180 7s90-3 117 3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" pathLength="1"/></svg>
-        <p class="ardoise__prix">CHF <span data-ardoise-prix>36</span></p>
-        <p class="ardoise__suite">Entrée du jour, velouté de courge 9.–<br>Dessert, tarte Tatin 12.–</p>
-      </div>
-    </article>
-
-    <!-- 3. Le plat en 3D -->
-    <article class="demo">
-      <div class="demo__texte">
-        <h3 class="titre-3">Tourner le plat avant de le commander</h3>
-        <p>Votre plat signature en 3D, à faire tourner du doigt. Sur téléphone, le client le pose sur sa table en réalité augmentée, à sa taille réelle. Un photographe vient chez vous, nous faisons le reste.</p>
-        <div class="qr">
-          <Fragment set:html={qr} />
-          <p>Sur ordinateur ? Scannez ce code avec votre téléphone pour poser le plat sur votre table.</p>
-        </div>
-        <p class="demo__ou">Plats en 3D inclus dans l’offre Maison.</p>
-      </div>
-      <div class="demo__live plat3d" data-plat3d style={`--comptoir:url(${comptoir.src})`}>
-        <model-viewer
-          data-src="/models/tagliatelle-ragu-v2.glb"
-          alt="Tagliatelle al ragù de l’Osteria del Lago, en 3D, posées sur un comptoir"
-          camera-controls touch-action="pan-y" disable-zoom disable-pan
-          shadow-intensity="2" shadow-softness="0.55" exposure="0.68" tone-mapping="aces" environment-image="neutral"
-          camera-orbit="-30deg 60deg 0.78m" min-camera-orbit="auto 60deg 0.78m" max-camera-orbit="auto 60deg 0.78m"
-          camera-target="0m 0.045m 0.02m" field-of-view="26deg" interpolation-decay="120"
-          ar ar-modes="webxr quick-look" ar-scale="fixed" interaction-prompt="none">
-          <button slot="ar-button" class="btn btn--jaune plat3d__ar" type="button">Voir sur ma table</button>
-        </model-viewer>
-        <div class="plat3d__lumiere" aria-hidden="true"></div>
-        <p class="plat3d__legende"><b>Tagliatelle al ragù</b><span>Osteria del Lago, CHF 24</span></p>
-        <p class="plat3d__aide" aria-hidden="true">Glissez pour tourner l’assiette</p>
-      </div>
-    </article>
-
-    <!-- 4. La réservation -->
-    <article class="demo demo--inverse">
-      <div class="demo__texte">
-        <h3 class="titre-3">Réserver en trois gestes</h3>
-        <p>Le jour, l’heure, le nombre de couverts : la table est réservée sans appel pendant le service. Nous branchons l’outil que vous utilisez déjà, Zenchef, foratable ou TheFork, ou nous vous aidons à en choisir un.</p>
-        <p class="demo__ou">Branchement de la réservation inclus dans les offres Signature et Maison.</p>
-      </div>
-      <div class="demo__live vitrine vitrine--leonie resa" data-resa>
-        <div class="vitrine__tete"><span class="vitrine__nom">Chez Léonie</span><span>Réserver une table</span></div>
-        <div class="resa__ligne" role="group" aria-label="Jour">
-          <button type="button" data-jour aria-pressed="true">Ven.</button>
-          <button type="button" data-jour aria-pressed="false">Sam.</button>
-          <button type="button" data-jour aria-pressed="false">Dim.</button>
-        </div>
-        <div class="resa__ligne" role="group" aria-label="Heure">
-          <button type="button" data-heure aria-pressed="false">19:00</button>
-          <button type="button" data-heure aria-pressed="true">19:30</button>
-          <button type="button" data-heure aria-pressed="false">20:30</button>
-        </div>
-        <div class="resa__couverts">
-          <button type="button" data-moins aria-label="Une personne de moins">−</button>
-          <output data-couverts>2</output>
-          <button type="button" data-plus aria-label="Une personne de plus">+</button>
-          <span>personnes</span>
-        </div>
-        <button type="button" class="resa__ok" data-reserver>Réserver</button>
-        <p class="resa__msg" role="status" aria-live="polite" data-resa-msg></p>
-      </div>
-    </article>
-
-      </div>
-</section>
-
-<!-- ============ Vos plats en mouvement : un onglet par animation, chacune s'ouvre sur sa propre page ============ -->
-<section class="bloc bloc--ardoise mouvement" id="en-mouvement">
-  <div class="cadre">
-    <div class="mouvement__tete">
-      <h2 class="titre-2">Vos plats, en mouvement</h2>
-      <p>Des animations qui avancent au rythme du doigt, en plein écran. Choisissez un exemple, puis ouvrez-le.</p>
-    </div>
-    <div class="onglets onglets--sombre" role="tablist" aria-label="Choisir une animation" data-onglets>
-      {ANIMATIONS.map((a, i) => (
-        <button type="button" role="tab" id={`onglet-${a.id}`} aria-controls={`anim-${a.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? undefined : '-1'}><b>{a.onglet}</b><span>{a.sous}</span></button>
-      ))}
-    </div>
-    {ANIMATIONS.map((a) => (
-      <div class="anim" id={`anim-${a.id}`} role="tabpanel" aria-labelledby={`onglet-${a.id}`}>
-        <a class="anim__apercu" href={`/animations/${a.id}/`} target="_blank" rel="noopener">
-          <img src={a.apercu} alt="" width="1600" height="900" loading="lazy" decoding="async" />
-          <span class="anim__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
-        </a>
-        <div class="anim__texte">
-          <h3>{a.titre}</h3>
-          <p>{a.resume}</p>
-          <a class="btn btn--jaune" href={`/animations/${a.id}/`} target="_blank" rel="noopener">Lancer l’animation</a>
-          <p class="anim__note">S’ouvre en plein écran dans un nouvel onglet. Faites défiler pour la faire avancer.</p>
-        </div>
-      </div>
-    ))}
-  </div>
-</section>
-
-<!-- ============ La carte qui défile ============ -->
-<section class="defile" data-defile aria-label="La carte de l’Osteria del Lago défile à l’horizontale">
-  <div class="defile__colle">
-    <div class="cadre defile__tete">
-      <h2 class="titre-2">Une carte qui se feuillette</h2>
-      <p>Le défilement fait glisser les plats, un par un, comme on tourne les pages. Photos d’un même reportage, même lumière, même cadrage.</p>
-    </div>
-    <ul class="defile__piste" data-piste>
-      {defile.map((p, i) => (
-        <li class="plat">
-          <img src={p.img} alt={p.nom} width="900" height="675" loading="lazy" decoding="async" />
-          <div class="plat__bas"><div><h3>{p.nom}</h3><p>{p.desc}</p></div><span>{p.prix}.–</span></div>
-        </li>
-      ))}
-      <li class="plat plat--fin"><p>Osteria del Lago</p><a class="lien" href="/demos/osteria/">Ouvrir le site complet</a></li>
-    </ul>
-    <div class="defile__barre" aria-hidden="true"><i data-barre></i></div>
-  </div>
-</section>
-
-<!-- ============ Avant / après ============ -->
-<section class="bloc bloc--ardoise">
-  <div class="cadre">
-    <header class="bloc__tete">
-      <h2 class="titre-2">Le même restaurant, avant et après</h2>
-      <p>Faites glisser le curseur. À gauche, un site comme on en voit encore beaucoup. À droite, Chez Léonie tel que nous le ferions.</p>
-    </header>
-    <div class="compare" data-compare style="--p:30%">
-      <div class="compare__avant" aria-hidden="true">
-        <div class="vieux__barre">Accueil | Menu (PDF) | Contact | Plan d’accès</div>
-        <p class="vieux__titre">Bienvenue sur le site du Restaurant</p>
-        <p>Notre restaurant vous accueille dans un cadre agréable. Cuisine traditionnelle, ambiance familiale.</p>
-        <p>Ouvert du lundi au samedi. Fermé le dimanche.</p>
-        <p class="vieux__lien">Télécharger notre menu (PDF, 4.2 Mo)</p>
-        <p class="vieux__pied">© 2014 – Tous droits réservés</p>
-      </div>
-      <div class="compare__apres" aria-hidden="true">
-        <p class="apres__genre">Bistrot de quartier, Carouge</p>
-        <p class="apres__nom">Chez Léonie</p>
-        <p class="apres__jour">Plat du jour : <span data-ardoise-nom>Filets de perche meunière</span>, CHF <span data-ardoise-prix>36</span></p>
-        <p class="apres__btns"><span>Réserver une table</span><span>Voir la carte</span></p>
-        <p class="apres__h">Service de midi jusqu’à 14 h</p>
-        <img class="apres__photo" src={salle.src} alt="" width="1200" height="800" loading="lazy" decoding="async" />
-      </div>
-      <input class="compare__curseur" type="range" min="0" max="100" value="30" aria-label="Comparer avant et après">
-      <span class="compare__poignee" aria-hidden="true"></span>
+    <div class="portes">
+      <a class="porte" href="/restaurants/">
+        <img src={ragu.src} alt="" width="900" height="563" loading="lazy" decoding="async" />
+        <div><h3>Restaurants</h3><p>Essayez trois sites de restaurants, la carte, le plat du jour, le plat en 3D et la réservation.</p><span>Essayer</span></div>
+      </a>
+      <a class="porte" href="/artisans/">
+        <img src="/artisans/tarte.webp" alt="" width="1600" height="900" loading="lazy" decoding="async" />
+        <div><h3>Artisans</h3><p>Chocolatiers, pâtissiers, boulangers : vos créations en grand, vos gestes en vidéo.</p><span>Découvrir</span></div>
+      </a>
+      <a class="porte" href="/realisations/">
+        <img src="/sequences/pizza/g/200.webp" alt="" width="1600" height="900" loading="lazy" decoding="async" />
+        <div><h3>Réalisations</h3><p>Pasta Mo’, nos animations au défilement et une vidéo pour les réseaux.</p><span>Voir</span></div>
+      </a>
+      <a class="porte porte--ardoise" href="/offres/">
+        <img src={salle.src} alt="" width="900" height="563" loading="lazy" decoding="async" />
+        <div><h3>Offres et prix</h3><p>Des prix affichés, sites dès CHF 799 et réseaux dès CHF 392 par mois pendant l’offre de lancement.</p><span>Voir les offres</span></div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ============ Offres ============ -->
-<section class="bloc" id="offres">
-  <div class="cadre">
-    <header class="bloc__tete">
-      <h2 class="titre-2">Nos offres, des prix affichés</h2>
-      <p>Un prix fixe, annoncé avant de commencer. Pas d’options à cocher, pas de surprise sur la facture.</p>
-      <p class="lancement-note"><b>Offre de lancement : −20 % sur toutes nos offres</b> pour toute commande avant le 31 octobre 2026. Pour les abonnements, la remise vaut pendant les 3 premiers mois.</p>
-    </header>
-    <div class="onglets" role="tablist" aria-label="Choisir le type d’offre" data-onglets>
-      <button type="button" role="tab" id="onglet-site" aria-controls="offres-site" aria-selected="true"><b>Créer votre site</b><span>3 offres, dès CHF 799 (−20 %)</span></button>
-      <button type="button" role="tab" id="onglet-reseaux" data-ancres="#reseaux #exemple-sora" aria-controls="offres-reseaux" aria-selected="false" tabindex="-1"><b>Vidéo et réseaux sociaux</b><span>Dès CHF 392 par mois (−20 %)</span></button>
-    </div>
-    <div class="offres__panneau" id="offres-site" role="tabpanel" aria-labelledby="onglet-site">
-    <p class="demo__ou offres__note">Nous réalisons la carte des plats et des boissons sans alcool. La carte des vins et des alcools n’entre pas dans nos prestations : elle se découvre sur place.</p>
-    <div class="offres">
-      <article class="offre">
-        <h3>Essentiel</h3>
-        <p class="offre__prix"><s>CHF 999</s> CHF 799 <span class="offre__remise">−20 %</span></p>
-        <p class="offre__pour">Pour être trouvé et joignable, vite.</p>
-        <ul>
-          <li>Une page sur mesure, pensée pour le téléphone</li>
-          <li>Votre carte en ligne, lisible et à jour</li>
-          <li>Horaires, plan, appel en un geste</li>
-          <li>Fiche Google mise à jour</li>
-        </ul>
-        <p class="offre__suivi">Vous êtes autonome après la livraison.</p>
-        <a class="btn btn--clair" href="#contact" data-offre="Essentiel">Choisir Essentiel</a>
-      </article>
-      <article class="offre offre--phare">
-        <h3>Signature</h3>
-        <p class="offre__prix"><s>CHF 1’999</s> CHF 1’599 <span class="offre__remise">−20 %</span></p>
-        <p class="offre__pour">Pour donner faim avant même d’entrer.</p>
-        <ul>
-          <li>Tout l’Essentiel</li>
-          <li>Votre plat signature animé au défilement</li>
-          <li>Carte redessinée : web, imprimable, QR codes</li>
-          <li>Deux heures de shooting offertes à la création</li>
-          <li>Plat du jour mis en ligne chaque matin (avec l’abonnement Réseaux Essentiel)</li>
-          <li>Réservation branchée sur votre outil</li>
-        </ul>
-        <p class="offre__suivi"><b>Ensuite, l’abonnement Réseaux Essentiel</b> : entretien du site, réseaux sociaux et une heure de shooting par mois, CHF 490 par mois (CHF 392 les 3 premiers mois). <a href="#reseaux">Voir l’abonnement</a></p>
-        <a class="btn btn--jaune" href="#contact" data-offre="Signature">Choisir Signature</a>
-      </article>
-      <article class="offre">
-        <h3>Maison</h3>
-        <p class="offre__prix"><s>CHF 3’490</s> CHF 2’792 <span class="offre__remise">−20 %</span> <small>puis <s>CHF 790</s> CHF 632 par mois les 3 premiers mois, puis CHF 790</small></p>
-        <p class="offre__pour">Pour que vos plats se vendent tout seuls.</p>
-        <ul>
-          <li>Tout le Signature, entretien compris</li>
-          <li>Un photographe chez vous, toute la carte</li>
-          <li>Vos plats en 3D et en réalité augmentée</li>
-          <li>Deux heures de shooting chaque mois, photos, vidéos et réseaux</li>
-          <li>Carte en deux langues</li>
-        </ul>
-        <p class="offre__suivi">Suivi complet, pour un petit nombre de restaurants.</p>
-        <a class="btn btn--clair" href="#contact" data-offre="Maison">Choisir Maison</a>
-      </article>
-    </div>
-    </div>
-    <div class="offres__panneau" id="offres-reseaux" role="tabpanel" aria-labelledby="onglet-reseaux">
-    <div class="reseaux">
-      <figure class="reseaux__exemple">
-        <button type="button" class="reseaux__lecture" data-ouvrir-video aria-label="Regarder la vidéo d’exemple, avec le son">
-          <video src="/media/exemple-sora.mp4" poster="/media/exemple-sora.jpg" muted loop playsinline preload="none" width="432" height="768" data-video-exemple aria-hidden="true"></video>
-          <span class="reseaux__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
-        </button>
-        <figcaption><b>Exemple : Sora, comptoir à ramen</b> On filme la salle et le plat du jour, puis la même vidéo part sur le site et en réel sur Instagram, aux couleurs du restaurant. <a class="reseaux__voir" href="/media/exemple-sora-hd.mp4" data-ouvrir-video>Regarder la vidéo</a></figcaption>
-      </figure>
-      <dialog class="visionneuse" data-visionneuse aria-label="Vidéo d’exemple : Sora, comptoir à ramen">
-        <video controls playsinline preload="none" poster="/media/exemple-sora.jpg" width="720" height="1280" data-video-grande></video>
-        <form method="dialog"><button class="visionneuse__fermer" aria-label="Fermer la vidéo">×</button></form>
-      </dialog>
-      <div class="offres">
-        <article class="offre">
-          <h3>Essentiel</h3>
-          <p class="offre__prix"><s>CHF 490</s> CHF 392 <span class="offre__remise">−20 %</span> <small>par mois les 3 premiers mois, puis CHF 490</small></p>
-          <p class="offre__pour">Pour être vu chaque semaine, sans y penser.</p>
-          <ul>
-            <li>Une heure de shooting chez vous chaque mois</li>
-            <li>4 réels montés et publiés par mois</li>
-            <li>Votre menu du jour publié chaque matin</li>
-            <li>Entretien de votre site compris : carte et horaires à jour sous 48 heures</li>
-          </ul>
-          <p class="offre__suivi">La suite naturelle de l’offre Signature. Trois mois minimum, puis sans engagement.</p>
-          <a class="btn btn--clair" href="#contact" data-offre="Réseaux Essentiel">Choisir Essentiel</a>
-        </article>
-        <article class="offre offre--phare">
-          <h3>Premium</h3>
-          <p class="offre__prix"><s>CHF 990</s> CHF 792 <span class="offre__remise">−20 %</span> <small>par mois les 3 premiers mois, puis CHF 990</small></p>
-          <p class="offre__pour">Pour remplir la salle, avec la publicité.</p>
-          <ul>
-            <li>Deux heures de tournage chaque mois</li>
-            <li>4 réels et 8 publications par mois</li>
-            <li>Toute votre carte en photo</li>
-            <li>Votre menu du jour publié chaque matin</li>
-            <li>Publicité Facebook, Instagram et Google gérée, avec des résultats clairs chaque mois</li>
-            <li class="offre__option"><b>En option :</b> la venue d’un influenceur food genevois suivi par des dizaines de milliers de personnes, organisée par nous (budget à votre charge)</li>
-          </ul>
-          <p class="offre__suivi">Trois mois minimum, puis sans engagement.</p>
-          <a class="btn btn--jaune" href="#contact" data-offre="Réseaux Premium">Choisir Premium</a>
-        </article>
-        <article class="offre">
-          <h3>Pack lancement</h3>
-          <p class="offre__prix"><s>CHF 990</s> CHF 792 <span class="offre__remise">−20 %</span> <small>une seule fois</small></p>
-          <p class="offre__pour">Sans abonnement : un tournage, et c’est parti.</p>
-          <ul>
-            <li>Deux heures de tournage au restaurant</li>
-            <li>4 réels montés, prêts à publier</li>
-            <li>Photos de vos plats, sans limite pendant le tournage</li>
-          </ul>
-          <p class="offre__suivi">Les images sont à vous.</p>
-          <a class="btn btn--clair" href="#contact" data-offre="Pack lancement">Choisir le pack</a>
-        </article>
-      </div>
-    </div>
-    <details class="pub">
-      <summary>Et le budget de la publicité ?</summary>
-      <p>Dans l’offre Premium, nous gérons votre publicité. Le budget, vous le payez directement à Facebook (Meta) ou à Google, avec votre carte, dans votre propre compte : vous gardez la main et vous ne payez aucune commission dessus. On vous conseille de commencer avec 10 à 15 francs par jour. Nous créons les campagnes, ciblons les gens autour du restaurant à l’heure des repas, et vous envoyons chaque mois un bilan clair : combien de personnes ont vu vos annonces, combien ont cliqué, appelé ou réservé.</p>
-    </details>
-    </div>
-  </div>
-</section>
-
-<!-- ============ Méthode ============ -->
-<section class="bloc bloc--nappe" id="methode">
-  <div class="cadre">
-    <header class="bloc__tete">
-      <h2 class="titre-2">En ligne en deux semaines</h2>
-    </header>
-    <ol class="etapes" data-etapes>
-      <li><h3>Un café chez vous</h3><p>Vingt minutes au restaurant, hors service. On choisit l’offre et les options, vous recevez un devis clair.</p></li>
-      <li><h3>Une première version en cinq jours</h3><p>Vous voyez votre site sur votre téléphone, avec votre carte. Puis deux allers-retours de corrections.</p></li>
-      <li><h3>Mise en ligne, et on reste là</h3><p>Nom de domaine, réservation branchée, fiche Google à jour. Vous savez comment demander une modification.</p></li>
-    </ol>
-  </div>
-</section>
-
-<!-- ============ Déjà fait : Pasta Mo', au défilement ============ -->
-<section class="sequence sequence--pastamo" data-sequence="pastamo" data-images="72" data-tailles="g" data-sujet="0.385,0.58" data-paresse aria-label="Pasta Mo’ : le parmesan tombe sur la bolognese, puis l’huile d’olive coule sur le pesto, au rythme du défilement">
-  <div class="sequence__colle">
-    <canvas class="sequence__toile" aria-hidden="true"></canvas>
-    <div class="sequence__voile" aria-hidden="true"></div>
-    <div class="cadre sequence__textes">
-      <div class="sequence__texte sequence__texte--droite" data-de="-0.2" data-a="0.42">
-        <h2 class="titre-2">Déjà fait : Pasta Mo’</h2>
-        <p class="chapo">Notre propre enseigne de street food italienne, à Genève. Faites défiler : le parmesan tombe sur la bolognese.</p>
-      </div>
-      <div class="sequence__texte sequence__texte--droite" data-de="0.52" data-a="1.2">
-        <p class="titre-2">Puis l’huile d’olive, sur le pesto.</p>
-        <p class="chapo">C’est le principe du site de Pasta Mo’ : un geste, un plan. Nous connaissons le service du midi de l’intérieur.</p>
-        <div class="actions"><a class="btn btn--jaune" href="https://pastamo.ch" target="_blank" rel="noopener">Voir pastamo.ch</a></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ Contact ============ -->
-<section class="bloc bloc--ardoise" id="contact">
-  <div class="cadre contact">
-    <div>
-      <h2 class="titre-2">Parlons de votre restaurant</h2>
-      <p>Réponse sous 24 heures avec un devis clair. Le premier rendez-vous est offert, chez vous.</p>
-    </div>
-    <form class="formulaire" data-contact>
-      <label>Votre nom<input name="nom" autocomplete="name" required></label>
-      <label>Restaurant<input name="resto" autocomplete="organization" required></label>
-      <label>Téléphone<input name="tel" type="tel" autocomplete="tel"></label>
-      <label>Email<input name="email" type="email" autocomplete="email" required></label>
-      <label class="formulaire__large">Offre qui vous intéresse
-        <select name="offre" data-offre-choix>
-          <option value="">Je ne sais pas encore</option>
-          <option>Essentiel</option>
-          <option>Signature</option>
-          <option>Maison</option>
-          <option>Réseaux Essentiel</option>
-          <option>Réseaux Premium</option>
-          <option>Pack lancement</option>
-        </select>
-      </label>
-      <label class="formulaire__large">Votre projet<textarea name="msg" rows="3"></textarea></label>
-      <button class="btn btn--jaune" type="submit">Envoyer ma demande</button>
-      <p class="formulaire__msg" role="status" aria-live="polite" data-contact-msg></p>
-      <p class="formulaire__note">Vos coordonnées servent uniquement à vous répondre. <a href="/confidentialite/">Confidentialité et cookies</a></p>
-    </form>
-  </div>
-</section>
+<Appel />
 
 <script>
-  import '../scripts/accueil.js';
+  import '../scripts/defilement.js';
 </script>
 </Base>

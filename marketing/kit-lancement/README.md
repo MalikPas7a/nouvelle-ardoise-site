@@ -13,6 +13,10 @@ Aucun prix n'apparaît dans les visuels ni dans les légendes.
 | `reel/reel-reseaux-18s-sans-son.mp4` · `reel/couverture-reel-reseaux.jpg` | La même sans son, et sa couverture |
 | `reel/reel-sur-mesure-23s.mp4` | Réel de 23 s « sur mesure » : on comprend qu'on fait un contenu propre à chaque restaurant, avec l'exemple de Sora (comptoir à ramen de démonstration du site, Plainpalais), à ses couleurs. La vraie ardoise effacée découvre Genève vue du ciel ; plongée jusqu'à l'adresse du restaurant ; « On filme votre salle, votre plat du jour » (vraies vidéos) ; le même plat du jour sur son site, mis à jour d'un coup d'éponge ; et en réel sur ses réseaux ; « Réservez un appel » |
 | `reel/reel-sur-mesure-23s-sans-son.mp4` · `reel/couverture-reel-ardoise.jpg` | La même sans son, et sa couverture |
+| `reel/reel-artisan-24s.mp4` | Réel de 24 s pour les **artisans de bouche** (chocolatiers, pâtissiers), dans la charte crème et cacao de la page Artisans : le chocolat coulé (« Ce que vos clients ne voient jamais. »), plongée sur Carouge jusqu'à la boutique, l'atelier filmé (« Le geste, le tour de main. »), la création finie et la gamme, les distinctions et labels, où et quand venir avec le click and collect, puis « Votre savoir-faire, au cœur de vos réseaux. ». Exemple : Maison Fève, chocolatier inventé ; distinctions d'exemple, marquées comme telles |
+| `reel/reel-artisan-24s-sans-son.mp4` · `reel/couverture-reel-artisan.jpg` | La même sans son, et sa couverture |
+| `reel/reel-coulisses-20s.mp4` | Réel de 20 s **« coulisses »**, monté en motion design sur 120 BPM, pour montrer le niveau des 4 réels livrés chaque mois : horodatage « 06:00, l'atelier ouvre », écran partagé (tempérer, mouler, racler), glaçage miroir avec jauge de température, coupes au rythme (Précis. Patient. Fait main. Chaque jour.), la pièce finie avec sa carte, puis « Vos quatre réels du mois » (coulisses, création du mois, équipe, saison). Exemple : Maison Fève, images Pexels |
+| `reel/reel-coulisses-20s-sans-son.mp4` · `reel/couverture-reel-coulisses.jpg` | La même sans son, et sa couverture |
 | `reel/reel-menu-du-jour-16s.mp4` | Réel de 16 s « menu du jour » : plongée aérienne du lac Léman jusqu'à la place du Bourg-de-Four (Genève), épingle « Votre restaurant », la vraie ardoise du matin en photo, un coup d'éponge, puis le même menu remis au propre et animé, en ligne sur le site, Google et Instagram. Sans prix |
 | `reel/reel-menu-du-jour-16s-sans-son.mp4` · `reel/couverture-reel-menu.jpg` | La même sans son, et sa couverture |
 | `reel/reel-sushi-15s.mp4` | Réel 15 s, 1080×1920, 30 i/s, habillage sonore inclus |
@@ -77,7 +81,33 @@ brille, un petit trait jaune en haut à gauche, et des mots effacés d'un coup d
   police Syne) vient de src/styles/global.css. La vidéo l'indique (« Exemple : Sora, restaurant
   de démonstration »). Aucune image générée par IA.
 
+## Sources du réel « artisan »
+
+- Vidéos : Pexels, licence Pexels, usage commercial autorisé : 4458588, 4458593, 4458586 (chocolat),
+  32710206 (tarte), 7012966 (truffes). `sh videos/extraire-artisan.sh <dossier des vidéos>` en tire les plans.
+- Vue aérienne : SWISSIMAGE © swisstopo (`python3 vue-aerienne.py 46.18370 6.13930 carte-carouge`),
+  mention dans la vidéo et la légende.
+- Maison Fève est un chocolatier inventé ; la médaille et les labels sont des exemples (la vidéo
+  l'indique). Pour un vrai client, on montre ses vraies distinctions.
+- Police : Bodoni Moda (OFL), comme la page Artisans du site. Aucune image générée par IA.
+
 ## Légendes prêtes à copier
+
+**Réel « artisan »**
+
+```
+Ce que vos clients ne voient jamais. 🍫
+
+Le tempérage, la coque raclée d'un geste, la création finie : c'est votre savoir-faire qui fait revenir vos clients. On vient le filmer chez vous, on met vos créations en grand sur votre site, et on raconte l'atelier en réels. Votre boutique, vos horaires, vos distinctions : tout est au même endroit.
+
+Exemple : Maison Fève, chocolatier inventé pour l'occasion.
+Shooting · réels · site pour les chocolatiers, pâtissiers et boulangers de Genève et Vaud.
+👉 Réservez un appel : lien en bio
+
+Images aériennes © swisstopo
+
+#chocolatier #artisanchocolatier #patisserie #carouge #genève #savoirfaire #faitmain #chocolatsuisse #suisseromande
+```
 
 **Réel « sur mesure »**
 

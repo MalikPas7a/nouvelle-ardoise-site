@@ -1,0 +1,171 @@
+---
+// Page Artisans : chocolatiers, pâtissiers, boulangers. Le produit au centre, le geste en vidéo,
+// sur le modèle des sites des grandes maisons de pâtisserie : une création par écran, fond neutre, peu de texte.
+// Images : vidéos Pexels (licence Pexels), découpées par marketing/kit-lancement/_sources/sequences/.
+import '@fontsource-variable/bodoni-moda/standard-italic.css';
+import '@fontsource-variable/bodoni-moda/standard.css';
+import Base from '../layouts/Base.astro';
+import Appel from '../components/Appel.astro';
+
+const PIECES = [
+  { img: '/artisans/tarte.webp', l: 1600, h: 900, nom: 'Tarte chocolat framboise', ligne: 'Pâte sablée cacao, ganache, framboises fraîches', large: true },
+  { img: '/artisans/truffes-photo.webp', l: 900, h: 1125, nom: 'Truffes au cacao', ligne: 'Roulées à la main, chaque matin' },
+  { img: '/artisans/entremets.webp', l: 900, h: 1125, nom: 'Entremets, glaçage miroir', ligne: 'Lissé d’un seul geste' },
+  { img: '/artisans/baguettes.webp', l: 1600, h: 900, nom: 'Baguette de tradition', ligne: 'Levain, longue fermentation, cuite sur sole', large: true },
+];
+---
+<Base page="artisans" title="Site, photos et réels pour chocolatiers, pâtissiers et boulangers à Genève | Nouvelle Ardoise" description="Votre savoir-faire au cœur de votre site : photos de vos créations, vidéos de vos gestes pour Instagram, click and collect et paiement TWINT. Genève et Vaud.">
+
+<!-- ============ Ouverture ============ -->
+<section class="art-ouv">
+  <div class="cadre art-ouv__grille">
+    <div class="art-ouv__texte">
+      <p class="art-sur">Pour les artisans du goût · Chocolatiers, pâtissiers, boulangers</p>
+      <h1 class="art-titre">Votre <span class="insecable">savoir-faire,</span> <em>au cœur</em> de votre site.</h1>
+      <p class="art-chapo">Vos créations en grand. Vos gestes en vidéo. Un site et des réseaux qui montrent enfin tout ce qui se passe derrière le comptoir.</p>
+      <div class="actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a><a class="lien" href="#shooting">Comment on s’y prend</a></div>
+    </div>
+    <figure class="art-ouv__video">
+      <video src="/artisans/ouverture.mp4" poster="/artisans/ouverture.webp" muted loop playsinline autoplay preload="metadata" width="800" height="1000" data-reel aria-hidden="true"></video>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ Le principe ============ -->
+<section class="art-principe">
+  <div class="cadre art-principe__in">
+    <p class="art-citation">Une création se goûte d’abord <em>avec les yeux.</em></p>
+    <p>Les grandes maisons de pâtisserie l’ont compris : sur leur site, chaque création a son écran, le décor s’efface, et la vidéo montre le geste. Nous faisons la même chose pour les artisans du goût de Genève et Vaud.</p>
+  </div>
+</section>
+
+<!-- ============ Derrière le comptoir : le chocolat au défilement ============ -->
+<section class="sequence sequence--chocolat" data-sequence="chocolat" data-images="212" data-tailles="m,g" data-couvre data-paresse aria-label="Le chocolat tempéré, coulé dans le moule, raclé, puis une tarte finie, au rythme du défilement">
+  <div class="sequence__colle">
+    <canvas class="sequence__toile" aria-hidden="true"></canvas>
+    <div class="sequence__voile" aria-hidden="true"></div>
+    <div class="cadre sequence__textes">
+      <div class="sequence__texte" data-de="-0.1" data-a="0.17">
+        <h2 class="art-titre art-titre--seq">Derrière le comptoir</h2>
+        <p class="chapo">Le chocolat, tempéré à la bonne température.</p>
+        <p class="sequence__indice"><span></span>Faites défiler</p>
+      </div>
+      <div class="sequence__texte" data-de="0.2" data-a="0.38"><p class="art-titre art-titre--seq">Coulé dans le moule.</p></div>
+      <div class="sequence__texte" data-de="0.41" data-a="0.57"><p class="art-titre art-titre--seq">Chaque coque, <em>à la bonne épaisseur.</em></p></div>
+      <div class="sequence__texte" data-de="0.6" data-a="0.77"><p class="art-titre art-titre--seq">Le surplus, raclé d’un geste.</p></div>
+      <div class="sequence__texte" data-de="0.8" data-a="1.01">
+        <p class="art-titre art-titre--seq">Puis la création, <em>seule à l’écran.</em></p>
+        <p class="chapo">C’est ce que vos clients ne voient jamais en vitrine. Nous le filmons chez vous.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Une création, un écran ============ -->
+<section class="art-pieces">
+  <div class="cadre">
+    <header class="art-tete">
+      <h2 class="art-titre art-titre--2">Une création, <em>un écran.</em></h2>
+      <p>Le produit au centre, sur un fond calme, avec son nom et une ligne. Rien d’autre. C’est ainsi que vos créations apparaîtront sur votre site.</p>
+    </header>
+    <div class="art-pieces__grille">
+      {PIECES.map((p) => (
+        <figure class:list={['art-piece', { 'art-piece--large': p.large }]}>
+          <img src={p.img} alt={p.nom} width={p.l} height={p.h} loading="lazy" decoding="async" />
+          <figcaption><b>{p.nom}</b><span>{p.ligne}</span></figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ============ Les coulisses, en réels ============ -->
+<section class="art-reels">
+  <div class="cadre">
+    <header class="art-tete">
+      <h2 class="art-titre art-titre--2">Les coulisses, <em>en réels.</em></h2>
+      <p>Le geste, la précision, le temps passé : c’est ce qui fait revenir vos clients. Nous le filmons chez vous, nous le montons comme ci-dessous, puis nous le publions sur Instagram et sur votre site.</p>
+    </header>
+    <!-- Le réel des coulisses, tel qu'on le livre, et le programme d'un mois -->
+    <div class="art-exemple">
+      <video src="/artisans/reel-coulisses.mp4" poster="/artisans/reel-coulisses.webp" controls playsinline preload="none" width="720" height="1280" aria-label="Exemple de réel des coulisses, monté en motion design, avec le son"></video>
+      <div class="art-exemple__texte">
+        <p class="art-sur">Ce qu’on livre chaque mois</p>
+        <h3 class="art-titre art-titre--3">Vos quatre réels <em>du mois.</em></h3>
+        <ol>
+          <li><span><b>Semaine 1, les coulisses</b> : l’atelier avant l’ouverture, le geste en gros plan.</span></li>
+          <li><span><b>Semaine 2, la création du mois</b> : une pièce, mise en scène, du début à la fin.</span></li>
+          <li><span><b>Semaine 3, l’équipe</b> : les mains et les visages de la maison.</span></li>
+          <li><span><b>Semaine 4, la saison</b> : le fruit du moment, les fêtes, la nouveauté en vitrine.</span></li>
+        </ol>
+        <p class="art-exemple__note">Tournés chez vous pendant l’heure de shooting, montés en motion design comme cet exemple : rythme calé sur la musique, titres animés, écrans partagés. Puis publiés sur Instagram et sur votre site.</p>
+      </div>
+    </div>
+    <!-- Un réel complet d'exemple : boutique, savoir-faire, création, distinctions, adresse -->
+    <div class="art-exemple">
+      <video src="/artisans/reel-exemple.mp4" poster="/artisans/reel-exemple.webp" controls playsinline preload="none" width="720" height="1280" aria-label="Exemple de réel pour un chocolatier, avec le son"></video>
+      <div class="art-exemple__texte">
+        <p class="art-sur">Le réel de présentation</p>
+        <h3 class="art-titre art-titre--3">Tout ce qu’un réel <em>doit dire.</em></h3>
+        <ol>
+          <li><span><b>L’accroche</b> : le geste que personne ne voit.</span></li>
+          <li><span><b>Où vous êtes</b> : votre boutique, dans votre quartier.</span></li>
+          <li><span><b>Votre savoir-faire</b> : filmé à l’atelier.</span></li>
+          <li><span><b>Ce que vous offrez</b> : vos créations, en grand.</span></li>
+          <li><span><b>Vos distinctions</b> : médailles, labels, fait main.</span></li>
+          <li><span><b>Quand venir</b> : horaires et click and collect.</span></li>
+        </ol>
+        <p class="art-exemple__note">Maison Fève est un chocolatier inventé pour l’exemple, ses distinctions aussi. Pour vous, ce sont vos vraies médailles et vos vraies mains.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ L'heure de shooting ============ -->
+<section class="art-shooting" id="shooting">
+  <div class="cadre art-shooting__grille">
+    <div>
+      <h2 class="art-titre art-titre--2">Le shooting, <em>chez vous.</em></h2>
+      <p class="art-chapo">Une ou deux heures dans votre laboratoire, pendant la production. Vous travaillez, nous filmons.</p>
+    </div>
+    <ol class="art-etapes">
+      <li><b>Vos créations, une à une</b><span>Chacune photographiée sur un fond propre, dans la même lumière, pour le site et l’imprimé.</span></li>
+      <li><b>Vos mains au travail</b><span>Le tempérage, le glaçage, le façonnage, filmés en vertical pour Instagram.</span></li>
+      <li><b>Des images à vous</b><span>Elles vous appartiennent : site, réseaux, cartes, vitrine.</span></li>
+    </ol>
+    <p class="art-shooting__offre"><b>Deux heures de shooting offertes</b> avec l’offre Signature, puis une heure chaque mois avec l’abonnement Réseaux Essentiel. <a class="lien" href="/offres/">Voir les offres</a></p>
+  </div>
+</section>
+
+<!-- ============ Vendre, pas seulement montrer ============ -->
+<section class="art-vendre">
+  <div class="cadre">
+    <header class="art-tete">
+      <h2 class="art-titre art-titre--2">Montrer, <em>puis vendre.</em></h2>
+      <p>En option, avec toutes nos offres : selon votre métier, nous branchons sur votre site la solution qui vous convient.</p>
+    </header>
+    <ul class="art-vendre__liste">
+      <li><b>Click and collect</b><span>Vos clients commandent en ligne et passent chercher leurs pâtisseries à l’heure choisie.</span></li>
+      <li><b>Paiement en ligne</b><span>Par carte ou TWINT, au moment de la commande. L’argent arrive sur votre compte.</span></li>
+      <li><b>Réservation</b><span>Pour un salon de thé, un atelier ou une dégustation, une table réservée en trois gestes.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ Les fêtes ============ -->
+<section class="art-fetes">
+  <div class="cadre art-fetes__in">
+    <p class="art-sur">Noël arrive</p>
+    <p class="art-titre art-titre--2">Vos coffrets en ligne <em>avant l’Avent.</em></p>
+    <p>Un shooting début novembre, et vos coffrets et bûches sont sur votre site et sur Instagram avant le premier week-end de l’Avent, avec la commande en click and collect.</p>
+    <p class="art-credit">Images de cette page : Pexels, licence Pexels. Sur votre site, ce sont vos créations et vos mains.</p>
+  </div>
+</section>
+
+<Appel titre="Parlons de votre maison" texte="Réponse sous 24 heures avec un devis clair. Le premier rendez-vous est offert, chez vous, en dehors de la production." />
+
+<script>
+  import '../scripts/defilement.js';
+  import '../scripts/reels.js';
+</script>
+</Base>

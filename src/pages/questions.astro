@@ -1,0 +1,26 @@
+---
+// Questions fréquentes : une réponse directe par question, lisible par les visiteurs, Google et les IA.
+import Base from '../layouts/Base.astro';
+import Appel from '../components/Appel.astro';
+import { QUESTIONS } from '../data/questions.js';
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: QUESTIONS.map(({ q, r }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: r } })),
+});
+---
+<Base page="questions" title="Questions fréquentes : prix, délais, réseaux sociaux | Nouvelle Ardoise" description="Prix d’un site de restaurant à Genève, gestion des réseaux sociaux, réels, shooting, click and collect et TWINT : les réponses de Nouvelle Ardoise.">
+<script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
+<article class="legal cadre questions">
+  <h1 class="titre-2">Questions fréquentes</h1>
+  {QUESTIONS.map(({ q, r }) => (
+    <section>
+      <h2>{q}</h2>
+      <p>{r}</p>
+    </section>
+  ))}
+  <p class="legal__maj">Voir aussi les <a href="/offres/">offres et prix</a> et la page <a href="/artisans/">Artisans</a>.</p>
+</article>
+<Appel />
+</Base>

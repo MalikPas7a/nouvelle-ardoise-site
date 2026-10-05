@@ -1,0 +1,279 @@
+---
+// Page Restaurants : tout ce qu'un restaurant peut essayer, du site complet à la réservation.
+import '@fontsource-variable/bodoni-moda/standard-italic.css';
+import '@fontsource-variable/bodoni-moda/standard.css';
+import '@fontsource-variable/fraunces/opsz.css';
+import '@fontsource-variable/syne/wght.css';
+import '@fontsource/caveat/600.css';
+import Base from '../layouts/Base.astro';
+import Appel from '../components/Appel.astro';
+import MiniSite from '../components/MiniSite.astro';
+import { getImage } from 'astro:assets';
+import QRCode from 'qrcode';
+import imgRagu from '../assets/photo-ragu.jpg';
+import imgPerche from '../assets/photo-perche.jpg';
+import imgRamen from '../assets/photo-ramen.jpg';
+import imgSalle from '../assets/photo-salle.jpg';
+import imgComptoir from '../assets/photo-comptoir.jpg';
+import imgBurrata from '../assets/photo-burrata.jpg';
+import imgPesto from '../assets/photo-pesto.jpg';
+import imgPomodoro from '../assets/photo-pomodoro.jpg';
+import imgTiramisu from '../assets/photo-tiramisu.jpg';
+import { RESTAURANTS, parId } from '../data/restaurants.js';
+import { SITE } from '../config.js';
+
+// Photos converties en WebP à la compilation, à la taille où elles sont affichées
+const webp = (src, width) => getImage({ src, format: 'webp', width, quality: 72 });
+const [ragu, perche, ramen, salle] = await Promise.all([webp(imgRagu, 1100), webp(imgPerche, 1100), webp(imgRamen, 1000), webp(imgSalle, 1200)]);
+const comptoir = await webp(imgComptoir, 1600);
+const photos = { osteria: ragu.src, leonie: perche.src, sora: ramen.src };
+
+// La carte qui défile : cinq plats de l'Osteria, photographiés dans la même lumière
+const [burrata, pesto, pomodoro, tiramisu] = await Promise.all([imgBurrata, imgPesto, imgPomodoro, imgTiramisu].map((i) => webp(i, 900)));
+const defile = [
+  { nom: 'Burrata, tomates anciennes', desc: 'Huile d’olive des Pouilles, basilic', prix: 16, img: burrata.src },
+  { nom: 'Tagliatelle al ragù', desc: 'Bœuf et porc mijotés six heures', prix: 24, img: ragu.src },
+  { nom: 'Linguine al pesto', desc: 'Basilic, pignons, pecorino', prix: 22, img: pesto.src },
+  { nom: 'Spaghetti al pomodoro', desc: 'Tomates San Marzano, ail, basilic', prix: 19, img: pomodoro.src },
+  { nom: 'Tiramisù', desc: 'Mascarpone, café serré, cacao', prix: 11, img: tiramisu.src },
+];
+
+// QR code vers le plat en 3D : il suit l'adresse du site définie dans config.js
+const qr = (await QRCode.toString(SITE.url + '/demos/carte-3d/', { type: 'svg', margin: 0, color: { dark: '#1E2A2C', light: '#0000' } }))
+  .replace('<svg ', '<svg role="img" aria-label="QR code vers le plat en 3D" ');
+
+const sora = parId('sora');
+const nbSora = sora.carte.reduce((n, s) => n + s.plats.length, 0);
+---
+<Base page="restaurants" title="Création de site web pour restaurant à Genève et Vaud | Nouvelle Ardoise" description="Essayez trois sites de restaurants : carte lisible au pouce, plat du jour, plat en 3D, réservation en trois gestes.">
+
+<section class="bloc page-tete">
+  <div class="cadre">
+    <header class="bloc__tete">
+      <h1 class="titre-2">Des sites pour restaurants, à Genève et Vaud</h1>
+      <p>Tout ce qui suit s’essaie : trois sites de restaurants inventés, la carte, le plat du jour, le plat en 3D et la réservation.</p>
+    </header>
+  </div>
+</section>
+
+<!-- ============ Le téléphone : trois restaurants à essayer ============ -->
+<section class="ouverture" id="essayer">
+  <div class="cadre ouverture__grille">
+    <div class="ouverture__texte">
+      <h2 class="titre-2">Trois restaurants, trois univers</h2>
+      <p class="chapo">Choisissez un restaurant inventé pour l’occasion : le site, la carte et les couleurs changent. Faites défiler l’écran du téléphone, c’est un vrai site.</p>
+
+      <div class="choix" role="group" aria-label="Choisir un restaurant de démonstration">
+        {RESTAURANTS.map((r) => (
+          <button type="button" class="choix__btn" data-choix={r.id} aria-pressed={r.id === 'osteria' ? 'true' : 'false'}>
+            <b>{r.nom}</b>
+            <span>{r.genre}, {r.quartier}</span>
+          </button>
+        ))}
+      </div>
+
+      <div class="actions">
+        <a class="lien" href="/offres/">Voir les offres, −20 % jusqu’au 31 octobre</a>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="telephone">
+        <div class="telephone__ecran" data-ecran tabindex="0" aria-label="Aperçu du site sur téléphone, à faire défiler">
+          {RESTAURANTS.map((r) => <MiniSite resto={r} photos={photos} />)}
+        </div>
+      </div>
+      <p class="scene__note">Faites défiler l’écran : c’est un vrai site, pas une image.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Exemples : quatre choses que vos clients pourront faire ============ -->
+<section class="bloc" id="exemples">
+  <div class="cadre">
+    <header class="bloc__tete">
+      <h2 class="titre-2">Ce que vos clients pourront faire</h2>
+      <p>Quatre exemples à essayer. Tout fonctionne sur téléphone, là où vos clients vous cherchent.</p>
+    </header>
+
+    <!-- 1. La carte filtrable -->
+    <article class="demo">
+      <div class="demo__texte">
+        <h3 class="titre-3">Lire la carte sans zoomer</h3>
+        <p>La carte s’affiche en texte, lisible au pouce. Vos clients filtrent les plats végétariens ou épicés et passent en anglais d’un geste. Google lit chaque plat, ce qu’il ne fait pas dans un PDF.</p>
+        <p class="demo__ou">Carte en ligne incluse dans toutes les offres. Deuxième langue incluse dans l’offre Maison.</p>
+      </div>
+      <div class="demo__live vitrine vitrine--sora" data-carte>
+        <img class="vitrine__photo" src={ramen.src} alt="Ramen shoyu de Sora, vu de dessus" width="1000" height="1000" loading="lazy" decoding="async" />
+        <div class="vitrine__tete">
+          <span class="vitrine__nom">Sora</span>
+          <div class="langue" role="group" aria-label="Langue de la carte">
+            <button type="button" data-langue="fr" aria-pressed="true">FR</button>
+            <button type="button" data-langue="en" aria-pressed="false">EN</button>
+          </div>
+        </div>
+        <div class="filtres" role="group" aria-label="Filtrer la carte">
+          <button type="button" data-filtre="tout" aria-pressed="true" data-fr="Tout" data-en="All">Tout</button>
+          <button type="button" data-filtre="vege" aria-pressed="false" data-fr="Végétarien" data-en="Vegetarian">Végétarien</button>
+          <button type="button" data-filtre="epice" aria-pressed="false" data-fr="Épicé" data-en="Spicy">Épicé</button>
+          <span class="filtres__n" aria-live="polite"><span data-compte>{nbSora}</span> <span data-fr="plats" data-en="dishes">plats</span></span>
+        </div>
+        {sora.carte.map((section) => (
+          <div class="carte__section">
+            <h4 data-fr={section.titre} data-en={section.en}>{section.titre}</h4>
+            <ul>
+              {section.plats.map((p) => (
+                <li data-plat data-vege={p.vege ? '1' : '0'} data-epice={p.epice ? '1' : '0'}>
+                  <div>
+                    <b data-fr={p.nom} data-en={p.nomEn ?? p.nom}>{p.nom}</b>
+                    {p.vege && <span class="pastille pastille--vege" data-fr="végé" data-en="veggie">végé</span>}
+                    {p.epice && <span class="pastille pastille--epice" data-fr="épicé" data-en="spicy">épicé</span>}
+                    <small data-fr={p.desc} data-en={p.en}>{p.desc}</small>
+                  </div>
+                  <span class="carte__prix">{p.prix}.–</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </article>
+
+    <!-- 2. L'ardoise du jour -->
+    <article class="demo demo--inverse">
+      <div class="demo__texte">
+        <h3 class="titre-3">Voir le plat du jour, à jour</h3>
+        <p>Le matin, vous nous envoyez une photo de votre ardoise ou un simple message. Nous mettons votre plat du jour en ligne le matin même, sur votre site et sur vos réseaux. Essayez : écrivez le vôtre, il s’inscrit sur l’ardoise et sur le site de Chez Léonie, dans le téléphone en haut de page.</p>
+        <form class="saisie" data-ardoise-form>
+          <label>Plat du jour<input name="plat" maxlength="32" value="Filets de perche meunière" autocomplete="off"></label>
+          <label class="saisie__prix">Prix (CHF)<input name="prix" inputmode="numeric" maxlength="3" value="36" autocomplete="off"></label>
+        </form>
+        <p class="demo__ou">Plat du jour mis en ligne chaque matin, inclus dans l’abonnement Réseaux Essentiel et l’offre Maison.</p>
+      </div>
+      <div class="demo__live ardoise" aria-live="polite">
+        <p class="ardoise__resto">Chez Léonie</p>
+        <p class="ardoise__titre">Plat du jour</p>
+        <p class="ardoise__plat" data-ardoise-tableau>Filets de perche meunière</p>
+        <svg class="ardoise__trait" viewBox="0 0 300 16" aria-hidden="true"><path d="M3 10C60 2 120 15 180 7s90-3 117 3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" pathLength="1"/></svg>
+        <p class="ardoise__prix">CHF <span data-ardoise-prix>36</span></p>
+        <p class="ardoise__suite">Entrée du jour, velouté de courge 9.–<br>Dessert, tarte Tatin 12.–</p>
+      </div>
+    </article>
+
+    <!-- 3. Le plat en 3D -->
+    <article class="demo">
+      <div class="demo__texte">
+        <h3 class="titre-3">Tourner le plat avant de le commander</h3>
+        <p>Votre plat signature en 3D, à faire tourner du doigt. Sur téléphone, le client le pose sur sa table en réalité augmentée, à sa taille réelle. Un photographe vient chez vous, nous faisons le reste.</p>
+        <div class="qr">
+          <Fragment set:html={qr} />
+          <p>Sur ordinateur ? Scannez ce code avec votre téléphone pour poser le plat sur votre table.</p>
+        </div>
+        <p class="demo__ou">Plats en 3D inclus dans l’offre Maison.</p>
+      </div>
+      <div class="demo__live plat3d" data-plat3d style={`--comptoir:url(${comptoir.src})`}>
+        <model-viewer
+          data-src="/models/tagliatelle-ragu-v2.glb"
+          alt="Tagliatelle al ragù de l’Osteria del Lago, en 3D, posées sur un comptoir"
+          camera-controls touch-action="pan-y" disable-zoom disable-pan
+          shadow-intensity="2" shadow-softness="0.55" exposure="0.68" tone-mapping="aces" environment-image="neutral"
+          camera-orbit="-30deg 60deg 0.78m" min-camera-orbit="auto 60deg 0.78m" max-camera-orbit="auto 60deg 0.78m"
+          camera-target="0m 0.045m 0.02m" field-of-view="26deg" interpolation-decay="120"
+          ar ar-modes="webxr quick-look" ar-scale="fixed" interaction-prompt="none">
+          <button slot="ar-button" class="btn btn--jaune plat3d__ar" type="button">Voir sur ma table</button>
+        </model-viewer>
+        <div class="plat3d__lumiere" aria-hidden="true"></div>
+        <p class="plat3d__legende"><b>Tagliatelle al ragù</b><span>Osteria del Lago, CHF 24</span></p>
+        <p class="plat3d__aide" aria-hidden="true">Glissez pour tourner l’assiette</p>
+      </div>
+    </article>
+
+    <!-- 4. La réservation -->
+    <article class="demo demo--inverse">
+      <div class="demo__texte">
+        <h3 class="titre-3">Réserver en trois gestes</h3>
+        <p>Le jour, l’heure, le nombre de couverts : la table est réservée sans appel pendant le service. Nous branchons l’outil que vous utilisez déjà, Zenchef, foratable ou TheFork, ou nous vous aidons à en choisir un.</p>
+        <p class="demo__ou">Réservation en option, possible avec toutes nos offres.</p>
+      </div>
+      <div class="demo__live vitrine vitrine--leonie resa" data-resa>
+        <div class="vitrine__tete"><span class="vitrine__nom">Chez Léonie</span><span>Réserver une table</span></div>
+        <div class="resa__ligne" role="group" aria-label="Jour">
+          <button type="button" data-jour aria-pressed="true">Ven.</button>
+          <button type="button" data-jour aria-pressed="false">Sam.</button>
+          <button type="button" data-jour aria-pressed="false">Dim.</button>
+        </div>
+        <div class="resa__ligne" role="group" aria-label="Heure">
+          <button type="button" data-heure aria-pressed="false">19:00</button>
+          <button type="button" data-heure aria-pressed="true">19:30</button>
+          <button type="button" data-heure aria-pressed="false">20:30</button>
+        </div>
+        <div class="resa__couverts">
+          <button type="button" data-moins aria-label="Une personne de moins">−</button>
+          <output data-couverts>2</output>
+          <button type="button" data-plus aria-label="Une personne de plus">+</button>
+          <span>personnes</span>
+        </div>
+        <button type="button" class="resa__ok" data-reserver>Réserver</button>
+        <p class="resa__msg" role="status" aria-live="polite" data-resa-msg></p>
+      </div>
+    </article>
+
+      </div>
+</section>
+
+<!-- ============ La carte qui défile ============ -->
+<section class="defile" data-defile aria-label="La carte de l’Osteria del Lago défile à l’horizontale">
+  <div class="defile__colle">
+    <div class="cadre defile__tete">
+      <h2 class="titre-2">Une carte qui se feuillette</h2>
+      <p>Le défilement fait glisser les plats, un par un, comme on tourne les pages. Photos d’un même reportage, même lumière, même cadrage.</p>
+    </div>
+    <ul class="defile__piste" data-piste>
+      {defile.map((p, i) => (
+        <li class="plat">
+          <img src={p.img} alt={p.nom} width="900" height="675" loading="lazy" decoding="async" />
+          <div class="plat__bas"><div><h3>{p.nom}</h3><p>{p.desc}</p></div><span>{p.prix}.–</span></div>
+        </li>
+      ))}
+      <li class="plat plat--fin"><p>Osteria del Lago</p><a class="lien" href="/demos/osteria/">Ouvrir le site complet</a></li>
+    </ul>
+    <div class="defile__barre" aria-hidden="true"><i data-barre></i></div>
+  </div>
+</section>
+
+<!-- ============ Avant / après ============ -->
+<section class="bloc bloc--ardoise">
+  <div class="cadre">
+    <header class="bloc__tete">
+      <h2 class="titre-2">Le même restaurant, avant et après</h2>
+      <p>Faites glisser le curseur. À gauche, un site comme on en voit encore beaucoup. À droite, Chez Léonie tel que nous le ferions.</p>
+    </header>
+    <div class="compare" data-compare style="--p:30%">
+      <div class="compare__avant" aria-hidden="true">
+        <div class="vieux__barre">Accueil | Menu (PDF) | Contact | Plan d’accès</div>
+        <p class="vieux__titre">Bienvenue sur le site du Restaurant</p>
+        <p>Notre restaurant vous accueille dans un cadre agréable. Cuisine traditionnelle, ambiance familiale.</p>
+        <p>Ouvert du lundi au samedi. Fermé le dimanche.</p>
+        <p class="vieux__lien">Télécharger notre menu (PDF, 4.2 Mo)</p>
+        <p class="vieux__pied">© 2014 – Tous droits réservés</p>
+      </div>
+      <div class="compare__apres" aria-hidden="true">
+        <p class="apres__genre">Bistrot de quartier, Carouge</p>
+        <p class="apres__nom">Chez Léonie</p>
+        <p class="apres__jour">Plat du jour : <span data-ardoise-nom>Filets de perche meunière</span>, CHF <span data-ardoise-prix>36</span></p>
+        <p class="apres__btns"><span>Réserver une table</span><span>Voir la carte</span></p>
+        <p class="apres__h">Service de midi jusqu’à 14 h</p>
+        <img class="apres__photo" src={salle.src} alt="" width="1200" height="800" loading="lazy" decoding="async" />
+      </div>
+      <input class="compare__curseur" type="range" min="0" max="100" value="30" aria-label="Comparer avant et après">
+      <span class="compare__poignee" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>
+
+<Appel />
+
+<script>
+  import '../scripts/demos.js';
+</script>
+</Base>
