@@ -318,6 +318,8 @@ ul, ol { padding: 0; list-style: none; }
 .offre--phare .offre__pour { color: #C6D0CC; }
 .offre--phare .offre__prix { color: var(--jaune); }
 .offre--phare li { border-color: rgb(255 255 255 / 0.16); }
+.offre li.offre__option::before { content: '+'; width: auto; height: auto; border: 0; transform: none; top: 8px; font-weight: 700; }
+.offre__suivi a { color: inherit; font-weight: 700; }
 
 /* ---------- méthode ---------- */
 .etapes { display: grid; gap: 24px; counter-reset: etape; }
