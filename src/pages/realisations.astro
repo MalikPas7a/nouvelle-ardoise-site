@@ -1,0 +1,96 @@
+---
+// Ce que nous avons déjà fait ou montrons en exemple : Pasta Mo', les animations au défilement, la vidéo de Sora.
+import Base from '../layouts/Base.astro';
+import Appel from '../components/Appel.astro';
+import { ANIMATIONS } from '../data/animations.js';
+---
+<Base page="realisations" title="Réalisations | Nouvelle Ardoise" description="Pasta Mo’, nos animations au défilement (kebab, pizza, sushi) et un exemple de vidéo pour les réseaux sociaux.">
+
+<section class="bloc page-tete">
+  <div class="cadre">
+    <header class="bloc__tete">
+      <h1 class="titre-2">Nos réalisations</h1>
+      <p>Notre propre enseigne, des animations au défilement et une vidéo pour les réseaux. Faites défiler.</p>
+    </header>
+  </div>
+</section>
+
+<!-- ============ Déjà fait : Pasta Mo', au défilement ============ -->
+<section class="sequence sequence--pastamo" data-sequence="pastamo" data-images="72" data-tailles="g" data-sujet="0.385,0.58" aria-label="Pasta Mo’ : le parmesan tombe sur la bolognese, puis l’huile d’olive coule sur le pesto, au rythme du défilement">
+  <div class="sequence__colle">
+    <canvas class="sequence__toile" aria-hidden="true"></canvas>
+    <div class="sequence__voile" aria-hidden="true"></div>
+    <div class="cadre sequence__textes">
+      <div class="sequence__texte sequence__texte--droite" data-de="-0.2" data-a="0.42">
+        <h2 class="titre-2">Déjà fait : Pasta Mo’</h2>
+        <p class="chapo">Notre propre enseigne de street food italienne, à Genève. Faites défiler : le parmesan tombe sur la bolognese.</p>
+      </div>
+      <div class="sequence__texte sequence__texte--droite" data-de="0.52" data-a="1.2">
+        <p class="titre-2">Puis l’huile d’olive, sur le pesto.</p>
+        <p class="chapo">C’est le principe du site de Pasta Mo’ : un geste, un plan. Nous connaissons le service du midi de l’intérieur.</p>
+        <div class="actions"><a class="btn btn--jaune" href="https://pastamo.ch" target="_blank" rel="noopener">Voir pastamo.ch</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Vos plats en mouvement : un onglet par animation, chacune s'ouvre sur sa propre page ============ -->
+<section class="bloc bloc--ardoise mouvement" id="en-mouvement">
+  <div class="cadre">
+    <div class="mouvement__tete">
+      <h2 class="titre-2">Vos plats, en mouvement</h2>
+      <p>Des animations qui avancent au rythme du doigt, en plein écran. Choisissez un exemple, puis ouvrez-le.</p>
+    </div>
+    <div class="onglets onglets--sombre" role="tablist" aria-label="Choisir une animation" data-onglets>
+      {ANIMATIONS.map((a, i) => (
+        <button type="button" role="tab" id={`onglet-${a.id}`} aria-controls={`anim-${a.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? undefined : '-1'}><b>{a.onglet}</b><span>{a.sous}</span></button>
+      ))}
+    </div>
+    {ANIMATIONS.map((a) => (
+      <div class="anim" id={`anim-${a.id}`} role="tabpanel" aria-labelledby={`onglet-${a.id}`}>
+        <a class="anim__apercu" href={`/animations/${a.id}/`} target="_blank" rel="noopener">
+          <img src={a.apercu} alt="" width="1600" height="900" loading="lazy" decoding="async" />
+          <span class="anim__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+        </a>
+        <div class="anim__texte">
+          <h3>{a.titre}</h3>
+          <p>{a.resume}</p>
+          <a class="btn btn--jaune" href={`/animations/${a.id}/`} target="_blank" rel="noopener">Lancer l’animation</a>
+          <p class="anim__note">S’ouvre en plein écran dans un nouvel onglet. Faites défiler pour la faire avancer.</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- ============ Vidéo pour les réseaux : l'exemple de Sora ============ -->
+<section class="bloc" id="video">
+  <div class="cadre">
+    <header class="bloc__tete">
+      <h2 class="titre-2">Une vidéo, le site et Instagram</h2>
+      <p>Le même tournage sert partout : sur votre site et en réel sur vos réseaux.</p>
+    </header>
+    <div class="reseaux">
+      <figure class="reseaux__exemple">
+        <button type="button" class="reseaux__lecture" data-ouvrir-video aria-label="Regarder la vidéo d’exemple, avec le son">
+          <video src="/media/exemple-sora.mp4" poster="/media/exemple-sora.jpg" muted loop playsinline preload="none" width="432" height="768" data-video-exemple aria-hidden="true"></video>
+          <span class="reseaux__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
+        </button>
+        <figcaption><b>Exemple : Sora, comptoir à ramen</b> On filme la salle et le plat du jour, puis la même vidéo part sur le site et en réel sur Instagram, aux couleurs du restaurant. <a class="reseaux__voir" href="/media/exemple-sora-hd.mp4" data-ouvrir-video>Regarder la vidéo</a></figcaption>
+      </figure>
+      <dialog class="visionneuse" data-visionneuse aria-label="Vidéo d’exemple : Sora, comptoir à ramen">
+        <video controls playsinline preload="none" poster="/media/exemple-sora.jpg" width="720" height="1280" data-video-grande></video>
+        <form method="dialog"><button class="visionneuse__fermer" aria-label="Fermer la vidéo">×</button></form>
+      </dialog>
+    </div>
+  </div>
+</section>
+
+<Appel />
+
+<script>
+  import '../scripts/defilement.js';
+  import '../scripts/onglets.js';
+  import '../scripts/video.js';
+</script>
+</Base>
