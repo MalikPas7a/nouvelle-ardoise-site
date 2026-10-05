@@ -704,3 +704,11 @@ model-viewer:not(:defined) > * { display: none; }
 .art-exemple__note { font-size: 0.9rem; color: #A8957F; max-width: 52ch; }
 .vente__sur { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ardoise) !important; }
 .art-tete + .art-exemple { margin-top: 0; padding-top: 0; border-top: 0; }
+
+/* ---------- Garde-fous de mise en page ---------- */
+/* Les onglets peuvent rétrécir sous la largeur de leur plus long mot (3 colonnes sur petit téléphone) */
+.onglets button { min-width: 0; }
+.onglets b, .onglets span { overflow-wrap: anywhere; }
+@media (max-width: 360px) { .onglets--trois button, .onglets--sombre button { padding: 10px 8px; } .onglets--trois b, .onglets--sombre b { font-size: 0.9rem; } }
+/* Filet de sécurité : rien ne doit faire défiler la page de côté. « clip » ne gêne pas le menu collant. */
+html, body { overflow-x: clip; }
