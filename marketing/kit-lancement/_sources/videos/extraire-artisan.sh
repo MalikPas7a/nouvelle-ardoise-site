@@ -3,7 +3,8 @@
 # et écrit videos/images-artisan/index.js (window.VIDEOS : nombre d'images par plan).
 #   sh videos/extraire-artisan.sh <dossier des vidéos Pexels>
 # Vidéos Pexels, licence Pexels (usage commercial autorisé) : 4458588, 4458593, 4458586 (chocolat),
-# 32710206 (tarte), 7012966 (truffes). Fichiers pNUMÉRO.mp4, téléchargés depuis
+# 32710206 (tarte), 7012966 (truffes) ; pour le réel « coulisses » : 5930369 (glaçage), 6666288 (fraises),
+# 30557962 (pain). Fichiers pNUMÉRO.mp4, téléchargés depuis
 # https://www.pexels.com/download/video/NUMÉRO/ (non gardés dans le dépôt, trop lourds).
 cd "$(dirname "$0")"
 SRC="$1"
@@ -17,7 +18,8 @@ plan tempere p4458593.mp4 2.0 2.7 0.45
 plan racle p4458586.mp4 3.0 2.7 0.5
 plan tarte p32710206.mp4 0 2.9 0.3
 plan truffes p7012966.mp4 1.0 3.6 0.5
-printf 'window.VIDEOS = { coulee: %s, tempere: %s, racle: %s, tarte: %s, truffes: %s };\n' \
-  "$(ls images-artisan/coulee | wc -l)" "$(ls images-artisan/tempere | wc -l)" "$(ls images-artisan/racle | wc -l)" \
-  "$(ls images-artisan/tarte | wc -l)" "$(ls images-artisan/truffes | wc -l)" > images-artisan/index.js
+plan glacage p5930369.mp4 0.5 4.0 0.5
+plan fraises p6666288.mp4 7.5 2.4 0.5
+plan pain p30557962.mp4 5.0 2.4 0.5
+{ printf 'window.VIDEOS = {'; for d in images-artisan/*/; do n=$(basename $d); printf ' %s: %s,' $n "$(ls $d | wc -l)"; done; printf ' };\n'; } > images-artisan/index.js
 cat images-artisan/index.js

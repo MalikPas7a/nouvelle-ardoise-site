@@ -44,7 +44,6 @@ const lien = (offre) => '/contact/?offre=' + encodeURIComponent(offre);
           <li>Carte redessinée : web, imprimable, QR codes</li>
           <li>Deux heures de shooting offertes à la création : vos produits et votre savoir-faire au cœur du site</li>
           <li>Plat du jour mis en ligne chaque matin (avec l’abonnement Réseaux Essentiel)</li>
-          <li>Réservation, click and collect ou paiement TWINT branché</li>
         </ul>
         <p class="offre__suivi"><b>Ensuite, l’abonnement Réseaux Essentiel</b> : entretien du site, réseaux sociaux et une heure de shooting par mois, CHF 490 par mois (CHF 392 les 3 premiers mois). <a href="#reseaux">Voir l’abonnement</a></p>
         <a class="btn btn--jaune" href={lien('Signature')} data-offre="Signature">Choisir Signature</a>
@@ -60,20 +59,9 @@ const lien = (offre) => '/contact/?offre=' + encodeURIComponent(offre);
           <li>Deux heures de shooting chaque mois, photos, vidéos et réseaux</li>
           <li>Carte en deux langues</li>
         </ul>
-        <p class="offre__suivi">Suivi complet, pour un petit nombre de restaurants.</p>
+        <p class="offre__suivi">Suivi complet, pour un petit nombre d’adresses.</p>
         <a class="btn btn--clair" href={lien('Maison')} data-offre="Maison">Choisir Maison</a>
       </article>
-    </div>
-    <!-- Commander, payer, réserver : l'une des trois solutions branchées selon le métier -->
-    <div class="vente">
-      <h3 class="titre-3">Commander, payer, réserver</h3>
-      <p>Avec les offres Signature et Maison, nous branchons sur votre site la solution qui correspond à votre métier :</p>
-      <ul>
-        <li><b>Réservation de table</b> : avec l’outil que vous utilisez déjà (TheFork, Zenchef, foratable), ou un nouveau.</li>
-        <li><b>Click and collect</b> : vos clients commandent en ligne et passent chercher leur commande à l’heure choisie.</li>
-        <li><b>Paiement en ligne</b> : par carte ou TWINT, au moment de la commande.</li>
-      </ul>
-      <p class="vente__note"><a class="lien" href="/artisans/">Voir la page Artisans</a></p>
     </div>
     </div>
     <div class="offres__panneau" id="offres-reseaux" role="tabpanel" aria-labelledby="onglet-reseaux">
@@ -123,7 +111,7 @@ const lien = (offre) => '/contact/?offre=' + encodeURIComponent(offre);
           <p class="offre__prix"><s>CHF 990</s> CHF 792 <span class="offre__remise">−20 %</span> <small>une seule fois</small></p>
           <p class="offre__pour">Sans abonnement : un tournage, et c’est parti.</p>
           <ul>
-            <li>Deux heures de tournage au restaurant</li>
+            <li>Deux heures de tournage chez vous</li>
             <li>4 réels montés, prêts à publier</li>
             <li>Photos de vos plats, sans limite pendant le tournage</li>
           </ul>
@@ -137,6 +125,18 @@ const lien = (offre) => '/contact/?offre=' + encodeURIComponent(offre);
       <p>Dans l’offre Premium, nous gérons votre publicité. Le budget, vous le payez directement à Facebook (Meta) ou à Google, avec votre carte, dans votre propre compte : vous gardez la main et vous ne payez aucune commission dessus. On vous conseille de commencer avec 10 à 15 francs par jour. Nous créons les campagnes, ciblons les gens autour du restaurant à l’heure des repas, et vous envoyons chaque mois un bilan clair : combien de personnes ont vu vos annonces, combien ont cliqué, appelé ou réservé.</p>
     </details>
     </div>
+    <!-- Options de vente : possibles avec toutes les offres, jamais incluses dans le prix -->
+    <div class="vente">
+      <p class="vente__sur">En option, avec toutes nos offres</p>
+      <h3 class="titre-3">Réservation, click and collect, paiement TWINT</h3>
+      <p>Ces options ne sont pas comprises dans nos prix. Selon votre métier, nous branchons sur votre site l’une de ces solutions, avec n’importe laquelle de nos offres, site ou réseaux :</p>
+      <ul>
+        <li><b>Réservation de table</b> : avec l’outil que vous utilisez déjà (TheFork, Zenchef, foratable), ou un nouveau.</li>
+        <li><b>Click and collect</b> : vos clients commandent en ligne et passent chercher leur commande à l’heure choisie.</li>
+        <li><b>Paiement en ligne</b> : par carte ou TWINT, au moment de la commande.</li>
+      </ul>
+      <p class="vente__note">Le prix dépend de la solution choisie : nous vous le donnons dans le devis. <a class="lien" href="/contact/">Demander un devis</a></p>
+    </div>
   </div>
 </section>
 
@@ -147,9 +147,9 @@ const lien = (offre) => '/contact/?offre=' + encodeURIComponent(offre);
       <h2 class="titre-2">En ligne en deux semaines</h2>
     </header>
     <ol class="etapes" data-etapes>
-      <li><h3>Un café chez vous</h3><p>Vingt minutes au restaurant, hors service. On choisit l’offre et les options, vous recevez un devis clair.</p></li>
+      <li><h3>Un café chez vous</h3><p>Vingt minutes chez vous, hors service. On choisit l’offre et les options, vous recevez un devis clair.</p></li>
       <li><h3>Une première version en cinq jours</h3><p>Vous voyez votre site sur votre téléphone, avec votre carte. Puis deux allers-retours de corrections.</p></li>
-      <li><h3>Mise en ligne, et on reste là</h3><p>Nom de domaine, réservation branchée, fiche Google à jour. Vous savez comment demander une modification.</p></li>
+      <li><h3>Mise en ligne, et on reste là</h3><p>Nom de domaine, fiche Google à jour, options branchées si vous en avez choisi. Vous savez comment demander une modification.</p></li>
     </ol>
   </div>
 </section>
