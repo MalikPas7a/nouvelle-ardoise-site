@@ -8,8 +8,8 @@ import Base from '../layouts/Base.astro';
 import Appel from '../components/Appel.astro';
 
 const PIECES = [
-  { img: '/artisans/tarte.webp', l: 1600, h: 900, nom: 'Tarte chocolat framboise', ligne: 'Pâte sablée cacao, ganache, framboises fraîches', large: true },
-  { img: '/artisans/truffes-photo.webp', l: 900, h: 1125, nom: 'Truffes au cacao', ligne: 'Roulées à la main, chaque matin' },
+  { img: '/artisans/tarte-framboise.webp', img2x: '/artisans/tarte-framboise-2400.webp 2400w', l: 1600, h: 900, nom: 'Tarte chocolat framboise', ligne: 'Pâte sablée cacao, ganache, framboises fraîches', large: true },
+  { img: '/artisans/bonbons.webp', img2x: '/artisans/bonbons-1350.webp 1350w', l: 900, h: 1125, nom: 'Bonbons de chocolat', ligne: 'Coque fine, décor posé à la main' },
   { img: '/artisans/entremets.webp', l: 900, h: 1125, nom: 'Entremets, glaçage miroir', ligne: 'Lissé d’un seul geste' },
   { img: '/artisans/baguettes.webp', l: 1600, h: 900, nom: 'Baguette de tradition', ligne: 'Levain, longue fermentation, cuite sur sole', large: true },
 ];
@@ -71,7 +71,7 @@ const PIECES = [
     <div class="art-pieces__grille">
       {PIECES.map((p) => (
         <figure class:list={['art-piece', { 'art-piece--large': p.large }]}>
-          <img src={p.img} alt={p.nom} width={p.l} height={p.h} loading="lazy" decoding="async" />
+          <img src={p.img} srcset={p.img2x && `${p.img} ${p.l}w, ${p.img2x}`} sizes={p.img2x && (p.large ? '(min-width: 1240px) 1160px, 92vw' : '(min-width: 1240px) 560px, (min-width: 760px) 46vw, 92vw')} alt={p.nom} width={p.l} height={p.h} loading="lazy" decoding="async" />
           <figcaption><b>{p.nom}</b><span>{p.ligne}</span></figcaption>
         </figure>
       ))}
@@ -86,9 +86,9 @@ const PIECES = [
       <h2 class="art-titre art-titre--2">Les coulisses, <em>en réels.</em></h2>
       <p>Le geste, la précision, le temps passé : c’est ce qui fait revenir vos clients. Nous le filmons chez vous, nous le montons comme ci-dessous, puis nous le publions sur Instagram et sur votre site.</p>
     </header>
-    <!-- Le réel des coulisses, tel qu'on le livre, et le programme d'un mois -->
+    <!-- Le réel artisans, tel qu'on le livre, et le programme d'un mois -->
     <div class="art-exemple">
-      <video src="/artisans/reel-coulisses.mp4" poster="/artisans/reel-coulisses.webp" controls playsinline preload="none" width="720" height="1280" aria-label="Exemple de réel des coulisses, monté en motion design, avec le son"></video>
+      <video src="/artisans/reel-artisans.mp4" poster="/artisans/reel-artisans.webp" controls playsinline preload="none" width="1080" height="1920" aria-label="Exemple de réel pour les artisans : le savoir-faire filmé à l’atelier, les créations sublimées, avec la musique"></video>
       <div class="art-exemple__texte">
         <p class="art-sur">Ce qu’on livre chaque mois</p>
         <h3 class="art-titre art-titre--3">Vos quatre réels <em>du mois.</em></h3>
@@ -98,7 +98,7 @@ const PIECES = [
           <li><span><b>Semaine 3, l’équipe</b> : les mains et les visages de la maison.</span></li>
           <li><span><b>Semaine 4, la saison</b> : le fruit du moment, les fêtes, la nouveauté en vitrine.</span></li>
         </ol>
-        <p class="art-exemple__note">Tournés chez vous pendant l’heure de shooting, montés en motion design comme cet exemple : rythme calé sur la musique, titres animés, écrans partagés. Puis publiés sur Instagram et sur votre site.</p>
+        <p class="art-exemple__note">Tournés chez vous pendant l’heure de shooting, montés en motion design comme cet exemple : coupes calées sur la musique, titres animés, avant et après. Puis publiés sur Instagram et sur votre site.</p>
       </div>
     </div>
     <!-- Un réel complet d'exemple : boutique, savoir-faire, création, distinctions, adresse -->
