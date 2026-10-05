@@ -13,12 +13,6 @@ const PIECES = [
   { img: '/artisans/entremets.webp', l: 900, h: 1125, nom: 'Entremets, glaçage miroir', ligne: 'Lissé d’un seul geste' },
   { img: '/artisans/baguettes.webp', l: 1600, h: 900, nom: 'Baguette de tradition', ligne: 'Levain, longue fermentation, cuite sur sole', large: true },
 ];
-const REELS = [
-  { id: 'glacage', titre: 'Le glaçage miroir' },
-  { id: 'truffes', titre: 'La ganache, dans les coques' },
-  { id: 'fraises', titre: 'Les fraises, une à une' },
-  { id: 'pain', titre: 'Le pain, enfourné à la pelle' },
-];
 ---
 <Base page="artisans" title="Sites et vidéos pour chocolatiers, pâtissiers et boulangers | Nouvelle Ardoise" description="Votre savoir-faire au cœur de votre site : photos de vos créations, vidéos de vos gestes pour Instagram, click and collect et paiement TWINT. Genève et Vaud.">
 
@@ -90,21 +84,28 @@ const REELS = [
   <div class="cadre">
     <header class="art-tete">
       <h2 class="art-titre art-titre--2">Les coulisses, <em>en réels.</em></h2>
-      <p>Le geste, la précision, le temps passé : c’est ce qui fait revenir vos clients. Nous le filmons en vertical, nous le montons, puis nous le publions sur Instagram et sur votre site.</p>
+      <p>Le geste, la précision, le temps passé : c’est ce qui fait revenir vos clients. Nous le filmons chez vous, nous le montons comme ci-dessous, puis nous le publions sur Instagram et sur votre site.</p>
     </header>
-    <ul class="art-reels__liste">
-      {REELS.map((r) => (
-        <li>
-          <video src={`/artisans/${r.id}.mp4`} poster={`/artisans/${r.id}.webp`} muted loop playsinline preload="none" width="540" height="960" data-reel aria-label={r.titre}></video>
-          <p>{r.titre}</p>
-        </li>
-      ))}
-    </ul>
+    <!-- Le réel des coulisses, tel qu'on le livre, et le programme d'un mois -->
+    <div class="art-exemple">
+      <video src="/artisans/reel-coulisses.mp4" poster="/artisans/reel-coulisses.webp" controls playsinline preload="none" width="720" height="1280" aria-label="Exemple de réel des coulisses, monté en motion design, avec le son"></video>
+      <div class="art-exemple__texte">
+        <p class="art-sur">Ce qu’on livre chaque mois</p>
+        <h3 class="art-titre art-titre--3">Vos quatre réels <em>du mois.</em></h3>
+        <ol>
+          <li><span><b>Semaine 1, les coulisses</b> : l’atelier avant l’ouverture, le geste en gros plan.</span></li>
+          <li><span><b>Semaine 2, la création du mois</b> : une pièce, mise en scène, du début à la fin.</span></li>
+          <li><span><b>Semaine 3, l’équipe</b> : les mains et les visages de la maison.</span></li>
+          <li><span><b>Semaine 4, la saison</b> : le fruit du moment, les fêtes, la nouveauté en vitrine.</span></li>
+        </ol>
+        <p class="art-exemple__note">Tournés chez vous pendant l’heure de shooting, montés en motion design comme cet exemple : rythme calé sur la musique, titres animés, écrans partagés. Puis publiés sur Instagram et sur votre site.</p>
+      </div>
+    </div>
     <!-- Un réel complet d'exemple : boutique, savoir-faire, création, distinctions, adresse -->
     <div class="art-exemple">
       <video src="/artisans/reel-exemple.mp4" poster="/artisans/reel-exemple.webp" controls playsinline preload="none" width="720" height="1280" aria-label="Exemple de réel pour un chocolatier, avec le son"></video>
       <div class="art-exemple__texte">
-        <p class="art-sur">Exemple de réel complet</p>
+        <p class="art-sur">Le réel de présentation</p>
         <h3 class="art-titre art-titre--3">Tout ce qu’un réel <em>doit dire.</em></h3>
         <ol>
           <li><span><b>L’accroche</b> : le geste que personne ne voit.</span></li>
@@ -141,7 +142,7 @@ const REELS = [
   <div class="cadre">
     <header class="art-tete">
       <h2 class="art-titre art-titre--2">Montrer, <em>puis vendre.</em></h2>
-      <p>Selon votre métier, nous branchons sur votre site la solution qui vous convient.</p>
+      <p>En option, avec toutes nos offres : selon votre métier, nous branchons sur votre site la solution qui vous convient.</p>
     </header>
     <ul class="art-vendre__liste">
       <li><b>Click and collect</b><span>Vos clients commandent en ligne et passent chercher leurs pâtisseries à l’heure choisie.</span></li>
