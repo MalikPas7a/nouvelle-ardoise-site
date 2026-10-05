@@ -27,3 +27,5 @@ __pycache__/
 # vidéo concept : images extraites et voix générées (voir marketing/kit-lancement/_sources)
 marketing/kit-lancement/_sources/videos/concept/
 marketing/kit-lancement/_sources/voix/*.wav
+marketing/kit-lancement/_sources/videos/originaux/
+marketing/kit-lancement/_sources/videos/artisans/
