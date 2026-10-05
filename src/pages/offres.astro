@@ -42,9 +42,9 @@ const lien = (offre) => '/contact/?offre=' + encodeURIComponent(offre);
           <li>Tout l’Essentiel</li>
           <li>Votre plat signature animé au défilement</li>
           <li>Carte redessinée : web, imprimable, QR codes</li>
-          <li>Deux heures de shooting offertes à la création</li>
+          <li>Deux heures de shooting offertes à la création : vos produits et votre savoir-faire au cœur du site</li>
           <li>Plat du jour mis en ligne chaque matin (avec l’abonnement Réseaux Essentiel)</li>
-          <li>Réservation branchée sur votre outil</li>
+          <li>Réservation, click and collect ou paiement TWINT branché</li>
         </ul>
         <p class="offre__suivi"><b>Ensuite, l’abonnement Réseaux Essentiel</b> : entretien du site, réseaux sociaux et une heure de shooting par mois, CHF 490 par mois (CHF 392 les 3 premiers mois). <a href="#reseaux">Voir l’abonnement</a></p>
         <a class="btn btn--jaune" href={lien('Signature')} data-offre="Signature">Choisir Signature</a>
@@ -63,6 +63,17 @@ const lien = (offre) => '/contact/?offre=' + encodeURIComponent(offre);
         <p class="offre__suivi">Suivi complet, pour un petit nombre de restaurants.</p>
         <a class="btn btn--clair" href={lien('Maison')} data-offre="Maison">Choisir Maison</a>
       </article>
+    </div>
+    <!-- Commander, payer, réserver : l'une des trois solutions branchées selon le métier -->
+    <div class="vente">
+      <h3 class="titre-3">Commander, payer, réserver</h3>
+      <p>Avec les offres Signature et Maison, nous branchons sur votre site la solution qui correspond à votre métier :</p>
+      <ul>
+        <li><b>Réservation de table</b> : avec l’outil que vous utilisez déjà (TheFork, Zenchef, foratable), ou un nouveau.</li>
+        <li><b>Click and collect</b> : vos clients commandent en ligne et passent chercher leur commande à l’heure choisie.</li>
+        <li><b>Paiement en ligne</b> : par carte ou TWINT, au moment de la commande.</li>
+      </ul>
+      <p class="vente__note"><a class="lien" href="/artisans/">Voir la page Artisans</a></p>
     </div>
     </div>
     <div class="offres__panneau" id="offres-reseaux" role="tabpanel" aria-labelledby="onglet-reseaux">
