@@ -57,6 +57,7 @@ import { ANIMATIONS } from '../data/animations.js';
           <p>{a.resume}</p>
           <a class="btn btn--jaune" href={`/animations/${a.id}/`} target="_blank" rel="noopener">Lancer l’animation</a>
           <p class="anim__note">S’ouvre en plein écran dans un nouvel onglet. Faites défiler pour la faire avancer.</p>
+          {a.credit && <p class="anim__note anim__credit"><a href={a.creditLien} target="_blank" rel="noopener">{a.credit}</a></p>}
         </div>
       </div>
     ))}
