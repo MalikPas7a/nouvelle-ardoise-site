@@ -45,10 +45,27 @@ const jsonLd = JSON.stringify({
         <span aria-hidden="true">Envie de passer l’éponge sur <span class="efface"><span class="efface__mot">l’improvisation</span><span class="efface__trace">l’improvisation</span><svg class="efface__brosse" viewBox="0 0 40 120"><rect x="2" y="2" width="22" height="116" rx="7" fill="#C9975C"/><rect x="2" y="2" width="9" height="116" rx="5" fill="#E2B57A"/><rect x="22" y="4" width="15" height="112" rx="4" fill="#3C4245"/><rect x="33" y="6" width="3" height="108" fill="#E8EDEC" opacity=".35"/></svg></span>&nbsp;?</span>
       </h1>
       <p class="eponge__nouveau">Place à la <mark>mise en place.</mark></p>
-      <p class="chapo eponge__chapo">Une stratégie préparée comme un service : on attire de nouveaux clients, on les fait réserver ou commander, puis on les fait revenir. Visibilité, réseaux sociaux, site, fidélité, pour les restaurants et les métiers de bouche de Genève et Vaud.</p>
+      <p class="chapo eponge__chapo">Site, design, réseaux sociaux, shootings photo et vidéo, stratégie d’acquisition et suivi : tout ce qu’il faut pour attirer de nouveaux clients et les faire revenir.</p>
       <div class="actions eponge__actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a><a class="lien" href="/restaurants/">Essayer trois exemples</a></div>
       <p class="sequence__indice eponge__indice" aria-hidden="true"><span></span>Faites défiler</p>
     </div>
+  </div>
+</section>
+
+<!-- ============ Nos métiers : la ligne conductrice, en un coup d'œil ============ -->
+<section class="bloc metiers-bloc" aria-labelledby="titre-metiers">
+  <div class="cadre">
+    <header class="bloc__tete">
+      <h2 class="titre-2" id="titre-metiers">Cinq métiers, un seul objectif : plus de clients</h2>
+      <p>On s’occupe de tout ce qui fait venir et revenir vos clients, de la première recherche au retour à table.</p>
+    </header>
+    <ol class="metiers">
+      <li><span class="metiers__n">01</span><h3>Site web</h3><p>Rapide, pensé pour le téléphone : votre carte, vos horaires, la réservation ou la commande en un geste.</p><a class="lien" href="/restaurants/">Essayer des exemples</a></li>
+      <li><span class="metiers__n">02</span><h3>Design</h3><p>Carte, logo, supports en salle, emballages : une image cohérente, de la vitrine à l’addition.</p><a class="lien" href="/offres/">Voir les offres</a></li>
+      <li><span class="metiers__n">03</span><h3>Réseaux sociaux</h3><p>Réels, publications et menu du jour, publiés pour vous chaque semaine sur Instagram et Facebook.</p><a class="lien" href="/offres/#reseaux">Voir l’abonnement</a></li>
+      <li><span class="metiers__n">04</span><h3>Shootings photo et vidéo</h3><p>On vient chez vous filmer vos plats et vos gestes. Ce sont ces images qui donnent envie et vous rendent visible.</p><a class="lien" href="/realisations/">Voir nos réalisations</a></li>
+      <li><span class="metiers__n">05</span><h3>Stratégie d’acquisition et suivi</h3><p>Publicité ciblée autour du restaurant, avis, fidélité, et un bilan clair chaque mois : on sait ce qui ramène du monde.</p><a class="lien" href="/contact/">En parler autour d’un café</a></li>
+    </ol>
   </div>
 </section>
 
@@ -85,3 +102,16 @@ const jsonLd = JSON.stringify({
   import '../scripts/defilement.js';
 </script>
 </Base>
+
+<style>
+  .metiers { display: grid; gap: 14px; counter-reset: none; }
+  .metiers li { display: grid; gap: 10px; align-content: start; padding: clamp(22px, 3vw, 28px); border-radius: 24px; background: var(--nappe); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s; }
+  .metiers li:hover { transform: translateY(-4px); background: #EEF1EC; }
+  .metiers__n { font-family: var(--titre); font-weight: 800; font-size: 0.95rem; color: var(--ardoise); justify-self: start; padding: 2px 10px; border-radius: 999px; background: var(--jaune); }
+  .metiers h3 { font-family: var(--titre); font-size: 1.45rem; letter-spacing: -0.02em; line-height: 1.1; }
+  .metiers p { color: var(--gris); }
+  .metiers .lien { justify-self: start; margin-top: 4px; }
+  @media (min-width: 720px) { .metiers { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1100px) { .metiers { grid-template-columns: repeat(5, 1fr); } }
+  @media (prefers-reduced-motion: reduce) { .metiers li, .metiers li:hover { transition: none; transform: none; } }
+</style>
