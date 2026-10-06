@@ -6,7 +6,7 @@ import { QUESTIONS } from '../data/questions.js';
 export function GET() {
   const texte = `# ${SITE.nom}
 
-> Agence de marketing digital pour les restaurants et les boutiques gourmandes (cafés, boulangeries, pâtisseries, chocolateries) de Genève et Vaud, en Suisse. Création de sites web, shooting photo et réels tournés chez le client, gestion des réseaux sociaux et de la publicité. Prix fixes et affichés.
+> Agence de marketing et de communication pour la restauration et les métiers de bouche (restaurants, cafés, boulangeries, pâtisseries, chocolateries) de Genève et Vaud, en Suisse. Stratégie marketing, acquisition de nouveaux clients, réseaux sociaux et publicité, shooting photo et réels tournés chez le client, sites web et commande en ligne, fidélisation. Prix fixes et affichés.
 
 ${SITE.nom} est une entreprise individuelle de ${SITE.responsable}, ${SITE.adresse}, ${SITE.localite}, ${SITE.pays}. Contact : ${SITE.email}.
 

@@ -1,0 +1,259 @@
+---
+// Restaurant Tech : le matériel (écrans, supports NFC) vendu installé, configuré et relié au marketing du restaurant.
+// Style « Ardoise tech » : les écrans sont dessinés comme des ardoises, à la craie, dans la continuité du site.
+import '@fontsource/caveat/600.css';
+import Base from '../layouts/Base.astro';
+import Appel from '../components/Appel.astro';
+import QRCode from 'qrcode';
+import { SITE } from '../config.js';
+
+const lien = (offre) => '/contact/?offre=' + encodeURIComponent(offre);
+// Le QR code du support de table mène vraiment quelque part : la page d'accueil du site
+const qr = (await QRCode.toString(SITE.url, { type: 'svg', margin: 0, errorCorrectionLevel: 'M', color: { dark: '#1E2A2C', light: '#0000' } }))
+  .replace('<svg ', '<svg aria-hidden="true" ');
+const bandeau = ['Burger signature · 18.90', 'Dessert du jour +4.–', 'Scannez et commandez', 'Menu du midi · 21.–', 'Laissez-nous un avis ★'];
+
+const produits = [
+  { id: 'tapmenu', nom: 'TapMenu', prix: 'CHF 149', unite: 'les 10 supports', pour: 'Sur chaque table : le client approche son téléphone et ouvre votre carte, commande, laisse un avis ou se connecte au Wi-Fi.', inclus: 'Logo gravé, liens réglés, carte en ligne' },
+  { id: 'menubar', nom: 'MenuBar', prix: 'dès CHF 690', unite: 'posé', pour: 'Un écran très large et fin, au-dessus du comptoir ou sous une étagère. L’offre du moment défile à hauteur des yeux.', inclus: 'Animation de votre offre, pose, mise à jour à distance' },
+  { id: 'menuscreen', nom: 'MenuScreen', prix: 'dès CHF 890', unite: 'posé', pour: 'Votre carte animée sur un écran de 32 pouces : le menu du midi à midi, les apéritifs à 18 h, tout seul.', inclus: 'Carte animée, programmation horaire, pose' },
+  { id: 'reviewtap', nom: 'Review Tap', prix: 'CHF 79', unite: 'le support', pour: 'Près de la caisse : un geste du téléphone et le client arrive directement sur la page pour laisser un avis.', inclus: 'Support à vos couleurs, lien vers votre fiche' },
+  { id: 'tablescreen', nom: 'TableScreen', prix: 'dès CHF 449', unite: 'la tablette', pour: 'Une tablette sur la table : photos des plats, options, panier, commande envoyée en cuisine.', inclus: 'Avec un logiciel de commande suisse, sur devis' },
+  { id: 'streetscreen', nom: 'StreetScreen', prix: 'dès CHF 1’490', unite: 'livré', pour: 'Un écran sur roulettes et sur batterie, devant la porte ou en terrasse. Le menu du jour attire les passants.', inclus: 'Vidéo de votre plat, menu du jour, QR à emporter' },
+];
+---
+<Base page="restaurant-tech" title="Restaurant Tech : écrans de menu et supports NFC installés | Nouvelle Ardoise" description="Écrans de menu, bandeaux d’affichage et supports NFC pour restaurants à Genève et Vaud : installés, configurés et animés par Nouvelle Ardoise.">
+
+<!-- ============ Ouverture ============ -->
+<section class="bloc bloc--ardoise rt-ouverture">
+  <div class="cadre rt-ouverture__in">
+    <div class="rt-ouverture__texte">
+      <p class="rt-sur">Restaurant Tech</p>
+      <h1 class="titre-1">Votre restaurant, connecté de la porte à l’addition</h1>
+      <p class="chapo">Écrans de menu, bandeaux d’offres, supports NFC sur les tables. On installe, on crée le contenu, on le met à jour. Vous gardez les mains en cuisine.</p>
+      <div class="rt-actions">
+        <a class="btn btn--jaune" href={lien('Restaurant Tech : démo')}>Voir une démo chez vous</a>
+        <a class="btn rt-btn-contour" href="#packs">Voir les packs</a>
+      </div>
+    </div>
+    <!-- Le bandeau MenuBar, dessiné à la craie, fait défiler une offre -->
+    <figure class="rt-menubar" aria-label="Exemple de bandeau MenuBar au-dessus d’un comptoir">
+      <div class="rt-menubar__ecran">
+        <div class="rt-menubar__piste" aria-hidden="true">
+          {[0, 1].map(() => <span>{bandeau.map((t) => <b>{t}<i>→</i></b>)}</span>)}
+        </div>
+        <p class="rt-menubar__fixe">Burger signature · 18.90 → Dessert +4.– → Scannez et commandez</p>
+      </div>
+      <figcaption>MenuBar, au-dessus du comptoir</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ Le parcours ============ -->
+<section class="bloc" id="parcours">
+  <div class="cadre">
+    <header class="bloc__tete">
+      <h2 class="titre-2">Un système, pas un gadget</h2>
+      <p>Chaque objet a un rôle précis dans le parcours de votre client. Ensemble, ils font venir, vendre plus et revenir.</p>
+    </header>
+    <ol class="rt-parcours">
+      <li><span>Devant la porte</span><b>Attirer</b><p>Le StreetScreen montre le plat du jour aux passants.</p></li>
+      <li><span>Au comptoir</span><b>Vendre plus</b><p>La MenuBar et le MenuScreen poussent le dessert et la boisson.</p></li>
+      <li><span>À table</span><b>Commander</b><p>Le TapMenu ouvre la carte, la commande et le paiement.</p></li>
+      <li><span>En partant</span><b>Revenir</b><p>Le Review Tap récolte les avis, la fidélité fait revenir.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ Le matériel ============ -->
+<section class="bloc bloc--nappe" id="materiel">
+  <div class="cadre">
+    <header class="bloc__tete">
+      <h2 class="titre-2">Le matériel, prêt à servir</h2>
+      <p>Testé, configuré à vos couleurs et installé par nous. Sans marque étrangère visible, avec votre logo au démarrage.</p>
+    </header>
+    <div class="rt-produits">
+      {produits.map((p) => (
+        <article class="rt-produit">
+          <div class={`rt-visuel rt-visuel--${p.id}`} aria-hidden="true">
+            {p.id === 'tapmenu' && <div class="rt-tap"><span class="rt-tap__nfc">))) </span><div class="rt-tap__qr" set:html={qr} /><span class="rt-tap__mot">Approchez votre téléphone</span></div>}
+            {p.id === 'menubar' && <div class="rt-mini-bar"><span>Formule midi · 21.– → Café offert</span></div>}
+            {p.id === 'menuscreen' && <div class="rt-ecran"><span class="rt-craie rt-craie--titre">Ce midi</span><span class="rt-craie">Risotto aux cèpes</span><span class="rt-craie rt-craie--prix">24.–</span><span class="rt-craie rt-craie--petit">Scannez pour commander</span></div>}
+            {p.id === 'reviewtap' && <div class="rt-avis"><span class="rt-avis__etoiles">★★★★★</span><span class="rt-craie rt-craie--petit">Un avis en un geste</span></div>}
+            {p.id === 'tablescreen' && <div class="rt-tablette"><i /><i /><i /><i /><span>Ajouter au panier</span></div>}
+            {p.id === 'streetscreen' && <div class="rt-street"><div class="rt-street__ecran"><span class="rt-craie rt-craie--titre">Aujourd’hui</span><span class="rt-craie">Ramen tonkotsu</span></div><div class="rt-street__roues"><i /><i /></div></div>}
+          </div>
+          <h3>{p.nom}</h3>
+          <p class="rt-produit__prix">{p.prix} <small>{p.unite}</small></p>
+          <p class="rt-produit__pour">{p.pour}</p>
+          <p class="rt-produit__inclus">{p.inclus}</p>
+        </article>
+      ))}
+    </div>
+    <p class="rt-note">Le matériel est commandé pour vous après la signature du devis : pas de stock, pas d’intermédiaire. Délai et garantie indiqués dans chaque devis.</p>
+  </div>
+</section>
+
+<!-- ============ Packs ============ -->
+<section class="bloc" id="packs">
+  <div class="cadre">
+    <header class="bloc__tete">
+      <h2 class="titre-2">Trois packs, tout compris</h2>
+      <p>Matériel, design, installation et réglages. Puis un abonnement pour que vos écrans restent vivants.</p>
+    </header>
+    <div class="offres">
+      <article class="offre">
+        <h3>Table connectée</h3>
+        <p class="offre__prix">CHF 690 <small>puis CHF 39 par mois</small></p>
+        <p class="offre__pour">Pour que chaque table ouvre votre carte.</p>
+        <ul>
+          <li>10 supports TapMenu à votre logo</li>
+          <li>1 Review Tap près de la caisse</li>
+          <li>Liens réglés : carte, avis, Instagram, Wi-Fi</li>
+          <li>Un regard sur le parcours de vos clients</li>
+        </ul>
+        <p class="offre__suivi">Livré et posé en une visite.</p>
+        <a class="btn btn--clair" href={lien('Pack Table connectée')}>Choisir ce pack</a>
+      </article>
+      <article class="offre offre--phare">
+        <h3>Restaurant digital</h3>
+        <p class="offre__prix">CHF 1’990 <small>puis CHF 89 par mois</small></p>
+        <p class="offre__pour">Pour vendre plus au comptoir, sans rien dire.</p>
+        <ul>
+          <li>1 MenuScreen 32 pouces ou 1 MenuBar</li>
+          <li>Votre carte animée, programmée selon l’heure</li>
+          <li>10 TapMenu et 1 Review Tap</li>
+          <li>Installation et réglages compris</li>
+        </ul>
+        <p class="offre__suivi">L’abonnement couvre les mises à jour de la carte et des offres.</p>
+        <a class="btn btn--jaune" href={lien('Pack Restaurant digital')}>Choisir ce pack</a>
+      </article>
+      <article class="offre">
+        <h3>À emporter</h3>
+        <p class="offre__prix">CHF 3’490 <small>puis CHF 129 par mois</small></p>
+        <p class="offre__pour">Pour les comptoirs qui vivent du take-away.</p>
+        <ul>
+          <li>1 StreetScreen devant la porte</li>
+          <li>1 écran « commandes prêtes »</li>
+          <li>10 TapMenu et le click and collect branché</li>
+          <li>Une campagne de lancement sur Instagram</li>
+        </ul>
+        <p class="offre__suivi">Avec un logiciel de commande suisse, paiement TWINT et carte.</p>
+        <a class="btn btn--clair" href={lien('Pack À emporter')}>Choisir ce pack</a>
+      </article>
+    </div>
+    <div class="vente">
+      <p class="vente__sur">Restaurants pilotes</p>
+      <h3 class="titre-3">Trois places à −30 %</h3>
+      <p>Pour les trois premiers restaurants équipés : −30 % sur le pack, en échange de photos de l’installation et d’un avis. Il reste trois places.</p>
+      <p class="vente__note"><a class="lien" href={lien('Restaurant Tech : pilote')}>Proposer mon restaurant</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Méthode ============ -->
+<section class="bloc bloc--nappe" id="methode">
+  <div class="cadre">
+    <header class="bloc__tete">
+      <h2 class="titre-2">Une démo chez vous, puis on s’occupe de tout</h2>
+    </header>
+    <ol class="etapes">
+      <li><h3>Quinze minutes à votre table</h3><p>On pose un TapMenu sur votre table et on allume un écran avec votre carte. Vous testez avec votre téléphone.</p></li>
+      <li><h3>Commande et réglages</h3><p>Devis clair, acompte, puis on prépare tout : contenus animés, liens, logo au démarrage.</p></li>
+      <li><h3>Installation, et on reste là</h3><p>Pose hors service. Un seul numéro pour une modification ou un souci, et vos offres changent à distance.</p></li>
+    </ol>
+  </div>
+</section>
+
+<Appel titre="Voyons ce que ça donne chez vous" texte="On vient avec le matériel et votre carte déjà chargée. Quinze minutes, hors service, sans engagement." />
+</Base>
+
+<style>
+  .rt-sur { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--jaune) !important; }
+  .rt-ouverture { overflow: hidden; }
+  .rt-ouverture__in { display: grid; gap: clamp(36px, 5vw, 64px); }
+  .rt-ouverture__texte { display: grid; gap: 20px; max-width: 760px; }
+  .rt-ouverture .chapo { color: #C6D0CC; }
+  .rt-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  .rt-btn-contour { background: transparent; box-shadow: inset 0 0 0 1.5px #F1EEE6; }
+
+  /* Le bandeau : une ardoise très large, cadre bois, texte à la craie qui défile */
+  .rt-menubar { margin: 0; display: grid; gap: 10px; }
+  .rt-menubar__ecran { position: relative; overflow: hidden; border: 10px solid #8A6240; border-radius: 8px; background: #26312F radial-gradient(ellipse at 30% 20%, rgb(255 255 255 / 0.08), transparent 60%); box-shadow: 0 24px 48px -24px rgb(0 0 0 / 0.6); }
+  .rt-menubar__piste { display: flex; width: max-content; padding-block: 14px; animation: rt-defile 28s linear infinite; }
+  .rt-menubar__piste span { display: flex; }
+  .rt-menubar__piste b, .rt-menubar__fixe { font-family: 'Caveat', cursive; font-weight: 600; font-size: clamp(1.8rem, 4vw, 2.8rem); color: #F1EEE6; white-space: nowrap; }
+  .rt-menubar__piste b { padding-inline: 18px; }
+  .rt-menubar__piste i { font-style: normal; color: var(--jaune); padding-left: 36px; }
+  .rt-menubar__fixe { display: none; padding: 14px 20px; white-space: normal; }
+  .rt-menubar figcaption { font-size: 0.9rem; color: #C6D0CC; }
+  @keyframes rt-defile { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .rt-menubar__piste { display: none; }
+    .rt-menubar__fixe { display: block; }
+  }
+
+  /* Le parcours en quatre moments */
+  .rt-parcours { display: grid; gap: 14px; }
+  .rt-parcours li { display: grid; gap: 6px; padding: 22px; border-radius: 20px; border: 1px solid var(--trait); }
+  .rt-parcours span { font-size: 0.85rem; font-weight: 600; color: var(--gris); }
+  .rt-parcours b { font-family: var(--titre); font-size: 1.6rem; letter-spacing: -0.02em; line-height: 1; background: linear-gradient(transparent 62%, var(--jaune) 62%, var(--jaune) 88%, transparent 88%); justify-self: start; }
+  .rt-parcours p { color: var(--gris); }
+  @media (min-width: 720px) { .rt-parcours { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1040px) { .rt-parcours { grid-template-columns: repeat(4, 1fr); } }
+
+  /* Les fiches produit */
+  .rt-produits { display: grid; gap: 16px; }
+  @media (min-width: 680px) { .rt-produits { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1040px) { .rt-produits { grid-template-columns: repeat(3, 1fr); } }
+  .rt-produit { display: grid; gap: 10px; align-content: start; padding: 16px 16px 24px; border-radius: 24px; background: var(--blanc); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s; }
+  .rt-produit:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -24px rgb(30 42 44 / 0.35); }
+  .rt-produit h3 { font-family: var(--titre); font-size: 1.6rem; letter-spacing: -0.02em; padding-inline: 8px; }
+  .rt-produit p { padding-inline: 8px; }
+  .rt-produit__prix { font-family: var(--titre); font-weight: 700; font-size: 1.35rem; font-variant-numeric: tabular-nums; }
+  .rt-produit__prix small { font-family: var(--texte); font-weight: 400; font-size: 0.9rem; color: var(--gris); }
+  .rt-produit__pour { color: var(--gris); }
+  .rt-produit__inclus { font-size: 0.92rem; padding-top: 10px; border-top: 1px solid var(--trait); }
+  .rt-produit__inclus::before { content: '✓ '; font-weight: 700; }
+  .rt-note { margin-top: 24px; max-width: 70ch; color: var(--gris); }
+
+  /* Les visuels : chaque objet dessiné en ardoise et craie */
+  .rt-visuel { display: grid; place-items: center; height: 220px; border-radius: 16px; background: var(--nappe) radial-gradient(ellipse at 50% 120%, #E4E9E3, transparent 70%); overflow: hidden; }
+  .rt-craie { font-family: 'Caveat', cursive; font-weight: 600; color: #F1EEE6; font-size: 1.5rem; line-height: 1.05; text-align: center; }
+  .rt-craie--titre { color: #F2C9A0; font-size: 1.25rem; }
+  .rt-craie--prix { font-size: 1.9rem; }
+  .rt-craie--petit { font-size: 1.05rem; opacity: 0.8; }
+  .rt-ardoise-ecran { background: #26312F; }
+
+  .rt-tap { display: grid; justify-items: center; gap: 8px; width: 132px; padding: 16px 12px 14px; border-radius: 14px; background: #F3EBDD; box-shadow: 0 16px 24px -14px rgb(0 0 0 / 0.4), inset 0 -6px 0 #E2D5BF; transform: perspective(500px) rotateX(8deg); }
+  .rt-tap__nfc { font-weight: 700; letter-spacing: -0.1em; transform: rotate(-90deg); color: var(--ardoise); }
+  .rt-tap__qr { width: 68px; }
+  .rt-tap__qr :global(svg) { width: 100%; height: auto; }
+  .rt-tap__mot { font-family: 'Caveat', cursive; font-weight: 600; font-size: 1rem; color: var(--ardoise); text-align: center; line-height: 1; }
+
+  .rt-mini-bar { width: 88%; padding: 10px 14px; border: 6px solid #8A6240; border-radius: 6px; background: #26312F; overflow: hidden; box-shadow: 0 16px 24px -14px rgb(0 0 0 / 0.45); }
+  .rt-mini-bar span { display: block; font-family: 'Caveat', cursive; font-weight: 600; font-size: 1.5rem; color: #F1EEE6; white-space: nowrap; animation: rt-va-vient 7s ease-in-out infinite alternate; }
+  @keyframes rt-va-vient { from { transform: translateX(0); } to { transform: translateX(-28%); } }
+
+  .rt-ecran { display: grid; justify-items: center; align-content: center; gap: 4px; width: 128px; height: 186px; border: 7px solid #111; border-radius: 8px; background: #26312F radial-gradient(ellipse at 30% 20%, rgb(255 255 255 / 0.08), transparent 60%); box-shadow: 0 16px 24px -14px rgb(0 0 0 / 0.5); }
+
+  .rt-avis { display: grid; justify-items: center; gap: 6px; width: 150px; padding: 18px 12px; border-radius: 14px; background: #26312F; box-shadow: 0 16px 24px -14px rgb(0 0 0 / 0.5); }
+  .rt-avis__etoiles { color: var(--jaune); font-size: 1.4rem; letter-spacing: 0.08em; }
+
+  .rt-tablette { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 190px; padding: 10px; border: 8px solid #111; border-radius: 14px; background: #F5F7F4; box-shadow: 0 16px 24px -14px rgb(0 0 0 / 0.5); transform: perspective(600px) rotateX(14deg); }
+  .rt-tablette i { height: 38px; border-radius: 6px; background: linear-gradient(135deg, #E7B76A, #B5603A); }
+  .rt-tablette i:nth-child(2) { background: linear-gradient(135deg, #9DBF7E, #4F7A45); }
+  .rt-tablette i:nth-child(3) { background: linear-gradient(135deg, #F2C9A0, #C4703F); }
+  .rt-tablette i:nth-child(4) { background: linear-gradient(135deg, #D9C5A1, #8A6240); }
+  .rt-tablette span { grid-column: 1 / -1; padding: 6px; border-radius: 999px; background: var(--jaune); font-size: 0.72rem; font-weight: 700; text-align: center; }
+
+  .rt-street { display: grid; justify-items: center; gap: 4px; }
+  .rt-street__ecran { display: grid; place-content: center; gap: 2px; width: 104px; height: 168px; border: 6px solid #111; border-radius: 6px; background: #26312F; }
+  .rt-street__roues { display: flex; gap: 60px; }
+  .rt-street__roues i { width: 14px; height: 14px; border-radius: 50%; background: #111; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rt-mini-bar span { animation: none; }
+    .rt-produit, .rt-produit:hover { transition: none; transform: none; }
+  }
+</style>
