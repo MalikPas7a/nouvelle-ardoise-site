@@ -21,12 +21,12 @@ const jsonLd = JSON.stringify({
   founder: { '@type': 'Person', name: SITE.responsable },
   address: { '@type': 'PostalAddress', streetAddress: SITE.adresse, postalCode: SITE.localite.split(' ')[0], addressLocality: 'Genève', addressCountry: 'CH' },
   areaServed: ['Genève', 'Vaud'],
-  knowsAbout: ['Création de sites web pour restaurants', 'Gestion des réseaux sociaux', 'Réels Instagram', 'Shooting photo culinaire', 'Publicité Facebook, Instagram et Google'],
-  description: 'Agence de marketing digital pour restaurants et boutiques gourmandes : sites web, vidéo, réseaux sociaux et menus en 3D.',
+  knowsAbout: ['Stratégie marketing pour restaurants', 'Acquisition et fidélisation de clients', 'Création de sites web pour restaurants', 'Gestion des réseaux sociaux', 'Réels Instagram', 'Shooting photo culinaire', 'Publicité Facebook, Instagram et Google'],
+  description: 'Agence de marketing et de communication pour la restauration et les métiers de bouche : stratégie, acquisition de clients, réseaux sociaux, vidéo, sites web et fidélisation.',
   priceRange: 'CHF 999 – 3490',
 });
 ---
-<Base page="accueil" title="Nouvelle Ardoise | Agence de marketing digital pour restaurants et boutiques gourmandes à Genève" description="Marketing digital pour les restaurants, cafés, boulangeries et chocolatiers de Genève et Vaud : sites web, gestion des réseaux sociaux, vidéo et menus en 3D. Prix affichés, sites dès CHF 999.">
+<Base page="accueil" title="Nouvelle Ardoise | Agence de marketing et de communication pour la restauration à Genève" description="Marketing et communication pour les restaurants, cafés, boulangeries et chocolatiers de Genève et Vaud : stratégie, nouveaux clients, réseaux sociaux, vidéo, site et fidélisation. Prix affichés.">
 <script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
 <!-- Les anciens liens (nouvelleardoise.ch/#offres, envoyés dans les emails) mènent à la bonne page -->
 <script slot="head" is:inline>
@@ -36,16 +36,16 @@ const jsonLd = JSON.stringify({
   })();
 </script>
 
-<!-- ============ Ouverture : un coup d'éponge sur l'ancien site ============ -->
+<!-- ============ Ouverture : un coup d'éponge sur les jours creux ============ -->
 <section class="eponge" data-eponge aria-labelledby="titre-accueil">
   <div class="eponge__colle">
     <div class="cadre eponge__contenu">
       <p class="eponge__sur"><svg class="eponge__n" viewBox="0 0 28 28" width="34" height="34" aria-hidden="true"><path d="M7.4 21.6V6.4l13.2 15.2V6.4" fill="none" stroke="#FFD23F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Restaurants, cafés, boulangeries, chocolatiers · Genève et Vaud</p>
-      <h1 class="eponge__titre" id="titre-accueil" aria-label="Envie de passer l’éponge sur votre ancien site ?">
-        <span aria-hidden="true">Envie de passer l’éponge sur votre <span class="efface"><span class="efface__mot">ancien site</span><span class="efface__trace">ancien site</span><svg class="efface__brosse" viewBox="0 0 40 120"><rect x="2" y="2" width="22" height="116" rx="7" fill="#C9975C"/><rect x="2" y="2" width="9" height="116" rx="5" fill="#E2B57A"/><rect x="22" y="4" width="15" height="112" rx="4" fill="#3C4245"/><rect x="33" y="6" width="3" height="108" fill="#E8EDEC" opacity=".35"/></svg></span>&nbsp;?</span>
+      <h1 class="eponge__titre" id="titre-accueil" aria-label="Envie de passer l’éponge sur vos jours creux ?">
+        <span aria-hidden="true">Envie de passer l’éponge sur vos <span class="efface"><span class="efface__mot">jours creux</span><span class="efface__trace">jours creux</span><svg class="efface__brosse" viewBox="0 0 40 120"><rect x="2" y="2" width="22" height="116" rx="7" fill="#C9975C"/><rect x="2" y="2" width="9" height="116" rx="5" fill="#E2B57A"/><rect x="22" y="4" width="15" height="112" rx="4" fill="#3C4245"/><rect x="33" y="6" width="3" height="108" fill="#E8EDEC" opacity=".35"/></svg></span>&nbsp;?</span>
       </h1>
-      <p class="eponge__nouveau">Place à votre <mark>nouveau site.</mark></p>
-      <p class="chapo eponge__chapo">Un site rapide, vos produits en grand et des réels qui racontent votre savoir-faire, pour les restaurants et boutiques gourmandes de Genève et Vaud.</p>
+      <p class="eponge__nouveau">Place aux <mark>jours complets.</mark></p>
+      <p class="chapo eponge__chapo">Stratégie, visibilité, réseaux sociaux, site, commande en ligne, fidélité : on fait venir de nouveaux clients et on les fait revenir. Pour les restaurants et les métiers de bouche de Genève et Vaud.</p>
       <div class="actions eponge__actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a><a class="lien" href="/restaurants/">Essayer trois exemples</a></div>
       <p class="sequence__indice eponge__indice" aria-hidden="true"><span></span>Faites défiler</p>
     </div>
