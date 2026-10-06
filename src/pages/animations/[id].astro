@@ -9,29 +9,6 @@ export function getStaticPaths() {
 }
 const { a } = Astro.props;
 const autres = ANIMATIONS.filter((x) => x.id !== a.id);
-// La carte de la pizzeria d'exemple (restaurant inventé, prix d'exemple)
-const CARTE = [
-  { id: 'classiques', nom: 'Les classiques', sous: '5 pizzas', lignes: [
-    { nom: 'Margherita', prix: '17.–', desc: 'Sauce tomate, mozzarella fior di latte, basilic frais' },
-    { nom: 'Pepperoni', prix: '21.–', desc: 'Sauce tomate, mozzarella, pepperoni légèrement piquant' },
-    { nom: 'Regina', prix: '21.–', desc: 'Sauce tomate, mozzarella, jambon cuit, champignons frais' },
-    { nom: 'Diavola', prix: '22.–', desc: 'Sauce tomate, mozzarella, salami piquant, piment, origan' },
-    { nom: 'Quattro formaggi', prix: '23.–', desc: 'Mozzarella, gorgonzola, parmesan, taleggio' },
-  ] },
-  { id: 'speciales', nom: 'Les spéciales', sous: '4 pizzas', lignes: [
-    { nom: 'Burrata', prix: '25.–', desc: 'Tomates cerises, burrata entière posée à la sortie du four, pesto' },
-    { nom: 'Végétarienne', prix: '21.–', desc: 'Légumes grillés, mozzarella, roquette, huile d’olive' },
-    { nom: 'Calzone', prix: '22.–', desc: 'Pizza fermée : jambon, champignons, mozzarella, ricotta' },
-    { nom: 'Bianca truffe', prix: '27.–', desc: 'Sans tomate : crème de truffe, mozzarella, champignons' },
-  ] },
-  { id: 'produits', nom: 'Nos produits', sous: 'D’où ils viennent', lignes: [
-    { nom: 'La pâte', desc: 'Farine italienne type 00, levain, maturée 48 heures au froid' },
-    { nom: 'La sauce', desc: 'Tomates pelées d’Italie, écrasées à la main, origan, huile d’olive' },
-    { nom: 'La mozzarella', desc: 'Fior di latte, râpée chaque matin' },
-    { nom: 'La charcuterie', desc: 'Pepperoni et salami piquants, jambon cuit au torchon' },
-    { nom: 'Le basilic', desc: 'Frais, posé à la sortie du four' },
-  ] },
-];
 ---
 <Base page="animation" title={`${a.titre} | Nouvelle Ardoise`} description={a.resume}>
 
@@ -40,52 +17,6 @@ const CARTE = [
     <canvas class="sequence__toile" aria-hidden="true"></canvas>
     <div class="sequence__voile" aria-hidden="true"></div>
     <div class="cadre sequence__textes">
-      {a.id === 'kebab' && (
-        <Fragment>
-          <div class="sequence__texte" data-de="-0.1" data-a="0.36">
-            <h1 class="titre-2">La broche tourne depuis 11 h.</h1>
-            <p class="chapo">Veau et poulet marinés la veille, tranchés à la minute.</p>
-            <p class="sequence__indice"><span></span>Faites défiler</p>
-          </div>
-          <div class="sequence__texte" data-de="0.37" data-a="0.49">
-            <p class="titre-2">Crudités du jour, sauces maison.</p>
-          </div>
-          <div class="sequence__texte" data-de="0.5" data-a="0.73">
-            <p class="titre-2">Le pain, garni à ras bord.</p>
-            <p class="chapo">Viande, tomates grillées, feta. Rien n’est préparé à l’avance.</p>
-          </div>
-          <div class="sequence__texte" data-de="0.75" data-a="1.01">
-            <p class="titre-2">Emballé, prêt en trois minutes.</p>
-            <p class="chapo">Nous filmons votre broche, votre comptoir et vos sauces, puis nous construisons le site autour.</p>
-            <div class="actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a></div>
-          </div>
-        </Fragment>
-      )}
-      {a.id === 'pizza' && (
-        <Fragment>
-          <div class="sequence__texte" data-de="-0.1" data-a="0.16">
-            <h1 class="titre-2">La pâte, étalée à la main.</h1>
-            <p class="chapo">Farine italienne, pâte maturée 48 heures.</p>
-            <p class="sequence__indice"><span></span>Faites défiler</p>
-          </div>
-          <div class="sequence__texte" data-de="0.18" data-a="0.38">
-            <p class="titre-2">La sauce tomate maison.</p>
-            <p class="chapo">Tomates pelées d’Italie, origan, huile d’olive.</p>
-          </div>
-          <div class="sequence__texte" data-de="0.4" data-a="0.55">
-            <p class="titre-2">La mozzarella, généreuse.</p>
-          </div>
-          <div class="sequence__texte" data-de="0.57" data-a="0.73">
-            <p class="titre-2">Direction le four.</p>
-            <p class="chapo">Cuite à la commande, jamais à l’avance.</p>
-          </div>
-          <div class="sequence__texte" data-de="0.75" data-a="1.01">
-            <p class="titre-2">Sortie du four, dorée.</p>
-            <p class="chapo">Découvrez la carte et l’origine de nos produits juste en dessous.</p>
-            <div class="actions"><a class="btn btn--jaune" href="#carte">Voir la carte</a></div>
-          </div>
-        </Fragment>
-      )}
       {a.id === 'sushi' && (
         <Fragment>
           <div class="sequence__texte" data-de="-0.1" data-a="0.2">
@@ -107,34 +38,26 @@ const CARTE = [
           </div>
         </Fragment>
       )}
+      {a.id === 'chocolat' && (
+        <Fragment>
+          <div class="sequence__texte" data-de="-0.1" data-a="0.17">
+            <h1 class="titre-2">Le chocolat, tempéré.</h1>
+            <p class="chapo">À la bonne température, au degré près.</p>
+            <p class="sequence__indice"><span></span>Faites défiler</p>
+          </div>
+          <div class="sequence__texte" data-de="0.2" data-a="0.38"><p class="titre-2">Coulé dans le moule.</p></div>
+          <div class="sequence__texte" data-de="0.41" data-a="0.57"><p class="titre-2">Chaque coque, à la bonne épaisseur.</p></div>
+          <div class="sequence__texte" data-de="0.6" data-a="0.77"><p class="titre-2">Le surplus, raclé d’un geste.</p></div>
+          <div class="sequence__texte" data-de="0.8" data-a="1.01">
+            <p class="titre-2">Puis la création.</p>
+            <p class="chapo">C’est ce que vos clients ne voient jamais. Nous le filmons chez vous, puis nous construisons le site autour.</p>
+            <div class="actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a></div>
+          </div>
+        </Fragment>
+      )}
     </div>
   </div>
 </section>
-
-{a.id === 'pizza' && (
-<section class="bloc carte-pizzas" id="carte">
-  <div class="cadre">
-    <div class="carte-pizzas__tete">
-      <h2 class="titre-2">La carte</h2>
-      <p>Une pizzeria inventée pour l’exemple : sur votre site, ce sont vos pizzas, vos prix et vos produits.</p>
-    </div>
-    <div class="onglets onglets--trois" role="tablist" aria-label="Choisir une partie de la carte" data-onglets>
-      {CARTE.map((c, i) => (
-        <button type="button" role="tab" id={`onglet-${c.id}`} aria-controls={`carte-${c.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? undefined : '-1'}><b>{c.nom}</b><span>{c.sous}</span></button>
-      ))}
-    </div>
-    {CARTE.map((c) => (
-      <div id={`carte-${c.id}`} role="tabpanel" aria-labelledby={`onglet-${c.id}`}>
-        <ul class="pizzas">
-          {c.lignes.map((l) => (
-            <li><b>{l.nom}</b>{l.prix && <span class="pizzas__prix">{l.prix}</span>}<small>{l.desc}</small></li>
-          ))}
-        </ul>
-      </div>
-    ))}
-  </div>
-</section>
-)}
 
 <section class="bloc bloc--ardoise anim-fin">
   <div class="cadre anim-fin__in">
@@ -153,5 +76,4 @@ const CARTE = [
 
 <script>
   import '../../scripts/defilement.js';
-  import '../../scripts/onglets.js';
 </script>

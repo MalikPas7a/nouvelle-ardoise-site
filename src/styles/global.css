@@ -398,7 +398,6 @@ ul, ol { padding: 0; list-style: none; }
 /* ---------- séquences d'images : le plat s'anime au rythme du doigt ---------- */
 .sequence { position: relative; height: 340vh; background: #000; color: #fff; }
 .sequence--sushi { height: 400vh; }
-.sequence--pizza { height: 460vh; }
 .sequence--pastamo { height: 320vh; }
 .sequence__colle { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
 .sequence__toile { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -558,7 +557,7 @@ model-viewer:not(:defined) > * { display: none; }
 /* Vos plats en mouvement : un onglet par animation, l'animation s'ouvre sur sa propre page */
 .mouvement__tete { display: grid; gap: 14px; max-width: 760px; margin-bottom: 26px; }
 .mouvement__tete p { max-width: 56ch; }
-.onglets--sombre { grid-template-columns: repeat(3, 1fr); background: rgb(255 255 255 / 0.06); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12); }
+.onglets--sombre { grid-template-columns: repeat(2, 1fr); background: rgb(255 255 255 / 0.06); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12); }
 .onglets--sombre button { color: var(--blanc); }
 .onglets--sombre span { color: #A9B6B1; }
 .onglets--sombre button[aria-selected='true'] { background: var(--jaune); color: var(--ardoise); }
@@ -576,20 +575,12 @@ model-viewer:not(:defined) > * { display: none; }
 @media (max-width: 420px) { .onglets--sombre button { padding: 12px 10px; } .onglets--sombre span { font-size: 0.78rem; } }
 
 /* page d'une animation seule */
-.sequence--kebab { height: 420vh; }
 .anim-fin__in { display: grid; gap: 18px; justify-items: start; }
 .anim-fin__in > p { max-width: 56ch; }
 .anim-fin__credit { font-size: 0.82rem; }
 .anim-fin__credit a { color: #A9B6B1; }
 /* la carte de la pizzeria d'exemple */
-.carte-pizzas__tete { display: grid; gap: 12px; max-width: 760px; margin-bottom: 24px; }
-.carte-pizzas__tete p { max-width: 56ch; color: var(--gris); }
 .onglets--trois { grid-template-columns: repeat(3, 1fr); }
-.pizzas { list-style: none; margin: 0; padding: 0; max-width: 760px; border-top: 1px solid var(--trait); }
-.pizzas li { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 16px 0; border-bottom: 1px solid var(--trait); }
-.pizzas b { font-family: var(--titre); font-size: 1.25rem; line-height: 1.2; }
-.pizzas__prix { font-family: var(--titre); font-weight: 700; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
-.pizzas small { grid-column: 1 / -1; color: var(--gris); font-size: 0.98rem; }
 
 /* Pasta Mo' : le pot est à gauche de l'image, le texte passe à droite et le voile aussi */
 @media (min-width: 900px) {
@@ -728,3 +719,7 @@ model-viewer:not(:defined) > * { display: none; }
 @media (max-width: 360px) { .onglets--trois button, .onglets--sombre button { padding: 10px 8px; } .onglets--trois b, .onglets--sombre b { font-size: 0.9rem; } }
 /* Filet de sécurité : rien ne doit faire défiler la page de côté. « clip » ne gêne pas le menu collant. */
 html, body { overflow-x: clip; }
+
+/* Offres : trois onglets (site, réseaux, design) */
+.onglets--trois { grid-template-columns: repeat(3, 1fr); max-width: 900px; }
+@media (max-width: 600px) { .onglets--trois { grid-template-columns: 1fr; } }
