@@ -653,6 +653,13 @@ model-viewer:not(:defined) > * { display: none; }
 
 .sequence--chocolat { height: 440vh; }
 .sequence--chocolat .sequence__texte { max-width: 560px; }
+/* Fin de séquence : la tarte finie, seule sur fond blanc, arrive en fondu par-dessus la vidéo */
+.sequence__finale { position: absolute; inset: 0; background: #EEEEF0; opacity: clamp(0, calc((var(--p, 0) - 0.76) * 20), 1); }
+.sequence__finale img { position: absolute; left: 50%; top: 7%; width: min(150%, 95vh); max-width: none; height: auto; transform: translateX(-50%); -webkit-mask-image: radial-gradient(closest-side, #000 72%, transparent); mask-image: radial-gradient(closest-side, #000 72%, transparent); }
+@media (min-width: 900px) and (min-aspect-ratio: 1/1) { .sequence__finale img { left: auto; right: -3%; top: 50%; width: auto; height: 80%; transform: translateY(-50%); } }
+.sequence__texte--clair, .sequence__texte--clair .art-titre { color: var(--cacao); text-shadow: none; }
+.sequence__texte--clair::before { display: none; }
+.sequence .sequence__texte--clair .chapo { color: #6B5A4C; }
 
 .art-pieces { background: #fff; color: var(--cacao); padding-block: clamp(72px, 10vw, 140px); }
 .art-pieces__grille { display: grid; gap: clamp(28px, 4vw, 56px) clamp(16px, 3vw, 40px); }
