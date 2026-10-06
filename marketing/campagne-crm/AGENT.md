@@ -14,6 +14,6 @@ en pause jusqu'à ce que Malik dise de reprendre.
 - `lot_du_jour.py` : sélection par priorité (Haute → Moyenne → Basse, pire site d'abord, GE avant VD)
 - `localch.py` : refuse les restaurants marqués « pas de publicité » sur local.ch (LCD art. 3 al. 1 let. u)
 - `liste_a_verifier.py` : les prochains contacts à faire vérifier dans BounceBan (CSV)
-- `modele-email.txt` : le texte du mail et les règles de la phrase personnalisée
+- `modele-email.txt` : le texte du mail (modèle agence, validé le 06.10) et les règles de personnalisation
 
 Le texte complet des consignes est celui de la Routine (claude.ai/code → Routines).
