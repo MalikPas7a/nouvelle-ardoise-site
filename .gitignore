@@ -23,3 +23,7 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 __pycache__/
+
+# Fichiers de travail du kit (régénérés par les scripts)
+marketing/kit-lancement/_sources/carte-carouge/
+marketing/kit-lancement/_sources/videos/images-artisan/
