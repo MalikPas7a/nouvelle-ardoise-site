@@ -17,6 +17,8 @@ Aucun prix n'apparaît dans les visuels ni dans les légendes.
 | `reel/reel-artisan-24s-sans-son.mp4` · `reel/couverture-reel-artisan.jpg` | La même sans son, et sa couverture |
 | `reel/reel-coulisses-20s.mp4` | Réel de 20 s **« coulisses »**, monté en motion design sur 120 BPM, pour montrer le niveau des 4 réels livrés chaque mois : horodatage « 06:00, l'atelier ouvre », écran partagé (tempérer, mouler, racler), glaçage miroir avec jauge de température, coupes au rythme (Précis. Patient. Fait main. Chaque jour.), la pièce finie avec sa carte, puis « Vos quatre réels du mois » (coulisses, création du mois, équipe, saison). Exemple : Maison Fève, images Pexels |
 | `reel/reel-coulisses-20s-sans-son.mp4` · `reel/couverture-reel-coulisses.jpg` | La même sans son, et sa couverture |
+| `reel/reel-manifeste-24s.mp4` | Réel de 24 s **« manifeste »** de Nouvelle Ardoise, motion design sur 120 BPM : plongée sur Genève, « On redonne de la visibilité aux restaurateurs et aux artisans du goût », « Tout commence par la confiance », six services en images (photo et récit, réseaux, site et référencement, publicité, click and collect avec nos partenaires, nouveaux canaux), « Une stratégie pensée ensemble », « Votre commerce, plus vivant », puis « Parlons-en ». Sans prix |
+| `reel/reel-manifeste-24s-sans-son.mp4` · `reel/couverture-reel-manifeste.jpg` | La même sans son, et sa couverture |
 | `reel/reel-menu-du-jour-16s.mp4` | Réel de 16 s « menu du jour » : plongée aérienne du lac Léman jusqu'à la place du Bourg-de-Four (Genève), épingle « Votre restaurant », la vraie ardoise du matin en photo, un coup d'éponge, puis le même menu remis au propre et animé, en ligne sur le site, Google et Instagram. Sans prix |
 | `reel/reel-menu-du-jour-16s-sans-son.mp4` · `reel/couverture-reel-menu.jpg` | La même sans son, et sa couverture |
 | `reel/reel-sushi-15s.mp4` | Réel 15 s, 1080×1920, 30 i/s, habillage sonore inclus |
@@ -206,3 +208,11 @@ node publication.mjs              # publication en 4:5, 1:1 et story 9:16
 Ouvrir `_sources/reel.html` dans un navigateur joue le réel en boucle. Le texte et le
 minutage se règlent directement dans ce fichier ; les sons dans `son.py`.
 Le réel utilise les 96 images de `public/sequences/sushi/x/`, celles du site.
+
+## Sources du réel « manifeste »
+
+- Vue aérienne : SWISSIMAGE © swisstopo (mention dans la vidéo).
+- Vidéos : Pexels (licence Pexels : 4458588, 4458593, 4458586, 32710206, 7012966, 5930369, 6666288, 30557962, 4224218) et Mixkit (51239, 51257, licence gratuite Mixkit). Crédit en fin de vidéo.
+- Son : synthétisé (`son_manifeste.py`), aucun droit.
+
+Légende proposée : « Nouvelle Ardoise, agence de marketing digital à Genève. On redonne de la visibilité aux restaurateurs et aux artisans du goût : photo et vidéo chez vous, réseaux sociaux, site, publicité, click and collect. Une stratégie pensée ensemble. Parlons-en, lien en bio. #Genève #restaurant #artisan #marketingdigital »
