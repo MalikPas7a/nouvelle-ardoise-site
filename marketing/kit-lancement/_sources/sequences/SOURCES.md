@@ -23,3 +23,7 @@ Réels 9:16 (540 × 960) : glaçage 5930369 (0,5 s, 7 s), truffes 7012966 (1 s, 
 fraises 6666288 (7 s, 6 s), pain 30557962 (5 s, 6 s).
 Photos tirées des vidéos : tarte 32710206 (1,4 s), truffes 7012966 (11,5 s),
 entremets 5930369 (20 s), baguettes 7405929 (5 s).
+
+Recadrage téléphone du 2026-10-07 : images sushi/m refaites depuis sushi/g (centres x : riz 0,72,
+maki 0,645, sauce 0,46 ; plan saumon inchangé). Page animation chocolat : la tarte finale
+(public/artisans/tarte-finale.webp) remplace en fondu le dernier plan vidéo, trop flou.
