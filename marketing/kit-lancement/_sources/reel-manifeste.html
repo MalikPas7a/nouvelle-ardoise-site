@@ -12,7 +12,7 @@
                    site et référencement, publicité, click and collect avec nos partenaires, nouveaux canaux.
   5. 13 → 16 s   : « Une stratégie pensée ensemble » : schéma à la craie Vous ↔ Nous → Vos clients.
   6. 16 → 19 s   : mosaïque d'images, « Votre commerce, plus vivant. »
-  7. 19 → 24 s   : l'appel à l'action.
+  7. 19 → 24 s   : l'appel à l'action, puis l'offre de lancement (–20 % jusqu'au 31 octobre).
   Images : vidéos Pexels, toutes nouvelles (sh videos/extraire-manifeste.sh <dossier> en tire les plans).
   Transitions : volets jaunes en biais sur les temps forts.
   REEL=reel-manifeste node render.mjs assemble la vidéo.
@@ -340,6 +340,21 @@ function appel(c, t) {
     police(c, 46, 600, 'Instru'); c.fillStyle = '#fff'; c.fillText('nouvelleardoise.ch · lien en bio', 540, 1520 + (1 - ks) * 24);
     police(c, 22, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.45)';
     c.fillText('Images : Pexels', 540, H - 40);
+    c.restore();
+  }
+  // l'offre de lancement : une étiquette tamponnée, comme sur le site
+  const ko = rebond(prog(t, 21.8, 22.15));
+  if (ko > 0) {
+    c.save(); c.translate(540, 1700); c.rotate(-0.04); c.scale(ko, ko);
+    const w = 780, h = 230;
+    c.fillStyle = 'rgba(255,210,63,0.12)'; c.beginPath(); c.roundRect(-w / 2, -h / 2, w, h, 28); c.fill();
+    c.setLineDash([18, 12]); c.lineWidth = 5; c.strokeStyle = JAUNE;
+    c.beginPath(); c.roundRect(-w / 2, -h / 2, w, h, 28); c.stroke(); c.setLineDash([]);
+    c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    police(c, 26, 700, 'Instru'); c.letterSpacing = '6px'; c.fillStyle = JAUNE;
+    c.fillText('OFFRE DE LANCEMENT', 0, -58); c.letterSpacing = '0px';
+    police(c, 92); c.fillStyle = '#fff'; c.fillText('–20 %', 0, 30);
+    police(c, 30, 600, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.8)'; c.fillText('sur toutes nos offres, jusqu’au 31 octobre', 0, 84);
     c.restore();
   }
   flash(c, t, 19.0, 0.5);
