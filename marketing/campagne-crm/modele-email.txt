@@ -1,59 +1,48 @@
-MODÈLE VALIDÉ PAR MALIK LE 06.10.2026, PRÉCISÉ LE 07.10 : on se présente comme une agence de marketing
-digital qui donne de la visibilité et crée des canaux d'acquisition. Le site n'est qu'une partie de l'offre.
-Court, clair, percutant. Un seul modèle, personnalisé pour chaque prospect.
+MODÈLE VALIDÉ PAR MALIK LE 07.10.2026 (version courte) : agence de marketing digital, clair, concis,
+avec un appel à l'action. Un seul modèle, personnalisé pour chaque prospect.
 
-LES ANCIENS STYLES « CHALEUREUX », « IMPACTANT », « DIRECT » ET LA PHRASE « Je m'appelle Malik Younes et
-j'ai lancé Nouvelle Ardoise… » SONT SUPPRIMÉS. Ne jamais les réutiliser, même de mémoire.
+LES ANCIENS STYLES « CHALEUREUX », « IMPACTANT », « DIRECT », L'OBJET « Une idée pour le site de… » ET LA
+PHRASE « Je m'appelle Malik Younes et j'ai lancé Nouvelle Ardoise… » SONT SUPPRIMÉS. Ne jamais les
+réutiliser, même de mémoire ou d'après d'anciens mails du journal.
 
 PERSONNALISATION (obligatoire pour chaque mail)
-- {DU_RESTAURANT} / {LE_RESTAURANT} : le nom avec les élisions françaises (« du Boccalino » /
-  « le Boccalino », « de Chez Bepa » / « Chez Bepa », « d'Asia Garden » / « Asia Garden »).
-- {OBSERVATION} : un seul point, vérifié le jour même, ton bienveillant, jamais moqueur. Il peut porter
-  sur le site (carte en PDF, pas adapté au téléphone, erreur…) OU sur Instagram (pas de compte, dernière
-  publication ancienne, pas de réels) OU sur la commande en ligne (pas de click and collect).
+- {LE_RESTAURANT} : le nom avec la bonne forme, majuscule en début d'objet (« Le Boccalino »,
+  « Chez Bepa », « Les Rues de Saigon », « Miski »).
+- {OBSERVATION} : une seule phrase, un seul point vérifié le jour même, ton bienveillant, jamais moqueur.
+  Il peut porter sur le site (carte en PDF, pas adapté au téléphone, erreur…), sur Instagram (pas de
+  compte, dernière publication ancienne, pas de réels) ou sur la commande en ligne (pas de click and collect).
   Écrire « votre site », sans recopier son adresse web. Pas de « en cherchant sur Google ».
-  Exemples : « sur votre site, la carte s'ouvre en PDF ; sur téléphone, il faut zoomer pour la lire. »
-             « votre site affiche encore « © 2018 » en bas de page. »
-             « votre site ne présente pas encore votre carte. »
-- {METIER} selon le type de prospect :
-  · Restaurant, café, bistrot, pizzeria, take-away :
-      PRODUITS = « vos plats, votre salle et votre cuisine »
-      VOUS_FAITES = « Vous cuisinez, on s'occupe du reste. »
-      CARTE = « avec votre carte claire »
-  · Chocolatier, pâtissier, boulanger, traiteur, épicerie fine :
-      PRODUITS = « vos créations et vos gestes »
-      VOUS_FAITES = « Vous créez, on s'occupe du reste. »
-      CARTE = « avec vos créations en grand et le click and collect en option »
+  Exemple : « Sur votre site, la carte s'ouvre en PDF : sur téléphone, il faut zoomer pour la lire. »
+- {METIER} :
+  · Restaurant, café, bistrot, pizzeria, take-away : CREATIONS = « vos plats », PHRASE = « Vous cuisinez, on fait venir les clients. »
+  · Chocolatier, pâtissier, boulanger, traiteur, épicerie fine : CREATIONS = « vos créations », PHRASE = « Vous créez, on fait venir les clients. »
+  Noter en colonne K du journal « restaurant » ou « artisan ».
 
 OBJET
-- Cas général : Nouvelle Ardoise : mettre en valeur {LE_RESTAURANT} en ligne
-  (ex. « Nouvelle Ardoise : mettre en valeur le Boccalino en ligne »)
-- Site cassé (page blanche, erreur, « Coming soon », domaine non relié, site qui ne répond plus) :
-  {RESTAURANT} : votre site ne s'affiche plus
+{LE_RESTAURANT} : plus de clients grâce à votre présence en ligne
 
 RÈGLES COMMUNES
 - Aucun prix, aucune promesse chiffrée, aucune critique de la cuisine.
 - Ne jamais parler de Pasta Mo'. Pas d'adresse postale. Pas le mot « Google ».
-- Seul lien : nouvelleardoise.ch. Créer le brouillon en HTML seulement (htmlBody, sans body),
-  chaque mention écrite <a href="http://nouvelleardoise.ch">nouvelleardoise.ch</a>,
-  retours à la ligne en <br>, les cinq services en gras (<b>…</b>) précédés de « – ».
+- Seul lien : nouvelleardoise.ch, écrit <a href="http://nouvelleardoise.ch">nouvelleardoise.ch</a>.
+- Brouillon en HTML seulement (htmlBody, sans body), retours à la ligne en <br>.
+- Contrôle : le premier brouillon du jour doit commencer par « Bonjour,<br><br>Nouvelle Ardoise est une
+  agence de marketing digital » et finir par l'appel « Répondez simplement « oui » ». Sinon, corriger avant tout envoi.
 
 ======================================================================
 CORPS (HTML)
 Bonjour,<br><br>
-Nouvelle Ardoise est une agence de marketing digital dédiée aux restaurants et aux boutiques gourmandes de Genève et Vaud.<br><br>
-En regardant votre présence en ligne, un point nous a frappés : {OBSERVATION}<br><br>
-Notre métier : montrer votre savoir-faire et faire venir des clients.<br>
-– <b>Shooting photo et vidéo chez vous</b> : {PRODUITS}, mis en valeur par un photographe.<br>
-– <b>Réseaux sociaux clés en main</b> : nous créons les réels et les publications, et nous postons pour vous. {VOUS_FAITES}<br>
-– <b>Site internet</b> : rapide, pensé pour le téléphone, {CARTE}.<br>
-– <b>Référencement et publicité Instagram et Facebook</b> : de nouveaux clients chaque mois, avec des résultats clairs.<br>
-– <b>Commande et réservation en ligne</b> : click and collect, réservation de table et paiement TWINT, en option.<br><br>
-Plusieurs formules existent, d'un service à la gestion complète de votre présence en ligne.<br><br>
+Nouvelle Ardoise est une agence de marketing digital pour les restaurants et les boutiques gourmandes de Genève et Vaud.<br><br>
+{OBSERVATION}<br><br>
+Nous nous occupons de tout :<br>
+– <b>Shooting photo et vidéo</b> chez vous, pour {CREATIONS}<br>
+– <b>Réseaux sociaux</b> : nous créons et publions pour vous<br>
+– <b>Site, référencement et publicité</b> Instagram et Facebook<br>
+– <b>Click and collect</b> et réservation en ligne<br><br>
+{PHRASE}<br><br>
+<b>→ Répondez simplement « oui » : je vous appelle cette semaine, 15 minutes, sans engagement.</b><br><br>
 Nos réalisations : <a href="http://nouvelleardoise.ch">nouvelleardoise.ch</a><br><br>
-Seriez-vous disponible cette semaine pour un échange de 15 minutes ?<br><br>
 Malik Younes<br>
 Fondateur, Nouvelle Ardoise · Agence de marketing digital, Genève<br>
-078 213 38 68 · <a href="http://nouvelleardoise.ch">nouvelleardoise.ch</a><br><br>
-Vous ne souhaitez plus recevoir nos messages ? Répondez « stop ».
-
+078 213 38 68<br><br>
+Pour ne plus recevoir nos messages, répondez « stop ».
