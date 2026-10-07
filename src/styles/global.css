@@ -398,6 +398,11 @@ ul, ol { padding: 0; list-style: none; }
 /* ---------- séquences d'images : le plat s'anime au rythme du doigt ---------- */
 .sequence { position: relative; height: 340vh; background: #000; color: #fff; }
 .sequence--sushi { height: 400vh; }
+/* Téléphone : le sushi est en bas de l'image, le texte passe en haut pour ne pas le cacher */
+@media (max-width: 899px) {
+  .sequence--sushi .sequence__texte { top: calc(76px + 3vh); bottom: auto; }
+  .sequence--sushi .sequence__voile { background: linear-gradient(180deg, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0.4) 38%, transparent 58%); }
+}
 .sequence--pastamo { height: 320vh; }
 .sequence__colle { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
 .sequence__toile { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -646,7 +651,7 @@ model-viewer:not(:defined) > * { display: none; }
 .sequence--chocolat .sequence__texte { max-width: 560px; }
 /* Fin de séquence : la tarte finie, seule sur fond blanc, arrive en fondu par-dessus la vidéo */
 .sequence__finale { position: absolute; inset: 0; background: #EEEEF0; opacity: clamp(0, calc((var(--p, 0) - 0.76) * 20), 1); }
-.sequence__finale img { position: absolute; left: 50%; top: 7%; width: min(150%, 95vh); max-width: none; height: auto; transform: translateX(-50%); -webkit-mask-image: radial-gradient(closest-side, #000 72%, transparent); mask-image: radial-gradient(closest-side, #000 72%, transparent); }
+.sequence__finale img { position: absolute; left: 50%; top: 7%; width: min(128%, 95vh); max-width: none; height: auto; transform: translateX(-50%); -webkit-mask-image: radial-gradient(closest-side, #000 72%, transparent); mask-image: radial-gradient(closest-side, #000 72%, transparent); }
 @media (min-width: 900px) and (min-aspect-ratio: 1/1) { .sequence__finale img { left: auto; right: -3%; top: 50%; width: auto; height: 80%; transform: translateY(-50%); } }
 .sequence__texte--clair, .sequence__texte--clair .art-titre { color: var(--cacao); text-shadow: none; }
 .sequence__texte--clair::before { display: none; }

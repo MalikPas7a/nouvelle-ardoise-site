@@ -16,6 +16,12 @@ const autres = ANIMATIONS.filter((x) => x.id !== a.id);
   <div class="sequence__colle">
     <canvas class="sequence__toile" aria-hidden="true"></canvas>
     <div class="sequence__voile" aria-hidden="true"></div>
+    <!-- Chocolat : la création finie, photographiée seule sur fond blanc, remplace la vidéo en fondu -->
+    {a.id === 'chocolat' && (
+      <div class="sequence__finale" aria-hidden="true">
+        <img src="/artisans/tarte-finale.webp" srcset="/artisans/tarte-finale-900.webp 900w, /artisans/tarte-finale.webp 1600w" sizes="(min-width: 900px) 62vw, 100vw" alt="" width="1600" height="1279" decoding="async" />
+      </div>
+    )}
     <div class="cadre sequence__textes">
       {a.id === 'sushi' && (
         <Fragment>
@@ -48,7 +54,7 @@ const autres = ANIMATIONS.filter((x) => x.id !== a.id);
           <div class="sequence__texte" data-de="0.2" data-a="0.38"><p class="titre-2">Coulé dans le moule.</p></div>
           <div class="sequence__texte" data-de="0.41" data-a="0.57"><p class="titre-2">Chaque coque, à la bonne épaisseur.</p></div>
           <div class="sequence__texte" data-de="0.6" data-a="0.77"><p class="titre-2">Le surplus, raclé d’un geste.</p></div>
-          <div class="sequence__texte" data-de="0.8" data-a="1.01">
+          <div class="sequence__texte sequence__texte--clair" data-de="0.8" data-a="1.01">
             <p class="titre-2">Puis la création.</p>
             <p class="chapo">C’est ce que vos clients ne voient jamais. Nous le filmons chez vous, puis nous construisons le site autour.</p>
             <div class="actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a></div>
