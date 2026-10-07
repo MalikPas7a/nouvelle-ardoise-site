@@ -204,8 +204,8 @@ const SERVICES = [
   ['videaste', 0.5, 'Réseaux sociaux', 'Réels et publications : on publie pour vous.'],
   ['telephone', 0.5, 'Site & référencement', 'Qu’on vous trouve, qu’on vous choisisse.'],
   ['reseau', 0.5, 'Publicité ciblée', 'Instagram et Facebook, résultats chaque mois.'],
-  ['sac', 0.5, 'Click & collect', 'Commande en ligne, avec nos partenaires.'],
-  ['four', 0.5, 'Nouveaux canaux', 'Plus de façons de vous trouver, plus de clients.'],
+  ['sac', 0.5, 'Click & collect', 'Un vrai canal de vente, avec nos partenaires.'],
+  ['four', 0.5, 'Nouveaux clients', 'Commandes en ligne, nouvelles entrées.'],
 ];
 function services(c, t) {
   if (t < 7.0 || t > 13.05) return;
@@ -225,7 +225,7 @@ function services(c, t) {
   c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 30; c.fillText(nom, 0, 0);
   c.restore();
   const ks = sortie(prog(t, t0 + 0.15, t0 + 0.4));
-  c.globalAlpha = ks; police(c, 44, 500, 'Instru'); c.fillStyle = '#EEF2EF';
+  c.globalAlpha = ks; police(c, 44, 500, 'Instru'); police(c, Math.min(44, 44 * 900 / c.measureText(sous).width), 500, 'Instru'); c.fillStyle = '#EEF2EF';
   c.shadowColor = 'rgba(0,0,0,0.6)'; c.shadowBlur = 20;
   c.fillText(sous, 0, 90 + (1 - ks) * 20);
   c.restore();
