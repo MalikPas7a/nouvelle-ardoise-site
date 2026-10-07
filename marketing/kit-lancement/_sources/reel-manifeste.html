@@ -15,6 +15,8 @@
   7. 19 → 24 s   : l'appel à l'action, puis l'offre de lancement (–20 % jusqu'au 31 octobre).
   Images : vidéos Pexels, toutes nouvelles (sh videos/extraire-manifeste.sh <dossier> en tire les plans).
   Transitions : volets jaunes en biais sur les temps forts.
+  Zone sûre Instagram : tout texte important entre y = 180 et y = 1540 et à moins de 940 px du bord gauche
+  (en dessous, la légende du réel ; à droite, les boutons).
   REEL=reel-manifeste node render.mjs assemble la vidéo.
 -->
 <style>
@@ -109,7 +111,10 @@ function surtitre(c, texte, t, t0, y, { fin = 1e9, couleur = JAUNE, taille = 30 
   const k = sortie(prog(t, t0, t0 + 0.3)) * (1 - prog(t, fin, fin + 0.18));
   if (k <= 0) return;
   c.save(); c.globalAlpha = k;
-  police(c, taille, 700, 'Instru'); c.letterSpacing = '7px'; c.fillStyle = couleur; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+  police(c, taille, 700, 'Instru'); c.letterSpacing = '7px';
+  const lt = c.measureText(texte).width;
+  if (lt > 900) { police(c, taille * 900 / lt, 700, 'Instru'); c.letterSpacing = `${7 * 900 / lt}px`; }
+  c.fillStyle = couleur; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
   c.fillText(texte, L / 2, y + (1 - k) * 16);
   c.restore(); c.letterSpacing = '0px';
 }
@@ -151,7 +156,7 @@ function ouverture(c, t) {
     c.fillText('Agence marketing · Genève', 80, 88);
     c.restore();
   }
-  ligne(c, ['Pour', 'les', 'restaurants', 'et', 'les', 'artisans', 'du', 'goût.'], t, 1.5, 1460, 50, { couleur: ARDOISE, graisse: 700, ecart: 0.04 });
+  ligne(c, ['Pour', 'les', 'restaurants', 'et', 'les', 'artisans', 'du', 'goût.'], t, 1.5, 1420, 42, { couleur: ARDOISE, graisse: 700, ecart: 0.04 });
 }
 function volet(c, t, t0) {
   // transition : un volet jaune balaie l'écran en biais, sur le temps fort
@@ -217,7 +222,7 @@ function services(c, t) {
   voile(c, 0.55, 0.9);
   // numéro et nom du service
   const k = rebond(prog(t, t0 + 0.03, t0 + 0.3));
-  c.save(); c.translate(90, 1440);
+  c.save(); c.translate(90, 1270);
   police(c, 34, 700, 'Instru'); c.letterSpacing = '6px'; c.fillStyle = JAUNE; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
   c.globalAlpha = clamp(k); c.fillText(`0${i + 1} / 06`, 0, -150); c.letterSpacing = '0px';
   c.save(); c.translate(0, (1 - clamp(k)) * 40);
@@ -265,23 +270,23 @@ function fleche(c, x1, y1, x2, y2, k) {
 function strategie(c, t) {
   if (t < 13.0 || t > 16.05) return;
   c.drawImage(FOND, 0, 0);
-  ligne(c, ['Une', 'stratégie'], t, 13.05, 470, 120, { fin: 15.85 });
-  ligne(c, ['pensée', 'ensemble.'], t, 13.3, 610, 120, { fin: 15.85, surligne: 1 });
+  ligne(c, ['Une', 'stratégie'], t, 13.05, 400, 120, { fin: 15.85 });
+  ligne(c, ['pensée', 'ensemble.'], t, 13.3, 540, 120, { fin: 15.85, surligne: 1 });
   const out = 1 - prog(t, 15.85, 16.0);
-  bulle(c, 290, 960, 150, 'Vous', rebond(prog(t, 13.6, 13.9)) * out);
-  bulle(c, 790, 960, 150, 'Nous', rebond(prog(t, 13.85, 14.15)) * out);
+  bulle(c, 290, 820, 140, 'Vous', rebond(prog(t, 13.6, 13.9)) * out);
+  bulle(c, 790, 820, 140, 'Nous', rebond(prog(t, 13.85, 14.15)) * out);
   // le lien entre vous et nous, dans les deux sens
   if (out > 0) {
     const kl = prog(t, 14.1, 14.5);
-    craie(c, (cc) => { cc.strokeStyle = JAUNE; cc.lineWidth = 8; cc.setLineDash([22, 18]); cc.beginPath(); cc.moveTo(450, 960); cc.lineTo(mix(450, 630, kl), 960); cc.stroke(); cc.setLineDash([]); });
+    craie(c, (cc) => { cc.strokeStyle = JAUNE; cc.lineWidth = 8; cc.setLineDash([22, 18]); cc.beginPath(); cc.moveTo(440, 820); cc.lineTo(mix(440, 640, kl), 820); cc.stroke(); cc.setLineDash([]); });
   }
-  fleche(c, 540, 1060, 540, 1300, prog(t, 14.5, 14.9) * out);
-  bulle(c, 540, 1470, 175, 'Clients', rebond(prog(t, 14.9, 15.2)) * out, { plein: true });
+  fleche(c, 540, 900, 540, 1100, prog(t, 14.5, 14.9) * out);
+  bulle(c, 540, 1260, 160, 'Clients', rebond(prog(t, 14.9, 15.2)) * out, { plein: true });
   const kp = sortie(prog(t, 15.2, 15.5)) * out;
   if (kp > 0) {
     c.save(); c.globalAlpha = kp;
     police(c, 40, 500, 'Instru'); c.fillStyle = '#E7ECE8'; c.textAlign = 'center';
-    c.fillText('Objectifs, budget, publicité : on décide avec vous.', L / 2, 1760);
+    c.fillText('Objectifs, budget, publicité : on décide avec vous.', L / 2, 1500);
     c.restore();
   }
 }
@@ -313,18 +318,18 @@ function vivant(c, t) {
 function appel(c, t) {
   if (t < 19.0) return;
   c.drawImage(FOND, 0, 0);
-  nLumineux(c, 540 - 110, 300, 220, { trace: sortie(prog(t, 19.1, 19.6)), eclat: 0.7 + 0.3 * prog(t, 19.6, 19.9) });
-  ligne(c, ['Nouvelle', 'Ardoise'], t, 19.4, 720, 110);
-  surtitre(c, 'AGENCE DE MARKETING DIGITAL · GENÈVE', t, 19.7, 810, { taille: 28 });
-  ligne(c, ['Montrez', 'votre', 'savoir-faire.'], t, 20.1, 1000, 66, { graisse: 600 });
-  ligne(c, ['On', 'fait', 'venir', 'les', 'clients.'], t, 20.35, 1090, 66, { graisse: 600, surligne: 4 });
+  nLumineux(c, 540 - 95, 230, 190, { trace: sortie(prog(t, 19.1, 19.6)), eclat: 0.7 + 0.3 * prog(t, 19.6, 19.9) });
+  ligne(c, ['Nouvelle', 'Ardoise'], t, 19.4, 580, 110);
+  surtitre(c, 'AGENCE DE MARKETING DIGITAL · GENÈVE', t, 19.7, 665, { taille: 28 });
+  ligne(c, ['Montrez', 'votre', 'savoir-faire.'], t, 20.1, 820, 64, { graisse: 600 });
+  ligne(c, ['On', 'fait', 'venir', 'les', 'clients.'], t, 20.35, 905, 64, { graisse: 600, surligne: 4 });
   const kb = sortie(prog(t, 20.9, 21.3));
   if (kb > 0) {
     const souffle = 1 + Math.sin((t - 21.3) * 6) * 0.03 * prog(t, 21.3, 21.5);
     police(c, 64);
     const texte = 'Parlons-en';
     const w = c.measureText(texte).width + 240, h = 150;
-    c.save(); c.translate(540, 1330 + (1 - kb) * 30); c.scale(souffle, souffle); c.globalAlpha = kb;
+    c.save(); c.translate(540, 1070 + (1 - kb) * 30); c.scale(souffle, souffle); c.globalAlpha = kb;
     c.shadowColor = 'rgba(255,210,63,0.5)'; c.shadowBlur = 60;
     c.fillStyle = JAUNE; c.beginPath(); c.roundRect(-w / 2, -h / 2, w, h, h / 2); c.fill();
     c.shadowColor = 'transparent';
@@ -337,7 +342,7 @@ function appel(c, t) {
   const ks = sortie(prog(t, 21.3, 21.7));
   if (ks > 0) {
     c.save(); c.globalAlpha = ks; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
-    police(c, 46, 600, 'Instru'); c.fillStyle = '#fff'; c.fillText('nouvelleardoise.ch · lien en bio', 540, 1520 + (1 - ks) * 24);
+    police(c, 46, 600, 'Instru'); c.fillStyle = '#fff'; c.fillText('nouvelleardoise.ch · lien en bio', 540, 1215 + (1 - ks) * 24);
     police(c, 22, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.45)';
     c.fillText('Images : Pexels', 540, H - 40);
     c.restore();
@@ -345,7 +350,7 @@ function appel(c, t) {
   // l'offre de lancement : une étiquette tamponnée, comme sur le site
   const ko = rebond(prog(t, 21.8, 22.15));
   if (ko > 0) {
-    c.save(); c.translate(540, 1700); c.rotate(-0.04); c.scale(ko, ko);
+    c.save(); c.translate(540, 1405); c.rotate(-0.04); c.scale(ko, ko);
     const w = 780, h = 230;
     c.fillStyle = 'rgba(255,210,63,0.12)'; c.beginPath(); c.roundRect(-w / 2, -h / 2, w, h, 28); c.fill();
     c.setLineDash([18, 12]); c.lineWidth = 5; c.strokeStyle = JAUNE;
