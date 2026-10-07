@@ -1,10 +1,16 @@
-MODÈLE VALIDÉ PAR MALIK LE 06.10.2026 : on se présente comme une agence de marketing digital.
+MODÈLE VALIDÉ PAR MALIK LE 06.10.2026, PRÉCISÉ LE 07.10 : on se présente comme une agence de marketing
+digital qui donne de la visibilité et crée des canaux d'acquisition. Le site n'est qu'une partie de l'offre.
 Court, clair, percutant. Un seul modèle, personnalisé pour chaque prospect.
+
+LES ANCIENS STYLES « CHALEUREUX », « IMPACTANT », « DIRECT » ET LA PHRASE « Je m'appelle Malik Younes et
+j'ai lancé Nouvelle Ardoise… » SONT SUPPRIMÉS. Ne jamais les réutiliser, même de mémoire.
 
 PERSONNALISATION (obligatoire pour chaque mail)
 - {DU_RESTAURANT} / {LE_RESTAURANT} : le nom avec les élisions françaises (« du Boccalino » /
   « le Boccalino », « de Chez Bepa » / « Chez Bepa », « d'Asia Garden » / « Asia Garden »).
-- {OBSERVATION} : un seul défaut, vérifié le jour même sur le site, ton bienveillant, jamais moqueur.
+- {OBSERVATION} : un seul point, vérifié le jour même, ton bienveillant, jamais moqueur. Il peut porter
+  sur le site (carte en PDF, pas adapté au téléphone, erreur…) OU sur Instagram (pas de compte, dernière
+  publication ancienne, pas de réels) OU sur la commande en ligne (pas de click and collect).
   Écrire « votre site », sans recopier son adresse web. Pas de « en cherchant sur Google ».
   Exemples : « sur votre site, la carte s'ouvre en PDF ; sur téléphone, il faut zoomer pour la lire. »
              « votre site affiche encore « © 2018 » en bas de page. »
@@ -30,7 +36,7 @@ RÈGLES COMMUNES
 - Ne jamais parler de Pasta Mo'. Pas d'adresse postale. Pas le mot « Google ».
 - Seul lien : nouvelleardoise.ch. Créer le brouillon en HTML seulement (htmlBody, sans body),
   chaque mention écrite <a href="http://nouvelleardoise.ch">nouvelleardoise.ch</a>,
-  retours à la ligne en <br>, les quatre services en gras (<b>…</b>) précédés de « – ».
+  retours à la ligne en <br>, les cinq services en gras (<b>…</b>) précédés de « – ».
 
 ======================================================================
 CORPS (HTML)
@@ -41,7 +47,8 @@ Notre métier : montrer votre savoir-faire et faire venir des clients.<br>
 – <b>Shooting photo et vidéo chez vous</b> : {PRODUITS}, mis en valeur par un photographe.<br>
 – <b>Réseaux sociaux clés en main</b> : nous créons les réels et les publications, et nous postons pour vous. {VOUS_FAITES}<br>
 – <b>Site internet</b> : rapide, pensé pour le téléphone, {CARTE}.<br>
-– <b>Référencement et publicité Instagram et Facebook</b> : pour être trouvé, avec des résultats clairs chaque mois.<br><br>
+– <b>Référencement et publicité Instagram et Facebook</b> : de nouveaux clients chaque mois, avec des résultats clairs.<br>
+– <b>Commande et réservation en ligne</b> : click and collect, réservation de table et paiement TWINT, en option.<br><br>
 Plusieurs formules existent : un site seul, la gestion des réseaux seule, ou les deux.<br><br>
 Nos réalisations : <a href="http://nouvelleardoise.ch">nouvelleardoise.ch</a><br><br>
 Seriez-vous disponible cette semaine pour un échange de 15 minutes ?<br><br>
