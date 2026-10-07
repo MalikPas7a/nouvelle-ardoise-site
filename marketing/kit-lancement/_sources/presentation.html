@@ -61,7 +61,7 @@ function dessiner() {
   const haut = yb + (compact ? 120 : 140) + (compact ? 50 : 80);
   const bas = H - (compact ? 130 : 170);
   const bloc = (bas - haut) / 3;
-  const taille = Math.min(compact ? 112 : 170, bloc * 0.52);
+  const taille = Math.min(compact ? 112 : quoi === 'story' ? 150 : 170, bloc * 0.52);
   MOTS.forEach((m, i) => {
     const t0 = haut + i * bloc;
     const yMot = t0 + taille * 0.82;
@@ -75,6 +75,25 @@ function dessiner() {
     police(compact ? 27 : 33, 500, 'Instru'); c.fillStyle = 'rgba(30,42,44,0.78)';
     c.fillText(SOUS[i], 84, yMot + (compact ? 50 : 66) + (i === 2 ? 16 : 0));
   });
+
+  // l'offre de lancement : une pastille ronde, posée comme un autocollant à droite de « Montrer. »
+  {
+    const r = compact ? 118 : 140;
+    const cx = L - 70 - r, cy = haut + bloc * (compact ? 0.5 : 0.42);
+    c.save(); c.translate(cx, cy); c.rotate(0.14);
+    c.shadowColor = 'rgba(30,42,44,0.25)'; c.shadowBlur = 24; c.shadowOffsetY = 10;
+    c.fillStyle = ARDOISE; c.beginPath(); c.arc(0, 0, r, 0, 7); c.fill();
+    c.shadowColor = 'transparent';
+    c.setLineDash([10, 8]); c.lineWidth = 3; c.strokeStyle = JAUNE;
+    c.beginPath(); c.arc(0, 0, r - 14, 0, 7); c.stroke(); c.setLineDash([]);
+    c.textAlign = 'center'; c.textBaseline = 'alphabetic'; c.fillStyle = JAUNE;
+    police(r * 0.15, 700, 'Instru'); c.letterSpacing = '3px'; c.fillText('LANCEMENT', 0, -r * 0.36); c.letterSpacing = '0px';
+    police(r * 0.5); c.fillText('–20 %', 0, r * 0.16);
+    police(r * 0.13, 600, 'Instru'); c.fillStyle = '#fff';
+    c.fillText('sur toutes nos offres', 0, r * 0.38);
+    c.fillText('jusqu’au 31 octobre', 0, r * 0.56);
+    c.restore();
+  }
 
   // pied : pour qui, et l'adresse
   police(compact ? 26 : 30, 600, 'Instru'); c.fillStyle = ARDOISE; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
