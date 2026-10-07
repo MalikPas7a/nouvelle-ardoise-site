@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Réel manifeste Nouvelle Ardoise</title>
+<!--
+  Réel Instagram 24 s, 1080×1920, motion design sur 120 BPM (un temps = 0,5 s) : qui est Nouvelle Ardoise.
+  1. 0 → 2,5 s   : plongée sur Genève (SWISSIMAGE © swisstopo), « Agence de marketing digital · Genève ».
+  2. 2,5 → 5 s   : « On redonne de la visibilité aux restaurateurs et aux artisans du goût. »
+  3. 5 → 7 s     : « Tout commence par la confiance. », entourée à la craie.
+  4. 7 → 13 s    : six services, un par seconde, sur de vraies images : photo et récit, réseaux,
+                   site et référencement, publicité, click and collect avec nos partenaires, nouveaux canaux.
+  5. 13 → 16 s   : « Une stratégie pensée ensemble » : schéma à la craie Vous ↔ Nous → Vos clients.
+  6. 16 → 19 s   : mosaïque d'images, « Votre commerce, plus vivant. »
+  7. 19 → 24 s   : l'appel à l'action.
+  Images : vidéos Pexels (videos/images-artisan, videos/images/nouilles) et Mixkit (videos/images/salle, cliente).
+  REEL=reel-manifeste node render.mjs assemble la vidéo.
+-->
+<style>
+  @font-face { font-family: Brico; src: url(fonts/bricolage-grotesque-latin-standard-normal.woff2) format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: Instru; src: url(fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; width: 1080px; height: 1920px; }
+</style>
+</head>
+<body>
+<canvas width="1080" height="1920"></canvas>
+<script src="ardoise.js"></script>
+<script src="carte/index.js"></script>
+<script src="videos/images-artisan/index.js"></script>
+<script>const VIDEOS_ARTISAN = window.VIDEOS;</script>
+<script src="videos/images/index.js"></script>
+<script>
+const L = 1080, H = 1920, DUREE = 24, B = 0.5;
+window.DUREE = DUREE;
+const JAUNE = '#FFD23F', ARDOISE = '#1E2A2C', NAPPE = '#F5F7F4';
+const ctx = document.querySelector('canvas').getContext('2d');
+const FOND = peindreArdoise(L, H);
+const toile = (l, h) => Object.assign(document.createElement('canvas'), { width: l, height: h });
+
+// ---------- outils ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const mix = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const sortie = (k) => 1 - Math.pow(1 - k, 3);
+const lisse = (k) => k * k * (3 - 2 * k);
+const dansSortie = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const rebond = (k) => { const c = 1.7; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+const police = (c, taille, graisse = 800, famille = 'Brico') => { c.font = `${graisse} ${taille}px ${famille}`; };
+const charger = (src) => new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; });
+
+// les plans vidéo : dossier et nombre d'images
+const PLANS = {};
+Object.entries(VIDEOS_ARTISAN).forEach(([k, n]) => { PLANS[k] = { dossier: 'videos/images-artisan', n, images: [] }; });
+Object.entries(window.VIDEOS).forEach(([k, n]) => { PLANS[k] = { dossier: 'videos/images', n, images: [] }; });
+const image = (plan, t, t0, vitesse = 1) => { const p = PLANS[plan]; return p.images[clamp(Math.floor((t - t0) * 30 * vitesse), 0, p.n - 1)]; };
+
+function cadrer(c, img, fx, fy, z = 1, { alpha = 1, l = L, h = H } = {}) {
+  if (!img) return;
+  const s = Math.max(l / img.width, h / img.height) * z;
+  const w = img.width * s, hh = img.height * s;
+  const x = clamp(l / 2 - fx * w, l - w, 0), y = clamp(h / 2 - fy * hh, h - hh, 0);
+  c.save(); c.globalAlpha *= alpha; c.drawImage(img, x, y, w, hh); c.restore();
+}
+function voile(c, haut, bas) {
+  let g = c.createLinearGradient(0, 0, 0, 900);
+  g.addColorStop(0, `rgba(12,18,19,${haut})`); g.addColorStop(1, 'rgba(12,18,19,0)');
+  c.fillStyle = g; c.fillRect(0, 0, L, 900);
+  g = c.createLinearGradient(0, H - 1000, 0, H);
+  g.addColorStop(0, 'rgba(12,18,19,0)'); g.addColorStop(1, `rgba(12,18,19,${bas})`);
+  c.fillStyle = g; c.fillRect(0, H - 1000, L, 1000);
+}
+function flash(c, t, t0, force = 0.85) {
+  const k = prog(t, t0 - 0.04, t0 + 0.02) * (1 - prog(t, t0 + 0.02, t0 + 0.16));
+  if (k > 0) { c.fillStyle = `rgba(255,252,240,${k * force})`; c.fillRect(0, 0, L, H); }
+}
+const GRAIN = (() => { const n = toile(256, 256), c = n.getContext('2d'), d = c.createImageData(256, 256), r = hasard(5);
+  for (let i = 0; i < d.data.length; i += 4) { const v = r() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 12; }
+  c.putImageData(d, 0, 0); return n; })();
+function grain(c, t) {
+  const o = Math.floor(t * 24) % 4;
+  c.save(); c.globalCompositeOperation = 'overlay';
+  for (let y = -o * 40; y < H; y += 256) for (let x = -o * 30; x < L; x += 256) c.drawImage(GRAIN, x, y);
+  c.restore();
+}
+
+// Une ligne de mots qui montent un à un ; surligne : index du mot posé sur un pavé jaune
+function ligne(c, mots, t, t0, y, taille, { surligne = -1, fin = 1e9, ecart = 0.07, couleur = '#fff', graisse = 800, famille = 'Brico', aligne = 'center', x0 = 90 } = {}) {
+  police(c, taille, graisse, famille); c.textBaseline = 'alphabetic';
+  const espace = taille * 0.27;
+  const largeurs = mots.map((m, j) => c.measureText(m).width + (j === surligne ? 40 : 0));
+  let x = aligne === 'center' ? (L - largeurs.reduce((a, b) => a + b, 0) - espace * (mots.length - 1)) / 2 : x0;
+  const kOut = prog(t, fin, fin + 0.18);
+  mots.forEach((m, j) => {
+    const k = sortie(prog(t, t0 + j * ecart, t0 + j * ecart + 0.28));
+    if (k > 0 && kOut < 1) {
+      c.save(); c.globalAlpha = k * (1 - kOut);
+      c.translate(x + largeurs[j] / 2, y + (1 - k) * 40 - kOut * 30);
+      if (j === surligne) {
+        const p = sortie(prog(t, t0 + j * ecart + 0.1, t0 + j * ecart + 0.4));
+        c.fillStyle = JAUNE; c.beginPath(); c.roundRect(-largeurs[j] / 2 + 2, -taille * 0.84, (largeurs[j] - 4) * p, taille * 1.08, 14); c.fill();
+      }
+      police(c, taille, graisse, famille);
+      c.fillStyle = j === surligne ? ARDOISE : couleur; c.textAlign = 'center';
+      if (j !== surligne && couleur === '#fff') { c.shadowColor = 'rgba(0,0,0,0.45)'; c.shadowBlur = 24; c.shadowOffsetY = 4; }
+      c.fillText(m, 0, 0); c.restore();
+    }
+    x += largeurs[j] + espace;
+  });
+}
+function surtitre(c, texte, t, t0, y, { fin = 1e9, couleur = JAUNE, taille = 30 } = {}) {
+  const k = sortie(prog(t, t0, t0 + 0.3)) * (1 - prog(t, fin, fin + 0.18));
+  if (k <= 0) return;
+  c.save(); c.globalAlpha = k;
+  police(c, taille, 700, 'Instru'); c.letterSpacing = '7px'; c.fillStyle = couleur; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+  c.fillText(texte, L / 2, y + (1 - k) * 16);
+  c.restore(); c.letterSpacing = '0px';
+}
+
+// ---------- 1. plongée sur Genève (0 → 2,6 s) ----------
+const NIVEAUX = Object.keys(window.CARTE).map(Number).sort((a, b) => a - b);
+const MOSAIQUES = {};
+const zoomA = (t) => mix(10, 14.6, lisse(prog(t, 0, 2.5)));
+function niveau(c, z, Z, rot, alpha) {
+  const img = MOSAIQUES[z], p = window.CARTE[z];
+  if (!img || alpha <= 0) return;
+  const s = Math.pow(2, Z - z);
+  c.save(); c.globalAlpha = alpha;
+  c.translate(L / 2, H * 0.52); c.rotate(rot); c.scale(s, s); c.translate(-p.x, -p.y);
+  c.drawImage(img, 0, 0); c.restore();
+}
+function geneve(c, t) {
+  if (t > 2.6) return;
+  const Z = zoomA(t), rot = mix(-0.3, 0, lisse(prog(t, 0, 2.5)));
+  c.fillStyle = '#1B2426'; c.fillRect(0, 0, L, H);
+  const z = clamp(Math.floor(Z), NIVEAUX[0], NIVEAUX[NIVEAUX.length - 1]);
+  niveau(c, z - 1, Z, rot, 1);
+  niveau(c, z, Z, rot, 1);
+  niveau(c, z + 1, Z, rot, lisse(clamp((Z - z - 0.45) / 0.55)));
+  c.fillStyle = 'rgba(12,18,19,0.38)'; c.fillRect(0, 0, L, H);
+  voile(c, 0.6, 0.7);
+  surtitre(c, 'AGENCE DE MARKETING DIGITAL', t, 0.15, 760, { fin: 2.4 });
+  // « Genève. » frappé sur le temps fort
+  const k = rebond(prog(t, 0.5, 0.85)) * (1 - prog(t, 2.35, 2.5));
+  if (k > 0) {
+    c.save(); c.translate(L / 2, 1020); c.scale(k, k);
+    police(c, 250); c.fillStyle = '#fff'; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 50; c.fillText('Genève.', 0, 0);
+    c.restore();
+    traitJaune(c, 250, 1080, 580, sortie(prog(t, 0.9, 1.3)) * (1 - prog(t, 2.35, 2.5)));
+  }
+  ligne(c, ['Nouvelle', 'Ardoise'], t, 1.2, 1260, 64, { fin: 2.35, graisse: 700 });
+  const kc = 1 - prog(t, 0, 0.5);
+  if (kc > 0) { c.fillStyle = `rgba(0,0,0,${kc})`; c.fillRect(0, 0, L, H); }
+  const s = sortie(prog(t, 0.3, 0.6)) * (1 - prog(t, 2.3, 2.45));
+  if (s > 0) { c.save(); c.globalAlpha = s * 0.7; police(c, 20, 500, 'Instru'); c.fillStyle = '#fff'; c.textAlign = 'right'; c.fillText('Images aériennes © swisstopo', L - 40, H - 40); c.restore(); }
+}
+
+// ---------- 2. la promesse (2,5 → 5 s) ----------
+function promesse(c, t) {
+  if (t < 2.5 || t > 5.05) return;
+  c.drawImage(FOND, 0, 0);
+  ligne(c, ['On', 'redonne', 'de', 'la'], t, 2.55, 700, 96, { fin: 4.85 });
+  ligne(c, ['visibilité'], t, 2.85, 870, 150, { fin: 4.85, surligne: 0 });
+  ligne(c, ['aux', 'restaurateurs'], t, 3.4, 1070, 96, { fin: 4.85 });
+  ligne(c, ['et', 'aux', 'artisans', 'du', 'goût.'], t, 3.85, 1190, 84, { fin: 4.85, couleur: '#E7ECE8', graisse: 600 });
+  flash(c, t, 2.5, 0.6);
+}
+
+// ---------- 3. la confiance (5 → 7 s) ----------
+function confiance(c, t) {
+  if (t < 5.0 || t > 7.05) return;
+  cadrer(c, image('salle', t, 5.0, 0.7), 0.5, 0.5, mix(1.12, 1.0, sortie(prog(t, 5.0, 7.0))));
+  c.fillStyle = 'rgba(12,18,19,0.55)'; c.fillRect(0, 0, L, H);
+  ligne(c, ['Tout', 'commence', 'par'], t, 5.1, 860, 84, { fin: 6.85, graisse: 600 });
+  ligne(c, ['la', 'confiance.'], t, 5.4, 1030, 140, { fin: 6.85 });
+  // la craie entoure « confiance »
+  const k = prog(t, 5.8, 6.4) * (1 - prog(t, 6.85, 7.0));
+  if (k > 0) {
+    craie(c, (cc) => {
+      cc.strokeStyle = JAUNE; cc.lineWidth = 9; cc.lineCap = 'round';
+      cc.beginPath();
+      for (let i = 0; i <= 80 * k; i++) {
+        const a = -2.6 + (i / 80) * Math.PI * 2.15;
+        const x = L / 2 + 62 + Math.cos(a) * 330 + Math.sin(i * 0.7) * 3, y = 985 + Math.sin(a) * 112;
+        i ? cc.lineTo(x, y) : cc.moveTo(x, y);
+      }
+      cc.stroke();
+    });
+  }
+  surtitre(c, 'UN INTERLOCUTEUR, À GENÈVE, QUI VIENT CHEZ VOUS', t, 6.0, 1260, { fin: 6.85, couleur: '#fff', taille: 26 });
+  flash(c, t, 5.0, 0.5);
+}
+
+// ---------- 4. six services, un par seconde (7 → 13 s) ----------
+const SERVICES = [
+  ['tempere', 0.5, 'Photo & vidéo', 'Nos photographes racontent votre histoire.'],
+  ['fraises', 0.5, 'Réseaux sociaux', 'Réels et publications : on publie pour vous.'],
+  ['nouilles', 0.5, 'Site & référencement', 'Qu’on vous trouve, qu’on vous choisisse.'],
+  ['cliente', 0.5, 'Publicité ciblée', 'Instagram et Facebook, résultats chaque mois.'],
+  ['tarte', 0.35, 'Click & collect', 'Commande en ligne, avec nos partenaires.'],
+  ['pain', 0.5, 'Nouveaux canaux', 'Plus de façons de vous trouver, plus de clients.'],
+];
+function services(c, t) {
+  if (t < 7.0 || t > 13.05) return;
+  const i = clamp(Math.floor((t - 7.0) / (B * 2)), 0, 5);
+  const t0 = 7.0 + i * B * 2;
+  const [plan, fx, nom, sous] = SERVICES[i];
+  const punch = 1 + 0.1 * (1 - sortie(prog(t, t0, t0 + 0.35)));
+  cadrer(c, image(plan, t, t0 - 0.1), fx, 0.5, punch * mix(1, 1.04, prog(t, t0, t0 + 1)));
+  voile(c, 0.55, 0.9);
+  // numéro et nom du service
+  const k = rebond(prog(t, t0 + 0.03, t0 + 0.3));
+  c.save(); c.translate(90, 1440);
+  police(c, 34, 700, 'Instru'); c.letterSpacing = '6px'; c.fillStyle = JAUNE; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  c.globalAlpha = clamp(k); c.fillText(`0${i + 1} / 06`, 0, -150); c.letterSpacing = '0px';
+  c.save(); c.translate(0, (1 - clamp(k)) * 40);
+  police(c, 120); const tn = Math.min(120, 120 * 900 / c.measureText(nom).width); police(c, tn); c.fillStyle = '#fff';
+  c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 30; c.fillText(nom, 0, 0);
+  c.restore();
+  const ks = sortie(prog(t, t0 + 0.15, t0 + 0.4));
+  c.globalAlpha = ks; police(c, 44, 500, 'Instru'); c.fillStyle = '#EEF2EF';
+  c.shadowColor = 'rgba(0,0,0,0.6)'; c.shadowBlur = 20;
+  c.fillText(sous, 0, 90 + (1 - ks) * 20);
+  c.restore();
+  // repères : six traits en haut
+  for (let j = 0; j < 6; j++) {
+    const kk = j < i ? 1 : j === i ? prog(t, t0, t0 + 1) : 0;
+    c.fillStyle = 'rgba(255,255,255,0.28)'; c.fillRect(90 + j * 152, 150, 140, 7);
+    c.fillStyle = JAUNE; c.fillRect(90 + j * 152, 150, 140 * kk, 7);
+  }
+  flash(c, t, t0, i === 0 ? 0.7 : 0.45);
+}
+
+// ---------- 5. une stratégie pensée ensemble (13 → 16 s) ----------
+function bulle(c, x, y, r, texte, k, { plein = false } = {}) {
+  if (k <= 0) return;
+  const rr = r * k;
+  craie(c, (cc) => {
+    cc.setLineDash([]); cc.lineWidth = 8; cc.strokeStyle = plein ? JAUNE : '#fff';
+    cc.beginPath(); cc.arc(x, y, rr, 0, 7); cc.stroke();
+    if (plein) { cc.fillStyle = JAUNE; cc.beginPath(); cc.arc(x, y, Math.max(0, rr - 14), 0, 7); cc.fill(); }
+  });
+  c.save(); c.translate(x, y); c.scale(k, k);
+  police(c, 50, 800); c.fillStyle = plein ? ARDOISE : '#fff'; c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillText(texte, 0, 3);
+  c.restore();
+}
+function fleche(c, x1, y1, x2, y2, k) {
+  if (k <= 0) return;
+  const x = mix(x1, x2, k), y = mix(y1, y2, k), a = Math.atan2(y2 - y1, x2 - x1);
+  craie(c, (cc) => {
+    cc.setLineDash([]); cc.strokeStyle = '#fff'; cc.lineWidth = 8; cc.lineCap = 'round';
+    cc.beginPath(); cc.moveTo(x1, y1); cc.lineTo(x, y);
+    if (k > 0.95) { cc.moveTo(x, y); cc.lineTo(x - 34 * Math.cos(a - 0.5), y - 34 * Math.sin(a - 0.5)); cc.moveTo(x, y); cc.lineTo(x - 34 * Math.cos(a + 0.5), y - 34 * Math.sin(a + 0.5)); }
+    cc.stroke();
+  });
+}
+function strategie(c, t) {
+  if (t < 13.0 || t > 16.05) return;
+  c.drawImage(FOND, 0, 0);
+  ligne(c, ['Une', 'stratégie'], t, 13.05, 470, 120, { fin: 15.85 });
+  ligne(c, ['pensée', 'ensemble.'], t, 13.3, 610, 120, { fin: 15.85, surligne: 1 });
+  const out = 1 - prog(t, 15.85, 16.0);
+  bulle(c, 290, 960, 150, 'Vous', rebond(prog(t, 13.6, 13.9)) * out);
+  bulle(c, 790, 960, 150, 'Nous', rebond(prog(t, 13.85, 14.15)) * out);
+  // le lien entre vous et nous, dans les deux sens
+  if (out > 0) {
+    const kl = prog(t, 14.1, 14.5);
+    craie(c, (cc) => { cc.strokeStyle = JAUNE; cc.lineWidth = 8; cc.setLineDash([22, 18]); cc.beginPath(); cc.moveTo(450, 960); cc.lineTo(mix(450, 630, kl), 960); cc.stroke(); cc.setLineDash([]); });
+  }
+  fleche(c, 540, 1060, 540, 1300, prog(t, 14.5, 14.9) * out);
+  bulle(c, 540, 1470, 175, 'Clients', rebond(prog(t, 14.9, 15.2)) * out, { plein: true });
+  const kp = sortie(prog(t, 15.2, 15.5)) * out;
+  if (kp > 0) {
+    c.save(); c.globalAlpha = kp;
+    police(c, 40, 500, 'Instru'); c.fillStyle = '#E7ECE8'; c.textAlign = 'center';
+    c.fillText('Objectifs, budget, publicité : on décide avec vous.', L / 2, 1760);
+    c.restore();
+  }
+}
+
+// ---------- 6. votre commerce, plus vivant (16 → 19 s) ----------
+const MOSAIQUE = [['glacage', 0, 0], ['salle', 1, 0], ['truffes', 0, 1], ['nouilles', 1, 1]];
+function vivant(c, t) {
+  if (t < 16.0 || t > 19.05) return;
+  c.fillStyle = '#0E1314'; c.fillRect(0, 0, L, H);
+  const w = L / 2, h = H / 2;
+  MOSAIQUE.forEach(([plan, cx, cy], i) => {
+    const k = dansSortie(prog(t, 16.0 + i * B / 2, 16.0 + i * B / 2 + 0.3));
+    if (k <= 0) return;
+    c.save();
+    const x = cx * w + 3, y = cy * h + 3;
+    c.beginPath(); c.rect(x, y + (1 - k) * (cy ? h : -h), w - 6, h - 6); c.clip();
+    c.translate(x, y + (1 - k) * (cy ? h : -h));
+    cadrer(c, image(plan, t, 16.0 + i * 0.25), 0.5, 0.5, 1.08, { l: w - 6, h: h - 6 });
+    c.restore();
+  });
+  const kv = prog(t, 17.0, 17.3);
+  c.fillStyle = `rgba(12,18,19,${0.5 * kv})`; c.fillRect(0, 0, L, H);
+  ligne(c, ['Votre', 'commerce,'], t, 17.0, 900, 120, { fin: 18.85 });
+  ligne(c, ['plus', 'vivant.'], t, 17.25, 1060, 150, { fin: 18.85, surligne: 1 });
+  for (let i = 0; i < 4; i++) flash(c, t, 16.0 + i * B / 2, 0.3);
+}
+
+// ---------- 7. l'appel à l'action (19 → 24 s) ----------
+function appel(c, t) {
+  if (t < 19.0) return;
+  c.drawImage(FOND, 0, 0);
+  nLumineux(c, 540 - 110, 300, 220, { trace: sortie(prog(t, 19.1, 19.6)), eclat: 0.7 + 0.3 * prog(t, 19.6, 19.9) });
+  ligne(c, ['Nouvelle', 'Ardoise'], t, 19.4, 720, 110);
+  surtitre(c, 'AGENCE DE MARKETING DIGITAL · GENÈVE', t, 19.7, 810, { taille: 28 });
+  ligne(c, ['Montrez', 'votre', 'savoir-faire.'], t, 20.1, 1000, 66, { graisse: 600 });
+  ligne(c, ['On', 'fait', 'venir', 'les', 'clients.'], t, 20.35, 1090, 66, { graisse: 600, surligne: 4 });
+  const kb = sortie(prog(t, 20.9, 21.3));
+  if (kb > 0) {
+    const souffle = 1 + Math.sin((t - 21.3) * 6) * 0.03 * prog(t, 21.3, 21.5);
+    police(c, 64);
+    const texte = 'Parlons-en';
+    const w = c.measureText(texte).width + 240, h = 150;
+    c.save(); c.translate(540, 1330 + (1 - kb) * 30); c.scale(souffle, souffle); c.globalAlpha = kb;
+    c.shadowColor = 'rgba(255,210,63,0.5)'; c.shadowBlur = 60;
+    c.fillStyle = JAUNE; c.beginPath(); c.roundRect(-w / 2, -h / 2, w, h, h / 2); c.fill();
+    c.shadowColor = 'transparent';
+    c.fillStyle = ARDOISE; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(texte, -w / 2 + 64, 4);
+    const ax = w / 2 - 84 + Math.sin(t * 8) * 4;
+    c.strokeStyle = ARDOISE; c.lineWidth = 9; c.lineCap = 'round'; c.lineJoin = 'round';
+    c.beginPath(); c.moveTo(ax - 26, 2); c.lineTo(ax + 22, 2); c.moveTo(ax + 2, -20); c.lineTo(ax + 24, 2); c.lineTo(ax + 2, 24); c.stroke();
+    c.restore();
+  }
+  const ks = sortie(prog(t, 21.3, 21.7));
+  if (ks > 0) {
+    c.save(); c.globalAlpha = ks; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    police(c, 46, 600, 'Instru'); c.fillStyle = '#fff'; c.fillText('nouvelleardoise.ch · lien en bio', 540, 1520 + (1 - ks) * 24);
+    police(c, 22, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.45)';
+    c.fillText('Images : Pexels, Mixkit · Vue aérienne © swisstopo', 540, H - 40);
+    c.restore();
+  }
+  flash(c, t, 19.0, 0.5);
+}
+
+window.pret = Promise.all([
+  document.fonts.load('800 100px Brico'), document.fonts.load('700 100px Brico'), document.fonts.load('600 100px Brico'),
+  document.fonts.load('500 40px Instru'), document.fonts.load('600 40px Instru'), document.fonts.load('700 40px Instru'),
+  ...NIVEAUX.filter((z) => z <= 16).map((z) => charger(`carte/z${z}.jpg`).then((i) => { MOSAIQUES[z] = i; })),
+  ...Object.entries(PLANS).flatMap(([plan, p]) => Array.from({ length: p.n }, (_, i) =>
+    charger(`${p.dossier}/${plan}/${String(i + 1).padStart(3, '0')}.jpg`).then((im) => { p.images[i] = im; }))),
+]);
+
+window.rendu = function (t) {
+  ctx.fillStyle = '#0E1314'; ctx.fillRect(0, 0, L, H);
+  geneve(ctx, t);
+  promesse(ctx, t);
+  confiance(ctx, t);
+  services(ctx, t);
+  strategie(ctx, t);
+  vivant(ctx, t);
+  appel(ctx, t);
+  grain(ctx, t);
+};
+
+if (!navigator.webdriver) {
+  window.pret.then(() => {
+    const debut = performance.now();
+    const boucle = () => { window.rendu(((performance.now() - debut) / 1000) % DUREE); requestAnimationFrame(boucle); };
+    boucle();
+  });
+}
+</script>
+</body>
+</html>
