@@ -5,7 +5,7 @@
 <title>Réel manifeste Nouvelle Ardoise</title>
 <!--
   Réel Instagram 24 s, 1080×1920, motion design sur 120 BPM (un temps = 0,5 s) : qui est Nouvelle Ardoise.
-  1. 0 → 2,5 s   : plongée sur Genève (SWISSIMAGE © swisstopo), « Agence de marketing digital · Genève ».
+  1. 0 → 2,5 s   : écran jaune, « Nouvelle Ardoise. », bande « Agence marketing · Genève ».
   2. 2,5 → 5 s   : « On redonne de la visibilité aux restaurateurs et aux artisans du goût. »
   3. 5 → 7 s     : « Tout commence par la confiance. », entourée à la craie.
   4. 7 → 13 s    : six services, un par seconde, sur de vraies images : photo et récit, réseaux,
@@ -13,7 +13,8 @@
   5. 13 → 16 s   : « Une stratégie pensée ensemble » : schéma à la craie Vous ↔ Nous → Vos clients.
   6. 16 → 19 s   : mosaïque d'images, « Votre commerce, plus vivant. »
   7. 19 → 24 s   : l'appel à l'action.
-  Images : vidéos Pexels (videos/images-artisan, videos/images/nouilles) et Mixkit (videos/images/salle, cliente).
+  Images : vidéos Pexels, toutes nouvelles (sh videos/extraire-manifeste.sh <dossier> en tire les plans).
+  Transitions : volets jaunes en biais sur les temps forts.
   REEL=reel-manifeste node render.mjs assemble la vidéo.
 -->
 <style>
@@ -26,10 +27,7 @@
 <body>
 <canvas width="1080" height="1920"></canvas>
 <script src="ardoise.js"></script>
-<script src="carte/index.js"></script>
-<script src="videos/images-artisan/index.js"></script>
-<script>const VIDEOS_ARTISAN = window.VIDEOS;</script>
-<script src="videos/images/index.js"></script>
+<script src="videos/images-manifeste/index.js"></script>
 <script>
 const L = 1080, H = 1920, DUREE = 24, B = 0.5;
 window.DUREE = DUREE;
@@ -51,8 +49,7 @@ const charger = (src) => new Promise((ok, ko) => { const i = new Image(); i.onlo
 
 // les plans vidéo : dossier et nombre d'images
 const PLANS = {};
-Object.entries(VIDEOS_ARTISAN).forEach(([k, n]) => { PLANS[k] = { dossier: 'videos/images-artisan', n, images: [] }; });
-Object.entries(window.VIDEOS).forEach(([k, n]) => { PLANS[k] = { dossier: 'videos/images', n, images: [] }; });
+Object.entries(window.VIDEOS_MANIFESTE).forEach(([k, n]) => { PLANS[k] = { dossier: 'videos/images-manifeste', n, images: [] }; });
 const image = (plan, t, t0, vitesse = 1) => { const p = PLANS[plan]; return p.images[clamp(Math.floor((t - t0) * 30 * vitesse), 0, p.n - 1)]; };
 
 function cadrer(c, img, fx, fy, z = 1, { alpha = 1, l = L, h = H } = {}) {
@@ -117,43 +114,52 @@ function surtitre(c, texte, t, t0, y, { fin = 1e9, couleur = JAUNE, taille = 30 
   c.restore(); c.letterSpacing = '0px';
 }
 
-// ---------- 1. plongée sur Genève (0 → 2,6 s) ----------
-const NIVEAUX = Object.keys(window.CARTE).map(Number).sort((a, b) => a - b);
-const MOSAIQUES = {};
-const zoomA = (t) => mix(10, 14.6, lisse(prog(t, 0, 2.5)));
-function niveau(c, z, Z, rot, alpha) {
-  const img = MOSAIQUES[z], p = window.CARTE[z];
-  if (!img || alpha <= 0) return;
-  const s = Math.pow(2, Z - z);
-  c.save(); c.globalAlpha = alpha;
-  c.translate(L / 2, H * 0.52); c.rotate(rot); c.scale(s, s); c.translate(-p.x, -p.y);
-  c.drawImage(img, 0, 0); c.restore();
+// ---------- 1. ouverture sur le jaune (0 → 2,5 s) ----------
+function mot(c, texte, x, y, taille, k, { couleur = ARDOISE, aligne = 'left' } = {}) {
+  if (k <= 0) return;
+  c.save(); c.translate(x, y + (1 - Math.min(1, k)) * 120); c.globalAlpha = Math.min(1, k * 1.5);
+  police(c, taille); c.fillStyle = couleur; c.textAlign = aligne; c.textBaseline = 'alphabetic';
+  c.fillText(texte, 0, 0); c.restore();
 }
-function geneve(c, t) {
+function ouverture(c, t) {
   if (t > 2.6) return;
-  const Z = zoomA(t), rot = mix(-0.3, 0, lisse(prog(t, 0, 2.5)));
-  c.fillStyle = '#1B2426'; c.fillRect(0, 0, L, H);
-  const z = clamp(Math.floor(Z), NIVEAUX[0], NIVEAUX[NIVEAUX.length - 1]);
-  niveau(c, z - 1, Z, rot, 1);
-  niveau(c, z, Z, rot, 1);
-  niveau(c, z + 1, Z, rot, lisse(clamp((Z - z - 0.45) / 0.55)));
-  c.fillStyle = 'rgba(12,18,19,0.38)'; c.fillRect(0, 0, L, H);
-  voile(c, 0.6, 0.7);
-  surtitre(c, 'AGENCE DE MARKETING DIGITAL', t, 0.15, 760, { fin: 2.4 });
-  // « Genève. » frappé sur le temps fort
-  const k = rebond(prog(t, 0.5, 0.85)) * (1 - prog(t, 2.35, 2.5));
-  if (k > 0) {
-    c.save(); c.translate(L / 2, 1020); c.scale(k, k);
-    police(c, 250); c.fillStyle = '#fff'; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
-    c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 50; c.fillText('Genève.', 0, 0);
+  c.fillStyle = JAUNE; c.fillRect(0, 0, L, H);
+  // une grille de points à la craie, discrète
+  c.fillStyle = 'rgba(30,42,44,0.10)';
+  for (let y = 60; y < H; y += 60) for (let x = 60; x < L; x += 60) { c.beginPath(); c.arc(x, y, 3, 0, 7); c.fill(); }
+  // le logo : carré ardoise et N à la craie jaune
+  const kl = rebond(prog(t, 0.0, 0.3));
+  if (kl > 0) {
+    c.save(); c.translate(80 + 75, 330 + 75); c.scale(kl, kl);
+    c.fillStyle = ARDOISE; c.beginPath(); c.roundRect(-75, -75, 150, 150, 30); c.fill();
     c.restore();
-    traitJaune(c, 250, 1080, 580, sortie(prog(t, 0.9, 1.3)) * (1 - prog(t, 2.35, 2.5)));
+    if (kl > 0.9) nLumineux(c, 80 + 30, 330 + 40, 90, { trace: sortie(prog(t, 0.2, 0.6)), eclat: 0.6 });
   }
-  ligne(c, ['Nouvelle', 'Ardoise'], t, 1.2, 1260, 64, { fin: 2.35, graisse: 700 });
-  const kc = 1 - prog(t, 0, 0.5);
-  if (kc > 0) { c.fillStyle = `rgba(0,0,0,${kc})`; c.fillRect(0, 0, L, H); }
-  const s = sortie(prog(t, 0.3, 0.6)) * (1 - prog(t, 2.3, 2.45));
-  if (s > 0) { c.save(); c.globalAlpha = s * 0.7; police(c, 20, 500, 'Instru'); c.fillStyle = '#fff'; c.textAlign = 'right'; c.fillText('Images aériennes © swisstopo', L - 40, H - 40); c.restore(); }
+  const z = mix(1.06, 1, sortie(prog(t, 0, 2.5)));
+  c.save(); c.translate(L / 2, H / 2); c.scale(z, z); c.translate(-L / 2, -H / 2);
+  mot(c, 'Nouvelle', 80, 760, 210, rebond(prog(t, 0.05, 0.4)));
+  mot(c, 'Ardoise.', 80, 960, 210, rebond(prog(t, 0.3, 0.65)));
+  c.restore();
+  // la bande ardoise qui glisse : marketing digital, Genève
+  const kb = dansSortie(prog(t, 0.95, 1.3));
+  if (kb > 0) {
+    c.save(); c.fillStyle = ARDOISE;
+    c.translate(0, 1080); c.rotate(-0.035);
+    c.fillRect(-40 + (1 - kb) * -L, 0, L + 80, 170);
+    police(c, 64, 800); c.fillStyle = JAUNE; c.textBaseline = 'middle'; c.textAlign = 'left';
+    c.globalAlpha = prog(t, 1.15, 1.35);
+    c.fillText('Agence marketing · Genève', 80, 88);
+    c.restore();
+  }
+  ligne(c, ['Pour', 'les', 'restaurants', 'et', 'les', 'artisans', 'du', 'goût.'], t, 1.5, 1460, 50, { couleur: ARDOISE, graisse: 700, ecart: 0.04 });
+}
+function volet(c, t, t0) {
+  // transition : un volet jaune balaie l'écran en biais, sur le temps fort
+  const k = prog(t, t0 - 0.14, t0 + 0.14);
+  if (k <= 0 || k >= 1) return;
+  const x = mix(-L * 1.4, L * 1.4, dansSortie(k));
+  c.save(); c.fillStyle = JAUNE; c.translate(x + L / 2, H / 2); c.rotate(0.22);
+  c.fillRect(-L * 0.7, -H, L * 1.4, H * 2); c.restore();
 }
 
 // ---------- 2. la promesse (2,5 → 5 s) ----------
@@ -170,7 +176,7 @@ function promesse(c, t) {
 // ---------- 3. la confiance (5 → 7 s) ----------
 function confiance(c, t) {
   if (t < 5.0 || t > 7.05) return;
-  cadrer(c, image('salle', t, 5.0, 0.7), 0.5, 0.5, mix(1.12, 1.0, sortie(prog(t, 5.0, 7.0))));
+  cadrer(c, image('main', t, 5.0, 0.9), 0.5, 0.5, mix(1.12, 1.0, sortie(prog(t, 5.0, 7.0))));
   c.fillStyle = 'rgba(12,18,19,0.55)'; c.fillRect(0, 0, L, H);
   ligne(c, ['Tout', 'commence', 'par'], t, 5.1, 860, 84, { fin: 6.85, graisse: 600 });
   ligne(c, ['la', 'confiance.'], t, 5.4, 1030, 140, { fin: 6.85 });
@@ -194,12 +200,12 @@ function confiance(c, t) {
 
 // ---------- 4. six services, un par seconde (7 → 13 s) ----------
 const SERVICES = [
-  ['tempere', 0.5, 'Photo & vidéo', 'Nos photographes racontent votre histoire.'],
-  ['fraises', 0.5, 'Réseaux sociaux', 'Réels et publications : on publie pour vous.'],
-  ['nouilles', 0.5, 'Site & référencement', 'Qu’on vous trouve, qu’on vous choisisse.'],
-  ['cliente', 0.5, 'Publicité ciblée', 'Instagram et Facebook, résultats chaque mois.'],
-  ['tarte', 0.35, 'Click & collect', 'Commande en ligne, avec nos partenaires.'],
-  ['pain', 0.5, 'Nouveaux canaux', 'Plus de façons de vous trouver, plus de clients.'],
+  ['photographe', 0.5, 'Photo & vidéo', 'Nos photographes racontent votre histoire.'],
+  ['videaste', 0.5, 'Réseaux sociaux', 'Réels et publications : on publie pour vous.'],
+  ['telephone', 0.5, 'Site & référencement', 'Qu’on vous trouve, qu’on vous choisisse.'],
+  ['trinque', 0.5, 'Publicité ciblée', 'Instagram et Facebook, résultats chaque mois.'],
+  ['sac', 0.5, 'Click & collect', 'Commande en ligne, avec nos partenaires.'],
+  ['four', 0.5, 'Nouveaux canaux', 'Plus de façons de vous trouver, plus de clients.'],
 ];
 function services(c, t) {
   if (t < 7.0 || t > 13.05) return;
@@ -281,7 +287,7 @@ function strategie(c, t) {
 }
 
 // ---------- 6. votre commerce, plus vivant (16 → 19 s) ----------
-const MOSAIQUE = [['glacage', 0, 0], ['salle', 1, 0], ['truffes', 0, 1], ['nouilles', 1, 1]];
+const MOSAIQUE = [['dressage', 0, 0], ['barista', 1, 0], ['flammes', 0, 1], ['comptoir', 1, 1]];
 function vivant(c, t) {
   if (t < 16.0 || t > 19.05) return;
   c.fillStyle = '#0E1314'; c.fillRect(0, 0, L, H);
@@ -333,7 +339,7 @@ function appel(c, t) {
     c.save(); c.globalAlpha = ks; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
     police(c, 46, 600, 'Instru'); c.fillStyle = '#fff'; c.fillText('nouvelleardoise.ch · lien en bio', 540, 1520 + (1 - ks) * 24);
     police(c, 22, 500, 'Instru'); c.fillStyle = 'rgba(255,255,255,0.45)';
-    c.fillText('Images : Pexels, Mixkit · Vue aérienne © swisstopo', 540, H - 40);
+    c.fillText('Images : Pexels', 540, H - 40);
     c.restore();
   }
   flash(c, t, 19.0, 0.5);
@@ -342,20 +348,20 @@ function appel(c, t) {
 window.pret = Promise.all([
   document.fonts.load('800 100px Brico'), document.fonts.load('700 100px Brico'), document.fonts.load('600 100px Brico'),
   document.fonts.load('500 40px Instru'), document.fonts.load('600 40px Instru'), document.fonts.load('700 40px Instru'),
-  ...NIVEAUX.filter((z) => z <= 16).map((z) => charger(`carte/z${z}.jpg`).then((i) => { MOSAIQUES[z] = i; })),
   ...Object.entries(PLANS).flatMap(([plan, p]) => Array.from({ length: p.n }, (_, i) =>
     charger(`${p.dossier}/${plan}/${String(i + 1).padStart(3, '0')}.jpg`).then((im) => { p.images[i] = im; }))),
 ]);
 
 window.rendu = function (t) {
   ctx.fillStyle = '#0E1314'; ctx.fillRect(0, 0, L, H);
-  geneve(ctx, t);
+  ouverture(ctx, t);
   promesse(ctx, t);
   confiance(ctx, t);
   services(ctx, t);
   strategie(ctx, t);
   vivant(ctx, t);
   appel(ctx, t);
+  [2.5, 5.0, 13.0, 19.0].forEach((t0) => volet(ctx, t, t0));
   grain(ctx, t);
 };
 

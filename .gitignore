@@ -23,3 +23,6 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 __pycache__/
+
+# Images extraites des vidéos (régénérées par videos/extraire-*.sh)
+marketing/kit-lancement/_sources/videos/images-manifeste/
