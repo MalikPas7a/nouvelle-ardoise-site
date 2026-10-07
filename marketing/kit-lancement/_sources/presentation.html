@@ -27,8 +27,10 @@ const F = {
   story: { l: 1080, h: 1920, y0: 330 },
 }[quoi];
 const cv = document.querySelector('canvas');
-cv.width = F.l; cv.height = F.h; cv.style.width = F.l + 'px'; cv.style.height = F.h + 'px';
+const R = 2; // double résolution : texte net même après la compression d'Instagram
+cv.width = F.l * R; cv.height = F.h * R; cv.style.width = F.l + 'px'; cv.style.height = F.h + 'px';
 const c = cv.getContext('2d');
+c.scale(R, R);
 const police = (taille, graisse = 800, famille = 'Brico') => { c.font = `${graisse} ${taille}px ${famille}`; };
 const MOTS = ['Montrer.', 'Attirer.', 'Vendre.'];
 const SOUS = ['Photo, vidéo et réels tournés chez vous', 'Réseaux sociaux, site, référencement, publicité', 'Click and collect et nouveaux canaux de vente'];

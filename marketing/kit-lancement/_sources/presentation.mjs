@@ -1,4 +1,5 @@
-// Exporte l'image officielle Nouvelle Ardoise aux trois formats Instagram (4:5, 1:1, 9:16) en PNG.
+// Exporte l'image officielle Nouvelle Ardoise aux trois formats Instagram (4:5, 1:1, 9:16) en PNG,
+// en double résolution (2160 px de large).
 import { createRequire } from 'node:module';
 import { mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -7,7 +8,7 @@ const { chromium } = createRequire(import.meta.url)(process.env.PLAYWRIGHT ?? 'p
 const ici = dirname(fileURLToPath(import.meta.url));
 mkdirSync(join(ici, '..', 'publication'), { recursive: true });
 const nav = await chromium.launch({ args: ['--allow-file-access-from-files'] });
-const page = await nav.newPage({ viewport: { width: 1080, height: 1920 } });
+const page = await nav.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 2 });
 const url = pathToFileURL(join(ici, 'presentation.html')).href;
 for (const [quoi, fichier] of [['publication', 'publication/presentation-4x5.png'], ['carre', 'publication/presentation-carre-1x1.png'], ['story', 'publication/presentation-story-9x16.png']]) {
   await page.goto(`${url}?quoi=${quoi}`);
