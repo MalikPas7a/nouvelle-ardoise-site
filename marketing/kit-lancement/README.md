@@ -209,10 +209,12 @@ Ouvrir `_sources/reel.html` dans un navigateur joue le réel en boucle. Le texte
 minutage se règlent directement dans ce fichier ; les sons dans `son.py`.
 Le réel utilise les 96 images de `public/sequences/sushi/x/`, celles du site.
 
+**Règle (07.10.2026) : jamais d'alcool à l'image** (verres, bouteilles, on trinque), et chaque réel a ses propres images et sa propre musique.
+
 ## Sources du réel « manifeste »
 
 - Vidéos : Pexels, licence Pexels, usage commercial autorisé : 12893607, 37165548, 12691874, 7234077,
-  6961769, 13433117, 6221689, 7008582, 34722001, 28792884, 5834187. `sh videos/extraire-manifeste.sh <dossier>`
+  38410499, 13433117, 6221689, 7008582, 34722001, 28792884, 5834187. `sh videos/extraire-manifeste.sh <dossier>`
   en tire les plans. Aucune image déjà utilisée dans les autres réels. Crédit « Images : Pexels » en fin de vidéo.
 - Musique : synthétisée (`son_manifeste.py`), house en ré mineur, propre à ce réel, aucun droit.
 

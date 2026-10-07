@@ -5,7 +5,7 @@
 # Vidéos Pexels, licence Pexels (usage commercial autorisé), fichiers pNUMÉRO.mp4 téléchargés depuis
 # https://www.pexels.com/download/video/NUMÉRO/ (non gardés dans le dépôt, trop lourds) :
 # 12893607 (poignée de main), 37165548 (photographe culinaire), 12691874 (vidéaste en cuisine),
-# 7234077 (photo d'un plat au téléphone), 6961769 (on trinque), 13433117 (sac à emporter),
+# 7234077 (photo d'un plat au téléphone), 38410499 (fil Instagram qui défile), 13433117 (sac à emporter),
 # 6221689 (four à pizza), 7008582 (dressage), 34722001 (flammes du four), 28792884 (barista),
 # 5834187 (comptoir à emporter).
 cd "$(dirname "$0")"
@@ -19,7 +19,7 @@ plan main p12893607.mp4 2.0 2.5
 plan photographe p37165548.mp4 0.5 1.6
 plan videaste p12691874.mp4 1.0 1.6
 plan telephone p7234077.mp4 1.0 1.6
-plan trinque p6961769.mp4 2.0 1.6
+plan reseau p38410499.mp4 2.0 1.6
 plan sac p13433117.mp4 1.0 1.6
 plan four p6221689.mp4 1.0 1.6
 plan dressage p7008582.mp4 1.0 3.2
