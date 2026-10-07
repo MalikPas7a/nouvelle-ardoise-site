@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Image officielle Nouvelle Ardoise</title>
+<!--
+  Image de présentation officielle : Nouvelle Ardoise, agence de marketing digital, en trois mots.
+  Même direction que l'ouverture du réel manifeste : fond jaune, grille de points, logo N, bande ardoise.
+  ?quoi=publication (4:5), ?quoi=carre (1:1), ?quoi=story (9:16). Exportées en PNG par presentation.mjs.
+-->
+<style>
+  @font-face { font-family: Brico; src: url(fonts/bricolage-grotesque-latin-standard-normal.woff2) format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: Instru; src: url(fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas></canvas>
+<script src="ardoise.js"></script>
+<script>
+const JAUNE = '#FFD23F', ARDOISE = '#1E2A2C';
+const quoi = new URLSearchParams(location.search).get('quoi') || 'publication';
+const F = {
+  publication: { l: 1080, h: 1350, y0: 120 },
+  carre: { l: 1080, h: 1080, y0: 70 },
+  story: { l: 1080, h: 1920, y0: 330 },
+}[quoi];
+const cv = document.querySelector('canvas');
+cv.width = F.l; cv.height = F.h; cv.style.width = F.l + 'px'; cv.style.height = F.h + 'px';
+const c = cv.getContext('2d');
+const police = (taille, graisse = 800, famille = 'Brico') => { c.font = `${graisse} ${taille}px ${famille}`; };
+const MOTS = ['Montrer.', 'Attirer.', 'Vendre.'];
+const SOUS = ['Photo, vidéo et réels tournés chez vous', 'Réseaux sociaux, site, référencement, publicité', 'Click and collect et nouveaux canaux de vente'];
+
+function dessiner() {
+  const { l: L, h: H, y0 } = F;
+  const compact = quoi === 'carre';
+  c.fillStyle = JAUNE; c.fillRect(0, 0, L, H);
+  c.fillStyle = 'rgba(30,42,44,0.10)';
+  for (let y = 60; y < H; y += 60) for (let x = 60; x < L; x += 60) { c.beginPath(); c.arc(x, y, 3, 0, 7); c.fill(); }
+
+  // logo : carré ardoise et N lumineux, puis le nom
+  const s = compact ? 110 : 130;
+  c.fillStyle = ARDOISE; c.beginPath(); c.roundRect(80, y0, s, s, s * 0.2); c.fill();
+  nLumineux(c, 80 + s * 0.2, y0 + s * 0.27, s * 0.6, { eclat: 0.6 });
+  police(compact ? 64 : 72); c.fillStyle = ARDOISE; c.textBaseline = 'middle'; c.textAlign = 'left';
+  c.fillText('Nouvelle Ardoise', 80 + s + 34, y0 + s / 2 + 4);
+
+  // la bande ardoise inclinée
+  const yb = y0 + s + (compact ? 60 : 90);
+  c.save(); c.translate(0, yb); c.rotate(-0.035);
+  c.fillStyle = ARDOISE; c.fillRect(-40, 0, L + 80, compact ? 120 : 140);
+  police(compact ? 44 : 52); c.fillStyle = JAUNE; c.textBaseline = 'middle';
+  c.fillText('Agence de marketing digital · Genève', 80, compact ? 64 : 74);
+  c.restore();
+
+  // les trois mots, répartis sur la hauteur disponible, chacun avec son numéro et sa ligne d'explication
+  const haut = yb + (compact ? 120 : 140) + (compact ? 50 : 80);
+  const bas = H - (compact ? 130 : 170);
+  const bloc = (bas - haut) / 3;
+  const taille = Math.min(compact ? 112 : 170, bloc * 0.52);
+  MOTS.forEach((m, i) => {
+    const t0 = haut + i * bloc;
+    const yMot = t0 + taille * 0.82;
+    c.textBaseline = 'alphabetic'; c.textAlign = 'left';
+    police(taille); c.fillStyle = ARDOISE; c.fillText(m, 76, yMot);
+    if (i === 2) { // « Vendre. » souligné à la craie
+      const w = c.measureText(m).width;
+      c.strokeStyle = 'rgba(30,42,44,0.85)'; c.lineWidth = 10; c.lineCap = 'round';
+      c.beginPath(); c.moveTo(82, yMot + 22); c.quadraticCurveTo(82 + w / 2, yMot + 30, 76 + w, yMot + 18); c.stroke();
+    }
+    police(compact ? 27 : 33, 500, 'Instru'); c.fillStyle = 'rgba(30,42,44,0.78)';
+    c.fillText(SOUS[i], 84, yMot + (compact ? 50 : 66) + (i === 2 ? 16 : 0));
+  });
+
+  // pied : pour qui, et l'adresse
+  police(compact ? 26 : 30, 600, 'Instru'); c.fillStyle = ARDOISE; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  c.fillText('Pour les restaurants et les artisans du goût', 84, H - (compact ? 70 : 90));
+  c.textAlign = 'right'; police(compact ? 26 : 30, 700, 'Instru');
+  c.fillText('nouvelleardoise.ch', L - 80, H - (compact ? 70 : 90));
+}
+
+window.pret = Promise.all([document.fonts.load('800 100px Brico'), document.fonts.load('500 30px Instru'), document.fonts.load('600 30px Instru'), document.fonts.load('700 30px Instru')]).then(dessiner);
+</script>
+</body>
+</html>
