@@ -1,76 +1,59 @@
-TROIS STYLES, CHOISIS SELON LE RESTAURANT
-- IMPACTANT : le site est cassé (page blanche, erreur, « Coming soon », site qui ne répond plus,
-  domaine non relié).
-- DIRECT : restauration rapide (kebab, chawarma, pizzeria à emporter, snack, burger, food truck),
-  quel que soit le défaut.
-- CHALEUREUX : tous les autres cas (pas adapté au téléphone, « non sécurisé », adresse Wix
-  gratuite, carte en PDF, site vieillissant).
+MODÈLE VALIDÉ PAR MALIK LE 06.10.2026, PRÉCISÉ LE 07.10 : on se présente comme une agence de marketing
+digital qui donne de la visibilité et crée des canaux d'acquisition. Le site n'est qu'une partie de l'offre.
+Court, clair, percutant. Un seul modèle, personnalisé pour chaque prospect.
+
+LES ANCIENS STYLES « CHALEUREUX », « IMPACTANT », « DIRECT » ET LA PHRASE « Je m'appelle Malik Younes et
+j'ai lancé Nouvelle Ardoise… » SONT SUPPRIMÉS. Ne jamais les réutiliser, même de mémoire.
+
+PERSONNALISATION (obligatoire pour chaque mail)
+- {DU_RESTAURANT} / {LE_RESTAURANT} : le nom avec les élisions françaises (« du Boccalino » /
+  « le Boccalino », « de Chez Bepa » / « Chez Bepa », « d'Asia Garden » / « Asia Garden »).
+- {OBSERVATION} : un seul point, vérifié le jour même, ton bienveillant, jamais moqueur. Il peut porter
+  sur le site (carte en PDF, pas adapté au téléphone, erreur…) OU sur Instagram (pas de compte, dernière
+  publication ancienne, pas de réels) OU sur la commande en ligne (pas de click and collect).
+  Écrire « votre site », sans recopier son adresse web. Pas de « en cherchant sur Google ».
+  Exemples : « sur votre site, la carte s'ouvre en PDF ; sur téléphone, il faut zoomer pour la lire. »
+             « votre site affiche encore « © 2018 » en bas de page. »
+             « votre site ne présente pas encore votre carte. »
+- {METIER} selon le type de prospect :
+  · Restaurant, café, bistrot, pizzeria, take-away :
+      PRODUITS = « vos plats, votre salle et votre cuisine »
+      VOUS_FAITES = « Vous cuisinez, on s'occupe du reste. »
+      CARTE = « avec votre carte claire »
+  · Chocolatier, pâtissier, boulanger, traiteur, épicerie fine :
+      PRODUITS = « vos créations et vos gestes »
+      VOUS_FAITES = « Vous créez, on s'occupe du reste. »
+      CARTE = « avec vos créations en grand et le click and collect en option »
+
+OBJET
+- Cas général : Nouvelle Ardoise : mettre en valeur {LE_RESTAURANT} en ligne
+  (ex. « Nouvelle Ardoise : mettre en valeur le Boccalino en ligne »)
+- Site cassé (page blanche, erreur, « Coming soon », domaine non relié, site qui ne répond plus) :
+  {RESTAURANT} : votre site ne s'affiche plus
 
 RÈGLES COMMUNES
-- {RESTAURANT} : le nom, avec les élisions françaises (« d'Asia Garden », « du Cyrano »).
-- {OBSERVATION} : un seul défaut, vérifié le jour même, ton bienveillant, jamais moqueur.
-  Écrire « votre site », sans recopier son adresse web. Commencer directement par le constat
-  (« Votre site… », « Sur téléphone, votre site… »), sans « en cherchant sur Google » ni « en ligne ».
 - Aucun prix, aucune promesse chiffrée, aucune critique de la cuisine.
+- Ne jamais parler de Pasta Mo'. Pas d'adresse postale. Pas le mot « Google ».
 - Seul lien : nouvelleardoise.ch. Créer le brouillon en HTML seulement (htmlBody, sans body),
-  chaque mention écrite <a href="http://nouvelleardoise.ch">nouvelleardoise.ch</a> et les
-  retours à la ligne en <br>. En texte brut, le connecteur Gmail affiche le lien en entier
-  (https://www.google.com/url?q=…), ce qui fait suspect.
-- Ne pas parler de Pasta Mo'.
+  chaque mention écrite <a href="http://nouvelleardoise.ch">nouvelleardoise.ch</a>,
+  retours à la ligne en <br>, les cinq services en gras (<b>…</b>) précédés de « – ».
 
 ======================================================================
-IMPACTANT
-OBJET : {RESTAURANT} : votre site ne s'affiche plus
-Bonjour,
+CORPS (HTML)
+Bonjour,<br><br>
+Nouvelle Ardoise est une agence de marketing digital dédiée aux restaurants et aux boutiques gourmandes de Genève et Vaud.<br><br>
+En regardant votre présence en ligne, un point nous a frappés : {OBSERVATION}<br><br>
+Notre métier : montrer votre savoir-faire et faire venir des clients.<br>
+– <b>Shooting photo et vidéo chez vous</b> : {PRODUITS}, mis en valeur par un photographe.<br>
+– <b>Réseaux sociaux clés en main</b> : nous créons les réels et les publications, et nous postons pour vous. {VOUS_FAITES}<br>
+– <b>Site internet</b> : rapide, pensé pour le téléphone, {CARTE}.<br>
+– <b>Référencement et publicité Instagram et Facebook</b> : de nouveaux clients chaque mois, avec des résultats clairs.<br>
+– <b>Commande et réservation en ligne</b> : click and collect, réservation de table et paiement TWINT, en option.<br><br>
+Plusieurs formules existent, d'un service à la gestion complète de votre présence en ligne.<br><br>
+Nos réalisations : <a href="http://nouvelleardoise.ch">nouvelleardoise.ch</a><br><br>
+Seriez-vous disponible cette semaine pour un échange de 15 minutes ?<br><br>
+Malik Younes<br>
+Fondateur, Nouvelle Ardoise · Agence de marketing digital, Genève<br>
+078 213 38 68 · <a href="http://nouvelleardoise.ch">nouvelleardoise.ch</a><br><br>
+Vous ne souhaitez plus recevoir nos messages ? Répondez « stop ».
 
-{OBSERVATION}
-
-Ce soir, un client qui hésite entre plusieurs restaurants choisira celui dont il voit les plats.
-
-Je m'appelle Malik Younes, fondateur de Nouvelle Ardoise, à Genève. Nous créons des sites où votre plat signature s'ouvre en 3D sous le doigt du client et dévoile ses ingrédients, un par un.
-
-Voyez par vous-même, sur votre téléphone : nouvelleardoise.ch
-
-Une réponse à ce message suffit pour que je vous montre ce que cela donnerait pour {RESTAURANT}.
-
-{SIGNATURE}
-
-======================================================================
-CHALEUREUX
-OBJET : Une idée pour le site de {RESTAURANT}
-Bonjour,
-
-Je m'appelle Malik Younes et j'ai lancé Nouvelle Ardoise, à Genève, pour aider les restaurants d'ici à se montrer sous leur meilleur jour en ligne. Je sais que le site passe souvent après la cuisine.
-
-{OBSERVATION} C'est dommage, parce que c'est justement là que vos futurs clients vous cherchent.
-
-Nous créons des sites pensés pour le téléphone, avec une touche que vos clients n'auront jamais vue : votre plat qui s'ouvre au fil du doigt et révèle ses ingrédients. Trois restaurants de démonstration vous attendent sur nouvelleardoise.ch.
-
-Si l'idée vous plaît, je passe volontiers prendre un café et vous montrer ce que cela donnerait pour {RESTAURANT}.
-
-{SIGNATURE}
-
-======================================================================
-DIRECT
-OBJET : {RESTAURANT} : votre site sur téléphone
-Bonjour,
-
-Malik Younes, Nouvelle Ardoise, Genève.
-
-{OBSERVATION}
-
-Nous faisons des sites de restaurants pensés pour le téléphone : carte claire, réservation et plat signature en 3D.
-
-Exemples : nouvelleardoise.ch
-
-Intéressé ? Répondez « oui » et je vous appelle.
-
-{SIGNATURE}
-
-======================================================================
-{SIGNATURE} =
-Malik Younes
-Fondateur, Nouvelle Ardoise
-078 213 38 68 · nouvelleardoise.ch
-
-Vous ne souhaitez plus recevoir de message de ma part ? Répondez « stop » et je ne vous écrirai plus.
