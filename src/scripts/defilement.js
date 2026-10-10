@@ -197,40 +197,15 @@ if (eponge) {
   });
 }
 
-/* ---------- le manifeste : les mots s'allument un à un ---------- */
-const manifeste = document.querySelector('[data-manifeste]');
-if (manifeste) {
-  const texte = manifeste.querySelector('[data-mots]');
-  // Chaque mot devient un <span>, les mots en <em> gardent leur couleur
-  const mots = [];
-  const decouper = (noeud) => {
-    [...noeud.childNodes].forEach((n) => {
-      if (n.nodeType === 3) {
-        const frag = document.createDocumentFragment();
-        n.textContent.split(/(\s+)/).forEach((m) => {
-          if (!m) return;
-          if (/^\s+$/.test(m)) { frag.append(m); return; }
-          const s = document.createElement('span');
-          s.className = 'mot';
-          s.textContent = m;
-          mots.push(s);
-          frag.append(s);
-        });
-        n.replaceWith(frag);
-      } else decouper(n);
-    });
-  };
-  decouper(texte);
-  manifeste.classList.add('pret');
-  let c = calme ? 1 : 0;
-  const allumer = () => mots.forEach((m, i) => m.style.setProperty('--l', borne(c * (mots.length + 2) - i).toFixed(3)));
-  if (calme) allumer();
-  else taches.push(() => {
-    const r = manifeste.getBoundingClientRect();
-    if (r.bottom < -200 || r.top > innerHeight + 200) return;
-    c += (borne((avancement(manifeste) - 0.08) / 0.78) - c) * 0.16;
-    allumer();
-  });
+/* ---------- la vitrine en 3D : chargée seulement à l'approche ---------- */
+const scene3d = document.querySelector('[data-vitrine]');
+if (scene3d && !calme) {
+  const gl = document.createElement('canvas').getContext('webgl2');
+  if (gl) new IntersectionObserver((e, obs) => {
+    if (!e[0].isIntersecting) return;
+    obs.disconnect();
+    import('./vitrine.js').then((m) => m.vitrine(scene3d)).catch((err) => console.error('vitrine', err));
+  }, { rootMargin: '120% 0px' }).observe(scene3d);
 }
 
 /* ---------- les cartes et les photos entrent en scène ---------- */
