@@ -28,13 +28,16 @@ for b in range(int((25.4 - 2.6) / B)):   # la pulsation, du premier plan sur l'a
     t = 2.6 + b * B
     if 6.0 <= t < 6.6:               # silence pendant le coup d'éponge
         continue
-    kick(t, 0.3 if b % 2 == 0 else 0.22)
+    kick(t, 0.42 if b % 2 == 0 else 0.3)
     hat(t + B / 2, 0.05)
 for i in range(4):                   # les quatre coches
     pop(3.2 + i * 0.5, 0.14, 900 + i * 110)
 tinte(5.0, 0.08)                     # « La communication ? »
 frotte(5.9, 0.6, 0.3, allers=1)      # le coup d'éponge
 impact(6.95)                         # 360°
+for coupe in (2.6, 6.6, 8.2, 10.2, 12.2, 15.6, 17.1, 19.6, 23.8):   # un coup sur chaque coupe
+    impact(coupe)
+    souffle(coupe - 0.15, 0.2, 0.22, montee=True)
 souffle(7.1, 0.6, 0.14)
 souffle(8.15, 0.35, 0.18)            # la marque
 for i in range(4):                   # la palette
@@ -55,8 +58,8 @@ souffle(17.1, 0.35, 0.16)            # le quartier
 for i in range(3):
     pop(17.75 + i * 0.3, 0.14, 950 + i * 150)
 souffle(19.6, 0.35, 0.16)            # la stratégie
-for i in range(4):
-    pop(19.85 + i * 0.3, 0.12, 800 + i * 120)
+for i in range(5):
+    pop(19.8 + i * 0.25, 0.12, 800 + i * 120)
 impact(21.6)                         # la salle pleine
 salle(21.6, 2.2, 0.06)
 souffle(23.75, 0.5, 0.14, montee=True)   # le N s'allume

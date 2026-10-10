@@ -71,7 +71,7 @@ function surtitre(c, texte, t, t0, y, alpha = 1) {
   c.restore();
 }
 // Une ligne de titre en Bodoni, mot à mot ; si italique, la ligne est en italique soulignée à la craie jaune
-function ligne(c, texte, t, t0, y, taille, { italique = false, alpha = 1, couleur = '#fff', ecart = 0.06 } = {}) {
+function ligne(c, texte, t, t0, y, taille, { italique = false, alpha = 1, couleur = '#fff', ecart = 0.08 } = {}) {
   const mots = texte.split(' ');
   const style = italique ? 'italic' : 'normal';
   police(c, taille, 500, 'Bodoni', style);
@@ -80,19 +80,22 @@ function ligne(c, texte, t, t0, y, taille, { italique = false, alpha = 1, couleu
   const total = largeurs.reduce((a, b) => a + b, 0) + espace * (mots.length - 1);
   let x = (L - total) / 2;
   mots.forEach((m, j) => {
-    const k = sortie(prog(t, t0 + j * ecart, t0 + j * ecart + 0.4)) * alpha;
+    const p = prog(t, t0 + j * ecart, t0 + j * ecart + 0.24);
+    const k = Math.min(1, p * 3) * alpha;
     if (k > 0) {
+      const e = mix(1.45, 1, rebond(p));
       c.save(); c.globalAlpha = k;
+      c.translate(x + largeurs[j] / 2, y - taille * 0.3); c.scale(e, e); c.translate(-(x + largeurs[j] / 2), -(y - taille * 0.3));
       police(c, taille, 500, 'Bodoni', style);
       c.fillStyle = couleur; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
       c.shadowColor = 'rgba(0,0,0,0.55)'; c.shadowBlur = 28; c.shadowOffsetY = 4;
-      c.fillText(m, x, y + (1 - k) * 26);
+      c.fillText(m, x, y);
       c.restore();
     }
     x += largeurs[j] + espace;
   });
   if (italique) {
-    const k = sortie(prog(t, t0 + 0.3, t0 + 0.75));
+    const k = sortie(prog(t, t0 + 0.2, t0 + 0.45));
     if (k > 0) { c.save(); c.globalAlpha = alpha; traitJaune(c, (L - total) / 2, y + taille * 0.24, total, k); c.restore(); }
   }
 }
@@ -398,6 +401,7 @@ function quartier(c, t) {
 
 // ---------- 9. 06 · la stratégie de lancement (19,6 → 21,6 s) ----------
 const PLAN = [
+  ['J-45', 'Atelier stratégie, avec vous'],
   ['J-30', 'Teasing et coulisses du chantier'],
   ['J-7', 'Invitations, presse, influenceurs'],
   ['Jour J', 'La soirée de lancement'],
@@ -407,21 +411,21 @@ function strategie(c, t) {
   if (!visible(t, 19.6, 21.6)) return;
   const a = presence(t, 19.6, 21.6, 0.2, 0.15);
   c.save(); c.globalAlpha = a;
-  bloc(c, t, 19.65, 99, { sur: '06 · La stratégie', l1: 'Un lancement', l2: 'pensé de A à Z.' });
-  const x0 = 230, y0 = 860, pas = 230;
-  const kl = lisse(prog(t, 19.8, 21.0));
+  bloc(c, t, 19.65, 99, { sur: '06 · La stratégie de lancement', l1: 'Pensée avec vous,', l2: 'de A à Z.' });
+  const x0 = 230, y0 = 780, pas = 200;
+  const kl = lisse(prog(t, 19.8, 20.9));
   c.strokeStyle = 'rgba(255,255,255,0.5)'; c.lineWidth = 5;
-  c.beginPath(); c.moveTo(x0, y0); c.lineTo(x0, y0 + pas * 3 * kl); c.stroke();
+  c.beginPath(); c.moveTo(x0, y0); c.lineTo(x0, y0 + pas * 4 * kl); c.stroke();
   PLAN.forEach(([j, m], i) => {
-    const k = sortie(prog(t, 19.85 + i * 0.3, 20.15 + i * 0.3));
+    const k = sortie(prog(t, 19.8 + i * 0.25, 20.05 + i * 0.25));
     if (k <= 0) return;
     const y = y0 + i * pas;
     c.save(); c.globalAlpha = a * k;
-    const jour = i === 2;
+    const jour = i === 3, atelier = i === 0;
     c.fillStyle = jour ? JAUNE : '#F5F7F4';
     c.shadowColor = jour ? 'rgba(255,210,63,0.7)' : 'transparent'; c.shadowBlur = 24;
     c.beginPath(); c.arc(x0, y, jour ? 24 : 16, 0, 7); c.fill(); c.shadowColor = 'transparent';
-    police(c, 46, 700); c.fillStyle = jour ? JAUNE : '#fff'; c.textAlign = 'left'; c.textBaseline = 'middle';
+    police(c, 46, 700); c.fillStyle = jour || atelier ? JAUNE : '#fff'; c.textAlign = 'left'; c.textBaseline = 'middle';
     c.fillText(j, x0 + 60 + (1 - k) * 20, y - 24);
     police(c, 36, 500); c.fillStyle = 'rgba(255,255,255,0.8)';
     c.fillText(m, x0 + 60 + (1 - k) * 20, y + 34);
@@ -451,8 +455,8 @@ function appel(c, t) {
   c.restore();
   traitJaune(c, 472, 400, 230, prog(t, 24.2, 24.5));
   surtitre(c, 'Restaurants · Genève et Vaud', t, 24.25, 590);
-  ligne(c, 'Vous ouvrez ?', t, 24.35, 730, 92);
-  ligne(c, 'On lance votre maison.', t, 24.55, 850, 92, { italique: true });
+  ligne(c, 'Votre lancement,', t, 24.35, 730, 88);
+  ligne(c, 'pensé avec vous.', t, 24.55, 850, 88, { italique: true });
   // l'offre de lancement
   const ko = rebond(prog(t, 25.0, 25.35));
   if (ko > 0) {
@@ -497,6 +501,27 @@ window.pret = Promise.all([
     charger(`videos/images-ouverture/${plan}/${String(i + 1).padStart(3, '0')}.jpg`).then((im) => { IMAGES[plan][i] = im; }))),
 ]);
 
+const COUPES = [2.6, 6.6, 8.2, 10.2, 12.2, 14.6, 15.6, 17.1, 19.6, 21.6, 23.8];
+const TAMPON = Object.assign(document.createElement('canvas'), { width: L, height: H });
+function impactCoupe(t) {
+  const passees = COUPES.filter((x) => x <= t);
+  const d = passees.length ? t - passees[passees.length - 1] : 9;
+  const temps = t >= 2.6 && t < 23.8 ? 1 - prog((t - 2.6) % 0.5, 0, 0.12) : 0;
+  const z = 1 + (d < 0.3 ? 0.09 * Math.pow(1 - d / 0.3, 2) : 0) + 0.012 * temps;
+  const flou = d < 0.1 ? 18 * (1 - d / 0.1) : 0;
+  const flash = d < 0.08 ? 0.3 * (1 - d / 0.08) : 0;
+  if (z <= 1.0005 && flou === 0 && flash === 0) return;
+  const tc = TAMPON.getContext('2d');
+  tc.clearRect(0, 0, L, H); tc.drawImage(ctx.canvas, 0, 0);
+  const sx = d < 0.2 ? Math.sin(d * 90) * 14 * (1 - d / 0.2) : 0;
+  ctx.save();
+  ctx.translate(L / 2 + sx, H / 2); ctx.scale(z, z); ctx.translate(-L / 2, -H / 2);
+  if (flou > 0.5) ctx.filter = `blur(${flou}px)`;
+  ctx.drawImage(TAMPON, 0, 0);
+  ctx.restore();
+  if (flash > 0) { ctx.fillStyle = `rgba(255,248,225,${flash})`; ctx.fillRect(0, 0, L, H); }
+}
+
 window.rendu = function (t) {
   ctx.drawImage(FOND, 0, 0);
   accroche(ctx, t);
@@ -510,6 +535,7 @@ window.rendu = function (t) {
   strategie(ctx, t);
   salle(ctx, t);
   appel(ctx, t);
+  impactCoupe(t);
 };
 
 if (!navigator.webdriver) {
