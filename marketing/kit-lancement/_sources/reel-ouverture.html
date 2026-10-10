@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Réel « nouvelles ouvertures » : on s'occupe de tout le lancement</title>
+<!--
+  Réel Instagram 27 s, 1080×1920, 120 BPM, pour ceux qui ouvrent un restaurant : ils ont mille choses
+  à gérer, on prend toute la communication à 360° (marque, shooting avant l'ouverture, réseaux prêts
+  le jour 1, soirée de lancement avec influenceurs, run clubs et quartier, stratégie de lancement).
+  Exemple : Maison Lune, restaurant inventé. Images Mixkit 4K (licence libre, voir videos/extraire-ouverture.sh).
+  sh videos/extraire-ouverture.sh <vidéos Mixkit> puis REEL=reel-ouverture node render.mjs assemblent la vidéo.
+-->
+<style>
+  @font-face { font-family: Instru; src: url(fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  @font-face { font-family: Bodoni; src: url(fonts/bodoni-moda-latin-standard-normal.woff2) format('woff2'); font-weight: 400 900; }
+  @font-face { font-family: Bodoni; src: url(fonts/bodoni-moda-latin-standard-italic.woff2) format('woff2'); font-weight: 400 900; font-style: italic; }
+  @font-face { font-family: Brico; src: url(fonts/bricolage-grotesque-latin-standard-normal.woff2) format('woff2'); font-weight: 200 800; }
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; width: 1080px; height: 1920px; }
+</style>
+</head>
+<body>
+<canvas width="1080" height="1920"></canvas>
+<script src="ardoise.js"></script>
+<script src="videos/images-ouverture/index.js"></script>
+<script>
+const L = 1080, H = 1920, DUREE = 27;
+window.DUREE = DUREE;
+const JAUNE = '#FFD23F', ARDOISE = '#1E2A2C';
+const ctx = document.querySelector('canvas').getContext('2d');
+const FOND = peindreArdoise(L, H);
+
+// ---------- outils ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const mix = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const sortie = (k) => 1 - Math.pow(1 - k, 3);
+const lisse = (k) => k * k * k * (k * (k * 6 - 15) + 10);
+const rebond = (k) => { const c = 1.7; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+const police = (c, taille, graisse = 500, famille = 'Instru', style = 'normal') => { c.font = `${style} ${graisse} ${taille}px ${famille}`; };
+const charger = (src) => new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; });
+const IMAGES = Object.fromEntries(Object.keys(window.VIDEOS).map((k) => [k, []]));
+const VIGNETTES = {};
+const image = (plan, t, t0) => { const l = IMAGES[plan]; return l[clamp(Math.floor((t - t0) * 30), 0, l.length - 1)]; };
+const visible = (t, a, b) => t >= a && t < b;
+
+function cadrer(c, img, z = 1, { fy = 0.5, alpha = 1 } = {}) {
+  const s = Math.max(L / img.width, H / img.height) * z;
+  const w = img.width * s, h = img.height * s;
+  c.save(); c.globalAlpha *= alpha;
+  c.drawImage(img, (L - w) / 2, clamp(H / 2 - fy * h, H - h, 0), w, h);
+  c.restore();
+}
+function voile(c, de, a, force) {
+  const g = c.createLinearGradient(0, de, 0, a);
+  g.addColorStop(0, `rgba(14,20,21,${force})`); g.addColorStop(1, 'rgba(14,20,21,0)');
+  c.fillStyle = g; c.fillRect(0, Math.min(de, a), L, Math.abs(a - de));
+}
+// apparition / disparition d'une scène
+const presence = (t, t0, t1, entree = 0.3, fin = 0.2) => sortie(prog(t, t0, t0 + entree)) * (1 - prog(t, t1 - fin, t1));
+
+// Petit surtitre en capitales espacées, jaune craie
+function surtitre(c, texte, t, t0, y, alpha = 1) {
+  const k = sortie(prog(t, t0, t0 + 0.35)) * alpha;
+  if (k <= 0) return;
+  c.save(); c.globalAlpha = k;
+  police(c, 30, 600); c.letterSpacing = '6px';
+  c.fillStyle = JAUNE; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+  c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 14;
+  c.fillText(texte.toUpperCase(), L / 2, y + (1 - k) * 12);
+  c.restore();
+}
+// Une ligne de titre en Bodoni, mot à mot ; si italique, la ligne est en italique soulignée à la craie jaune
+function ligne(c, texte, t, t0, y, taille, { italique = false, alpha = 1, couleur = '#fff', ecart = 0.06 } = {}) {
+  const mots = texte.split(' ');
+  const style = italique ? 'italic' : 'normal';
+  police(c, taille, 500, 'Bodoni', style);
+  const espace = taille * 0.27;
+  const largeurs = mots.map((m) => c.measureText(m).width);
+  const total = largeurs.reduce((a, b) => a + b, 0) + espace * (mots.length - 1);
+  let x = (L - total) / 2;
+  mots.forEach((m, j) => {
+    const k = sortie(prog(t, t0 + j * ecart, t0 + j * ecart + 0.4)) * alpha;
+    if (k > 0) {
+      c.save(); c.globalAlpha = k;
+      police(c, taille, 500, 'Bodoni', style);
+      c.fillStyle = couleur; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+      c.shadowColor = 'rgba(0,0,0,0.55)'; c.shadowBlur = 28; c.shadowOffsetY = 4;
+      c.fillText(m, x, y + (1 - k) * 26);
+      c.restore();
+    }
+    x += largeurs[j] + espace;
+  });
+  if (italique) {
+    const k = sortie(prog(t, t0 + 0.3, t0 + 0.75));
+    if (k > 0) { c.save(); c.globalAlpha = alpha; traitJaune(c, (L - total) / 2, y + taille * 0.24, total, k); c.restore(); }
+  }
+}
+// Le bloc titre de chaque scène : surtitre + deux lignes (la seconde en italique soulignée)
+function bloc(c, t, t0, t1, { sur, l1, l2, y = 250, taille = 92 }) {
+  const a = 1 - prog(t, t1 - 0.2, t1);
+  if (a <= 0 || t < t0) return;
+  if (sur) surtitre(c, sur, t, t0, y, a);
+  const y1 = y + (sur ? taille * 1.15 : 0);
+  if (l1) ligne(c, l1, t, t0 + 0.08, y1, taille, { alpha: a });
+  if (l2) ligne(c, l2, t, t0 + 0.25, y1 + taille * 1.12, taille, { italique: true, alpha: a });
+}
+// cadre de caméra « REC »
+function repere(c, t, t0, t1) {
+  const k = prog(t, t0, t0 + 0.2) * (1 - prog(t, t1 - 0.2, t1));
+  if (k <= 0) return;
+  c.save(); c.globalAlpha = k;
+  const y = 640, h = 1080;
+  c.strokeStyle = 'rgba(255,255,255,0.85)'; c.lineWidth = 5;
+  [[70, y, 1, 1], [L - 70, y, -1, 1], [70, y + h, 1, -1], [L - 70, y + h, -1, -1]].forEach(([x, yy, sx, sy]) => {
+    c.beginPath(); c.moveTo(x, yy + sy * 70); c.lineTo(x, yy); c.lineTo(x + sx * 70, yy); c.stroke();
+  });
+  if (Math.floor(t * 2) % 2 === 0) { c.fillStyle = '#FF3B30'; c.beginPath(); c.arc(118, y + 60, 14, 0, 7); c.fill(); }
+  police(c, 30, 700); c.fillStyle = '#fff'; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText('REC', 144, y + 61);
+  c.textAlign = 'right'; c.fillText('4K · J-10', L - 118, y + 61);
+  c.restore();
+}
+function coche(c, x, y, k, couleur = JAUNE) {
+  if (k <= 0) return;
+  c.save(); c.strokeStyle = couleur; c.lineWidth = 9; c.lineCap = 'round'; c.lineJoin = 'round';
+  c.shadowColor = 'rgba(255,210,63,0.5)'; c.shadowBlur = 10;
+  const p = [[x - 18, y], [x - 4, y + 16], [x + 26, y - 22]];
+  c.beginPath(); c.moveTo(...p[0]);
+  const a = Math.min(1, k * 2);
+  c.lineTo(mix(p[0][0], p[1][0], a), mix(p[0][1], p[1][1], a));
+  if (k > 0.5) { const b = (k - 0.5) * 2; c.lineTo(mix(p[1][0], p[2][0], b), mix(p[1][1], p[2][1], b)); }
+  c.stroke(); c.restore();
+}
+
+// ---------- 1. l'accroche : le vin versé (0 → 2,6 s) ----------
+function accroche(c, t) {
+  if (t >= 2.6) return;
+  cadrer(c, image('vin', t, 0), mix(1.0, 1.07, prog(t, 0, 2.6)), { fy: 0.42 });
+  voile(c, H, 1050, 0.85);
+  surtitre(c, 'Nouvelle ouverture', t, 0.1, 1390);
+  ligne(c, 'Vous ouvrez', t, 0.2, 1520, 108);
+  ligne(c, 'votre restaurant ?', t, 0.4, 1650, 108, { italique: true });
+}
+
+// ---------- 2. la liste avant l'ouverture (2,6 → 6,6 s) ----------
+const LISTE = ['Les travaux', 'L’équipe', 'Les fournisseurs', 'La carte'];
+let XEPONGE = -1;
+function liste(c, t) {
+  if (!visible(t, 2.6, 7.0)) return;
+  const a = 1 - prog(t, 6.75, 7.0);
+  c.save(); c.globalAlpha = a;
+  bloc(c, t, 2.65, 99, { sur: 'Avant le jour J', l1: 'Vous avez déjà', l2: 'mille choses à gérer.', y: 330 });
+  const x0 = 250, y0 = 800, pas = 150;
+  LISTE.forEach((m, i) => {
+    const t0 = 3.0 + i * 0.5;
+    const k = sortie(prog(t, t0, t0 + 0.3));
+    if (k <= 0) return;
+    c.save(); c.globalAlpha = a * k;
+    c.strokeStyle = 'rgba(255,255,255,0.7)'; c.lineWidth = 4;
+    c.beginPath(); c.roundRect(x0 - 40, y0 + i * pas - 34, 64, 64, 10); c.stroke();
+    police(c, 62, 500); c.fillStyle = 'rgba(255,255,255,0.92)'; c.textBaseline = 'middle'; c.textAlign = 'left';
+    c.fillText(m, x0 + 70 + (1 - k) * 20, y0 + i * pas);
+    c.restore();
+    coche(c, x0 - 8, y0 + i * pas - 4, prog(t, t0 + 0.2, t0 + 0.42));
+  });
+  // la ligne restée sans coche : la communication
+  const t5 = 5.0, y5 = y0 + 4 * pas + 40;
+  const k5 = sortie(prog(t, t5, t5 + 0.3));
+  if (k5 > 0) {
+    const brossee = prog(t, 5.9, 6.5);
+    const xe = mix(-200, L + 200, lisse(brossee));
+    const pouls = 1 + Math.sin((t - t5) * 12) * 0.04 * (1 - prog(t, 5.6, 5.9));
+    c.save(); c.globalAlpha = k5;
+    c.translate(L / 2, y5); c.scale(pouls, pouls); c.translate(-L / 2, -y5);
+    c.save(); c.beginPath(); c.rect(xe, 0, L * 2, H); c.clip();
+    c.strokeStyle = JAUNE; c.lineWidth = 5; c.setLineDash([12, 10]);
+    c.beginPath(); c.roundRect(x0 - 40, y5 - 34, 64, 64, 10); c.stroke(); c.setLineDash([]);
+    c.restore();
+    texteEfface(c, 'La communication ?', x0 + 70, y5 + 24, xe, { police: 'italic 600 70px Bodoni', couleur: JAUNE });
+    c.restore();
+    if (brossee > 0 && brossee < 1) brosse(c, xe + 40, y5 + 10, 300);
+  }
+  c.restore();
+}
+
+// ---------- 3. « On s'en occupe. À 360°. » (6,6 → 8,2 s) ----------
+function relais(c, t) {
+  if (!visible(t, 6.6, 8.2)) return;
+  const a = 1 - prog(t, 8.0, 8.2);
+  c.save(); c.globalAlpha = a;
+  ligne(c, 'On s’en occupe.', t, 6.65, 860, 104);
+  police(c, 250, 600, 'Bodoni', 'italic');
+  const k = sortie(prog(t, 6.95, 7.35));
+  c.save(); c.globalAlpha = a * k; c.fillStyle = JAUNE; c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.shadowColor = 'rgba(255,210,63,0.45)'; c.shadowBlur = 40;
+  c.translate(L / 2, 1130); c.scale(mix(0.8, 1, rebond(k)), mix(0.8, 1, rebond(k)));
+  c.fillText('360°', 0, 0); c.restore();
+  // le cercle de craie qui fait le tour
+  const kc = lisse(prog(t, 7.1, 7.7));
+  if (kc > 0) craie(c, (x) => {
+    x.strokeStyle = 'rgba(255,255,255,0.85)'; x.lineWidth = 7; x.lineCap = 'round';
+    x.beginPath(); x.ellipse(L / 2, 1120, 330, 190, -0.08, -Math.PI * 0.6, -Math.PI * 0.6 + Math.PI * 2.08 * kc); x.stroke();
+  });
+  c.restore();
+}
+
+// ---------- 4. 01 · la marque (8,2 → 10,2 s) ----------
+const PALETTE = ['#2F3E46', '#C9A227', '#F4EDE2', '#9E3B2F'];
+function marque(c, t) {
+  if (!visible(t, 8.2, 10.2)) return;
+  const a = presence(t, 8.2, 10.2, 0.2, 0.15);
+  c.save(); c.globalAlpha = a;
+  bloc(c, t, 8.2, 99, { sur: '01 · Votre marque', l1: 'Une identité', l2: 'qui vous ressemble.' });
+  // planche de marque : la carte crème de « Maison Lune »
+  const k = sortie(prog(t, 8.35, 8.75));
+  c.save(); c.translate(L / 2, 1210 + (1 - k) * 60); c.globalAlpha = a * k;
+  c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 50; c.shadowOffsetY = 20;
+  c.fillStyle = '#F4EDE2'; c.beginPath(); c.roundRect(-380, -400, 760, 800, 28); c.fill();
+  c.shadowColor = 'transparent';
+  // monogramme : un croissant de lune qui se dessine
+  const km = lisse(prog(t, 8.6, 9.2));
+  c.strokeStyle = '#2F3E46'; c.lineWidth = 6;
+  c.beginPath(); c.arc(0, -210, 92, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * km); c.stroke();
+  if (km > 0.3) {
+    c.save(); c.globalAlpha = a * k * prog(km, 0.3, 1);
+    c.fillStyle = '#C9A227'; c.beginPath(); c.arc(0, -210, 56, 0, 7); c.fill();
+    c.fillStyle = '#F4EDE2'; c.beginPath(); c.arc(24, -226, 50, 0, 7); c.fill();
+    c.restore();
+  }
+  const kn = sortie(prog(t, 8.9, 9.3));
+  c.globalAlpha = a * k * kn;
+  police(c, 78, 500, 'Bodoni'); c.fillStyle = '#2F3E46'; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+  c.letterSpacing = '10px'; c.fillText('MAISON LUNE', 0, -20 + (1 - kn) * 14); c.letterSpacing = '0px';
+  police(c, 32, 500, 'Bodoni', 'italic'); c.fillStyle = '#7A6A55'; c.fillText('cuisine de saison · Genève', 0, 40);
+  c.globalAlpha = a * k;
+  PALETTE.forEach((col, i) => {
+    const kp = rebond(prog(t, 9.25 + i * 0.1, 9.55 + i * 0.1));
+    if (kp <= 0) return;
+    c.save(); c.translate(-225 + i * 150, 190); c.scale(kp, kp);
+    c.fillStyle = col; c.beginPath(); c.arc(0, 0, 56, 0, 7); c.fill();
+    if (col === '#F4EDE2') { c.strokeStyle = 'rgba(47,62,70,0.3)'; c.lineWidth = 3; c.stroke(); }
+    c.restore();
+  });
+  const kf = sortie(prog(t, 9.6, 9.9));
+  c.globalAlpha = a * k * kf;
+  police(c, 26, 600); c.fillStyle = '#7A6A55'; c.letterSpacing = '4px';
+  c.fillText('LOGO · COULEURS · TON · CARTE', 0, 330); c.letterSpacing = '0px';
+  c.restore();
+  c.restore();
+}
+
+// ---------- 5. 02 · le shooting avant l'ouverture (10,2 → 12,2 s) ----------
+function shooting(c, t) {
+  if (!visible(t, 10.2, 12.2)) return;
+  cadrer(c, image('camera', t, 10.2), mix(1.0, 1.08, prog(t, 10.2, 12.2)));
+  voile(c, 0, 760, 0.85);
+  repere(c, t, 10.35, 12.2);
+  bloc(c, t, 10.25, 12.2, { sur: '02 · Avant l’ouverture', l1: 'Photos et vidéos', l2: 'avant le jour J.' });
+}
+
+// ---------- 6. 03 · les réseaux prêts le jour 1 (12,2 → 14,6 s) ----------
+const GRILLE = ['ouverture', 'vin', 'bougies', 'toast', 'monogramme', 'champagne', 'diner', 'fete', 'carte'];
+function tuile(c, nom, x, y, s) {
+  if (VIGNETTES[nom]) { c.drawImage(VIGNETTES[nom], x, y, s, s); return; }
+  c.fillStyle = nom === 'carte' ? '#F4EDE2' : '#2F3E46'; c.fillRect(x, y, s, s);
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  if (nom === 'ouverture') {
+    police(c, s * 0.1, 600); c.fillStyle = '#C9A227'; c.letterSpacing = '3px'; c.fillText('OUVERTURE', x + s / 2, y + s * 0.36); c.letterSpacing = '0px';
+    police(c, s * 0.2, 500, 'Bodoni', 'italic'); c.fillStyle = '#F4EDE2'; c.fillText('ce soir', x + s / 2, y + s * 0.58);
+  } else if (nom === 'monogramme') {
+    c.fillStyle = '#C9A227'; c.beginPath(); c.arc(x + s / 2, y + s / 2, s * 0.2, 0, 7); c.fill();
+    c.fillStyle = '#2F3E46'; c.beginPath(); c.arc(x + s / 2 + s * 0.08, y + s / 2 - s * 0.06, s * 0.18, 0, 7); c.fill();
+  } else {
+    police(c, s * 0.15, 500, 'Bodoni', 'italic'); c.fillStyle = '#2F3E46'; c.fillText('La carte', x + s / 2, y + s * 0.4);
+    police(c, s * 0.075, 500); c.fillStyle = '#7A6A55'; c.fillText('de saison', x + s / 2, y + s * 0.6);
+  }
+}
+function reseaux(c, t) {
+  if (!visible(t, 12.2, 14.6)) return;
+  const a = presence(t, 12.2, 14.6, 0.15, 0.15);
+  c.save(); c.globalAlpha = a;
+  bloc(c, t, 12.2, 99, { sur: '03 · Le jour 1', l1: 'Vos réseaux, prêts', l2: 'dès le premier jour.' });
+  const k = sortie(prog(t, 12.3, 12.7));
+  const pw = 600, ph = 1180, px = (L - pw) / 2, py = 640 + (1 - k) * 120;
+  c.save(); c.globalAlpha = a * k;
+  c.shadowColor = 'rgba(0,0,0,0.6)'; c.shadowBlur = 60; c.shadowOffsetY = 24;
+  c.fillStyle = '#0B0F10'; c.beginPath(); c.roundRect(px - 16, py - 16, pw + 32, ph + 32, 86); c.fill();
+  c.shadowColor = 'transparent';
+  c.fillStyle = '#fff'; c.beginPath(); c.roundRect(px, py, pw, ph, 72); c.fill();
+  c.save(); c.beginPath(); c.roundRect(px, py, pw, ph, 72); c.clip();
+  c.fillStyle = '#0B0F10'; c.beginPath(); c.roundRect(L / 2 - 90, py + 22, 180, 48, 24); c.fill();
+  // en-tête du profil
+  const hy = py + 130;
+  c.fillStyle = '#2F3E46'; c.beginPath(); c.arc(px + 90, hy + 50, 54, 0, 7); c.fill();
+  c.fillStyle = '#C9A227'; c.beginPath(); c.arc(px + 90, hy + 50, 24, 0, 7); c.fill();
+  c.fillStyle = '#2F3E46'; c.beginPath(); c.arc(px + 101, hy + 43, 21, 0, 7); c.fill();
+  c.strokeStyle = '#D62976'; c.lineWidth = 5; c.beginPath(); c.arc(px + 90, hy + 50, 63, 0, 7); c.stroke();
+  police(c, 30, 700); c.fillStyle = '#111'; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  c.fillText('maison.lune', px + 170, hy + 30);
+  const n = Math.round(mix(0, 9, prog(t, 12.6, 13.75)));
+  const abonnes = Math.round(mix(0, 1240, lisse(prog(t, 12.6, 14.2))));
+  police(c, 25, 500); c.fillStyle = '#333';
+  c.fillText(`${n} publications · ${abonnes.toLocaleString('fr-CH')} abonnés`, px + 170, hy + 72);
+  police(c, 24, 500); c.fillStyle = '#555'; c.fillText('Cuisine de saison · Ouverture ce soir', px + 40, hy + 150);
+  c.fillStyle = '#0095F6'; c.beginPath(); c.roundRect(px + 40, hy + 178, pw - 80, 62, 14); c.fill();
+  police(c, 26, 700); c.fillStyle = '#fff'; c.textAlign = 'center'; c.fillText('Réserver une table', L / 2, hy + 219);
+  // la grille qui se remplit, une publication par croche
+  const gy = hy + 270, s = (pw - 8) / 3;
+  GRILLE.forEach((nom, i) => {
+    const kt = sortie(prog(t, 12.6 + i * 0.125, 12.85 + i * 0.125));
+    const x = px + (i % 3) * (s + 4), y = gy + Math.floor(i / 3) * (s + 4);
+    c.fillStyle = '#EFEFEF'; c.fillRect(x, y, s, s);
+    if (kt > 0) {
+      c.save(); c.globalAlpha = a * k * kt;
+      c.translate(x + s / 2, y + s / 2); c.scale(mix(0.85, 1, kt), mix(0.85, 1, kt)); c.translate(-(x + s / 2), -(y + s / 2));
+      tuile(c, nom, x, y, s);
+      c.restore();
+    }
+  });
+  c.restore();
+  c.restore();
+  // la notification
+  const kn = sortie(prog(t, 13.8, 14.1));
+  if (kn > 0) {
+    c.save(); c.globalAlpha = a * kn; c.translate(0, (1 - kn) * -30);
+    c.fillStyle = 'rgba(245,245,245,0.97)'; c.shadowColor = 'rgba(0,0,0,0.4)'; c.shadowBlur = 30;
+    c.beginPath(); c.roundRect(150, 600, 780, 110, 30); c.fill(); c.shadowColor = 'transparent';
+    c.fillStyle = '#D62976'; c.beginPath(); c.roundRect(178, 625, 60, 60, 16); c.fill();
+    police(c, 26, 700); c.fillStyle = '#111'; c.textAlign = 'left'; c.fillText('Instagram', 260, 648);
+    police(c, 24, 500); c.fillStyle = '#444'; c.fillText('32 demandes de réservation ce soir', 260, 684);
+    c.restore();
+  }
+  c.restore();
+}
+
+// ---------- 7. 04 · la soirée de lancement (14,6 → 17,1 s) ----------
+function soiree(c, t) {
+  if (!visible(t, 14.6, 17.1)) return;
+  if (t < 15.6) cadrer(c, image('toast', t, 14.6), mix(1.05, 1.12, prog(t, 14.6, 15.6)), { fy: 0.35 });
+  else cadrer(c, image('champagne', t, 15.6), mix(1.0, 1.06, prog(t, 15.6, 17.1)));
+  // flash blanc sur la coupe
+  const f = 1 - prog(t, 15.6, 15.8);
+  if (t >= 15.6 && f > 0) { c.fillStyle = `rgba(255,250,235,${0.6 * f})`; c.fillRect(0, 0, L, H); }
+  voile(c, 0, 780, 0.85);
+  bloc(c, t, 14.65, 17.1, { sur: '04 · La soirée de lancement', l1: 'Influenceurs', l2: 'à votre table.' });
+}
+
+// ---------- 8. 05 · le quartier : run club, voisins (17,1 → 19,6 s) ----------
+const ETAPES = [
+  { x: 90, y: 960, t: 17.75, m: 'Run club du dimanche' },
+  { x: 1030, y: 1090, t: 18.05, m: 'Le caviste d’à côté' },
+  { x: 250, y: 1560, t: 18.35, m: 'Commerçants du quartier' },
+];
+function quartier(c, t) {
+  if (!visible(t, 17.1, 19.6)) return;
+  const a = presence(t, 17.1, 19.6, 0.2, 0.15);
+  c.save(); c.globalAlpha = a;
+  bloc(c, t, 17.15, 99, { sur: '05 · Votre quartier', l1: 'Tout le quartier', l2: 'en parle.' });
+  // rues à la craie
+  const kr = sortie(prog(t, 17.2, 17.6));
+  c.save(); c.globalAlpha = a * kr * 0.25; c.strokeStyle = '#fff'; c.lineWidth = 26; c.lineCap = 'round';
+  [[[0, 900], [L, 1060]], [[0, 1380], [L, 1300]], [[420, 640], [560, 1920]], [[880, 640], [700, 1920]]].forEach(([p, q]) => {
+    c.beginPath(); c.moveTo(...p); c.lineTo(...q); c.stroke();
+  });
+  c.restore();
+  // la boucle du run club, en pointillés jaunes autour du restaurant
+  const kb = lisse(prog(t, 17.4, 18.9));
+  if (kb > 0) {
+    c.save(); c.strokeStyle = JAUNE; c.lineWidth = 9; c.setLineDash([2, 22]); c.lineCap = 'round';
+    c.shadowColor = 'rgba(255,210,63,0.6)'; c.shadowBlur = 12;
+    c.beginPath(); c.ellipse(560, 1240, 380, 300, 0.2, Math.PI, Math.PI + Math.PI * 2 * kb); c.stroke();
+    c.restore();
+  }
+  // le restaurant, au centre
+  const kp = rebond(prog(t, 17.3, 17.65));
+  if (kp > 0) {
+    c.save(); c.translate(560, 1240); c.scale(kp, kp);
+    c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 20;
+    c.fillStyle = JAUNE; c.beginPath(); c.arc(0, -70, 52, Math.PI * 0.85, Math.PI * 0.15); c.lineTo(0, 0); c.closePath(); c.fill();
+    c.shadowColor = 'transparent';
+    c.fillStyle = ARDOISE; c.beginPath(); c.arc(0, -72, 22, 0, 7); c.fill();
+    police(c, 34, 500, 'Bodoni', 'italic'); c.fillStyle = '#fff'; c.textAlign = 'center'; c.fillText('Maison Lune', 0, 48);
+    c.restore();
+  }
+  ETAPES.forEach((e) => {
+    const k = rebond(prog(t, e.t, e.t + 0.3));
+    if (k <= 0) return;
+    c.save(); c.translate(e.x, e.y); c.scale(k, k);
+    police(c, 32, 600); const w = c.measureText(e.m).width + 60;
+    const dx = e.x > L / 2 ? -w + 40 : -40;
+    c.fillStyle = '#F5F7F4'; c.shadowColor = 'rgba(0,0,0,0.4)'; c.shadowBlur = 20;
+    c.beginPath(); c.roundRect(dx, -36, w, 72, 36); c.fill(); c.shadowColor = 'transparent';
+    c.fillStyle = ARDOISE; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(e.m, dx + 30, 2);
+    c.restore();
+  });
+  c.restore();
+}
+
+// ---------- 9. 06 · la stratégie de lancement (19,6 → 21,6 s) ----------
+const PLAN = [
+  ['J-30', 'Teasing et coulisses du chantier'],
+  ['J-7', 'Invitations, presse, influenceurs'],
+  ['Jour J', 'La soirée de lancement'],
+  ['J+30', 'Avis, réels, suivi des chiffres'],
+];
+function strategie(c, t) {
+  if (!visible(t, 19.6, 21.6)) return;
+  const a = presence(t, 19.6, 21.6, 0.2, 0.15);
+  c.save(); c.globalAlpha = a;
+  bloc(c, t, 19.65, 99, { sur: '06 · La stratégie', l1: 'Un lancement', l2: 'pensé de A à Z.' });
+  const x0 = 230, y0 = 860, pas = 230;
+  const kl = lisse(prog(t, 19.8, 21.0));
+  c.strokeStyle = 'rgba(255,255,255,0.5)'; c.lineWidth = 5;
+  c.beginPath(); c.moveTo(x0, y0); c.lineTo(x0, y0 + pas * 3 * kl); c.stroke();
+  PLAN.forEach(([j, m], i) => {
+    const k = sortie(prog(t, 19.85 + i * 0.3, 20.15 + i * 0.3));
+    if (k <= 0) return;
+    const y = y0 + i * pas;
+    c.save(); c.globalAlpha = a * k;
+    const jour = i === 2;
+    c.fillStyle = jour ? JAUNE : '#F5F7F4';
+    c.shadowColor = jour ? 'rgba(255,210,63,0.7)' : 'transparent'; c.shadowBlur = 24;
+    c.beginPath(); c.arc(x0, y, jour ? 24 : 16, 0, 7); c.fill(); c.shadowColor = 'transparent';
+    police(c, 46, 700); c.fillStyle = jour ? JAUNE : '#fff'; c.textAlign = 'left'; c.textBaseline = 'middle';
+    c.fillText(j, x0 + 60 + (1 - k) * 20, y - 24);
+    police(c, 36, 500); c.fillStyle = 'rgba(255,255,255,0.8)';
+    c.fillText(m, x0 + 60 + (1 - k) * 20, y + 34);
+    c.restore();
+  });
+  c.restore();
+}
+
+// ---------- 10. « Vous cuisinez, on remplit la salle. » (21,6 → 23,8 s) ----------
+function salle(c, t) {
+  if (!visible(t, 21.6, 23.8)) return;
+  cadrer(c, image('diner', t, 21.6), mix(1.0, 1.06, prog(t, 21.6, 23.8)), { fy: 0.5 });
+  voile(c, H, 1080, 0.88);
+  const a = 1 - prog(t, 23.6, 23.8);
+  ligne(c, 'Vous cuisinez,', t, 21.7, 1560, 104, { alpha: a });
+  ligne(c, 'on remplit la salle.', t, 21.95, 1690, 104, { italique: true, alpha: a });
+}
+
+// ---------- 11. l'appel (23,8 → 27 s) ----------
+function appel(c, t) {
+  if (t < 23.8) return;
+  nLumineux(c, 270, 250, 150, { trace: sortie(prog(t, 23.85, 24.2)), eclat: 0.7 + 0.3 * prog(t, 24.2, 24.4) });
+  const kl = sortie(prog(t, 24.0, 24.3));
+  c.save(); c.globalAlpha = kl;
+  police(c, 66, 700, 'Brico'); c.fillStyle = '#fff'; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  c.fillText('Nouvelle', 470, 305); c.fillText('Ardoise', 470, 375);
+  c.restore();
+  traitJaune(c, 472, 400, 230, prog(t, 24.2, 24.5));
+  surtitre(c, 'Restaurants · Genève et Vaud', t, 24.25, 590);
+  ligne(c, 'Vous ouvrez ?', t, 24.35, 730, 92);
+  ligne(c, 'On lance votre maison.', t, 24.55, 850, 92, { italique: true });
+  // l'offre de lancement
+  const ko = rebond(prog(t, 25.0, 25.35));
+  if (ko > 0) {
+    c.save(); c.translate(L / 2, 1040); c.scale(ko, ko);
+    c.strokeStyle = JAUNE; c.lineWidth = 4; c.setLineDash([14, 10]);
+    c.beginPath(); c.roundRect(-330, -62, 660, 124, 20); c.stroke(); c.setLineDash([]);
+    police(c, 40, 700); c.fillStyle = JAUNE; c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.fillText('−20 % jusqu’au 31 octobre', 0, -14);
+    police(c, 26, 500); c.fillStyle = 'rgba(255,255,255,0.8)'; c.fillText('offre de lancement, sur toutes nos offres', 0, 28);
+    c.restore();
+  }
+  // le bouton
+  const kb = sortie(prog(t, 25.4, 25.75));
+  if (kb > 0) {
+    const souffle = 1 + Math.sin((t - 25.75) * 6) * 0.03 * prog(t, 25.75, 26.0);
+    police(c, 52, 700);
+    const texte = 'Prenons un café', w = c.measureText(texte).width + 140, h = 124;
+    c.save(); c.translate(L / 2, 1270 + (1 - kb) * 30); c.scale(souffle, souffle); c.globalAlpha = kb;
+    c.shadowColor = 'rgba(255,210,63,0.5)'; c.shadowBlur = 50;
+    c.fillStyle = JAUNE; c.beginPath(); c.roundRect(-w / 2, -h / 2, w, h, h / 2); c.fill();
+    c.shadowColor = 'transparent';
+    c.fillStyle = ARDOISE; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(texte, 0, 3);
+    c.restore();
+  }
+  const ks = sortie(prog(t, 25.65, 26.0));
+  if (ks > 0) {
+    c.save(); c.globalAlpha = ks; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    police(c, 46, 700); c.fillStyle = '#fff'; c.fillText('WhatsApp 078 213 38 68', L / 2, 1450 + (1 - ks) * 20);
+    police(c, 36, 500); c.fillStyle = 'rgba(255,255,255,0.7)'; c.fillText('@nouvelleardoise.ch · nouvelleardoise.ch', L / 2, 1515 + (1 - ks) * 20);
+    police(c, 22, 500); c.fillStyle = 'rgba(255,255,255,0.4)';
+    c.fillText('Exemple : Maison Lune, restaurant inventé · Images : Mixkit', L / 2, H - 50);
+    c.restore();
+  }
+}
+
+window.pret = Promise.all([
+  document.fonts.load('500 40px Instru'), document.fonts.load('600 40px Instru'), document.fonts.load('700 40px Instru'),
+  document.fonts.load('700 60px Brico'),
+  document.fonts.load('500 100px Bodoni'), document.fonts.load('600 100px Bodoni'), document.fonts.load('italic 500 100px Bodoni'), document.fonts.load('italic 600 100px Bodoni'),
+  ...['vin', 'bougies', 'toast', 'champagne', 'diner', 'fete'].map((v) => charger(`videos/images-ouverture/v-${v}.jpg`).then((i) => { VIGNETTES[v] = i; })),
+  ...Object.keys(IMAGES).flatMap((plan) => Array.from({ length: window.VIDEOS[plan] }, (_, i) =>
+    charger(`videos/images-ouverture/${plan}/${String(i + 1).padStart(3, '0')}.jpg`).then((im) => { IMAGES[plan][i] = im; }))),
+]);
+
+window.rendu = function (t) {
+  ctx.drawImage(FOND, 0, 0);
+  accroche(ctx, t);
+  liste(ctx, t);
+  relais(ctx, t);
+  marque(ctx, t);
+  shooting(ctx, t);
+  reseaux(ctx, t);
+  soiree(ctx, t);
+  quartier(ctx, t);
+  strategie(ctx, t);
+  salle(ctx, t);
+  appel(ctx, t);
+};
+
+if (!navigator.webdriver) {
+  window.pret.then(() => {
+    const debut = performance.now();
+    const boucle = () => { window.rendu(((performance.now() - debut) / 1000) % DUREE); requestAnimationFrame(boucle); };
+    boucle();
+  });
+}
+</script>
+</body>
+</html>
