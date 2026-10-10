@@ -197,6 +197,66 @@ if (eponge) {
   });
 }
 
+/* ---------- le manifeste : les mots s'allument un à un ---------- */
+const manifeste = document.querySelector('[data-manifeste]');
+if (manifeste) {
+  const texte = manifeste.querySelector('[data-mots]');
+  // Chaque mot devient un <span>, les mots en <em> gardent leur couleur
+  const mots = [];
+  const decouper = (noeud) => {
+    [...noeud.childNodes].forEach((n) => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach((m) => {
+          if (!m) return;
+          if (/^\s+$/.test(m)) { frag.append(m); return; }
+          const s = document.createElement('span');
+          s.className = 'mot';
+          s.textContent = m;
+          mots.push(s);
+          frag.append(s);
+        });
+        n.replaceWith(frag);
+      } else decouper(n);
+    });
+  };
+  decouper(texte);
+  manifeste.classList.add('pret');
+  let c = calme ? 1 : 0;
+  const allumer = () => mots.forEach((m, i) => m.style.setProperty('--l', borne(c * (mots.length + 2) - i).toFixed(3)));
+  if (calme) allumer();
+  else taches.push(() => {
+    const r = manifeste.getBoundingClientRect();
+    if (r.bottom < -200 || r.top > innerHeight + 200) return;
+    c += (borne((avancement(manifeste) - 0.08) / 0.78) - c) * 0.16;
+    allumer();
+  });
+}
+
+/* ---------- les cartes et les photos entrent en scène ---------- */
+const reveles = document.querySelectorAll('[data-revele]');
+if (reveles.length && !calme && 'IntersectionObserver' in window) {
+  const obs = new IntersectionObserver((entrees) => entrees.forEach((e) => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('vu');
+    obs.unobserve(e.target);
+  }), { rootMargin: '0px 0px -12% 0px' });
+  reveles.forEach((bloc) => {
+    [...bloc.children].forEach((enfant, i) => { enfant.style.setProperty('--i', i); enfant.classList.add('entre'); obs.observe(enfant); });
+  });
+}
+
+/* ---------- les photos des portes glissent doucement dans leur cadre ---------- */
+const photos = [...document.querySelectorAll('.porte img')];
+if (photos.length && !calme) taches.push(() => {
+  photos.forEach((img) => {
+    const r = img.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    const p = borne((innerHeight - r.top) / (innerHeight + r.height));
+    img.style.setProperty('--py', `${((p - 0.5) * -14).toFixed(1)}%`);
+  });
+});
+
 // Une seule boucle pour tout, calée sur le rafraîchissement de l'écran
 (function boucle() {
   taches.forEach((t) => t());

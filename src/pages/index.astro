@@ -52,6 +52,13 @@ const jsonLd = JSON.stringify({
   </div>
 </section>
 
+<!-- ============ Le manifeste : la phrase s'allume mot par mot au défilement ============ -->
+<section class="manifeste" data-manifeste aria-label="Notre conviction">
+  <div class="manifeste__colle">
+    <p class="cadre manifeste__texte" data-mots>Vos clients mangent d’abord <em>avec les yeux.</em> Avant de goûter, ils regardent, ils comparent, ils choisissent. Notre métier&nbsp;: qu’ils vous <em>choisissent,</em> et qu’ils <em>reviennent.</em></p>
+  </div>
+</section>
+
 <!-- ============ Nos métiers : la ligne conductrice, en un coup d'œil ============ -->
 <section class="bloc metiers-bloc" aria-labelledby="titre-metiers">
   <div class="cadre">
@@ -59,7 +66,7 @@ const jsonLd = JSON.stringify({
       <h2 class="titre-2" id="titre-metiers">Ce qu’on fait pour vous</h2>
       <p>On s’occupe de tout ce qui fait venir et revenir vos clients, de la première recherche au retour à table.</p>
     </header>
-    <ol class="metiers">
+    <ol class="metiers" data-revele>
       <li><span class="metiers__n">01</span><h3>Site web</h3><p>Rapide, pensé pour le téléphone : votre carte, vos horaires, la réservation ou la commande en un geste.</p><a class="lien" href="/restaurants/">Essayer des exemples</a></li>
       <li><span class="metiers__n">02</span><h3>Design</h3><p>Carte, logo, supports en salle, emballages : une image cohérente, de la vitrine à l’addition.</p><a class="lien" href="/offres/">Voir les offres</a></li>
       <li><span class="metiers__n">03</span><h3>Réseaux sociaux</h3><p>Réels, publications et menu du jour, publiés pour vous chaque semaine sur Instagram et Facebook.</p><a class="lien" href="/offres/#reseaux">Voir l’abonnement</a></li>
@@ -75,7 +82,7 @@ const jsonLd = JSON.stringify({
     <header class="bloc__tete">
       <h2 class="titre-2">Par où commencer ?</h2>
     </header>
-    <div class="portes">
+    <div class="portes" data-revele>
       <a class="porte" href="/restaurants/">
         <img src={ragu.src} alt="" width="900" height="563" loading="lazy" decoding="async" />
         <div><h3>Restaurants</h3><p>Essayez trois sites de restaurants, la carte, le plat du jour, le plat en 3D et la réservation.</p><span>Essayer</span></div>
