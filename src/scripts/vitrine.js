@@ -13,7 +13,8 @@ export function vitrine(section) {
   const toile = section.querySelector('canvas');
   const textes = [...section.querySelectorAll('[data-de]')];
 
-  const rendu = new THREE.WebGLRenderer({ canvas: toile, antialias: true, powerPreference: 'high-performance' });
+  // sur les écrans très denses (téléphones), l'anticrénelage ne se voit plus et coûte cher : on s'en passe
+  const rendu = new THREE.WebGLRenderer({ canvas: toile, antialias: (devicePixelRatio || 1) < 2.5, powerPreference: 'high-performance' });
   rendu.outputColorSpace = THREE.SRGBColorSpace;
   rendu.toneMapping = THREE.ACESFilmicToneMapping;
   rendu.toneMappingExposure = 1.05;
@@ -141,7 +142,7 @@ export function vitrine(section) {
   }
   let ecrit = -1;
   function ecrire(p) {
-    const q = Math.round(p * 400) / 400;
+    const q = Math.round(p * 240) / 240;
     if (q === ecrit) return;
     ecrit = q;
     const g = ardoiseC.getContext('2d');
@@ -448,9 +449,10 @@ export function vitrine(section) {
   interieur.visible = false;
   scene.add(interieur);
 
-  /* ---------- le trajet de la caméra : une suite de stations, la caméra s'arrête à chacune ---------- */
-  // Chaque étape : à quel moment du défilement (t), où est la caméra, où elle regarde.
-  // Entre deux étapes, le mouvement part doucement et arrive doucement : pas de secousse.
+  /* ---------- le trajet de la caméra : une courbe lissée, des arrêts nets ---------- */
+  // Chaque clé : quand la caméra y arrive (de), quand elle en repart (a), où elle est (p), où elle regarde (v).
+  // Entre deux clés, la caméra glisse sur une courbe qui passe par toutes les clés (Catmull-Rom) :
+  // elle tourne légèrement au lieu d'aller tout droit, et s'arrête sans secousse à chaque clé.
   // devant une fenêtre ; sur ordinateur on vise un peu à sa droite pour laisser la place au texte
   const devant = (f, d, decale) => {
     const n = [Math.sin(f.ry), Math.cos(f.ry)], tg = [Math.cos(f.ry), -Math.sin(f.ry)];
@@ -459,32 +461,59 @@ export function vitrine(section) {
   function etapes(haut) {
     const d = haut ? 3.0 : 2.9, dec = haut ? 0 : 0.6;
     const [p1, v1] = devant(fenetres[0], d, dec), [p2, v2] = devant(fenetres[1], d, dec), [p3, v3] = devant(fenetres[2], d, dec);
+    // dans la rue : immobile devant l'ardoise pendant que la craie écrit, puis on s'approche de la vitrine
     const rue = haut
-      ? [[0, [-0.1, 1.55, 8.6], [-0.25, 1.45, 3.0]], [0.14, [-0.1, 1.55, 8.6], [-0.25, 1.45, 3.0]], [0.22, [1.0, 1.9, 4.7], [0.2, 1.7, 0.6]]]
-      : [[0, [0.2, 1.38, 6.7], [-0.6, 1.12, 2.9]], [0.14, [0.2, 1.38, 6.7], [-0.6, 1.12, 2.9]], [0.22, [0.6, 1.7, 4.4], [-0.1, 1.7, 0.6]]];
-    return [
+      ? [[0, 0.14, [-0.1, 1.55, 8.6], [-0.25, 1.45, 3.0]], [0.22, 0.22, [1.0, 1.9, 4.7], [0.2, 1.7, 0.6]]]
+      : [[0, 0.14, [0.2, 1.38, 6.7], [-0.6, 1.12, 2.9]], [0.22, 0.22, [0.6, 1.7, 4.4], [-0.1, 1.7, 0.6]]];
+    const cles = [
       ...rue,
-      [0.3, [0.5, 1.9, 0.6], [0.5, 1.9, -3.2]],
-      [0.36, [0.5, 1.9, 0.6], [0.5, 1.9, -3.2]],
-      [0.44, [0, 1.75, -1.6], [0, 1.75, -6]],
-      [0.52, p1, v1], [0.58, p1, v1],
-      [0.66, p2, v2], [0.72, p2, v2],
-      [0.8, p3, v3], [0.86, p3, v3],
-      [0.95, [0, 1.75, Z1 + 4.2], [0, 1.85, Z1]], [1, [0, 1.75, Z1 + 4.2], [0, 1.85, Z1]],
-    ].map(([t, p, v]) => ({ t, p: new THREE.Vector3(...p), v: new THREE.Vector3(...v) }));
+      [0.3, 0.36, [0.5, 1.9, 0.6], [0.5, 1.9, -3.2]],
+      [0.44, 0.44, [0, 1.75, -1.6], [0, 1.75, -6]],
+      [0.52, 0.58, p1, v1],
+      [0.66, 0.72, p2, v2],
+      [0.8, 0.86, p3, v3],
+      [0.95, 1, [0, 1.75, Z1 + 4.2], [0, 1.85, Z1]],
+    ].map(([de, a, p, v]) => ({ de, a, p: new THREE.Vector3(...p), v: new THREE.Vector3(...v) }));
+    return {
+      cles,
+      chemin: new THREE.CatmullRomCurve3(cles.map((c) => c.p), false, 'centripetal'),
+      regard: new THREE.CatmullRomCurve3(cles.map((c) => c.v), false, 'centripetal'),
+    };
   }
   let trajet;
+  const tangente = new THREE.Vector3(), avant = new THREE.Vector3();
+  let elan = 0; // 0 à l'arrêt, 1 en plein déplacement : donne le léger roulis de la caméra dans les virages
   function placer(c, pos, cible) {
+    const { cles, chemin, regard } = trajet;
     let i = 0;
-    while (i < trajet.length - 2 && c > trajet[i + 1].t) i++;
-    const a = trajet[i], b = trajet[i + 1];
-    const u = doux(borne((c - a.t) / (b.t - a.t)));
-    pos.lerpVectors(a.p, b.p, u);
-    cible.lerpVectors(a.v, b.v, u);
+    while (i < cles.length - 2 && c > cles[i + 1].de) i++;
+    const a = cles[i], b = cles[i + 1];
+    // on reste sur la clé tant qu'on ne l'a pas quittée, puis départ et arrivée en douceur
+    const g = borne((c - a.a) / Math.max(b.de - a.a, 1e-4)), f = doux(g);
+    const u = (i + f) / (cles.length - 1);
+    chemin.getPoint(u, pos);
+    regard.getPoint(u, cible);
+    chemin.getTangent(u, tangente);
+    // en chemin, on regarde devant soi, le long de la salle ; en arrivant, on se tourne vers la fenêtre
+    const devantSoi = doux(borne(g / 0.3)) * (1 - doux(borne((g - 0.35) / 0.65)));
+    avant.set(pos.x + tangente.x * 1.4, pos.y + tangente.y * 0.6, pos.z + tangente.z * 4);
+    cible.lerp(avant, devantSoi);
+    elan = Math.sin(f * Math.PI);
+  }
+  // qualité adaptative : si l'appareil peine à tenir la cadence, on baisse la finesse du rendu par paliers, sans jamais remonter
+  const paliers = [2, 1.5, 1.25, 1];
+  let palier = 0, lenteur = 0;
+  const finesse = () => Math.min(devicePixelRatio || 1, paliers[palier]);
+  function adapter(dt) {
+    if (dt > 0.25) return; // retour d'onglet ou de hors écran : on ne compte pas
+    lenteur = dt > 0.028 ? lenteur + dt : Math.max(0, lenteur - dt * 0.5);
+    if (lenteur < 1.2) return;
+    lenteur = 0;
+    if (palier < paliers.length - 1 && finesse() > paliers[palier + 1]) { palier++; rendu.setPixelRatio(finesse()); }
   }
   function regler() {
     const w = toile.clientWidth, h = toile.clientHeight;
-    rendu.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+    rendu.setPixelRatio(finesse());
     rendu.setSize(w, h, false);
     camera.aspect = w / h;
     const haut = w / h < 1;
@@ -531,7 +560,8 @@ export function vitrine(section) {
     // hors de l'écran, on ne dessine rien
     const r = section.getBoundingClientRect();
     if (r.bottom < 0 || r.top > innerHeight) return;
-    const t = horloge.getElapsedTime();
+    const dt = horloge.getDelta(), t = horloge.elapsedTime;
+    if (force == null) adapter(dt);
     const vise = force ?? borne(-r.top / (r.height - innerHeight));
     courant = force ?? courant + (vise - courant) * lissage;
     sx += (mx - sx) * 0.05;
@@ -545,6 +575,8 @@ export function vitrine(section) {
     camera.position.x += sx * 0.12 * poids;
     camera.position.y -= sy * 0.06 * poids;
     camera.lookAt(v);
+    // un léger roulis dans les virages, comme une caméra portée, et aucun à l'arrêt
+    camera.rotateZ(-tangente.x * elan * 0.035);
     halo.intensity = 9 + Math.sin(t * 2.3) * 0.25 + Math.sin(t * 5.1) * 0.15;
     poussiere.rotation.y = t * 0.015;
     poussiere.position.y = Math.sin(t * 0.3) * 0.05;
