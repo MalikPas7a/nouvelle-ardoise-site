@@ -730,14 +730,15 @@ html, body { overflow-x: clip; }
 @media (max-width: 600px) { .onglets--trois { grid-template-columns: 1fr; } }
 
 /* ---------- Accueil : la vitrine en 3D, les entrées en scène ---------- */
-.vitrine { --fin: 0; position: relative; height: 520vh; background: #0E181B; color: #fff; }
+.vitrine { --fin: 0; position: relative; height: 640vh; background: #0E181B; color: #fff; }
 .vitrine__colle { position: sticky; top: var(--nav); height: calc(100svh - var(--nav)); overflow: clip; }
 .vitrine canvas, .vitrine__repli { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .vitrine__repli { object-fit: cover; filter: brightness(0.45); }
 .vitrine.vivante .vitrine__repli { display: none; }
 .vitrine:not(.vivante) { height: auto; }
 .vitrine:not(.vivante) .vitrine__colle { position: relative; top: 0; height: auto; min-height: 90svh; }
-.vitrine__textes { position: relative; z-index: 1; height: 100%; display: grid; align-content: end; gap: 14px; padding-block: clamp(24px, 6vh, 64px); pointer-events: none; }
+.vitrine.vivante .vitrine__colle::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgb(0 0 0 / 0.45) 100%); }
+.vitrine__textes { position: relative; z-index: 2; height: 100%; display: grid; align-content: end; gap: 14px; padding-block: clamp(24px, 6vh, 64px); pointer-events: none; }
 .vitrine__textes > * { opacity: var(--o, 1); transform: translateY(var(--y, 0)); }
 .vitrine.vivante .vitrine__textes > * { --o: 0; }
 .vitrine.vivante .vitrine__ardoise { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
@@ -752,6 +753,18 @@ html, body { overflow-x: clip; }
 .vitrine__indice span { width: 2px; height: 28px; background: var(--jaune); border-radius: 2px; animation: indice 1.6s ease-in-out infinite; }
 @keyframes indice { 0%, 100% { transform: scaleY(0.4); transform-origin: top; } 50% { transform: scaleY(1); } }
 @media (max-width: 759px) { .vitrine__phrase { justify-self: start; text-align: left; } }
+.vitrine.vivante .vitrine__textes > * { grid-area: 1 / 1; align-self: end; }
+.vitrine__porte { justify-self: start; display: grid; gap: 6px; max-width: 380px; padding: 18px 20px; border-radius: 18px; background: rgb(14 24 27 / 0.82); backdrop-filter: blur(6px); color: #fff; text-decoration: none; pointer-events: auto; box-shadow: inset 0 0 0 1px rgb(255 210 63 / 0.25); }
+.vitrine__porte span { font-family: var(--titre); font-weight: 800; font-size: clamp(1.6rem, 3.4vw, 2.3rem); letter-spacing: -0.02em; line-height: 1.05; }
+.vitrine__porte b { font-weight: 400; color: #C6D0CC; }
+.vitrine__porte i { font-style: normal; font-weight: 700; color: var(--jaune); }
+.vitrine__porte i::after { content: ' →'; }
+.vitrine__porte:hover, .vitrine__porte:focus-visible { box-shadow: inset 0 0 0 2px var(--jaune); }
+.vitrine__cuisine { display: grid; gap: 18px; justify-items: start; pointer-events: auto; padding: 20px 22px; border-radius: 20px; background: rgb(14 24 27 / 0.78); backdrop-filter: blur(6px); max-width: 560px; }
+.vitrine__cuisine p { color: #fff; font-family: var(--titre); font-weight: 800; font-size: clamp(1.8rem, 4.4vw, 3.2rem); line-height: 1.04; letter-spacing: -0.03em; text-wrap: balance; }
+.vitrine__cuisine em { font-style: normal; color: var(--jaune); }
+.vitrine__cuisine .lien { color: #fff; }
+@media (min-width: 760px) { .vitrine.vivante .vitrine__porte { align-self: center; justify-self: end; } }
 
 .entre { opacity: 0; transform: translateY(46px) scale(0.98); transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); transition-delay: calc(var(--i, 0) * 110ms); }
 .entre.vu { opacity: 1; transform: none; }
