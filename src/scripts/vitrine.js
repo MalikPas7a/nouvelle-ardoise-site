@@ -535,6 +535,11 @@ export function vitrine(section) {
   // pour les captures d'aperçu : section.aller(0.5) fige la scène à mi-parcours
   let force = null;
   section.aller = (p) => { force = p; };
+  // avec le défilement fluide de l'ordinateur, la scène n'a pas besoin d'être lissée deux fois
+  const lissage = document.documentElement.classList.contains('lenis') ? 0.3 : 0.12;
+  const jalons = section.querySelectorAll('.vitrine__trajet li');
+  const bornesTrajet = [0, 0.3, 0.47, 0.62, 0.76, 0.9];
+  let etape = -1;
   const v = new THREE.Vector3();
   const horloge = new THREE.Clock();
   function image() {
@@ -544,7 +549,7 @@ export function vitrine(section) {
     if (r.bottom < 0 || r.top > innerHeight) return;
     const t = horloge.getElapsedTime();
     const vise = force ?? borne(-r.top / (r.height - innerHeight));
-    courant = force ?? courant + (vise - courant) * 0.12;
+    courant = force ?? courant + (vise - courant) * lissage;
     sx += (mx - sx) * 0.05;
     sy += (my - sy) * 0.05;
 
@@ -588,7 +593,11 @@ export function vitrine(section) {
       el.style.setProperty('--o', o.toFixed(3));
       el.style.setProperty('--y', `${((1 - o) * (courant < (de + a) / 2 ? 24 : -24)).toFixed(1)}px`);
       el.style.visibility = o > 0.01 ? 'visible' : 'hidden';
+      el.classList.toggle('actif', o > 0.3);
     });
+    section.style.setProperty('--trajet', courant.toFixed(4));
+    const e = bornesTrajet.findLastIndex((b) => courant >= b);
+    if (e !== etape) { etape = e; jalons.forEach((li, i) => { li.classList.toggle('ici', i === e); li.classList.toggle('passe', i < e); }); }
     section.style.setProperty('--fin', borne((courant - 0.36) / 0.04) * (1 - borne((courant - 0.42) / 0.04)));
   }
   image();

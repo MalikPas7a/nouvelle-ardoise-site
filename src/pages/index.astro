@@ -57,6 +57,7 @@ const jsonLd = JSON.stringify({
   <div class="vitrine__colle">
     <img class="vitrine__repli" src="/vitrine/salle.webp" alt="" width="1600" height="1062" loading="lazy" decoding="async" />
     <canvas aria-hidden="true"></canvas>
+    <div class="vitrine__trajet" aria-hidden="true"><i></i><ol><li>La rue</li><li>La salle</li><li>Restaurants</li><li>Artisans</li><li>Prix</li><li>La cuisine</li></ol></div>
     <div class="cadre vitrine__textes">
       <h2 class="vitrine__ardoise" id="titre-vitrine" data-de="-1" data-a="0.36">Vos clients mangent d’abord avec les yeux.</h2>
       <p class="vitrine__indice" data-de="-1" data-a="0.1" aria-hidden="true"><span></span>Faites défiler pour entrer</p>
@@ -88,7 +89,7 @@ const jsonLd = JSON.stringify({
 </section>
 
 <!-- ============ Les portes : une page par sujet ============ -->
-<section class="bloc">
+<section class="bloc portes-bloc">
   <div class="cadre">
     <header class="bloc__tete">
       <h2 class="titre-2">Par où commencer ?</h2>
@@ -118,6 +119,7 @@ const jsonLd = JSON.stringify({
 
 <script>
   import '../scripts/defilement.js';
+  import '../scripts/motion.js';
 </script>
 </Base>
 
