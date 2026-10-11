@@ -316,11 +316,13 @@ export function vitrine(section) {
     g.globalCompositeOperation = 'destination-out'; g.fillStyle = m; g.fillRect(0, 0, w, h);
   });
   const services = [
-    { nom: 'Site web', img: 'ragu' },
-    { nom: 'Design', img: 'tarte' },
-    { nom: 'Réseaux sociaux', img: 'ramen' },
-    { nom: 'Shootings', img: 'cuisine' },
-    { nom: 'Faire venir, faire revenir', img: 'lampes' },
+    // chaque photo montre le métier lui-même : la carte d'un restaurant sur un téléphone, une carte imprimée,
+    // un plat photographié pour les réseaux, une photographe en cuisine, une salle qu'on sert
+    { nom: 'Site web', img: 'site' },
+    { nom: 'Design', img: 'carte' },
+    { nom: 'Réseaux sociaux', img: 'reels' },
+    { nom: 'Shootings', img: 'shooting' },
+    { nom: 'Faire venir, faire revenir', img: 'tablee' },
   ];
   const Z0 = -5, PAS = -5, ZF = -34;
   const panneaux = services.map((s, i) => {
