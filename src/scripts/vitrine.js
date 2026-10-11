@@ -1,10 +1,9 @@
-// La vitrine : une rue au crépuscule, une ardoise sur son chevalet, une fenêtre éclairée.
-// Au défilement, la craie écrit sur l'ardoise, puis la caméra avance et entre dans la salle.
-// La scène suit la souris (ou l'inclinaison du téléphone) pour attirer l'œil.
+// L'ardoise cosmique : une ardoise seule dans la nuit, la craie écrit (caméra immobile), puis la craie
+// s'envole en poussière, l'ardoise s'ouvre et on plonge dans une nuit couleur ardoise où cinq panneaux
+// de verre flottent, un par service. Chacun s'allume quand on arrive devant. À la fin, ils s'alignent
+// et forment une salle de lumière. La scène suit la souris (ou l'inclinaison du téléphone).
 import * as THREE from 'three';
-import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import '@fontsource/caveat/600.css';
-import '@fontsource-variable/fraunces/opsz.css';
 
 const borne = (v, min = 0, max = 1) => Math.min(max, Math.max(min, v));
 const doux = (t) => t * t * (3 - 2 * t);
@@ -17,17 +16,13 @@ export function vitrine(section) {
   const rendu = new THREE.WebGLRenderer({ canvas: toile, antialias: (devicePixelRatio || 1) < 2.5, powerPreference: 'high-performance' });
   rendu.outputColorSpace = THREE.SRGBColorSpace;
   rendu.toneMapping = THREE.ACESFilmicToneMapping;
-  rendu.toneMappingExposure = 1.05;
+  rendu.toneMappingExposure = 1.0;
 
   const scene = new THREE.Scene();
   const nuit = new THREE.Color('#0E181B');
   scene.background = nuit;
-  scene.fog = new THREE.Fog(nuit, 9, 26);
-  const camera = new THREE.PerspectiveCamera(40, 1, 0.05, 60);
-
-  // Un studio lumineux virtuel, reflété seulement par les métaux (laiton, inox, cuivre)
-  const pmrem = new THREE.PMREMGenerator(rendu);
-  const reflets = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.fog = new THREE.Fog(nuit, 8, 34);
+  const camera = new THREE.PerspectiveCamera(40, 1, 0.05, 90);
 
   /* ---------- textures dessinées à la main sur des toiles ---------- */
   const toileTex = (w, h, dessin) => {
@@ -39,54 +34,21 @@ export function vitrine(section) {
     t.anisotropy = 8;
     return t;
   };
-  // Les textures écrites (enseigne, plaques, ardoise du chef) sont redessinées une fois les polices chargées
-  const aRedessiner = [];
-  const toileEcrite = (w, h, dessin) => {
-    const t = toileTex(w, h, dessin);
-    aRedessiner.push(() => { const g = t.image.getContext('2d'); g.clearRect(0, 0, w, h); dessin(g, w, h); t.needsUpdate = true; });
-    return t;
-  };
   const bruit = (g, w, h, n, couleur, taille = 2) => {
     g.fillStyle = couleur;
     for (let i = 0; i < n; i++) g.fillRect(Math.random() * w, Math.random() * h, taille * Math.random() + 0.5, taille * Math.random() + 0.5);
   };
+  const halo = (teinte) => toileTex(128, 128, (g) => { const d = g.createRadialGradient(64, 64, 0, 64, 64, 64); d.addColorStop(0, teinte(0.9)); d.addColorStop(0.3, teinte(0.35)); d.addColorStop(1, teinte(0)); g.fillStyle = d; g.fillRect(0, 0, 128, 128); });
+  const haloJaune = halo((a) => `rgba(255,214,110,${a})`);
+  const haloBleu = halo((a) => `rgba(70,120,140,${a})`);
+  const sprite = (parent, map, x, y, z, taille, opacity = 1, additif = true) => {
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map, transparent: true, depthWrite: false, blending: additif ? THREE.AdditiveBlending : THREE.NormalBlending, toneMapped: false, opacity, fog: false }));
+    sp.position.set(x, y, z); sp.scale.setScalar(taille);
+    parent.add(sp);
+    return sp;
+  };
 
-  // Pavés de la rue
-  const paves = toileTex(1024, 1024, (g, w, h) => {
-    g.fillStyle = '#15191A'; g.fillRect(0, 0, w, h);
-    const n = 16, s = w / n;
-    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
-      const dx = (y % 2) * s * 0.5;
-      const l = 20 + Math.random() * 14;
-      g.fillStyle = `hsl(190 6% ${l}%)`;
-      g.beginPath(); g.roundRect(x * s + dx + 3, y * s + 3, s - 6, s - 6, 10); g.fill();
-    }
-    bruit(g, w, h, 9000, 'rgba(0,0,0,.25)', 3);
-  });
-  paves.wrapS = paves.wrapT = THREE.RepeatWrapping;
-  paves.repeat.set(5, 5);
-
-  // Crépi de la façade
-  const crepi = toileTex(512, 512, (g, w, h) => {
-    g.fillStyle = '#2E3A39'; g.fillRect(0, 0, w, h);
-    bruit(g, w, h, 14000, 'rgba(255,255,255,.035)', 2);
-    bruit(g, w, h, 14000, 'rgba(0,0,0,.08)', 2);
-  });
-  crepi.wrapS = crepi.wrapT = THREE.RepeatWrapping;
-  crepi.repeat.set(4, 2);
-
-  // L'enseigne
-  const enseigne = toileEcrite(1024, 192, (g, w, h) => {
-    g.fillStyle = '#1B2322'; g.fillRect(0, 0, w, h);
-    g.strokeStyle = 'rgba(232,201,140,.55)'; g.lineWidth = 3; g.strokeRect(14, 14, w - 28, h - 28);
-    g.fillStyle = '#F2D7A2';
-    g.font = '600 92px "Fraunces Variable", Georgia, serif';
-    g.textAlign = 'center'; g.textBaseline = 'middle';
-    g.shadowColor = 'rgba(255,200,120,.8)'; g.shadowBlur = 18;
-    g.fillText('Votre restaurant', w / 2, h / 2 + 4);
-  });
-
-  // L'ardoise : le texte s'écrit à la craie au fil du défilement
+  /* ---------- l'ardoise : le texte s'écrit à la craie au fil du défilement ---------- */
   const lignes = [
     { t: 'Vos clients', y: 0.2 },
     { t: 'mangent', y: 0.36 },
@@ -101,7 +63,6 @@ export function vitrine(section) {
     const d = g.createRadialGradient(W * 0.45, H * 0.4, 50, W / 2, H / 2, W);
     d.addColorStop(0, '#2A3331'); d.addColorStop(1, '#161C1B');
     g.fillStyle = d; g.fillRect(0, 0, W, H);
-    // traces de craie effacée
     g.globalAlpha = 0.07; g.strokeStyle = '#fff'; g.lineCap = 'round';
     for (let i = 0; i < 60; i++) {
       g.lineWidth = 20 + Math.random() * 50;
@@ -132,143 +93,48 @@ export function vitrine(section) {
       g.shadowBlur = 10;
       g.fillText(l.t, W / 2, H * l.y);
     });
-    // un trait souligné sous « avec les yeux »
     g.strokeStyle = '#FFD23F'; g.lineWidth = 9; g.lineCap = 'round';
     g.beginPath(); g.moveTo(W * 0.16, H * 0.8); g.quadraticCurveTo(W * 0.5, H * 0.83, W * 0.84, H * 0.795); g.stroke();
-    // grain de craie : on gratte la matière
     g.globalCompositeOperation = 'destination-out';
     bruit(g, W, H, 26000, 'rgba(0,0,0,.55)', 2.5);
     g.globalCompositeOperation = 'source-over';
   }
-  let ecrit = -1;
-  function ecrire(p) {
-    const q = Math.round(p * 240) / 240;
-    if (q === ecrit) return;
-    ecrit = q;
+  let ecrit = '';
+  // p : avancement de l'écriture ; a : opacité de la craie (elle s'efface quand elle s'envole)
+  function ecrire(p, a) {
+    const q = Math.round(p * 240) / 240, qa = Math.round(a * 40) / 40;
+    const cle = q + '/' + qa;
+    if (cle === ecrit) return;
+    ecrit = cle;
     const g = ardoiseC.getContext('2d');
+    g.globalAlpha = 1;
     g.drawImage(fond, 0, 0);
-    // Chaque ligne se dévoile de gauche à droite, l'une après l'autre
+    g.globalAlpha = qa;
     const n = lignes.length + 1;
     for (let i = 0; i < n; i++) {
-      const a = borne(q * n - i);
-      if (a <= 0) break;
+      const av = borne(q * n - i);
+      if (av <= 0) break;
       const y = i < lignes.length ? H * lignes[i].y : H * 0.8;
       const h = i < lignes.length ? 200 : 60;
       g.save();
-      g.beginPath(); g.rect(0, y - h / 2, W * (0.08 + a * 0.86), h); g.clip();
+      g.beginPath(); g.rect(0, y - h / 2, W * (0.08 + av * 0.86), h); g.clip();
       g.drawImage(craie, 0, 0);
       g.restore();
     }
+    g.globalAlpha = 1;
     ardoiseTex.needsUpdate = true;
   }
 
-  /* ---------- la rue, la façade, la fenêtre ---------- */
-  const mat = (o) => new THREE.MeshStandardMaterial(o);
-  const boite = (w, h, d, m, x, y, z) => {
-    const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
-    b.position.set(x, y, z);
-    scene.add(b);
-    return b;
-  };
-
-  const sol = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), mat({ map: paves, roughness: 0.55, metalness: 0.1, color: '#9AA6A6' }));
+  /* ---------- le sol de nuit et le chevalet ---------- */
+  const solM = new THREE.MeshStandardMaterial({ color: '#111C1F', roughness: 1, transparent: true });
+  const sol = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), solM);
   sol.rotation.x = -Math.PI / 2;
   scene.add(sol);
-  // le trottoir devant la façade
-  boite(30, 0.14, 2.2, mat({ color: '#3A4443', roughness: 0.9 }), 0, 0.07, 1.1);
 
-  const murM = mat({ map: crepi, roughness: 0.95, color: '#B9C4C2' });
-  const fx0 = -1.7, fx1 = 1.7, fy0 = 0.75, fy1 = 3.05;
-  boite(30, 9, 0.4, murM, 0, fy1 + 4.5, -0.2); // au-dessus
-  boite(30, fy0, 0.4, murM, 0, fy0 / 2, -0.2); // allège
-  boite(15, fy1 - fy0, 0.4, murM, fx0 - 7.5, (fy0 + fy1) / 2, -0.2);
-  boite(15, fy1 - fy0, 0.4, murM, fx1 + 7.5, (fy0 + fy1) / 2, -0.2);
-
-  // menuiserie
-  const bois = mat({ color: '#141C1B', roughness: 0.5, metalness: 0.2 });
-  const e = 0.11;
-  boite(fx1 - fx0 + e * 2, e, 0.2, bois, 0, fy0, 0.02);
-  boite(fx1 - fx0 + e * 2, e, 0.2, bois, 0, fy1, 0.02);
-  boite(e, fy1 - fy0, 0.2, bois, fx0, (fy0 + fy1) / 2, 0.02);
-  boite(e, fy1 - fy0, 0.2, bois, fx1, (fy0 + fy1) / 2, 0.02);
-  boite(0.06, fy1 - fy0, 0.12, bois, 0, (fy0 + fy1) / 2, 0.02);
-  boite(fx1 - fx0, 0.06, 0.12, bois, 0, 2.55, 0.02);
-  // appui de fenêtre
-  boite(fx1 - fx0 + 0.5, 0.08, 0.36, mat({ color: '#4A5452', roughness: 0.7 }), 0, fy0 - 0.06, 0.12);
-
-  // l'enseigne et deux appliques
-  const panneau = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 0.6), new THREE.MeshBasicMaterial({ map: enseigne, toneMapped: false }));
-  panneau.position.set(0, 3.65, 0.03);
-  scene.add(panneau);
-  const globe = new THREE.MeshBasicMaterial({ color: '#FFD9A0', toneMapped: false });
-  // le halo d'une ampoule : un disque doux qui s'additionne à la lumière
-  const haloTex = toileTex(128, 128, (g) => { const d = g.createRadialGradient(64, 64, 0, 64, 64, 64); d.addColorStop(0, 'rgba(255,214,150,.9)'); d.addColorStop(0.25, 'rgba(255,190,110,.35)'); d.addColorStop(1, 'rgba(255,170,80,0)'); g.fillStyle = d; g.fillRect(0, 0, 128, 128); });
-  const aura = (parent, x, y, z, taille) => {
-    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false }));
-    sp.position.set(x, y, z); sp.scale.setScalar(taille);
-    parent.add(sp);
-    return sp;
-  };
-  [-2.25, 2.25].forEach((x) => {
-    const s = new THREE.Mesh(new THREE.SphereGeometry(0.09, 20, 14), globe);
-    s.position.set(x, 3.15, 0.25);
-    scene.add(s);
-    aura(scene, x, 3.15, 0.27, 0.9);
-    boite(0.04, 0.04, 0.25, bois, x, 3.15, 0.12);
-    const l = new THREE.PointLight('#FFC27A', 2.2, 5, 1.6);
-    l.position.set(x, 3.1, 0.45);
-    scene.add(l);
-  });
-
-  // la salle derrière la vitre : une vraie salle (photo Adobe Stock sous licence), en portrait sur téléphone, en paysage à l'ordinateur
-  const salleM = new THREE.MeshBasicMaterial({ toneMapped: false, transparent: true, color: new THREE.Color(0.95, 0.9, 0.82), fog: false });
-  const salle = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), salleM);
-  salle.position.set(0.3, 1.9, -3.2);
-  scene.add(salle);
-  let salleSrc = '';
-  function chargerSalle(haut) {
-    const src = haut ? '/vitrine/salle-tel.webp' : '/vitrine/salle.webp';
-    if (src === salleSrc) return;
-    salleSrc = src;
-    new THREE.TextureLoader().load(src, (t) => {
-      t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
-      salleM.map = t; salleM.needsUpdate = true; pret.salle = true;
-      // à l'ordinateur la photo remplit la vitrine ; sur téléphone elle garde une échelle proche du réel
-      const w = haut ? 4.3 : 6.4;
-      salle.scale.set(w, w / (t.image.width / t.image.height), 1);
-      salle.position.y = haut ? 1.6 : 1.9;
-    });
-  }
-  // la vitre : un reflet léger
-  const reflet = toileTex(512, 512, (g, w, h) => {
-    const d = g.createLinearGradient(0, 0, w, h);
-    d.addColorStop(0, 'rgba(255,255,255,0)'); d.addColorStop(0.42, 'rgba(255,255,255,0)');
-    d.addColorStop(0.5, 'rgba(255,255,255,.22)'); d.addColorStop(0.56, 'rgba(255,255,255,0)');
-    d.addColorStop(0.66, 'rgba(255,255,255,.1)'); d.addColorStop(0.7, 'rgba(255,255,255,0)');
-    g.fillStyle = d; g.fillRect(0, 0, w, h);
-  });
-  const vitreM = new THREE.MeshBasicMaterial({ map: reflet, transparent: true, depthWrite: false, opacity: 0.9 });
-  const vitre = new THREE.Mesh(new THREE.PlaneGeometry(fx1 - fx0, fy1 - fy0), vitreM);
-  vitre.position.set(0, (fy0 + fy1) / 2, 0.0);
-  scene.add(vitre);
-
-  // la lumière de la salle déborde sur le trottoir et sur l'ardoise
-  const halo = new THREE.PointLight('#FFB866', 9, 12, 1.4);
-  halo.position.set(0, 1.9, 0.9);
-  scene.add(halo);
-  scene.add(new THREE.HemisphereLight('#5C7A8A', '#0B0F10', 0.55));
-  const lune = new THREE.DirectionalLight('#8FB0C4', 0.45);
-  lune.position.set(-6, 9, 8);
-  scene.add(lune);
-
-  /* ---------- le chevalet ---------- */
   const chevalet = new THREE.Group();
-  const boisClair = mat({ color: '#8A5A33', roughness: 0.7 });
-  const planche = new THREE.Mesh(new THREE.BoxGeometry(0.92, 1.26, 0.035), [
-    boisClair, boisClair, boisClair, boisClair,
-    new THREE.MeshStandardMaterial({ map: ardoiseTex, roughness: 0.92, color: '#FFFFFF' }),
-    boisClair,
-  ]);
+  const boisClair = new THREE.MeshStandardMaterial({ color: '#8A5A33', roughness: 0.7, transparent: true });
+  const ardoiseM = new THREE.MeshStandardMaterial({ map: ardoiseTex, roughness: 0.92, color: '#FFFFFF', transparent: true });
+  const planche = new THREE.Mesh(new THREE.BoxGeometry(0.92, 1.26, 0.035), [boisClair, boisClair, boisClair, boisClair, ardoiseM, boisClair]);
   planche.position.y = 0.92;
   chevalet.add(planche);
   const cadre = (w, h, x, y) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.06), boisClair); m.position.set(x, y, 0.005); chevalet.add(m); };
@@ -285,247 +151,201 @@ export function vitrine(section) {
     chevalet.add(dos);
   });
   chevalet.rotation.x = -0.12;
-  // ombre douce au sol
-  const ombre = new THREE.Mesh(new THREE.PlaneGeometry(1.8, 1.2), new THREE.MeshBasicMaterial({
-    map: toileTex(128, 128, (g) => { const d = g.createRadialGradient(64, 64, 4, 64, 64, 64); d.addColorStop(0, 'rgba(0,0,0,.65)'); d.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = d; g.fillRect(0, 0, 128, 128); }),
-    transparent: true, depthWrite: false,
-  }));
+  const ombreM = new THREE.MeshBasicMaterial({ map: toileTex(128, 128, (g) => { const d = g.createRadialGradient(64, 64, 4, 64, 64, 64); d.addColorStop(0, 'rgba(0,0,0,.65)'); d.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = d; g.fillRect(0, 0, 128, 128); }), transparent: true, depthWrite: false });
+  const ombre = new THREE.Mesh(new THREE.PlaneGeometry(1.8, 1.2), ombreM);
   ombre.rotation.x = -Math.PI / 2;
   ombre.position.set(0, 0.012, -0.12);
   chevalet.add(ombre);
   scene.add(chevalet);
-  // une lampe chaude penchée sur l'ardoise
-  const spot = new THREE.SpotLight('#FFE2B0', 14, 6, 0.55, 0.6, 1.4);
+  // une lampe chaude penchée sur l'ardoise, et la nuit tout autour
+  const spot = new THREE.SpotLight('#FFE2B0', 16, 7, 0.6, 0.6, 1.4);
   scene.add(spot); scene.add(spot.target);
+  const lueurSol = sprite(scene, haloJaune, 0, 0.3, 0.6, 3.2, 0.35);
+  scene.add(new THREE.HemisphereLight('#3E5A68', '#07090A', 0.5));
 
-  /* ---------- poussière de craie dans la lumière ---------- */
-  const N = 420;
-  const pos = new Float32Array(N * 3);
-  for (let i = 0; i < N; i++) { pos[i * 3] = (Math.random() - 0.5) * 7; pos[i * 3 + 1] = Math.random() * 3.6; pos[i * 3 + 2] = Math.random() * 6 - 0.6; }
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  const point = toileTex(64, 64, (g) => { const d = g.createRadialGradient(32, 32, 0, 32, 32, 32); d.addColorStop(0, 'rgba(255,230,180,1)'); d.addColorStop(1, 'rgba(255,230,180,0)'); g.fillStyle = d; g.fillRect(0, 0, 64, 64); });
-  const poussiere = new THREE.Points(geo, new THREE.PointsMaterial({ size: 0.035, map: point, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.7 }));
-  scene.add(poussiere);
-
-  /* ---------- dans le restaurant : la salle, trois fenêtres, la cuisine au fond ---------- */
-  // Un couloir chaud de 4,4 m de large, de la vitrine (z = 0) jusqu'au passe-plat de la cuisine (z = -18)
-  const L = 4.4, Hc = 3.6, Z0 = -0.05, Z1 = -18;
-  const murSalle = toileTex(512, 512, (g, w, h) => {
-    g.fillStyle = '#D8C7A6'; g.fillRect(0, 0, w, h);
-    bruit(g, w, h, 9000, 'rgba(120,90,50,.06)', 3);
-    // boiserie basse
-    g.fillStyle = '#4A2F1E'; g.fillRect(0, h * 0.7, w, h * 0.3);
-    g.fillStyle = '#5B3A25';
-    for (let x = 8; x < w; x += 64) g.fillRect(x, h * 0.73, 52, h * 0.24);
-    g.fillStyle = '#2E1C12'; g.fillRect(0, h * 0.69, w, 8);
-  });
-  murSalle.wrapS = THREE.RepeatWrapping;
-  murSalle.repeat.set(5, 1);
-  const carreaux = toileTex(512, 512, (g, w, h) => {
-    const n = 24, s = w / n;
-    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
-      const r = Math.random();
-      g.fillStyle = r < 0.12 ? '#7E2F2A' : r < 0.2 ? '#B9AE98' : '#D9CFBC';
-      g.fillRect(x * s + 1, y * s + 1, s - 2, s - 2);
-    }
-  });
-  carreaux.wrapS = carreaux.wrapT = THREE.RepeatWrapping;
-  carreaux.repeat.set(3, 12);
-  const interieur = new THREE.Group();
-  const murG = new THREE.Mesh(new THREE.PlaneGeometry(Z0 - Z1, Hc), mat({ map: murSalle, roughness: 0.9 }));
-  murG.rotation.y = Math.PI / 2; murG.position.set(-L / 2, Hc / 2, (Z0 + Z1) / 2);
-  const murD = murG.clone(); murD.rotation.y = -Math.PI / 2; murD.position.x = L / 2;
-  const solIn = new THREE.Mesh(new THREE.PlaneGeometry(L, Z0 - Z1), mat({ map: carreaux, roughness: 0.6 }));
-  solIn.rotation.x = -Math.PI / 2; solIn.position.set(0, 0.002, (Z0 + Z1) / 2);
-  const plafond = new THREE.Mesh(new THREE.PlaneGeometry(L, Z0 - Z1), mat({ color: '#2A1A11', roughness: 0.8 }));
-  plafond.rotation.x = Math.PI / 2; plafond.position.set(0, Hc, (Z0 + Z1) / 2);
-  interieur.add(murG, murD, solIn, plafond);
-  // poutres et plinthes : le rythme de la salle
-  const poutreM = mat({ color: '#3A2416', roughness: 0.75 });
-  for (let z = -1.2; z > Z1 + 0.5; z -= 1.6) {
-    const p = new THREE.Mesh(new THREE.BoxGeometry(L, 0.16, 0.18), poutreM);
-    p.position.set(0, Hc - 0.08, z);
-    interieur.add(p);
+  /* ---------- la craie qui s'envole : des grains qui quittent l'ardoise ---------- */
+  const Np = 900;
+  const grainsPos = new Float32Array(Np * 3), base = new Float32Array(Np * 2), elan = new Float32Array(Np * 3);
+  for (let i = 0; i < Np; i++) {
+    base[i * 2] = (Math.random() - 0.5) * 0.86; base[i * 2 + 1] = (Math.random() - 0.5) * 1.2;
+    elan[i * 3] = (Math.random() - 0.5) * 1.6; elan[i * 3 + 1] = 0.6 + Math.random() * 2.2; elan[i * 3 + 2] = 0.4 + Math.random() * 1.8;
   }
-  // suspensions le long de la salle
-  const laiton = mat({ color: '#B08A4E', metalness: 0.8, roughness: 0.35, envMap: reflets, envMapIntensity: 0.8 });
-  [-4.2, -7.8, -11.4, -15].forEach((z) => {
-    const abat = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.2, 24, 1, true), laiton);
-    abat.position.set(0, Hc - 0.75, z);
-    const fil = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.65), laiton);
-    fil.position.set(0, Hc - 0.33, z);
-    const ampoule = new THREE.Mesh(new THREE.SphereGeometry(0.06, 16, 12), globe);
-    ampoule.position.set(0, Hc - 0.86, z);
-    aura(interieur, 0, Hc - 0.88, z, 0.8);
-    const l = new THREE.PointLight('#FFC27A', 4, 6, 1.6);
-    l.position.set(0, Hc - 1, z);
-    interieur.add(abat, fil, ampoule, l);
-  });
+  const grainsGeo = new THREE.BufferGeometry();
+  grainsGeo.setAttribute('position', new THREE.BufferAttribute(grainsPos, 3));
+  const pointTex = toileTex(64, 64, (g) => { const d = g.createRadialGradient(32, 32, 0, 32, 32, 32); d.addColorStop(0, 'rgba(255,245,225,1)'); d.addColorStop(1, 'rgba(255,245,225,0)'); g.fillStyle = d; g.fillRect(0, 0, 64, 64); });
+  const grainsM = new THREE.PointsMaterial({ size: 0.028, map: pointTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0 });
+  const grains = new THREE.Points(grainsGeo, grainsM);
+  grains.position.set(0, 0.92, 0.04);
+  grains.visible = false;
+  chevalet.add(grains);
+  function envoler(p, t) {
+    const e = doux(p);
+    for (let i = 0; i < Np; i++) {
+      const s = i * 0.37;
+      grainsPos[i * 3] = base[i * 2] + elan[i * 3] * e + Math.sin(t * 1.3 + s) * 0.05 * e;
+      grainsPos[i * 3 + 1] = base[i * 2 + 1] + elan[i * 3 + 1] * e + Math.cos(t * 0.9 + s) * 0.04 * e;
+      grainsPos[i * 3 + 2] = elan[i * 3 + 2] * e;
+    }
+    grainsGeo.attributes.position.needsUpdate = true;
+    grainsM.opacity = Math.sin(p * Math.PI) * 0.9;
+  }
 
-  // Les trois fenêtres : elles s'allument quand on s'en approche
+  /* ---------- la nuit d'ardoise : poussière de craie en étoiles, brume bleue ---------- */
+  const Ne = 1800;
+  const ePos = new Float32Array(Ne * 3);
+  for (let i = 0; i < Ne; i++) { ePos[i * 3] = (Math.random() - 0.5) * 26; ePos[i * 3 + 1] = Math.random() * 10 - 2; ePos[i * 3 + 2] = 6 - Math.random() * 46; }
+  const eGeo = new THREE.BufferGeometry();
+  eGeo.setAttribute('position', new THREE.BufferAttribute(ePos, 3));
+  const etoiles = new THREE.Points(eGeo, new THREE.PointsMaterial({ size: 0.05, map: pointTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.55, sizeAttenuation: true }));
+  scene.add(etoiles);
+  const brumes = [];
+  for (let i = 0; i < 9; i++) {
+    const z = -2 - i * 4.2;
+    const sp = sprite(scene, haloBleu, (i % 2 ? 1 : -1) * (3 + Math.random() * 3), 1 + Math.random() * 3, z, 9 + Math.random() * 6, 0.16);
+    sp.userData = { z, phase: i };
+    brumes.push(sp);
+  }
+
+  /* ---------- cinq panneaux de verre, un par service ---------- */
   const chargeur = new THREE.TextureLoader();
-  const fenetres = [
-    { img: '/vitrine/ragu.webp', titre: 'Restaurants', x: -L / 2 + 0.02, z: -5.6, ry: Math.PI / 2 },
-    { img: '/vitrine/tarte.webp', titre: 'Artisans', x: L / 2 - 0.02, z: -9.2, ry: -Math.PI / 2 },
-    { img: '/vitrine/ramen.webp', titre: 'Offres et prix', x: -L / 2 + 0.02, z: -12.8, ry: Math.PI / 2 },
-  ].map((f) => {
-    const tex = chargeur.load(f.img, () => recadrer());
-    tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+  const charger = (src, apres) => { const t = chargeur.load(src, () => apres && apres(t)); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; };
+  const reflet = toileTex(512, 512, (g, w, h) => {
+    const d = g.createLinearGradient(0, 0, w, h);
+    d.addColorStop(0, 'rgba(255,255,255,.05)'); d.addColorStop(0.38, 'rgba(255,255,255,.02)');
+    d.addColorStop(0.47, 'rgba(255,255,255,.26)'); d.addColorStop(0.55, 'rgba(255,255,255,.04)');
+    d.addColorStop(0.72, 'rgba(255,255,255,.12)'); d.addColorStop(1, 'rgba(255,255,255,.03)');
+    g.fillStyle = d; g.fillRect(0, 0, w, h);
+  });
+  const services = [
+    { nom: 'Site web', img: 'ragu' },
+    { nom: 'Design', img: 'tarte' },
+    { nom: 'Réseaux sociaux', img: 'ramen' },
+    { nom: 'Shootings', img: 'cuisine' },
+    { nom: 'Stratégie', img: 'salle' },
+  ];
+  const Z0 = -5, PAS = -5, ZF = -34;
+  const panneaux = services.map((s, i) => {
     const g = new THREE.Group();
-    const largeur = 1.9, hauteur = 1.25;
-    const photoM = new THREE.MeshBasicMaterial({ map: tex, toneMapped: false, color: new THREE.Color(0.18, 0.16, 0.14) });
-    const photo = new THREE.Mesh(new THREE.PlaneGeometry(largeur, hauteur), photoM);
-    photo.position.z = 0.03;
-    g.add(photo);
-    // la photo garde ses proportions : on la recadre au centre
+    const geo = new THREE.PlaneGeometry(1, 1);
+    const nettes = [], floues = [];
+    const texNette = charger(`/vitrine/${s.img}.webp`, () => recadrer()), texFloue = charger(`/vitrine/${s.img}-flou.webp`, () => recadrer());
+    const floueM = new THREE.MeshBasicMaterial({ map: texFloue, toneMapped: false, color: new THREE.Color(0.5, 0.5, 0.5) });
+    const netteM = new THREE.MeshBasicMaterial({ map: texNette, toneMapped: false, transparent: true, opacity: 0 });
+    const floue = new THREE.Mesh(geo, floueM), nette = new THREE.Mesh(geo, netteM);
+    nette.position.z = 0.004;
+    const verreM = new THREE.MeshBasicMaterial({ map: reflet, transparent: true, depthWrite: false, opacity: 0.4, blending: THREE.AdditiveBlending, toneMapped: false });
+    const verre = new THREE.Mesh(geo, verreM);
+    verre.position.z = 0.008;
+    const bordM = new THREE.LineBasicMaterial({ color: '#FFD23F', transparent: true, opacity: 0.2, toneMapped: false });
+    const bord = new THREE.LineSegments(new THREE.EdgesGeometry(geo), bordM);
+    bord.position.z = 0.01;
+    const lueur = sprite(g, haloJaune, 0, 0, -0.05, 1, 0);
+    g.add(floue, nette, verre, bord);
+    let largeur = 2.4, hauteur = 1.6;
+    // la photo garde ses proportions : on la recadre au centre, pour la version nette et la version floue
     const recadrer = () => {
-      const r = tex.image.width / tex.image.height, cible = largeur / hauteur;
-      if (r > cible) { tex.repeat.set(cible / r, 1); tex.offset.set((1 - cible / r) / 2, 0); }
-      else { tex.repeat.set(1, r / cible); tex.offset.set(0, (1 - r / cible) / 2); }
+      [texNette, texFloue].forEach((tex) => {
+        if (!tex.image || !tex.image.width) return;
+        const r = tex.image.width / tex.image.height, cible = largeur / hauteur;
+        if (r > cible) { tex.repeat.set(cible / r, 1); tex.offset.set((1 - cible / r) / 2, 0); }
+        else { tex.repeat.set(1, r / cible); tex.offset.set(0, (1 - r / cible) / 2); }
+      });
     };
-    const e = 0.07;
-    [[largeur + e * 2, e, 0, hauteur / 2 + e / 2], [largeur + e * 2, e, 0, -hauteur / 2 - e / 2], [e, hauteur, -largeur / 2 - e / 2, 0], [e, hauteur, largeur / 2 + e / 2, 0]]
-      .forEach(([w, h, x, y]) => { const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.08), bois); b.position.set(x, y, 0.03); g.add(b); });
-    const plaque = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 0.2), new THREE.MeshBasicMaterial({ map: toileEcrite(512, 102, (c, w, h) => {
-      c.fillStyle = '#1B2322'; c.fillRect(0, 0, w, h);
-      c.fillStyle = '#F2D7A2'; c.font = '600 54px "Fraunces Variable", Georgia, serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
-      c.fillText(f.titre, w / 2, h / 2 + 3);
-    }), toneMapped: false }));
-    plaque.position.set(0, -hauteur / 2 - 0.22, 0.03);
-    g.add(plaque);
-    g.position.set(f.x, 1.85, f.z);
-    g.rotation.y = f.ry;
-    const lampe = new THREE.PointLight('#FFD9A0', 0, 3.5, 1.5);
-    lampe.position.set(f.x + Math.sign(-f.x) * 0.9, 2.9, f.z);
-    interieur.add(g, lampe);
-    return { ...f, photoM, lampe };
+    const dimensionner = (w, h) => {
+      largeur = w; hauteur = h;
+      [floue, nette, verre].forEach((m) => m.scale.set(w, h, 1));
+      bord.scale.set(w, h, 1);
+      lueur.scale.set(w * 1.9, h * 2.2, 1);
+      recadrer();
+    };
+    scene.add(g);
+    return { ...s, i, g, netteM, floueM, bordM, lueur, dimensionner, chemin: new THREE.Vector3(), fin: new THREE.Vector3(), ry: 0 };
   });
-
-  // La cuisine au fond : le passe-plat éclairé, les casseroles en cuivre, une petite ardoise
-  const cuisine = new THREE.Group();
-  const murFond = mat({ map: murSalle, roughness: 0.9 });
-  const ox = 1.5, oy0 = 1.05, oy1 = 2.45;
-  const bloc = (w, h, x, y) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), murFond); m.position.set(x, y, Z1); cuisine.add(m); };
-  bloc(L, oy0, 0, oy0 / 2);
-  bloc(L, Hc - oy1, 0, (Hc + oy1) / 2);
-  bloc(L / 2 - ox, oy1 - oy0, -(L / 2 + ox) / 2, (oy0 + oy1) / 2);
-  bloc(L / 2 - ox, oy1 - oy0, (L / 2 + ox) / 2, (oy0 + oy1) / 2);
-  const inox = mat({ color: '#C9CED1', metalness: 0.9, roughness: 0.28, envMap: reflets, envMapIntensity: 0.7 });
-  const comptoir = new THREE.Mesh(new THREE.BoxGeometry(ox * 2 + 0.3, 0.06, 0.5), inox);
-  comptoir.position.set(0, oy0, Z1 + 0.1);
-  cuisine.add(comptoir);
-  // la cuisine derrière le passe : une vraie cuisine (photo Adobe Stock sous licence), le chef au travail sous les lampes chauffantes
-  const cuisineTex = chargeur.load('/vitrine/cuisine.webp');
-  cuisineTex.colorSpace = THREE.SRGBColorSpace; cuisineTex.anisotropy = 8;
-  const cuisineM = new THREE.MeshBasicMaterial({ map: cuisineTex, toneMapped: false, fog: false, color: new THREE.Color(0.7, 0.66, 0.6) });
-  const cuisineFond = new THREE.Mesh(new THREE.PlaneGeometry(6.4, 6.4 / 1.5), cuisineM);
-  // décalée vers la droite pour que le chef, à gauche de la photo, reste visible dans le passe
-  cuisineFond.position.set(0.5, 1.7, Z1 - 1.3);
-  cuisine.add(cuisineFond);
-  // la chaleur des lampes déborde sur le passe
-  [-0.9, 0, 0.9].forEach((x) => aura(cuisine, x, oy1 - 0.22, Z1 + 0.2, 0.55));
-  // la vapeur qui monte de la cuisine
-  const vapeurTex = toileTex(128, 128, (g) => { const d = g.createRadialGradient(64, 64, 0, 64, 64, 64); d.addColorStop(0, 'rgba(255,245,230,.22)'); d.addColorStop(1, 'rgba(255,245,230,0)'); g.fillStyle = d; g.fillRect(0, 0, 128, 128); });
-  const vapeur = Array.from({ length: 18 }, (_, i) => {
-    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: vapeurTex, transparent: true, depthWrite: false, opacity: 0 }));
-    sp.userData = { x: (Math.random() - 0.5) * 2.4, phase: i / 18, vitesse: 0.08 + Math.random() * 0.06 };
-    cuisine.add(sp);
-    return sp;
-  });
-  const feu = new THREE.PointLight('#FFB45E', 10, 6, 1.4);
-  feu.position.set(0, 2.1, Z1 - 0.6);
-  cuisine.add(feu);
-  // l'ardoise du chef, au-dessus du passe
-  const ardoiseChef = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 0.62), new THREE.MeshStandardMaterial({ roughness: 0.9, map: toileEcrite(768, 318, (c, w, h) => {
-    c.fillStyle = '#1D2422'; c.fillRect(0, 0, w, h);
-    c.strokeStyle = '#8A5A33'; c.lineWidth = 18; c.strokeRect(9, 9, w - 18, h - 18);
-    c.fillStyle = '#F4F1E8'; c.font = '600 92px Caveat, cursive'; c.textAlign = 'center'; c.textBaseline = 'middle';
-    c.fillText('On s’y met ?', w / 2, h / 2);
-  }) }));
-  ardoiseChef.position.set(0, 3.0, Z1 + 0.02);
-  cuisine.add(ardoiseChef);
-  interieur.add(cuisine);
-  interieur.visible = false;
-  scene.add(interieur);
+  // le soleil jaune qui se lève derrière la salle de lumière
+  const soleil = sprite(scene, haloJaune, 0, 2.2, ZF - 7, 0.001, 0.75);
 
   /* ---------- le trajet de la caméra : une courbe lissée, des arrêts nets ---------- */
   // Chaque clé : quand la caméra y arrive (de), quand elle en repart (a), où elle est (p), où elle regarde (v).
-  // Entre deux clés, la caméra glisse sur une courbe qui passe par toutes les clés (Catmull-Rom) :
-  // elle tourne légèrement au lieu d'aller tout droit, et s'arrête sans secousse à chaque clé.
-  // devant une fenêtre ; sur ordinateur on vise un peu à sa droite pour laisser la place au texte
-  const devant = (f, d, decale) => {
-    const n = [Math.sin(f.ry), Math.cos(f.ry)], tg = [Math.cos(f.ry), -Math.sin(f.ry)];
-    return [[f.x + n[0] * d, 1.75, f.z + n[1] * d], [f.x + tg[0] * decale, 1.8, f.z + tg[1] * decale]];
-  };
+  // Entre deux clés, la caméra glisse sur une courbe qui passe par toutes les clés (Catmull-Rom).
+  const arrets = [[0.34, 0.4], [0.46, 0.52], [0.58, 0.64], [0.7, 0.76], [0.82, 0.88]];
   function etapes(haut) {
-    const d = haut ? 3.0 : 2.9, dec = haut ? 0 : 0.6;
-    const [p1, v1] = devant(fenetres[0], d, dec), [p2, v2] = devant(fenetres[1], d, dec), [p3, v3] = devant(fenetres[2], d, dec);
-    // dans la rue : immobile devant l'ardoise pendant que la craie écrit, puis on s'approche de la vitrine
-    const rue = haut
-      ? [[0, 0.14, [-0.1, 1.55, 8.6], [-0.25, 1.45, 3.0]], [0.22, 0.22, [1.0, 1.9, 4.7], [0.2, 1.7, 0.6]]]
-      : [[0, 0.14, [0.2, 1.38, 6.7], [-0.6, 1.12, 2.9]], [0.22, 0.22, [0.6, 1.7, 4.4], [-0.1, 1.7, 0.6]]];
-    const cles = [
-      ...rue,
-      [0.3, 0.36, [0.5, 1.9, 0.6], [0.5, 1.9, -3.2]],
-      [0.44, 0.44, [0, 1.75, -1.6], [0, 1.75, -6]],
-      [0.52, 0.58, p1, v1],
-      [0.66, 0.72, p2, v2],
-      [0.8, 0.86, p3, v3],
-      [0.95, 1, [0, 1.75, Z1 + 4.2], [0, 1.85, Z1]],
-    ].map(([de, a, p, v]) => ({ de, a, p: new THREE.Vector3(...p), v: new THREE.Vector3(...v) }));
+    const cles = [];
+    if (haut) {
+      cles.push([0, 0.14, [0, 1.32, 3.5], [0, 0.98, 0]]);
+      cles.push([0.27, 0.27, [0, 1.3, -0.4], [0, 1.6, -5]]);
+    } else {
+      cles.push([0, 0.14, [0.25, 1.36, 3.0], [0, 1.0, 0]]);
+      cles.push([0.27, 0.27, [0.1, 1.3, -0.4], [0, 1.6, -5]]);
+    }
+    panneaux.forEach((p, i) => {
+      const z = Z0 + i * PAS;
+      const x = haut ? 0 : (i % 2 ? -0.9 : 0.9);
+      p.chemin.set(x, 1.7, z);
+      p.ry = haut ? 0 : (i % 2 ? 0.22 : -0.22);
+      cles.push([arrets[i][0], arrets[i][1], haut ? [0, 1.7, z + 3.4] : [-x * 0.25, 1.7, z + 3.3], haut ? [0, 1.28, z] : [x * 0.55, 1.7, z]]);
+    });
+    cles.push([0.95, 1, [0, haut ? 1.9 : 1.85, ZF + 7], [0, haut ? 1.9 : 1.85, ZF]]);
+    // la salle de lumière : les panneaux s'alignent face à la caméra
+    const grille = haut
+      ? [[-0.85, 3.95], [0.85, 3.95], [-0.85, 1.9], [0.85, 1.9], [0, -0.15]]
+      : [[-2.7, 2.75], [0, 2.75], [2.7, 2.75], [-1.35, 0.95], [1.35, 0.95]];
+    panneaux.forEach((p, i) => { p.fin.set(grille[i][0], grille[i][1], ZF); p.dimensionner(haut ? 1.5 : 2.4, haut ? 1.9 : 1.6); });
+    const liste = cles.map(([de, a, p, v]) => ({ de, a, p: new THREE.Vector3(...p), v: new THREE.Vector3(...v) }));
     return {
-      cles,
-      chemin: new THREE.CatmullRomCurve3(cles.map((c) => c.p), false, 'centripetal'),
-      regard: new THREE.CatmullRomCurve3(cles.map((c) => c.v), false, 'centripetal'),
+      cles: liste,
+      chemin: new THREE.CatmullRomCurve3(liste.map((c) => c.p), false, 'centripetal'),
+      regard: new THREE.CatmullRomCurve3(liste.map((c) => c.v), false, 'centripetal'),
     };
   }
   let trajet;
   const tangente = new THREE.Vector3(), avant = new THREE.Vector3();
-  let elan = 0; // 0 à l'arrêt, 1 en plein déplacement : donne le léger roulis de la caméra dans les virages
+  let roulis = 0;
   function placer(c, pos, cible) {
     const { cles, chemin, regard } = trajet;
     let i = 0;
     while (i < cles.length - 2 && c > cles[i + 1].de) i++;
     const a = cles[i], b = cles[i + 1];
-    // on reste sur la clé tant qu'on ne l'a pas quittée, puis départ et arrivée en douceur
     const g = borne((c - a.a) / Math.max(b.de - a.a, 1e-4)), f = doux(g);
     const u = (i + f) / (cles.length - 1);
     chemin.getPoint(u, pos);
     regard.getPoint(u, cible);
     chemin.getTangent(u, tangente);
-    // en chemin, on regarde devant soi, le long de la salle ; en arrivant, on se tourne vers la fenêtre
+    // en chemin, on regarde devant soi ; en arrivant, on se tourne vers le panneau
     const devantSoi = doux(borne(g / 0.3)) * (1 - doux(borne((g - 0.35) / 0.65)));
     avant.set(pos.x + tangente.x * 1.4, pos.y + tangente.y * 0.6, pos.z + tangente.z * 4);
     cible.lerp(avant, devantSoi);
-    elan = Math.sin(f * Math.PI);
+    roulis = -tangente.x * Math.sin(f * Math.PI) * 0.035;
   }
+
   // qualité adaptative : si l'appareil peine à tenir la cadence, on baisse la finesse du rendu par paliers, sans jamais remonter
   const paliers = [2, 1.5, 1.25, 1];
   let palier = 0, lenteur = 0;
   const finesse = () => Math.min(devicePixelRatio || 1, paliers[palier]);
   function adapter(dt) {
-    if (dt > 0.25) return; // retour d'onglet ou de hors écran : on ne compte pas
+    if (dt > 0.25) return;
     lenteur = dt > 0.028 ? lenteur + dt : Math.max(0, lenteur - dt * 0.5);
     if (lenteur < 1.2) return;
     lenteur = 0;
     if (palier < paliers.length - 1 && finesse() > paliers[palier + 1]) { palier++; rendu.setPixelRatio(finesse()); }
   }
+  let haut = false;
+  // la section prend sa hauteur de scène avant la première mesure : la toile a alors la taille de l'écran
+  section.classList.add('vivante');
   function regler() {
-    const w = toile.clientWidth, h = toile.clientHeight;
+    const w = toile.clientWidth || innerWidth, h = toile.clientHeight || innerHeight;
     rendu.setPixelRatio(finesse());
     rendu.setSize(w, h, false);
     camera.aspect = w / h;
-    const haut = w / h < 1;
+    haut = w / h < 1;
     camera.fov = haut ? 58 : 40;
     camera.updateProjectionMatrix();
     trajet = etapes(haut);
-    chargerSalle(haut);
-    const [ax, ay, az, ar] = haut ? [-0.35, 0, 3.6, 0.18] : [-1.05, 0, 3.4, 0.32];
-    chevalet.position.set(ax, ay, az);
+    const [ax, az, ar] = haut ? [0, 0, 0.1] : [-0.05, 0, 0.26];
+    chevalet.position.set(ax, 0, az);
     chevalet.rotation.y = ar;
     spot.position.set(ax + 0.9, 3.2, az + 1.6);
     spot.target.position.set(ax, 1, az);
+    lueurSol.position.set(ax, 0.25, az + 0.5);
   }
   regler();
   addEventListener('resize', regler);
@@ -539,25 +359,22 @@ export function vitrine(section) {
     my = borne((e.beta - 45) / 60, -0.5, 0.5);
   }, { passive: true });
 
-  const pret = { salle: false };
   let courant = 0;
   preparerCraie();
-  document.fonts.load('600 150px Caveat').then(() => { preparerCraie(); ecrit = -1; });
-  Promise.all([document.fonts.load('600 92px "Fraunces Variable"'), document.fonts.load('600 92px Caveat')]).then(() => aRedessiner.forEach((f) => f()));
+  document.fonts.load('600 150px Caveat').then(() => { preparerCraie(); ecrit = ''; });
 
   // pour les captures d'aperçu : section.aller(0.5) fige la scène à mi-parcours
   let force = null;
   section.aller = (p) => { force = p; };
-  // avec le défilement fluide de l'ordinateur, la scène n'a pas besoin d'être lissée deux fois
+  section.etat = () => ({ haut, cam: camera.position.toArray().map((n) => +n.toFixed(2)), pan: panneaux.map((p) => p.g.position.toArray().map((n) => +n.toFixed(2))) });
   const lissage = document.documentElement.classList.contains('lenis') ? 0.3 : 0.12;
   const jalons = section.querySelectorAll('.vitrine__trajet li');
-  const bornesTrajet = [0, 0.3, 0.47, 0.62, 0.76, 0.9];
+  const bornesTrajet = [0, 0.31, 0.43, 0.55, 0.67, 0.79, 0.93];
   let etape = -1;
-  const v = new THREE.Vector3();
+  const v = new THREE.Vector3(), tmp = new THREE.Vector3();
   const horloge = new THREE.Clock();
   function image() {
     requestAnimationFrame(image);
-    // hors de l'écran, on ne dessine rien
     const r = section.getBoundingClientRect();
     if (r.bottom < 0 || r.top > innerHeight) return;
     const dt = horloge.getDelta(), t = horloge.elapsedTime;
@@ -567,43 +384,53 @@ export function vitrine(section) {
     sx += (mx - sx) * 0.05;
     sy += (my - sy) * 0.05;
 
-    // La caméra reste immobile devant l'ardoise pendant que la craie écrit, puis elle avance de station en station
-    ecrire(borne((courant - 0.01) / 0.12));
+    // 1. la craie écrit, caméra immobile ; 2. la craie s'envole ; 3. l'ardoise et la lampe s'effacent, on plonge
+    const envol = borne((courant - 0.14) / 0.11);
+    const ouvre = doux(borne((courant - 0.19) / 0.08));
+    ecrire(borne((courant - 0.01) / 0.12), 1 - doux(envol));
+    grains.visible = envol > 0 && envol < 1;
+    if (grains.visible) envoler(envol, t);
+    boisClair.opacity = ardoiseM.opacity = ombreM.opacity = solM.opacity = 1 - ouvre;
+    chevalet.visible = sol.visible = ouvre < 1;
+    spot.intensity = 16 * (1 - ouvre) + Math.sin(t * 2.3) * 0.3;
+    lueurSol.material.opacity = 0.35 * (1 - ouvre);
+
     placer(courant, camera.position, v);
-    // la souris ne pèse que dans la rue
-    const poids = 1 - borne((courant - 0.2) / 0.1);
-    camera.position.x += sx * 0.12 * poids;
-    camera.position.y -= sy * 0.06 * poids;
+    camera.position.x += sx * 0.18;
+    camera.position.y -= sy * 0.08;
     camera.lookAt(v);
-    // un léger roulis dans les virages, comme une caméra portée, et aucun à l'arrêt
-    camera.rotateZ(-tangente.x * elan * 0.035);
-    halo.intensity = 9 + Math.sin(t * 2.3) * 0.25 + Math.sin(t * 5.1) * 0.15;
-    poussiere.rotation.y = t * 0.015;
-    poussiere.position.y = Math.sin(t * 0.3) * 0.05;
-    // la vitre disparaît quand on la traverse, la photo de la salle s'efface et la salle s'ouvre
-    vitreM.opacity = 0.9 * (1 - borne((courant - 0.37) / 0.03));
-    const ouvre = borne((courant - 0.38) / 0.05);
-    salleM.opacity = 1 - ouvre;
-    salle.visible = ouvre < 1;
-    interieur.visible = courant > 0.34;
-    // chaque fenêtre s'allume quand on arrive devant elle
-    fenetres.forEach((f, i) => {
-      const centre = [0.55, 0.69, 0.83][i];
-      const k = borne(1 - Math.abs(courant - centre) / 0.09);
-      const l = 0.18 + 0.82 * doux(k);
-      f.photoM.color.setRGB(l, l * 0.97, l * 0.93);
-      f.lampe.intensity = 6 * doux(k);
+    camera.rotateZ(roulis);
+
+    // la nuit vit : les étoiles dérivent, la brume respire
+    etoiles.rotation.y = Math.sin(t * 0.05) * 0.03;
+    etoiles.position.y = Math.sin(t * 0.25) * 0.08;
+    brumes.forEach((b) => { b.position.y += Math.sin(t * 0.3 + b.userData.phase) * 0.0015; b.material.opacity = 0.14 + Math.sin(t * 0.4 + b.userData.phase * 2) * 0.03; });
+
+    // les panneaux : flottent, s'allument quand on arrive devant, puis s'alignent en salle de lumière
+    const fin = doux(borne((courant - 0.89) / 0.07));
+    panneaux.forEach((p, i) => {
+      const [de, a] = arrets[i];
+      const centre = (de + a) / 2;
+      const allume = Math.max(doux(borne(1 - Math.abs(courant - centre) / 0.075)), fin);
+      // en repartant, le panneau s'écarte du chemin (sur le côté à l'ordinateur, vers le haut sur téléphone) pour laisser passer la caméra
+      const suivant = i < arrets.length - 1 ? arrets[i + 1][0] : 0.95;
+      const sortie = doux(borne((courant - a) / (suivant - a)));
+      const cote = Math.sign(p.chemin.x) || 1;
+      tmp.copy(p.chemin);
+      if (haut) { tmp.y += 2.6 * sortie; tmp.z += 0.6 * sortie; } else { tmp.x += cote * 1.9 * sortie; tmp.y += 0.5 * sortie; }
+      p.g.position.lerpVectors(tmp, p.fin, fin);
+      p.g.position.y += Math.sin(t * 0.7 + i * 1.3) * 0.06 * (1 - fin);
+      p.g.rotation.y = (p.ry + sx * 0.12 + (haut ? 0 : cote * 0.6 * sortie)) * (1 - fin);
+      p.g.rotation.z = Math.sin(t * 0.5 + i) * 0.02 * (1 - fin);
+      p.netteM.opacity = allume;
+      const gris = 0.45 + 0.4 * allume;
+      p.floueM.color.setRGB(gris, gris * 0.98, gris * 0.95);
+      p.bordM.opacity = 0.2 + 0.8 * allume;
+      p.lueur.material.opacity = 0.55 * allume + 0.25 * fin;
+      p.g.visible = courant > 0.2;
     });
-    feu.intensity = 3 + 9 * borne((courant - 0.86) / 0.08) + Math.sin(t * 3.1) * 0.3;
-    // la cuisine s'éclaire à mesure qu'on s'en approche
-    const chaud = 0.55 + 0.45 * borne((courant - 0.84) / 0.1);
-    cuisineM.color.setRGB(chaud, chaud * 0.95, chaud * 0.88);
-    if (courant > 0.8) vapeur.forEach((sp) => {
-      const u = (t * sp.userData.vitesse + sp.userData.phase) % 1;
-      sp.position.set(sp.userData.x + Math.sin(t + sp.userData.phase * 9) * 0.1, 1.15 + u * 1.6, Z1 - 0.6);
-      sp.scale.setScalar(0.4 + u * 0.9);
-      sp.material.opacity = Math.sin(u * Math.PI) * 0.8;
-    });
+    soleil.scale.setScalar(0.001 + 22 * fin);
+    soleil.material.opacity = 0.75 * fin;
     rendu.render(scene, camera);
 
     textes.forEach((el) => {
@@ -617,8 +444,7 @@ export function vitrine(section) {
     section.style.setProperty('--trajet', courant.toFixed(4));
     const e = bornesTrajet.findLastIndex((b) => courant >= b);
     if (e !== etape) { etape = e; jalons.forEach((li, i) => { li.classList.toggle('ici', i === e); li.classList.toggle('passe', i < e); }); }
-    section.style.setProperty('--fin', borne((courant - 0.36) / 0.04) * (1 - borne((courant - 0.42) / 0.04)));
+    section.style.setProperty('--fin', borne((courant - 0.2) / 0.05) * (1 - borne((courant - 0.27) / 0.05)));
   }
   image();
-  section.classList.add('vivante');
 }
