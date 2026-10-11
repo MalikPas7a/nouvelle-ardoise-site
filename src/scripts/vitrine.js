@@ -159,10 +159,12 @@ export function vitrine(section) {
   });
   chevalet.rotation.x = -0.12;
   const ombreM = new THREE.MeshBasicMaterial({ map: toileTex(128, 128, (g) => { const d = g.createRadialGradient(64, 64, 4, 64, 64, 64); d.addColorStop(0, 'rgba(0,0,0,.65)'); d.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = d; g.fillRect(0, 0, 128, 128); }), transparent: true, depthWrite: false });
+  // l'ombre reste à plat sur le sol (pas inclinée avec le chevalet, sinon la moitié passe sous le plancher) et se dessine après lui
   const ombre = new THREE.Mesh(new THREE.PlaneGeometry(1.8, 1.2), ombreM);
   ombre.rotation.x = -Math.PI / 2;
   ombre.position.set(0, 0.012, -0.12);
-  chevalet.add(ombre);
+  ombre.renderOrder = 1;
+  scene.add(ombre);
   scene.add(chevalet);
   // une lampe chaude penchée sur l'ardoise, et la nuit tout autour
   const spot = new THREE.SpotLight('#FFE2B0', 16, 7, 0.6, 0.6, 1.4);
@@ -239,7 +241,7 @@ export function vitrine(section) {
     const g = new THREE.Group();
     const geo = new THREE.PlaneGeometry(1, 1);
     const texNette = charger(`/vitrine/${s.img}.webp`, () => recadrer()), texFloue = charger(`/vitrine/${s.img}-flou.webp`, () => recadrer());
-    const floueM = new THREE.MeshBasicMaterial({ map: texFloue, toneMapped: false, color: new THREE.Color(0.5, 0.5, 0.5) });
+    const floueM = new THREE.MeshBasicMaterial({ map: texFloue, toneMapped: false, transparent: true, color: new THREE.Color(0.5, 0.5, 0.5) });
     // la version nette ignore le brouillard : une fois posé sur le passe, le panneau allumé se voit de loin
     const netteM = new THREE.MeshBasicMaterial({ map: texNette, toneMapped: false, transparent: true, opacity: 0, fog: false, depthWrite: false });
     const floue = new THREE.Mesh(geo, floueM), nette = new THREE.Mesh(geo, netteM);
@@ -270,7 +272,7 @@ export function vitrine(section) {
       recadrer();
     };
     scene.add(g);
-    return { ...s, i, g, netteM, floueM, bordM, lueur, dimensionner, chemin: new THREE.Vector3(), fin: new THREE.Vector3(), ecart: new THREE.Vector3(), ry: 0, cote: 1, arcX: 1.6, arcY: 2.2 };
+    return { ...s, i, g, netteM, floueM, verreM, bordM, lueur, dimensionner, chemin: new THREE.Vector3(), fin: new THREE.Vector3(), ecart: new THREE.Vector3(), ry: 0, cote: 1, arcX: 1.6, arcY: 2.2 };
   });
 
   /* ---------- le passe, au bout du chemin : un comptoir de lumière, trois lampes chauffantes, et la salle derrière ---------- */
@@ -458,7 +460,7 @@ export function vitrine(section) {
     grains.visible = envol > 0 && envol < 1;
     if (grains.visible) envoler(envol, t);
     boisClair.opacity = ardoiseM.opacity = ombreM.opacity = solM.opacity = 1 - ouvre;
-    chevalet.visible = sol.visible = ouvre < 1;
+    chevalet.visible = sol.visible = ombre.visible = ouvre < 1;
     spot.intensity = 16 * (1 - ouvre) + Math.sin(t * 2.3) * 0.3;
     lueurSol.material.opacity = 0.35 * (1 - ouvre);
 
@@ -486,7 +488,9 @@ export function vitrine(section) {
       b.visible = o > 0.01;
     });
 
-    // les panneaux : flottent, s'allument quand on arrive devant, puis filent se poser sur le passe (la mise en place se garnit)
+    // les panneaux : naissent en fondu derrière l'ardoise qui s'efface (pas d'un coup), flottent, s'allument quand on arrive devant,
+    // puis filent se poser sur le passe (la mise en place se garnit)
+    const nait = doux(borne((courant - 0.2) / 0.06));
     panneaux.forEach((p, i) => {
       const [de, a] = arrets[i];
       const centre = (de + a) / 2;
@@ -502,13 +506,15 @@ export function vitrine(section) {
       p.g.position.copy(tmp);
       p.g.rotation.y = (p.ry + sx * 0.12) * (1 - file) + p.cote * 0.35 * monte * (1 - file);
       p.g.rotation.z = Math.sin(t * 0.5 + i) * 0.02 * (1 - pose);
-      p.netteM.opacity = allume;
+      p.netteM.opacity = allume * nait;
+      p.floueM.opacity = nait;
+      p.verreM.opacity = 0.4 * nait;
       const gris = 0.45 + 0.4 * allume;
       p.floueM.color.setRGB(gris, gris * 0.98, gris * 0.95);
-      p.bordM.opacity = 0.2 + 0.8 * allume + 0.4 * pret;
+      p.bordM.opacity = Math.min(1, 0.2 + 0.8 * allume + 0.4 * pret) * nait;
       // halo éteint en vol, petit éclat à la pose (le « ding » de l'assiette sur le passe), puis il cède la place à la salle
-      p.lueur.material.opacity = Math.max(0.55 * allume * (1 - monte), 0.45 * pose + 0.35 * Math.sin(pose * Math.PI)) * (1 - 0.7 * ouv);
-      p.g.visible = courant > 0.2;
+      p.lueur.material.opacity = Math.max(0.55 * allume * (1 - monte), 0.45 * pose + 0.35 * Math.sin(pose * Math.PI)) * (1 - 0.7 * ouv) * nait;
+      p.g.visible = nait > 0;
     });
     // le passe s'allume dès que le premier panneau part s'y poser ; le comptoir fond quand la fente s'ouvre
     const garni = doux(borne((courant - arrets[0][1]) / 0.06));
@@ -535,9 +541,11 @@ export function vitrine(section) {
       el.style.visibility = o > 0.01 ? 'visible' : 'hidden';
       el.classList.toggle('actif', o > 0.3);
     });
-    section.style.setProperty('--trajet', courant.toFixed(4));
     section.style.setProperty('--salle', ouv.toFixed(3));
     const e = bornesTrajet.findLastIndex((b) => courant >= b);
+    // la barre avance de jalon en jalon au rythme des étapes : elle atteint chaque étiquette au moment où celle-ci s'allume
+    const debut = bornesTrajet[e], suiv = bornesTrajet[e + 1] ?? 1;
+    section.style.setProperty('--trajet', Math.min(1, (e + borne((courant - debut) / Math.max(suiv - debut, 1e-6))) / (bornesTrajet.length - 1)).toFixed(4));
     if (e !== etape) { etape = e; jalons.forEach((li, i) => { li.classList.toggle('ici', i === e); li.classList.toggle('passe', i < e); }); }
     section.style.setProperty('--fin', borne((courant - 0.2) / 0.05) * (1 - borne((courant - 0.27) / 0.05)));
   }
