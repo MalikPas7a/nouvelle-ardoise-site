@@ -15,6 +15,9 @@ export function vitrine(section) {
   const colle = section.querySelector('.vitrine__colle');
   const textes = [...section.querySelectorAll('[data-de]')];
   const portrait = innerWidth < innerHeight;
+  // photos en haute définition (3000 px) dès que l'écran les mérite : un ordinateur dense, pas un téléphone
+  const hd = !portrait && innerWidth * Math.min(devicePixelRatio || 1, 2) >= 1600;
+  const suffixe = hd ? '-hd' : '';
 
   // sur les écrans très denses (téléphones), l'anticrénelage ne se voit plus et coûte cher : on s'en passe
   const rendu = new THREE.WebGLRenderer({ canvas: toile, antialias: (devicePixelRatio || 1) < 2.5, powerPreference: 'high-performance' });
@@ -53,6 +56,9 @@ export function vitrine(section) {
     parent.add(sp);
     return sp;
   };
+  const chargeur = new THREE.TextureLoader();
+  // la texture est envoyée au GPU dès son arrivée (pendant l'écriture, caméra immobile) plutôt qu'au premier rendu où elle apparaît
+  const charger = (src, apres) => { const t = chargeur.load(src, () => { rendu.initTexture(t); if (apres) apres(t); }); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; };
 
   /* ---------- l'ardoise : le texte s'écrit à la craie au fil du défilement ---------- */
   const lignes = [
@@ -61,75 +67,80 @@ export function vitrine(section) {
     { t: 'd’abord', y: 0.52 },
     { t: 'avec les yeux.', y: 0.7, jaune: true },
   ];
-  const W = 900, H = 1240;
+  // l'ardoise elle-même est une vraie photo de pierre ; la craie vit sur une toile transparente posée devant.
+  // Plus fine à l'ordinateur ; au téléphone, 900 px suffisent (3 points par pixel) et chaque pas d'écriture renvoie la toile au GPU.
+  const W = portrait ? 900 : 1100, H = Math.round(W * 1.37), K = W / 900;
+  // traces d'éponge et grain de craie, sur fond transparent : elles s'effacent avec le reste
   const fond = document.createElement('canvas');
   fond.width = W; fond.height = H;
   {
     const g = fond.getContext('2d');
-    const d = g.createRadialGradient(W * 0.45, H * 0.4, 50, W / 2, H / 2, W);
-    d.addColorStop(0, '#2A3331'); d.addColorStop(1, '#161C1B');
-    g.fillStyle = d; g.fillRect(0, 0, W, H);
-    g.globalAlpha = 0.07; g.strokeStyle = '#fff'; g.lineCap = 'round';
+    g.globalAlpha = 0.055; g.strokeStyle = '#fff'; g.lineCap = 'round';
     for (let i = 0; i < 60; i++) {
-      g.lineWidth = 20 + Math.random() * 50;
+      g.lineWidth = (20 + Math.random() * 50) * K;
       g.beginPath();
       const x = Math.random() * W, y = Math.random() * H;
-      g.moveTo(x, y); g.quadraticCurveTo(x + 120, y - 40, x + 260 * Math.random(), y + 60 * Math.random());
+      g.moveTo(x, y); g.quadraticCurveTo(x + 120 * K, y - 40 * K, x + 260 * K * Math.random(), y + 60 * K * Math.random());
       g.stroke();
     }
     g.globalAlpha = 1;
-    bruit(g, W, H, 12000, 'rgba(255,255,255,.04)', 2);
+    bruit(g, W, H, 12000 * K * K, 'rgba(255,255,255,.035)', 2 * K);
   }
   const craie = document.createElement('canvas');
   craie.width = W; craie.height = H;
   const ardoiseC = document.createElement('canvas');
   ardoiseC.width = W; ardoiseC.height = H;
-  const ardoiseTex = new THREE.CanvasTexture(ardoiseC);
-  ardoiseTex.colorSpace = THREE.SRGBColorSpace;
-  ardoiseTex.anisotropy = 8;
+  const craieTex = new THREE.CanvasTexture(ardoiseC);
+  craieTex.colorSpace = THREE.SRGBColorSpace;
+  craieTex.anisotropy = 8;
 
   function preparerCraie() {
     const g = craie.getContext('2d');
     g.clearRect(0, 0, W, H);
     g.textAlign = 'center'; g.textBaseline = 'middle';
     lignes.forEach((l) => {
-      g.font = `600 ${l.jaune ? 142 : 150}px Caveat, "Comic Sans MS", cursive`;
+      g.font = `600 ${Math.round((l.jaune ? 142 : 150) * K)}px Caveat, "Comic Sans MS", cursive`;
       g.fillStyle = l.jaune ? '#FFD23F' : '#F4F1E8';
       g.shadowColor = l.jaune ? 'rgba(255,210,63,.55)' : 'rgba(255,255,255,.35)';
-      g.shadowBlur = 10;
+      g.shadowBlur = 10 * K;
       g.fillText(l.t, W / 2, H * l.y);
     });
-    g.strokeStyle = '#FFD23F'; g.lineWidth = 9; g.lineCap = 'round';
+    g.strokeStyle = '#FFD23F'; g.lineWidth = 9 * K; g.lineCap = 'round';
     g.beginPath(); g.moveTo(W * 0.16, H * 0.8); g.quadraticCurveTo(W * 0.5, H * 0.83, W * 0.84, H * 0.795); g.stroke();
     g.globalCompositeOperation = 'destination-out';
-    bruit(g, W, H, 26000, 'rgba(0,0,0,.55)', 2.5);
+    bruit(g, W, H, 26000 * K * K, 'rgba(0,0,0,.55)', 2.5 * K);
     g.globalCompositeOperation = 'source-over';
   }
+  // chaque ligne part en poussière à son tour, de haut en bas (la ligne jaune soulignée en dernier)
+  const depart = (i) => (i / lignes.length) * 0.5;
   let ecrit = '';
-  // p : avancement de l'écriture ; a : opacité de la craie (elle s'efface quand elle s'envole)
+  // p : avancement de l'écriture ; e : avancement de l'envol (chaque ligne s'efface quand sa poussière la quitte)
   // 160 pas : assez fin pour que la craie semble couler, assez rare pour épargner le téléphone (chaque pas renvoie la texture au GPU)
-  function ecrire(p, a) {
-    const q = Math.round(p * 160) / 160, qa = Math.round(a * 40) / 40;
-    const cle = q + '/' + qa;
+  function ecrire(p, e) {
+    const q = Math.round(p * 160) / 160, qe = Math.round(e * 48) / 48;
+    const cle = q + '/' + qe;
     if (cle === ecrit) return;
     ecrit = cle;
     const g = ardoiseC.getContext('2d');
-    g.globalAlpha = 1;
+    g.clearRect(0, 0, W, H);
+    g.globalAlpha = 1 - qe;
     g.drawImage(fond, 0, 0);
-    g.globalAlpha = qa;
     const n = lignes.length + 1;
     for (let i = 0; i < n; i++) {
       const av = borne(q * n - i);
       if (av <= 0) break;
+      const a = 1 - doux(borne((qe - depart(i)) / 0.4));
+      if (a <= 0) continue;
+      g.globalAlpha = a;
       const y = i < lignes.length ? H * lignes[i].y : H * 0.8;
-      const h = i < lignes.length ? 200 : 60;
+      const h = (i < lignes.length ? 200 : 60) * K;
       g.save();
       g.beginPath(); g.rect(0, y - h / 2, W * (0.08 + av * 0.86), h); g.clip();
       g.drawImage(craie, 0, 0);
       g.restore();
     }
     g.globalAlpha = 1;
-    ardoiseTex.needsUpdate = true;
+    craieTex.needsUpdate = true;
   }
 
   /* ---------- le sol de nuit et le chevalet ---------- */
@@ -139,11 +150,19 @@ export function vitrine(section) {
   scene.add(sol);
 
   const chevalet = new THREE.Group();
-  const boisClair = new THREE.MeshStandardMaterial({ color: '#8A5A33', roughness: 0.7, transparent: true });
-  const ardoiseM = new THREE.MeshStandardMaterial({ map: ardoiseTex, roughness: 0.92, color: '#FFFFFF', transparent: true });
+  // vraies matières : noyer pour le chevalet, pierre d'ardoise pour la planche (photos Adobe Stock)
+  const bois = charger('/vitrine/bois.webp');
+  bois.wrapS = bois.wrapT = THREE.RepeatWrapping;
+  const boisClair = new THREE.MeshStandardMaterial({ map: bois, color: '#C9A47A', roughness: 0.62, transparent: true });
+  const ardoiseM = new THREE.MeshStandardMaterial({ map: charger('/vitrine/ardoise.webp'), roughness: 0.74, metalness: 0.06, color: '#FFFFFF', transparent: true });
   const planche = new THREE.Mesh(new THREE.BoxGeometry(0.92, 1.26, 0.035), [boisClair, boisClair, boisClair, boisClair, ardoiseM, boisClair]);
   planche.position.y = 0.92;
   chevalet.add(planche);
+  // la craie, posée juste devant la pierre
+  const craieM = new THREE.MeshBasicMaterial({ map: craieTex, transparent: true, depthWrite: false, toneMapped: false });
+  const craieMesh = new THREE.Mesh(new THREE.PlaneGeometry(0.92, 1.26), craieM);
+  craieMesh.position.set(0, 0.92, 0.035 / 2 + 0.002);
+  chevalet.add(craieMesh);
   const cadre = (w, h, x, y) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.06), boisClair); m.position.set(x, y, 0.005); chevalet.add(m); };
   cadre(1.02, 0.06, 0, 0.92 + 0.66);
   cadre(1.02, 0.06, 0, 0.92 - 0.66);
@@ -172,40 +191,65 @@ export function vitrine(section) {
   const lueurSol = sprite(scene, haloJaune, 0, 0.3, 0.6, 3.2, 0.35);
   scene.add(new THREE.HemisphereLight('#3E5A68', '#07090A', 0.5));
 
-  /* ---------- la craie qui s'envole : des grains qui quittent l'ardoise ---------- */
-  const Np = 900;
-  const grainsPos = new Float32Array(Np * 3), base = new Float32Array(Np * 2), elan = new Float32Array(Np * 3);
-  for (let i = 0; i < Np; i++) {
-    base[i * 2] = (Math.random() - 0.5) * 0.86; base[i * 2 + 1] = (Math.random() - 0.5) * 1.2;
-    elan[i * 3] = (Math.random() - 0.5) * 1.6; elan[i * 3 + 1] = 0.6 + Math.random() * 2.2; elan[i * 3 + 2] = 0.4 + Math.random() * 1.8;
-  }
-  const grainsGeo = new THREE.BufferGeometry();
-  grainsGeo.setAttribute('position', new THREE.BufferAttribute(grainsPos, 3));
-  const pointTex = toileTex(64, 64, (g) => { const d = g.createRadialGradient(32, 32, 0, 32, 32, 32); d.addColorStop(0, 'rgba(255,245,225,1)'); d.addColorStop(1, 'rgba(255,245,225,0)'); g.fillStyle = d; g.fillRect(0, 0, 64, 64); });
-  const grainsM = new THREE.PointsMaterial({ size: 0.028, map: pointTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0 });
-  const grains = new THREE.Points(grainsGeo, grainsM);
-  grains.position.set(0, 0.92, 0.04);
-  grains.visible = false;
-  chevalet.add(grains);
-  function envoler(p, t) {
-    const e = doux(p);
+  /* ---------- la craie s'envole : les lettres elles-mêmes se défont en poussière dans la lumière de la lampe ---------- */
+  // Pas de neige : les grains naissent dans le tracé des lettres (échantillonné sur la toile de craie), ligne après ligne,
+  // de tailles très inégales (beaucoup de poudre fine, quelques gros grains), et dérivent lentement vers la caméra.
+  const Np = portrait ? 1100 : 1600;
+  const pPos = new Float32Array(Np * 3), pBase = new Float32Array(Np * 2), pElan = new Float32Array(Np * 3), pAttr = new Float32Array(Np * 3), pDepart = new Float32Array(Np);
+  function echantillonner() {
+    const d = craie.getContext('2d').getImageData(0, 0, W, H).data, pas = Math.max(3, Math.round(4 * K)), pts = [];
+    for (let y = 0; y < H; y += pas) for (let x = 0; x < W; x += pas) if (d[(y * W + x) * 4 + 3] > 90) pts.push(x, y);
+    if (pts.length < 2) return;
     for (let i = 0; i < Np; i++) {
-      const s = i * 0.37;
-      grainsPos[i * 3] = base[i * 2] + elan[i * 3] * e + Math.sin(t * 1.3 + s) * 0.05 * e;
-      grainsPos[i * 3 + 1] = base[i * 2 + 1] + elan[i * 3 + 1] * e + Math.cos(t * 0.9 + s) * 0.04 * e;
-      grainsPos[i * 3 + 2] = elan[i * 3 + 2] * e;
+      const k = (Math.random() * (pts.length / 2)) | 0, x = pts[k * 2], y = pts[k * 2 + 1];
+      pBase[i * 2] = (x / W - 0.5) * 0.92; pBase[i * 2 + 1] = (0.5 - y / H) * 1.26;
+      let li = lignes.length, dm = Math.abs(y - H * 0.8);
+      lignes.forEach((l, j) => { const dd = Math.abs(y - H * l.y); if (dd < dm) { dm = dd; li = j; } });
+      pDepart[i] = depart(li) + Math.random() * 0.12;
+      // dérive lente : un peu de côté, à peine vers le haut, surtout vers la caméra (qui vient à sa rencontre)
+      pElan[i * 3] = (Math.random() - 0.5) * 0.7; pElan[i * 3 + 1] = 0.08 + Math.random() * 0.45; pElan[i * 3 + 2] = 0.3 + Math.random() * 1.7;
+      const r = Math.random();
+      pAttr[i * 3] = 0.007 + r * r * r * 0.03;
+      pAttr[i * 3 + 1] = 0.22 + 0.5 * Math.random();
+      pAttr[i * 3 + 2] = 0;
     }
-    grainsGeo.attributes.position.needsUpdate = true;
-    grainsM.opacity = Math.sin(p * Math.PI) * 0.9;
+    pGeo.attributes.position.needsUpdate = true; pGeo.attributes.attr.needsUpdate = true;
+  }
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+  pGeo.setAttribute('attr', new THREE.BufferAttribute(pAttr, 3));
+  const pointTex = toileTex(64, 64, (g) => { const d = g.createRadialGradient(32, 32, 0, 32, 32, 32); d.addColorStop(0, 'rgba(255,245,225,1)'); d.addColorStop(0.35, 'rgba(255,245,225,.55)'); d.addColorStop(1, 'rgba(255,245,225,0)'); g.fillStyle = d; g.fillRect(0, 0, 64, 64); });
+  // un grain = un point de taille propre (attr.x) et d'intensité propre (attr.z), teinte chaude de la lampe
+  const poussiereM = new THREE.ShaderMaterial({
+    uniforms: { carte: { value: pointTex }, echelle: { value: 400 } },
+    vertexShader: 'attribute vec3 attr; uniform float echelle; varying float va; void main() { vec4 mv = modelViewMatrix * vec4(position, 1.0); va = attr.z; gl_PointSize = attr.x * echelle / -mv.z; gl_Position = projectionMatrix * mv; }',
+    fragmentShader: 'uniform sampler2D carte; varying float va; void main() { vec4 c = texture2D(carte, gl_PointCoord); gl_FragColor = vec4(1.0, 0.92, 0.78, 1.0) * c * va; }',
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+  });
+  const poussiere = new THREE.Points(pGeo, poussiereM);
+  poussiere.position.set(0, 0.92, 0.04);
+  poussiere.visible = false;
+  poussiere.frustumCulled = false;
+  chevalet.add(poussiere);
+  function envoler(e, t) {
+    for (let i = 0; i < Np; i++) {
+      const u = borne((e - pDepart[i]) / 0.38), w = doux(u), s = i * 0.37;
+      pPos[i * 3] = pBase[i * 2] + pElan[i * 3] * w + Math.sin(t * 0.9 + s) * 0.06 * w;
+      pPos[i * 3 + 1] = pBase[i * 2 + 1] + pElan[i * 3 + 1] * w * w + Math.cos(t * 0.7 + s) * 0.04 * w;
+      pPos[i * 3 + 2] = pElan[i * 3 + 2] * w;
+      pAttr[i * 3 + 2] = Math.sin(u * Math.PI) * pAttr[i * 3 + 1];
+    }
+    pGeo.attributes.position.needsUpdate = true; pGeo.attributes.attr.needsUpdate = true;
   }
 
   /* ---------- la nuit d'ardoise : poussière de craie en étoiles, brume bleue ---------- */
-  const Ne = 1800;
+  // peu d'étoiles, fines et discrètes, et seulement une fois l'ardoise passée : pas de neige sur la scène d'ouverture
+  const Ne = 700;
   const ePos = new Float32Array(Ne * 3);
-  for (let i = 0; i < Ne; i++) { ePos[i * 3] = (Math.random() - 0.5) * 26; ePos[i * 3 + 1] = Math.random() * 10 - 2; ePos[i * 3 + 2] = 6 - Math.random() * 46; }
+  for (let i = 0; i < Ne; i++) { ePos[i * 3] = (Math.random() - 0.5) * 26; ePos[i * 3 + 1] = Math.random() * 10 - 2; ePos[i * 3 + 2] = -3 - Math.random() * 37; }
   const eGeo = new THREE.BufferGeometry();
   eGeo.setAttribute('position', new THREE.BufferAttribute(ePos, 3));
-  const etoilesM = new THREE.PointsMaterial({ size: 0.05, map: pointTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.55, sizeAttenuation: true });
+  const etoilesM = new THREE.PointsMaterial({ size: 0.035, map: pointTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0, sizeAttenuation: true });
   const etoiles = new THREE.Points(eGeo, etoilesM);
   scene.add(etoiles);
   // moins de brumes sur téléphone, et plus petites : chacune coûte un disque additif qui peut couvrir l'écran
@@ -219,9 +263,6 @@ export function vitrine(section) {
   }
 
   /* ---------- cinq panneaux de verre, un par service ---------- */
-  const chargeur = new THREE.TextureLoader();
-  // la texture est envoyée au GPU dès son arrivée (pendant l'écriture, caméra immobile) plutôt qu'au premier rendu où elle apparaît
-  const charger = (src, apres) => { const t = chargeur.load(src, () => { rendu.initTexture(t); if (apres) apres(t); }); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; };
   const reflet = toileTex(512, 512, (g, w, h) => {
     const d = g.createLinearGradient(0, 0, w, h);
     d.addColorStop(0, 'rgba(255,255,255,.05)'); d.addColorStop(0.38, 'rgba(255,255,255,.02)');
@@ -234,13 +275,13 @@ export function vitrine(section) {
     { nom: 'Design', img: 'tarte' },
     { nom: 'Réseaux sociaux', img: 'ramen' },
     { nom: 'Shootings', img: 'cuisine' },
-    { nom: 'Faire venir, faire revenir', img: 'terrasse' },
+    { nom: 'Faire venir, faire revenir', img: 'lampes' },
   ];
   const Z0 = -5, PAS = -5, ZF = -34;
   const panneaux = services.map((s, i) => {
     const g = new THREE.Group();
     const geo = new THREE.PlaneGeometry(1, 1);
-    const texNette = charger(`/vitrine/${s.img}.webp`, () => recadrer()), texFloue = charger(`/vitrine/${s.img}-flou.webp`, () => recadrer());
+    const texNette = charger(`/vitrine/${s.img}${suffixe}.webp`, () => recadrer()), texFloue = charger(`/vitrine/${s.img}-flou.webp`, () => recadrer());
     const floueM = new THREE.MeshBasicMaterial({ map: texFloue, toneMapped: false, transparent: true, color: new THREE.Color(0.5, 0.5, 0.5) });
     // la version nette ignore le brouillard : une fois posé sur le passe, le panneau allumé se voit de loin
     const netteM = new THREE.MeshBasicMaterial({ map: texNette, toneMapped: false, transparent: true, opacity: 0, fog: false, depthWrite: false });
@@ -302,7 +343,7 @@ export function vitrine(section) {
     else { tex.repeat.set(1, r / cible); tex.offset.set(0, (1 - r / cible) / 2); }
   }
   function chargerSalle() {
-    const src = haut ? '/vitrine/salle-tel.webp' : '/vitrine/salle.webp';
+    const src = haut ? '/vitrine/salle-tel.webp' : (hd ? '/vitrine/salle-hd.webp' : '/vitrine/salle.webp');
     if (src === salleSrc) return;
     salleSrc = src;
     charger(src, (tex) => { if (salleSrc !== src) return; salleM.map = tex; salleM.needsUpdate = true; couvrir(); });
@@ -401,6 +442,7 @@ export function vitrine(section) {
     const w = toile.clientWidth || innerWidth, h = toile.clientHeight || innerHeight;
     rendu.setPixelRatio(finesse());
     rendu.setSize(w, h, false);
+    poussiereM.uniforms.echelle.value = h * finesse() * 0.5;
     camera.aspect = w / h;
     haut = w / h < 1;
     camera.fov = haut ? 58 : 40;
@@ -425,8 +467,8 @@ export function vitrine(section) {
     mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5;
   }, { passive: true });
 
-  preparerCraie();
-  document.fonts.load('600 150px Caveat').then(() => { preparerCraie(); ecrit = ''; });
+  preparerCraie(); echantillonner();
+  document.fonts.load('600 150px Caveat').then(() => { preparerCraie(); echantillonner(); ecrit = ''; });
 
   // pour les captures d'aperçu : section.aller(0.5) fige la scène à mi-parcours
   let force = null;
@@ -456,10 +498,10 @@ export function vitrine(section) {
     // 1. la craie écrit, caméra immobile ; 2. la craie s'envole ; 3. l'ardoise et la lampe s'effacent, on plonge
     const envol = borne((courant - 0.14) / 0.11);
     const ouvre = doux(borne((courant - 0.19) / 0.08));
-    ecrire(borne((courant - 0.01) / 0.12), 1 - doux(envol));
-    grains.visible = envol > 0 && envol < 1;
-    if (grains.visible) envoler(envol, t);
-    boisClair.opacity = ardoiseM.opacity = ombreM.opacity = solM.opacity = 1 - ouvre;
+    ecrire(borne((courant - 0.01) / 0.12), envol);
+    poussiere.visible = envol > 0 && envol < 1;
+    if (poussiere.visible) envoler(envol, t);
+    boisClair.opacity = ardoiseM.opacity = craieM.opacity = ombreM.opacity = solM.opacity = 1 - ouvre;
     chevalet.visible = sol.visible = ombre.visible = ouvre < 1;
     spot.intensity = 16 * (1 - ouvre) + Math.sin(t * 2.3) * 0.3;
     lueurSol.material.opacity = 0.35 * (1 - ouvre);
@@ -479,7 +521,7 @@ export function vitrine(section) {
     // et une brume fond quand la caméra la traverse (sinon un disque bleu couvre l'écran)
     etoiles.rotation.y = Math.sin(t * 0.05) * 0.03;
     etoiles.position.y = Math.sin(t * 0.25) * 0.08;
-    etoilesM.opacity = 0.55 * (1 - ouv);
+    etoilesM.opacity = 0.4 * (1 - ouv) * doux(borne((courant - 0.19) / 0.08));
     brumes.forEach((b) => {
       b.position.y += Math.sin(t * 0.3 + b.userData.phase) * 0.0015;
       const d = Math.abs(b.userData.z - camera.position.z);
