@@ -54,8 +54,9 @@ const jsonLd = JSON.stringify({
 
 <!-- ============ L'ardoise cosmique : la craie écrit, s'envole, et on plonge dans une nuit où flottent cinq panneaux ============ -->
 <section class="vitrine" data-vitrine aria-labelledby="titre-vitrine">
+  <!-- les étapes où le défilement au doigt s'arrête (l'ardoise écrite, la poussière, un arrêt par panneau, « Envoyez. », la salle) : un panneau à la fois, aucun de sauté -->
+  <div class="vitrine__jalons" aria-hidden="true"><i style="--p:0"></i><i style="--p:0.135"></i><i style="--p:0.24"></i><i style="--p:0.36"></i><i style="--p:0.475"></i><i style="--p:0.59"></i><i style="--p:0.705"></i><i style="--p:0.82"></i><i style="--p:0.91"></i><i style="--p:1"></i></div>
   <div class="vitrine__colle">
-    <img class="vitrine__repli" src="/vitrine/cosmos.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
     <canvas aria-hidden="true"></canvas>
     <div class="vitrine__trajet" aria-hidden="true"><i></i><ol><li>L’ardoise</li><li>Site web</li><li>Design</li><li>Réseaux</li><li>Shootings</li><li>Faire venir</li><li>La salle</li></ol></div>
     <div class="cadre vitrine__textes">
@@ -67,8 +68,8 @@ const jsonLd = JSON.stringify({
       <a class="vitrine__porte" href="/offres/#reseaux" data-de="0.54" data-a="0.655"><span>Réseaux sociaux</span><b>Réels, publications et menu du jour, publiés pour vous chaque semaine.</b><i>Voir l’abonnement</i></a>
       <a class="vitrine__porte" href="/realisations/" data-de="0.655" data-a="0.77"><span>Shootings</span><b>On vient chez vous filmer vos plats et vos gestes. Ce sont ces images qui donnent envie.</b><i>Voir nos réalisations</i></a>
       <a class="vitrine__porte" href="/contact/" data-de="0.77" data-a="0.885"><span>Faire venir, faire revenir</span><b>Publicité ciblée, avis, fidélité, et un bilan clair chaque mois : on sait ce qui ramène du monde.</b><i>En parler autour d’un café</i></a>
-      <p class="vitrine__envoi" data-de="0.93" data-a="0.975" data-f="0.015" aria-hidden="true">Envoyez.</p>
-      <div class="vitrine__cuisine" data-de="0.96" data-a="9" data-f="0.03"><p>Vous cuisinez, <em>on remplit la salle.</em></p><div class="actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a><a class="lien" href="/realisations/">Voir nos réalisations</a></div></div>
+      <p class="vitrine__envoi" data-de="0.895" data-a="0.945" data-f="0.015" aria-hidden="true">Envoyez.</p>
+      <div class="vitrine__cuisine" data-de="0.955" data-a="9" data-f="0.03"><p>Vous cuisinez, <em>on remplit la salle.</em></p><div class="actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a><a class="lien" href="/realisations/">Voir nos réalisations</a></div></div>
     </div>
   </div>
 </section>
@@ -122,6 +123,10 @@ const jsonLd = JSON.stringify({
 <script>
   import '../scripts/defilement.js';
   import '../scripts/motion.js';
+  // les matières de l'ardoise (pierre, noyer, sol) se mettent en cache dès que la page est posée : la scène démarre sans attendre
+  addEventListener('load', () => {
+    setTimeout(() => ['/vitrine/ardoise.webp', '/vitrine/bois.webp', '/vitrine/sol.webp'].forEach((src) => { const img = new Image(); img.fetchPriority = 'low'; img.decoding = 'async'; img.src = src; }), 1200);
+  });
 </script>
 </Base>
 

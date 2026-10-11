@@ -18,6 +18,13 @@ export function vitrine(section) {
   // photos en haute définition (3000 px) dès que l'écran les mérite : un ordinateur dense, pas un téléphone
   const hd = !portrait && innerWidth * Math.min(devicePixelRatio || 1, 2) >= 1600;
   const suffixe = hd ? '-hd' : '';
+  // au doigt (pas de Lenis), le défilement s'aimante aux étapes de la scène : un panneau à la fois, impossible d'en sauter un.
+  // L'aimant (classe « aimante » sur la page) n'est posé que pendant la scène, jamais à ses bords, pour pouvoir en sortir librement.
+  const lenis = document.documentElement.classList.contains('lenis');
+  // au doigt, la scène prend plus de hauteur : chaque étape a plus d'un écran de défilement pour elle, condition pour qu'aucune ne soit sautée
+  document.documentElement.classList.toggle('tactile', !lenis);
+  let aimante = false;
+  const aimanter = (oui) => { if (oui !== aimante) { aimante = oui; document.documentElement.classList.toggle('aimante', oui); } };
 
   // sur les écrans très denses (téléphones), l'anticrénelage ne se voit plus et coûte cher : on s'en passe
   const rendu = new THREE.WebGLRenderer({ canvas: toile, antialias: (devicePixelRatio || 1) < 2.5, powerPreference: 'high-performance' });
@@ -144,9 +151,16 @@ export function vitrine(section) {
   }
 
   /* ---------- le sol de nuit et le chevalet ---------- */
-  const solM = new THREE.MeshStandardMaterial({ color: '#111C1F', roughness: 1, transparent: true });
-  const sol = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), solM);
+  // le sol : la même pierre d'ardoise, polie, qui court de l'ardoise jusqu'au passe ; les panneaux s'y reflètent.
+  // Il ne s'inscrit pas dans la profondeur (depthWrite) : les reflets, dessinés juste après lui, passent au travers.
+  const solTex = charger('/vitrine/sol.webp');
+  solTex.wrapS = solTex.wrapT = THREE.MirroredRepeatWrapping;
+  solTex.repeat.set(10, 12);
+  const solM = new THREE.MeshStandardMaterial({ map: solTex, color: '#B8C2C4', roughness: 0.55, metalness: 0.1, emissive: '#93A9AF', emissiveMap: solTex, transparent: true, depthWrite: false });
+  const sol = new THREE.Mesh(new THREE.PlaneGeometry(40, 48), solM);
   sol.rotation.x = -Math.PI / 2;
+  sol.position.z = -16;
+  sol.renderOrder = -2;
   scene.add(sol);
 
   const chevalet = new THREE.Group();
@@ -252,13 +266,33 @@ export function vitrine(section) {
   const etoilesM = new THREE.PointsMaterial({ size: 0.035, map: pointTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0, sizeAttenuation: true });
   const etoiles = new THREE.Points(eGeo, etoilesM);
   scene.add(etoiles);
+  // tout au fond, l'horizon de la nuit : un dégradé qui s'éclaircit à hauteur d'yeux (bleu d'ardoise), noir au sol
+  const horizonTex = toileTex(4, 256, (g, w, h) => {
+    const d = g.createLinearGradient(0, 0, 0, h);
+    d.addColorStop(0, '#07100F'); d.addColorStop(0.42, '#102528'); d.addColorStop(0.56, '#1A4149'); d.addColorStop(0.62, '#153238'); d.addColorStop(0.72, '#0A1416'); d.addColorStop(1, '#050808');
+    g.fillStyle = d; g.fillRect(0, 0, w, h);
+  });
+  const horizon = new THREE.Mesh(new THREE.PlaneGeometry(220, 110), new THREE.MeshBasicMaterial({ map: horizonTex, fog: false, depthWrite: false }));
+  horizon.position.set(0, 1.6, -75);
+  horizon.renderOrder = -3;
+  scene.add(horizon);
+  // des nuées de couleur, pas des disques : trois halos décalés dans la même toile, en bleu d'ardoise puis en ambre près du passe
+  const nuee = (teinte) => toileTex(256, 256, (g) => {
+    [[128, 128, 120, 0.55], [78, 150, 80, 0.4], [176, 96, 70, 0.35]].forEach(([x, y, r, a]) => {
+      const d = g.createRadialGradient(x, y, 0, x, y, r); d.addColorStop(0, teinte(a)); d.addColorStop(0.5, teinte(a * 0.35)); d.addColorStop(1, teinte(0));
+      g.fillStyle = d; g.fillRect(0, 0, 256, 256);
+    });
+  });
+  const nueeBleue = nuee((a) => `rgba(60,135,155,${a})`), nueeAmbre = nuee((a) => `rgba(205,130,60,${a})`);
   // moins de brumes sur téléphone, et plus petites : chacune coûte un disque additif qui peut couvrir l'écran
   const brumes = [];
-  const nbBrumes = portrait ? 5 : 9;
+  const nbBrumes = portrait ? 6 : 10;
   for (let i = 0; i < nbBrumes; i++) {
-    const z = -2 - i * (portrait ? 7.5 : 4.2);
-    const sp = sprite(scene, haloBleu, (i % 2 ? 1 : -1) * (3 + Math.random() * 3), 1 + Math.random() * 3, z, portrait ? 7 + Math.random() * 4 : 9 + Math.random() * 6, 0.16);
-    sp.userData = { z, phase: i };
+    const z = -2 - i * (portrait ? 6.2 : 3.7);
+    const ambre = z < -24;
+    const sp = sprite(scene, ambre ? nueeAmbre : nueeBleue, (i % 2 ? 1 : -1) * (2.5 + Math.random() * 3), 1 + Math.random() * 3.5, z, portrait ? 9 + Math.random() * 5 : 12 + Math.random() * 7, 0.2);
+    sp.material.rotation = Math.random() * Math.PI * 2;
+    sp.userData = { z, phase: i, force: ambre ? 0.22 : 0.16 };
     brumes.push(sp);
   }
 
@@ -269,6 +303,15 @@ export function vitrine(section) {
     d.addColorStop(0.47, 'rgba(255,255,255,.26)'); d.addColorStop(0.55, 'rgba(255,255,255,.04)');
     d.addColorStop(0.72, 'rgba(255,255,255,.12)'); d.addColorStop(1, 'rgba(255,255,255,.03)');
     g.fillStyle = d; g.fillRect(0, 0, w, h);
+  });
+  // le reflet d'un panneau dans la pierre : la même photo, retournée, qui s'estompe en s'éloignant du sol (alphaMap)
+  const degrade = toileTex(4, 128, (g, w, h) => { const d = g.createLinearGradient(0, 0, 0, h); d.addColorStop(0, '#000'); d.addColorStop(0.5, '#000'); d.addColorStop(1, '#fff'); g.fillStyle = d; g.fillRect(0, 0, w, h); });
+  // un faisceau de lumière tombé du plafond sur chaque panneau : large et doux, net en haut, fondu en bas
+  const faisceauTex = toileTex(128, 512, (g, w, h) => {
+    const d = g.createLinearGradient(0, 0, 0, h); d.addColorStop(0, 'rgba(255,236,200,.9)'); d.addColorStop(0.55, 'rgba(255,236,200,.35)'); d.addColorStop(1, 'rgba(255,236,200,0)');
+    g.fillStyle = d; g.fillRect(0, 0, w, h);
+    const m = g.createLinearGradient(0, 0, w, 0); m.addColorStop(0, 'rgba(0,0,0,1)'); m.addColorStop(0.5, 'rgba(0,0,0,0)'); m.addColorStop(1, 'rgba(0,0,0,1)');
+    g.globalCompositeOperation = 'destination-out'; g.fillStyle = m; g.fillRect(0, 0, w, h);
   });
   const services = [
     { nom: 'Site web', img: 'ragu' },
@@ -295,6 +338,22 @@ export function vitrine(section) {
     bord.position.z = 0.01; bord.renderOrder = 3;
     const lueur = sprite(g, haloJaune, 0, 0, -0.05, 1, 0);
     g.add(floue, nette, verre, bord);
+    // son reflet dans la pierre : un double retourné sous le sol, dessiné juste après lui, qui s'estompe vers le bas
+    const refl = new THREE.Group();
+    const floueRM = new THREE.MeshBasicMaterial({ map: texFloue, alphaMap: degrade, toneMapped: false, transparent: true, depthWrite: false, opacity: 0, color: new THREE.Color(0.5, 0.5, 0.5) });
+    const netteRM = new THREE.MeshBasicMaterial({ map: texNette, alphaMap: degrade, toneMapped: false, transparent: true, depthWrite: false, opacity: 0, fog: false });
+    const floueR = new THREE.Mesh(geo, floueRM), netteR = new THREE.Mesh(geo, netteRM);
+    netteR.position.z = 0.004;
+    floueR.renderOrder = netteR.renderOrder = -1;
+    refl.add(floueR, netteR);
+    scene.add(refl);
+    // la flaque de lumière au sol et le faisceau tombé du plafond, à l'arrêt du panneau
+    const flaque = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: haloJaune, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false, opacity: 0, fog: false }));
+    flaque.rotation.x = -Math.PI / 2;
+    flaque.renderOrder = -1;
+    scene.add(flaque);
+    const faisceau = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: faisceauTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false, opacity: 0, fog: false, side: THREE.DoubleSide }));
+    scene.add(faisceau);
     let largeur = 2.4, hauteur = 1.6;
     // la photo garde ses proportions : on la recadre au centre, pour la version nette et la version floue
     const recadrer = () => {
@@ -307,13 +366,15 @@ export function vitrine(section) {
     };
     const dimensionner = (w, h) => {
       largeur = w; hauteur = h;
-      [floue, nette, verre].forEach((m) => m.scale.set(w, h, 1));
+      [floue, nette, verre, floueR, netteR].forEach((m) => m.scale.set(w, h, 1));
       bord.scale.set(w, h, 1);
       lueur.scale.set(w * 1.9, h * 2.2, 1);
+      flaque.scale.set(w * 1.5, w * 1.1, 1);
+      faisceau.scale.set(w * 1.35, 3.4, 1);
       recadrer();
     };
     scene.add(g);
-    return { ...s, i, g, netteM, floueM, verreM, bordM, lueur, dimensionner, chemin: new THREE.Vector3(), fin: new THREE.Vector3(), ecart: new THREE.Vector3(), ry: 0, cote: 1, arcX: 1.6, arcY: 2.2 };
+    return { ...s, i, g, netteM, floueM, verreM, bordM, lueur, refl, floueRM, netteRM, flaque, faisceau, dimensionner, chemin: new THREE.Vector3(), fin: new THREE.Vector3(), ecart: new THREE.Vector3(), ry: 0, cote: 1, arcX: 1.6, arcY: 2.2 };
   });
 
   /* ---------- le passe, au bout du chemin : un comptoir de lumière, trois lampes chauffantes, et la salle derrière ---------- */
@@ -354,7 +415,7 @@ export function vitrine(section) {
   // Entre deux clés, la caméra glisse sur une courbe qui passe par toutes les clés (Catmull-Rom).
   const arrets = [[0.33, 0.39], [0.445, 0.505], [0.56, 0.62], [0.675, 0.735], [0.79, 0.85]];
   const VOL = 0.06; // durée (en défilement) du vol d'un panneau jusqu'au passe : le dernier se pose à 0.91, où la caméra se pose aussi
-  const OUVERTURE = 0.95; // le passe s'ouvre, après une pause mur complet (0.91-0.95) et « Envoyez. »
+  const OUVERTURE = 0.945; // le passe s'ouvre, après une pause mur complet (0.9-0.945) et « Envoyez. »
   function etapes(haut) {
     const cles = [];
     if (haut) {
@@ -369,6 +430,10 @@ export function vitrine(section) {
       const x = haut ? 0 : (i % 2 ? -0.9 : 0.9);
       p.chemin.set(x, 1.7, z);
       p.ry = haut ? 0 : (i % 2 ? 0.22 : -0.22);
+      p.flaque.position.set(x, 0.02, z - 0.1);
+      // le faisceau descend du plafond, un peu en arrière du panneau, légèrement penché
+      p.faisceau.position.set(x + (i % 2 ? -0.25 : 0.25), 2.3, z - 0.7);
+      p.faisceau.rotation.z = i % 2 ? 0.1 : -0.1;
       cles.push([arrets[i][0], arrets[i][1], haut ? [0, 1.7, z + 3.4] : [-x * 0.25, 1.7, z + 3.3], haut ? [0, 1.28, z] : [x * 0.55, 1.7, z]]);
     });
     const oeil = haut ? 1.9 : 1.85;
@@ -420,7 +485,7 @@ export function vitrine(section) {
     const devantSoi = doux(borne(g / 0.3)) * (1 - doux(borne((g - 0.35) / 0.65)));
     avant.set(pos.x + tangente.x * 1.4, pos.y + tangente.y * 0.6, pos.z + tangente.z * 4);
     cible.lerp(avant, devantSoi);
-    roulis = -tangente.x * Math.sin(f * Math.PI) * 0.035;
+    roulis = -tangente.x * Math.sin(f * Math.PI) * 0.02;
   }
 
   // qualité adaptative : si l'appareil peine à tenir la cadence, on baisse la finesse du rendu par paliers, sans jamais remonter.
@@ -470,26 +535,30 @@ export function vitrine(section) {
   preparerCraie(); echantillonner();
   document.fonts.load('600 150px Caveat').then(() => { preparerCraie(); echantillonner(); ecrit = ''; });
 
-  // pour les captures d'aperçu : section.aller(0.5) fige la scène à mi-parcours
-  let force = null;
-  section.aller = (p) => { force = p; };
+  // pour les captures d'aperçu : section.aller(0.5, 2) fige la scène à mi-parcours, à la deuxième seconde
+  let force = null, tForce = null;
+  section.aller = (p, tf) => { force = p; if (tf != null) tForce = tf; };
   section.etat = () => ({ haut, cam: camera.position.toArray().map((n) => +n.toFixed(2)), pan: panneaux.map((p) => p.g.position.toArray().map((n) => +n.toFixed(2))) });
-  // lissage du défilement en constante de temps (secondes) : même sensation à 60 et à 120 images par seconde
-  const tau = document.documentElement.classList.contains('lenis') ? 0.05 : 0.09;
+  // lissage du défilement en constante de temps (secondes) : même sensation à 60 et à 120 images par seconde.
+  // Au doigt, le défilement saute d'une étape à l'autre : la scène glisse plus longuement pour y arriver, sans à-coup.
+  const tau = lenis ? 0.05 : 0.16;
   const jalons = section.querySelectorAll('.vitrine__trajet li');
-  const bornesTrajet = [0, 0.3, 0.42, 0.535, 0.65, 0.765, 0.95];
+  const bornesTrajet = [0, 0.3, 0.42, 0.535, 0.65, 0.765, 0.945];
   let etape = -1;
   const v = new THREE.Vector3(), tmp = new THREE.Vector3();
-  const horloge = new THREE.Clock();
+  const t0 = performance.now() / 1000;
+  let derniere = t0;
   function image() {
     requestAnimationFrame(image);
     const r = section.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > innerHeight) return;
-    const dt = horloge.getDelta(), t = horloge.elapsedTime;
+    if (r.bottom < 0 || r.top > innerHeight) { aimanter(false); return; }
+    const maintenant = performance.now() / 1000, dt = maintenant - derniere, t = tForce ?? maintenant - t0;
+    derniere = maintenant;
     if (force == null) adapter(dt);
     // la progression se mesure sur l'élément collant lui-même : insensible à la barre de Safari qui se replie
     const c = colle.getBoundingClientRect();
     const vise = force ?? borne((c.top - r.top) / Math.max(r.height - c.height, 1));
+    aimanter(!lenis && force == null && vise > 0.005 && vise < 0.992);
     // au premier passage, on se cale directement : pas d'avance rapide à l'arrivée ni au retour arrière du navigateur
     courant = force ?? (courant === null ? vise : courant + (vise - courant) * (1 - Math.exp(-dt / tau)));
     sx += (mx - sx) * 0.05;
@@ -501,13 +570,13 @@ export function vitrine(section) {
     ecrire(borne((courant - 0.01) / 0.12), envol);
     poussiere.visible = envol > 0 && envol < 1;
     if (poussiere.visible) envoler(envol, t);
-    boisClair.opacity = ardoiseM.opacity = craieM.opacity = ombreM.opacity = solM.opacity = 1 - ouvre;
-    chevalet.visible = sol.visible = ombre.visible = ouvre < 1;
+    boisClair.opacity = ardoiseM.opacity = craieM.opacity = ombreM.opacity = 1 - ouvre;
+    chevalet.visible = ombre.visible = ouvre < 1;
     spot.intensity = 16 * (1 - ouvre) + Math.sin(t * 2.3) * 0.3;
     lueurSol.material.opacity = 0.35 * (1 - ouvre);
 
     // 4. le mur est complet (pret), puis le passe s'ouvre (ouv) : les panneaux s'écartent, la salle s'allume (chaud), la caméra avance d'un pas
-    const pret = Math.sin(Math.PI * borne((courant - 0.91) / 0.04));
+    const pret = Math.sin(Math.PI * borne((courant - 0.885) / 0.04));
     const ouv = doux(borne((courant - OUVERTURE) / 0.045));
     const chaud = doux(borne((courant - OUVERTURE - 0.015) / 0.04));
     placer(courant, camera.position, v);
@@ -522,10 +591,14 @@ export function vitrine(section) {
     etoiles.rotation.y = Math.sin(t * 0.05) * 0.03;
     etoiles.position.y = Math.sin(t * 0.25) * 0.08;
     etoilesM.opacity = 0.4 * (1 - ouv) * doux(borne((courant - 0.19) / 0.08));
+    // le sol de pierre reste sous les pieds jusqu'au passe, puis s'efface quand on entre dans la salle
+    solM.opacity = 1 - ouv;
+    sol.visible = ouv < 1;
     brumes.forEach((b) => {
       b.position.y += Math.sin(t * 0.3 + b.userData.phase) * 0.0015;
+      b.material.rotation += 0.0004;
       const d = Math.abs(b.userData.z - camera.position.z);
-      const o = (0.14 + Math.sin(t * 0.4 + b.userData.phase * 2) * 0.03) * doux(borne((d - 1.5) / 3)) * (b.userData.z < -30 ? 1 - ouv : 1);
+      const o = (b.userData.force + Math.sin(t * 0.4 + b.userData.phase * 2) * 0.03) * doux(borne((d - 1.5) / 3)) * (b.userData.z < -30 ? 1 - ouv : 1);
       b.material.opacity = o;
       b.visible = o > 0.01;
     });
@@ -541,13 +614,14 @@ export function vitrine(section) {
       const file = doux(borne((s - 0.1) / 0.9)); // et file devant
       const pose = doux(borne((s - 0.8) / 0.2)); // se pose : c'est là qu'il se rallume
       const allume = Math.max(doux(borne(1 - Math.abs(courant - centre) / 0.075)), pose);
+      // le panneau flotte à peine (une lente respiration de quelques centimètres), sans tanguer : il reste lisible et cliquable
       tmp.lerpVectors(p.chemin, p.fin, file);
-      tmp.y += p.arcY * monte + Math.sin(t * 0.7 + i * 1.3) * 0.06 * (1 - pose);
+      tmp.y += p.arcY * monte + Math.sin(t * 0.45 + i * 1.3) * 0.025 * (1 - pose);
       if (!haut) tmp.x += p.cote * p.arcX * monte;
       tmp.addScaledVector(p.ecart, ouv);
       p.g.position.copy(tmp);
       p.g.rotation.y = (p.ry + sx * 0.12) * (1 - file) + p.cote * 0.35 * monte * (1 - file);
-      p.g.rotation.z = Math.sin(t * 0.5 + i) * 0.02 * (1 - pose);
+      p.g.rotation.z = Math.sin(t * 0.35 + i) * 0.006 * (1 - pose);
       p.netteM.opacity = allume * nait;
       p.floueM.opacity = nait;
       p.verreM.opacity = 0.4 * nait;
@@ -557,6 +631,23 @@ export function vitrine(section) {
       // halo éteint en vol, petit éclat à la pose (le « ding » de l'assiette sur le passe), puis il cède la place à la salle
       p.lueur.material.opacity = Math.max(0.55 * allume * (1 - monte), 0.45 * pose + 0.35 * Math.sin(pose * Math.PI)) * (1 - 0.7 * ouv) * nait;
       p.g.visible = nait > 0;
+      // son reflet dans la pierre, seulement quand il est allumé : symétrique par rapport au sol, il disparaît quand le panneau file
+      const miroir = nait * (1 - file) * (1 - ouv);
+      p.refl.position.set(tmp.x, -tmp.y, tmp.z);
+      p.refl.rotation.set(0, p.g.rotation.y, -p.g.rotation.z);
+      p.refl.scale.y = -1;
+      p.floueRM.opacity = 0.3 * allume * miroir;
+      p.floueRM.color.setRGB(gris * 0.9, gris * 0.88, gris * 0.86);
+      p.netteRM.opacity = 0.34 * allume * miroir;
+      p.refl.visible = miroir > 0.01;
+      // la flaque de lumière au sol et le faisceau du plafond s'allument avec le panneau, et restent en veilleuse après son départ
+      const lampe = (0.25 + 0.75 * allume) * nait * (1 - ouv);
+      p.flaque.material.opacity = 0.3 * lampe;
+      p.flaque.visible = lampe > 0.01;
+      p.faisceau.material.opacity = (0.16 + Math.sin(t * 0.6 + i * 2.1) * 0.02) * lampe;
+      p.faisceau.visible = lampe > 0.01;
+      // le faisceau, une simple lame de lumière, se tourne toujours vers la caméra
+      p.faisceau.rotation.y = Math.atan2(camera.position.x - p.faisceau.position.x, camera.position.z - p.faisceau.position.z);
     });
     // le passe s'allume dès que le premier panneau part s'y poser ; le comptoir fond quand la fente s'ouvre
     const garni = doux(borne((courant - arrets[0][1]) / 0.06));

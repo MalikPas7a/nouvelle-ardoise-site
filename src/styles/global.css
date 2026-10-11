@@ -731,12 +731,18 @@ html, body { overflow-x: clip; }
 
 /* ---------- Accueil : la vitrine en 3D, les entrées en scène ---------- */
 .vitrine { --fin: 0; --salle: 0; position: relative; height: 780vh; background: #0E181B; color: #fff; }
-.vitrine__colle { position: sticky; top: var(--nav); height: calc(100svh - var(--nav)); overflow: clip; }
-.vitrine canvas, .vitrine__repli { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.vitrine__repli { object-fit: cover; }
-.vitrine.vivante .vitrine__repli { display: none; }
+.vitrine__colle { position: sticky; top: var(--nav); height: calc(100svh - var(--nav)); overflow: clip; background: radial-gradient(ellipse at 50% 60%, #1A4149 0%, #0E181B 55%, #07100F 100%); }
+.vitrine canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .vitrine:not(.vivante) { height: auto; }
 .vitrine:not(.vivante) .vitrine__colle { position: relative; top: 0; height: auto; min-height: 90svh; }
+/* au doigt, le défilement s'aimante aux étapes de la scène (classe « aimante » posée par la scène elle-même, seulement pendant qu'on la traverse) :
+   chaque jalon est un point d'arrêt obligé, placé là où l'avancement vaut --p (16 px : le scroll-padding de la page) */
+.vitrine__jalons { display: none; }
+.vitrine.vivante .vitrine__jalons { display: block; position: absolute; inset: 0; pointer-events: none; }
+.vitrine__jalons i { position: absolute; left: 0; width: 100%; height: 1px; top: calc(var(--p) * (100% - 100svh + var(--nav)) + 16px); scroll-snap-align: start; scroll-snap-stop: always; }
+html.aimante { scroll-snap-type: y mandatory; }
+/* au doigt, la scène prend plus de hauteur : chaque étape a plus d'un écran de défilement pour elle (sinon le navigateur peut en sauter une) */
+html.tactile .vitrine.vivante { height: 1200vh; }
 .vitrine.vivante .vitrine__colle::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgb(0 0 0 / 0.45) 100%); }
 .vitrine__textes { position: relative; z-index: 2; height: 100%; display: grid; align-content: end; gap: 14px; padding-block: clamp(24px, 6vh, 64px); pointer-events: none; }
 .vitrine__textes > * { opacity: var(--o, 1); transform: translateY(var(--y, 0)); }
