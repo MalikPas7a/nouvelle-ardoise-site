@@ -155,11 +155,12 @@ export function vitrine(section) {
   // Il ne s'inscrit pas dans la profondeur (depthWrite) : les reflets, dessinés juste après lui, passent au travers.
   const solTex = charger('/vitrine/sol.webp');
   solTex.wrapS = solTex.wrapT = THREE.MirroredRepeatWrapping;
-  solTex.repeat.set(10, 12);
+  solTex.repeat.set(10, 17.5);
   const solM = new THREE.MeshStandardMaterial({ map: solTex, color: '#B8C2C4', roughness: 0.55, metalness: 0.1, emissive: '#93A9AF', emissiveMap: solTex, transparent: true, depthWrite: false });
-  const sol = new THREE.Mesh(new THREE.PlaneGeometry(40, 48), solM);
+  // il court de l'ardoise jusque derrière le passe (z de 8 à -62) : son bord lointain reste noyé dans le brouillard
+  const sol = new THREE.Mesh(new THREE.PlaneGeometry(40, 70), solM);
   sol.rotation.x = -Math.PI / 2;
-  sol.position.z = -16;
+  sol.position.z = -27;
   sol.renderOrder = -2;
   scene.add(sol);
 
@@ -260,7 +261,8 @@ export function vitrine(section) {
   // peu d'étoiles, fines et discrètes, et seulement une fois l'ardoise passée : pas de neige sur la scène d'ouverture
   const Ne = 700;
   const ePos = new Float32Array(Ne * 3);
-  for (let i = 0; i < Ne; i++) { ePos[i * 3] = (Math.random() - 0.5) * 26; ePos[i * 3 + 1] = Math.random() * 10 - 2; ePos[i * 3 + 2] = -3 - Math.random() * 37; }
+  // toutes au-dessus du sol : il ne s'inscrit pas dans la profondeur, une étoile dessous se verrait au travers
+  for (let i = 0; i < Ne; i++) { ePos[i * 3] = (Math.random() - 0.5) * 26; ePos[i * 3 + 1] = 0.4 + Math.random() * 9.6; ePos[i * 3 + 2] = -3 - Math.random() * 37; }
   const eGeo = new THREE.BufferGeometry();
   eGeo.setAttribute('position', new THREE.BufferAttribute(ePos, 3));
   const etoilesM = new THREE.PointsMaterial({ size: 0.035, map: pointTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0, sizeAttenuation: true });
@@ -591,9 +593,10 @@ export function vitrine(section) {
     etoiles.rotation.y = Math.sin(t * 0.05) * 0.03;
     etoiles.position.y = Math.sin(t * 0.25) * 0.08;
     etoilesM.opacity = 0.4 * (1 - ouv) * doux(borne((courant - 0.19) / 0.08));
-    // le sol de pierre reste sous les pieds jusqu'au passe, puis s'efface quand on entre dans la salle
-    solM.opacity = 1 - ouv;
-    sol.visible = ouv < 1;
+    // le sol de pierre reste sous les pieds jusqu'au passe, puis s'efface quand on entre dans la salle ;
+    // au téléphone, le mur descend sous le niveau du sol : celui-ci s'efface dès que le dernier panneau s'envole
+    solM.opacity = haut ? 1 - doux(borne((courant - 0.84) / 0.06)) : 1 - ouv;
+    sol.visible = solM.opacity > 0;
     brumes.forEach((b) => {
       b.position.y += Math.sin(t * 0.3 + b.userData.phase) * 0.0015;
       b.material.rotation += 0.0004;
