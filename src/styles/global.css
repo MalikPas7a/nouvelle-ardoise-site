@@ -730,7 +730,7 @@ html, body { overflow-x: clip; }
 @media (max-width: 600px) { .onglets--trois { grid-template-columns: 1fr; } }
 
 /* ---------- Accueil : la vitrine en 3D, les entrées en scène ---------- */
-.vitrine { --fin: 0; position: relative; height: 640vh; background: #0E181B; color: #fff; }
+.vitrine { --fin: 0; position: relative; height: 720vh; background: #0E181B; color: #fff; }
 .vitrine__colle { position: sticky; top: var(--nav); height: calc(100svh - var(--nav)); overflow: clip; }
 .vitrine canvas, .vitrine__repli { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .vitrine__repli { object-fit: cover; }
@@ -746,7 +746,7 @@ html, body { overflow-x: clip; }
 .vitrine__ardoise { font-size: clamp(2rem, 5vw, 4rem); max-width: 16ch; }
 .vitrine__phrase { font-size: clamp(1.7rem, 4vw, 3.2rem); max-width: 18ch; justify-self: end; text-align: right; }
 .vitrine__fin { font-size: clamp(2.1rem, 5.6vw, 4.8rem); max-width: 16ch; }
-.vitrine__fin em { font-style: normal; color: var(--jaune); }
+.vitrine__fin em, .vitrine__phrase em { font-style: normal; color: var(--jaune); }
 .vitrine.vivante .vitrine__colle::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgb(14 24 27 / calc(var(--fin) * 0.8)), rgb(14 24 27 / calc(var(--fin) * 0.15)) 60%); }
 .vitrine__fin { position: relative; z-index: 2; }
 .vitrine__indice { display: flex; align-items: center; gap: 10px; font-weight: 600; color: #C6D0CC; font-size: 0.95rem; }
