@@ -776,3 +776,35 @@ html, body { overflow-x: clip; }
 .porte > img { will-change: transform; }
 @media (prefers-reduced-motion: reduce) { .porte img { transform: none; } }
 .porte > div { position: relative; z-index: 1; background: inherit; }
+
+/* ---------- Accueil : motion design ---------- */
+html.lenis, html.lenis body { height: auto; }
+html.lenis { scroll-behavior: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.mot { display: inline-block; overflow: clip; overflow-clip-margin: 0.12em; vertical-align: top; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+.mot > span { display: inline-block; will-change: transform; }
+html.mouvement .titre-2 .mot > span { transform: translateY(110%); }
+html.mouvement .bloc__tete > p { opacity: 0; }
+/* dans la vitrine, les mots montent quand le texte s'allume */
+.vitrine.vivante .vitrine__textes .mot > span { transform: translateY(105%) rotate(3deg); transition: transform 0.75s cubic-bezier(0.34, 1.4, 0.5, 1); transition-delay: calc(var(--k, 0) * 55ms); }
+.vitrine.vivante .vitrine__textes .actif .mot > span { transform: none; }
+/* le trajet : où en est-on dans le restaurant */
+.vitrine__trajet { display: none; }
+.vitrine.vivante .vitrine__trajet { display: grid; gap: 10px; position: absolute; z-index: 3; top: 18px; left: 50%; translate: -50% 0; width: min(760px, calc(100% - 32px)); pointer-events: none; opacity: calc(min(1, var(--trajet, 0) * 12)); }
+.vitrine__trajet i { height: 2px; border-radius: 2px; background: rgb(255 255 255 / 0.18); overflow: hidden; }
+.vitrine__trajet i::before { content: ''; display: block; height: 100%; background: var(--jaune); transform-origin: left; transform: scaleX(var(--trajet, 0)); box-shadow: 0 0 12px var(--jaune); }
+.vitrine__trajet ol { display: flex; justify-content: space-between; margin: 0; padding: 0; list-style: none; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(255 255 255 / 0.42); }
+.vitrine__trajet li { transition: color 0.4s, transform 0.5s cubic-bezier(0.34, 1.5, 0.5, 1); }
+.vitrine__trajet li.passe { color: rgb(255 255 255 / 0.7); }
+.vitrine__trajet li.ici { color: var(--jaune); transform: translateY(-2px); }
+@media (max-width: 759px) {
+  .vitrine__trajet ol { justify-content: center; }
+  .vitrine__trajet li:not(.ici) { display: none; }
+}
+/* les cartes s'éclairent sous le curseur */
+.lueur { position: relative; }
+.lueur::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 2; opacity: 0; transition: opacity 0.35s; background: radial-gradient(320px circle at var(--lx, 50%) var(--ly, 50%), rgb(255 210 63 / 0.16), transparent 60%); }
+.lueur:hover::after { opacity: 1; }
+/* la flèche des cartes glisse vers l'avant au survol */
+.porte span, .vitrine__porte i { display: inline-block; transition: translate 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.porte:hover span, .vitrine__porte:hover i { translate: 6px 0; }
