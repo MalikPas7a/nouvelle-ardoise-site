@@ -197,6 +197,41 @@ if (eponge) {
   });
 }
 
+/* ---------- la vitrine en 3D : chargée seulement à l'approche ---------- */
+const scene3d = document.querySelector('[data-vitrine]');
+if (scene3d && !calme) {
+  const gl = document.createElement('canvas').getContext('webgl2');
+  if (gl) new IntersectionObserver((e, obs) => {
+    if (!e[0].isIntersecting) return;
+    obs.disconnect();
+    import('./vitrine.js').then((m) => m.vitrine(scene3d)).catch((err) => console.error('vitrine', err));
+  }, { rootMargin: '120% 0px' }).observe(scene3d);
+}
+
+/* ---------- les cartes et les photos entrent en scène ---------- */
+const reveles = document.querySelectorAll('[data-revele]');
+if (reveles.length && !calme && 'IntersectionObserver' in window) {
+  const obs = new IntersectionObserver((entrees) => entrees.forEach((e) => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('vu');
+    obs.unobserve(e.target);
+  }), { rootMargin: '0px 0px -12% 0px' });
+  reveles.forEach((bloc) => {
+    [...bloc.children].forEach((enfant, i) => { enfant.style.setProperty('--i', i); enfant.classList.add('entre'); obs.observe(enfant); });
+  });
+}
+
+/* ---------- les photos des portes glissent doucement dans leur cadre ---------- */
+const photos = [...document.querySelectorAll('.porte img')];
+if (photos.length && !calme) taches.push(() => {
+  photos.forEach((img) => {
+    const r = img.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    const p = borne((innerHeight - r.top) / (innerHeight + r.height));
+    img.style.setProperty('--py', `${((p - 0.5) * -14).toFixed(1)}%`);
+  });
+});
+
 // Une seule boucle pour tout, calée sur le rafraîchissement de l'écran
 (function boucle() {
   taches.forEach((t) => t());
