@@ -219,14 +219,25 @@ export function vitrine(section) {
     scene.add(l);
   });
 
-  // la salle derrière la vitre : la vraie photo, comme une pièce éclairée
-  const salleTex = new THREE.TextureLoader().load('/vitrine/salle.webp', () => { pret.salle = true; });
-  salleTex.colorSpace = THREE.SRGBColorSpace;
-  salleTex.anisotropy = 8;
-  const salleM = new THREE.MeshBasicMaterial({ map: salleTex, toneMapped: false, transparent: true, color: new THREE.Color(0.92, 0.88, 0.8), fog: false });
-  const salle = new THREE.Mesh(new THREE.PlaneGeometry(6.6, 6.6 / 1.507), salleM);
-  salle.position.set(0, 1.95, -3.2);
+  // la salle derrière la vitre : une vraie salle (photo Adobe Stock sous licence), en portrait sur téléphone, en paysage à l'ordinateur
+  const salleM = new THREE.MeshBasicMaterial({ toneMapped: false, transparent: true, color: new THREE.Color(0.95, 0.9, 0.82), fog: false });
+  const salle = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), salleM);
+  salle.position.set(0.3, 1.9, -3.2);
   scene.add(salle);
+  let salleSrc = '';
+  function chargerSalle(haut) {
+    const src = haut ? '/vitrine/salle-tel.webp' : '/vitrine/salle.webp';
+    if (src === salleSrc) return;
+    salleSrc = src;
+    new THREE.TextureLoader().load(src, (t) => {
+      t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+      salleM.map = t; salleM.needsUpdate = true; pret.salle = true;
+      // à l'ordinateur la photo remplit la vitrine ; sur téléphone elle garde une échelle proche du réel
+      const w = haut ? 4.3 : 6.4;
+      salle.scale.set(w, w / (t.image.width / t.image.height), 1);
+      salle.position.y = haut ? 1.6 : 1.9;
+    });
+  }
   // la vitre : un reflet léger
   const reflet = toileTex(512, 512, (g, w, h) => {
     const d = g.createLinearGradient(0, 0, w, h);
@@ -403,44 +414,16 @@ export function vitrine(section) {
   const comptoir = new THREE.Mesh(new THREE.BoxGeometry(ox * 2 + 0.3, 0.06, 0.5), inox);
   comptoir.position.set(0, oy0, Z1 + 0.1);
   cuisine.add(comptoir);
-  // la cuisine derrière : un fond chaud et des casseroles suspendues
-  // crédence en carreaux blancs, comme dans une vraie cuisine
-  const credence = toileTex(512, 512, (g, w, h) => {
-    g.fillStyle = '#8F8578'; g.fillRect(0, 0, w, h);
-    const cw = 64, ch = 32;
-    for (let y = 0; y < h; y += ch) for (let x = -((y / ch) % 2) * cw / 2; x < w; x += cw) {
-      const l = 88 + Math.random() * 6;
-      g.fillStyle = `hsl(40 18% ${l}%)`;
-      g.fillRect(x + 2, y + 2, cw - 4, ch - 4);
-    }
-  });
-  credence.wrapS = credence.wrapT = THREE.RepeatWrapping;
-  credence.repeat.set(3, 2);
-  const cuisineFond = new THREE.Mesh(new THREE.PlaneGeometry(4, 2.6), mat({ map: credence, roughness: 0.35, color: '#E8D9C2' }));
-  cuisineFond.position.set(0, 1.8, Z1 - 1.6);
+  // la cuisine derrière le passe : une vraie cuisine (photo Adobe Stock sous licence), le chef au travail sous les lampes chauffantes
+  const cuisineTex = chargeur.load('/vitrine/cuisine.webp');
+  cuisineTex.colorSpace = THREE.SRGBColorSpace; cuisineTex.anisotropy = 8;
+  const cuisineM = new THREE.MeshBasicMaterial({ map: cuisineTex, toneMapped: false, fog: false, color: new THREE.Color(0.7, 0.66, 0.6) });
+  const cuisineFond = new THREE.Mesh(new THREE.PlaneGeometry(6.4, 6.4 / 1.5), cuisineM);
+  // décalée vers la droite pour que le chef, à gauche de la photo, reste visible dans le passe
+  cuisineFond.position.set(0.5, 1.7, Z1 - 1.3);
   cuisine.add(cuisineFond);
-  const plan = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.9, 0.7), inox);
-  plan.position.set(0, 0.45, Z1 - 1.1);
-  cuisine.add(plan);
-  const barre = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 2.8), inox);
-  barre.rotation.z = Math.PI / 2; barre.position.set(0, 2.55, Z1 - 0.9);
-  cuisine.add(barre);
-  const cuivre = mat({ color: '#C2703D', metalness: 0.95, roughness: 0.3, envMap: reflets, envMapIntensity: 1 });
-  [-1.15, -0.65, -0.15, 0.35, 0.85, 1.25].forEach((x, i) => {
-    const r = 0.14 + (i % 3) * 0.04;
-    const pot = new THREE.Mesh(new THREE.CylinderGeometry(r, r * 0.92, r * 0.9, 32), cuivre);
-    pot.position.set(x, 2.2 - r * 0.5, Z1 - 0.9);
-    const anse = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.35), cuivre);
-    anse.position.set(x, 2.42, Z1 - 0.9);
-    cuisine.add(pot, anse);
-  });
-  // lampes chauffantes au-dessus du passe
-  [-0.9, 0, 0.9].forEach((x) => {
-    const lampe = new THREE.Mesh(new THREE.ConeGeometry(0.16, 0.18, 24, 1, true), inox);
-    lampe.position.set(x, oy1 - 0.12, Z1 + 0.15);
-    cuisine.add(lampe);
-    aura(cuisine, x, oy1 - 0.22, Z1 + 0.2, 0.55);
-  });
+  // la chaleur des lampes déborde sur le passe
+  [-0.9, 0, 0.9].forEach((x) => aura(cuisine, x, oy1 - 0.22, Z1 + 0.2, 0.55));
   // la vapeur qui monte de la cuisine
   const vapeurTex = toileTex(128, 128, (g) => { const d = g.createRadialGradient(64, 64, 0, 64, 64, 64); d.addColorStop(0, 'rgba(255,245,230,.22)'); d.addColorStop(1, 'rgba(255,245,230,0)'); g.fillStyle = d; g.fillRect(0, 0, 128, 128); });
   const vapeur = Array.from({ length: 18 }, (_, i) => {
@@ -508,6 +491,7 @@ export function vitrine(section) {
     camera.fov = haut ? 58 : 40;
     camera.updateProjectionMatrix();
     trajet = etapes(haut);
+    chargerSalle(haut);
     const [ax, ay, az, ar] = haut ? [-0.35, 0, 3.6, 0.18] : [-1.05, 0, 3.4, 0.32];
     chevalet.position.set(ax, ay, az);
     chevalet.rotation.y = ar;
@@ -579,6 +563,9 @@ export function vitrine(section) {
       f.lampe.intensity = 6 * doux(k);
     });
     feu.intensity = 3 + 9 * borne((courant - 0.86) / 0.08) + Math.sin(t * 3.1) * 0.3;
+    // la cuisine s'éclaire à mesure qu'on s'en approche
+    const chaud = 0.55 + 0.45 * borne((courant - 0.84) / 0.1);
+    cuisineM.color.setRGB(chaud, chaud * 0.95, chaud * 0.88);
     if (courant > 0.8) vapeur.forEach((sp) => {
       const u = (t * sp.userData.vitesse + sp.userData.phase) % 1;
       sp.position.set(sp.userData.x + Math.sin(t + sp.userData.phase * 9) * 0.1, 1.15 + u * 1.6, Z1 - 0.6);
