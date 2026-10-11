@@ -316,11 +316,13 @@ export function vitrine(section) {
     g.globalCompositeOperation = 'destination-out'; g.fillStyle = m; g.fillRect(0, 0, w, h);
   });
   const services = [
-    { nom: 'Site web', img: 'ragu' },
-    { nom: 'Design', img: 'tarte' },
-    { nom: 'Réseaux sociaux', img: 'ramen' },
-    { nom: 'Shootings', img: 'cuisine' },
-    { nom: 'Faire venir, faire revenir', img: 'lampes' },
+    // chaque photo montre le métier lui-même : la carte d'un restaurant sur un téléphone, une carte imprimée,
+    // un plat photographié pour les réseaux, une photographe en cuisine, une salle qu'on sert
+    { nom: 'Site web', img: 'site' },
+    { nom: 'Design', img: 'carte' },
+    { nom: 'Réseaux sociaux', img: 'reels' },
+    { nom: 'Shootings', img: 'shooting' },
+    { nom: 'Faire venir, faire revenir', img: 'tablee' },
   ];
   const Z0 = -5, PAS = -5, ZF = -34;
   const panneaux = services.map((s, i) => {
@@ -378,6 +380,28 @@ export function vitrine(section) {
     scene.add(g);
     return { ...s, i, g, netteM, floueM, verreM, bordM, lueur, refl, floueRM, netteRM, flaque, faisceau, dimensionner, chemin: new THREE.Vector3(), fin: new THREE.Vector3(), ecart: new THREE.Vector3(), ry: 0, cote: 1, arcX: 1.6, arcY: 2.2 };
   });
+
+  /* ---------- le N de l'ardoise (le symbole du logo) : il prend la place de la craie qui s'efface, puis se fond dans le premier panneau ---------- */
+  const enseigneTex = toileTex(256, 256, (g) => {
+    g.scale(256 / 28, 256 / 28);
+    // le même dessin que le logo du site : l'ardoise sombre aux coins ronds, le N à la craie jaune
+    const r = 5.5;
+    g.beginPath();
+    g.moveTo(r, 0); g.lineTo(28 - r, 0); g.arcTo(28, 0, 28, r, r); g.lineTo(28, 28 - r); g.arcTo(28, 28, 28 - r, 28, r);
+    g.lineTo(r, 28); g.arcTo(0, 28, 0, 28 - r, r); g.lineTo(0, r); g.arcTo(0, 0, r, 0, r); g.closePath();
+    g.fillStyle = 'rgba(17,25,27,0.9)'; g.fill();
+    g.strokeStyle = '#FFD23F'; g.lineWidth = 2.3; g.lineCap = g.lineJoin = 'round';
+    g.beginPath(); g.moveTo(7.4, 19.6); g.lineTo(7.4, 8.4); g.lineTo(20.6, 19.6); g.lineTo(20.6, 8.4); g.stroke();
+  });
+  // sans test de profondeur : il doit se voir à travers l'ardoise qui s'efface devant lui (elle écrit encore la profondeur)
+  const enseigneM = new THREE.MeshBasicMaterial({ map: enseigneTex, transparent: true, opacity: 0, toneMapped: false, fog: false, depthWrite: false, depthTest: false });
+  const enseigne = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), enseigneM);
+  enseigne.renderOrder = 2;
+  enseigne.visible = false;
+  scene.add(enseigne);
+  const enseigneLueur = sprite(scene, haloJaune, 0, 0, 0, 1, 0);
+  enseigneLueur.material.depthTest = false;
+  enseigneLueur.visible = false;
 
   /* ---------- le passe, au bout du chemin : un comptoir de lumière, trois lampes chauffantes, et la salle derrière ---------- */
   const passe = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ color: '#FFE4A0', toneMapped: false, fog: false, transparent: true, opacity: 0 }));
@@ -438,6 +462,12 @@ export function vitrine(section) {
       p.faisceau.rotation.z = i % 2 ? 0.1 : -0.1;
       cles.push([arrets[i][0], arrets[i][1], haut ? [0, 1.7, z + 3.4] : [-x * 0.25, 1.7, z + 3.3], haut ? [0, 1.28, z] : [x * 0.55, 1.7, z]]);
     });
+    // le N flotte juste devant la place du premier panneau, dans son axe : c'est dans lui qu'il se fond
+    enseigne.userData.y = haut ? 1.62 : 1.66;
+    enseigne.userData.taille = haut ? 0.95 : 0.9;
+    enseigne.position.set(panneaux[0].chemin.x, enseigne.userData.y, Z0 + 0.45);
+    enseigneLueur.position.set(enseigne.position.x, enseigne.position.y, Z0 + 0.4);
+    enseigneLueur.scale.setScalar(enseigne.userData.taille * 2.6);
     const oeil = haut ? 1.9 : 1.85;
     cles.push([0.91, 1, [0, oeil, ZF + 7], [0, oeil, ZF]]);
     // le passe : la place de chaque panneau sur le mur final, et comment il s'écarte quand la fente s'ouvre
@@ -606,12 +636,24 @@ export function vitrine(section) {
       b.visible = o > 0.01;
     });
 
-    // les panneaux : naissent en fondu derrière l'ardoise qui s'efface (pas d'un coup), flottent, s'allument quand on arrive devant,
-    // puis filent se poser sur le passe (la mise en place se garnit)
-    const nait = doux(borne((courant - 0.2) / 0.06));
+    // la nuit s'installe derrière l'ardoise qui s'efface : les lampes et leurs flaques s'allument le long du chemin
+    const nuitVenue = doux(borne((courant - 0.2) / 0.06));
+    // chaque panneau naît seulement quand la caméra arrive devant, et fait sa mise au point en naissant :
+    // jamais une case floue qui attend au loin
+    const naissance = (i) => doux(borne((courant - (arrets[i][0] + arrets[i][1]) / 2 + 0.075) / 0.04));
+    // le N de l'ardoise prend la place de la craie pendant qu'elle s'efface, puis se fond dans le premier panneau qui arrive
+    const n = ouvre * (1 - naissance(0));
+    enseigne.visible = enseigneLueur.visible = n > 0.005;
+    enseigneM.opacity = n;
+    enseigneLueur.material.opacity = 0.3 * n;
+    enseigne.scale.setScalar(enseigne.userData.taille * (0.85 + 0.15 * ouvre));
+    enseigne.position.y = enseigne.userData.y + Math.sin(t * 0.5) * 0.02;
+    enseigne.rotation.y = panneaux[0].ry + sx * 0.1;
+    // les panneaux : flottent, s'allument quand on arrive devant, puis filent se poser sur le passe (la mise en place se garnit)
     panneaux.forEach((p, i) => {
       const [de, a] = arrets[i];
       const centre = (de + a) / 2;
+      const nait = naissance(i);
       const s = doux(borne((courant - a) / VOL));
       const monte = doux(borne(s / 0.3)) * (1 - doux(borne((s - 0.65) / 0.35))); // monte vite, redescend en arrivant
       const file = doux(borne((s - 0.1) / 0.9)); // et file devant
@@ -644,7 +686,7 @@ export function vitrine(section) {
       p.netteRM.opacity = 0.34 * allume * miroir;
       p.refl.visible = miroir > 0.01;
       // la flaque de lumière au sol et le faisceau du plafond s'allument avec le panneau, et restent en veilleuse après son départ
-      const lampe = (0.25 + 0.75 * allume) * nait * (1 - ouv);
+      const lampe = (0.25 + 0.75 * allume) * nuitVenue * (1 - ouv);
       p.flaque.material.opacity = 0.3 * lampe;
       p.flaque.visible = lampe > 0.01;
       p.faisceau.material.opacity = (0.16 + Math.sin(t * 0.6 + i * 2.1) * 0.02) * lampe;
