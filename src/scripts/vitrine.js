@@ -2,8 +2,8 @@
 // (caméra immobile), puis la craie s'envole en poussière, l'ardoise s'ouvre et on plonge dans une nuit
 // couleur ardoise où cinq panneaux de verre flottent, un par service. Chacun s'allume quand on arrive
 // devant, puis file devant jusqu'au passe, au bout du chemin : la mise en place se garnit panneau après
-// panneau. À la fin, le passe s'ouvre sur la salle, qui se remplit de lumière. La scène suit la souris
-// (ou l'inclinaison du téléphone).
+// panneau. Quand le mur est complet, « Envoyez. », et le passe s'ouvre comme une fente sur la salle,
+// qui s'allume. La scène suit la souris à l'ordinateur ; tout est piloté par le défilement, dans les deux sens.
 import * as THREE from 'three';
 import '@fontsource/caveat/600.css';
 
@@ -12,7 +12,9 @@ const doux = (t) => t * t * (3 - 2 * t);
 
 export function vitrine(section) {
   const toile = section.querySelector('canvas');
+  const colle = section.querySelector('.vitrine__colle');
   const textes = [...section.querySelectorAll('[data-de]')];
+  const portrait = innerWidth < innerHeight;
 
   // sur les écrans très denses (téléphones), l'anticrénelage ne se voit plus et coûte cher : on s'en passe
   const rendu = new THREE.WebGLRenderer({ canvas: toile, antialias: (devicePixelRatio || 1) < 2.5, powerPreference: 'high-performance' });
@@ -24,7 +26,9 @@ export function vitrine(section) {
   const nuit = new THREE.Color('#0E181B');
   scene.background = nuit;
   scene.fog = new THREE.Fog(nuit, 8, 34);
-  const camera = new THREE.PerspectiveCamera(40, 1, 0.05, 90);
+  // plan proche à 0.1 : plus de précision de profondeur au loin, là où le mur allumé se voit à 30 unités
+  const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 90);
+  let haut = false;
 
   /* ---------- textures dessinées à la main sur des toiles ---------- */
   const toileTex = (w, h, dessin) => {
@@ -103,8 +107,9 @@ export function vitrine(section) {
   }
   let ecrit = '';
   // p : avancement de l'écriture ; a : opacité de la craie (elle s'efface quand elle s'envole)
+  // 160 pas : assez fin pour que la craie semble couler, assez rare pour épargner le téléphone (chaque pas renvoie la texture au GPU)
   function ecrire(p, a) {
-    const q = Math.round(p * 240) / 240, qa = Math.round(a * 40) / 40;
+    const q = Math.round(p * 160) / 160, qa = Math.round(a * 40) / 40;
     const cle = q + '/' + qa;
     if (cle === ecrit) return;
     ecrit = cle;
@@ -198,19 +203,23 @@ export function vitrine(section) {
   for (let i = 0; i < Ne; i++) { ePos[i * 3] = (Math.random() - 0.5) * 26; ePos[i * 3 + 1] = Math.random() * 10 - 2; ePos[i * 3 + 2] = 6 - Math.random() * 46; }
   const eGeo = new THREE.BufferGeometry();
   eGeo.setAttribute('position', new THREE.BufferAttribute(ePos, 3));
-  const etoiles = new THREE.Points(eGeo, new THREE.PointsMaterial({ size: 0.05, map: pointTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.55, sizeAttenuation: true }));
+  const etoilesM = new THREE.PointsMaterial({ size: 0.05, map: pointTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.55, sizeAttenuation: true });
+  const etoiles = new THREE.Points(eGeo, etoilesM);
   scene.add(etoiles);
+  // moins de brumes sur téléphone, et plus petites : chacune coûte un disque additif qui peut couvrir l'écran
   const brumes = [];
-  for (let i = 0; i < 9; i++) {
-    const z = -2 - i * 4.2;
-    const sp = sprite(scene, haloBleu, (i % 2 ? 1 : -1) * (3 + Math.random() * 3), 1 + Math.random() * 3, z, 9 + Math.random() * 6, 0.16);
+  const nbBrumes = portrait ? 5 : 9;
+  for (let i = 0; i < nbBrumes; i++) {
+    const z = -2 - i * (portrait ? 7.5 : 4.2);
+    const sp = sprite(scene, haloBleu, (i % 2 ? 1 : -1) * (3 + Math.random() * 3), 1 + Math.random() * 3, z, portrait ? 7 + Math.random() * 4 : 9 + Math.random() * 6, 0.16);
     sp.userData = { z, phase: i };
     brumes.push(sp);
   }
 
   /* ---------- cinq panneaux de verre, un par service ---------- */
   const chargeur = new THREE.TextureLoader();
-  const charger = (src, apres) => { const t = chargeur.load(src, () => apres && apres(t)); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; };
+  // la texture est envoyée au GPU dès son arrivée (pendant l'écriture, caméra immobile) plutôt qu'au premier rendu où elle apparaît
+  const charger = (src, apres) => { const t = chargeur.load(src, () => { rendu.initTexture(t); if (apres) apres(t); }); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; };
   const reflet = toileTex(512, 512, (g, w, h) => {
     const d = g.createLinearGradient(0, 0, w, h);
     d.addColorStop(0, 'rgba(255,255,255,.05)'); d.addColorStop(0.38, 'rgba(255,255,255,.02)');
@@ -223,25 +232,24 @@ export function vitrine(section) {
     { nom: 'Design', img: 'tarte' },
     { nom: 'Réseaux sociaux', img: 'ramen' },
     { nom: 'Shootings', img: 'cuisine' },
-    { nom: 'Stratégie', img: 'salle' },
+    { nom: 'Faire venir, faire revenir', img: 'terrasse' },
   ];
   const Z0 = -5, PAS = -5, ZF = -34;
   const panneaux = services.map((s, i) => {
     const g = new THREE.Group();
     const geo = new THREE.PlaneGeometry(1, 1);
-    const nettes = [], floues = [];
     const texNette = charger(`/vitrine/${s.img}.webp`, () => recadrer()), texFloue = charger(`/vitrine/${s.img}-flou.webp`, () => recadrer());
     const floueM = new THREE.MeshBasicMaterial({ map: texFloue, toneMapped: false, color: new THREE.Color(0.5, 0.5, 0.5) });
     // la version nette ignore le brouillard : une fois posé sur le passe, le panneau allumé se voit de loin
-    const netteM = new THREE.MeshBasicMaterial({ map: texNette, toneMapped: false, transparent: true, opacity: 0, fog: false });
+    const netteM = new THREE.MeshBasicMaterial({ map: texNette, toneMapped: false, transparent: true, opacity: 0, fog: false, depthWrite: false });
     const floue = new THREE.Mesh(geo, floueM), nette = new THREE.Mesh(geo, netteM);
-    nette.position.z = 0.004;
+    nette.position.z = 0.004; nette.renderOrder = 1;
     const verreM = new THREE.MeshBasicMaterial({ map: reflet, transparent: true, depthWrite: false, opacity: 0.4, blending: THREE.AdditiveBlending, toneMapped: false });
     const verre = new THREE.Mesh(geo, verreM);
-    verre.position.z = 0.008;
+    verre.position.z = 0.008; verre.renderOrder = 2;
     const bordM = new THREE.LineBasicMaterial({ color: '#FFD23F', transparent: true, opacity: 0.2, toneMapped: false });
     const bord = new THREE.LineSegments(new THREE.EdgesGeometry(geo), bordM);
-    bord.position.z = 0.01;
+    bord.position.z = 0.01; bord.renderOrder = 3;
     const lueur = sprite(g, haloJaune, 0, 0, -0.05, 1, 0);
     g.add(floue, nette, verre, bord);
     let largeur = 2.4, hauteur = 1.6;
@@ -262,48 +270,48 @@ export function vitrine(section) {
       recadrer();
     };
     scene.add(g);
-    return { ...s, i, g, netteM, floueM, bordM, lueur, dimensionner, chemin: new THREE.Vector3(), fin: new THREE.Vector3(), ecart: new THREE.Vector3(), ry: 0, cote: 1, arcX: 1.4, arcY: 1.6 };
+    return { ...s, i, g, netteM, floueM, bordM, lueur, dimensionner, chemin: new THREE.Vector3(), fin: new THREE.Vector3(), ecart: new THREE.Vector3(), ry: 0, cote: 1, arcX: 1.6, arcY: 2.2 };
   });
 
-  /* ---------- le passe, au bout du chemin : une barre de lumière où les panneaux viennent se poser ---------- */
+  /* ---------- le passe, au bout du chemin : un comptoir de lumière, trois lampes chauffantes, et la salle derrière ---------- */
   const passe = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ color: '#FFE4A0', toneMapped: false, fog: false, transparent: true, opacity: 0 }));
   scene.add(passe);
   const passeLueur = sprite(scene, haloJaune, 0, 0, ZF + 0.3, 1, 0);
-  // derrière le passe, la vraie salle (photo chargée seulement à l'approche de la fin)
-  const salleM = new THREE.MeshBasicMaterial({ toneMapped: false, fog: false, transparent: true, opacity: 0 });
+  const lampes = [0, 1, 2].map(() => sprite(scene, haloJaune, 0, 0, ZF + 0.2, 1, 0));
+  // la nappe de lumière chaude qui s'échappe par la fente quand le passe s'ouvre
+  const nappe = sprite(scene, haloJaune, 0, 0, ZF + 0.4, 0.001, 0);
+  // la vraie salle, derrière : sombre d'abord, puis elle s'allume. Photo chargée selon l'orientation, à l'approche de la fin.
+  const salleM = new THREE.MeshBasicMaterial({ toneMapped: false, fog: false, transparent: true, opacity: 0, color: new THREE.Color(0.1, 0.085, 0.075) });
   const salle = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), salleM);
   salle.visible = false;
+  salle.userData.base = [10, 6, 1.85];
   scene.add(salle);
-  // la salle se remplit : des centaines de points de lumière chaude qui montent (la craie du début, revenue)
-  const Nf = 1400;
-  const fPos = new Float32Array(Nf * 3), fBase = new Float32Array(Nf * 3);
-  for (let i = 0; i < Nf; i++) { fBase[i * 3] = Math.random() - 0.5; fBase[i * 3 + 1] = Math.random(); fBase[i * 3 + 2] = Math.random() - 0.5; }
-  const fGeo = new THREE.BufferGeometry();
-  fGeo.setAttribute('position', new THREE.BufferAttribute(fPos, 3));
-  const fouleM = new THREE.PointsMaterial({ size: 0.07, map: pointTex, color: '#FFD9A0', transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0, fog: false });
-  const foule = new THREE.Points(fGeo, fouleM);
-  foule.visible = false;
-  scene.add(foule);
-  const volume = { lx: 10, ly: 5.5, y0: -0.5, lz: 2.5, z0: ZF - 0.6 };
-  function remplir(ouv, t) {
-    for (let i = 0; i < Nf; i++) {
-      const h = (fBase[i * 3 + 1] + t * 0.04 + ouv * 0.3) % 1;
-      fPos[i * 3] = fBase[i * 3] * volume.lx + Math.sin(t * 0.6 + i) * 0.08;
-      fPos[i * 3 + 1] = volume.y0 + h * volume.ly;
-      fPos[i * 3 + 2] = volume.z0 + fBase[i * 3 + 2] * volume.lz;
-    }
-    fGeo.attributes.position.needsUpdate = true;
-    fouleM.opacity = 0.85 * ouv;
+  let salleSrc = '';
+  // la photo couvre tout le champ vu depuis la caméra avancée (ZF + 5.4) jusqu'au plan (ZF − 1.5), avec 20 % de marge pour la parallaxe
+  function couvrir() {
+    const oeil = haut ? 1.9 : 1.85;
+    const hv = 2 * 6.9 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * 1.2, wv = hv * camera.aspect;
+    salle.userData.base = [wv, hv, oeil];
+    salle.position.set(0, oeil, ZF - 1.5);
+    const tex = salleM.map;
+    if (!tex || !tex.image || !tex.image.width) return;
+    const r = tex.image.width / tex.image.height, cible = wv / hv;
+    if (r > cible) { tex.repeat.set(cible / r, 1); tex.offset.set((1 - cible / r) / 2, 0); }
+    else { tex.repeat.set(1, r / cible); tex.offset.set(0, (1 - r / cible) / 2); }
   }
-  // le soleil jaune qui se lève dans la salle
-  const soleil = sprite(scene, haloJaune, 0, 2.2, ZF - 1, 0.001, 0.35);
+  function chargerSalle() {
+    const src = haut ? '/vitrine/salle-tel.webp' : '/vitrine/salle.webp';
+    if (src === salleSrc) return;
+    salleSrc = src;
+    charger(src, (tex) => { if (salleSrc !== src) return; salleM.map = tex; salleM.needsUpdate = true; couvrir(); });
+  }
 
   /* ---------- le trajet de la caméra : une courbe lissée, des arrêts nets ---------- */
   // Chaque clé : quand la caméra y arrive (de), quand elle en repart (a), où elle est (p), où elle regarde (v).
   // Entre deux clés, la caméra glisse sur une courbe qui passe par toutes les clés (Catmull-Rom).
   const arrets = [[0.33, 0.39], [0.445, 0.505], [0.56, 0.62], [0.675, 0.735], [0.79, 0.85]];
-  const VOL = 0.07; // durée (en défilement) du vol d'un panneau jusqu'au passe
-  const OUVERTURE = 0.925; // le passe commence à s'ouvrir
+  const VOL = 0.06; // durée (en défilement) du vol d'un panneau jusqu'au passe : le dernier se pose à 0.91, où la caméra se pose aussi
+  const OUVERTURE = 0.95; // le passe s'ouvre, après une pause mur complet (0.91-0.95) et « Envoyez. »
   function etapes(haut) {
     const cles = [];
     if (haut) {
@@ -322,30 +330,29 @@ export function vitrine(section) {
     });
     const oeil = haut ? 1.9 : 1.85;
     cles.push([0.91, 1, [0, oeil, ZF + 7], [0, oeil, ZF]]);
-    // le passe : la place de chaque panneau sur le mur final, et de combien il s'écarte quand le passe s'ouvre
+    // le passe : la place de chaque panneau sur le mur final, et comment il s'écarte quand la fente s'ouvre
+    // (rangée du haut vers le haut, rangée du bas vers le bas, rangée du milieu sur les côtés au téléphone)
     const grille = haut
       ? [[0, 3.9], [-0.85, 1.85], [0.85, 1.85], [-0.85, -0.2], [0.85, -0.2]]
       : [[-2.7, 2.75], [0, 2.75], [2.7, 2.75], [-1.35, 0.95], [1.35, 0.95]];
     const ecarts = haut
-      ? [[0, 3.0], [-2.4, 0.3], [2.4, 0.3], [-2.4, -0.6], [2.4, -0.6]]
-      : [[-3.4, 0.6], [0, 3.2], [3.4, 0.6], [-4.2, -0.4], [4.2, -0.4]];
+      ? [[0, 3.3], [-3, 0], [3, 0], [0, -3.3], [0, -3.3]]
+      : [[0, 3.3], [0, 3.3], [0, 3.3], [0, -3.3], [0, -3.3]];
     panneaux.forEach((p, i) => {
       p.fin.set(grille[i][0], grille[i][1], ZF);
       p.ecart.set(ecarts[i][0], ecarts[i][1], 0);
-      // en vol, le panneau passe par le haut et par l'extérieur pour ne pas traverser le suivant
-      p.cote = haut ? (i % 2 ? -1 : 1) : Math.sign(p.chemin.x) || 1;
-      p.arcX = haut ? 1.0 : 1.4;
-      p.arcY = haut ? 2.4 : 1.6;
+      // en vol, le panneau monte vite (par l'extérieur à l'ordinateur) pour passer au-dessus du suivant, puis redescend à sa place
+      p.cote = Math.sign(p.chemin.x) || 1;
+      p.arcX = 1.6;
+      p.arcY = haut ? 3.0 : 2.2;
       p.dimensionner(haut ? 1.5 : 2.4, haut ? 1.9 : 1.6);
     });
     passe.position.set(0, haut ? -1.3 : 0.02, ZF + 0.25);
     passe.scale.set(haut ? 2.9 : 9.4, haut ? 0.04 : 0.05, 0.5);
     passeLueur.position.set(0, haut ? -1.45 : -0.12, ZF + 0.3);
     passeLueur.scale.set(haut ? 4 : 12, haut ? 1.1 : 1.6, 1);
-    salle.scale.set(haut ? 5.6 : 11.6, haut ? 10.3 : 7.3, 1);
-    salle.position.set(0, oeil, ZF - 1.5);
-    Object.assign(volume, haut ? { lx: 4.5, ly: 9, y0: -2.5, lz: 2.5 } : { lx: 10, ly: 5.5, y0: -0.5, lz: 2.5 });
-    soleil.position.set(0, haut ? 2.6 : 2.3, ZF - 1);
+    lampes.forEach((l, k) => { l.position.set((k - 1) * (haut ? 0.95 : 2.7), haut ? 5.2 : 3.95, ZF + 0.2); l.scale.set(haut ? 1.7 : 2.8, haut ? 1.3 : 2.0, 1); });
+    nappe.position.set(0, oeil, ZF + 0.4);
     const liste = cles.map(([de, a, p, v]) => ({ de, a, p: new THREE.Vector3(...p), v: new THREE.Vector3(...v) }));
     return {
       cles: liste,
@@ -373,8 +380,9 @@ export function vitrine(section) {
     roulis = -tangente.x * Math.sin(f * Math.PI) * 0.035;
   }
 
-  // qualité adaptative : si l'appareil peine à tenir la cadence, on baisse la finesse du rendu par paliers, sans jamais remonter
-  const paliers = [2, 1.5, 1.25, 1];
+  // qualité adaptative : si l'appareil peine à tenir la cadence, on baisse la finesse du rendu par paliers, sans jamais remonter.
+  // Un téléphone très dense part déjà à 1,5 : à 3 pixels par point, personne ne voit la différence, et ça divise le travail par 4.
+  const paliers = ((devicePixelRatio || 1) >= 3 && portrait) ? [1.5, 1.25, 1] : [2, 1.5, 1.25, 1];
   let palier = 0, lenteur = 0;
   const finesse = () => Math.min(devicePixelRatio || 1, paliers[palier]);
   function adapter(dt) {
@@ -384,7 +392,7 @@ export function vitrine(section) {
     lenteur = 0;
     if (palier < paliers.length - 1 && finesse() > paliers[palier + 1]) { palier++; rendu.setPixelRatio(finesse()); }
   }
-  let haut = false;
+  let courant = null;
   // la section prend sa hauteur de scène avant la première mesure : la toile a alors la taille de l'écran
   section.classList.add('vivante');
   function regler() {
@@ -402,20 +410,19 @@ export function vitrine(section) {
     spot.position.set(ax + 0.9, 3.2, az + 1.6);
     spot.target.position.set(ax, 1, az);
     lueurSol.position.set(ax, 0.25, az + 0.5);
+    couvrir();
+    if (courant !== null && courant > 0.3) chargerSalle();
   }
   regler();
   addEventListener('resize', regler);
 
-  /* ---------- souris et inclinaison : la scène respire avec le visiteur ---------- */
+  /* ---------- souris : la scène respire avec le visiteur (pas au doigt : un balayage n'est pas une intention) ---------- */
   let mx = 0, my = 0, sx = 0, sy = 0;
-  addEventListener('pointermove', (e) => { mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5; }, { passive: true });
-  addEventListener('deviceorientation', (e) => {
-    if (e.gamma == null) return;
-    mx = borne(e.gamma / 50, -0.5, 0.5);
-    my = borne((e.beta - 45) / 60, -0.5, 0.5);
+  addEventListener('pointermove', (e) => {
+    if (e.pointerType === 'touch') return;
+    mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5;
   }, { passive: true });
 
-  let courant = 0;
   preparerCraie();
   document.fonts.load('600 150px Caveat').then(() => { preparerCraie(); ecrit = ''; });
 
@@ -423,9 +430,10 @@ export function vitrine(section) {
   let force = null;
   section.aller = (p) => { force = p; };
   section.etat = () => ({ haut, cam: camera.position.toArray().map((n) => +n.toFixed(2)), pan: panneaux.map((p) => p.g.position.toArray().map((n) => +n.toFixed(2))) });
-  const lissage = document.documentElement.classList.contains('lenis') ? 0.3 : 0.12;
+  // lissage du défilement en constante de temps (secondes) : même sensation à 60 et à 120 images par seconde
+  const tau = document.documentElement.classList.contains('lenis') ? 0.05 : 0.09;
   const jalons = section.querySelectorAll('.vitrine__trajet li');
-  const bornesTrajet = [0, 0.3, 0.42, 0.535, 0.65, 0.765, 0.9];
+  const bornesTrajet = [0, 0.3, 0.42, 0.535, 0.65, 0.765, 0.95];
   let etape = -1;
   const v = new THREE.Vector3(), tmp = new THREE.Vector3();
   const horloge = new THREE.Clock();
@@ -435,8 +443,11 @@ export function vitrine(section) {
     if (r.bottom < 0 || r.top > innerHeight) return;
     const dt = horloge.getDelta(), t = horloge.elapsedTime;
     if (force == null) adapter(dt);
-    const vise = force ?? borne(-r.top / (r.height - innerHeight));
-    courant = force ?? courant + (vise - courant) * lissage;
+    // la progression se mesure sur l'élément collant lui-même : insensible à la barre de Safari qui se replie
+    const c = colle.getBoundingClientRect();
+    const vise = force ?? borne((c.top - r.top) / Math.max(r.height - c.height, 1));
+    // au premier passage, on se cale directement : pas d'avance rapide à l'arrivée ni au retour arrière du navigateur
+    courant = force ?? (courant === null ? vise : courant + (vise - courant) * (1 - Math.exp(-dt / tau)));
     sx += (mx - sx) * 0.05;
     sy += (my - sy) * 0.05;
 
@@ -451,8 +462,10 @@ export function vitrine(section) {
     spot.intensity = 16 * (1 - ouvre) + Math.sin(t * 2.3) * 0.3;
     lueurSol.material.opacity = 0.35 * (1 - ouvre);
 
-    // 4. le passe s'ouvre : les panneaux posés s'écartent, la salle apparaît, la caméra avance d'un pas
-    const ouv = doux(borne((courant - OUVERTURE) / 0.055));
+    // 4. le mur est complet (pret), puis le passe s'ouvre (ouv) : les panneaux s'écartent, la salle s'allume (chaud), la caméra avance d'un pas
+    const pret = Math.sin(Math.PI * borne((courant - 0.91) / 0.04));
+    const ouv = doux(borne((courant - OUVERTURE) / 0.045));
+    const chaud = doux(borne((courant - OUVERTURE - 0.015) / 0.04));
     placer(courant, camera.position, v);
     camera.position.z -= 1.6 * ouv;
     camera.position.x += sx * 0.18;
@@ -460,47 +473,62 @@ export function vitrine(section) {
     camera.lookAt(v);
     camera.rotateZ(roulis);
 
-    // la nuit vit : les étoiles dérivent, la brume respire
+    // la nuit vit : les étoiles dérivent, la brume respire ; les deux s'éteignent quand la salle s'allume,
+    // et une brume fond quand la caméra la traverse (sinon un disque bleu couvre l'écran)
     etoiles.rotation.y = Math.sin(t * 0.05) * 0.03;
     etoiles.position.y = Math.sin(t * 0.25) * 0.08;
-    brumes.forEach((b) => { b.position.y += Math.sin(t * 0.3 + b.userData.phase) * 0.0015; b.material.opacity = 0.14 + Math.sin(t * 0.4 + b.userData.phase * 2) * 0.03; });
+    etoilesM.opacity = 0.55 * (1 - ouv);
+    brumes.forEach((b) => {
+      b.position.y += Math.sin(t * 0.3 + b.userData.phase) * 0.0015;
+      const d = Math.abs(b.userData.z - camera.position.z);
+      const o = (0.14 + Math.sin(t * 0.4 + b.userData.phase * 2) * 0.03) * doux(borne((d - 1.5) / 3)) * (b.userData.z < -30 ? 1 - ouv : 1);
+      b.material.opacity = o;
+      b.visible = o > 0.01;
+    });
 
     // les panneaux : flottent, s'allument quand on arrive devant, puis filent se poser sur le passe (la mise en place se garnit)
     panneaux.forEach((p, i) => {
       const [de, a] = arrets[i];
       const centre = (de + a) / 2;
       const s = doux(borne((courant - a) / VOL));
-      const allume = Math.max(doux(borne(1 - Math.abs(courant - centre) / 0.075)), s);
-      const arc = Math.sin(s * Math.PI);
-      tmp.lerpVectors(p.chemin, p.fin, s);
-      tmp.x += p.cote * p.arcX * arc;
-      tmp.y += p.arcY * arc + Math.sin(t * 0.7 + i * 1.3) * 0.06 * (1 - s);
+      const monte = doux(borne(s / 0.3)) * (1 - doux(borne((s - 0.65) / 0.35))); // monte vite, redescend en arrivant
+      const file = doux(borne((s - 0.1) / 0.9)); // et file devant
+      const pose = doux(borne((s - 0.8) / 0.2)); // se pose : c'est là qu'il se rallume
+      const allume = Math.max(doux(borne(1 - Math.abs(courant - centre) / 0.075)), pose);
+      tmp.lerpVectors(p.chemin, p.fin, file);
+      tmp.y += p.arcY * monte + Math.sin(t * 0.7 + i * 1.3) * 0.06 * (1 - pose);
+      if (!haut) tmp.x += p.cote * p.arcX * monte;
       tmp.addScaledVector(p.ecart, ouv);
       p.g.position.copy(tmp);
-      p.g.scale.setScalar(1 - 0.35 * arc);
-      p.g.rotation.y = (p.ry + sx * 0.12) * (1 - s) + p.cote * 0.5 * arc;
-      p.g.rotation.z = Math.sin(t * 0.5 + i) * 0.02 * (1 - s);
+      p.g.rotation.y = (p.ry + sx * 0.12) * (1 - file) + p.cote * 0.35 * monte * (1 - file);
+      p.g.rotation.z = Math.sin(t * 0.5 + i) * 0.02 * (1 - pose);
       p.netteM.opacity = allume;
       const gris = 0.45 + 0.4 * allume;
       p.floueM.color.setRGB(gris, gris * 0.98, gris * 0.95);
-      p.bordM.opacity = 0.2 + 0.8 * allume;
-      p.lueur.material.opacity = 0.55 * allume * (1 - 0.7 * ouv);
+      p.bordM.opacity = 0.2 + 0.8 * allume + 0.4 * pret;
+      // halo éteint en vol, petit éclat à la pose (le « ding » de l'assiette sur le passe), puis il cède la place à la salle
+      p.lueur.material.opacity = Math.max(0.55 * allume * (1 - monte), 0.45 * pose + 0.35 * Math.sin(pose * Math.PI)) * (1 - 0.7 * ouv);
       p.g.visible = courant > 0.2;
     });
-    // le passe s'allume dès que le premier panneau part s'y poser
+    // le passe s'allume dès que le premier panneau part s'y poser ; le comptoir fond quand la fente s'ouvre
     const garni = doux(borne((courant - arrets[0][1]) / 0.06));
-    passe.material.opacity = 0.85 * garni;
-    passeLueur.material.opacity = 0.3 * garni;
-    if (courant > 0.6 && !salleM.map) { salleM.map = charger(haut ? '/vitrine/salle-tel.webp' : '/vitrine/salle.webp'); salleM.needsUpdate = true; }
-    salleM.opacity = 0.92 * ouv;
-    salle.visible = foule.visible = ouv > 0;
-    if (foule.visible) remplir(ouv, t);
-    soleil.scale.setScalar(0.001 + 9 * ouv);
-    soleil.material.opacity = 0.35 * ouv;
+    passe.material.opacity = 0.85 * garni * (1 - ouv);
+    passeLueur.material.opacity = 0.3 * garni * (1 - ouv);
+    lampes.forEach((l, k) => { l.material.opacity = garni * (0.6 + Math.sin(t * 6 + k * 2) * 0.04) * (1 - 0.7 * ouv); });
+    if (courant > 0.3) chargerSalle();
+    const [bw, bh, oeil] = salle.userData.base, zoom = 1 + 0.06 * ouv;
+    salle.visible = ouv > 0;
+    salleM.opacity = 0.92 * borne(ouv * 2.5);
+    salleM.color.setRGB(0.1 + 0.9 * chaud, 0.085 + 0.915 * chaud, 0.075 + 0.925 * chaud);
+    salle.scale.set(bw * zoom, bh * zoom, 1);
+    salle.position.x = sx * 0.5;
+    salle.position.y = oeil - sy * 0.3;
+    nappe.scale.set(0.001 + 14 * ouv, 0.001 + 4 * ouv, 1);
+    nappe.material.opacity = 0.55 * Math.sin(ouv * Math.PI) + 0.12 * ouv;
     rendu.render(scene, camera);
 
     textes.forEach((el) => {
-      const de = Number(el.dataset.de), a = Number(el.dataset.a), f = 0.05;
+      const de = Number(el.dataset.de), a = Number(el.dataset.a), f = Number(el.dataset.f) || 0.05;
       const o = borne(Math.min((courant - de) / f, (a - courant) / f));
       el.style.setProperty('--o', o.toFixed(3));
       el.style.setProperty('--y', `${((1 - o) * (courant < (de + a) / 2 ? 24 : -24)).toFixed(1)}px`);
@@ -508,9 +536,12 @@ export function vitrine(section) {
       el.classList.toggle('actif', o > 0.3);
     });
     section.style.setProperty('--trajet', courant.toFixed(4));
+    section.style.setProperty('--salle', ouv.toFixed(3));
     const e = bornesTrajet.findLastIndex((b) => courant >= b);
     if (e !== etape) { etape = e; jalons.forEach((li, i) => { li.classList.toggle('ici', i === e); li.classList.toggle('passe', i < e); }); }
     section.style.setProperty('--fin', borne((courant - 0.2) / 0.05) * (1 - borne((courant - 0.27) / 0.05)));
   }
-  image();
+  // les programmes de rendu sont compilés avant la première image, pour ne pas geler au premier défilement
+  if (rendu.compileAsync) rendu.compileAsync(scene, camera).then(image, image);
+  else image();
 }
