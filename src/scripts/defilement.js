@@ -1,9 +1,11 @@
 // Tout ce qui est piloté par le défilement de la page.
 // Principe commun : on mesure où en est une section (0 = elle arrive, 1 = elle repart)
 // et on s'en sert pour choisir une image, déplacer une piste ou tourner un plat.
+// Une seule boucle pour tout (voir la fin du fichier) ; les autres modules (film.js) y ajoutent leur tâche
+// via `taches` et la réveillent avec `reveiller()` quand ils ont quelque chose à dessiner.
 
-const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const borne = (v, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+export const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
+export const borne = (v, min = 0, max = 1) => Math.min(max, Math.max(min, v));
 
 // Avancement d'une section « collante » : 0 quand son haut touche le haut de l'écran,
 // 1 quand son bas touche le bas de l'écran.
@@ -12,7 +14,9 @@ function avancement(section) {
   return borne(-r.top / (r.height - innerHeight));
 }
 
-const taches = [];
+// Les tâches appelées à chaque image : tache(t) reçoit l'horodatage de requestAnimationFrame
+// et renvoie `true` tant qu'elle a encore quelque chose à faire (sinon la boucle peut s'endormir).
+export const taches = [];
 
 /* ---------- séquences d'images sur une toile ---------- */
 function sequence(section) {
@@ -174,40 +178,6 @@ if (etapes) taches.push(() => {
   etapes.style.setProperty('--p', borne((innerHeight * 0.85 - r.top) / (innerHeight * 0.5)).toFixed(3));
 });
 
-/* ---------- l'ouverture : l'éponge passe sur « ancien site » ---------- */
-const eponge = document.querySelector('[data-eponge]');
-if (eponge) {
-  let e = 0;
-  let r = 0;
-  const poser = () => {
-    eponge.style.setProperty('--e', e.toFixed(4));
-    eponge.style.setProperty('--r', r.toFixed(4));
-    // la brosse n'apparaît que pendant qu'elle essuie
-    eponge.style.setProperty('--b', borne(Math.min(e * 12, (1 - e) * 12)).toFixed(3));
-    eponge.classList.toggle('lu', r > 0.5);
-  };
-  if (calme) { e = 1; r = 1; poser(); }
-  else taches.push(() => {
-    const rect = eponge.getBoundingClientRect();
-    if (rect.bottom < -200 || rect.top > innerHeight + 200) return;
-    const p = avancement(eponge);
-    e += (borne((p - 0.04) / 0.42) - e) * 0.18;
-    r += (borne((p - 0.42) / 0.28) - r) * 0.18;
-    poser();
-  });
-}
-
-/* ---------- la vitrine en 3D : chargée seulement à l'approche ---------- */
-const scene3d = document.querySelector('[data-vitrine]');
-if (scene3d && !calme) {
-  const gl = document.createElement('canvas').getContext('webgl2');
-  if (gl) new IntersectionObserver((e, obs) => {
-    if (!e[0].isIntersecting) return;
-    obs.disconnect();
-    import('./vitrine.js').then((m) => m.vitrine(scene3d)).catch((err) => console.error('vitrine', err));
-  }, { rootMargin: '120% 0px' }).observe(scene3d);
-}
-
 /* ---------- les cartes et les photos entrent en scène ---------- */
 const reveles = document.querySelectorAll('[data-revele]');
 if (reveles.length && !calme && 'IntersectionObserver' in window) {
@@ -232,8 +202,22 @@ if (photos.length && !calme) taches.push(() => {
   });
 });
 
-// Une seule boucle pour tout, calée sur le rafraîchissement de l'écran
-(function boucle() {
-  taches.forEach((t) => t());
-  requestAnimationFrame(boucle);
-})();
+/* ---------- la boucle : une seule pour tout, calée sur le rafraîchissement de l'écran ---------- */
+// Elle s'endort quand plus rien ne bouge (batterie) : elle tourne encore 1 s après le dernier
+// événement (le temps que les amortis se posent), ou tant qu'une tâche renvoie `true`.
+// Tout événement de défilement, de pointeur ou de visibilité la réveille ; Lenis garde sa propre
+// boucle (motion.js) mais il fait défiler le document, donc le `scroll` natif réveille la nôtre.
+let dernier = performance.now();
+let actif = false;
+export function reveiller() {
+  dernier = performance.now();
+  if (!actif) { actif = true; requestAnimationFrame(boucle); }
+}
+function boucle(t) {
+  let encore = false;
+  taches.forEach((tache) => { if (tache(t) === true) encore = true; });
+  if (encore || t - dernier < 1000) requestAnimationFrame(boucle);
+  else actif = false;
+}
+['scroll', 'resize', 'pointermove', 'touchmove', 'visibilitychange', 'pageshow', 'load'].forEach((e) => addEventListener(e, reveiller, { passive: true }));
+reveiller();

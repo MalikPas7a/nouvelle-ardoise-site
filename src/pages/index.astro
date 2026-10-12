@@ -1,13 +1,14 @@
 ---
-// Accueil : l'ouverture, puis les portes vers chaque page. Le détail est sur les pages.
+// Accueil : le film « La mise en place » lu au scroll, puis les pièces, les portes vers chaque page, la preuve et l'appel.
 import Base from '../layouts/Base.astro';
 import Appel from '../components/Appel.astro';
 import { getImage } from 'astro:assets';
 import imgRagu from '../assets/photo-ragu.jpg';
-import imgSalle from '../assets/photo-salle.jpg';
+import imgComptoir from '../assets/photo-comptoir.jpg';
 import { SITE } from '../config.js';
 
-const [ragu, salle] = await Promise.all([imgRagu, imgSalle].map((src) => getImage({ src, format: 'webp', width: 900, quality: 72 })));
+// photo-comptoir.jpg sur la porte « Offres et prix » : la photo de la salle montrait des verres et des carafes (règle : ni verre ni bouteille)
+const [ragu, comptoir] = await Promise.all([imgRagu, imgComptoir].map((src) => getImage({ src, format: 'webp', width: 900, quality: 72 })));
 
 // Données lues par Google pour comprendre qui est Nouvelle Ardoise
 const jsonLd = JSON.stringify({
@@ -16,6 +17,7 @@ const jsonLd = JSON.stringify({
   name: SITE.nom,
   url: SITE.url,
   email: SITE.email,
+  telephone: '+41 78 213 38 68',
   sameAs: ['https://www.instagram.com/' + SITE.instagram + '/'],
   image: SITE.url + '/partage.jpg',
   founder: { '@type': 'Person', name: SITE.responsable },
@@ -26,7 +28,7 @@ const jsonLd = JSON.stringify({
   priceRange: 'CHF 999 – 3490',
 });
 ---
-<Base page="accueil" title="Nouvelle Ardoise | Agence de marketing et de communication pour la restauration à Genève" description="Marketing et communication pour les restaurants, cafés, boulangeries et chocolatiers de Genève et Vaud : stratégie, nouveaux clients, réseaux sociaux, vidéo, site et fidélisation. Prix affichés.">
+<Base page="accueil" title="Nouvelle Ardoise | Marketing et communication pour la restauration à Genève" description="Votre cuisine est belle. Montrons-la. Site, photos et vidéos, réseaux sociaux, publicité et design pour les restaurants, cafés, boulangeries et chocolatiers de Genève et Vaud. Prix affichés, −20 % jusqu’au 31 octobre 2026.">
 <script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
 <!-- Les anciens liens (nouvelleardoise.ch/#offres, envoyés dans les emails) mènent à la bonne page -->
 <script slot="head" is:inline>
@@ -35,59 +37,106 @@ const jsonLd = JSON.stringify({
     if (vers[location.hash]) location.replace(vers[location.hash]);
   })();
 </script>
+<!-- L'affiche du film (l'ardoise vide) part avec la page : c'est elle que l'on voit en premier -->
+<link slot="head" rel="preload" as="image" href="/sequences/mise-en-place-v1/m/001.webp" fetchpriority="high" />
+<!-- phase 2 : deux preload avec media="(max-width: 899px)" pour m et media="(min-width: 900px)" pour g/001.webp -->
 
-<!-- ============ Ouverture : un coup d'éponge sur l'improvisation ============ -->
-<section class="eponge" data-eponge aria-labelledby="titre-accueil">
-  <div class="eponge__colle">
-    <div class="cadre eponge__contenu">
-      <p class="eponge__sur"><svg class="eponge__n" viewBox="0 0 28 28" width="34" height="34" aria-hidden="true"><path d="M7.4 21.6V6.4l13.2 15.2V6.4" fill="none" stroke="#FFD23F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Restaurants, cafés, boulangeries, chocolatiers · Genève et Vaud</p>
-      <h1 class="eponge__titre" id="titre-accueil" aria-label="Envie de passer l’éponge sur l’improvisation ?">
-        <span aria-hidden="true">Envie de passer l’éponge sur <span class="efface"><span class="efface__mot">l’improvisation</span><span class="efface__trace">l’improvisation</span><svg class="efface__brosse" viewBox="0 0 40 120"><rect x="2" y="2" width="22" height="116" rx="7" fill="#C9975C"/><rect x="2" y="2" width="9" height="116" rx="5" fill="#E2B57A"/><rect x="22" y="4" width="15" height="112" rx="4" fill="#3C4245"/><rect x="33" y="6" width="3" height="108" fill="#E8EDEC" opacity=".35"/></svg></span>&nbsp;?</span>
-      </h1>
-      <p class="eponge__nouveau">Place à la <mark>mise en place.</mark></p>
-      <p class="chapo eponge__chapo">Site, design, réseaux sociaux, shootings photo et vidéo, stratégie d’acquisition et suivi : tout ce qu’il faut pour attirer de nouveaux clients et les faire revenir.</p>
-      <div class="actions eponge__actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a><a class="lien" href="/restaurants/">Essayer trois exemples</a></div>
-      <p class="sequence__indice eponge__indice" aria-hidden="true"><span></span>Faites défiler</p>
+<!-- ============ Le film « La mise en place » : la craie écrit, le passe, tout s'élève, le site, les images, l'éponge, « Envoyez. » ============ -->
+<section class="film" data-film="mise-en-place-v1" data-images="264" data-tailles="m" data-source-m="720,1280" data-source-g="1920,1080"
+         data-jalons="0,0.213,0.361,0.483,0.650,0.772,0.871,1" aria-labelledby="titre-accueil" aria-describedby="film-description">
+  <!-- le lien « Passer le film » (#pieces) est dans Base.astro, juste après « Aller au contenu » : au deuxième Tab, avant la nav -->
+  <!-- jalons du défilement au doigt : une image stable par arrêt (1, 57, 96, 128, 172, 204, 230, 264) -->
+  <div class="film__jalons" aria-hidden="true"><i style="--p:0"></i><i style="--p:0.213"></i><i style="--p:0.361"></i><i style="--p:0.483"></i><i style="--p:0.650"></i><i style="--p:0.772"></i><i style="--p:0.871"></i><i style="--p:1"></i></div>
+  <div class="film__colle">
+    <canvas class="film__halo" width="36" height="64" aria-hidden="true"></canvas>
+    <div class="film__scene">
+      <picture>
+        <!-- sans JavaScript ou mouvement réduit : la phrase écrite ; sinon l'ardoise vide, que la toile recouvre sans saut -->
+        <source media="(prefers-reduced-motion: reduce), (scripting: none)" srcset="/sequences/mise-en-place-v1/m/057.webp">
+        <img class="film__affiche" src="/sequences/mise-en-place-v1/m/001.webp" width="720" height="1280" fetchpriority="high" decoding="async"
+             alt="Une ardoise sur chevalet dans une cuisine sombre, devant un comptoir en noyer, des croissants et un gâteau aux fraises sur une planche. À la craie : « Votre cuisine est belle. Montrons-la. »">
+      </picture>
+      <canvas class="film__toile" aria-hidden="true"></canvas>
+      <!-- les objets du film deviennent des liens (coordonnées en fractions de l'image 9:16, interpolées entre les clés p) -->
+      <a class="film__zone" href="/restaurants/" data-de="0.61" data-a="0.71" data-f="0.015" data-etiquette="Voir le site"
+         data-zone-m="0.61:0.40,0.26,0.40,0.50;0.65:0.26,0.22,0.48,0.55;0.71:0.26,0.22,0.48,0.55" aria-label="Le téléphone : essayer un site de restaurant"></a>
+      <a class="film__zone" href="/realisations/" data-de="0.70" data-a="0.80" data-f="0.015" data-etiquette="Voir les shootings"
+         data-zone-m="0.70:0.20,0.30,0.55,0.25;0.772:0.12,0.27,0.62,0.30;0.80:0.12,0.27,0.62,0.30" aria-label="L’appareil photo : voir nos shootings"></a>
+      <a class="film__zone film__zone--repos" href="/restaurants/" data-de="0.875" data-a="9" data-f="0.02" data-etiquette="Voir le site"
+         data-zone-m="0.875:0.41,0.63,0.17,0.18" aria-label="Le téléphone posé sur le passe : essayer un site"></a>
+      <a class="film__zone film__zone--repos" href="/realisations/" data-de="0.875" data-a="9" data-f="0.02" data-etiquette="Voir les shootings"
+         data-zone-m="0.875:0.66,0.74,0.30,0.13" aria-label="L’appareil photo posé sur le passe : voir nos shootings"></a>
+      <div class="film__voile" aria-hidden="true"></div>
+    </div>
+    <div class="film__flash" aria-hidden="true"></div>
+    <p class="sr-only" id="film-description">Film de présentation : la craie écrit « Votre cuisine est belle. Montrons-la. » sur l’ardoise. La caméra descend vers le passe ; croissants, gâteau et fruits s’élèvent et flottent. Un téléphone descend et s’allume sur le site d’un restaurant. Un appareil photo arrive, se tourne vers nous et déclenche son flash. L’éponge efface la phrase, la craie écrit « Envoyez. », tout se repose sur le passe.</p>
+
+    <div class="cadre film__textes">
+      <!-- Poste 0 · l'ardoise (images 1-61) : rien ne bouge pendant que la craie écrit (6-54) ni au jalon 57 ; le sur-titre et l'indice sortent pendant la descente de la caméra (61 → 67), avec la phrase -->
+      <p class="film__sur" data-de="-1" data-a="0.25" data-f="0.02" data-toujours>Restaurants, cafés, boulangeries, chocolatiers · Genève et Vaud</p>
+      <p class="film__indice" data-de="-1" data-a="0.25" data-f="0.02" aria-hidden="true"><span></span>Faites défiler</p>
+
+      <!-- Poste 1 · le relais (jalon 96) : la craie est floue derrière, la typo reprend la phrase, nette -->
+      <h1 class="film__titre" id="titre-accueil" data-de="0.32" data-a="0.44" data-f="0.03" data-encre="ardoise" data-toujours>Votre cuisine est belle. <em>Montrons-la.</em></h1>
+
+      <!-- Poste 2 · la mise en place (jalon 128) -->
+      <div class="film__texte" data-de="0.445" data-a="0.57" data-f="0.03" data-encre="ardoise">
+        <p class="film__kicker">la mise en place</p>
+        <h2>Alors on fait la mise en place.</h2>
+        <p>Site, photos et vidéos, réseaux, publicité, design : chaque pièce à sa place, dans l’ordre du service. Vous restez en cuisine.</p>
+        <a class="lien" href="/offres/">Voir les offres et les prix</a>
+      </div>
+
+      <!-- Poste 3 · le téléphone (jalon 172) : n'entre qu'une fois l'écran allumé (166) -->
+      <div class="film__texte film__texte--court" data-de="0.615" data-a="0.715" data-f="0.02" data-encre="ardoise">
+        <p class="film__kicker">le site</p>
+        <h2>Votre carte, dans leur poche.</h2>
+        <p class="film__prix">Sites dès CHF 799 pendant le lancement.</p>
+        <p class="film__desc">Rapide, pensé pour le téléphone : la carte, les horaires, la réservation en un geste. En ligne en deux semaines.</p>
+        <div class="actions"><a class="btn btn--jaune" href="/restaurants/">Essayer un exemple</a><a class="lien film__desc" href="/offres/#reseaux">Voir l’abonnement réseaux</a></div>
+      </div>
+
+      <!-- Poste 4 · l'appareil photo (jalon 204) : révélé par le flash, effacé par l'éponge (pas de fondu de sortie) -->
+      <div class="film__texte" data-de="0.735" data-a="0.8707" data-f="0.02" data-encre="ardoise" data-efface>
+        <p class="film__kicker">les photos et les vidéos</p>
+        <h2>On vient chez vous, pendant la mise en place.</h2>
+        <p>Vos plats et vos gestes, photographiés et filmés à la lumière de votre cuisine. Ce sont ces images qui donnent envie.</p>
+        <a class="lien" href="/realisations/">Voir nos réalisations</a>
+      </div>
+
+      <!-- Le cliché : la photo que le flash vient de prendre, épinglée -->
+      <a class="film__cliche" href="/realisations/" data-de="0.75" data-a="0.85" data-f="0.02">
+        <img src="/sequences/mise-en-place-v1/m/096.webp" width="720" height="1280" alt="" loading="lazy" decoding="async">
+        <span>Prise sur place. Comme chez vous.</span>
+      </a>
+
+      <!-- Poste 5 · l'éponge et « Envoyez. » (216-258) : écran nu, la craie parle seule -->
+
+      <!-- Poste 6 · le service (jalon 264) -->
+      <div class="film__fin" data-de="0.975" data-a="9" data-f="0.02" data-encre="craie">
+        <h2>Vous cuisinez, <em>on remplit la salle.</em></h2>
+        <p class="film__desc">Devis clair sous 24 heures. Premier rendez-vous offert, chez vous.</p>
+        <div class="actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a><a class="lien" href="https://wa.me/41782133868">WhatsApp · 078 213 38 68</a></div>
+        <p class="film__offre"><span class="offre__remise">−20 %</span> sur toutes les offres jusqu’au 31 octobre 2026</p>
+      </div>
+
+      <!-- le bon : où en est-on (ticket de commande) -->
+      <ol class="film__bon" aria-hidden="true"><li data-s="0">L’ardoise</li><li data-s="0.32">Montrons-la.</li><li data-s="0.445">La mise en place</li><li data-s="0.615">Le site</li><li data-s="0.735">Les images</li><li data-s="0.8175">Envoyez.</li><li data-s="0.975">La salle</li></ol>
     </div>
   </div>
 </section>
 
-<!-- ============ L'ardoise cosmique : la craie écrit, s'envole, et on plonge dans une nuit où flottent cinq panneaux ============ -->
-<section class="vitrine" data-vitrine aria-labelledby="titre-vitrine">
-  <!-- les étapes où le défilement au doigt s'arrête (l'ardoise écrite, la poussière, un arrêt par panneau, « Envoyez. », la salle) : un panneau à la fois, aucun de sauté -->
-  <div class="vitrine__jalons" aria-hidden="true"><i style="--p:0"></i><i style="--p:0.135"></i><i style="--p:0.24"></i><i style="--p:0.36"></i><i style="--p:0.475"></i><i style="--p:0.59"></i><i style="--p:0.705"></i><i style="--p:0.82"></i><i style="--p:0.91"></i><i style="--p:1"></i></div>
-  <div class="vitrine__colle">
-    <canvas aria-hidden="true"></canvas>
-    <div class="vitrine__trajet" aria-hidden="true"><i></i><ol><li>L’ardoise</li><li>Site web</li><li>Design</li><li>Réseaux</li><li>Shootings</li><li>Faire venir</li><li>La salle</li></ol></div>
-    <div class="cadre vitrine__textes">
-      <h2 class="vitrine__ardoise" id="titre-vitrine" data-de="-1" data-a="0.3">Vos clients mangent d’abord avec les yeux.</h2>
-      <p class="vitrine__indice" data-de="-1" data-a="0.1" aria-hidden="true"><span></span>Faites défiler</p>
-      <p class="vitrine__phrase" data-de="0.16" data-a="0.29">Avant de goûter, ils regardent, ils comparent, ils choisissent. <em>Alors on fait la mise en place.</em></p>
-      <a class="vitrine__porte" href="/restaurants/" data-de="0.31" data-a="0.425"><span>Site web</span><b>Rapide, pensé pour le téléphone : la carte, le plat du jour, la réservation en un geste.</b><i>Voir un exemple</i></a>
-      <a class="vitrine__porte" href="/offres/#design" data-de="0.425" data-a="0.54"><span>Design</span><b>Carte, logo, supports en salle, emballages : une image cohérente, de la vitrine à l’addition.</b><i>Voir les offres</i></a>
-      <a class="vitrine__porte" href="/offres/#reseaux" data-de="0.54" data-a="0.655"><span>Réseaux sociaux</span><b>Réels, publications et menu du jour, publiés pour vous chaque semaine.</b><i>Voir l’abonnement</i></a>
-      <a class="vitrine__porte" href="/realisations/" data-de="0.655" data-a="0.77"><span>Shootings</span><b>On vient chez vous filmer vos plats et vos gestes. Ce sont ces images qui donnent envie.</b><i>Voir nos réalisations</i></a>
-      <a class="vitrine__porte" href="/contact/" data-de="0.77" data-a="0.885"><span>Faire venir, faire revenir</span><b>Publicité ciblée, avis, fidélité, et un bilan clair chaque mois : on sait ce qui ramène du monde.</b><i>En parler autour d’un café</i></a>
-      <p class="vitrine__envoi" data-de="0.895" data-a="0.945" data-f="0.015" aria-hidden="true">Envoyez.</p>
-      <div class="vitrine__cuisine" data-de="0.955" data-a="9" data-f="0.03"><p>Vous cuisinez, <em>on remplit la salle.</em></p><div class="actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a><a class="lien" href="/realisations/">Voir nos réalisations</a></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ Nos métiers : la ligne conductrice, en un coup d'œil ============ -->
-<section class="bloc metiers-bloc" aria-labelledby="titre-metiers">
+<!-- ============ La mise en place, pièce par pièce ============ -->
+<section class="bloc pieces-bloc" id="pieces" aria-labelledby="titre-pieces">
   <div class="cadre">
-    <header class="bloc__tete">
-      <h2 class="titre-2" id="titre-metiers">Ce qu’on fait pour vous</h2>
-      <p>On s’occupe de tout ce qui fait venir et revenir vos clients, de la première recherche au retour à table.</p>
-    </header>
-    <ol class="metiers" data-revele>
-      <li><span class="metiers__n">01</span><h3>Site web</h3><p>Rapide, pensé pour le téléphone : votre carte, vos horaires, la réservation ou la commande en un geste.</p><a class="lien" href="/restaurants/">Essayer des exemples</a></li>
-      <li><span class="metiers__n">02</span><h3>Design</h3><p>Carte, logo, supports en salle, emballages : une image cohérente, de la vitrine à l’addition.</p><a class="lien" href="/offres/#design">Voir les offres</a></li>
-      <li><span class="metiers__n">03</span><h3>Réseaux sociaux</h3><p>Réels, publications et menu du jour, publiés pour vous chaque semaine sur Instagram et Facebook.</p><a class="lien" href="/offres/#reseaux">Voir l’abonnement</a></li>
-      <li><span class="metiers__n">04</span><h3>Shootings photo et vidéo</h3><p>On vient chez vous filmer vos plats et vos gestes. Ce sont ces images qui donnent envie et vous rendent visible.</p><a class="lien" href="/realisations/">Voir nos réalisations</a></li>
-      <li><span class="metiers__n">05</span><h3>Stratégie d’acquisition et suivi</h3><p>Publicité ciblée autour du restaurant, avis, fidélité, et un bilan clair chaque mois : on sait ce qui ramène du monde.</p><a class="lien" href="/contact/">En parler autour d’un café</a></li>
-    </ol>
+    <header class="bloc__tete"><h2 class="titre-2" id="titre-pieces">La mise en place, pièce par pièce</h2><p>Dans l’ordre du service. Une pièce ou toute la mise en place ; les prix sont affichés.</p></header>
+    <ul class="pieces" data-revele>
+      <li><p class="pieces__mot">le site</p><h3>Site web</h3><p>Votre carte, dans la poche de vos clients. Rapide, pensé pour le téléphone : la carte, les horaires, la réservation ou la commande en un geste. En ligne en deux semaines, dès CHF 799 pendant le lancement.</p><a class="lien" href="/restaurants/">Essayer trois exemples</a></li>
+      <li><p class="pieces__mot">les images</p><h3>Photos et vidéos</h3><p>On vient chez vous, pendant la mise en place. Vos plats, vos gestes, votre équipe, à la lumière de votre cuisine. Les photos et les vidéos vous appartiennent.</p><a class="lien" href="/realisations/">Voir nos réalisations</a></li>
+      <li><p class="pieces__mot">envoyez.</p><h3>Réseaux sociaux</h3><p>Chaque semaine, on envoie : quatre réels par mois, le menu du jour chaque matin sur Instagram et Facebook, et l’entretien du site. Dès CHF 392 par mois pendant le lancement.</p><a class="lien" href="/offres/#reseaux">Voir l’abonnement</a></li>
+      <li><p class="pieces__mot">la salle</p><h3>Faire venir, faire revenir</h3><p>Publicité ciblée autour du restaurant, avis Google suivis, fidélité, et un bilan clair chaque mois : on sait ce qui ramène du monde.</p><a class="lien" href="/contact/">En parler autour d’un café</a></li>
+      <li><p class="pieces__mot">la carte</p><h3>Design</h3><p>Carte, logo, ardoise, supports en salle, emballages : une image cohérente, de la vitrine à l’addition.</p><a class="lien" href="/offres/#design">Voir les offres</a></li>
+    </ul>
   </div>
 </section>
 
@@ -111,34 +160,27 @@ const jsonLd = JSON.stringify({
         <div><h3>Réalisations</h3><p>Pasta Mo’, nos animations au défilement et une vidéo pour les réseaux.</p><span>Voir</span></div>
       </a>
       <a class="porte porte--ardoise" href="/offres/">
-        <img src={salle.src} alt="" width="900" height="563" loading="lazy" decoding="async" />
+        <!-- la photo du comptoir : la photo de la salle montrait des verres et des carafes (phase 2 : l'image 57 du rendu 16:9 recadrée 16/10) -->
+        <img src={comptoir.src} alt="" width="900" height="563" loading="lazy" decoding="async" />
         <div><h3>Offres et prix</h3><p>Des prix affichés, sites dès CHF 799 et réseaux dès CHF 392 par mois pendant l’offre de lancement.</p><span>Voir les offres</span></div>
       </a>
     </div>
   </div>
 </section>
 
-<Appel />
+<!-- ============ Preuve : on tient aussi une cuisine ============ -->
+<section class="bloc bloc--nappe preuve"><div class="cadre preuve__in"><p class="pieces__mot">déjà en salle</p><p class="titre-3">Nous tenons aussi une cuisine. Pasta Mo’, street food italienne à Genève : notre propre site, notre propre service du midi.</p><a class="lien" href="/realisations/">Voir Pasta Mo’</a></div></section>
+
+<Appel titre="Un café chez vous, hors service ?" texte="Vingt minutes pour comprendre votre cuisine, un devis clair sous 24 heures. −20 % sur toutes les offres jusqu’au 31 octobre 2026." whatsapp />
 
 <script>
   import '../scripts/defilement.js';
+  import '../scripts/film.js';
   import '../scripts/motion.js';
-  // les matières de l'ardoise (pierre, noyer, sol) se mettent en cache dès que la page est posée : la scène démarre sans attendre
-  addEventListener('load', () => {
-    setTimeout(() => ['/vitrine/ardoise.webp', '/vitrine/bois.webp', '/vitrine/sol.webp'].forEach((src) => { const img = new Image(); img.fetchPriority = 'low'; img.decoding = 'async'; img.src = src; }), 1200);
-  });
 </script>
 </Base>
 
 <style>
-  .metiers { display: grid; gap: 14px; counter-reset: none; }
-  .metiers li { display: grid; gap: 10px; align-content: start; padding: clamp(22px, 3vw, 28px); border-radius: 24px; background: var(--nappe); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s; }
-  .metiers li:hover { transform: translateY(-4px); background: #EEF1EC; }
-  .metiers__n { font-family: var(--titre); font-weight: 800; font-size: 0.95rem; color: var(--ardoise); justify-self: start; padding: 2px 10px; border-radius: 999px; background: var(--jaune); }
-  .metiers h3 { font-family: var(--titre); font-size: 1.45rem; letter-spacing: -0.02em; line-height: 1.1; }
-  .metiers p { color: var(--gris); }
-  .metiers .lien { justify-self: start; margin-top: 4px; }
-  @media (min-width: 720px) { .metiers { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1100px) { .metiers { grid-template-columns: repeat(5, 1fr); } }
-  @media (prefers-reduced-motion: reduce) { .metiers li, .metiers li:hover { transition: none; transform: none; } }
+  /* Les pièces sont stylées dans global.css (bloc « Accueil : le film ») ; ici, seulement le repos quand le mouvement est réduit */
+  @media (prefers-reduced-motion: reduce) { .pieces li, .pieces li:hover { transition: none; transform: none; } }
 </style>

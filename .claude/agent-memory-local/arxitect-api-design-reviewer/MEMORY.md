@@ -1,0 +1,4 @@
+- [Accueil film : disposition et modules](project-film-accueil.md) — Astro 7 statique, film au scroll (film.js / defilement.js / motion.js), cahier faisant foi, images hors git
+- [Conventions du dépôt](project-conventions.md) — tout en français, API « recette » en expando sur la section, data-* en p du film, sentinelles −1/9
+- [Règles de Malik et barème](user-malik-regles.md) — propriétaire du site, règles non négociables (alcool, craie, arrêts stables…), échelle bloquant/majeur/mineur
+- [Cadre de revue](feedback-cadre-revue.md) — constats en français avec fichier/ligne/correction, aucune modification de fichier, aucun git, cahier > code

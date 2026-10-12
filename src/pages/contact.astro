@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { SITE } from '../config.js';
 ---
 <Base page="contact" title="Contact et devis | Nouvelle Ardoise" description="Demandez un devis : réponse sous 24 heures, premier rendez-vous offert chez vous, à Genève et Vaud.">
 
@@ -36,6 +37,8 @@ import Base from '../layouts/Base.astro';
       <button class="btn btn--jaune" type="submit">Envoyer ma demande</button>
       <p class="formulaire__msg" role="status" aria-live="polite" data-contact-msg></p>
       <p class="formulaire__note">Vos coordonnées servent uniquement à vous répondre. <a href="/confidentialite/">Confidentialité et cookies</a></p>
+      <!-- Le même numéro qu'en bas de l'accueil : un appel ou un message WhatsApp, au choix -->
+      <p class="formulaire__note">Plus simple de vive voix ? <a href={'tel:+' + SITE.whatsapp}>{SITE.telephone}</a> · <a href={'https://wa.me/' + SITE.whatsapp}>WhatsApp</a></p>
     </form>
   </div>
 </section>

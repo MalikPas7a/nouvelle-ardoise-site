@@ -1,0 +1,4 @@
+- [Chantier film « La mise en place »](project_film-mise-en-place.md) — cahier faisant foi, règles de Malik, état du rendu (001-214), phase 2 dossier g
+- [Outils de vérification du film](reference_outils-verification-film.md) — captures, bilan.json, Playwright, preview port 4329, pkill sans tuer le shell
+- [Contrat de revue](feedback_format-constats.md) — constats FR fichier/ligne/correction, gravité bloquant/majeur/mineur, aucun fichier modifié, pas de git
+- [Malik](user_malik.md) — propriétaire Nouvelle Ardoise + Pasta Mo', francophone, décideur final sur le visuel
