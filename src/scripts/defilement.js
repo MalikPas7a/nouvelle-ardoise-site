@@ -5,13 +5,16 @@
 // via `taches` et la réveillent avec `reveiller()` quand ils ont quelque chose à dessiner.
 
 export const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
-export const borne = (v, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+// souris et molette (Lenis à l'ordinateur) ou doigt (défilement natif, aimant du film) : une seule définition pour tous les modules
+export const souris = matchMedia('(hover: hover) and (pointer: fine)').matches;
+// borne une valeur ; NaN (division par zéro, entrée illisible) donne le minimum au lieu de se propager
+export const borne = (v, min = 0, max = 1) => (Number.isNaN(v) ? min : Math.min(max, Math.max(min, v)));
 
 // Avancement d'une section « collante » : 0 quand son haut touche le haut de l'écran,
 // 1 quand son bas touche le bas de l'écran.
 function avancement(section) {
   const r = section.getBoundingClientRect();
-  return borne(-r.top / (r.height - innerHeight));
+  return borne(-r.top / Math.max(r.height - innerHeight, 1));
 }
 
 // Les tâches appelées à chaque image : tache(t) reçoit l'horodatage de requestAnimationFrame
@@ -101,7 +104,8 @@ function sequence(section) {
         const i = ordre[n++];
         if (images[i]) continue;
         await charger(i);
-        if (Math.abs(i - affichee) < 8) affichee = -1;
+        // une image proche arrive : redessin, et la boucle se réveille si elle dormait (on peut être à l'arrêt pendant le chargement)
+        if (Math.abs(i - affichee) < 8) { affichee = -1; reveiller(); }
       }
     };
     await Promise.all(Array.from({ length: 6 }, ouvrier));
@@ -213,9 +217,14 @@ export function reveiller() {
   dernier = performance.now();
   if (!actif) { actif = true; requestAnimationFrame(boucle); }
 }
+// Une tâche qui lève une exception est retirée (avec un message) : les autres continuent, la boucle ne meurt pas.
 function boucle(t) {
   let encore = false;
-  taches.forEach((tache) => { if (tache(t) === true) encore = true; });
+  let fautives = null;
+  for (const tache of taches) {
+    try { if (tache(t) === true) encore = true; } catch (e) { console.error('défilement : tâche retirée après une erreur', e); (fautives ||= []).push(tache); }
+  }
+  if (fautives) fautives.forEach((tache) => taches.splice(taches.indexOf(tache), 1));
   if (encore || t - dernier < 1000) requestAnimationFrame(boucle);
   else actif = false;
 }

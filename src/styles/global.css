@@ -700,24 +700,28 @@ html, body { overflow-x: clip; }
 @media (max-width: 600px) { .onglets--trois { grid-template-columns: 1fr; } }
 
 /* ---------- Accueil : le film « La mise en place » lu au scroll ---------- */
-.film { --p:0; --flash:0; --eponge:0; --voile:0; --fin:0; position:relative; height:760vh; background:var(--ardoise); color:var(--craie); }
+.film { --p:0; --flash:0; --eponge:0; --voile:0; --fin:0; --cache:0px; position:relative; height:760vh; background:var(--ardoise); color:var(--craie); }
 html.tactile .film.vivant { height:1200vh; }
 .film:not(.vivant) { height:auto; }
 /* « Passer le film » : fixé à la fenêtre comme « Aller au contenu », donc caché au-dessus de la page jusqu'au premier Tab */
 .film__passer { position:fixed; }
-.film__colle { position:sticky; top:var(--nav); height:calc(100vh - var(--nav)); height:calc(100svh - var(--nav)); overflow:clip; background:var(--ardoise); }
-.film__scene { position:absolute; inset:0; }
+.film__colle { position:sticky; top:var(--nav); height:calc(100vh - var(--nav)); height:calc(100lvh - var(--nav)); overflow:clip; background:var(--ardoise); }
+/* La colle fait la grande hauteur (100lvh : barre du navigateur repliée, aucune bande de fond sous le film) ; la scène, la petite
+   (100svh : toujours visible). L'image est cadrée sur la scène, la toile descend jusqu'au bas de la colle (film.js y peint le reflet
+   du bas de l'image) : barre dépliée ou repliée, rien ne bouge. Sans lvh/svh (Safari < 15.4) : 100vh partout. */
+.film__scene { position:absolute; inset:0; bottom:calc(100lvh - 100svh); }
 .film__affiche, .film__toile { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 50%; }
+.film__toile { height:calc(100% + 100lvh - 100svh); }
 .film.vivant .film__affiche { visibility:hidden; }
 .film__halo { display:none; }
 /* jalons du doigt : un arrêt obligé par image stable (16 px = scroll-padding-top de la page) */
 .film__jalons { display:none; }
 html.tactile .film.vivant .film__jalons { display:block; position:absolute; inset:0; pointer-events:none; }
-.film__jalons i { position:absolute; left:0; width:100%; height:1px; top:calc(var(--p) * (100% - 100svh + var(--nav)) + 16px); scroll-snap-align:start; scroll-snap-stop:always; }
+.film__jalons i { position:absolute; left:0; width:100%; height:1px; top:calc(var(--p) * (100% - 100vh + var(--nav)) + 16px); top:calc(var(--p) * (100% - 100lvh + var(--nav)) + 16px); scroll-snap-align:start; scroll-snap-stop:always; }
 html.aimante { scroll-snap-type:y mandatory; }
 /* le voile du bas ne monte qu'avec le bloc final (plan large, bas sombre) et à la sortie */
-.film__voile { position:absolute; inset:0; pointer-events:none; background:linear-gradient(0deg, rgb(30 42 44 / calc(var(--voile) * 0.75 + var(--fin) * 0.55)), rgb(30 42 44 / calc(var(--voile) * 0.3 + var(--fin) * 0.55)) 38%, rgb(30 42 44 / calc(var(--fin) * 0.55)) 60%); }
-.film__textes { position:relative; z-index:2; height:100%; display:grid; grid-template-rows:minmax(0, 1fr); align-content:end; padding-block:clamp(14px, 3vh, 24px) clamp(24px, 6vh, 56px); pointer-events:none; }
+.film__voile { position:absolute; inset:0; bottom:calc(100svh - 100lvh); pointer-events:none; background:linear-gradient(0deg, rgb(30 42 44 / calc(var(--voile) * 0.75 + var(--fin) * 0.55)), rgb(30 42 44 / calc(var(--voile) * 0.3 + var(--fin) * 0.55)) 38%, rgb(30 42 44 / calc(var(--fin) * 0.55)) 60%); }
+.film__textes { position:relative; z-index:2; height:100%; display:grid; grid-template-rows:minmax(0, 1fr); align-content:end; padding-block:clamp(14px, 3vh, 24px) clamp(24px, 6vh, 56px); padding-block-end:calc(100lvh - 100svh + clamp(24px, 6vh, 56px)); pointer-events:none; } /* le bas des textes reste au-dessus de la barre dépliée */
 .film__textes > * { grid-area:1 / 1; align-self:end; opacity:var(--o, 0); transform:translateY(var(--y, 0px)); will-change:opacity, transform; }
 .film:not(.vivant) .film__textes > * { opacity:1; transform:none; }
 .film .actif, .film__textes > .actif { pointer-events:auto; }
@@ -736,8 +740,17 @@ html.aimante { scroll-snap-type:y mandatory; }
 .film__texte h2, .film__fin h2 { font-family:var(--titre); font-weight:800; font-size:clamp(1.7rem, 5.2vw, 3.4rem); line-height:1.03; letter-spacing:-0.03em; text-wrap:balance; }
 .film__fin h2 { font-size:clamp(2.3rem, 6.4vw, 5.2rem); max-width:11ch; } .film__fin em { color:var(--jaune); }
 .film__texte--court h2 { font-size:clamp(1.6rem, 5.4vw, 3.2rem); }
-.film__prix { font-weight:600; font-size:0.95rem; } .film__offre { font-size:0.9rem; color:#C6D0CC; }
-@media (max-width:899px) { .film__desc { display:none; } }
+.film__prix { font-weight:600; font-size:0.95rem; } .film__offre { font-size:0.9rem; color:#C6D0CC; text-wrap:balance; }
+@media (max-width:899px), (orientation:portrait) { .film__desc { display:none; } }
+/* téléphone : le poste 3 doit tenir sous le téléphone du film (§16.4), barres Safari dépliées comprises : titre, prix et bouton,
+   sans le mot à la craie (le bon dit déjà « Le site ») ; écran court (iPhone SE) : sans le prix. Textes plus près du bas */
+@media (max-width:899px), (orientation:portrait) {
+  .film__texte--court .film__kicker { display:none; }
+  .film__texte--court h2 { font-size:clamp(1.5rem, 4vw, 2.2rem); }
+  .film__textes { padding-block-end:16px; padding-block-end:calc(100lvh - 100svh + 16px); }
+  .film__fin { margin-bottom:24px; }   /* au jalon 264, la nappe des pièces monte de 28 px sur le bas du film */
+}
+@media (max-width:899px) and (max-height:620px), (orientation:portrait) and (max-height:620px) { .film__texte--court .film__prix { display:none; } }
 /* l'encre suit la clarté du plan : crème sur le mur sombre, ardoise sur le noyer clair (avec un halo de nappe) */
 .film [data-encre='craie'] { color:var(--craie); text-shadow:0 1px 2px rgb(0 0 0 / 0.5), 0 0 30px rgb(0 0 0 / 0.35); }
 .film [data-encre='ardoise'] { color:var(--ardoise); text-shadow:none; }
@@ -757,14 +770,18 @@ html.aimante { scroll-snap-type:y mandatory; }
 .film__zone::before { border-right:0; border-bottom:0; border-radius:6px 0 0 0; } .film__zone::after { inset:auto 8px 8px auto; border-left:0; border-top:0; border-radius:0 0 6px 0; }
 .film__zone:hover::before, .film__zone:hover::after, .film__zone:focus-visible::before, .film__zone:focus-visible::after { opacity:1; inset:0; } .film__zone:hover::after, .film__zone:focus-visible::after { inset:auto 0 0 auto; }
 .film__zone::marker, .film__zone[data-etiquette]:hover::after { } /* l'étiquette texte vient avec le curseur (phase 2) */
-html.tactile .film__zone.actif::before, html.tactile .film__zone.actif::after { animation:viseur 1.2s ease-out 1; }
+/* pas de pulsation pour les zones « repos » (actives dès l'image 231) : rien ne bouge pendant que la craie écrit « Envoyez. » */
+html.tactile .film__zone.actif:not(.film__zone--repos)::before, html.tactile .film__zone.actif:not(.film__zone--repos)::after { animation:viseur 1.2s ease-out 1; }
 @keyframes viseur { 0% { opacity:0; } 30% { opacity:1; inset:0; } 100% { opacity:0; } }
-@media (max-width:899px) { .film__zone--repos { display:none; } }   /* au téléphone le bloc final couvre le bas du cadre */
+@media (max-width:899px), (orientation:portrait) { .film__zone--repos { display:none; } }   /* au téléphone le bloc final couvre le bas du cadre */
 /* le flash éclaire toute la page, nav comprise */
 .film__flash { position:fixed; inset:0; z-index:65; background:#FFF9EC; opacity:calc(var(--flash, 0) * 0.92); pointer-events:none; }
 /* l'éponge efface aussi le texte HTML, dans l'ordre des traits */
 .film [data-efface] { clip-path:inset(-0.2em -0.1em -0.2em calc(var(--eponge) * 104%)); }
-.film__trace { position:absolute; inset:0; color:inherit; opacity:0.35; filter:blur(0.08em); clip-path:inset(-0.3em calc((1 - var(--eponge)) * 100%) -0.3em -0.3em); pointer-events:none; }
+/* la traînée : copie du bloc posée par film.js juste avant lui, dans la même case de la grille (elle se superpose exactement) ;
+   elle ne montre que la partie déjà essuyée. Même encre que le bloc (data-encre conservé), jamais cliquable */
+.film__textes > .film__trace { position:relative; opacity:calc(var(--o, 0) * 0.35); filter:blur(0.08em); clip-path:inset(-0.3em calc((1 - var(--eponge)) * 100%) -0.3em -0.3em); pointer-events:none; }
+.film:not(.vivant) .film__trace { display:none; }
 /* le cliché */
 .film__cliche { align-self:start; justify-self:end; width:112px; padding:8px 8px 22px; background:var(--craie); color:var(--ardoise); rotate:-5deg; box-shadow:0 18px 40px -16px rgb(0 0 0 / 0.6); text-decoration:none; font-family:var(--ecriture); font-weight:600; font-size:1rem; line-height:1.1; }
 .film__cliche img { width:100%; aspect-ratio:4 / 5; object-fit:cover; filter:grayscale(1) contrast(0.6); transition:filter 0.9s ease-out; } .film__cliche.actif img { filter:none; }
@@ -772,17 +789,23 @@ html.tactile .film__zone.actif::before, html.tactile .film__zone.actif::after { 
 .film__bon { align-self:start; justify-self:center; display:grid; gap:4px; margin:0; padding:10px 14px 10px 18px; width:max-content; list-style:none; background:var(--craie); color:var(--ardoise); font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; mask:radial-gradient(5px at 0 50%, transparent 95%, #000) 0 0 / 100% 12px; opacity:var(--o, 1); transition:translate 0.4s, scale 0.4s, opacity 0.4s; }
 .film__bon li { opacity:0.45; } .film__bon li.passe { text-decoration:line-through; } .film__bon li.ici { opacity:1; text-decoration:none; } .film__bon li.ici::before { content:'● '; color:var(--jaune); }
 .film.pique .film__bon { translate:0 -8px; scale:0.96; opacity:0; }
-@media (max-width:899px) { .film__bon li:not(.ici) { display:none; } }
-/* au téléphone, le bon n'arrive qu'après la phrase écrite (fondu 0.2243 → 0.26, pendant la descente de la caméra) : sinon il chevauche le sur-titre, et rien ne doit bouger pendant que la craie écrit */
-@media (max-width:899px) { .film__bon { justify-self:start; opacity:calc(var(--o, 1) * clamp(0, (var(--p) - 0.2243) * 28, 1)); } }   /* à gauche : le cliché prend la droite */
+@media (max-width:899px), (orientation:portrait) { .film__bon li:not(.ici) { display:none; } }
+/* au téléphone, le bon n'arrive qu'avec le poste 2 (fondu 0.445 → 0.47, avant le palier de J3) : jamais sur la phrase à la craie
+   (J1, J2), jamais sur le sur-titre, jamais pendant que la craie écrit ; à gauche, le cliché prend la droite */
+@media (max-width:899px), (orientation:portrait) { .film__bon { justify-self:start; opacity:calc(var(--o, 1) * clamp(0, (var(--p) - 0.445) * 40, 1)); } }
 /* sortie : la nappe monte par-dessus la cuisine */
 .pieces-bloc { position:relative; z-index:3; margin-top:-28px; border-radius:28px 28px 0 0; background:var(--blanc); box-shadow:0 -30px 70px rgb(0 0 0 / 0.35); }
 /* ordinateur, phase 1 (seul m existe) : texte en colonne à gauche, film 9:16 à droite, halo de sa couleur derrière */
-@media (min-width:900px) {
-  .film[data-taille='m'] .film__scene { left:62%; right:auto; top:0; height:100%; width:calc((100svh - var(--nav)) * 9 / 16); translate:-50% 0; box-shadow:0 40px 120px -40px #000; }
+/* (en paysage seulement : une tablette en portrait, iPad Pro 1024×1366, prend la mise en page téléphone, deux colonnes n'y tiennent pas) */
+@media (min-width:900px) and (orientation:landscape) {
+  .film[data-taille='m'] .film__scene { left:62%; right:auto; top:0; height:100%; width:calc((100vh - var(--nav)) * 9 / 16); width:calc((100lvh - var(--nav)) * 9 / 16); translate:-50% 0; box-shadow:0 40px 120px -40px #000; }
   .film[data-taille='m'].vivant .film__halo { display:block; position:absolute; inset:-8%; width:116%; height:116%; filter:blur(40px) saturate(1.1); opacity:0.85; }
   .film[data-taille='m'] .film__colle::before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(90deg, rgb(30 42 44 / 0.6), rgb(30 42 44 / 0.45) 48%, rgb(30 42 44 / 0.3)); }
-  .film__textes { align-content:center; padding-block:calc(var(--nav) + 24px) 48px; grid-template-columns:minmax(0, 44%) 1fr; }
+  /* la colonne de texte s'arrête 24 px avant le bord gauche du film (62 % de la largeur moins la demi-largeur du film, moins le bord
+     du cadre) : jamais de texte sur l'image, de 900×600 à 1920×1080 */
+  .film__textes { align-content:center; padding-block:calc(var(--nav) + 24px) 48px; grid-template-columns:minmax(0, 44%) 1fr;
+    grid-template-columns:minmax(0, min(44%, calc(62vw - (100vh - var(--nav)) * 9 / 32 - max(var(--marge), (100vw - var(--cadre)) / 2 + var(--marge)) - 24px))) 1fr;
+    grid-template-columns:minmax(0, min(44%, calc(62vw - (100lvh - var(--nav)) * 9 / 32 - max(var(--marge), (100vw - var(--cadre)) / 2 + var(--marge)) - 24px))) 1fr; }
   .film__textes > * { grid-area:1 / 1; align-self:center; }
   .film__sur, .film__bon, .film__cliche { align-self:start; } .film__indice { align-self:end; } .film__bon, .film__cliche { grid-area:1 / 2; justify-self:end; }   /* l'indice en bas de colonne : il ne chevauche pas le sur-titre */
   .film__cliche { align-self:end; width:180px; }
