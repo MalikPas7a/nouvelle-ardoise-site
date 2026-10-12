@@ -189,7 +189,7 @@ function film(section) {
   const bitmaps = new Map(), decodage = new Set();
   // l'ardoise vide, la phrase écrite (J1), la fin : jamais fermées
   const EPINGLES = new Set([0, indexJalons[1] ?? 56, total - 1]);
-  // 96 Mo au téléphone (±13 images en 720×1280), 256 Mo à l'ordinateur (±15 en 1920×1080, ±34 en 720)
+  // 96 Mo au téléphone (±5 images en 1080×1920), 256 Mo à l'ordinateur (±15 en 1920×1080 ou en 1080×1920)
   const RAYON = Math.max(4, Math.floor((souris ? 256e6 : 96e6) / (SRC_W * SRC_H * 4) / 2));
   const fermer = (b) => { if (b.close) b.close(); else if (b.src?.startsWith('blob:')) { URL.revokeObjectURL(b.src); b.src = ''; } };
   // sans createImageBitmap : une HTMLImageElement décodée fait le même travail (son URL est rendue si le décodage échoue)
