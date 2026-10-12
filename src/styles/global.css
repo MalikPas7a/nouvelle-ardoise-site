@@ -12,6 +12,8 @@
   --gris: #57666A;
   --trait: #D5DBD6;
   --jaune: #FFD23F;
+  --craie: #F3EEE2;
+  --ecriture: 'Caveat', cursive;
 
   --titre: 'Bricolage Grotesque Variable', 'Arial Narrow', sans-serif;
   --texte: 'Instrument Sans Variable', system-ui, sans-serif;
@@ -527,38 +529,6 @@ ul, ol { padding: 0; list-style: none; }
 /* Tant que le lecteur 3D n’est pas chargé, son bouton reste caché */
 model-viewer:not(:defined) > * { display: none; }
 
-/* ==========================================================================
-   Ouverture : l'ardoise et le coup d'éponge
-   Fond de la charte (vert-gris éclairé au centre, quadrillage de 90 px), aucun fichier
-   à charger. Le défilement règle --e (l'éponge passe sur « ancien site ») et --r (la suite
-   apparaît) depuis defilement.js ; sans JavaScript, on affiche directement l'état final.
-   ========================================================================== */
-.eponge { --e: 0; --r: 0; --b: 0; position: relative; height: 210vh; color: #fff;
-  background:
-    linear-gradient(rgb(255 255 255 / 0.035) 2px, transparent 2px) center / 90px 90px,
-    linear-gradient(90deg, rgb(255 255 255 / 0.035) 2px, transparent 2px) center / 90px 90px,
-    radial-gradient(ellipse at 50% 40%, #2B3B3D 0%, #1F2B2D 55%, #172022 100%); }
-@media (scripting: none) { .eponge { --e: 1; --r: 1; height: auto; } .eponge__colle { position: static; min-height: 100svh; } }
-.eponge__colle { position: sticky; top: var(--nav); height: calc(100svh - var(--nav)); display: grid; align-items: center; overflow: clip; }
-.eponge__contenu { display: grid; gap: clamp(16px, 2.4vw, 26px); justify-items: start; padding-block: 24px; }
-.eponge__sur { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 0.95rem; color: #C6D0CC; }
-.eponge__sur::before { content: ''; width: 34px; height: 4px; border-radius: 2px; background: var(--jaune); margin-right: 4px; }
-.eponge__n { filter: drop-shadow(0 0 6px rgb(255 210 63 / 0.75)) drop-shadow(0 0 14px rgb(255 210 63 / 0.35)); }
-.eponge__titre { font-family: var(--titre); font-weight: 800; font-size: clamp(2.5rem, 7.2vw, 6.2rem); line-height: 1.02; letter-spacing: -0.03em; max-width: 13ch; text-wrap: balance; font-variation-settings: 'opsz' 96; }
-.efface { position: relative; display: inline-block; white-space: nowrap; }
-/* le mot net disparaît à mesure que l'éponge avance… */
-.efface__mot { display: inline-block; clip-path: inset(-0.3em -0.1em -0.3em calc(var(--e) * 100%)); }
-/* …et ne laisse qu'une traînée floue, comme sur la carte de visite */
-.efface__trace { position: absolute; inset: 0; color: rgb(255 255 255 / 0.4); filter: blur(0.09em); transform: translateX(0.06em); clip-path: inset(-0.4em calc((1 - var(--e)) * 100%) -0.4em -0.3em); pointer-events: none; }
-.efface__brosse { position: absolute; top: 50%; left: calc(var(--e) * 100%); width: 0.42em; height: 1.25em; transform: translate(-50%, -50%) rotate(8deg); opacity: var(--b); filter: drop-shadow(0 0.08em 0.12em rgb(0 0 0 / 0.5)); pointer-events: none; }
-.eponge__nouveau, .eponge__chapo, .eponge__actions { opacity: var(--r); transform: translateY(calc((1 - var(--r)) * 24px)); }
-.eponge__nouveau { font-family: var(--titre); font-weight: 800; font-size: clamp(1.9rem, 4.6vw, 3.6rem); line-height: 1.05; letter-spacing: -0.025em; }
-.eponge__nouveau mark { background: var(--jaune); color: var(--ardoise); padding: 0 0.18em; border-radius: 0.14em; white-space: nowrap; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-.eponge .chapo { color: #D5DDD9; }
-.eponge .lien { color: #fff; }
-.eponge__indice { opacity: calc(1 - var(--r) * 2); }
-.eponge__actions { pointer-events: none; } .eponge.lu .eponge__actions { pointer-events: auto; }
-
 /* Vos plats en mouvement : un onglet par animation, l'animation s'ouvre sur sa propre page */
 .mouvement__tete { display: grid; gap: 14px; max-width: 760px; margin-bottom: 26px; }
 .mouvement__tete p { max-width: 56ch; }
@@ -729,53 +699,120 @@ html, body { overflow-x: clip; }
 .onglets--trois { grid-template-columns: repeat(3, 1fr); max-width: 900px; }
 @media (max-width: 600px) { .onglets--trois { grid-template-columns: 1fr; } }
 
-/* ---------- Accueil : la vitrine en 3D, les entrées en scène ---------- */
-.vitrine { --fin: 0; --salle: 0; position: relative; height: 780vh; background: #0E181B; color: #fff; }
-.vitrine__colle { position: sticky; top: var(--nav); height: calc(100svh - var(--nav)); overflow: clip; background: radial-gradient(ellipse at 50% 60%, #1A4149 0%, #0E181B 55%, #07100F 100%); }
-.vitrine canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.vitrine:not(.vivante) { height: auto; }
-.vitrine:not(.vivante) .vitrine__colle { position: relative; top: 0; height: auto; min-height: 90svh; }
-/* au doigt, le défilement s'aimante aux étapes de la scène (classe « aimante » posée par la scène elle-même, seulement pendant qu'on la traverse) :
-   chaque jalon est un point d'arrêt obligé, placé là où l'avancement vaut --p (16 px : le scroll-padding de la page) */
-.vitrine__jalons { display: none; }
-.vitrine.vivante .vitrine__jalons { display: block; position: absolute; inset: 0; pointer-events: none; }
-.vitrine__jalons i { position: absolute; left: 0; width: 100%; height: 1px; top: calc(var(--p) * (100% - 100svh + var(--nav)) + 16px); scroll-snap-align: start; scroll-snap-stop: always; }
-html.aimante { scroll-snap-type: y mandatory; }
-/* au doigt, la scène prend plus de hauteur : chaque étape a plus d'un écran de défilement pour elle (sinon le navigateur peut en sauter une) */
-html.tactile .vitrine.vivante { height: 1200vh; }
-.vitrine.vivante .vitrine__colle::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgb(0 0 0 / 0.45) 100%); }
-.vitrine__textes { position: relative; z-index: 2; height: 100%; display: grid; align-content: end; gap: 14px; padding-block: clamp(24px, 6vh, 64px); pointer-events: none; }
-.vitrine__textes > * { opacity: var(--o, 1); transform: translateY(var(--y, 0)); }
-.vitrine.vivante .vitrine__textes > * { --o: 0; }
-.vitrine.vivante .vitrine__ardoise { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-.vitrine__ardoise, .vitrine__phrase { font-family: var(--titre); font-weight: 800; letter-spacing: -0.03em; line-height: 1.04; text-wrap: balance; text-shadow: 0 4px 30px rgb(0 0 0 / 0.55); }
-.vitrine__ardoise { font-size: clamp(2rem, 5vw, 4rem); max-width: 16ch; }
-.vitrine__phrase { font-size: clamp(1.7rem, 4vw, 3.2rem); max-width: 18ch; justify-self: end; text-align: right; }
-.vitrine__phrase em { font-style: normal; color: var(--jaune); }
-.vitrine.vivante .vitrine__colle::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgb(14 24 27 / calc(var(--fin) * 0.8 + var(--salle) * 0.85)), rgb(14 24 27 / calc(var(--fin) * 0.15 + var(--salle) * 0.3)) 45%, rgb(14 24 27 / calc(var(--fin) * 0.15)) 70%); }
-.vitrine__indice { display: flex; align-items: center; gap: 10px; font-weight: 600; color: #C6D0CC; font-size: 0.95rem; }
-.vitrine__indice span { width: 2px; height: 28px; background: var(--jaune); border-radius: 2px; animation: indice 1.6s ease-in-out infinite; }
-@keyframes indice { 0%, 100% { transform: scaleY(0.4); transform-origin: top; } 50% { transform: scaleY(1); } }
-@media (max-width: 759px) { .vitrine__phrase { justify-self: start; text-align: left; } }
-.vitrine.vivante .vitrine__textes { grid-template-rows: minmax(0, 1fr); }
-.vitrine.vivante .vitrine__textes > * { grid-area: 1 / 1; align-self: end; }
-.vitrine__porte { justify-self: start; display: grid; gap: 6px; max-width: 380px; padding: 18px 20px; border-radius: 18px; background: rgb(14 24 27 / 0.82); backdrop-filter: blur(6px); color: #fff; text-decoration: none; pointer-events: auto; box-shadow: inset 0 0 0 1px rgb(255 210 63 / 0.25); }
-.vitrine__porte span { font-family: var(--titre); font-weight: 800; font-size: clamp(1.6rem, 3.4vw, 2.3rem); letter-spacing: -0.02em; line-height: 1.05; }
-.vitrine__porte b { font-weight: 400; color: #C6D0CC; }
-.vitrine__porte i { font-style: normal; font-weight: 700; color: var(--jaune); }
-.vitrine__porte i::after { content: ' →'; }
-.vitrine__porte:hover, .vitrine__porte:focus-visible { box-shadow: inset 0 0 0 2px var(--jaune); }
-.vitrine__cuisine { display: grid; gap: 18px; justify-items: start; pointer-events: auto; }
-.vitrine__cuisine p { max-width: min(11em, 100%); color: #fff; font-family: var(--titre); font-weight: 800; font-size: clamp(2.4rem, 6.4vw, 5.6rem); line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance; text-shadow: 0 4px 30px rgb(0 0 0 / 0.55); }
-/* « Envoyez. » : le mot du chef, à la craie, quand le mur est complet */
-.vitrine__envoi { font-family: Caveat, 'Comic Sans MS', cursive; font-weight: 600; font-size: clamp(3.6rem, 10vw, 7.5rem); line-height: 1; color: var(--jaune); text-shadow: 0 0 28px rgb(255 210 63 / 0.6); }
-.vitrine.vivante .vitrine__envoi { align-self: center; justify-self: center; }
-.vitrine__cuisine em { font-style: normal; color: var(--jaune); }
-.vitrine__cuisine .lien { color: #fff; }
-/* à l'ordinateur, le texte se place du côté opposé au panneau : à gauche pour les panneaux impairs, à droite pour les pairs */
-@media (min-width: 760px) { .vitrine.vivante .vitrine__porte { align-self: center; justify-self: start; } .vitrine.vivante .vitrine__porte:nth-of-type(even) { justify-self: end; } }
-/* sur téléphone, pas de flou d'arrière-plan au-dessus de la scène : Safari relirait la toile à chaque image */
-@media (max-width: 759px) { .vitrine__porte { backdrop-filter: none; background: rgb(14 24 27 / 0.86); } }
+/* ---------- Accueil : le film « La mise en place » lu au scroll ---------- */
+.film { --p:0; --flash:0; --eponge:0; --voile:0; --fin:0; position:relative; height:760vh; background:var(--ardoise); color:var(--craie); }
+html.tactile .film.vivant { height:1200vh; }
+.film:not(.vivant) { height:auto; }
+/* « Passer le film » : fixé à la fenêtre comme « Aller au contenu », donc caché au-dessus de la page jusqu'au premier Tab */
+.film__passer { position:fixed; }
+.film__colle { position:sticky; top:var(--nav); height:calc(100vh - var(--nav)); height:calc(100svh - var(--nav)); overflow:clip; background:var(--ardoise); }
+.film__scene { position:absolute; inset:0; }
+.film__affiche, .film__toile { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 50%; }
+.film.vivant .film__affiche { visibility:hidden; }
+.film__halo { display:none; }
+/* jalons du doigt : un arrêt obligé par image stable (16 px = scroll-padding-top de la page) */
+.film__jalons { display:none; }
+html.tactile .film.vivant .film__jalons { display:block; position:absolute; inset:0; pointer-events:none; }
+.film__jalons i { position:absolute; left:0; width:100%; height:1px; top:calc(var(--p) * (100% - 100svh + var(--nav)) + 16px); scroll-snap-align:start; scroll-snap-stop:always; }
+html.aimante { scroll-snap-type:y mandatory; }
+/* le voile du bas ne monte qu'avec le bloc final (plan large, bas sombre) et à la sortie */
+.film__voile { position:absolute; inset:0; pointer-events:none; background:linear-gradient(0deg, rgb(30 42 44 / calc(var(--voile) * 0.75 + var(--fin) * 0.55)), rgb(30 42 44 / calc(var(--voile) * 0.3 + var(--fin) * 0.55)) 38%, rgb(30 42 44 / calc(var(--fin) * 0.55)) 60%); }
+.film__textes { position:relative; z-index:2; height:100%; display:grid; grid-template-rows:minmax(0, 1fr); align-content:end; padding-block:clamp(14px, 3vh, 24px) clamp(24px, 6vh, 56px); pointer-events:none; }
+.film__textes > * { grid-area:1 / 1; align-self:end; opacity:var(--o, 0); transform:translateY(var(--y, 0px)); will-change:opacity, transform; }
+.film:not(.vivant) .film__textes > * { opacity:1; transform:none; }
+.film .actif, .film__textes > .actif { pointer-events:auto; }
+.film__sur { align-self:start; display:flex; align-items:center; gap:12px; font-size:0.8rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:#C6D0CC; }
+.film__sur::before { content:''; flex:none; width:28px; height:3px; border-radius:2px; background:var(--jaune); }
+.film__indice { display:flex; align-items:center; gap:10px; font-weight:600; font-size:0.92rem; color:#C6D0CC; opacity:calc(var(--o, 0) * 0.4); margin-bottom:var(--cache, 0px); }   /* --cache : la part de la colle sous l'écran tant que le bandeau est visible (film.js) */
+.film.pret .film__indice { opacity:var(--o, 0); }
+.film__indice span { width:2px; height:28px; background:var(--jaune); border-radius:2px; }
+.film.pret .film__indice span { animation:indice 1.6s ease-in-out infinite; }
+@keyframes indice { 0%, 100% { transform:scaleY(0.4); transform-origin:top; } 50% { transform:scaleY(1); } }
+.film__titre { font-family:var(--titre); font-weight:800; font-size:clamp(2.4rem, 7.4vw, 6rem); line-height:1.0; letter-spacing:-0.03em; max-width:12ch; text-wrap:balance; font-variation-settings:'opsz' 96; }
+.film__titre em, .film__fin em { font-style:normal; }
+.film__titre em { font-family:var(--ecriture); font-weight:600; font-size:1.12em; letter-spacing:0; background:linear-gradient(transparent 55%, var(--jaune) 55%, var(--jaune) 92%, transparent 92%); padding-inline:0.08em; }
+.film__texte, .film__fin { position:relative; display:grid; gap:10px; justify-items:start; max-width:min(100%, 34ch); }
+.film__kicker { font-family:var(--ecriture); font-weight:600; font-size:clamp(1.4rem, 4.6vw, 1.9rem); line-height:1; color:var(--jaune); }
+.film__texte h2, .film__fin h2 { font-family:var(--titre); font-weight:800; font-size:clamp(1.7rem, 5.2vw, 3.4rem); line-height:1.03; letter-spacing:-0.03em; text-wrap:balance; }
+.film__fin h2 { font-size:clamp(2.3rem, 6.4vw, 5.2rem); max-width:11ch; } .film__fin em { color:var(--jaune); }
+.film__texte--court h2 { font-size:clamp(1.6rem, 5.4vw, 3.2rem); }
+.film__prix { font-weight:600; font-size:0.95rem; } .film__offre { font-size:0.9rem; color:#C6D0CC; }
+@media (max-width:899px) { .film__desc { display:none; } }
+/* l'encre suit la clarté du plan : crème sur le mur sombre, ardoise sur le noyer clair (avec un halo de nappe) */
+.film [data-encre='craie'] { color:var(--craie); text-shadow:0 1px 2px rgb(0 0 0 / 0.5), 0 0 30px rgb(0 0 0 / 0.35); }
+.film [data-encre='ardoise'] { color:var(--ardoise); text-shadow:none; }
+.film [data-encre='ardoise'] .film__kicker { color:var(--ardoise); }
+.film [data-encre='ardoise']::before { content:''; position:absolute; z-index:-1; inset:-40px -60px; background:radial-gradient(closest-side, rgb(245 247 244 / 0.6), transparent); }
+.film__titre { position:relative; }
+.film [data-encre='craie'] .lien, .film__fin .lien { color:var(--craie); } .film [data-encre='ardoise'] .lien { color:var(--ardoise); }
+/* focus jaune sur fond sombre (§13) */
+.film :focus-visible { outline-color:var(--jaune); }
+/* les mots montent quand le bloc s'allume (découpe motion.js) */
+.film.vivant .film__textes .mot > span { transform:translateY(105%) rotate(3deg); transition:transform 0.75s cubic-bezier(0.34, 1.4, 0.5, 1); transition-delay:calc(var(--k, 0) * 55ms); }
+.film.vivant .film__textes .actif .mot > span { transform:none; }
+/* les objets du film deviennent des liens : quatre coins de viseur */
+.film__zone { position:absolute; left:calc(var(--ix) + var(--zx) * var(--iw)); top:calc(var(--iy) + var(--zy) * var(--ih)); width:calc(var(--zw) * var(--iw)); height:calc(var(--zh) * var(--ih)); padding:8px; box-sizing:content-box; translate:-8px -8px; border-radius:14px; opacity:1; pointer-events:none; }
+.film__zone.actif { pointer-events:auto; }
+.film__zone::before, .film__zone::after { content:''; position:absolute; inset:8px; width:18px; height:18px; border:2px solid var(--jaune); opacity:0; transition:opacity 0.3s, inset 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.film__zone::before { border-right:0; border-bottom:0; border-radius:6px 0 0 0; } .film__zone::after { inset:auto 8px 8px auto; border-left:0; border-top:0; border-radius:0 0 6px 0; }
+.film__zone:hover::before, .film__zone:hover::after, .film__zone:focus-visible::before, .film__zone:focus-visible::after { opacity:1; inset:0; } .film__zone:hover::after, .film__zone:focus-visible::after { inset:auto 0 0 auto; }
+.film__zone::marker, .film__zone[data-etiquette]:hover::after { } /* l'étiquette texte vient avec le curseur (phase 2) */
+html.tactile .film__zone.actif::before, html.tactile .film__zone.actif::after { animation:viseur 1.2s ease-out 1; }
+@keyframes viseur { 0% { opacity:0; } 30% { opacity:1; inset:0; } 100% { opacity:0; } }
+@media (max-width:899px) { .film__zone--repos { display:none; } }   /* au téléphone le bloc final couvre le bas du cadre */
+/* le flash éclaire toute la page, nav comprise */
+.film__flash { position:fixed; inset:0; z-index:65; background:#FFF9EC; opacity:calc(var(--flash, 0) * 0.92); pointer-events:none; }
+/* l'éponge efface aussi le texte HTML, dans l'ordre des traits */
+.film [data-efface] { clip-path:inset(-0.2em -0.1em -0.2em calc(var(--eponge) * 104%)); }
+.film__trace { position:absolute; inset:0; color:inherit; opacity:0.35; filter:blur(0.08em); clip-path:inset(-0.3em calc((1 - var(--eponge)) * 100%) -0.3em -0.3em); pointer-events:none; }
+/* le cliché */
+.film__cliche { align-self:start; justify-self:end; width:112px; padding:8px 8px 22px; background:var(--craie); color:var(--ardoise); rotate:-5deg; box-shadow:0 18px 40px -16px rgb(0 0 0 / 0.6); text-decoration:none; font-family:var(--ecriture); font-weight:600; font-size:1rem; line-height:1.1; }
+.film__cliche img { width:100%; aspect-ratio:4 / 5; object-fit:cover; filter:grayscale(1) contrast(0.6); transition:filter 0.9s ease-out; } .film__cliche.actif img { filter:none; }
+/* le bon : ticket de commande, où en est-on */
+.film__bon { align-self:start; justify-self:center; display:grid; gap:4px; margin:0; padding:10px 14px 10px 18px; width:max-content; list-style:none; background:var(--craie); color:var(--ardoise); font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; mask:radial-gradient(5px at 0 50%, transparent 95%, #000) 0 0 / 100% 12px; opacity:var(--o, 1); transition:translate 0.4s, scale 0.4s, opacity 0.4s; }
+.film__bon li { opacity:0.45; } .film__bon li.passe { text-decoration:line-through; } .film__bon li.ici { opacity:1; text-decoration:none; } .film__bon li.ici::before { content:'● '; color:var(--jaune); }
+.film.pique .film__bon { translate:0 -8px; scale:0.96; opacity:0; }
+@media (max-width:899px) { .film__bon li:not(.ici) { display:none; } }
+/* au téléphone, le bon n'arrive qu'après la phrase écrite (fondu 0.2243 → 0.26, pendant la descente de la caméra) : sinon il chevauche le sur-titre, et rien ne doit bouger pendant que la craie écrit */
+@media (max-width:899px) { .film__bon { justify-self:start; opacity:calc(var(--o, 1) * clamp(0, (var(--p) - 0.2243) * 28, 1)); } }   /* à gauche : le cliché prend la droite */
+/* sortie : la nappe monte par-dessus la cuisine */
+.pieces-bloc { position:relative; z-index:3; margin-top:-28px; border-radius:28px 28px 0 0; background:var(--blanc); box-shadow:0 -30px 70px rgb(0 0 0 / 0.35); }
+/* ordinateur, phase 1 (seul m existe) : texte en colonne à gauche, film 9:16 à droite, halo de sa couleur derrière */
+@media (min-width:900px) {
+  .film[data-taille='m'] .film__scene { left:62%; right:auto; top:0; height:100%; width:calc((100svh - var(--nav)) * 9 / 16); translate:-50% 0; box-shadow:0 40px 120px -40px #000; }
+  .film[data-taille='m'].vivant .film__halo { display:block; position:absolute; inset:-8%; width:116%; height:116%; filter:blur(40px) saturate(1.1); opacity:0.85; }
+  .film[data-taille='m'] .film__colle::before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(90deg, rgb(30 42 44 / 0.6), rgb(30 42 44 / 0.45) 48%, rgb(30 42 44 / 0.3)); }
+  .film__textes { align-content:center; padding-block:calc(var(--nav) + 24px) 48px; grid-template-columns:minmax(0, 44%) 1fr; }
+  .film__textes > * { grid-area:1 / 1; align-self:center; }
+  .film__sur, .film__bon, .film__cliche { align-self:start; } .film__indice { align-self:end; } .film__bon, .film__cliche { grid-area:1 / 2; justify-self:end; }   /* l'indice en bas de colonne : il ne chevauche pas le sur-titre */
+  .film__cliche { align-self:end; width:180px; }
+  .film__titre { font-size:clamp(2.6rem, 5.2vw, 5.6rem); }
+  /* à l'ordinateur le texte n'est jamais sur l'image : toujours crème */
+  .film [data-encre='ardoise'] { color:var(--craie); text-shadow:0 1px 2px rgb(0 0 0 / 0.5); } .film [data-encre='ardoise'] .film__kicker { color:var(--jaune); } .film [data-encre='ardoise'] .lien { color:var(--craie); } .film [data-encre='ardoise']::before { display:none; }
+  .film__titre em { background:none; color:var(--jaune); text-shadow:0 0 24px rgb(255 210 63 / 0.35); }
+  /* phase 2 (dossier g) : plein écran, textes dans le tiers gauche, voile latéral léger */
+  .film[data-taille='g'] .film__scene { inset:0; width:auto; translate:none; box-shadow:none; }
+  .film[data-taille='g'] .film__voile { background:linear-gradient(90deg, rgb(30 42 44 / 0.65), rgb(30 42 44 / 0.25) 36%, transparent 56%); }
+}
+/* replis : sans JavaScript, mouvement réduit, erreur : une figure et un texte en flux */
+@media (scripting:none) { .film { height:auto; } }
+.film:not(.vivant) .film__colle { position:static; height:auto; display:grid; gap:24px; padding-block:24px 48px; }
+.film:not(.vivant) .film__scene { position:relative; width:min(100%, 420px); aspect-ratio:9 / 16; margin-inline:auto; left:auto; translate:none; }
+.film:not(.vivant) .film__textes { height:auto; display:grid; gap:20px; grid-template-columns:none; }
+.film:not(.vivant) .film__textes > * { grid-area:auto; visibility:visible; pointer-events:auto; }
+.film:not(.vivant) .film__toile, .film:not(.vivant) .film__halo, .film:not(.vivant) .film__jalons, .film:not(.vivant) .film__bon, .film:not(.vivant) .film__indice, .film:not(.vivant) .film__zone, .film:not(.vivant) .film__cliche, .film:not(.vivant) .film__flash { display:none; }
+.film:not(.vivant) [data-efface] { clip-path:none; }
+@media (prefers-reduced-motion:reduce) { .film .mot > span { transform:none !important; transition:none; } }
+@media print { .film { height:auto; } }
+.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+/* pièces de la mise en place (remplace .metiers scoped) */
+.pieces { display:grid; gap:14px; margin:0; padding:0; list-style:none; }
+.pieces li { display:grid; gap:10px; align-content:start; padding:clamp(22px, 3vw, 28px); border-radius:24px; background:var(--nappe); transition:transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s; }
+.pieces li:hover { transform:translateY(-4px); background:#EEF1EC; }
+.pieces__mot { font-family:var(--ecriture); font-weight:600; font-size:1.5rem; line-height:1; color:var(--ardoise); }
+.pieces h3 { font-family:var(--titre); font-size:1.45rem; letter-spacing:-0.02em; line-height:1.1; } .pieces p { color:var(--gris); } .pieces .lien { justify-self:start; margin-top:4px; }
+@media (min-width:720px) { .pieces { grid-template-columns:repeat(2, 1fr); } } @media (min-width:1100px) { .pieces { grid-template-columns:repeat(5, 1fr); } }
+.preuve__in { display:grid; gap:14px; max-width:760px; justify-items:start; }
 
 .entre { opacity: 0; transform: translateY(46px) scale(0.98); transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); transition-delay: calc(var(--i, 0) * 110ms); }
 .entre.vu { opacity: 1; transform: none; }
@@ -796,26 +833,10 @@ html.lenis { scroll-behavior: auto; }
 .mot > span { display: inline-block; will-change: transform; }
 html.mouvement .titre-2 .mot > span { transform: translateY(110%); }
 html.mouvement .bloc__tete > p { opacity: 0; }
-/* dans la vitrine, les mots montent quand le texte s'allume */
-.vitrine.vivante .vitrine__textes .mot > span { transform: translateY(105%) rotate(3deg); transition: transform 0.75s cubic-bezier(0.34, 1.4, 0.5, 1); transition-delay: calc(var(--k, 0) * 55ms); }
-.vitrine.vivante .vitrine__textes .actif .mot > span { transform: none; }
-/* le trajet : où en est-on dans le restaurant */
-.vitrine__trajet { display: none; }
-.vitrine.vivante .vitrine__trajet { display: grid; gap: 10px; position: absolute; z-index: 3; top: 18px; left: 50%; translate: -50% 0; width: min(760px, calc(100% - 32px)); pointer-events: none; opacity: calc(min(1, var(--trajet, 0) * 12)); }
-.vitrine__trajet i { height: 2px; border-radius: 2px; background: rgb(255 255 255 / 0.18); overflow: hidden; }
-.vitrine__trajet i::before { content: ''; display: block; height: 100%; background: var(--jaune); transform-origin: left; transform: scaleX(var(--trajet, 0)); box-shadow: 0 0 12px var(--jaune); }
-.vitrine__trajet ol { display: flex; justify-content: space-between; margin: 0; padding: 0; list-style: none; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(255 255 255 / 0.42); }
-.vitrine__trajet li { transition: color 0.4s, transform 0.5s cubic-bezier(0.34, 1.5, 0.5, 1); }
-.vitrine__trajet li.passe { color: rgb(255 255 255 / 0.7); }
-.vitrine__trajet li.ici { color: var(--jaune); transform: translateY(-2px); }
-@media (max-width: 759px) {
-  .vitrine__trajet ol { justify-content: center; }
-  .vitrine__trajet li:not(.ici) { display: none; }
-}
 /* les cartes s'éclairent sous le curseur */
 .lueur { position: relative; }
 .lueur::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 2; opacity: 0; transition: opacity 0.35s; background: radial-gradient(320px circle at var(--lx, 50%) var(--ly, 50%), rgb(255 210 63 / 0.16), transparent 60%); }
 .lueur:hover::after { opacity: 1; }
 /* la flèche des cartes glisse vers l'avant au survol */
-.porte span, .vitrine__porte i { display: inline-block; transition: translate 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.porte:hover span, .vitrine__porte:hover i { translate: 6px 0; }
+.porte span { display: inline-block; transition: translate 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.porte:hover span { translate: 6px 0; }

@@ -1,0 +1,3 @@
+- [Film accueil : contexte, règles de Malik, échelle de gravité](project_film_accueil.md) — le cahier fait foi ; film.js = une fonction par design ; mineur/majeur/bloquant
+- [Cahier, captures, bilan.json, Playwright](reference_cahier_et_apercus.md) — chemins hors dépôt sous /mnt/project-files/site et le scratchpad
+- [Malik, propriétaire](user_malik.md) — valide au téléphone, tout en français, constats précis pour l'orchestrateur

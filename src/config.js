@@ -5,7 +5,10 @@ export const SITE = {
   url: 'https://nouvelleardoise.ch',
   // Adresse affichée sur le site (elle arrive dans la boîte Google de Malik)
   email: 'contact@nouvelleardoise.ch',
-  telephone: '',
+  // Le numéro apparaît aussi dans les mentions légales : c'est voulu
+  telephone: '078 213 38 68',
+  // Le même numéro au format international sans « + », pour le lien WhatsApp (https://wa.me/…)
+  whatsapp: '41782133868',
   // Compte Instagram (sans @) : le logo et le QR code du pied de page pointent vers ce profil
   instagram: 'nouvelleardoise.ch',
   responsable: 'Malik Younes',

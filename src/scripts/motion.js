@@ -36,8 +36,8 @@ if (!calme) {
     (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
   }
 
-  // Les textes de la vitrine : les mots montent un à un quand le texte s'allume
-  document.querySelectorAll('.vitrine__phrase, .vitrine__fin, .vitrine__cuisine p, .vitrine__porte span').forEach(decouper);
+  // Les textes du film : les mots montent un à un quand le bloc s'allume (la découpe conserve les <em>)
+  document.querySelectorAll('.film__titre, .film__texte h2, .film__fin h2').forEach(decouper);
 
   // Les grands titres de la page : révélation mot à mot, avec un ressort
   document.querySelectorAll('.titre-2, .bloc__tete > p').forEach((el) => {
@@ -47,12 +47,6 @@ if (!calme) {
       if (mots.length) animate(mots, { y: ['110%', '0%'], rotate: [4, 0] }, { type: 'spring', bounce: 0.28, duration: 0.9, delay: stagger(0.06) });
       else animate(el, { opacity: [0, 1], y: [24, 0] }, { duration: 0.8, delay: 0.25, ease: [0.2, 0.8, 0.2, 1] });
     }, { margin: '0px 0px -15% 0px' });
-  });
-
-  // Les numéros des métiers comptent jusqu'à leur valeur
-  document.querySelectorAll('.metiers__n').forEach((n) => {
-    const fin = Number(n.textContent);
-    inView(n, () => { animate(0, fin, { duration: 0.9, ease: 'easeOut', onUpdate: (v) => { n.textContent = String(Math.round(v)).padStart(2, '0'); } }); });
   });
 
   if (souris) {
@@ -68,7 +62,7 @@ if (!calme) {
     });
 
     // Les cartes s'éclairent là où passe le curseur
-    document.querySelectorAll('.metiers li, .porte, .vitrine__porte').forEach((carte) => {
+    document.querySelectorAll('.pieces li, .porte').forEach((carte) => {
       carte.classList.add('lueur');
       carte.addEventListener('pointermove', (e) => {
         const r = carte.getBoundingClientRect();

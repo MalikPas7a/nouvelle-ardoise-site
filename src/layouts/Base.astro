@@ -18,6 +18,7 @@ const MENU = [
 const actuel = (p) => (p === page ? 'page' : undefined);
 // Le rappel de l'offre de lancement, en haut de chaque page (sauf les animations plein écran)
 const lancement = page !== 'animation';
+// Sur l'accueil, un second lien d'évitement « Passer le film » (vers #pieces) suit « Aller au contenu » : au deuxième Tab, avant la nav
 // Instagram dans le pied de page : le logo ouvre le profil, le QR code y mène depuis un écran d'ordinateur ou une vitrine
 const instagram = `https://www.instagram.com/${SITE.instagram}/`;
 const qrInstagram = (await QRCode.toString(instagram, { type: 'svg', margin: 0, errorCorrectionLevel: 'M', color: { dark: '#1E2A2C', light: '#0000' } }))
@@ -54,6 +55,7 @@ const qrInstagram = (await QRCode.toString(instagram, { type: 'svg', margin: 0, 
 </head>
 <body>
 <a class="evite" href="#contenu">Aller au contenu</a>
+{page === 'accueil' && <a class="evite film__passer" href="#pieces">Passer le film</a>}
 <div class="avancee" aria-hidden="true"></div>
 <header class="nav">
   <Logo />
@@ -94,7 +96,7 @@ const qrInstagram = (await QRCode.toString(instagram, { type: 'svg', margin: 0, 
         </div>
       </div>
     </div>
-    <p>Osteria del Lago, Chez Léonie, Sora et Maison Fève sont des adresses inventées pour ces démonstrations.</p>
+    <p>Osteria del Lago, Chez Léonie, Sora, Maison Fève et Lume sont des adresses inventées pour ces démonstrations.</p>
     <p><a href="/restaurants/">Restaurants</a><br><a href="/artisans/">Artisans</a><br><a href="/realisations/">Réalisations</a><br><a href="/offres/">Offres et prix</a><br><a href="/questions/">Questions fréquentes</a><br><a href="/contact/">Contact</a></p>
     <p><a href={'mailto:' + SITE.email}>{SITE.email}</a><br><a href="/mentions-legales/">Mentions légales</a><br><a href="/confidentialite/">Confidentialité et cookies</a></p>
   </div>

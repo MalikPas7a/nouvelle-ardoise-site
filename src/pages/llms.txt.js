@@ -12,7 +12,7 @@ ${SITE.nom} est une entreprise individuelle de ${SITE.responsable}, ${SITE.adres
 
 ## Pages
 
-- [Accueil](${SITE.url}/) : présentation de l'agence
+- [Accueil](${SITE.url}/) : la promesse de l'agence et ses services dans l'ordre du service
 - [Restaurants](${SITE.url}/restaurants/) : démonstrations de sites de restaurants (carte, plat du jour, plat en 3D, réservation)
 - [Artisans](${SITE.url}/artisans/) : sites, photos et réels pour chocolatiers, pâtissiers et boulangers
 - [Offres et prix](${SITE.url}/offres/) : sites dès CHF 999, réseaux sociaux dès CHF 490 par mois
