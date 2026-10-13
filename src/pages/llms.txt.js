@@ -1,6 +1,7 @@
 // /llms.txt : un résumé en texte simple de l'agence, pour les moteurs de réponse (ChatGPT, Perplexity,
 // Gemini, Claude). Format proposé sur llmstxt.org : titre, résumé, puis liens commentés.
 import { SITE } from '../config.js';
+import { PROMOTION_ACTIVE, montant, prixActuel } from '../data/offres.js';
 import { QUESTIONS } from '../data/questions.js';
 
 export function GET() {
@@ -15,7 +16,7 @@ ${SITE.nom} est une entreprise individuelle de ${SITE.responsable}, ${SITE.adres
 - [Accueil](${SITE.url}/) : présentation de l'agence
 - [Restaurants](${SITE.url}/restaurants/) : démonstrations de sites de restaurants (carte, plat du jour, plat en 3D, réservation)
 - [Artisans](${SITE.url}/artisans/) : sites, photos et réels pour chocolatiers, pâtissiers et boulangers
-- [Offres et prix](${SITE.url}/offres/) : sites dès CHF 999, réseaux sociaux dès CHF 490 par mois
+- [Offres et prix](${SITE.url}/offres/) : sites dès CHF ${montant(prixActuel('essentiel'))}, réseaux sociaux dès CHF ${montant(prixActuel('reseauxEssentiel'))} par mois${PROMOTION_ACTIVE ? ' : remise de lancement jusqu’au 31 octobre 2026, mensualités réduites pendant les trois premiers mois uniquement' : ''}
 - [Réalisations](${SITE.url}/realisations/) : Pasta Mo', animations au défilement, exemple de réel
 - [Questions fréquentes](${SITE.url}/questions/) : prix, délais, shooting, options
 - [Contact](${SITE.url}/contact/) : demande de devis, réponse sous 24 heures

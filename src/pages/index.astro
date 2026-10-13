@@ -1,144 +1,52 @@
 ---
-// Accueil : l'ouverture, puis les portes vers chaque page. Le détail est sur les pages.
-import Base from '../layouts/Base.astro';
-import Appel from '../components/Appel.astro';
-import { getImage } from 'astro:assets';
-import imgRagu from '../assets/photo-ragu.jpg';
-import imgSalle from '../assets/photo-salle.jpg';
+import AccueilV4 from '../components/AccueilV4.astro';
+import styles from '../styles/accueil-v4.css?raw';
 import { SITE } from '../config.js';
-
-const [ragu, salle] = await Promise.all([imgRagu, imgSalle].map((src) => getImage({ src, format: 'webp', width: 900, quality: 72 })));
-
-// Données lues par Google pour comprendre qui est Nouvelle Ardoise
+import { catalogueOffres } from '../data/offres.js';
+const title = 'Agence marketing restaurants Genève | Nouvelle Ardoise';
+const description = 'Marketing et communication pour restaurants et artisans de bouche à Genève et Vaud : sites web, menus, réseaux sociaux, photos, vidéos et fidélisation.';
+const canonical = SITE.url + '/';
+const image = SITE.url + '/partage.jpg';
 const jsonLd = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: SITE.nom,
-  url: SITE.url,
-  email: SITE.email,
-  sameAs: ['https://www.instagram.com/' + SITE.instagram + '/'],
-  image: SITE.url + '/partage.jpg',
-  founder: { '@type': 'Person', name: SITE.responsable },
-  address: { '@type': 'PostalAddress', streetAddress: SITE.adresse, postalCode: SITE.localite.split(' ')[0], addressLocality: 'Genève', addressCountry: 'CH' },
-  areaServed: ['Genève', 'Vaud'],
-  knowsAbout: ['Stratégie marketing pour restaurants', 'Acquisition et fidélisation de clients', 'Création de sites web pour restaurants', 'Gestion des réseaux sociaux', 'Réels Instagram', 'Shooting photo culinaire', 'Publicité Facebook, Instagram et Google'],
-  description: 'Agence de marketing et de communication pour la restauration et les métiers de bouche : stratégie, acquisition de clients, réseaux sociaux, vidéo, sites web et fidélisation.',
-  priceRange: 'CHF 999 – 3490',
+  '@context':'https://schema.org', '@type':'ProfessionalService', '@id':SITE.url+'/#agence',
+  name:SITE.nom, url:canonical, description, email:SITE.email, image,
+  founder:{'@type':'Person',name:SITE.responsable},
+  address:{'@type':'PostalAddress',streetAddress:SITE.adresse,postalCode:SITE.localite.split(' ')[0],addressLocality:'Genève',addressCountry:'CH'},
+  areaServed:[{'@type':'AdministrativeArea',name:'Genève'},{'@type':'AdministrativeArea',name:'Vaud'}],
+  sameAs:['https://www.instagram.com/'+SITE.instagram+'/'],
+  hasOfferCatalog:catalogueOffres(SITE.url),
 });
 ---
-<Base page="accueil" title="Nouvelle Ardoise | Agence de marketing et de communication pour la restauration à Genève" description="Marketing et communication pour les restaurants, cafés, boulangeries et chocolatiers de Genève et Vaud : stratégie, nouveaux clients, réseaux sociaux, vidéo, site et fidélisation. Prix affichés.">
-<script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
-<!-- Les anciens liens (nouvelleardoise.ch/#offres, envoyés dans les emails) mènent à la bonne page -->
-<script slot="head" is:inline>
-  (function () {
-    var vers = { '#offres': '/offres/', '#reseaux': '/offres/#reseaux', '#exemple-sora': '/offres/#exemple-sora', '#methode': '/offres/#methode', '#contact': '/contact/', '#exemples': '/restaurants/#exemples', '#essayer': '/restaurants/#essayer', '#en-mouvement': '/realisations/#en-mouvement' };
-    if (vers[location.hash]) location.replace(vers[location.hash]);
-  })();
-</script>
-
-<!-- ============ Ouverture : un coup d'éponge sur l'improvisation ============ -->
-<section class="eponge" data-eponge aria-labelledby="titre-accueil">
-  <div class="eponge__colle">
-    <div class="cadre eponge__contenu">
-      <p class="eponge__sur"><svg class="eponge__n" viewBox="0 0 28 28" width="34" height="34" aria-hidden="true"><path d="M7.4 21.6V6.4l13.2 15.2V6.4" fill="none" stroke="#FFD23F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Restaurants, cafés, boulangeries, chocolatiers · Genève et Vaud</p>
-      <h1 class="eponge__titre" id="titre-accueil" aria-label="Envie de passer l’éponge sur l’improvisation ?">
-        <span aria-hidden="true">Envie de passer l’éponge sur <span class="efface"><span class="efface__mot">l’improvisation</span><span class="efface__trace">l’improvisation</span><svg class="efface__brosse" viewBox="0 0 40 120"><rect x="2" y="2" width="22" height="116" rx="7" fill="#C9975C"/><rect x="2" y="2" width="9" height="116" rx="5" fill="#E2B57A"/><rect x="22" y="4" width="15" height="112" rx="4" fill="#3C4245"/><rect x="33" y="6" width="3" height="108" fill="#E8EDEC" opacity=".35"/></svg></span>&nbsp;?</span>
-      </h1>
-      <p class="eponge__nouveau">Place à la <mark>mise en place.</mark></p>
-      <p class="chapo eponge__chapo">Site, design, réseaux sociaux, shootings photo et vidéo, stratégie d’acquisition et suivi : tout ce qu’il faut pour attirer de nouveaux clients et les faire revenir.</p>
-      <div class="actions eponge__actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a><a class="lien" href="/restaurants/">Essayer trois exemples</a></div>
-      <p class="sequence__indice eponge__indice" aria-hidden="true"><span></span>Faites défiler</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ L'ardoise cosmique : la craie écrit, s'envole, et on plonge dans une nuit où flottent cinq panneaux ============ -->
-<section class="vitrine" data-vitrine aria-labelledby="titre-vitrine">
-  <!-- les étapes où le défilement au doigt s'arrête (l'ardoise écrite, la poussière, un arrêt par panneau, « Envoyez. », la salle) : un panneau à la fois, aucun de sauté -->
-  <div class="vitrine__jalons" aria-hidden="true"><i style="--p:0"></i><i style="--p:0.135"></i><i style="--p:0.24"></i><i style="--p:0.36"></i><i style="--p:0.475"></i><i style="--p:0.59"></i><i style="--p:0.705"></i><i style="--p:0.82"></i><i style="--p:0.91"></i><i style="--p:1"></i></div>
-  <div class="vitrine__colle">
-    <canvas aria-hidden="true"></canvas>
-    <div class="vitrine__trajet" aria-hidden="true"><i></i><ol><li>L’ardoise</li><li>Site web</li><li>Design</li><li>Réseaux</li><li>Shootings</li><li>Faire venir</li><li>La salle</li></ol></div>
-    <div class="cadre vitrine__textes">
-      <h2 class="vitrine__ardoise" id="titre-vitrine" data-de="-1" data-a="0.3">Vos clients mangent d’abord avec les yeux.</h2>
-      <p class="vitrine__indice" data-de="-1" data-a="0.1" aria-hidden="true"><span></span>Faites défiler</p>
-      <p class="vitrine__phrase" data-de="0.16" data-a="0.29">Avant de goûter, ils regardent, ils comparent, ils choisissent. <em>Alors on fait la mise en place.</em></p>
-      <a class="vitrine__porte" href="/restaurants/" data-de="0.31" data-a="0.425"><span>Site web</span><b>Rapide, pensé pour le téléphone : la carte, le plat du jour, la réservation en un geste.</b><i>Voir un exemple</i></a>
-      <a class="vitrine__porte" href="/offres/#design" data-de="0.425" data-a="0.54"><span>Design</span><b>Carte, logo, supports en salle, emballages : une image cohérente, de la vitrine à l’addition.</b><i>Voir les offres</i></a>
-      <a class="vitrine__porte" href="/offres/#reseaux" data-de="0.54" data-a="0.655"><span>Réseaux sociaux</span><b>Réels, publications et menu du jour, publiés pour vous chaque semaine.</b><i>Voir l’abonnement</i></a>
-      <a class="vitrine__porte" href="/realisations/" data-de="0.655" data-a="0.77"><span>Shootings</span><b>On vient chez vous filmer vos plats et vos gestes. Ce sont ces images qui donnent envie.</b><i>Voir nos réalisations</i></a>
-      <a class="vitrine__porte" href="/contact/" data-de="0.77" data-a="0.885"><span>Faire venir, faire revenir</span><b>Publicité ciblée, avis, fidélité, et un bilan clair chaque mois : on sait ce qui ramène du monde.</b><i>En parler autour d’un café</i></a>
-      <p class="vitrine__envoi" data-de="0.895" data-a="0.945" data-f="0.015" aria-hidden="true">Envoyez.</p>
-      <div class="vitrine__cuisine" data-de="0.955" data-a="9" data-f="0.03"><p>Vous cuisinez, <em>on remplit la salle.</em></p><div class="actions"><a class="btn btn--jaune" href="/contact/">Demander un devis</a><a class="lien" href="/realisations/">Voir nos réalisations</a></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ Nos métiers : la ligne conductrice, en un coup d'œil ============ -->
-<section class="bloc metiers-bloc" aria-labelledby="titre-metiers">
-  <div class="cadre">
-    <header class="bloc__tete">
-      <h2 class="titre-2" id="titre-metiers">Ce qu’on fait pour vous</h2>
-      <p>On s’occupe de tout ce qui fait venir et revenir vos clients, de la première recherche au retour à table.</p>
-    </header>
-    <ol class="metiers" data-revele>
-      <li><span class="metiers__n">01</span><h3>Site web</h3><p>Rapide, pensé pour le téléphone : votre carte, vos horaires, la réservation ou la commande en un geste.</p><a class="lien" href="/restaurants/">Essayer des exemples</a></li>
-      <li><span class="metiers__n">02</span><h3>Design</h3><p>Carte, logo, supports en salle, emballages : une image cohérente, de la vitrine à l’addition.</p><a class="lien" href="/offres/#design">Voir les offres</a></li>
-      <li><span class="metiers__n">03</span><h3>Réseaux sociaux</h3><p>Réels, publications et menu du jour, publiés pour vous chaque semaine sur Instagram et Facebook.</p><a class="lien" href="/offres/#reseaux">Voir l’abonnement</a></li>
-      <li><span class="metiers__n">04</span><h3>Shootings photo et vidéo</h3><p>On vient chez vous filmer vos plats et vos gestes. Ce sont ces images qui donnent envie et vous rendent visible.</p><a class="lien" href="/realisations/">Voir nos réalisations</a></li>
-      <li><span class="metiers__n">05</span><h3>Stratégie d’acquisition et suivi</h3><p>Publicité ciblée autour du restaurant, avis, fidélité, et un bilan clair chaque mois : on sait ce qui ramène du monde.</p><a class="lien" href="/contact/">En parler autour d’un café</a></li>
-    </ol>
-  </div>
-</section>
-
-<!-- ============ Les portes : une page par sujet ============ -->
-<section class="bloc portes-bloc">
-  <div class="cadre">
-    <header class="bloc__tete">
-      <h2 class="titre-2">Par où commencer ?</h2>
-    </header>
-    <div class="portes" data-revele>
-      <a class="porte" href="/restaurants/">
-        <img src={ragu.src} alt="" width="900" height="563" loading="lazy" decoding="async" />
-        <div><h3>Restaurants</h3><p>Essayez trois sites de restaurants, la carte, le plat du jour, le plat en 3D et la réservation.</p><span>Essayer</span></div>
-      </a>
-      <a class="porte" href="/artisans/">
-        <img src="/artisans/tarte-framboise.webp" alt="" width="1600" height="900" loading="lazy" decoding="async" />
-        <div><h3>Artisans</h3><p>Chocolatiers, pâtissiers, boulangers : vos créations en grand, vos gestes en vidéo.</p><span>Découvrir</span></div>
-      </a>
-      <a class="porte" href="/realisations/">
-        <img src="/sequences/pastamo/g/019.webp" alt="" width="1600" height="900" loading="lazy" decoding="async" />
-        <div><h3>Réalisations</h3><p>Pasta Mo’, nos animations au défilement et une vidéo pour les réseaux.</p><span>Voir</span></div>
-      </a>
-      <a class="porte porte--ardoise" href="/offres/">
-        <img src={salle.src} alt="" width="900" height="563" loading="lazy" decoding="async" />
-        <div><h3>Offres et prix</h3><p>Des prix affichés, sites dès CHF 799 et réseaux dès CHF 392 par mois pendant l’offre de lancement.</p><span>Voir les offres</span></div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<Appel />
-
-<script>
-  import '../scripts/defilement.js';
-  import '../scripts/motion.js';
-  // les matières de l'ardoise (pierre, noyer, sol) se mettent en cache dès que la page est posée : la scène démarre sans attendre
-  addEventListener('load', () => {
-    setTimeout(() => ['/vitrine/ardoise.webp', '/vitrine/bois.webp', '/vitrine/sol.webp'].forEach((src) => { const img = new Image(); img.fetchPriority = 'low'; img.decoding = 'async'; img.src = src; }), 1200);
-  });
-</script>
-</Base>
-
-<style>
-  .metiers { display: grid; gap: 14px; counter-reset: none; }
-  .metiers li { display: grid; gap: 10px; align-content: start; padding: clamp(22px, 3vw, 28px); border-radius: 24px; background: var(--nappe); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s; }
-  .metiers li:hover { transform: translateY(-4px); background: #EEF1EC; }
-  .metiers__n { font-family: var(--titre); font-weight: 800; font-size: 0.95rem; color: var(--ardoise); justify-self: start; padding: 2px 10px; border-radius: 999px; background: var(--jaune); }
-  .metiers h3 { font-family: var(--titre); font-size: 1.45rem; letter-spacing: -0.02em; line-height: 1.1; }
-  .metiers p { color: var(--gris); }
-  .metiers .lien { justify-self: start; margin-top: 4px; }
-  @media (min-width: 720px) { .metiers { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1100px) { .metiers { grid-template-columns: repeat(5, 1fr); } }
-  @media (prefers-reduced-motion: reduce) { .metiers li, .metiers li:hover { transition: none; transform: none; } }
-</style>
+<!doctype html>
+<html lang="fr-CH">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#14201e" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:site_name" content={SITE.nom} />
+  <meta property="og:locale" content="fr_CH" />
+  <meta property="og:image" content={image} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Nouvelle Ardoise, marketing et communication pour restaurants et artisans" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preload" href="/v4/assets/ab735c6ecc7ed2ab14715cc44e83abe51639a7dc1eb160758e5f35e17b6b18cb.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/v4/assets/ca2a54b8fc222595fad59f7e87a9a6af25fb7248462c7e87253c9c2ddc984477.woff2" as="font" type="font/woff2" crossorigin />
+  <style is:inline set:html={styles}></style>
+  <script type="application/ld+json" is:inline set:html={jsonLd} />
+</head>
+<body data-version="motion-v4-20261013">
+  <AccueilV4 />
+  <script is:inline defer src="/v4/ui.82319e759d0b.js"></script>
+  <script is:inline defer src="/v4/scene.aa2ecebcc23b.js"></script>
+</body>
+</html>

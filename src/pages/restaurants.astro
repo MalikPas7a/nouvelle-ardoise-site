@@ -45,7 +45,7 @@ const qr = (await QRCode.toString(SITE.url + '/demos/carte-3d/', { type: 'svg', 
 const sora = parId('sora');
 const nbSora = sora.carte.reduce((n, s) => n + s.plats.length, 0);
 ---
-<Base page="restaurants" title="Création de site web pour restaurant à Genève et Vaud | Nouvelle Ardoise" description="Essayez trois sites de restaurants : carte lisible au pouce, plat du jour, plat en 3D, réservation en trois gestes.">
+<Base page="restaurants" title="Site web restaurant Genève et Vaud | Nouvelle Ardoise" description="Un site mobile pour votre restaurant : carte en ligne, horaires, plats et réservation avec votre outil partenaire. Découvrez nos exemples et offres.">
 
 <section class="bloc page-tete">
   <div class="cadre">
@@ -100,7 +100,7 @@ const nbSora = sora.carte.reduce((n, s) => n + s.plats.length, 0);
     <article class="demo">
       <div class="demo__texte">
         <h3 class="titre-3">Lire la carte sans zoomer</h3>
-        <p>La carte s’affiche en texte, lisible au pouce. Vos clients filtrent les plats végétariens ou épicés et passent en anglais d’un geste. Google lit chaque plat, ce qu’il ne fait pas dans un PDF.</p>
+        <p>La carte s’affiche en texte, lisible au pouce. Vos clients filtrent les plats végétariens ou épicés et passent en anglais d’un geste. La carte se consulte directement dans le site et reste lisible par les moteurs de recherche. Un PDF peut aussi être indexé et rester disponible pour l’impression.</p>
         <p class="demo__ou">Carte en ligne incluse dans toutes les offres. Deuxième langue incluse dans l’offre Maison.</p>
       </div>
       <div class="demo__live vitrine vitrine--sora" data-carte>

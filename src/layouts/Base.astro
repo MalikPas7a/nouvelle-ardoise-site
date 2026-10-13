@@ -5,6 +5,7 @@ import '../styles/global.css';
 import Logo from '../components/Logo.astro';
 import QRCode from 'qrcode';
 import { SITE } from '../config.js';
+import { PROMOTION_ACTIVE } from '../data/offres.js';
 
 const { title, description, page } = Astro.props;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
@@ -17,7 +18,7 @@ const MENU = [
 ];
 const actuel = (p) => (p === page ? 'page' : undefined);
 // Le rappel de l'offre de lancement, en haut de chaque page (sauf les animations plein écran)
-const lancement = page !== 'animation';
+const lancement = PROMOTION_ACTIVE && page !== 'animation';
 // Instagram dans le pied de page : le logo ouvre le profil, le QR code y mène depuis un écran d'ordinateur ou une vitrine
 const instagram = `https://www.instagram.com/${SITE.instagram}/`;
 const qrInstagram = (await QRCode.toString(instagram, { type: 'svg', margin: 0, errorCorrectionLevel: 'M', color: { dark: '#1E2A2C', light: '#0000' } }))
