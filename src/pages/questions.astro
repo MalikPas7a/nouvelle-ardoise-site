@@ -10,7 +10,7 @@ const jsonLd = JSON.stringify({
   mainEntity: QUESTIONS.map(({ q, r }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: r } })),
 });
 ---
-<Base page="questions" title="Questions fréquentes : prix, délais, réseaux sociaux | Nouvelle Ardoise" description="Prix d’un site de restaurant à Genève, gestion des réseaux sociaux, réels, shooting, click and collect et TWINT : les réponses de Nouvelle Ardoise.">
+<Base page="questions" title="Questions sur nos prestations | Nouvelle Ardoise" description="Prix, délais, entretien, réservation et compatibilité 3D : les réponses sur les prestations Nouvelle Ardoise à Genève et Vaud.">
 <script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
 <article class="legal cadre questions">
   <h1 class="titre-2">Questions fréquentes</h1>
