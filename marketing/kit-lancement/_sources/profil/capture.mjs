@@ -1,0 +1,13 @@
+import { createRequire } from 'node:module';
+const { chromium } = createRequire(import.meta.url)(process.env.PLAYWRIGHT ?? 'playwright');
+const nav = await chromium.launch();
+const p = await nav.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true });
+await p.goto('http://localhost:4321/', { waitUntil: 'networkidle', timeout: 60000 });
+await p.waitForTimeout(2500);
+await p.evaluate(() => { for (const e of document.querySelectorAll('body *')) if (/^\s*Offre de lancement/.test(e.textContent) && e.children.length < 6 && e.getBoundingClientRect().height < 200) { e.style.display = 'none'; break; } });
+await p.screenshot({ path: new URL('./site-mobile.png', import.meta.url).pathname });
+await p.goto('http://localhost:4321/artisans', { waitUntil: 'networkidle', timeout: 60000 }).catch(()=>{});
+await p.waitForTimeout(2500);
+await p.evaluate(() => { for (const e of document.querySelectorAll('body *')) if (/^\s*Offre de lancement/.test(e.textContent) && e.children.length < 6 && e.getBoundingClientRect().height < 200) { e.style.display = 'none'; break; } });
+await p.screenshot({ path: new URL('./site-artisans.png', import.meta.url).pathname });
+await nav.close();

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Profil Instagram Nouvelle Ardoise</title>
+<!--
+  Profil Instagram « vitrine » : une bannière sur 3 publications épinglées (3 × 1080×1350, coupées par profil.mjs)
+  et les couvertures des stories à la une.
+  ?quoi=banniere (3240×1350) ou ?quoi=icone&n=0..4 (1080×1080).
+  Les écrans des téléphones sont de vraies captures de nouvelleardoise.ch (capture.mjs), aucune image générée.
+-->
+<style>
+  @font-face { font-family: Brico; src: url(../fonts/bricolage-grotesque-latin-standard-normal.woff2) format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: Instru; src: url(../fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas></canvas>
+<script src="../ardoise.js"></script>
+<script>
+const JAUNE = '#FFD23F', ARDOISE = '#1E2A2C', CREME = '#F5EDE3';
+const q = new URLSearchParams(location.search);
+const quoi = q.get('quoi') || 'banniere';
+const cv = document.querySelector('canvas');
+const c = cv.getContext('2d');
+const R = 2;
+const police = (t, g = 800, f = 'Brico') => { c.font = `${g} ${t}px ${f}`; };
+const charger = s => new Promise(ok => { const i = new Image(); i.onload = () => ok(i); i.src = s; });
+
+function points(L, H, couleur) {
+  c.fillStyle = couleur;
+  for (let y = 60; y < H; y += 60) for (let x = 60; x < L; x += 60) { c.beginPath(); c.arc(x, y, 3, 0, 7); c.fill(); }
+}
+
+// téléphone : coque ardoise, écran = capture réelle du site
+function telephone(img, cx, cy, w, angle) {
+  const h = w * 2.06, r = w * 0.15;
+  c.save(); c.translate(cx, cy); c.rotate(angle);
+  c.shadowColor = 'rgba(0,0,0,0.35)'; c.shadowBlur = 60; c.shadowOffsetY = 30;
+  c.fillStyle = '#111'; c.beginPath(); c.roundRect(-w / 2, -h / 2, w, h, r); c.fill();
+  c.shadowColor = 'transparent';
+  const m = w * 0.04;
+  c.save(); c.beginPath(); c.roundRect(-w / 2 + m, -h / 2 + m, w - 2 * m, h - 2 * m, r * 0.8); c.clip();
+  const sw = w - 2 * m, sh = sw * img.height / img.width;
+  c.drawImage(img, -w / 2 + m, -h / 2 + m, sw, sh);
+  c.restore();
+  c.fillStyle = '#111'; c.beginPath(); c.roundRect(-w * 0.16, -h / 2 + m * 1.6, w * 0.32, w * 0.075, w * 0.04); c.fill();
+  c.restore();
+}
+
+function texteCentre(t, x, y) { c.textAlign = 'center'; c.fillText(t, x, y); c.textAlign = 'left'; }
+
+async function banniere() {
+  const L = 3240, H = 1350;
+  cv.width = L * R; cv.height = H * R; cv.style.width = L + 'px'; c.scale(R, R);
+  const [site, artisans] = await Promise.all([charger('site-mobile.png'), charger('site-artisans.png')]);
+  c.fillStyle = JAUNE; c.fillRect(0, 0, L, H);
+  points(L, H, 'rgba(30,42,44,0.10)');
+
+  // panneau 1 : le titre et le site sur téléphone
+  c.fillStyle = ARDOISE; c.textBaseline = 'alphabetic';
+  police(118); c.fillText('Faites venir', 110, 250); c.fillText('les clients.', 110, 380);
+  c.strokeStyle = ARDOISE; c.lineWidth = 12; c.lineCap = "round";
+  c.beginPath(); c.moveTo(116, 412); c.quadraticCurveTo(380, 428, 640, 404); c.stroke();
+  telephone(site, 760, 800, 370, 0.10);
+
+  // panneau 2 : le logo
+  const s = 380, x2 = 1080 + 540 - s / 2, y2 = 300;
+  c.save(); c.shadowColor = 'rgba(30,42,44,0.35)'; c.shadowBlur = 40; c.shadowOffsetY = 20;
+  c.fillStyle = ARDOISE; c.beginPath(); c.roundRect(x2, y2, s, s, s * 0.2); c.fill(); c.restore();
+  nLumineux(c, x2 + s * 0.2, y2 + s * 0.27, s * 0.6, { eclat: 1 });
+  c.fillStyle = ARDOISE; police(128); texteCentre('Nouvelle', 1620, 850); texteCentre('Ardoise', 1620, 975);
+  c.save(); c.translate(1620, 1030); c.rotate(-0.035);
+  c.fillStyle = ARDOISE; c.fillRect(-270, 0, 540, 92);
+  c.fillStyle = JAUNE; police(58); c.letterSpacing = '14px'; texteCentre('AGENCE', 7, 66); c.letterSpacing = '0px';
+  c.restore();
+
+  // panneau 3 : la page artisans sur téléphone et les trois mots
+  telephone(artisans, 2160 + 330, 700, 380, -0.08);
+  c.fillStyle = ARDOISE; police(84);
+  ['Montrer.', 'Attirer.', 'Vendre.'].forEach((m, i) => c.fillText(m, 2160 + 610, 420 + i * 150));
+  police(30, 600, 'Instru'); c.fillStyle = 'rgba(30,42,44,0.8)';
+  c.fillText('Genève · Vaud', 2160 + 614, 900);
+
+  // bande des services, sous les trois publications (aucune pastille sur les coutures 1080 et 2160)
+  const yb = 1150, hb = 120;
+  c.fillStyle = ARDOISE; c.fillRect(0, yb, L, hb + 40);
+  const tags = [['SHOOTING PHOTO', '& VIDÉO'], ['RÉSEAUX SOCIAUX', 'ON PUBLIE POUR VOUS'], ['SITE', '& RÉFÉRENCEMENT'],
+                ['PUBLICITÉ', 'INSTAGRAM & FACEBOOK'], ['CLICK & COLLECT', 'NOUVEAU CANAL DE VENTE'], ['À LA CARTE', 'UN SERVICE OU TOUT']];
+  tags.forEach(([a, b], i) => {
+    const panneau = Math.floor(i / 2), dans = i % 2;
+    const w = 440, x = panneau * 1080 + 80 + dans * (w + 40), y = yb + 22;
+    c.fillStyle = JAUNE; c.beginPath(); c.roundRect(x, y, w, hb - 44 + 40, 18); c.fill();
+    c.fillStyle = ARDOISE; police(34); c.fillText(a, x + 26, y + 52);
+    police(24, 600, 'Instru'); c.fillText(b, x + 26, y + 92);
+  });
+}
+
+// couvertures des stories à la une : disque ardoise, anneau jaune, pictogramme à la craie
+const ICONES = ['services', 'realisations', 'clickcollect', 'methode', 'contact'];
+function picto(nom, x, y, t) {
+  c.strokeStyle = JAUNE; c.fillStyle = JAUNE; c.lineWidth = t * 0.09; c.lineCap = 'round'; c.lineJoin = 'round';
+  c.beginPath();
+  if (nom === 'services') { // étoile
+    for (let i = 0; i < 10; i++) { const r = i % 2 ? t * 0.22 : t * 0.5, a = -Math.PI / 2 + i * Math.PI / 5; c.lineTo(x + r * Math.cos(a), y + r * Math.sin(a)); }
+    c.closePath(); c.stroke();
+  } else if (nom === 'realisations') { // appareil photo
+    c.roundRect(x - t * 0.5, y - t * 0.28, t, t * 0.66, t * 0.1); c.moveTo(x - t * 0.18, y - t * 0.28); c.lineTo(x - t * 0.1, y - t * 0.42); c.lineTo(x + t * 0.1, y - t * 0.42); c.lineTo(x + t * 0.18, y - t * 0.28); c.stroke();
+    c.beginPath(); c.arc(x, y + t * 0.05, t * 0.18, 0, 7); c.stroke();
+  } else if (nom === 'clickcollect') { // sac
+    c.roundRect(x - t * 0.4, y - t * 0.2, t * 0.8, t * 0.65, t * 0.06); c.moveTo(x - t * 0.18, y - t * 0.2); c.arc(x, y - t * 0.2, t * 0.18, Math.PI, 0); c.stroke();
+  } else if (nom === 'methode') { // cible
+    [0.5, 0.32, 0.12].forEach(r => { c.moveTo(x + t * r, y); c.arc(x, y, t * r, 0, 7); }); c.stroke();
+  } else { // bulle
+    c.roundRect(x - t * 0.5, y - t * 0.38, t, t * 0.62, t * 0.18); c.moveTo(x - t * 0.2, y + t * 0.24); c.lineTo(x - t * 0.3, y + t * 0.46); c.lineTo(x + t * 0.02, y + t * 0.24); c.stroke();
+    [-0.22, 0, 0.22].forEach(d => { c.beginPath(); c.arc(x + t * d, y - t * 0.07, t * 0.05, 0, 7); c.fill(); });
+  }
+}
+function icone(n) {
+  const L = 1080; cv.width = L * R; cv.height = L * R; cv.style.width = L + 'px'; c.scale(R, R);
+  c.fillStyle = JAUNE; c.fillRect(0, 0, L, L);
+  c.fillStyle = ARDOISE; c.beginPath(); c.arc(540, 540, 400, 0, 7); c.fill();
+  c.setLineDash([22, 16]); c.strokeStyle = JAUNE; c.lineWidth = 10; c.beginPath(); c.arc(540, 540, 360, 0, 7); c.stroke(); c.setLineDash([]);
+  picto(ICONES[n], 540, 540, 380);
+}
+
+window.pret = Promise.all([document.fonts.load('800 100px Brico'), document.fonts.load('600 30px Instru')])
+  .then(() => quoi === 'icone' ? icone(+q.get('n') || 0) : banniere());
+</script>
+</body>
+</html>
