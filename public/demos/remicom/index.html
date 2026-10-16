@@ -272,6 +272,25 @@ h2.D{font-size:clamp(34px,5vw,58px);max-width:900px}
   .af .D{font-size:34px}
   .rphone{width:min(320px,100%)}
 }
+
+/* promesses */
+.prom{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:36px}
+.pr{background:#fff;border:1px solid var(--g2);border-radius:22px;padding:22px 20px;display:flex;flex-direction:column}
+.pr .n{font-family:Disp;font-size:30px;color:var(--red);line-height:1}
+.pr b{display:block;font-size:16px;margin-top:14px;line-height:1.2}
+.pr p{font-size:13px;color:var(--mute);margin-top:8px;line-height:1.45}
+.pr ul{list-style:none;margin-top:10px;display:grid;gap:5px;font-size:12.5px;color:var(--ink)}
+.pr li{padding-left:12px;position:relative}
+.pr li:before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--red)}
+.formules{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fo{border-radius:22px;padding:24px;background:var(--ink);color:#fff;display:flex;gap:18px;align-items:center}
+.fo.r{background:var(--red)}
+.fo .big{font-family:Disp;font-size:64px;line-height:.9;flex:none}
+.fo .big small{display:block;font-family:Body;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;opacity:.85;margin-top:6px}
+.fo p{font-size:14px;line-height:1.45;opacity:.95}
+.fo p b{font-weight:700}
+@media (max-width:860px){.prom{grid-template-columns:1fr 1fr}.formules{grid-template-columns:1fr}.fo .big{font-size:52px}}
+@media (max-width:480px){.prom{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -290,9 +309,9 @@ h2.D{font-size:clamp(34px,5vw,58px);max-width:900px}
   <h2 class="D" style="margin-top:12px">On se branche sur votre façon de vendre.</h2>
   <p class="lead">Vous connaissez vos vendeurs, vos repreneurs et vos règles. Cette proposition est une boîte à outils : <b>vous choisissez le niveau</b>, on s'aligne sur votre ton, vos process et vos priorités.</p>
   <div class="opts3">
-    <div class="opt3"><div class="cap">Option 1 · Production</div><div class="S">On produit, vous publiez.</div><p>Vos courtiers gardent la main sur le compte et le calendrier. On livre les vidéos, les visuels et les textes, prêts à poster, dans votre charte.</p><ul><li>4 affaires filmées par mois</li><li>Visuels et textes livrés sous 72 h</li><li>Formats Instagram, LinkedIn, TikTok</li></ul></div>
-    <div class="opt3 k"><div class="cap">Option 2 · Clé en main</div><div class="S">On gère tout, vous validez.</div><p>Direction artistique, tournages, publication, réponses aux messages et remontée des candidats dans votre CRM. Vous validez chaque vidéo avant publication.</p><ul><li>3 publications par semaine, stories chaque jour</li><li>Club repreneurs et boosts publicitaires</li><li>Bilan mensuel : inscrits, visites, mandats</li></ul></div>
-    <div class="opt3"><div class="cap">Option 3 · Accompagnement</div><div class="S">On forme vos courtiers.</div><p>Deux ateliers pour que votre équipe filme elle-même, avec les gabarits, la charte et la méthode « affaire confidentielle ». On reste en soutien.</p><ul><li>Gabarits et charte prêts à l'emploi</li><li>Relecture et montage à la demande</li><li>Point mensuel sur les résultats</li></ul></div>
+    <div class="opt3"><div class="cap">Option 1 · Production</div><div class="S">On produit, vous publiez.</div><p>Vos courtiers gardent la main sur le compte et le calendrier. On livre les vidéos, les visuels et les textes, prêts à poster, dans votre charte.</p><ul><li>Formule 4 réels par mois</li><li>Visuels et textes livrés sous 72 h</li><li>Déclinés pour Instagram, Facebook, LinkedIn, TikTok</li><li>Bilan mensuel</li></ul></div>
+    <div class="opt3 k"><div class="cap">Option 2 · Clé en main</div><div class="S">On gère tout, vous validez.</div><p>Direction artistique, tournages, publication, réponses aux messages et remontée des candidats dans votre CRM. Vous validez chaque vidéo avant publication.</p><ul><li>Formule 4 ou 8 réels par mois, stories chaque jour</li><li>Publicités Instagram et Facebook pilotées</li><li>Influenceur food sélectionné et cadré</li><li>Club repreneurs et bilan mensuel de l'investissement</li></ul></div>
+    <div class="opt3"><div class="cap">Option 3 · Accompagnement</div><div class="S">On forme vos courtiers.</div><p>Deux ateliers pour que votre équipe filme elle-même, avec les gabarits, la charte et la méthode « affaire confidentielle ». On reste en soutien.</p><ul><li>Gabarits et charte prêts à l'emploi</li><li>Montage et publicité à la demande</li><li>Bilan mensuel sur vos résultats</li></ul></div>
   </div>
   <div class="keep">
     <div><b>Ce qui ne change pas</b>Vos règles de confidentialité, votre preuve de solvabilité avant tout renseignement, votre ton de courtier. On ne vend pas à votre place : on remplit l'entonnoir.</div>
@@ -300,6 +319,23 @@ h2.D{font-size:clamp(34px,5vw,58px);max-width:900px}
   </div>
 </div></section>
 
+
+<section><div class="wrap">
+  <div class="cap num">00b · Ce que vous obtenez</div>
+  <h2 class="D" style="margin-top:12px">Une ligne, tous vos réseaux, un bilan chaque mois.</h2>
+  <p class="lead">Cinq engagements, quel que soit le niveau choisi. C'est ce qui transforme des publications en un investissement qu'on peut mesurer.</p>
+  <div class="prom">
+    <div class="pr"><span class="n">1</span><b>Une ligne conductrice sur tous vos réseaux</b><p>Instagram, Facebook, LinkedIn, TikTok : même identité, mêmes codes, mêmes dossiers. Chaque vidéo est déclinée pour chaque réseau, jamais copiée-collée.</p></div>
+    <div class="pr"><span class="n">2</span><b>Vos publicités Instagram et Facebook, gérées</b><p>On crée, on cible, on pilote. Repreneurs : métiers de la restauration, Genève et Vaud. Vendeurs : restaurateurs en place. Budget fixé ensemble, ajusté chaque mois.</p></div>
+    <div class="pr"><span class="n">3</span><b>Un bilan mensuel de votre investissement</b><p>Un document d'une page, chaque début de mois :</p><ul><li>vues, abonnés, portée par réseau</li><li>inscrits au Club repreneurs</li><li>demandes de visite, dossiers envoyés</li><li>nouveaux mandats venus du réseau</li><li>coût par contact qualifié</li></ul></div>
+    <div class="pr"><span class="n">4</span><b>L'influenceur food, sélectionné pour vous</b><p>On présélectionne 3 créateurs food de Genève et Lausanne, on vérifie leurs vrais chiffres, on négocie, on cadre la confidentialité. Vous choisissez. Il publie sur son compte et le vôtre : c'est lui qui fait la pub de votre Instagram.</p></div>
+    <div class="pr"><span class="n">5</span><b>4 ou 8 réels par mois, selon la formule</b><p>Le rythme suit votre portefeuille et votre budget. On commence à 4, on passe à 8 quand le Club se remplit.</p></div>
+  </div>
+  <div class="formules">
+    <div class="fo"><div class="big">4<small>réels / mois</small></div><p><b>Formule Essentiel.</b> Un réel par semaine, l'affaire du lundi, les stories et les visuels qui vont avec. Pour poser l'identité et lancer le Club.</p></div>
+    <div class="fo r"><div class="big">8<small>réels / mois</small></div><p><b>Formule Rythme.</b> Deux réels par semaine, les séries « Imaginez ici », « Mode d'emploi » et « Ils ont repris », l'influenceur chaque mois, la publicité pilotée. Pour faire du compte une source régulière de mandats.</p></div>
+  </div>
+</div></section>
 <section><div class="wrap two">
   <div><div class="rule"></div><div class="cap num">01 · Le constat</div>
     <p class="big S" style="margin-top:12px">Un repreneur ne cherche pas une adresse. Il cherche à se projeter.</p>
