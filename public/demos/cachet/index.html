@@ -344,6 +344,31 @@ h2.big{font-size:44px}
 .creat b{display:block;font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.06em}
 .dark .creat div{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.18);color:#fff}
 .credit-b{position:absolute;left:14px;bottom:10px;font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.06em;color:rgba(255,255,255,.6);z-index:2}
+
+/* ---- v6 : bannières compositing ---- */
+.ban .bg{filter:saturate(1.35) contrast(1.06) brightness(1.02)}
+.ban .t1{background:linear-gradient(180deg,rgba(0,0,0,0) 30%,var(--cd) 100%);mix-blend-mode:normal;opacity:.88}
+.ban .t2{background:radial-gradient(circle at 78% 18%,rgba(255,255,255,.55),rgba(255,255,255,0) 42%),radial-gradient(circle at 15% 85%,var(--cl),transparent 40%);mix-blend-mode:screen;opacity:.75}
+.ban .rays{opacity:.5}
+.ban .vig{background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,0) 35%,rgba(0,0,0,.35) 100%)}
+.ban .pt{position:absolute;width:26px;height:16px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--cl);opacity:.85;filter:blur(.4px);box-shadow:0 6px 14px rgba(0,0,0,.25);animation:flot 7s ease-in-out infinite;pointer-events:none}
+.ban .pt:nth-child(odd){background:#fff;opacity:.7}
+.ban .pt.p1{left:8%;top:18%;transform:rotate(20deg)} .ban .pt.p2{left:22%;top:62%;transform:rotate(-30deg);animation-delay:-2s} .ban .pt.p3{left:46%;top:12%;transform:rotate(60deg);animation-delay:-4s} .ban .pt.p4{left:60%;top:70%;transform:rotate(-10deg);animation-delay:-1s;width:34px;height:20px} .ban .pt.p5{left:80%;top:40%;transform:rotate(35deg);animation-delay:-5s} .ban .pt.p6{left:90%;top:78%;transform:rotate(-50deg);animation-delay:-3s;width:18px;height:11px} .ban .pt.p7{left:35%;top:40%;transform:rotate(80deg);animation-delay:-6s;width:14px;height:9px} .ban .pt.p8{left:70%;top:8%;transform:rotate(-70deg);animation-delay:-2.5s}
+@keyframes flot{0%,100%{translate:0 0}50%{translate:6px -18px}}
+.ban .spk{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 12% 30%,rgba(255,255,255,.9) 0 2px,transparent 3px),radial-gradient(circle at 30% 15%,rgba(255,255,255,.8) 0 1.5px,transparent 2.5px),radial-gradient(circle at 55% 35%,rgba(255,255,255,.9) 0 2px,transparent 3px),radial-gradient(circle at 72% 60%,rgba(255,255,255,.7) 0 1.5px,transparent 2.5px),radial-gradient(circle at 88% 25%,rgba(255,255,255,.9) 0 2.5px,transparent 3.5px),radial-gradient(circle at 40% 80%,rgba(255,255,255,.8) 0 1.5px,transparent 2.5px),radial-gradient(circle at 93% 70%,rgba(255,255,255,.8) 0 2px,transparent 3px)}
+.ban .fl.cut{filter:drop-shadow(0 40px 50px rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(255,255,255,.25));animation:flot 9s ease-in-out infinite}
+.ban .fl.cut img{width:100%;display:block}
+.ban .fl.c1{width:min(58vw,520px);right:-6vw;top:8%;transform:rotate(-8deg)}
+.ban .fl.c2{width:min(34vw,300px);left:2vw;top:10%;transform:rotate(14deg);animation-delay:-3s}
+.ban .fl.c3{width:min(30vw,260px);right:2vw;bottom:24%;transform:rotate(-16deg);animation-delay:-5s}
+@media(min-width:800px){.ban .fl.c1{right:6vw;top:6%} .ban .fl.c2{left:46%;top:14%} .ban .fl.c3{right:3vw;bottom:10%}}
+.ban .fl.box{animation:flot 10s ease-in-out infinite}
+.ban .fl.lid{animation:none}
+.ban .fl.lid.small{width:min(44vw,380px);right:auto;left:48%;top:6%;transform:perspective(900px) rotateX(46deg) rotateZ(-16deg)}
+.ban .ban-in{text-shadow:0 2px 18px rgba(0,0,0,.35)}
+.ban h2{text-shadow:.04em .04em 0 var(--cd),0 10px 40px rgba(0,0,0,.4)}
+.ban .l{background:rgba(0,0,0,.28);backdrop-filter:blur(6px);padding:12px 14px;border-radius:12px;display:inline-block;max-width:560px}
+@media(max-width:799px){.ban .stk.s01{display:none}.ban .fl.c2{left:-6vw;top:2%;width:34vw}.ban h2{font-size:48px}}
 </style>
 </head>
 <body>
@@ -447,10 +472,11 @@ h2.big{font-size:44px}
 <!-- 0 · HERO -->
 <header class="ban" style="--cd:#0E7A3E;--cl:#B8FF3A">
   <img class="bg" src="img/sl-tuktuk.jpg" alt="">
-  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div>
+  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div><i class="pt p1"></i><i class="pt p2"></i><i class="pt p3"></i><i class="pt p4"></i><i class="pt p5"></i><i class="pt p6"></i><i class="pt p7"></i><i class="pt p8"></i><div class="spk"></div>
+  <div class="fl cut c2"><img src="img/cut/plat.webp" alt=""></div>
   <div class="fl box"><svg viewBox="0 0 640 760" style="width:100%"><use href="#box01"/></svg></div>
-  <span class="stk" style="background:var(--jaune);color:var(--noir);right:4vw;top:44%;transform:rotate(8deg)">N°01 · COLOMBO</span>
-  <span class="stk" style="background:var(--magenta);color:#fff;left:4vw;top:12%;transform:rotate(-7deg)">ÇA CRAQUE !</span>
+  <span class="stk s01" style="background:var(--jaune);color:var(--noir);right:4vw;top:50%;transform:rotate(8deg)">N°01 · COLOMBO</span>
+  <span class="stk" style="background:var(--magenta);color:#fff;left:4vw;top:36%;transform:rotate(-7deg)">ÇA CRAQUE !</span>
   <div class="ban-in">
     <span class="kick">Nouvelle Ardoise · maquette de concept · Confidentiel</span>
     <h2 class="anton" style="max-width:none">CRAQUE</h2>
@@ -476,18 +502,17 @@ h2.big{font-size:44px}
 
 <!-- 2 · BANNIÈRE N°01 COLOMBO -->
 <section class="ban" style="--cd:#0E7A3E;--cl:#B8FF3A">
-  <img class="bg" src="img/sl-tea.jpg" alt="">
-  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div>
+  <img class="bg" src="img/sl-galle.jpg" alt="">
+  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div><i class="pt p1"></i><i class="pt p2"></i><i class="pt p3"></i><i class="pt p4"></i><i class="pt p5"></i><i class="pt p6"></i><i class="pt p7"></i><i class="pt p8"></i><div class="spk"></div>
   <div class="big-n">N°01</div>
-  <div class="disc a"><img src="img/hero-sq.jpg" alt=""></div>
-  <div class="disc b"><img src="img/curryleaf.jpg" alt=""></div>
-  <div class="disc c"><img src="img/riz-sq.jpg" alt=""></div>
+  <div class="fl cut c1"><img src="img/cut/plat.webp" alt=""></div>
+  <div class="fl cut c3"><img src="img/cut/curry.webp" alt=""></div>
   <div class="ban-in">
     <span class="kick">Édition N°01 · 11.01 → 20.02</span>
     <h2 class="anton">Colombo.</h2>
     <p class="l">Riz coco-ghee · sauce coco-curry · chili-tamarin · pol sambol · carrot sambol. La cuisine de Gaayathri, chez Cuisine Lab depuis 2017.</p>
   </div>
-  <span class="credit-b">Photos : Thilina Alagiyawanna, Markus Winkler, Anindo Santra, Andres Alaniz / Pexels</span>
+  <span class="credit-b">Photos : Ceylon Frames, Markus Winkler, Anindo Santra / Pexels</span>
 </section>
 
 <!-- 3 · LA BOX, COUCHE PAR COUCHE -->
@@ -516,10 +541,10 @@ h2.big{font-size:44px}
 <!-- 4 · BANNIÈRE N°02 TÉHÉRAN -->
 <section class="ban" style="--cd:#8A1A4A;--cl:#FFC400">
   <img class="bg" src="img/ir-sunset.jpg" alt="">
-  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div>
+  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div><i class="pt p1"></i><i class="pt p2"></i><i class="pt p3"></i><i class="pt p4"></i><i class="pt p5"></i><i class="pt p6"></i><i class="pt p7"></i><i class="pt p8"></i><div class="spk"></div>
   <div class="big-n">N°02</div>
-  <div class="fl lid"><svg viewBox="0 0 1000 1000"><use href="#lid02"/></svg></div>
-  <div class="disc b" style="bottom:30%"><img src="img/tehran-sq.jpg" alt=""></div>
+  <div class="fl cut c1"><img src="img/cut/tehran.webp" alt=""></div>
+  <div class="fl lid small"><svg viewBox="0 0 1000 1000"><use href="#lid02"/></svg></div>
   <div class="ban-in">
     <span class="kick">Édition N°02 · 23.02 → 03.04</span>
     <h2 class="anton">Téhéran.</h2>
@@ -545,17 +570,18 @@ h2.big{font-size:44px}
 
 <!-- 6 · BANNIÈRE N°03 DELHI -->
 <section class="ban" style="--cd:#3B1A8C;--cl:#FF5A1F">
-  <img class="bg" src="img/in-chandni.jpg" alt="">
-  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div>
+  <img class="bg" src="img/taj-sm.jpg" alt="">
+  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div><i class="pt p1"></i><i class="pt p2"></i><i class="pt p3"></i><i class="pt p4"></i><i class="pt p5"></i><i class="pt p6"></i><i class="pt p7"></i><i class="pt p8"></i><div class="spk"></div>
   <div class="big-n">N°03</div>
-  <div class="fl lid"><svg viewBox="0 0 1000 1000"><use href="#lid03"/></svg></div>
-  <div class="disc b" style="bottom:30%"><img src="img/epices.jpg" alt=""></div>
+  <div class="fl cut c1"><img src="img/cut/thali.webp" alt=""></div>
+  <div class="fl cut c3"><img src="img/cut/epices.webp" alt=""></div>
+  <div class="fl lid small"><svg viewBox="0 0 1000 1000"><use href="#lid03"/></svg></div>
   <div class="ban-in">
     <span class="kick">Édition N°03 · 06.04 → 15.05</span>
     <h2 class="anton">Delhi.</h2>
     <p class="l">Basmati au cumin · makhani crémeuse · chutney coriandre-menthe · pappadum brisé · kachumber. Avec un chef invité.</p>
   </div>
-  <span class="credit-b">Photos : Mrj Cinematic, Kamakshi / Pexels</span>
+  <span class="credit-b">Photos : Sudipta Mondal, Subhrajyoti Paul, Kamakshi / Pexels</span>
 </section>
 
 <!-- 7 · IDENTITÉ -->
@@ -644,7 +670,7 @@ h2.big{font-size:44px}
 <!-- 10 · BANNIÈRE PHASE 1 -->
 <section class="ban ph" style="--cd:#101A6B;--cl:#B8FF3A">
   <img class="bg" src="img/nations.jpg" alt="">
-  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div>
+  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div><i class="pt p1"></i><i class="pt p2"></i><i class="pt p3"></i><i class="pt p4"></i><i class="pt p5"></i><i class="pt p6"></i><i class="pt p7"></i><i class="pt p8"></i><div class="spk"></div>
   <div class="disc b" style="bottom:28%"><img src="img/banc.jpg" alt=""></div>
   <div class="ban-in">
     <span class="kick">Phase 1 · 23.11 → 18.12 · Édition N°00</span>
@@ -676,7 +702,7 @@ h2.big{font-size:44px}
 <!-- 12 · BANNIÈRE PHASE 2 -->
 <section class="ban ph" style="--cd:#8A1A4A;--cl:#FFC400">
   <img class="bg" src="img/plancha.jpg" alt="">
-  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div>
+  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div><i class="pt p1"></i><i class="pt p2"></i><i class="pt p3"></i><i class="pt p4"></i><i class="pt p5"></i><i class="pt p6"></i><i class="pt p7"></i><i class="pt p8"></i><div class="spk"></div>
   <span class="stk" style="background:var(--lime);color:var(--noir);right:6vw;top:16%;transform:rotate(8deg)">11.01.2027</span>
   <div class="ban-in">
     <span class="kick">Phase 2 · J0 lundi 11.01 → J+40</span>
@@ -730,7 +756,7 @@ h2.big{font-size:44px}
 <!-- 14 · BANNIÈRE PHASE 3 -->
 <section class="ban ph" style="--cd:#3B1A8C;--cl:#FF5A1F">
   <img class="bg" src="img/velo.jpg" alt="">
-  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div>
+  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div><i class="pt p1"></i><i class="pt p2"></i><i class="pt p3"></i><i class="pt p4"></i><i class="pt p5"></i><i class="pt p6"></i><i class="pt p7"></i><i class="pt p8"></i><div class="spk"></div>
   <div class="ban-in">
     <span class="kick">Phase 3 · 23.02 → avril · N°02, N°03</span>
     <h2 class="anton" style="max-width:12ch">On tourne.</h2>
@@ -802,9 +828,9 @@ h2.big{font-size:44px}
       <li>Outils : lightspeedhq.com/ch, sumup.com/fr-ch, twint.ch, stripe.com/en-ch, yoordi.ch, blog.sparissimofood.com, loopyloyalty.com, loyable.com, go-fast.ch, rocket-courrier.ch, carvelo.ch, ge.ch (subventions vélo, salaire minimum), rts.ch (arrêt TF Chaskis, fermeture Smood), edoeb.admin.ch (nLPD).</li>
       <li>Marque : recherches web 17.10.2026 (« Craque » : aucun restaurant ni fast-food trouvé en Suisse ni en France ; homonymes hors périmètre : La Craque, italien à Anvers ; « Chez Nath, ça craque », sandwicherie à Malmedy ; craque.ch libre au RDAP de nic.ch) ; Swissreg et Zefix restent à consulter manuellement.</li>
     </ul>
-    <p class="cap" style="margin-top:22px">Crédits photos (toutes libres de droits, aucune image générée par IA, aucune ne représente le produit réel)</p>
+    <p class="cap" style="margin-top:22px">Crédits photos (toutes libres de droits, aucune image générée par IA ; les détourages sont faits sur ces photos réelles ; aucune ne représente le produit réel)</p>
     <ul>
-      <li>Poulet croustillant sur riz : Markus Winkler / Pexels</li><li>Riz et poulet (Mendoza) : Andres Alaniz / Pexels</li><li>Riz safrané : Amin Sani / Pexels</li><li>Thali : Subhrajyoti Paul / Pexels</li><li>Moutabal grenade : Denys Gromov / Pexels</li><li>Mezzé : Ali Dashti / Pexels</li><li>Feuille de curry : Anindo Santra / Pexels</li><li>Épices : Kamakshi / Pexels</li><li>Cuisinier : Matheus Bertelli / Pexels</li><li>Plancha : Joice Rivas / Pexels</li><li>Place des Nations : Toba Oduwaiye / Pexels</li><li>Coursier à vélo : Phaeng _yo / Pexels</li><li>Déjeuner sur un banc : MART PRODUCTION / Pexels</li>
+      <li>Poulet croustillant sur riz (et détourage) : Markus Winkler / Pexels</li><li>Phare de Galle : Ceylon Frames / Pexels</li><li>Tuk-tuk à Galle : Eslam Mohammed Abdelmaksoud / Pexels</li><li>Téhéran au couchant : Mehdi Salehi / Pexels</li><li>Taj Mahal : Sudipta Mondal / Pexels</li><li>Riz et poulet (Mendoza) : Andres Alaniz / Pexels</li><li>Riz safrané : Amin Sani / Pexels</li><li>Thali : Subhrajyoti Paul / Pexels</li><li>Moutabal grenade : Denys Gromov / Pexels</li><li>Mezzé : Ali Dashti / Pexels</li><li>Feuille de curry : Anindo Santra / Pexels</li><li>Épices : Kamakshi / Pexels</li><li>Cuisinier : Matheus Bertelli / Pexels</li><li>Plancha : Joice Rivas / Pexels</li><li>Place des Nations : Toba Oduwaiye / Pexels</li><li>Coursier à vélo : Phaeng _yo / Pexels</li><li>Déjeuner sur un banc : MART PRODUCTION / Pexels</li>
     </ul>
     <p style="margin-top:22px">Maquette de concept réalisée par Nouvelle Ardoise pour discussion. Toutes les dates, volumes et mécaniques marqués « hypothèse » sont des hypothèses de travail à valider ensemble. CRAQUE n'est pas une marque déposée à ce jour. Page non indexée.</p>
   </div>
