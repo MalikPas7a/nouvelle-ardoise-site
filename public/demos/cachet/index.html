@@ -93,10 +93,6 @@ td.m{font-family:"DM Mono",monospace;white-space:nowrap}
 .couches li::before{counter-increment:c;content:"0" counter(c);font-family:"Archivo Black",sans-serif;font-size:26px;line-height:1;color:var(--ink)}
 .couches li b{display:block;font-family:"DM Mono",monospace;font-weight:500;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
 .couches li span{font-size:15px;color:var(--mute);grid-column:2}
-.prix{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
-.prix div{background:#FBF7EF;border:1px solid var(--line);border-radius:14px;padding:14px}
-.prix b{font-family:"Archivo Black",sans-serif;font-size:26px;display:block}
-.prix small{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
 
 /* identité */
 .logos{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -318,7 +314,7 @@ h2.big{font-size:44px}
 <header class="hero2">
   <div class="glow"></div>
   <div class="wrap">
-    <div class="top"><span>Nouvelle Ardoise · maquette de concept · v2</span><span>Confidentiel · 17.10.2026</span></div>
+    <div class="top"><span>Nouvelle Ardoise · maquette de concept</span><span>Confidentiel · 17.10.2026</span></div>
   </div>
   <div class="marquee"><div>CRAQUE · N°01 COLOMBO · UN PAYS À LA FOIS · RIZ · POULET CROUSTILLANT · SAUCES · ÇA CRAQUE. TU CRAQUES. · CRAQUE · N°01 COLOMBO · UN PAYS À LA FOIS · RIZ · POULET CROUSTILLANT · SAUCES · TCHAK ! · </div></div>
   <div class="wrap">
@@ -373,14 +369,14 @@ h2.big{font-size:44px}
   <div class="wrap">
     <p class="cap"><b>01</b> · Les éditions</p>
     <h2>N°01, N°02, N°03…</h2>
-    <p class="lead">Ton ordre de départ était Iran → Inde → Sri Lanka. Je le challenge sur un point : <b>on lance avec le chef qui est en cuisine aujourd'hui.</b> Gaayathri Sathasivam (Sri Lanka, chez Cuisine Lab depuis 2017) a déjà au catering le tandoori au riz biryani, les fish cutlets, les vadai et le carrot sambol. Aucun chef iranien n'est listé actuellement dans l'équipe, et pas de chef indien. Téhéran passe en N°02 si un chef iranien signe, Delhi en N°03 avec un chef invité.</p>
+    <p class="lead">L'ordre naturel semblait Iran → Inde → Sri Lanka. Un point change tout : <b>on lance avec le chef qui est en cuisine aujourd'hui.</b> Gaayathri (Sri Lanka, chez Cuisine Lab depuis 2017) a déjà au catering le tandoori au riz biryani, les fish cutlets, les vadai et le carrot sambol. D'après le site de Cuisine Lab, l'équipe ne compte aujourd'hui ni chef iranien ni chef indien (à confirmer ensemble). Téhéran passe en N°02 si un chef iranien signe, Delhi en N°03 avec un chef invité.</p>
     <div class="eds" style="margin-top:28px">
       <div class="ed-card"><img src="img/riz-sq.jpg" alt=""><div class="ov"></div><i class="sw" style="background:var(--curry)"></i><div class="st"><span class="stamp">En cours</span></div>
         <div class="in"><div class="n">N°01 · 11.01 → 20.02.2027</div><h3>Colombo</h3><p>Riz coco-ghee · sauce coco-curry douce · chili-tamarin · pol sambol · carrot sambol. Cheffe : Gaayathri (ville et langue choisies par elle : tamoul, pas cinghalais par défaut).</p><p class="credit">Photo : Andres Alaniz / Pexels</p></div></div>
       <div class="ed-card"><img src="img/tehran-sq.jpg" alt=""><div class="ov"></div><i class="sw" style="background:var(--safran)"></i><div class="st"><span class="stamp">Prochain</span></div>
         <div class="in"><div class="n">N°02 · 23.02 → 03.04.2027</div><h3>Téhéran</h3><p>Riz safrané, éclats de tahdig · mast-o-khiar (yaourt-menthe) · mirza ghasemi (aubergine fumée, déjà au catering) · oignons frits et zereshk · salade shirazi.</p><p class="credit">Photo : Amin Sani / Pexels</p></div></div>
       <div class="ed-card"><img src="img/delhi-sq.jpg" alt=""><div class="ov"></div><i class="sw" style="background:var(--curcuma)"></i><div class="st"><span class="stamp">Chef invité</span></div>
-        <div class="in"><div class="n">N°03 · 06.04 → 15.05.2027</div><h3>Delhi</h3><p>Basmati au cumin · makhani crémeuse · chutney coriandre-menthe · pappadum brisé · kachumber. Édition avec un chef invité, à sourcer (Cuisine Lab n'a pas de chef indien).</p><p class="credit">Photo : Subhrajyoti Paul / Pexels</p></div></div>
+        <div class="in"><div class="n">N°03 · 06.04 → 15.05.2027</div><h3>Delhi</h3><p>Basmati au cumin · makhani crémeuse · chutney coriandre-menthe · pappadum brisé · kachumber. Édition avec un chef invité, à sourcer (pas de chef indien dans l'équipe actuelle, à confirmer).</p><p class="credit">Photo : Subhrajyoti Paul / Pexels</p></div></div>
       <div class="ed-card soon"><img src="img/damas-sq.jpg" alt=""><div class="ov"></div><i class="sw" style="background:var(--grenade)"></i><div class="st"><span class="stamp">Archive · vote</span></div>
         <div class="in"><div class="n">N°04 · à voter</div><h3>Damas</h3><p>Riz aux vermicelles · toum-yaourt · mélasse de grenade pimentée · pistache-sumac · fattouche. Conditionnée à un chef syrien en cuisine.</p><p class="credit">Photo : Denys Gromov / Pexels</p></div></div>
     </div>
@@ -405,13 +401,8 @@ h2.big{font-size:44px}
     <div>
       <div class="fig"><img src="img/hero.jpg" alt="Poulet croustillant sur riz"><div class="lab"><span class="stamp">N°01 · Colombo</span></div></div>
       <p class="credit">Photo d'ambiance : Markus Winkler / Pexels (le vrai produit sera photographié en plongée sur kraft, lumière dure)</p>
-      <div class="prix">
-        <div><b>CHF 16.–</b><small>Barquette · taille standard <span class="hyp">hypothèse</span></small></div>
-        <div><b>CHF 13.–</b><small>Végé (vadai, falafel) <span class="hyp">hypothèse</span></small></div>
-        <div><b>CHF 20.–</b><small>Grande (à partager en deux repas) <span class="hyp">hypothèse</span></small></div>
-        <div><b>CHF 1.50</b><small>Pot de sauce en plus <span class="hyp">hypothèse</span></small></div>
-      </div>
-      <p class="note">Repères relevés à Genève : barquettes crousty entre CHF 12.90 et 17.90 (Krousty rue du Stand, Planète Crousty, Naan &amp; Grill, Stack N Shake), XXL à 20.90, kebab médian suisse CHF 13 (un seul relevé genevois : 15.50), poke CHF 24. Le poulet suisse justifie le haut de fourchette. Le prix ne figure jamais sur un visuel Instagram, seulement ici, dans l'app et au comptoir. Le coût matière suisse reste à modéliser avant de figer quoi que ce soit.</p>
+
+      <p class="note">Le prix ne figure jamais sur un visuel Instagram : il se lit au comptoir et dans l'app. La grille tarifaire se construit ensemble, à partir du coût matière réel.</p>
     </div>
   </div>
 </section>
@@ -451,9 +442,9 @@ h2.big{font-size:44px}
 
 <section class="boxsec">
   <div class="wrap">
-    <p class="cap"><b>03b</b> · La box</p>
+    <p class="cap"><b>04</b> · La box</p>
     <h2 class="anton big">Une box ronde<br>qu'on reconnaît<br>à 20 mètres.</h2>
-    <p class="lead">Box ronde, comme chez Pasta Mo'. Le couvercle est la pochette de l'édition : il change de pays, la box reste. Dans la rue, dans un bureau, sur une story, c'est le couvercle qu'on voit en premier.</p>
+    <p class="lead">Box ronde. Le couvercle est la pochette de l'édition : il change de pays, la box reste. Dans la rue, dans un bureau, sur une story, c'est le couvercle qu'on voit en premier.</p>
     <div class="boxgrid">
       <div class="boxmock">
         <svg viewBox="0 0 640 760" aria-label="Box ronde CRAQUE N°01 Colombo">
@@ -493,16 +484,16 @@ h2.big{font-size:44px}
       <div class="card nb"><p class="cap">Ce qui change</p><h3>Le couvercle</h3><p>Un couvercle imprimé par édition : les deux couleurs du pays, la ville, le numéro, le rayonnement. Imprimé en petite série de six semaines. C'est l'affiche de l'édition, et elle part avec le client.</p></div>
       <div class="card nb"><p class="cap">Le geste</p><h3>Le tampon par-dessus</h3><p>Le chef tamponne quand même le couvercle imprimé, à l'encre bleue, avec la date du jour : preuve de fraîcheur, son « tchak », et le seul élément qui ne sort pas d'une imprimerie.</p></div>
     </div>
-    <p class="note" style="color:rgba(255,255,255,.6)">Coût et stock : un couvercle imprimé par édition est le compromis entre une box forte et une cuisine de formation qui ne peut pas gérer dix références. Minimums et prix unitaires d'impression de box rondes à demander à un fournisseur avant de fixer la durée des éditions. Mockups dessinés en vectoriel, aucune image générée par IA.</p>
+    <p class="note" style="color:rgba(255,255,255,.6)">Coût et stock : un couvercle imprimé par édition est le compromis entre une box forte et une cuisine de formation où l'on veut garder un seul stock et un seul geste par édition. Minimums et prix unitaires d'impression de box rondes à demander à un fournisseur avant de fixer la durée des éditions. Mockups dessinés en vectoriel, aucune image générée par IA.</p>
   </div>
 </section>
 
 
 <section>
   <div class="wrap">
-    <p class="cap"><b>04</b> · Instagram</p>
+    <p class="cap"><b>05</b> · Instagram</p>
     <h2>Un système,<br>pas un filtre.</h2>
-    <p class="lead">Ta référence kosmup.io est un style de compositing 3D (nourriture qui flotte, pétales, décors de ville). C'est un style d'annonceur, pas d'entreprise sociale. On garde l'énergie (cadrages serrés, contraste, mouvement), on abandonne le compositing. La cohérence du feed vient de trois colonnes : <b>photo réelle en plongée · texte sur couleur d'édition · humain au comptoir.</b></p>
+    <p class="lead">Le compositing 3D saturé des dark kitchens (nourriture qui flotte, pétales, décors de ville) est un style d'annonceur, pas d'entreprise sociale. On garde l'énergie (cadrages serrés, contraste, mouvement), on abandonne le compositing. La cohérence du feed vient de trois colonnes : <b>photo réelle en plongée · texte sur couleur d'édition · humain au comptoir.</b></p>
     <div class="feed">
       <div class="ph"><div class="av"><svg viewBox="0 0 1000 1000" style="color:var(--cream)"><use href="#cachet-rond"/></svg></div><div><div class="nm">craque.geneve</div><div class="bio">CRAQUE by Cuisine Lab<br>Un pays à la fois · riz · poulet croustillant · sauces<br>N°01 Colombo · Nations, Genève · click &amp; collect ↓</div></div></div>
       <div class="hl"><div><i class="c"></i>N°01</div><div><i class="s"></i>N°02</div><div><i class="k"></i>Carnet</div><div><i></i>Équipes</div><div><i class="g"></i>Archive</div><div><i></i>Les chefs</div></div>
@@ -530,14 +521,14 @@ h2.big{font-size:44px}
 
 <section class="dark">
   <div class="wrap">
-    <p class="cap"><b>05</b> · Click &amp; collect, appli, fidélité</p>
+    <p class="cap"><b>06</b> · Click &amp; collect, appli, fidélité</p>
     <h2>Cinq écrans.<br>Pas un de plus.</h2>
     <p class="lead">Une web app installable (icône ronde sur l'écran d'accueil), pas d'app native avant preuve de volume. Elle commande, montre l'édition, tamponne le carnet, archive les villes et fait voter. Rien d'autre.</p>
     <div class="phones">
       <div><div class="phone"><div class="scr curry"><div class="sb"><i></i></div><div class="bd"><span class="cnt">Expire dans 12 jours</span><div class="m" style="margin-top:auto">N°01 · 11.01 → 20.02</div><div class="ttl" style="font-size:30px">Colombo</div><div style="font-size:9px;opacity:.85">Riz coco-ghee · coco-curry · chili-tamarin · pol sambol</div><div class="btn">Commander</div><div class="m" style="text-align:center">Voir l'archive</div></div></div></div><p class="ph-cap">1 · Édition en cours</p></div>
-      <div><div class="phone"><div class="scr"><div class="sb"><i></i></div><div class="bd"><div class="m">Composer</div><div class="ttl">Ta barquette</div><div><span class="pill on">Standard</span><span class="pill">Grande</span><span class="pill">Végé</span></div><div class="m">Sauces du pays</div><div><span class="pill on">Coco-curry</span><span class="pill on">Chili-tamarin</span><span class="pill">+ pot</span></div><div class="m">Extras</div><div><span class="pill">Kinaï</span><span class="pill">Grano Maté</span></div><div class="m">Allergènes : gluten, lait, sésame</div><div class="btn">Suivant</div></div></div></div><p class="ph-cap">2 · Composer</p></div>
+      <div><div class="phone"><div class="scr"><div class="sb"><i></i></div><div class="bd"><div class="m">Composer</div><div class="ttl">Ma box</div><div><span class="pill on">Standard</span><span class="pill">Grande</span><span class="pill">Végé</span></div><div class="m">Sauces du pays</div><div><span class="pill on">Coco-curry</span><span class="pill on">Chili-tamarin</span><span class="pill">+ pot</span></div><div class="m">Extras</div><div><span class="pill">Kinaï</span><span class="pill">Grano Maté</span></div><div class="m">Allergènes : gluten, lait, sésame</div><div class="btn">Suivant</div></div></div></div><p class="ph-cap">2 · Composer</p></div>
       <div><div class="phone"><div class="scr"><div class="sb"><i></i></div><div class="bd"><div class="m">Quand · où</div><div class="ttl">Retrait</div><div class="row"><span>Aujourd'hui 12:20</span><b>Comptoir</b></div><div class="row"><span>Aujourd'hui 12:30</span><b>Comptoir</b></div><div class="row" style="background:var(--ink);color:var(--cream)"><span>Box d'équipe</span><b>12:15 · MSF</b></div><div class="m">Livraison seule : Uber Eats</div><div class="btn">Payer</div></div></div></div><p class="ph-cap">3 · Quand, où</p></div>
-      <div><div class="phone"><div class="scr"><div class="sb"><i></i></div><div class="bd"><div class="m">Payer</div><div class="ttl">CHF 16.–</div><div class="row"><b>TWINT</b><span>›</span></div><div class="row"><b>Apple Pay</b><span>›</span></div><div class="row"><b>Carte</b><span>›</span></div><div class="m">☐ Je veux les annonces d'édition</div><div class="m">Mon organisation (facultatif)</div><div class="btn">Payer avec TWINT</div></div></div></div><p class="ph-cap">4 · Payer</p></div>
+      <div><div class="phone"><div class="scr"><div class="sb"><i></i></div><div class="bd"><div class="m">Payer</div><div class="ttl">Total</div><div class="row"><b>TWINT</b><span>›</span></div><div class="row"><b>Apple Pay</b><span>›</span></div><div class="row"><b>Carte</b><span>›</span></div><div class="m">☐ Je veux les annonces d'édition</div><div class="m">Mon organisation (facultatif)</div><div class="btn">Payer avec TWINT</div></div></div></div><p class="ph-cap">4 · Payer</p></div>
       <div><div class="phone"><div class="scr"><div class="sb"><i></i></div><div class="bd"><div class="m">Tchak</div><div class="ttl">Ça craque.</div><div class="qr"></div><div class="m" style="text-align:center">N° 0421 · 12:20</div><div class="m">Carnet · 1 / 6 tampons</div><div class="carnet"><i class="ok"></i><i></i><i></i><i></i><i></i><i></i></div><div class="btn">Ajouter au Wallet</div></div></div></div><p class="ph-cap">5 · Confirmation</p></div>
     </div>
     <div class="grid g2" style="margin-top:28px">
@@ -549,10 +540,10 @@ h2.big{font-size:44px}
         <p class="note" style="color:var(--ink);opacity:.8">Coût : une barquette sur sept chez les fidèles, soit ≈ 14 % de leur chiffre en valeur faciale <span class="hyp">hypothèse</span>. Passage à 8-10 cases après le lancement. Parrainage, passeport 3 pays, carnet d'équipe : après N°03, pas avant.</p>
       </div>
       <div class="card">
-        <p class="cap">Stack · petite structure, suisse, sans développement</p>
-        <h3>CHF 110-170 par mois <span class="hyp" style="border-color:var(--cream)">hypothèse</span></h3>
-        <p>Commande en ligne : SparissimoFood Business (CHF 79/mois + 5 %) ou Yoordi (caisse dès CHF 63.20/mois). Encaissement : TWINT QR (1,3 %) + SumUp (1,5 % débit). Carnet Wallet : Loopy Loyalty (USD 25/mois) ou Loyable (CHF 29-59/mois, hébergé en Suisse). E-mail : le Mailchimp déjà utilisé par Cuisine Lab.</p>
-        <p style="margin-top:10px">Si Lightspeed est déjà en caisse chez Cuisine Lab : Core CHF 159/mois (fidélité et TWINT inclus) + Order Anywhere sur devis. À vérifier avant de choisir.</p>
+        <p class="cap">Outils · petite structure, suisse, sans développement</p>
+        <h3>Des outils existants, pas de développement</h3>
+        <p>Commande en ligne : SparissimoFood Business ou Yoordi (suisses, TWINT natif). Encaissement : TWINT QR + SumUp. Carnet Wallet : Loopy Loyalty ou Loyable (hébergé en Suisse). E-mail : le Mailchimp déjà en place. Si Lightspeed est déjà la caisse : fidélité et TWINT inclus, module Order Anywhere en plus. À vérifier avant de choisir.</p>
+        <p style="margin-top:10px">Tarifs publics des éditeurs à confirmer ; le coût total des outils se chiffre ensemble.</p>
         <p style="margin-top:10px">Données : opt-in explicite non pré-coché, déclaration de confidentialité, pas de pixel avant consentement (nLPD).</p>
       </div>
     </div>
@@ -561,11 +552,11 @@ h2.big{font-size:44px}
 
 <section>
   <div class="wrap">
-    <p class="cap"><b>06</b> · B2B midi</p>
+    <p class="cap"><b>07</b> · B2B midi</p>
     <h2>La box<br>d'équipe.</h2>
     <p class="lead">Le quartier compte encore plus de 20 000 personnes dans les organisations internationales (en baisse), 1 400 au Campus Biotech, 1 092 étudiants à l'IHEID, et le siège de MSF à 700 m. On ne vend pas un déjeuner quotidien contre les cafétérias subventionnées : <b>on vend une fenêtre de commande par bâtiment et une heure de livraison fixe.</b></p>
     <div class="grid g3" style="margin-top:26px">
-      <div class="card ink"><p class="cap">O1</p><h3>Box d'équipe</h3><p>Commande groupée par étage, dès 10 barquettes, cut-off 10h30, livrée 12h15 à la réception, sticker au nom de l'organisation, facture mensuelle. CHF 15 livrée dès 10, CHF 14 dès 25 <span class="hyp" style="border-color:rgba(243,234,218,.5)">hypothèse</span>.</p></div>
+      <div class="card ink"><p class="cap">O1</p><h3>Box d'équipe</h3><p>Commande groupée par étage, dès 10 barquettes, cut-off 10h30, livrée 12h15 à la réception, sticker au nom de l'organisation, facture mensuelle. Tarif dégressif par palier, à construire ensemble.</p></div>
       <div class="card"><p class="cap">O2</p><h3>Lunch drop</h3><p>Un jour = un bâtiment (mardi MSF, mercredi Biotech, jeudi Varembé). Lien de commande dans la newsletter interne, seuil 15 barquettes, table pliante 15 min à la réception : le carnet se tamponne sur place.</p></div>
       <div class="card"><p class="cap">O3</p><h3>Réunion Craque</h3><p>Plateau réunion avec le traiteur existant de Cuisine Lab : barquettes de l'édition + salade du pays + dessert + softs suisses. Porte d'entrée vers les grandes organisations à cafétéria interne.</p></div>
     </div>
@@ -573,8 +564,8 @@ h2.big{font-size:44px}
       <div class="fig"><img src="img/nations.jpg" alt="Place des Nations, Genève"><div class="lab"><span class="stamp">Premier cercle · 800 m</span></div></div>
       <div>
         <h3>Comment on entre</h3>
-        <p class="p">Dix bâtiments, un relais par bâtiment : association du personnel, responsable bien-être, intendant de mission permanente. Une « dégustation d'étage » de 20 mini-barquettes livrée à 12h15 avec le carnet et le tampon (≈ CHF 80-100 par dégustation <span class="hyp">hypothèse</span>). Un bloc texte FR/EN prêt à coller dans les newsletters internes : les organisations ne relaient pas une pub, elles relaient une entreprise sociale de formation du quartier.</p>
-        <p class="p">Badge d'organisation montré au comptoir = sauce offerte (pas de remise de prix). Affiliation Lunch-Check (0,95 %). Inscription Just Eat for Business et Uber Eats for Business pour les entreprises de Biotech qui ont déjà un budget repas.</p>
+        <p class="p">Dix bâtiments, un relais par bâtiment : association du personnel, responsable bien-être, intendant de mission permanente. Une « dégustation d'étage » de 20 mini-barquettes livrée à 12h15 avec le carnet et le tampon (coût matière à chiffrer). Un bloc texte FR/EN prêt à coller dans les newsletters internes : les organisations ne relaient pas une pub, elles relaient une entreprise sociale de formation du quartier.</p>
+        <p class="p">Badge d'organisation montré au comptoir = sauce offerte (pas de remise de prix). Affiliation Lunch-Check (commission selon la grille publique de lunch-check.ch). Inscription Just Eat for Business et Uber Eats for Business pour les entreprises de Biotech qui ont déjà un budget repas.</p>
         <p class="credit">Photo : Toba Oduwaiye / Pexels</p>
       </div>
     </div>
@@ -583,17 +574,17 @@ h2.big{font-size:44px}
 
 <section class="dark">
   <div class="wrap">
-    <p class="cap"><b>07</b> · Livraison</p>
+    <p class="cap"><b>08</b> · Livraison</p>
     <h2>Ne pas dépendre<br>d'Uber Eats.<br>Sans flotte.</h2>
     <p class="lead">À Genève, un coursier « maison » est forcément un salarié (Tribunal fédéral 2022 et 2025, salaire minimum CHF 24.59/h). Smood a fermé le 30.04.2026. La seule livraison propre rentable, c'est la tournée groupée du midi. Tout le reste passe par des coursiers tiers facturés à la course ou par la marque blanche.</p>
     <div class="scroll" style="margin-top:22px"><table>
-      <tr><th>Canal</th><th>Coût par barquette (CHF 16)</th><th>Rôle</th><th>Quand</th></tr>
+      <tr><th>Canal</th><th>Coût par box</th><th>Rôle</th><th>Quand</th></tr>
       <tr><td>Click &amp; collect propre</td><td class="m">≈ 0 (paiement 1-3 %)</td><td>Le canal par défaut : carnet, éditions, data</td><td class="m">J0</td></tr>
       <tr><td>Uber Eats, retrait</td><td class="m">≈ 15 % <span class="hyp" style="border-color:rgba(243,234,218,.5)">hyp.</span></td><td>Vitrine face aux 8+ enseignes crousty déjà listées</td><td class="m">J0</td></tr>
-      <tr><td>Uber Eats, coursiers Uber</td><td class="m">≈ 30 % <span class="hyp" style="border-color:rgba(243,234,218,.5)">hyp.</span></td><td>Le soir et le quartier des Pâquis, prix majorés +10-15 %</td><td class="m">J0, à surveiller</td></tr>
-      <tr><td>Uber Direct (marque blanche)</td><td class="m">CHF 8-10 / course <span class="hyp" style="border-color:rgba(243,234,218,.5)">hyp.</span></td><td>Livraison des commandes du site, frais client CHF 4.90, minimum CHF 25</td><td class="m">Après devis CHF</td></tr>
+      <tr><td>Uber Eats, coursiers Uber</td><td class="m">≈ 30 % <span class="hyp" style="border-color:rgba(243,234,218,.5)">hyp.</span></td><td>Le soir et le quartier des Pâquis (majoration éventuelle des prix sur plateforme : à décider ensemble)</td><td class="m">J0, à surveiller</td></tr>
+      <tr><td>Uber Direct (marque blanche)</td><td class="m">CHF 8-10 / course <span class="hyp" style="border-color:rgba(243,234,218,.5)">hyp.</span></td><td>Livraison des commandes du site, frais de livraison facturés au client, minimum de commande</td><td class="m">Après devis</td></tr>
       <tr><td>Go-Fast / Rocket (coursiers vélo genevois)</td><td class="m">CHF 1.20-2.20 en tournée de 15-25</td><td>Lunch drops B2B en ordre permanent (cargo CHF 30, tournée CHF 55/h)</td><td class="m">J0</td></tr>
-      <tr><td>Coursier salarié + vélo-cargo</td><td class="m">≈ CHF 1.70 à 40/jour · CHF 4.50 à 15/jour</td><td>Poste de formation « coursier-ambassadeur » qui tamponne les carnets</td><td class="m">M2, si ≥ 30 barquettes B2B/jour</td></tr>
+      <tr><td>Coursier salarié + vélo-cargo</td><td class="m">≈ CHF 1.70 à 40/jour · CHF 4.50 à 15/jour <span class="hyp" style="border-color:rgba(243,234,218,.5)">hyp.</span></td><td>Poste de formation « coursier-ambassadeur » qui tamponne les carnets</td><td class="m">M2, si ≥ 30 barquettes B2B/jour</td></tr>
     </table></div>
     <p class="note" style="color:rgba(243,234,218,.6)">Sources : grilles publiques Go-Fast et Rocket Courrier, carvelo (vélo-cargo partagé TCS, CHF 90/an + 2.25/h), subvention cantonale vélo-cargo 10 % max CHF 500 (demande avant le 1er décembre, éligibilité d'une association à vérifier). Commissions Uber Eats Suisse : chiffres de presse, aucune grille officielle publiée, à négocier. Option à moyen terme : concession food-truck de la Ville (avenue de France, rue Kazem-Radjavi, lun-ven 11h-14h30).</p>
   </div>
@@ -601,78 +592,68 @@ h2.big{font-size:44px}
 
 <section>
   <div class="wrap">
-    <p class="cap"><b>08</b> · Lancement · 3 mois</p>
+    <p class="cap"><b>09</b> · Lancement · 3 mois</p>
     <h2>J-50 → J+90</h2>
     <p class="lead">Pas de « 1 000 barquettes offertes » (Halles de Paris, 13.09.2025 : 3 000 personnes, annulation par la police). Pas de prix de lancement sous le kebab avec du poulet suisse. <b>On apprend d'abord avec les bureaux, on fait du bruit ensuite.</b></p>
     <div class="tl">
-      <div class="st"><div class="when">J-50 → J-30 · 23.11 → 18.12 · Édition N°00</div><h3>Soft launch B2B, sans un franc de créateur</h3><p>Lunch drops vers 3 organisations, click &amp; collect en silence, deux tests de charge cuisine (60 puis 120 barquettes en 2 h), coût matière réel mesuré, carnet imprimé. Marque : recherche Swissreg + Zefix, avis d'un conseil en PI, domaines et handles réservés, accords écrits des chefs.</p></div>
-      <div class="st"><div class="when">J-30 → J-1 · 11.12 → 10.01</div><h3>Teasing</h3><p>@craque.geneve ouvert : le tampon vierge, « tchak », les grains de riz en macro, la main de Gaayathri qui écrit le mot du pays. Pré-inscriptions sur craque.ch (objectif 400 <span class="hyp">hypothèse</span>). Seeding : 10 barquettes tamponnées envoyées à 10 comptes locaux sans contrepartie. Exclusivité presse proposée au Temps (déjà deux papiers sur Cuisine Lab), embargo J-1.</p></div>
+      <div class="st"><div class="when">J-49 → J-24 · 23.11 → 18.12 · Édition N°00</div><h3>Soft launch B2B, sans un franc de créateur</h3><p>Lunch drops vers 3 organisations, click &amp; collect en silence, deux tests de charge cuisine (60 puis 120 barquettes en 2 h), coût matière réel mesuré, carnet imprimé. Marque : recherche Swissreg + Zefix, avis d'un conseil en PI, domaines et handles réservés, accords écrits des chefs.</p></div>
+      <div class="st"><div class="when">J-31 → J-1 · 11.12 → 10.01</div><h3>Teasing</h3><p>@craque.geneve ouvert : le tampon vierge, « tchak », les grains de riz en macro, la main de la cheffe d'édition qui écrit le mot du pays (avec son accord écrit). Pré-inscriptions sur craque.ch (objectif 400 <span class="hyp">hypothèse</span>). Seeding : 10 barquettes tamponnées envoyées à 10 comptes locaux sans contrepartie. Exclusivité presse proposée au Temps (déjà deux papiers sur Cuisine Lab), embargo J-1.</p></div>
       <div class="st r"><div class="when">J0 · lundi 11.01.2027 · Édition N°01 Colombo</div><h3>Lancement public avec créateurs</h3>
         <ul>
-          <li>J0 : @mike_in_geneva (130 k Instagram, 44 k TikTok), reel « Details ! » : rituel, goûter, prix à l'oral</li>
-          <li>J0-J+1 : @genevabucketlist (81,5 k, ≈ 45 k lectures par reel) « nouveau à Genève »</li>
-          <li>J+2 → J+4 : @vahideazi (18 k TikTok, engagement 10 %), @cassynfood (UGC cédé pour les pubs), @camilaselection (angle étudiant/halal)</li>
+          <li>J0 : @mike_in_geneva (130 k Instagram, 44 k TikTok), reel « Details ! » : rituel, goûter, où commander</li>
+          <li>J0-J+1 : @genevabucketlist (81,5 k abonnés ; ≈ 45 k lectures par reel, estimation Modash) « nouveau à Genève »</li>
+          <li>J+2 → J+4 : @vahideazi (18 k TikTok, engagement ≈ 10 %, estimation Modash), @cassynfood (UGC cédé pour les pubs), @camilaselection (angle étudiant/halal)</li>
           <li>J+6 : @genevafoodstories (35,9 k, rubrique Takeaway, audience organisations internationales) : la caution du midi</li>
           <li>Offre : les 300 premiers carnets avec la case 1 déjà tamponnée + sauce offerte sur code créateur. Pas de remise de prix.</li>
           <li>Réserve si moins de 150 k vues à J+7 : @inesonthego (87 k TikTok) ou @emilie.tabozzi (712 k TikTok, non food)</li>
         </ul></div>
-      <div class="st"><div class="when">J+14 → J+40</div><h3>Régime de croisière N°01</h3><p>Contenus réponse : d'où vient le poulet, combien de légume dans la barquette, la version végé. Paid social CHF 1 500/mois en rayon 3 km (Meta 60 % / TikTok 40 %), créas UGC. Objectif 5 box d'équipe hebdomadaires, 25 % des ventes en click &amp; collect <span class="hyp">hypothèses</span>.</p></div>
-      <div class="st r"><div class="when">J+38 → J+40 · 17 → 20.02</div><h3>« N°01 expire le 20.02 »</h3><p>Affiche rouge trois jours, push J-3, zéro remise : l'urgence remplace la promo. Puis « N°02 arrive ».</p></div>
+      <div class="st"><div class="when">J+14 → J+40</div><h3>Régime de croisière N°01</h3><p>Contenus réponse : d'où vient le poulet, combien de légume dans la barquette, la version végé. Paid social en rayon 3 km (Meta et TikTok), créas UGC. Objectif 5 box d'équipe hebdomadaires, 25 % des ventes en click &amp; collect <span class="hyp">hypothèses</span>.</p></div>
+      <div class="st r"><div class="when">J+37 → J+40 · 17 → 20.02</div><h3>« N°01 expire le 20.02 »</h3><p>Affiche rouge trois jours, push J-3, zéro remise : l'urgence remplace la promo. Puis « N°02 arrive ».</p></div>
       <div class="st"><div class="when">J+43 · 23.02 · Édition N°02 Téhéran</div><h3>Le vrai test du système</h3><p>Semaine 1 de N°02 ≥ 80 % de la semaine 1 de N°01, sans offre <span class="hyp">hypothèse</span>. Deux pays tamponnés = sauce offerte. Un seul macro-créateur (le mieux mesuré par code en N°01) + deux micros. Relance B2B : « nouvelle édition, même heure de livraison ». Test coursier salarié si ≥ 30 barquettes B2B par jour.</p></div>
-      <div class="st"><div class="when">J+90 · 11.04</div><h3>Bilan et N°03</h3><p>Part des commandes directes, coût de commission par barquette, clients revenus, carnets pleins, organisations actives. Décision app native, décision Uber Eats (garder si &lt; 40 % des ventes), annonce de N°03 Delhi avec son chef invité, page archive N°01 tamponnée, vote de réédition.</p></div>
+      <div class="st"><div class="when">J+82 · 03.04 · Fin de N°02</div><h3>Bilan et N°03</h3><p>Part des commandes directes, coût de commission par barquette, clients revenus, carnets pleins, organisations actives. Décision app native, décision Uber Eats (garder si &lt; 40 % des ventes), annonce de N°03 Delhi avec son chef invité, page archive N°01 tamponnée, vote de réédition.</p></div>
     </div>
     <div class="kpi" style="margin-top:10px">
       <div><b>120</b><small>Barquettes / service validées avant J0 <span class="hyp">hyp.</span></small></div>
       <div><b>400 k</b><small>Vues créateurs en 21 jours <span class="hyp">hyp.</span></small></div>
-      <div><b>5 → 8</b><small>Box d'équipe hebdo, N°01 → N°02</small></div>
+      <div><b>5 → 8</b><small>Box d'équipe hebdo, N°01 → N°02 <span class="hyp">hyp.</span></small></div>
       <div><b>30 %</b><small>Porteurs de carnet revenus à J+49 <span class="hyp">hyp.</span></small></div>
     </div>
-    <div class="scroll" style="margin-top:24px"><table>
-      <tr><th>Poste · 3 mois</th><th>Hypothèse</th><th>Note</th></tr>
-      <tr><td>Créateurs (6 comptes + réserve)</td><td class="m">CHF 7 000 – 11 000</td><td>Rémunérations estimées marché genevois, à devis ; @tomkoods (2,9 M) exclu sauf budget &gt; 15 k</td></tr>
-      <tr><td>Paid social</td><td class="m">CHF 4 500</td><td>Rayon 3 km, objectif clics vers la commande</td></tr>
-      <tr><td>Tampon, stickers, carnets, affiches A2</td><td class="m">CHF 2 500</td><td>Un seul SKU imprimé variable : le sticker d'édition</td></tr>
-      <tr><td>Shooting réel par édition</td><td class="m">CHF 2 000 – 3 000</td><td>Une journée, plongée sur kraft, lumière dure ; pas de banque d'images pour le produit</td></tr>
-      <tr><td>Propriété intellectuelle, domaines</td><td class="m">CHF 1 000 – 2 000</td><td>Recherche, dépôt figuratif + verbal classes 29/30/43</td></tr>
-      <tr><td>Stack digital</td><td class="m">CHF 330 – 510</td><td>3 mois à CHF 110-170</td></tr>
-      <tr><td><b>Marketing externe, plafond</b></td><td class="m"><b>CHF 12 000 – 15 000</b></td><td>Le reste est de l'exploitation : personnel, friteuses, emballages, gratuités. À voter par l'association en connaissance de cause.</td></tr>
-    </table></div>
+    <p class="note">Le budget de lancement (créateurs, paid social, impression, shooting, propriété intellectuelle, outils) se chiffre ensemble, poste par poste, une fois les décisions ci-dessous prises.</p>
   </div>
 </section>
 
 <section class="dark">
   <div class="wrap">
-    <p class="cap"><b>09</b> · Là où je te challenge</p>
-    <h2>Dix points<br>à trancher.</h2>
+    <p class="cap"><b>10</b> · À trancher ensemble</p>
+    <h2>Neuf points<br>à trancher.</h2>
     <ol class="chal">
-      <li><b>Le niveau Tasty Crousty, pas leurs codes.</b><span>Tu veux une identité aussi forte que la leur : d'accord, c'est la v2 de cette page. Mais rose + bleu + palmiers + script, c'est leur signature, et tout Genève la copiera dans six mois. On prend leur énergie (gros, coloré, stickers, marquee, cri de marque) avec nos couleurs et notre objet, le tampon.</span></li>
-      <li><b>L'ordre des éditions.</b><span>Iran → Inde → Sri Lanka, c'est ton ordre. Mais il n'y a pas de chef iranien ni indien en cuisine aujourd'hui, et une cheffe sri-lankaise depuis 2017. On lance avec elle, ou on attend un chef iranien ?</span></li>
-      <li><b>Le nom : CRAQUE.</b><span>« Cachet » faisait médicament, tu as raison. CRAQUE dit deux choses en un mot : ça craque sous la dent, et tu craques pour. C'est appétissant, c'est du français de tous les jours, ça se crie (« ÇA CRAQUE ! ») et ça se décline (« Tu craques ? », « N°01 craque jusqu'au 20.02 »). Aucun restaurant de ce nom trouvé en Suisse ni en France, craque.ch libre. À vérifier sur Swissreg avant impression. Point de vigilance : un anglophone lit « crack » ; au quartier des Nations, on l'assume avec le point d'exclamation et la box, ou on prend le plan B, TCHAK (le son du tampon, universel, mais tchak.ch est pris et un « Le Tchak » existe à Agen).</span></li>
+      <li><b>Le niveau Tasty Crousty, pas leurs codes.</b><span>Une identité aussi forte que la leur, oui. Mais rose + bleu + palmiers + script, c'est leur signature, et tout Genève la copiera dans six mois. On prend leur énergie (gros, coloré, stickers, marquee, cri de marque) avec nos couleurs et notre objet, le tampon.</span></li>
+      <li><b>L'ordre des éditions.</b><span>Iran → Inde → Sri Lanka était l'ordre de départ. Mais il n'y a pas de chef iranien ni indien en cuisine aujourd'hui, et une cheffe sri-lankaise depuis 2017. On lance avec elle, ou on attend un chef iranien ?</span></li>
+      <li><b>Le nom : CRAQUE.</b><span>Deux choses en un mot : ça craque sous la dent, et on craque pour. C'est appétissant, c'est du français de tous les jours, ça se crie (« ÇA CRAQUE ! ») et ça se décline (« Tu craques ? », « N°01 craque jusqu'au 20.02 »). Aucun restaurant de ce nom trouvé en Suisse ni en France, craque.ch libre au registre. À vérifier sur Swissreg avant impression. Point de vigilance : un anglophone lit « crack » ; au quartier des Nations, on l'assume avec le point d'exclamation et la box, ou on prend le plan B, TCHAK (le son du tampon).</span></li>
       <li><b>Une encre fixe, deux couleurs par pays.</b><span>Le bleu électrique ne change jamais : c'est lui qu'on reconnaît. Les deux couleurs acides changent à chaque édition : c'est ça qui fait le « nouveau drop ». Pas de troisième couleur, jamais, même si ça démange.</span></li>
       <li><b>Le tampon n'est pas vintage.</b><span>Pas d'encre bavée, pas de grunge, pas de texture « ancien ». Géométrie propre et couleurs franches ; l'imperfection viendra du vrai tamponnage sur le couvercle.</span></li>
-      <li><b>Box ronde : le couvercle change, le corps reste.</b><span>Tu veux une box aussi forte que celle de Pasta Mo' : oui, ronde, imprimée. Pour que ça tienne en cuisine de formation, une seule pièce change par édition, le couvercle. Minimums d'impression à demander avant de fixer la durée des éditions.</span></li>
+      <li><b>Box ronde : le couvercle change, le corps reste.</b><span>Une box ronde, imprimée, reconnaissable de loin. Pour que ça tienne en cuisine de formation, une seule pièce change par édition, le couvercle. Minimums d'impression à demander avant de fixer la durée des éditions.</span></li>
       <li><b>Le mot du chef en premier plan.</b><span>L'élément incopiable, c'est « bon appétit » écrit par le chef dans son alphabet. On le met gros, sur le sticker, 1 post sur 3. Pas en déco.</span></li>
-      <li><b>Pas de prix de lancement.</b><span>Un crousty genevois tourne à CHF 13-18 avec du poulet importé. Vendre du poulet suisse à CHF 13 pour faire la file, c'est perdre de l'argent sur chaque barquette qui fait le buzz. Carnet pré-tamponné + sauce offerte à la place.</span></li>
       <li><b>Halal : oui ou non, pas « à vérifier ».</b><span>Toutes les enseignes crousty de Genève s'affichent halal et Just Eat a un filtre. Poulet suisse halal certifié avec friture dédiée, ou positionnement assumé non halal. Pas de demi-mesure possible en ligne.</span></li>
       <li><b>Midi d'abord, Gen Z ensuite.</b><span>Nations est vide le soir et le week-end. La Gen Z du quartier, ce sont les 1 092 étudiants de l'IHEID et la résidence Grand Morillon (678 lits), en click &amp; collect le soir. Les créateurs non food à 700 k abonnés, c'est pour N°02, si N°01 tient.</span></li>
     </ol>
     <div class="grid g2" style="margin-top:28px">
       <div>
-        <p class="cap">Sept décisions à faire prendre à Cuisine Lab</p>
+        <p class="cap">Sept décisions à prendre avant de lancer</p>
         <ul class="dec">
           <li>Périmètre : activité de l'association ou structure séparée ? Qui dépose la marque, qui encaisse, qui informe les bailleurs (Loterie Romande, Ville, fondations, HCR) ?</li>
           <li>Cannibalisation : CRAQUE remplace le plat du jour take-away, cohabite au même comptoir à 12h15, ou démarre en B2B livré + comptoir 14h-20h ?</li>
           <li>Halal, tranché, avec fournisseur identifié.</li>
           <li>Chef d'édition par écrit, accord rémunéré et révocable, évaluation du risque pour la famille au pays avant toute exposition du prénom, du visage ou de la ville.</li>
           <li>Capacité et investissement cuisine : friteuses, hotte, HACCP friture, plafond de barquettes par service, personnel du soir chiffré.</li>
-          <li>Coût matière suisse modélisé avant de fixer CHF 16, avant de promettre quoi que ce soit en B2B.</li>
+          <li>Coût matière suisse modélisé avant de fixer le prix de la box, avant de promettre quoi que ce soit en B2B.</li>
           <li>Canaux à J0 : nouvelle fiche Uber Eats (l'ancienne est à 3,4/5), Just Eat oui ou non, livraison propre : non pendant 3 mois.</li>
         </ul>
       </div>
-      <div class="card"><p class="cap">Risques que je ne cache pas</p>
+      <div class="card"><p class="cap">Les risques, sans les cacher</p>
         <p><b>Saturation.</b> Au moins huit enseignes crousty sur Uber Eats Genève, Planète Crousty à cinq adresses, un Tasty Crousty officiel à Annemasse, une société du même nom inscrite à Genève en août 2026. Si la chaîne française ouvre aux Pâquis pendant nos trois mois, on ne gagne pas la bataille Gen Z : on tient le midi et l'histoire.</p>
         <p style="margin-top:10px"><b>Nutrition contre donateurs.</b> Le crousty est noté 3/20 par des nutritionnistes en France (600 à 1 500 kcal). Une entreprise sociale « environmentally conscious » ne peut pas répondre par l'humour : elle répond dans la barquette (le légume, le poulet suisse, la taille standard, le végé).</p>
-        <p style="margin-top:10px"><b>Capacité.</b> Une cuisine de formation est lente par construction. Un pic créé par un créateur à 130 k abonnés sans cuisine prête, c'est des avis à une étoile sur un nom neuf. D'où N°00.</p>
+        <p style="margin-top:10px"><b>Capacité.</b> Une cuisine de formation a, par nature, un rythme et un plafond de capacité à connaître avant un pic. Un pic créé par un créateur à 130 k abonnés sans cuisine prête, c'est des avis à une étoile sur un nom neuf. D'où N°00.</p>
         <p style="margin-top:10px"><b>Emballage.</b> Barquette, pot, couvercle, sac par repas, à 300 m du HCR et de l'OMS : la question du jetable arrivera au premier post LinkedIn. Compostable dès J0, et le dire.</p>
       </div>
     </div>
@@ -681,9 +662,9 @@ h2.big{font-size:44px}
 
 <section class="cta">
   <div class="wrap">
-    <p class="cap" style="color:rgba(255,255,255,.7)">Et maintenant</p>
-    <h2>On le présente<br>à Cuisine Lab ?</h2>
-    <p>Une heure avec Sarah Hoibak et la cheffe exécutive : les sept décisions, le test de charge, le coût matière. Rien n'est imprimé, rien n'est contracté avant.</p>
+    <p class="cap" style="color:rgba(255,255,255,.7)">Maquette de concept</p>
+    <h2>Rien n'est imprimé,<br>rien n'est contracté.</h2>
+    <p>Tout ce qui est marqué « hypothèse » se valide ensemble : les chefs, le test de charge, le coût matière, les décisions ci-dessus. Le reste est prêt à partir.</p>
     <a class="b" href="https://nouvelleardoise.ch">nouvelleardoise.ch</a>
   </div>
 </section>
@@ -694,7 +675,7 @@ h2.big{font-size:44px}
     <ul class="src">
       <li>Cuisine Lab : cuisinelab.ch (organisation, carte 2024, menu catering 2025), Instagram @cuisinelab.ch (horaires lun-ven 11h30-15h depuis août 2026, 1 932 abonnés), Le Temps 2021 et 2023, quandestcequonmange.ch 2023, fiche order.store (Uber Eats, fermée, 3,4/5).</li>
       <li>Crousty : StreetPress (histoire de Tasty Crousty), Le Parisien (Halles de Paris, 13.09.2025), BFMTV/Boursorama (60 restaurants, 800 g pour 9 €), TDG « Crousty : le plat de riz au poulet frit qui conquiert la génération Z » (réservé aux abonnés, à lire), DNA et Santé Magazine (nutrition), Marmiton (fermeture administrative de Melun), yellowpages.swiss (TASTY CROUSTY INTERNATIONAL SA, RC Genève 13.08.2026).</li>
-      <li>Prix Genève : Uber Eats (Krousty rue du Stand, Stack N Shake), planete-crousty.com, naan-grill.ch, doenerindex.ch, guerilla-gourmande.com (Lausanne), genevatourism.org.</li>
+      <li>Concurrence Genève : Uber Eats (Krousty rue du Stand, Stack N Shake), planete-crousty.com, naan-grill.ch, doenerindex.ch, guerilla-gourmande.com (Lausanne), genevatourism.org.</li>
       <li>Quartier : OCSTAT 2022, DFAE « Genève internationale en chiffres » 21.07.2026, LFM/ATS 15.09.2026, campusbiotech.ch, Wikipédia IHEID, msf.ch, geneve.ch (food trucks).</li>
       <li>Créateurs : profils publics Instagram/TikTok, estimations Modash (sept. 2026), tdg.ch (portrait @genevafoodstories), collabstr.com.</li>
       <li>Outils : lightspeedhq.com/ch, sumup.com/fr-ch, twint.ch, stripe.com/en-ch, yoordi.ch, blog.sparissimofood.com, loopyloyalty.com, loyable.com, go-fast.ch, rocket-courrier.ch, carvelo.ch, ge.ch (subventions vélo, salaire minimum), rts.ch (arrêt TF Chaskis, fermeture Smood), edoeb.admin.ch (nLPD).</li>
@@ -704,7 +685,7 @@ h2.big{font-size:44px}
     <ul>
       <li>Poulet croustillant sur riz : Markus Winkler / Pexels</li><li>Riz et poulet (Mendoza) : Andres Alaniz / Pexels</li><li>Riz safrané : Amin Sani / Pexels</li><li>Thali : Subhrajyoti Paul / Pexels</li><li>Moutabal grenade : Denys Gromov / Pexels</li><li>Mezzé : Ali Dashti / Pexels</li><li>Feuille de curry : Anindo Santra / Pexels</li><li>Épices : Kamakshi / Pexels</li><li>Cuisinier : Matheus Bertelli / Pexels</li><li>Plancha : Joice Rivas / Pexels</li><li>Place des Nations : Toba Oduwaiye / Pexels</li><li>Coursier à vélo : Phaeng _yo / Pexels</li><li>Déjeuner sur un banc : MART PRODUCTION / Pexels</li>
     </ul>
-    <p style="margin-top:22px">Maquette de concept réalisée par Nouvelle Ardoise pour discussion. Tous les prix, dates, volumes et budgets marqués « hypothèse » sont des hypothèses de travail à valider avec Cuisine Lab. CRAQUE n'est pas une marque déposée à ce jour. Page non indexée.</p>
+    <p style="margin-top:22px">Maquette de concept réalisée par Nouvelle Ardoise pour discussion. Toutes les dates, volumes et mécaniques marqués « hypothèse » sont des hypothèses de travail à valider ensemble. CRAQUE n'est pas une marque déposée à ce jour. Page non indexée.</p>
   </div>
 </footer>
 </body>
