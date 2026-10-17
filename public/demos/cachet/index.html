@@ -369,6 +369,35 @@ h2.big{font-size:44px}
 .ban h2{text-shadow:.04em .04em 0 var(--cd),0 10px 40px rgba(0,0,0,.4)}
 .ban .l{background:rgba(0,0,0,.28);backdrop-filter:blur(6px);padding:12px 14px;border-radius:12px;display:inline-block;max-width:560px}
 @media(max-width:799px){.ban .stk.s01{display:none}.ban .fl.c2{left:-6vw;top:2%;width:34vw}.ban h2{font-size:48px}}
+
+/* ---- v8 : bannières scénographiées (visuels IA) ---- */
+section.scene,header.scene{position:relative;background:var(--cd);color:#fff;overflow:hidden;padding:0}
+.sc-img{position:relative}
+.sc-img img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:var(--px,50%) 50%}
+@media(min-width:800px){.sc-img img{aspect-ratio:16/9;max-height:94vh;object-position:50% 50%}}
+.sc-ov{position:absolute;inset:0 0 auto 0;padding:18px 16px 70px;background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,.22) 55%,transparent 100%);pointer-events:none}
+@media(min-width:800px){.sc-ov{padding:38px 4vw 120px}}
+.sc-ov .kick{display:inline-block;font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:var(--cl);color:var(--noir);padding:6px 10px;margin-bottom:10px}
+@media(min-width:800px){.sc-ov .kick{font-size:13px}}
+.sc-ov h2{font-family:Anton,sans-serif;text-transform:uppercase;font-weight:400;color:#fff;font-size:clamp(46px,12.5vw,150px);line-height:.9;margin:0;letter-spacing:.005em;text-shadow:.045em .045em 0 var(--cd),0 10px 40px rgba(0,0,0,.45);max-width:none}
+@media(min-width:800px){.sc-ov h2{font-size:clamp(70px,8.4vw,150px)}}
+.sc-ov .big-n{display:none;position:absolute;right:16px;top:12px;font-family:Anton,sans-serif;font-size:clamp(40px,10vw,120px);line-height:1;color:var(--cl);text-shadow:0 6px 24px rgba(0,0,0,.35)}
+@media(min-width:800px){.sc-ov .big-n{display:block}}
+.sc-ov .stk{position:relative;display:inline-block;margin-top:12px}
+.sc-ov .stk.cry{background:var(--magenta);color:#fff;transform:rotate(-6deg)}
+.sc-ov .stk.date{background:var(--lime);color:var(--noir);transform:rotate(5deg);margin-left:6px}
+.scene .credit-b{position:absolute;right:12px;left:auto;bottom:8px;font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.06em;color:rgba(255,255,255,.75);text-shadow:0 1px 4px rgba(0,0,0,.6)}
+.sc-cap{background:var(--cd);border-top:6px solid var(--cl)}
+.sc-in{max-width:var(--w);margin:0 auto;padding:22px 20px 30px}
+@media(min-width:800px){.sc-in{padding:34px 20px 42px}}
+.sc-cap h3{font-family:Anton,sans-serif;text-transform:uppercase;font-weight:400;font-size:28px;line-height:1;color:var(--cl);margin:0 0 10px}
+@media(min-width:800px){.sc-cap h3{font-size:40px}}
+.sc-cap .l{font-size:16px;color:rgba(255,255,255,.92);max-width:760px}
+@media(min-width:800px){.sc-cap .l{font-size:19px}}
+.sc-cap .big{font-size:26px;line-height:1.05;text-transform:uppercase;margin:0 0 10px;color:#fff}
+.sc-cap .big span{color:var(--cl)}
+@media(min-width:800px){.sc-cap .big{font-size:40px}}
+.boxmock img{display:block;width:100%;max-width:620px;margin:0 auto;border-radius:22px;box-shadow:0 30px 60px rgba(0,0,0,.35)}
 </style>
 </head>
 <body>
@@ -444,70 +473,17 @@ h2.big{font-size:44px}
   <circle cx="500" cy="500" r="470" fill="none" stroke="currentColor" stroke-width="30"/>
   <rect x="60" y="380" width="880" height="240" fill="currentColor" mask="url(#mRond)"/>
 </symbol>
-<symbol id="lid01" viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="490" fill="#B8FF3A"/><g fill="#0E7A3E" clip-path="url(#lidclip)"><path d="M500 500 L120 120 L200 60 Z"/><path d="M500 500 L420 40 L580 40 Z"/><path d="M500 500 L800 60 L880 120 Z"/><path d="M500 500 L960 420 L960 580 Z"/><path d="M500 500 L880 880 L800 940 Z"/><path d="M500 500 L580 960 L420 960 Z"/><path d="M500 500 L200 940 L120 880 Z"/><path d="M500 500 L40 580 L40 420 Z"/></g><circle cx="500" cy="500" r="330" fill="#B8FF3A"/><text font-family="Anton,sans-serif" font-size="78" fill="#1F2BFF" letter-spacing="4"><textPath href="#ringpath">CRAQUE · N°01 COLOMBO · UN PAYS À LA FOIS · RIZ · POULET CROUSTILLANT · SAUCES ·</textPath></text><g transform="translate(500 500) rotate(-8) translate(-500 -500)" style="color:#1F2BFF"><use href="#cachet-logo" x="200" y="200" width="600" height="600"/></g></symbol><symbol id="bowl01" viewBox="0 0 800 560">
-  <defs>
-    <pattern id="bowltxt" patternUnits="userSpaceOnUse" width="520" height="62"><text x="0" y="50" font-family="Anton,sans-serif" font-size="56" fill="#B8FF3A" textLength="500" lengthAdjust="spacingAndGlyphs">CRAQUE · CRAQUE ·</text></pattern>
-    <clipPath id="bowlbody"><path d="M78 250 L124 418 A276 92 0 0 0 676 418 L722 250 Z"/></clipPath>
-    <clipPath id="bowlin"><ellipse cx="400" cy="250" rx="294" ry="103"/></clipPath>
-    <linearGradient id="bowlshade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".42"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".36"/></linearGradient>
-    <radialGradient id="foodvig" cx=".5" cy=".5" r=".5"><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".45"/></radialGradient>
-  </defs>
-  <ellipse cx="400" cy="508" rx="330" ry="38" fill="rgba(0,0,0,.38)"/>
-  <g transform="translate(600 170) rotate(-16) scale(1 .92)"><use href="#lid01" x="-170" y="-170" width="340" height="340"/></g>
-  <path d="M78 250 L124 418 A276 92 0 0 0 676 418 L722 250 Z" fill="#0E7A3E"/>
-  <g clip-path="url(#bowlbody)"><rect x="-60" y="240" width="920" height="300" fill="url(#bowltxt)" transform="rotate(-4 400 400)"/></g>
-  <path d="M78 250 L124 418 A276 92 0 0 0 676 418 L722 250 Z" fill="url(#bowlshade)"/>
-  <ellipse cx="400" cy="250" rx="322" ry="116" fill="#B8FF3A"/>
-  <ellipse cx="400" cy="250" rx="322" ry="116" fill="none" stroke="#fff" stroke-width="5"/>
-  <g clip-path="url(#bowlin)">
-    <image href="img/bol-food.jpg" x="106" y="-44" width="588" height="588" preserveAspectRatio="xMidYMid slice"/>
-    <ellipse cx="400" cy="250" rx="294" ry="103" fill="url(#foodvig)"/>
-    <path d="M230 236 C290 206 330 292 390 254 S470 214 530 266 S590 240 612 272" fill="none" stroke="#000" stroke-opacity=".25" stroke-width="18" stroke-linecap="round" transform="translate(0 5)"/>
-    <path d="M230 236 C290 206 330 292 390 254 S470 214 530 266 S590 240 612 272" fill="none" stroke="#FFF4DF" stroke-opacity=".95" stroke-width="14" stroke-linecap="round"/>
-    <path d="M300 300 C340 280 380 312 420 294 S500 282 530 304" fill="none" stroke="#FFF4DF" stroke-opacity=".9" stroke-width="9" stroke-linecap="round"/>
-  </g>
-  <g transform="translate(205 395) rotate(-10)"><rect x="-100" y="-22" width="200" height="44" fill="#1F2BFF"/><text x="0" y="8" text-anchor="middle" font-family="'DM Mono',monospace" font-weight="500" font-size="20" fill="#fff">1 LÉGUME DEDANS</text></g>
-  <g transform="translate(640 330) rotate(10)"><rect x="-82" y="-24" width="164" height="48" fill="#FF2D8A"/><text x="0" y="12" text-anchor="middle" font-family="Anton,sans-serif" font-size="30" fill="#fff">ÇA CRAQUE !</text></g>
-</symbol>
-<symbol id="box01" viewBox="0 0 640 760">
-          <defs>
-            <pattern id="bodytxt" patternUnits="userSpaceOnUse" width="560" height="84"><text x="0" y="68" font-family="Anton,sans-serif" font-size="78" fill="#B8FF3A">CRAQUE · CRAQUE ·</text></pattern>
-            <clipPath id="bodyclip"><path d="M58 232 L92 640 A228 72 0 0 0 548 640 L582 232 Z"/></clipPath>
-            <path id="ringpath" d="M 500 500 m -405 0 a 405 405 0 1 1 810 0 a 405 405 0 1 1 -810 0"/>
-            <clipPath id="lidclip"><circle cx="500" cy="500" r="490"/></clipPath>
-            <linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".38"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".32"/></linearGradient>
-          </defs>
-          <ellipse cx="320" cy="690" rx="250" ry="34" fill="rgba(0,0,0,.35)"/>
-          <path d="M58 232 L92 640 A228 72 0 0 0 548 640 L582 232 Z" fill="#0E7A3E"/>
-          <g clip-path="url(#bodyclip)"><rect x="-40" y="240" width="720" height="460" fill="url(#bodytxt)" transform="rotate(-5 320 450)"/></g>
-          <path d="M58 232 L92 640 A228 72 0 0 0 548 640 L582 232 Z" fill="url(#shade)"/>
-          <ellipse cx="320" cy="232" rx="268" ry="96" fill="#fff"/>
-          <g transform="translate(320 232) scale(.535 .187) translate(-500 -500)">
-            <circle cx="500" cy="500" r="490" fill="#B8FF3A"/>
-            <g fill="#0E7A3E" clip-path="url(#lidclip)"><path d="M500 500 L120 120 L200 60 Z"/><path d="M500 500 L420 40 L580 40 Z"/><path d="M500 500 L800 60 L880 120 Z"/><path d="M500 500 L960 420 L960 580 Z"/><path d="M500 500 L880 880 L800 940 Z"/><path d="M500 500 L580 960 L420 960 Z"/><path d="M500 500 L200 940 L120 880 Z"/><path d="M500 500 L40 580 L40 420 Z"/></g>
-            <circle cx="500" cy="500" r="330" fill="#B8FF3A"/>
-            <text font-family="Anton,sans-serif" font-size="78" fill="#1F2BFF" letter-spacing="4"><textPath href="#ringpath">CRAQUE · N°01 COLOMBO · UN PAYS À LA FOIS · RIZ · POULET CROUSTILLANT · SAUCES ·</textPath></text>
-            <g transform="translate(500 500) rotate(-8) translate(-500 -500)" style="color:#1F2BFF"><use href="#cachet-logo" x="200" y="200" width="600" height="600"/></g>
-            <g transform="translate(770 770) rotate(-14)"><rect x="-150" y="-46" width="300" height="92" fill="#FF2D8A"/><text x="0" y="26" text-anchor="middle" font-family="Anton,sans-serif" font-size="60" fill="#fff">ÇA CRAQUE !</text></g>
-          </g>
-          <g transform="translate(78 562) rotate(-12)"><rect x="-10" y="-30" width="226" height="60" fill="#1F2BFF"/><text x="103" y="12" text-anchor="middle" font-family="'DM Mono',monospace" font-weight="500" font-size="24" fill="#fff">1 LÉGUME DEDANS</text></g>
-        </symbol><symbol id="lid02" viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="490" fill="#FFC400"/><g fill="#FF2D8A" clip-path="url(#lidclip)"><path d="M500 500 L120 120 L200 60 Z"/><path d="M500 500 L420 40 L580 40 Z"/><path d="M500 500 L800 60 L880 120 Z"/><path d="M500 500 L960 420 L960 580 Z"/><path d="M500 500 L880 880 L800 940 Z"/><path d="M500 500 L580 960 L420 960 Z"/><path d="M500 500 L200 940 L120 880 Z"/><path d="M500 500 L40 580 L40 420 Z"/></g><circle cx="500" cy="500" r="330" fill="#FFC400"/><text font-family="Anton,sans-serif" font-size="78" fill="#1F2BFF" letter-spacing="4"><textPath href="#ringpath">CRAQUE · N°02 TÉHÉRAN · UN PAYS À LA FOIS · RIZ · POULET CROUSTILLANT · SAUCES ·</textPath></text><g transform="translate(500 500) rotate(-8) translate(-500 -500)" style="color:#1F2BFF"><use href="#cachet-logo-02" x="200" y="200" width="600" height="600"/></g></symbol><symbol id="lid03" viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="490" fill="#FF5A1F"/><g fill="#5B1FFF" clip-path="url(#lidclip)"><path d="M500 500 L120 120 L200 60 Z"/><path d="M500 500 L420 40 L580 40 Z"/><path d="M500 500 L800 60 L880 120 Z"/><path d="M500 500 L960 420 L960 580 Z"/><path d="M500 500 L880 880 L800 940 Z"/><path d="M500 500 L580 960 L420 960 Z"/><path d="M500 500 L200 940 L120 880 Z"/><path d="M500 500 L40 580 L40 420 Z"/></g><circle cx="500" cy="500" r="330" fill="#FF5A1F"/><text font-family="Anton,sans-serif" font-size="78" fill="#fff" letter-spacing="4"><textPath href="#ringpath">CRAQUE · N°03 DELHI · UN PAYS À LA FOIS · RIZ · POULET CROUSTILLANT · SAUCES ·</textPath></text><g transform="translate(500 500) rotate(-8) translate(-500 -500)" style="color:#1F2BFF"><use href="#cachet-logo-03" x="200" y="200" width="600" height="600"/></g></symbol></defs>
+<symbol id="lid01" viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="490" fill="#B8FF3A"/><g fill="#0E7A3E" clip-path="url(#lidclip)"><path d="M500 500 L120 120 L200 60 Z"/><path d="M500 500 L420 40 L580 40 Z"/><path d="M500 500 L800 60 L880 120 Z"/><path d="M500 500 L960 420 L960 580 Z"/><path d="M500 500 L880 880 L800 940 Z"/><path d="M500 500 L580 960 L420 960 Z"/><path d="M500 500 L200 940 L120 880 Z"/><path d="M500 500 L40 580 L40 420 Z"/></g><circle cx="500" cy="500" r="330" fill="#B8FF3A"/><text font-family="Anton,sans-serif" font-size="78" fill="#1F2BFF" letter-spacing="4"><textPath href="#ringpath">CRAQUE · N°01 COLOMBO · UN PAYS À LA FOIS · RIZ · POULET · SAUCES ·</textPath></text><g transform="translate(500 500) rotate(-8) translate(-500 -500)" style="color:#1F2BFF"><use href="#cachet-logo" x="200" y="200" width="600" height="600"/></g></symbol>
+<symbol id="lid02" viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="490" fill="#FF2D8A"/><g fill="#FFC400" clip-path="url(#lidclip)"><path d="M500 500 L120 120 L200 60 Z"/><path d="M500 500 L420 40 L580 40 Z"/><path d="M500 500 L800 60 L880 120 Z"/><path d="M500 500 L960 420 L960 580 Z"/><path d="M500 500 L880 880 L800 940 Z"/><path d="M500 500 L580 960 L420 960 Z"/><path d="M500 500 L200 940 L120 880 Z"/><path d="M500 500 L40 580 L40 420 Z"/></g><circle cx="500" cy="500" r="330" fill="#FF2D8A"/><text font-family="Anton,sans-serif" font-size="78" fill="#fff" letter-spacing="4"><textPath href="#ringpath">CRAQUE · N°02 TÉHÉRAN · UN PAYS À LA FOIS · RIZ · POULET · SAUCES ·</textPath></text><g transform="translate(500 500) rotate(-8) translate(-500 -500)" style="color:#fff"><use href="#cachet-logo-02" x="200" y="200" width="600" height="600"/></g></symbol><symbol id="lid03" viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="490" fill="#5B1FFF"/><g fill="#FF5A1F" clip-path="url(#lidclip)"><path d="M500 500 L120 120 L200 60 Z"/><path d="M500 500 L420 40 L580 40 Z"/><path d="M500 500 L800 60 L880 120 Z"/><path d="M500 500 L960 420 L960 580 Z"/><path d="M500 500 L880 880 L800 940 Z"/><path d="M500 500 L580 960 L420 960 Z"/><path d="M500 500 L200 940 L120 880 Z"/><path d="M500 500 L40 580 L40 420 Z"/></g><circle cx="500" cy="500" r="330" fill="#5B1FFF"/><text font-family="Anton,sans-serif" font-size="78" fill="#fff" letter-spacing="4"><textPath href="#ringpath">CRAQUE · N°03 DELHI · UN PAYS À LA FOIS · RIZ · POULET · SAUCES ·</textPath></text><g transform="translate(500 500) rotate(-8) translate(-500 -500)" style="color:#fff"><use href="#cachet-logo-03" x="200" y="200" width="600" height="600"/></g></symbol></defs>
 </svg>
 
 <!-- 0 · HERO -->
-<header class="ban" style="--cd:#0E7A3E;--cl:#B8FF3A">
-  <img class="bg" src="img/sl-tuktuk.jpg" alt="">
-  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div><i class="pt p1"></i><i class="pt p2"></i><i class="pt p3"></i><i class="pt p4"></i><i class="pt p5"></i><i class="pt p6"></i><i class="pt p7"></i><i class="pt p8"></i><div class="spk"></div>
-  <div class="fl box"><svg viewBox="0 0 800 560" style="width:100%"><use href="#bowl01"/></svg></div>
-  <span class="stk s01" style="background:var(--jaune);color:var(--noir);right:4vw;top:50%;transform:rotate(8deg)">N°01 · COLOMBO</span>
-  <span class="stk" style="background:var(--magenta);color:#fff;left:4vw;top:36%;transform:rotate(-7deg)">ÇA CRAQUE !</span>
-  <div class="ban-in">
-    <span class="kick">Nouvelle Ardoise · maquette de concept · Confidentiel</span>
-    <h2 class="anton" style="max-width:none">CRAQUE</h2>
-    <p class="l anton" style="font-size:22px;line-height:1">Riz. Poulet croustillant. Les sauces d'un pays.<br><span style="color:var(--lime)">Six semaines. Puis on change.</span></p>
-    <p class="l" style="margin-top:12px">La box take-away by Cuisine Lab, quartier des Nations.</p>
+<header class="scene" style="--cd:#101A6B;--cl:#B8FF3A">
+  <div class="sc-img"><picture><source media="(min-width:800px)" srcset="img/scene/hero-1920.jpg"><img src="img/scene/hero-960.jpg" alt="Box CRAQUE au bord du lac, Jet d’eau et Alpes" style="--px:45%" fetchpriority="high" decoding="async"></picture>
+    <div class="sc-ov"><span class="kick">Nouvelle Ardoise · maquette de concept · Confidentiel</span><h2 class="anton">Un pays.<br>Une box.</h2><span class="stk cry">ÇA CRAQUE !</span></div>
+    <span class="credit-b">Visuel de concept généré par IA</span>
   </div>
-  <span class="credit-b">Photo : Eslam Mohammed Abdelmaksoud / Pexels</span>
+  <div class="sc-cap"><div class="sc-in"><p class="big anton">Riz. Poulet croustillant. Les sauces d'un pays. <span>Six semaines. Puis on change.</span></p><p class="l">CRAQUE, la box take-away by Cuisine Lab, quartier des Nations.</p></div></div>
 </header>
 
 <!-- 1 · LE CONCEPT -->
@@ -520,23 +496,17 @@ h2.big{font-size:44px}
       <div><b>1</b><h3>Un pays</h3><p>Le riz et les sauces viennent d'une seule cuisine à la fois : celle d'un chef de Cuisine Lab.</p></div>
       <div><b>6</b><h3>Semaines</h3><p>Puis le pays change, la couleur change, le couvercle change. Le tampon et le geste restent.</p></div>
     </div>
-    <p class="note">Cuisinée par les chefs de Cuisine Lab, restaurant de formation du quartier des Nations. Jamais le mot « crousty » dans la marque, jamais de drapeau : on tamponne des villes de chefs, pas des États.</p>
+    <p class="note">Cuisinée par les chefs de Cuisine Lab. Jamais le mot « crousty » dans la marque, jamais de drapeau : on tamponne des villes de chefs, pas des États.</p>
   </div>
 </section>
 
 <!-- 2 · BANNIÈRE N°01 COLOMBO -->
-<section class="ban" style="--cd:#0E7A3E;--cl:#B8FF3A">
-  <img class="bg" src="img/sl-galle.jpg" alt="">
-  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div><i class="pt p1"></i><i class="pt p2"></i><i class="pt p3"></i><i class="pt p4"></i><i class="pt p5"></i><i class="pt p6"></i><i class="pt p7"></i><i class="pt p8"></i><div class="spk"></div>
-  <div class="big-n">N°01</div>
-  <div class="fl cut c1"><img src="img/cut/plat.webp" alt=""></div>
-  <div class="fl cut c3"><img src="img/cut/curry.webp" alt=""></div>
-  <div class="ban-in">
-    <span class="kick">Édition N°01 · 11.01 → 20.02</span>
-    <h2 class="anton">Colombo.</h2>
-    <p class="l">Riz coco-ghee · sauce coco-curry · chili-tamarin · pol sambol · carrot sambol. La cuisine de Gaayathri, chez Cuisine Lab depuis 2017.</p>
+<section class="scene" style="--cd:#0E7A3E;--cl:#B8FF3A">
+  <div class="sc-img"><picture><source media="(min-width:800px)" srcset="img/scene/colombo-1920.jpg"><img src="img/scene/colombo-960.jpg" alt="Box CRAQUE N°01 Colombo, riz, poulet et sauce coco-curry, décor Sri Lanka" style="--px:48%" loading="lazy" decoding="async"></picture>
+    <div class="sc-ov"><span class="kick">Édition N°01 · 11.01 → 20.02</span><h2 class="anton">Colombo.</h2><span class="big-n">N°01</span></div>
+    <span class="credit-b">Visuel de concept généré par IA</span>
   </div>
-  <span class="credit-b">Photos : Ceylon Frames, Markus Winkler, Anindo Santra / Pexels</span>
+  <div class="sc-cap"><div class="sc-in"><p class="l">Riz coco-ghee · sauce coco-curry · chili-tamarin · pol sambol · carrot sambol.</p></div></div>
 </section>
 
 <!-- 3 · LA BOX, COUCHE PAR COUCHE -->
@@ -555,7 +525,7 @@ h2.big{font-size:44px}
       <p class="p"><b>Le rituel :</b> le chef ferme la box et tamponne le couvercle devant le client. Deux secondes, un son, « tchak ». C'est ce que les gens filment.</p>
     </div>
     <div>
-      <div class="fig"><img src="img/hero.jpg" alt="Poulet croustillant sur riz"><div class="lab"><span class="stamp">N°01 · Colombo</span></div></div>
+      <div class="fig"><img src="img/scene/colombo-sq.jpg" alt="Box CRAQUE N°01 Colombo vue de près" loading="lazy"><div class="lab"><span class="stamp">N°01 · Colombo</span></div></div>
       <p class="credit">Photo d'ambiance : Markus Winkler / Pexels. Le vrai produit sera photographié en plongée.</p>
       <p class="note">Deux tailles, une version végé (vadai, falafel), un pot de sauce en plus. Le prix se lit au comptoir et dans l'app, jamais sur un visuel.</p>
     </div>
@@ -563,18 +533,12 @@ h2.big{font-size:44px}
 </section>
 
 <!-- 4 · BANNIÈRE N°02 TÉHÉRAN -->
-<section class="ban" style="--cd:#8A1A4A;--cl:#FFC400">
-  <img class="bg" src="img/ir-sunset.jpg" alt="">
-  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div><i class="pt p1"></i><i class="pt p2"></i><i class="pt p3"></i><i class="pt p4"></i><i class="pt p5"></i><i class="pt p6"></i><i class="pt p7"></i><i class="pt p8"></i><div class="spk"></div>
-  <div class="big-n">N°02</div>
-  <div class="fl cut c1"><img src="img/cut/tehran.webp" alt=""></div>
-  <div class="fl lid small"><svg viewBox="0 0 1000 1000"><use href="#lid02"/></svg></div>
-  <div class="ban-in">
-    <span class="kick">Édition N°02 · 23.02 → 03.04</span>
-    <h2 class="anton">Téhéran.</h2>
-    <p class="l">Riz safrané et éclats de tahdig · mast-o-khiar · mirza ghasemi · oignons frits au zereshk · salade shirazi. Si un chef iranien signe l'édition.</p>
+<section class="scene" style="--cd:#8A1A4A;--cl:#FFC400">
+  <div class="sc-img"><picture><source media="(min-width:800px)" srcset="img/scene/teheran-1920.jpg"><img src="img/scene/teheran-960.jpg" alt="Box CRAQUE N°02 Téhéran, riz safrané et tahdig, décor Iran" style="--px:42%" loading="lazy" decoding="async"></picture>
+    <div class="sc-ov"><span class="kick">Édition N°02 · 23.02 → 03.04</span><h2 class="anton">Téhéran.</h2><span class="big-n">N°02</span></div>
+    <span class="credit-b">Visuel de concept généré par IA</span>
   </div>
-  <span class="credit-b">Photos : Mehdi Salehi, Amin Sani / Pexels</span>
+  <div class="sc-cap"><div class="sc-in"><p class="l">Riz safrané et éclats de tahdig · mast-o-khiar · mirza ghasemi · oignons frits au zereshk · salade shirazi.</p></div></div>
 </section>
 
 <!-- 5 · LES ÉDITIONS -->
@@ -582,7 +546,7 @@ h2.big{font-size:44px}
   <div class="wrap">
     <p class="cap"><b>03</b> · Le calendrier</p>
     <h2 class="anton">Un pays après l'autre.</h2>
-    <p class="lead">On lance avec le chef qui est en cuisine aujourd'hui. D'après le site de Cuisine Lab, l'équipe ne compte ni chef iranien ni chef indien pour l'instant (à confirmer ensemble) : Colombo ouvre, Téhéran suit quand un chef signe, Delhi avec un chef invité.</p>
+    <p class="lead">Colombo ouvre, Téhéran et Delhi suivent. L'ordre exact se cale avec l'équipe en cuisine.</p>
     <div class="eds3">
       <div class="ed3" style="--cd:#0E7A3E;--cl:#B8FF3A"><div class="n"><i class="sw2"></i>N°01 · 11.01 → 20.02.2027</div><h3>Colombo</h3><p>Coco-ghee, coco-curry, chili-tamarin, pol sambol.</p></div>
       <div class="ed3" style="--cd:#8A1A4A;--cl:#FFC400"><div class="n"><i class="sw2"></i>N°02 · 23.02 → 03.04</div><h3>Téhéran</h3><p>Safran, tahdig, mast-o-khiar, mirza ghasemi, shirazi.</p></div>
@@ -593,19 +557,12 @@ h2.big{font-size:44px}
 </section>
 
 <!-- 6 · BANNIÈRE N°03 DELHI -->
-<section class="ban" style="--cd:#3B1A8C;--cl:#FF5A1F">
-  <img class="bg" src="img/taj-sm.jpg" alt="">
-  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div><i class="pt p1"></i><i class="pt p2"></i><i class="pt p3"></i><i class="pt p4"></i><i class="pt p5"></i><i class="pt p6"></i><i class="pt p7"></i><i class="pt p8"></i><div class="spk"></div>
-  <div class="big-n">N°03</div>
-  <div class="fl cut c1"><img src="img/cut/thali.webp" alt=""></div>
-  <div class="fl cut c3"><img src="img/cut/epices.webp" alt=""></div>
-  <div class="fl lid small"><svg viewBox="0 0 1000 1000"><use href="#lid03"/></svg></div>
-  <div class="ban-in">
-    <span class="kick">Édition N°03 · 06.04 → 15.05</span>
-    <h2 class="anton">Delhi.</h2>
-    <p class="l">Basmati au cumin · makhani crémeuse · chutney coriandre-menthe · pappadum brisé · kachumber. Avec un chef invité.</p>
+<section class="scene" style="--cd:#3B1A8C;--cl:#FF5A1F">
+  <div class="sc-img"><picture><source media="(min-width:800px)" srcset="img/scene/delhi-1920.jpg"><img src="img/scene/delhi-960.jpg" alt="Box CRAQUE N°03 Delhi, butter chicken orange, décor Inde" style="--px:58%" loading="lazy" decoding="async"></picture>
+    <div class="sc-ov"><span class="kick">Édition N°03 · 06.04 → 15.05</span><h2 class="anton">Delhi.</h2><span class="big-n">N°03</span></div>
+    <span class="credit-b">Visuel de concept généré par IA</span>
   </div>
-  <span class="credit-b">Photos : Sudipta Mondal, Subhrajyoti Paul, Kamakshi / Pexels</span>
+  <div class="sc-cap"><div class="sc-in"><p class="l">Basmati au cumin · makhani crémeuse · chutney coriandre-menthe · pappadum brisé · kachumber.</p></div></div>
 </section>
 
 <!-- 7 · IDENTITÉ -->
@@ -646,13 +603,13 @@ h2.big{font-size:44px}
   <div class="rays" style="inset:-10%;opacity:.8"></div>
   <div class="ban-in">
     <div class="boxgrid">
-      <div class="boxmock"><svg viewBox="0 0 800 560" style="width:100%"><use href="#bowl01"/></svg></div>
+      <div class="boxmock"><img src="img/scene/box-1200.jpg" alt="Box CRAQUE N°01 Colombo ouverte, couvercle tamponné" loading="lazy" decoding="async"><span class="credit-b" style="position:static;display:block;margin-top:6px">Visuel de concept généré par IA</span></div>
       <div>
         <span class="kick">Packaging</span>
         <h2 class="anton" style="font-size:44px;max-width:none">Une box ronde qu'on reconnaît à 20 mètres.</h2>
-        <p class="l">Basse, large, ronde : une box à salade, pas un seau. On ouvre, on voit le poulet, le riz, la sauce par-dessus. Le corps est fixe : vert, « CRAQUE » répété sur le flanc, un seul stock toute l'année. Le couvercle est l'affiche de l'édition : il change de pays toutes les six semaines et part avec le client. Et le chef tamponne quand même par-dessus, à l'encre bleue, avec la date du jour.</p>
-        <div class="lidgrid" style="margin-top:22px"><div class="lid"><svg viewBox="0 0 1000 1000"><use href="#lid02"/></svg><p class="ph-cap">Couvercle N°02 Téhéran</p></div>
-        <div class="lid"><svg viewBox="0 0 1000 1000"><use href="#lid03"/></svg><p class="ph-cap">Couvercle N°03 Delhi</p></div>
+        <p class="l">Basse, large, ronde : une box à salade, pas un seau. On ouvre, on voit le riz, le poulet et la sauce par-dessus. Le bandeau bleu « CRAQUE » est le même sur toutes les box. Le couvercle est l'affiche de l'édition : il change de pays toutes les six semaines et part avec le client.</p>
+        <div class="lidgrid" style="margin-top:22px"><div class="lid"><img src="img/scene/lid-teheran.png" alt="Couvercle N°02 Téhéran" loading="lazy" style="width:100%;display:block"><p class="ph-cap">Couvercle N°02 Téhéran</p></div>
+        <div class="lid"><img src="img/scene/lid-delhi.png" alt="Couvercle N°03 Delhi" loading="lazy" style="width:100%;display:block"><p class="ph-cap">Couvercle N°03 Delhi</p></div>
         <div class="lid sac"><div class="sacin"><div class="anton">CRAQUE</div><div class="anton l2">CRAQUE</div><div class="anton">CRAQUE</div><span class="stk s1" style="position:static;display:inline-block;margin-top:8px">N°01 · COLOMBO</span></div><p class="ph-cap">Sac blanc · face</p></div>
         <div class="lid pot"><div class="potin"><div class="potlid"></div><div class="potbody"><span>SAUCE<br>COCO-CURRY</span></div></div><p class="ph-cap">Pot de sauce · pastille d'édition</p></div>
       </div>
@@ -692,16 +649,12 @@ h2.big{font-size:44px}
 </section>
 
 <!-- 10 · BANNIÈRE PHASE 1 -->
-<section class="ban ph" style="--cd:#101A6B;--cl:#B8FF3A">
-  <img class="bg" src="img/nations.jpg" alt="">
-  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div><i class="pt p1"></i><i class="pt p2"></i><i class="pt p3"></i><i class="pt p4"></i><i class="pt p5"></i><i class="pt p6"></i><i class="pt p7"></i><i class="pt p8"></i><div class="spk"></div>
-  <div class="disc b" style="bottom:28%"><img src="img/banc.jpg" alt=""></div>
-  <div class="ban-in">
-    <span class="kick">Phase 1 · 23.11 → 18.12 · Édition N°00</span>
-    <h2 class="anton" style="max-width:12ch">Le midi des bureaux.</h2>
-    <p class="l">Avant tout bruit public : les organisations du quartier, Campus Biotech, l'IHEID, MSF. On apprend la capacité et le coût matière avec les équipes, pas avec une file sur le trottoir.</p>
+<section class="scene" style="--cd:#101A6B;--cl:#B8FF3A">
+  <div class="sc-img"><picture><source media="(min-width:800px)" srcset="img/scene/phase1-1920.jpg"><img src="img/scene/phase1-960.jpg" alt="Box CRAQUE empilées place des Nations" style="--px:55%" loading="lazy" decoding="async"></picture>
+    <div class="sc-ov"><span class="kick">Phase 1 · 23.11 → 18.12 · Édition N°00</span><h2 class="anton">Phase 1.<br>Le B2B.</h2></div>
+    <span class="credit-b">Visuel de concept généré par IA</span>
   </div>
-  <span class="credit-b">Photos : Toba Oduwaiye, MART PRODUCTION / Pexels</span>
+  <div class="sc-cap"><div class="sc-in"><h3 class="anton">Le midi des bureaux.</h3><p class="l">Avant tout bruit public : les organisations du quartier, Campus Biotech, l'IHEID, MSF. On apprend la capacité et le coût matière avec les équipes, pas avec une file sur le trottoir.</p></div></div>
 </section>
 
 <!-- 11 · B2B -->
@@ -724,16 +677,12 @@ h2.big{font-size:44px}
 </section>
 
 <!-- 12 · BANNIÈRE PHASE 2 -->
-<section class="ban ph" style="--cd:#8A1A4A;--cl:#FFC400">
-  <img class="bg" src="img/plancha.jpg" alt="">
-  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div><i class="pt p1"></i><i class="pt p2"></i><i class="pt p3"></i><i class="pt p4"></i><i class="pt p5"></i><i class="pt p6"></i><i class="pt p7"></i><i class="pt p8"></i><div class="spk"></div>
-  <span class="stk" style="background:var(--lime);color:var(--noir);right:6vw;top:16%;transform:rotate(8deg)">11.01.2027</span>
-  <div class="ban-in">
-    <span class="kick">Phase 2 · J0 lundi 11.01 → J+40</span>
-    <h2 class="anton" style="max-width:12ch">Lancement, créateurs, Gen Z.</h2>
-    <p class="l">Teasing, pré-inscriptions, puis six créateurs genevois en dix jours. Pas de « 1 000 box offertes » (Halles de Paris, septembre 2025 : 3 000 personnes, annulation par la police). Les 300 premiers carnets avec la case 1 déjà tamponnée, et une sauce offerte sur code créateur.</p>
+<section class="scene" style="--cd:#8A1A4A;--cl:#FFC400">
+  <div class="sc-img"><picture><source media="(min-width:800px)" srcset="img/scene/phase2-1920.jpg"><img src="img/scene/phase2-960.jpg" alt="Box CRAQUE en click and collect dans une rue de Genève" style="--px:30%" loading="lazy" decoding="async"></picture>
+    <div class="sc-ov"><span class="kick">Phase 2 · J0 lundi 11.01 → J+40</span><h2 class="anton">Phase 2.<br>Le lancement.</h2><span class="stk date">11.01.2027</span></div>
+    <span class="credit-b">Visuel de concept généré par IA</span>
   </div>
-  <span class="credit-b">Photo : Joice Rivas / Pexels</span>
+  <div class="sc-cap"><div class="sc-in"><h3 class="anton">Créateurs, Gen Z, click &amp; collect.</h3><p class="l">Teasing, pré-inscriptions, puis six créateurs genevois en dix jours. Pas de « 1 000 box offertes » (Halles de Paris, septembre 2025 : 3 000 personnes, annulation par la police). Les 300 premiers carnets avec la case 1 déjà tamponnée, et une sauce offerte sur code créateur.</p></div></div>
 </section>
 
 <!-- 13 · APP, CARNET, CRÉATEURS -->
@@ -778,15 +727,12 @@ h2.big{font-size:44px}
 </section>
 
 <!-- 14 · BANNIÈRE PHASE 3 -->
-<section class="ban ph" style="--cd:#3B1A8C;--cl:#FF5A1F">
-  <img class="bg" src="img/velo.jpg" alt="">
-  <div class="t1"></div><div class="t2"></div><div class="rays"></div><div class="vig"></div><i class="pt p1"></i><i class="pt p2"></i><i class="pt p3"></i><i class="pt p4"></i><i class="pt p5"></i><i class="pt p6"></i><i class="pt p7"></i><i class="pt p8"></i><div class="spk"></div>
-  <div class="ban-in">
-    <span class="kick">Phase 3 · 23.02 → avril · N°02, N°03</span>
-    <h2 class="anton" style="max-width:12ch">On tourne.</h2>
-    <p class="l">Le vrai test du système : la semaine 1 de Téhéran doit tenir face à la semaine 1 de Colombo, sans offre. Livraison : tournée groupée du midi, coursiers vélo genevois à la course, marque blanche pour le soir. Zéro flotte propre avant d'avoir le volume.</p>
+<section class="scene" style="--cd:#3B1A8C;--cl:#FF5A1F">
+  <div class="sc-img"><picture><source media="(min-width:800px)" srcset="img/scene/phase3-1920.jpg"><img src="img/scene/phase3-960.jpg" alt="Vélo cargo de livraison chargé de box CRAQUE sur le quai" style="--px:45%" loading="lazy" decoding="async"></picture>
+    <div class="sc-ov"><span class="kick">Phase 3 · 23.02 → avril · N°02, N°03</span><h2 class="anton">Phase 3.<br>On tourne.</h2></div>
+    <span class="credit-b">Visuel de concept généré par IA</span>
   </div>
-  <span class="credit-b">Photo : Phaeng _yo / Pexels</span>
+  <div class="sc-cap"><div class="sc-in"><h3 class="anton">Notre propre livraison, sans dépendre d'Uber Eats.</h3><p class="l">Le vrai test du système : la semaine 1 de Téhéran doit tenir face à la semaine 1 de Colombo, sans offre. Livraison : tournée groupée du midi, coursiers vélo genevois à la course, marque blanche pour le soir. Zéro flotte propre avant d'avoir le volume.</p></div></div>
 </section>
 
 <!-- 15 · PHASE 3 + À TRANCHER -->
@@ -816,7 +762,7 @@ h2.big{font-size:44px}
     <h2 class="anton">Sept décisions avant de lancer.</h2>
     <ol class="chal">
       <li><b>Le nom : CRAQUE.</b><span>Ça craque sous la dent, on craque pour. Aucun restaurant de ce nom trouvé en Suisse ni en France, craque.ch libre. À vérifier sur Swissreg avant impression. Plan B : TCHAK, le son du tampon.</span></li>
-      <li><b>L'ordre des éditions.</b><span>On lance avec la cheffe en cuisine (Colombo), Téhéran dès qu'un chef iranien signe, Delhi avec un chef invité.</span></li>
+      <li><b>L'ordre des éditions.</b><span>Colombo, puis Téhéran, puis Delhi. L'ordre se cale avec l'équipe en cuisine.</span></li>
       <li><b>Halal : oui ou non.</b><span>Toutes les enseignes crousty de Genève s'affichent halal. Poulet suisse halal certifié avec friture dédiée, ou positionnement assumé non halal. Pas de demi-mesure en ligne.</span></li>
       <li><b>Périmètre et cannibalisation.</b><span>Activité de l'association ou structure séparée ? CRAQUE remplace le plat du jour take-away, cohabite au comptoir à 12h15, ou démarre en B2B livré ?</span></li>
       <li><b>Les chefs d'édition.</b><span>Accord écrit, rémunéré et révocable ; évaluation du risque pour la famille au pays avant toute exposition du prénom, du visage ou de la ville. La ville est celle que le chef nomme.</span></li>
@@ -844,7 +790,7 @@ h2.big{font-size:44px}
   <div class="wrap">
     <p class="cap">Sources principales (relevées les 16 et 17 octobre 2026)</p>
     <ul class="src">
-      <li>Cuisine Lab : cuisinelab.ch (organisation, carte 2024, menu catering 2025), Instagram @cuisinelab.ch (horaires lun-ven 11h30-15h depuis août 2026, 1 932 abonnés), Le Temps 2021 et 2023, quandestcequonmange.ch 2023, fiche order.store (Uber Eats, fermée, 3,4/5).</li>
+      <li>Cuisine Lab : site cuisinelab.ch et compte Instagram @cuisinelab.ch.</li>
       <li>Crousty : StreetPress (histoire de Tasty Crousty), Le Parisien (Halles de Paris, 13.09.2025), BFMTV/Boursorama (60 restaurants, 800 g pour 9 €), TDG « Crousty : le plat de riz au poulet frit qui conquiert la génération Z » (réservé aux abonnés, à lire), DNA et Santé Magazine (nutrition), Marmiton (fermeture administrative de Melun), yellowpages.swiss (TASTY CROUSTY INTERNATIONAL SA, RC Genève 13.08.2026).</li>
       <li>Concurrence Genève : Uber Eats (Krousty rue du Stand, Stack N Shake), planete-crousty.com, naan-grill.ch, doenerindex.ch, guerilla-gourmande.com (Lausanne), genevatourism.org.</li>
       <li>Quartier : OCSTAT 2022, DFAE « Genève internationale en chiffres » 21.07.2026, LFM/ATS 15.09.2026, campusbiotech.ch, Wikipédia IHEID, msf.ch, geneve.ch (food trucks).</li>
@@ -852,9 +798,10 @@ h2.big{font-size:44px}
       <li>Outils : lightspeedhq.com/ch, sumup.com/fr-ch, twint.ch, stripe.com/en-ch, yoordi.ch, blog.sparissimofood.com, loopyloyalty.com, loyable.com, go-fast.ch, rocket-courrier.ch, carvelo.ch, ge.ch (subventions vélo, salaire minimum), rts.ch (arrêt TF Chaskis, fermeture Smood), edoeb.admin.ch (nLPD).</li>
       <li>Marque : recherches web 17.10.2026 (« Craque » : aucun restaurant ni fast-food trouvé en Suisse ni en France ; homonymes hors périmètre : La Craque, italien à Anvers ; « Chez Nath, ça craque », sandwicherie à Malmedy ; craque.ch libre au RDAP de nic.ch) ; Swissreg et Zefix restent à consulter manuellement.</li>
     </ul>
-    <p class="cap" style="margin-top:22px">Crédits photos (toutes libres de droits, aucune image générée par IA ; les détourages sont faits sur ces photos réelles ; aucune ne représente le produit réel)</p>
+    <p class="cap" style="margin-top:22px">Crédits visuels</p>
     <ul>
-      <li>Poulet croustillant sur riz (et détourage) : Markus Winkler / Pexels</li><li>Phare de Galle : Ceylon Frames / Pexels</li><li>Poulet katsu et riz vus du dessus (dans la box) : Nadin Sh / Pexels</li><li>Tuk-tuk à Galle : Eslam Mohammed Abdelmaksoud / Pexels</li><li>Téhéran au couchant : Mehdi Salehi / Pexels</li><li>Taj Mahal : Sudipta Mondal / Pexels</li><li>Riz et poulet (Mendoza) : Andres Alaniz / Pexels</li><li>Riz safrané : Amin Sani / Pexels</li><li>Thali : Subhrajyoti Paul / Pexels</li><li>Moutabal grenade : Denys Gromov / Pexels</li><li>Mezzé : Ali Dashti / Pexels</li><li>Feuille de curry : Anindo Santra / Pexels</li><li>Épices : Kamakshi / Pexels</li><li>Cuisinier : Matheus Bertelli / Pexels</li><li>Plancha : Joice Rivas / Pexels</li><li>Place des Nations : Toba Oduwaiye / Pexels</li><li>Coursier à vélo : Phaeng _yo / Pexels</li><li>Déjeuner sur un banc : MART PRODUCTION / Pexels</li>
+      <li>Les bannières et les vues de la box sont des visuels de concept générés par IA (Canva, puis agrandissement et marquage CRAQUE dans Moda). Ils montrent l'intention, pas le produit réel ni les lieux réels.</li>
+      <li>Photos libres de droits du fil Instagram et des fiches : Markus Winkler (poulet croustillant), Ali Dashti (mezzé), Anindo Santra (feuille de curry), Matheus Bertelli (cuisinier), Joice Rivas (plancha), Toba Oduwaiye (place des Nations), toutes sur Pexels.</li>
     </ul>
     <p style="margin-top:22px">Maquette de concept réalisée par Nouvelle Ardoise pour discussion. Toutes les dates, volumes et mécaniques marqués « hypothèse » sont des hypothèses de travail à valider ensemble. CRAQUE n'est pas une marque déposée à ce jour. Page non indexée.</p>
   </div>
