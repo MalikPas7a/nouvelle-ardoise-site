@@ -398,6 +398,23 @@ section.scene,header.scene{position:relative;background:var(--cd);color:#fff;ove
 .sc-cap .big span{color:var(--cl)}
 @media(min-width:800px){.sc-cap .big{font-size:40px}}
 .boxmock img{display:block;width:100%;max-width:620px;margin:0 auto;border-radius:22px;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+
+/* ---- v9 : triptyques Instagram ---- */
+section.tri{background:var(--cd);color:#fff;padding:0;overflow:hidden}
+.tri-top .sc-in{padding:18px 20px 14px}
+.tri-top .kick{display:inline-block;font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:var(--cl);color:var(--noir);padding:6px 10px}
+@media(min-width:800px){.tri-top .kick{font-size:13px}}
+.tri-grid{display:flex;gap:3px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:0 16px;scrollbar-width:none}
+.tri-grid::-webkit-scrollbar{display:none}
+.tri-grid a{flex:0 0 82vw;scroll-snap-align:center;display:block;background:#000}
+.tri-grid img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+@media(min-width:800px){.tri-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible;padding:0;max-width:1400px;margin:0 auto}.tri-grid a{flex:none}}
+.tri .swipe{display:block;margin-top:8px;font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.06em;color:rgba(255,255,255,.8)}
+@media(min-width:800px){.tri .swipe{display:none}}
+.tri .sc-cap{border-top:6px solid var(--cl)}
+.tri .l.small{font-size:14px;opacity:.85;margin-top:6px}
+.tri .dl{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.04em;margin-top:12px;color:rgba(255,255,255,.85)}
+.tri .dl a{color:var(--cl);font-weight:500}
 </style>
 </head>
 <body>
@@ -501,12 +518,16 @@ section.scene,header.scene{position:relative;background:var(--cd);color:#fff;ove
 </section>
 
 <!-- 2 · BANNIÈRE N°01 COLOMBO -->
-<section class="scene" style="--cd:#0E7A3E;--cl:#B8FF3A">
-  <div class="sc-img"><picture><source media="(min-width:800px)" srcset="img/scene/colombo-1920.jpg"><img src="img/scene/colombo-960.jpg" alt="Box CRAQUE N°01 Colombo, riz, poulet et sauce coco-curry, décor Sri Lanka" style="--px:48%" loading="lazy" decoding="async"></picture>
-    <div class="sc-ov"><span class="kick">Édition N°01 · 11.01 → 20.02</span><h2 class="anton">Colombo.</h2><span class="big-n">N°01</span></div>
-    <span class="credit-b">Visuel de concept généré par IA</span>
-  </div>
-  <div class="sc-cap"><div class="sc-in"><p class="l">Riz coco-ghee · sauce coco-curry · chili-tamarin · pol sambol · carrot sambol.</p></div></div>
+<section class="tri" style="--cd:#0E7A3E;--cl:#B8FF3A">
+  <div class="tri-top"><div class="sc-in"><span class="kick">Édition N°01 · 11.01 → 20.02 · 3 posts Instagram</span><span class="swipe">Glisse pour voir les 3 posts →</span></div></div>
+  <div class="tri-grid"><a href="img/insta/colombo-1.jpg" target="_blank" rel="noopener" aria-label="Post 1 en 1080 × 1350"><img src="img/insta/colombo-1-720.jpg" alt="Colombo, post 1 sur 3" loading="lazy" decoding="async" width="720" height="900"></a><a href="img/insta/colombo-2.jpg" target="_blank" rel="noopener" aria-label="Post 2 en 1080 × 1350"><img src="img/insta/colombo-2-720.jpg" alt="Colombo, post 2 sur 3" loading="lazy" decoding="async" width="720" height="900"></a><a href="img/insta/colombo-3.jpg" target="_blank" rel="noopener" aria-label="Post 3 en 1080 × 1350"><img src="img/insta/colombo-3-720.jpg" alt="Colombo, post 3 sur 3" loading="lazy" decoding="async" width="720" height="900"></a></div>
+  <div class="sc-cap"><div class="sc-in">
+    <h3 class="anton">CRAQUE N°01 · Colombo</h3>
+    <p class="l">Riz basmati · poulet frit croustillant · sauce coco-curry, pol sambol, carrot sambol.</p>
+    <p class="l small">Décor : Sigiriya, les théiers, les pêcheurs sur échasses de Galle, le tuk-tuk. La box ne change pas, seul le tampon du couvercle change.</p>
+    <p class="dl">Posts en 1080 × 1350 : <a href="img/insta/colombo-1.jpg" target="_blank" rel="noopener">1</a> · <a href="img/insta/colombo-2.jpg" target="_blank" rel="noopener">2</a> · <a href="img/insta/colombo-3.jpg" target="_blank" rel="noopener">3</a>. À publier dans l’ordre 3, 2, 1 pour que le panorama se reforme dans le fil.</p>
+    <span class="credit-b" style="position:static;display:block;margin-top:10px">Visuels de concept générés par IA</span>
+  </div></div>
 </section>
 
 <!-- 3 · LA BOX, COUCHE PAR COUCHE -->
@@ -533,12 +554,16 @@ section.scene,header.scene{position:relative;background:var(--cd);color:#fff;ove
 </section>
 
 <!-- 4 · BANNIÈRE N°02 TÉHÉRAN -->
-<section class="scene" style="--cd:#8A1A4A;--cl:#FFC400">
-  <div class="sc-img"><picture><source media="(min-width:800px)" srcset="img/scene/teheran-1920.jpg"><img src="img/scene/teheran-960.jpg" alt="Box CRAQUE N°02 Téhéran, riz safrané et tahdig, décor Iran" style="--px:42%" loading="lazy" decoding="async"></picture>
-    <div class="sc-ov"><span class="kick">Édition N°02 · 23.02 → 03.04</span><h2 class="anton">Téhéran.</h2><span class="big-n">N°02</span></div>
-    <span class="credit-b">Visuel de concept généré par IA</span>
-  </div>
-  <div class="sc-cap"><div class="sc-in"><p class="l">Riz safrané et éclats de tahdig · mast-o-khiar · mirza ghasemi · oignons frits au zereshk · salade shirazi.</p></div></div>
+<section class="tri" style="--cd:#8A1A4A;--cl:#FFC400">
+  <div class="tri-top"><div class="sc-in"><span class="kick">Édition N°02 · 23.02 → 03.04 · 3 posts Instagram</span><span class="swipe">Glisse pour voir les 3 posts →</span></div></div>
+  <div class="tri-grid"><a href="img/insta/teheran-1.jpg" target="_blank" rel="noopener" aria-label="Post 1 en 1080 × 1350"><img src="img/insta/teheran-1-720.jpg" alt="Téhéran, post 1 sur 3" loading="lazy" decoding="async" width="720" height="900"></a><a href="img/insta/teheran-2.jpg" target="_blank" rel="noopener" aria-label="Post 2 en 1080 × 1350"><img src="img/insta/teheran-2-720.jpg" alt="Téhéran, post 2 sur 3" loading="lazy" decoding="async" width="720" height="900"></a><a href="img/insta/teheran-3.jpg" target="_blank" rel="noopener" aria-label="Post 3 en 1080 × 1350"><img src="img/insta/teheran-3-720.jpg" alt="Téhéran, post 3 sur 3" loading="lazy" decoding="async" width="720" height="900"></a></div>
+  <div class="sc-cap"><div class="sc-in">
+    <h3 class="anton">CRAQUE N°02 · Téhéran</h3>
+    <p class="l">Riz basmati · poulet frit croustillant · sauce safran, épine-vinette, pistache, mast-o-khiar.</p>
+    <p class="l small">Décor : La tour Azadi, l’Alborz enneigé, les vitraux de la mosquée rose, la grenade. La box ne change pas, seul le tampon du couvercle change.</p>
+    <p class="dl">Posts en 1080 × 1350 : <a href="img/insta/teheran-1.jpg" target="_blank" rel="noopener">1</a> · <a href="img/insta/teheran-2.jpg" target="_blank" rel="noopener">2</a> · <a href="img/insta/teheran-3.jpg" target="_blank" rel="noopener">3</a>. À publier dans l’ordre 3, 2, 1 pour que le panorama se reforme dans le fil.</p>
+    <span class="credit-b" style="position:static;display:block;margin-top:10px">Visuels de concept générés par IA</span>
+  </div></div>
 </section>
 
 <!-- 5 · LES ÉDITIONS -->
@@ -557,12 +582,16 @@ section.scene,header.scene{position:relative;background:var(--cd);color:#fff;ove
 </section>
 
 <!-- 6 · BANNIÈRE N°03 DELHI -->
-<section class="scene" style="--cd:#3B1A8C;--cl:#FF5A1F">
-  <div class="sc-img"><picture><source media="(min-width:800px)" srcset="img/scene/delhi-1920.jpg"><img src="img/scene/delhi-960.jpg" alt="Box CRAQUE N°03 Delhi, butter chicken orange, décor Inde" style="--px:58%" loading="lazy" decoding="async"></picture>
-    <div class="sc-ov"><span class="kick">Édition N°03 · 06.04 → 15.05</span><h2 class="anton">Delhi.</h2><span class="big-n">N°03</span></div>
-    <span class="credit-b">Visuel de concept généré par IA</span>
-  </div>
-  <div class="sc-cap"><div class="sc-in"><p class="l">Basmati au cumin · makhani crémeuse · chutney coriandre-menthe · pappadum brisé · kachumber.</p></div></div>
+<section class="tri" style="--cd:#3B1A8C;--cl:#FF5A1F">
+  <div class="tri-top"><div class="sc-in"><span class="kick">Édition N°03 · 06.04 → 15.05 · 3 posts Instagram</span><span class="swipe">Glisse pour voir les 3 posts →</span></div></div>
+  <div class="tri-grid"><a href="img/insta/delhi-1.jpg" target="_blank" rel="noopener" aria-label="Post 1 en 1080 × 1350"><img src="img/insta/delhi-1-720.jpg" alt="Delhi, post 1 sur 3" loading="lazy" decoding="async" width="720" height="900"></a><a href="img/insta/delhi-2.jpg" target="_blank" rel="noopener" aria-label="Post 2 en 1080 × 1350"><img src="img/insta/delhi-2-720.jpg" alt="Delhi, post 2 sur 3" loading="lazy" decoding="async" width="720" height="900"></a><a href="img/insta/delhi-3.jpg" target="_blank" rel="noopener" aria-label="Post 3 en 1080 × 1350"><img src="img/insta/delhi-3-720.jpg" alt="Delhi, post 3 sur 3" loading="lazy" decoding="async" width="720" height="900"></a></div>
+  <div class="sc-cap"><div class="sc-in">
+    <h3 class="anton">CRAQUE N°03 · Delhi</h3>
+    <p class="l">Riz basmati · poulet frit croustillant · sauce makhani, chutney coriandre-menthe, kachumber.</p>
+    <p class="l small">Décor : L’éléphant paré, India Gate, le tombeau d’Humayun, les soucis et les épices. La box ne change pas, seul le tampon du couvercle change.</p>
+    <p class="dl">Posts en 1080 × 1350 : <a href="img/insta/delhi-1.jpg" target="_blank" rel="noopener">1</a> · <a href="img/insta/delhi-2.jpg" target="_blank" rel="noopener">2</a> · <a href="img/insta/delhi-3.jpg" target="_blank" rel="noopener">3</a>. À publier dans l’ordre 3, 2, 1 pour que le panorama se reforme dans le fil.</p>
+    <span class="credit-b" style="position:static;display:block;margin-top:10px">Visuels de concept générés par IA</span>
+  </div></div>
 </section>
 
 <!-- 7 · IDENTITÉ -->
@@ -603,15 +632,13 @@ section.scene,header.scene{position:relative;background:var(--cd);color:#fff;ove
   <div class="rays" style="inset:-10%;opacity:.8"></div>
   <div class="ban-in">
     <div class="boxgrid">
-      <div class="boxmock"><img src="img/scene/box-1200.jpg" alt="Box CRAQUE N°01 Colombo ouverte, couvercle tamponné" loading="lazy" decoding="async"><span class="credit-b" style="position:static;display:block;margin-top:6px">Visuel de concept généré par IA</span></div>
+      <div class="boxmock"><img src="img/scene/box-1200.jpg" alt="Box kraft CRAQUE ouverte, couvercle tamponné Colombo" loading="lazy" decoding="async"><span class="credit-b" style="position:static;display:block;margin-top:6px">Visuel de concept généré par IA</span></div>
       <div>
         <span class="kick">Packaging</span>
         <h2 class="anton" style="font-size:44px;max-width:none">Une box ronde qu'on reconnaît à 20 mètres.</h2>
-        <p class="l">Basse, large, ronde : une box à salade, pas un seau. On ouvre, on voit le riz, le poulet et la sauce par-dessus. Le bandeau bleu « CRAQUE » est le même sur toutes les box. Le couvercle est l'affiche de l'édition : il change de pays toutes les six semaines et part avec le client.</p>
-        <div class="lidgrid" style="margin-top:22px"><div class="lid"><img src="img/scene/lid-teheran.png" alt="Couvercle N°02 Téhéran" loading="lazy" style="width:100%;display:block"><p class="ph-cap">Couvercle N°02 Téhéran</p></div>
-        <div class="lid"><img src="img/scene/lid-delhi.png" alt="Couvercle N°03 Delhi" loading="lazy" style="width:100%;display:block"><p class="ph-cap">Couvercle N°03 Delhi</p></div>
-        <div class="lid sac"><div class="sacin"><div class="anton">CRAQUE</div><div class="anton l2">CRAQUE</div><div class="anton">CRAQUE</div><span class="stk s1" style="position:static;display:inline-block;margin-top:8px">N°01 · COLOMBO</span></div><p class="ph-cap">Sac blanc · face</p></div>
-        <div class="lid pot"><div class="potin"><div class="potlid"></div><div class="potbody"><span>SAUCE<br>COCO-CURRY</span></div></div><p class="ph-cap">Pot de sauce · pastille d'édition</p></div>
+        <p class="l">Une seule box, toujours la même : un bol kraft du commerce, rond et large, imprimé une fois en bleu « CRAQUE ». Couvercle kraft lui aussi. Ce qui change à chaque édition, c’est le tampon sur le couvercle : un tampon encreur par pays, appliqué au comptoir. Aucun nouveau stock d’emballage, et un geste que les gens filment.</p>
+        <div class="lidgrid" style="margin-top:22px"><div class="lid"><img src="img/scene/lid-colombo.png" alt="Couvercle kraft tamponné Colombo" loading="lazy" style="width:100%;display:block"><p class="ph-cap">Tampon N°01 · Colombo</p></div><div class="lid"><img src="img/scene/lid-teheran.png" alt="Couvercle kraft tamponné Téhéran" loading="lazy" style="width:100%;display:block"><p class="ph-cap">Tampon N°02 · Téhéran</p></div><div class="lid"><img src="img/scene/lid-delhi.png" alt="Couvercle kraft tamponné Delhi" loading="lazy" style="width:100%;display:block"><p class="ph-cap">Tampon N°03 · Delhi</p></div><div class="lid sac"><div class="sacin"><div class="anton">CRAQUE</div><div class="anton l2">CRAQUE</div><div class="anton">CRAQUE</div><span class="stk s1" style="position:static;display:inline-block;margin-top:8px">N°01 · COLOMBO</span></div><p class="ph-cap">Sac blanc · face</p></div>
+        
       </div>
       </div>
     </div>
