@@ -9,172 +9,297 @@
 <title>Personal shopping randonnée · concept</title>
 <link rel="stylesheet" href="/demos/fonts/fonts.css">
 <style>
-:root{--bleu:#3643ba;--bleu2:#7d88ff;--nuit:#0b0e24;--nuit2:#141a45;--blanc:#f6f7fb;--gris:#a7accb;--vert:#1f8a4c;--r:18px}
+:root{--bleu:#3643ba;--bleu2:#7d88ff;--nuit:#0b0e24;--nuit2:#141a45;--blanc:#f6f7fb;--gris:#a7accb;--vert:#1f8a4c;--vert2:#5fd39a;--ambre:#ffb84d;--r:18px}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--nuit);color:var(--blanc);font-family:"Work Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{background:var(--nuit);color:var(--blanc);font-family:"Work Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{display:block;max-width:100%}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 .tag{display:inline-block;white-space:nowrap;padding:6px 14px;border:1.5px solid rgba(255,255,255,.55);border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
 .lbl{font-size:13px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--bleu2)}
 h1,h2{font-weight:800;letter-spacing:-.035em;line-height:1.02}
-h1{font-size:clamp(44px,9vw,104px)}
-h2{font-size:clamp(32px,5.5vw,60px)}
+h1{font-size:clamp(44px,8.5vw,100px)}
+h2{font-size:clamp(32px,5.2vw,58px)}
 .muted{color:var(--gris)}
-/* hero */
-.hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;padding:120px 0 64px;background:radial-gradient(ellipse at 70% 0%,#2a378f 0%,#121845 45%,var(--nuit) 80%);overflow:hidden}
-.hero .wrap{width:100%}
-.hero h1 span{color:var(--bleu2)}
-.hero p.lead{max-width:620px;font-size:clamp(17px,2.2vw,21px);margin:22px 0 32px;color:#d6d9f2}
-.steps{display:flex;flex-wrap:wrap;gap:10px}
-.steps a{color:var(--blanc);text-decoration:none;padding:10px 18px;border-radius:999px;background:rgba(255,255,255,.08);font-weight:600;font-size:15px}
-.steps a b{color:var(--bleu2);margin-right:6px}
-.cta{display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:999px;background:var(--bleu);color:#fff;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 18px 40px rgba(54,67,186,.45)}
-.fan{position:absolute;right:max(20px,calc(50vw - 570px));top:130px;width:420px;height:420px;pointer-events:none}
-.fan img{position:absolute;width:210px;aspect-ratio:1;object-fit:cover;border-radius:22px;background:#f3f3f3;box-shadow:0 30px 60px rgba(0,0,0,.45)}
-.fan img:nth-child(1){left:0;top:120px;transform:rotate(-8deg)}
-.fan img:nth-child(2){left:110px;top:0;transform:rotate(4deg);z-index:2}
-.fan img:nth-child(3){left:210px;top:170px;transform:rotate(9deg)}
-@media (max-width:1100px){.fan{display:none}}
-.ridge{position:absolute;inset:auto 0 0 0;height:46%;opacity:.55;pointer-events:none}
-section.s{padding:96px 0}
-.head{margin-bottom:36px}
-.head .lbl{display:block;margin-bottom:12px}
-.head p{max-width:640px;margin-top:14px;font-size:18px;color:#d0d3ee}
-/* carte */
-.map{position:relative;border-radius:28px;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,#24307f 0%,#0c1030 60%,#05060f 100%);height:min(68vh,620px);min-height:420px}
-.map canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
-.map .hud{position:absolute;left:18px;top:18px}
-.pin{position:absolute;transform:translate(-50%,-100%);pointer-events:none;text-align:center;font-size:12px;line-height:1.2;transition:opacity .3s}
-.pin div{background:rgba(255,255,255,.95);color:#141414;border-radius:10px;padding:6px 10px;white-space:nowrap;box-shadow:0 8px 20px rgba(0,0,0,.35)}
-.pin b{font-size:14px}
-.pin i{display:block;width:2px;height:22px;margin:0 auto;background:#fff}
-.mapgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
-.hikes{display:grid;gap:10px}
-.hike{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;padding:16px 18px;border-radius:var(--r);background:var(--nuit2);border:1.5px solid transparent;transition:.2s}
-.hike b{font-size:19px;display:block}
-.hike span{color:var(--gris);font-size:14px}
-.hike em{font-style:normal;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;background:rgba(125,136,255,.15);color:var(--bleu2)}
-.hike.on{border-color:var(--bleu2);background:#1b2260}
-.cond{background:var(--nuit2);border-radius:var(--r);padding:20px}
-.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07)}
-.row:last-child{border:0}
-.row>span{color:var(--gris);font-size:15px}
-.seg{display:inline-flex;background:rgba(255,255,255,.06);border-radius:999px;padding:3px}
+/* barre du parcours */
+.top{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;gap:14px;padding:10px 16px;background:linear-gradient(rgba(11,14,36,.85),rgba(11,14,36,0));transition:background .3s}
+.top.solid{background:rgba(11,14,36,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(255,255,255,.06)}
+.brand{font-weight:800;letter-spacing:-.02em;font-size:15px;white-space:nowrap}
+.brand span{color:var(--bleu2)}
+.prog{display:flex;gap:4px;margin:0 auto;overflow-x:auto;scrollbar-width:none;min-width:0}
+.prog::-webkit-scrollbar{display:none}
+.prog a{display:flex;align-items:center;gap:6px;white-space:nowrap;text-decoration:none;color:#c9cdf2;font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;transition:.25s}
+.prog a b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.1);font-size:11px}
+.prog a.on{background:rgba(125,136,255,.18);color:#fff}
+.prog a.on b{background:var(--bleu2);color:var(--nuit)}
+.prog a.done b{background:var(--vert2);color:var(--nuit)}
+.cartbtn{display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:var(--blanc);color:#141414;font-weight:700;font-size:14px;white-space:nowrap}
+.cartbtn i{font-style:normal;display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--bleu);color:#fff;font-size:12px}
+.cartbtn.bump{animation:bump .5s}
+@keyframes bump{30%{transform:scale(1.12)}}
+@media (max-width:760px){.brand{display:none}.prog a span{display:none}.prog a{padding:7px 8px}.top{gap:8px;padding:8px 10px}}
+/* intro immersive + carte */
+.intro{position:relative;height:430vh}
+.stage3d{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:radial-gradient(ellipse at 50% 18%,#2a378f 0%,#121845 42%,var(--nuit) 78%)}
+.stage3d canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.stage3d canvas.drag{touch-action:none}
+.ov{position:absolute;left:0;right:0;pointer-events:none;opacity:0;transition:opacity .2s}
+.ov .wrap{width:100%}
+.ov.o1{bottom:0;padding:160px 0 9vh;background:linear-gradient(rgba(11,14,36,0),rgba(11,14,36,.82) 55%)}
+.ov.o2,.ov.o3{top:20vh}
+.ov h1 span{color:var(--bleu2)}
+.ov p{max-width:600px;font-size:clamp(17px,2.1vw,21px);margin-top:18px;color:#dfe2f7;text-shadow:0 2px 18px rgba(0,0,0,.6)}
+.ov .big{font-size:clamp(64px,13vw,160px);font-weight:800;letter-spacing:-.05em;line-height:.95}
+.ov h2{text-shadow:0 4px 30px rgba(0,0,0,.5)}
+.scrollhint{display:inline-flex;gap:10px;align-items:center;margin-top:26px;font-size:14px;color:var(--gris)}
+.scrollhint i{width:22px;height:34px;border:2px solid rgba(255,255,255,.5);border-radius:12px;position:relative}
+.scrollhint i:after{content:"";position:absolute;left:50%;top:6px;width:4px;height:7px;margin-left:-2px;border-radius:2px;background:#fff;animation:wheel 1.6s infinite}
+@keyframes wheel{to{transform:translateY(10px);opacity:0}}
+.lab{position:absolute;transform:translate(-50%,-100%);pointer-events:none;text-align:center;font-size:12px;line-height:1.2;white-space:nowrap;transition:opacity .3s}
+.lab div{background:rgba(255,255,255,.95);color:#141414;border-radius:10px;padding:6px 10px;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.lab b{font-size:14px}
+.lab i{display:block;width:2px;height:22px;margin:0 auto;background:#fff}
+.lab.shop div{background:var(--bleu);color:#fff}
+#pins{position:absolute;inset:0;pointer-events:none}
+.pin{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;display:flex;align-items:center;gap:6px;opacity:0;transition:opacity .4s}
+.mapOn .pin{opacity:1}
+.pin i{width:14px;height:14px;border-radius:50%;background:var(--bleu2);border:2.5px solid #fff;box-shadow:0 0 0 4px rgba(125,136,255,.25),0 4px 10px rgba(0,0,0,.5);flex:none}
+.pin.fit i{background:var(--vert2);box-shadow:0 0 0 4px rgba(95,211,154,.25),0 4px 10px rgba(0,0,0,.5)}
+.pin.far i{background:#6b6f8c;border-color:#c9cbe0}
+.pin span{display:none;background:rgba(255,255,255,.95);color:#141414;font-size:12px;font-weight:700;padding:4px 9px;border-radius:8px;white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.pin:hover span,.pin.on span{display:block}
+.pin.on{z-index:3}
+.pin.on i{transform:scale(1.35);background:#fff;border-color:var(--bleu2)}
+.mapbadge{position:absolute;left:18px;bottom:18px;display:flex;gap:8px;flex-wrap:wrap;opacity:0;transition:opacity .4s;pointer-events:none}
+.mapOn .mapbadge{opacity:1}
+.panel{position:absolute;right:18px;top:72px;bottom:18px;width:400px;display:flex;flex-direction:column;background:rgba(9,12,32,.86);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:24px;overflow:hidden;transform:translateX(30px);opacity:0;pointer-events:none;transition:.5s}
+.mapOn .panel{transform:none;opacity:1;pointer-events:auto}
+.pbody{overflow:auto;padding:20px;overscroll-behavior:contain;flex:1}
+.panel h3{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.panel .lbl{display:block;margin-bottom:8px}
+.q{margin-top:16px}
+.q>span{display:block;font-size:14px;color:var(--gris);margin-bottom:7px}
+.seg{display:inline-flex;flex-wrap:wrap;background:rgba(255,255,255,.06);border-radius:999px;padding:3px}
 .seg button{padding:7px 13px;border-radius:999px;font-size:14px;font-weight:600;color:#c9cdf2}
 .seg button.on{background:var(--blanc);color:#141414}
 .temp{display:flex;align-items:center;gap:10px}
-.temp output{min-width:52px;text-align:right;font-weight:800;font-size:20px}
-input[type=range]{accent-color:var(--bleu2);width:140px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.stat{background:rgba(255,255,255,.05);border-radius:14px;padding:12px}
-.stat span{display:block;font-size:12px;color:var(--gris);text-transform:uppercase;letter-spacing:.08em}
-.stat b{font-size:20px}
-/* mannequin */
-.dress{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:24px;align-items:start}
-.stage{position:sticky;top:16px;border-radius:28px;overflow:hidden;height:min(82vh,760px);min-height:480px;background:radial-gradient(ellipse at 50% 30%,#1d2563 0%,#0b0e24 70%)}
-.stage canvas{width:100%;height:100%;display:block;touch-action:none}
+.temp output{min-width:56px;text-align:right;font-weight:800;font-size:19px}
+input[type=range]{accent-color:var(--bleu2);width:150px}
+.go{display:flex;justify-content:center;align-items:center;gap:8px;width:100%;margin-top:20px;padding:15px 20px;border-radius:999px;background:var(--bleu);color:#fff;font-weight:700;font-size:16px;box-shadow:0 14px 30px rgba(54,67,186,.45);text-decoration:none}
+.go.w{background:var(--blanc);color:var(--bleu)}
+.lvl{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:rgba(125,136,255,.12);font-size:14px}
+.lvl b{font-size:16px}
+.lvl button{color:var(--bleu2);font-weight:700;font-size:13px}
+.grp{margin-top:18px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);display:flex;align-items:center;gap:8px}
+.grp i{width:9px;height:9px;border-radius:50%;background:var(--vert2)}
+.grp.g2 i{background:var(--bleu2)}.grp.g3 i{background:#6b6f8c}
+.hk{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;text-align:left;margin-top:8px;padding:11px 13px;border-radius:14px;background:rgba(255,255,255,.04);border:1.5px solid transparent;transition:.2s}
+.hk:hover{background:rgba(255,255,255,.08)}
+.hk b{display:block;font-size:16px;line-height:1.2}
+.hk span{font-size:13px;color:var(--gris)}
+.hk em{font-style:normal;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(125,136,255,.15);color:var(--bleu2);white-space:nowrap}
+.hk.far{opacity:.55}
+.back{font-size:13px;font-weight:700;color:var(--bleu2);margin-bottom:12px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0 12px}
+.stat{background:rgba(255,255,255,.05);border-radius:12px;padding:9px}
+.stat span{display:block;font-size:11px;color:var(--gris);text-transform:uppercase;letter-spacing:.06em}
+.stat b{font-size:16px;white-space:nowrap}
+.prof{width:100%;height:70px;display:block}
+.fitnote{font-size:13px;padding:9px 12px;border-radius:12px;margin-top:10px;background:rgba(95,211,154,.12);color:#c9f2dc}
+.fitnote.f2{background:rgba(125,136,255,.12);color:#d5d9ff}
+.fitnote.f3{background:rgba(255,184,77,.12);color:#ffe2b5}
+.wx{margin-top:14px;padding:14px;border-radius:16px;background:rgba(255,255,255,.05)}
+.wx .row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0}
+.wx .row>span{color:var(--gris);font-size:14px}
+.wx small{display:block;color:var(--gris);font-size:12px;margin-top:6px}
+.wxhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.wxhead b{font-size:22px}
+@media (max-width:860px){
+ .panel{left:10px;right:10px;width:auto;top:auto;bottom:10px;max-height:54%;border-radius:22px}
+ .ov.o2,.ov.o3{top:14vh}
+ .mapbadge{display:none}
+ .stats{grid-template-columns:repeat(2,1fr)}
+}
+/* sections */
+section.s{padding:110px 0 90px;position:relative}
+.head{margin-bottom:34px}
+.head .lbl{display:block;margin-bottom:12px}
+.head p{max-width:660px;margin-top:14px;font-size:18px;color:#d0d3ee}
+.ctx{display:inline-flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.ctx span{padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.07);font-size:13px;font-weight:600;color:#dfe2f7}
+.next{display:flex;justify-content:flex-end;margin-top:30px}
+.next a{width:auto;padding:15px 28px}
+/* tenue */
+.dress{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start}
+.stage{position:sticky;top:70px;border-radius:28px;overflow:hidden;height:min(80vh,740px);min-height:460px;background:radial-gradient(ellipse at 50% 30%,#1d2563 0%,#0b0e24 70%)}
+.stage canvas{width:100%;height:100%;display:block;touch-action:pan-y}
 .stage .hud{position:absolute;left:18px;top:18px;right:18px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-.stage .meteo{background:rgba(5,6,15,.55);backdrop-filter:blur(8px);border-radius:14px;padding:10px 14px;font-size:14px}
-.stage .meteo b{font-size:18px}
+.glass{background:rgba(5,6,15,.55);backdrop-filter:blur(8px);border-radius:14px;padding:10px 14px;font-size:14px}
+.glass b{font-size:18px}
 .replay{position:absolute;right:18px;bottom:18px;padding:12px 20px;border-radius:999px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);font-weight:700;font-size:14px}
 .hint{position:absolute;left:18px;bottom:22px;font-size:13px;color:var(--gris)}
 .layers{display:grid;gap:14px}
-.layer{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:center;background:var(--blanc);color:#141414;border-radius:22px;padding:12px;opacity:.35;transform:translateY(10px);transition:opacity .5s,transform .5s}
+.layer{background:var(--blanc);color:#141414;border-radius:22px;padding:14px;opacity:.35;transform:translateY(10px);transition:opacity .5s,transform .5s}
 .layer.on{opacity:1;transform:none}
-.layer.sac{background:#e6e8f5}
+.layer .main{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center}
 .layer .ph{aspect-ratio:1;border-radius:14px;overflow:hidden;background:#f2f2f2}
 .layer .ph img{width:100%;height:100%;object-fit:cover}
-.layer .k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--bleu)}
-.layer h3{font-size:19px;line-height:1.2;margin:4px 0 6px;letter-spacing:-.01em}
+.k{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bleu)}
+.layer h3{font-size:18px;line-height:1.2;margin:4px 0 5px;letter-spacing:-.01em}
 .layer p{font-size:14px;color:#4a4d5e;line-height:1.4}
-.layer .why{display:inline-block;margin-top:8px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:#eef0ff;color:var(--bleu)}
-/* sac */
-.bag{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
-.item{background:var(--blanc);color:#141414;border-radius:20px;padding:12px;position:relative}
-.item .ph{aspect-ratio:1;border-radius:12px;overflow:hidden;background:#f3f3f3;margin-bottom:10px}
-.item .ph img{width:100%;height:100%;object-fit:contain}
-.item .q{position:absolute;top:18px;right:18px;background:var(--bleu);color:#fff;font-weight:800;border-radius:999px;padding:3px 10px;font-size:14px}
-.item b{display:block;font-size:15px;line-height:1.25}
-.item span{display:block;font-size:13px;line-height:1.35;color:#5b5e70;margin-top:4px}
+.pill{display:inline-block;margin-top:8px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:#eef0ff;color:var(--bleu)}
+.pill.g{background:#e3f6ec;color:var(--vert)}
+.alts{display:flex;gap:8px;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid #e6e7ee;flex-wrap:wrap}
+.alts>span{font-size:12px;color:#6a6d80;margin-right:4px}
+.alt{position:relative;width:50px;height:50px;border-radius:12px;overflow:hidden;background:#f2f2f2;border:2px solid transparent;transition:.2s}
+.alt img{width:100%;height:100%;object-fit:cover}
+.alt.on{border-color:var(--bleu)}
+.alt.rec:after{content:"";position:absolute;top:4px;right:4px;width:9px;height:9px;border-radius:50%;background:var(--vert);border:2px solid #fff}
+.add{margin-left:auto;padding:10px 16px;border-radius:999px;background:var(--bleu);color:#fff;font-weight:700;font-size:14px;white-space:nowrap;transition:.2s}
+.add.in{background:#e3f6ec;color:var(--vert)}
+.addall{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;border-radius:20px;background:var(--nuit2)}
+.addall b{font-size:16px}
+/* nutrition */
 .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 22px}
 .num{background:var(--nuit2);border-radius:var(--r);padding:16px}
 .num span{display:block;color:var(--gris);font-size:13px}
 .num b{font-size:26px;letter-spacing:-.02em}
-.rule{margin:0 0 26px;padding:16px 18px;border-left:3px solid var(--bleu2);background:rgba(125,136,255,.08);border-radius:0 14px 14px 0;color:#dfe2f7}
-/* panier */
+.num small{display:block;color:var(--gris);font-size:12px;margin-top:2px}
+.tl{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:8px 0 34px;position:relative}
+.tl:before{content:"";position:absolute;left:10%;right:10%;top:15px;height:2px;background:linear-gradient(90deg,var(--bleu2),var(--vert2))}
+.tl div{position:relative;text-align:center;padding:0 8px}
+.tl i{display:block;width:32px;height:32px;margin:0 auto 10px;border-radius:50%;background:var(--nuit);border:2px solid var(--bleu2);font-style:normal;font-weight:800;font-size:12px;line-height:28px}
+.tl b{display:block;font-size:14px}
+.tl em{display:block;font-style:normal;font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--bleu2);margin:2px 0}
+.tl span{display:block;font-size:13px;color:var(--gris);line-height:1.35}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.card{background:var(--blanc);color:#141414;border-radius:20px;padding:12px;display:flex;flex-direction:column;position:relative}
+.card .ph{aspect-ratio:1;border-radius:12px;overflow:hidden;background:#f3f3f3;margin-bottom:10px}
+.card .ph img{width:100%;height:100%;object-fit:contain}
+.card .qn{position:absolute;top:18px;left:18px;background:var(--bleu);color:#fff;font-weight:800;border-radius:999px;padding:3px 10px;font-size:14px}
+.card .rc{position:absolute;top:18px;right:18px;background:var(--vert);color:#fff;font-weight:700;border-radius:999px;padding:3px 9px;font-size:11px;letter-spacing:.04em}
+.card b{display:block;font-size:15px;line-height:1.25}
+.card span.u{display:block;font-size:13px;line-height:1.35;color:#5b5e70;margin:4px 0 10px}
+.card .add{margin:auto 0 0;width:100%}
+.subh{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:34px 0 14px;flex-wrap:wrap}
+.subh h3{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.subh p{color:var(--gris);font-size:14px;max-width:560px}
+.rule{margin:0 0 6px;padding:16px 18px;border-left:3px solid var(--bleu2);background:rgba(125,136,255,.08);border-radius:0 14px 14px 0;color:#dfe2f7}
+/* sac */
+.packer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:24px;align-items:start}
+.packer>*,.dress>*{min-width:0}
+.gauge{position:absolute;left:18px;right:18px;bottom:18px;background:rgba(5,6,15,.6);backdrop-filter:blur(8px);border-radius:16px;padding:12px 14px}
+.gauge .bar{height:10px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:8px}
+.gauge .bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--bleu2),var(--vert2));transition:width .6s}
+.gauge.over .bar i{background:linear-gradient(90deg,var(--ambre),#ff6b6b)}
+.gauge .t{display:flex;justify-content:space-between;font-size:14px}
+.gauge .t b{font-size:16px}
+.bags{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 10px;scroll-snap-type:x mandatory}
+.bagc{flex:0 0 168px;scroll-snap-align:start;background:var(--blanc);color:#141414;border-radius:18px;padding:10px;text-align:left;border:3px solid transparent;position:relative;transition:.2s}
+.bagc.on{border-color:var(--bleu2);box-shadow:0 10px 30px rgba(125,136,255,.35)}
+.bagc .ph{aspect-ratio:1;border-radius:12px;overflow:hidden;background:#f3f3f3;margin-bottom:8px}
+.bagc .ph img{width:100%;height:100%;object-fit:contain}
+.bagc b{display:block;font-size:14px;line-height:1.2}
+.bagc span{display:block;font-size:12px;color:#5b5e70;margin-top:3px}
+.bagc .rc{position:absolute;top:16px;right:16px;background:var(--vert);color:#fff;font-weight:700;border-radius:999px;padding:3px 9px;font-size:11px}
+.water{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;padding:18px;border-radius:22px;background:linear-gradient(135deg,#1b2470,#141a45)}
+.water .need{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle at 50% 30%,#4c5ae0,#2a3497);box-shadow:0 0 0 6px rgba(125,136,255,.15)}
+.water .need b{display:block;font-size:26px;line-height:1}
+.water .need span{font-size:11px;color:#d5d9ff}
+.water p{font-size:15px;color:#dfe2f7}
+.water p b{color:#fff}
+.small{font-size:12px;color:var(--gris);margin-top:6px}
+.gridw{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:14px}
+.gridw .card .ph{margin-bottom:8px}
+/* récap */
 .cart{background:var(--blanc);color:#141414;border-radius:28px;padding:clamp(20px,4vw,44px)}
 .cart .lbl{color:var(--bleu)}
-.cart h2{margin:8px 0 24px}
-.lines{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px 22px}
+.cart h2{margin:8px 0 10px}
+.summary{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.summary span{padding:6px 12px;border-radius:999px;background:#eef0ff;color:var(--bleu);font-size:13px;font-weight:600}
+.cgrp{margin-top:18px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6a6d80}
+.lines{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:4px 22px}
 .line{display:flex;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid #e6e7ee}
-.line img{width:54px;height:54px;object-fit:cover;border-radius:10px;background:#f3f3f3}
+.line img{width:54px;height:54px;object-fit:cover;border-radius:10px;background:#f3f3f3;flex:none}
 .line b{display:block;font-size:14px;line-height:1.25}
 .line span{font-size:12px;color:#6a6d80}
+.line button{margin-left:auto;color:#9a9db0;font-size:20px;padding:4px 8px}
+.empty{color:#6a6d80;font-size:15px;padding:12px 0}
 .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;align-items:center}
-.btn{padding:16px 28px;border-radius:999px;font-weight:700;font-size:16px}
+.btn{padding:16px 26px;border-radius:999px;font-weight:700;font-size:16px}
 .btn.p{background:var(--bleu);color:#fff}
 .btn.s{background:#eceefa;color:var(--bleu)}
-.btn.ok{background:var(--vert)!important}
+.btn.ok{background:var(--vert)!important;color:#fff!important}
 .note{font-size:13px;color:#6a6d80;margin-top:16px}
-footer{padding:48px 0 64px;color:var(--gris);font-size:13px}
+/* tiroir panier */
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);z-index:70;visibility:hidden;background:var(--blanc);color:#141414;transform:translateX(105%);transition:transform .45s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:-30px 0 60px rgba(0,0,0,.4)}
+.drawer.open{transform:none;visibility:visible}
+.drawer header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid #e6e7ee}
+.drawer header b{font-size:20px}
+.drawer header button{font-size:26px;color:#6a6d80}
+.drawer .dl{overflow:auto;padding:4px 20px 20px;flex:1}
+.drawer .lines{grid-template-columns:1fr}
+.drawer footer{padding:16px 20px;border-top:1px solid #e6e7ee}
+.drawer footer .go{margin:0}
+.veil{position:fixed;inset:0;background:rgba(5,6,15,.5);z-index:60;opacity:0;pointer-events:none;transition:.3s}
+.veil.on{opacity:1;pointer-events:auto}
+.toast{position:fixed;left:50%;bottom:22px;z-index:80;transform:translate(-50%,30px);opacity:0;background:var(--blanc);color:#141414;border-radius:999px;padding:10px 18px 10px 10px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;box-shadow:0 18px 40px rgba(0,0,0,.4);transition:.35s;pointer-events:none;max-width:92vw}
+.toast img{width:36px;height:36px;border-radius:50%;object-fit:cover;background:#f3f3f3}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+footer.f{padding:48px 0 64px;color:var(--gris);font-size:13px}
 @media (max-width:900px){
- .mapgrid,.dress{grid-template-columns:1fr}
- .stage{position:relative;top:0;height:72vh}
+ .dress,.packer{grid-template-columns:1fr}
+ .stage{position:relative;top:0;height:68vh;min-height:420px}
  .nums{grid-template-columns:repeat(2,1fr)}
- .layer{grid-template-columns:96px 1fr}
- section.s{padding:72px 0}
+ .tl{grid-template-columns:1fr;gap:14px}
+ .tl:before{left:15px;right:auto;top:16px;bottom:16px;width:2px;height:auto;background:linear-gradient(var(--bleu2),var(--vert2))}
+ .tl div{display:grid;grid-template-columns:32px 1fr;gap:0 14px;text-align:left;padding:0}
+ .tl i{margin:0;grid-row:span 3}
+ .layer .main{grid-template-columns:92px 1fr}
+ section.s{padding:84px 0 70px}
 }
-@media (max-width:420px){.wrap{padding:0 16px}.seg button{padding:7px 10px;font-size:13px}input[type=range]{width:110px}}
+@media (max-width:420px){.wrap{padding:0 16px}.seg button{padding:7px 10px;font-size:13px}input[type=range]{width:120px}.water{grid-template-columns:1fr}.water .need{margin:0 auto}}
 </style>
 </head>
 <body>
 
-<header class="hero">
-  <svg class="ridge" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true"><path d="M0 400V260l120-70 90 40 140-150 110 90 80-50 170 160 120-120 150 130 110-80 140 110 110-60 100 70v140z" fill="#1a2266"/><path d="M0 400V320l160-60 130 40 160-110 140 90 120-40 200 110 150-80 170 70 210-60v120z" fill="#0f1440"/></svg>
-  <div class="fan" aria-hidden="true"><img src="img/chaussure-mh100-h.webp" alt=""><img src="img/veste-mh500-h.webp" alt=""><img src="img/sac-mh500-38l.webp" alt=""></div>
-  <div class="wrap" style="position:relative">
-    <span class="tag">Concept · données d'exemple</span>
-    <h1 style="margin-top:22px">Ta sortie.<br><span>Ta tenue.<br>Ton sac.</span></h1>
-    <p class="lead">Le personal shopping randonnée : on part de la sortie du client, de la météo du jour J et de son effort, et l'on compose avec lui une tenue couche par couche et un sac prêt à partir, uniquement avec des produits Decathlon.</p>
-    <nav class="steps" aria-label="Étapes">
-      <a href="#sortie"><b>01</b>La sortie</a><a href="#tenue"><b>02</b>La tenue</a><a href="#sac"><b>03</b>Le sac</a><a href="#panier"><b>04</b>Le panier</a>
-    </nav>
-  </div>
-</header>
+<div class="top" id="top">
+  <div class="brand">Personal shopping <span>randonnée</span></div>
+  <nav class="prog" id="prog" aria-label="Parcours">
+    <a href="#carte" data-s="intro"><b>1</b><span>La sortie</span></a>
+    <a href="#tenue" data-s="tenue"><b>2</b><span>La tenue</span></a>
+    <a href="#nutri" data-s="nutri"><b>3</b><span>Manger et boire</span></a>
+    <a href="#sac" data-s="sac"><b>4</b><span>Le sac</span></a>
+    <a href="#recap" data-s="recap"><b>5</b><span>Le panier</span></a>
+  </nav>
+  <button class="cartbtn" id="cartbtn" aria-label="Ouvrir le panier">Panier <i id="cartn">0</i></button>
+</div>
 
-<section class="s" id="sortie">
-  <div class="wrap">
-    <div class="head">
-      <span class="lbl">01 · La sortie</span>
-      <h2>Choisis ta sortie.</h2>
-      <p>Trois itinéraires autour de Genève pour l'exemple. Le relief est illustratif, les chiffres sont des ordres de grandeur.</p>
-    </div>
-    <div class="map" id="map">
-      <canvas id="glmap" aria-label="Carte 3D du massif"></canvas>
-      <div class="hud"><span class="tag" style="background:rgba(5,6,15,.45)">Relief illustratif</span></div>
-      <div class="pin" id="pinA"><div>Départ<br><b id="pinAalt">–</b></div><i></i></div>
-      <div class="pin" id="pinB"><div>Sommet<br><b id="pinBalt">–</b></div><i></i></div>
-    </div>
-    <div class="mapgrid">
-      <div class="hikes" id="hikes"></div>
-      <div class="cond">
-        <div class="stats">
-          <div class="stat"><span>Dénivelé</span><b id="stD">–</b></div>
-          <div class="stat"><span>Terrain</span><b id="stT">–</b></div>
-          <div class="stat"><span>Durée</span><b id="stH">–</b></div>
-        </div>
-        <div class="row"><span>Température au sommet</span><div class="temp"><input type="range" id="temp" min="-6" max="26" step="1" value="8"><output id="tempOut">8 °C</output></div></div>
-        <div class="row"><span>Pluie</span><div class="seg" data-k="pluie"><button data-v="non">Non</button><button data-v="averses" class="on">Averses</button><button data-v="pluie">Pluie</button></div></div>
-        <div class="row"><span>Vent</span><div class="seg" data-k="vent"><button data-v="calme" class="on">Calme</button><button data-v="vente">Venté</button></div></div>
-        <div class="row"><span>Rayon</span><div class="seg" data-k="profil"><button data-v="h" class="on">Homme</button><button data-v="f">Femme</button></div></div>
-        <div class="row"><span>Allure</span><div class="seg" data-k="allure"><button data-v="moderee" class="on">Tranquille</button><button data-v="intense">Soutenue</button></div></div>
-        <div class="row"><span>Poids</span><div class="temp"><input type="range" id="poids" min="45" max="110" step="1" value="72"><output id="poidsOut">72 kg</output></div></div>
-      </div>
-    </div>
-    <p style="margin-top:28px"><a class="cta" href="#tenue">Habiller pour cette sortie ↓</a></p>
+<section class="intro" id="intro">
+  <div class="stage3d" id="stage3d">
+    <canvas id="glmap" aria-label="Relief 3D du Léman au Mont-Blanc"></canvas>
+    <div class="lab" id="labMB"><div>Mont-Blanc<br><b>4 808 m</b></div><i></i></div>
+    <div class="lab shop" id="labGE"><div>Decathlon Les Cygnes<br><b>Genève</b></div><i></i></div>
+    <div id="pins"></div>
+    <div class="ov o1" data-a="-1" data-b=".13"><div class="wrap">
+      <span class="tag">Concept · données d'exemple</span>
+      <h1 style="margin-top:20px">Samedi,<br><span>on monte.</span></h1>
+      <p>Du Jura au Mont-Blanc, vingt randonnées à une heure du magasin. On choisit la sortie, on s'habille couche par couche, on remplit le sac. Tout le reste, c'est la montagne.</p>
+      <div class="scrollhint"><i></i>Fais défiler pour décoller</div>
+    </div></div>
+    <div class="ov o2" data-a=".2" data-b=".42"><div class="wrap">
+      <div class="big">4 808 m</div>
+      <p>Le Mont-Blanc. Ce relief est le vrai, mesuré par satellite, du Léman jusqu'aux glaciers.</p>
+    </div></div>
+    <div class="ov o3" data-a=".5" data-b=".72"><div class="wrap">
+      <h2>Chaque sortie<br>a son équipement.</h2>
+      <p>Le terrain, la météo du jour J et ton niveau décident de la tenue, de l'eau à porter et de ce que tu manges en route.</p>
+    </div></div>
+    <div class="mapbadge"><span class="tag" style="background:rgba(5,6,15,.5)">Relief réel · tracés indicatifs</span></div>
+    <aside class="panel" id="panel" aria-live="polite"><div class="pbody" id="pbody"></div></aside>
   </div>
+  <div id="carte" style="position:absolute;top:330vh"></div>
 </section>
 
 <section class="s" id="tenue" style="background:linear-gradient(#0b0e24,#0e1236)">
@@ -182,54 +307,102 @@ footer{padding:48px 0 64px;color:var(--gris);font-size:13px}
     <div class="head">
       <span class="lbl">02 · La tenue</span>
       <h2>Habillé couche par couche.</h2>
-      <p>Les chaussures selon le terrain, la sous-couche et le pantalon selon la température, la couche chaude si le froid l'exige, et la veste selon la pluie et le vent.</p>
+      <p>Le conseil part du terrain et de la météo au sommet. Pour chaque couche, la recommandation est marquée d'un point vert : on peut en choisir une autre, le mannequin suit.</p>
+      <div class="ctx" id="ctxT"></div>
     </div>
     <div class="dress">
       <div class="stage" id="stage">
         <canvas id="glmq" aria-label="Mannequin 3D habillé"></canvas>
-        <div class="hud"><span class="tag" style="background:rgba(5,6,15,.45)">Mannequin 3D</span><div class="meteo" id="meteo"></div></div>
+        <div class="hud"><span class="tag" style="background:rgba(5,6,15,.45)">Mannequin 3D</span><div class="glass" id="meteo"></div></div>
         <div class="hint">Glisse pour tourner</div>
         <button class="replay" id="replay">↻ Rhabiller</button>
       </div>
-      <div class="layers" id="layers"></div>
+      <div>
+        <div class="layers" id="layers"></div>
+        <div class="addall" style="margin-top:14px"><div><b>Toute la tenue</b><div class="muted" style="font-size:13px" id="tCount"></div></div><button class="add" id="addTenue">Tout ajouter</button></div>
+      </div>
     </div>
+    <div class="next"><a class="go" href="#nutri">Manger et boire pour cette sortie ↓</a></div>
   </div>
 </section>
 
-<section class="s" id="sac">
+<section class="s" id="nutri">
   <div class="wrap">
     <div class="head">
-      <span class="lbl">03 · Le sac</span>
-      <h2>Ce qu'on emporte.</h2>
-      <p>Le même calcul que le calculateur nutrition du magasin : l'énergie dépensée, l'eau à boire et les glucides à prévoir pour cette sortie.</p>
+      <span class="lbl">03 · Manger et boire</span>
+      <h2>L'énergie de ta journée.</h2>
+      <p>La méthode du guide nutrition : la dépense selon ton poids, ton allure et la durée, l'eau selon la chaleur, 15 à 30 g de glucides par heure de montée, des électrolytes quand on transpire beaucoup.</p>
     </div>
     <div class="nums">
-      <div class="num"><span>Énergie dépensée</span><b id="nK">–</b></div>
-      <div class="num"><span>Eau à emporter</span><b id="nE">–</b></div>
-      <div class="num"><span>Glucides pendant</span><b id="nG">–</b></div>
-      <div class="num"><span>Sel</span><b id="nS">–</b></div>
+      <div class="num"><span>Énergie dépensée</span><b id="nK">–</b><small id="nK2"></small></div>
+      <div class="num"><span>Eau à boire</span><b id="nE">–</b><small id="nE2"></small></div>
+      <div class="num"><span>Glucides pendant</span><b id="nG">–</b><small id="nG2"></small></div>
+      <div class="num"><span>Sel</span><b id="nS">–</b><small id="nS2"></small></div>
     </div>
+    <div class="tl" id="tl"></div>
     <p class="rule" id="rule"></p>
-    <div class="bag" id="bag"></div>
+    <div class="subh"><h3>Le pack randonnée</h3><p>Les quatre produits du guide, en quantités calculées pour ta sortie. Tout ce que tu ajoutes part dans le sac.</p></div>
+    <div class="grid" id="nutGrid"></div>
+    <div class="subh"><h3>Pour varier</h3><p id="varP">D'autres produits du guide qui se mangent en marchant.</p></div>
+    <div class="grid" id="nutAlt"></div>
+    <div class="addall" style="margin-top:18px"><div><b>Tout le pack calculé</b><div class="muted" style="font-size:13px">Ajouté au panier et rangé dans le sac</div></div><button class="add" id="addNut">Tout ajouter</button></div>
+    <div class="next"><a class="go" href="#sac">Choisir et remplir le sac ↓</a></div>
   </div>
 </section>
 
-<section class="s" id="panier" style="padding-top:24px">
+<section class="s" id="sac" style="background:linear-gradient(#0b0e24,#0e1236 40%,#0b0e24)">
+  <div class="wrap">
+    <div class="head">
+      <span class="lbl">04 · Le sac</span>
+      <h2>Choisis-le, remplis-le.</h2>
+      <p>Le sac se voit en transparence : chaque article ajouté y prend sa place, la jauge dit s'il reste de la marge. Les couches qu'on ne porte pas, l'eau et le pique-nique y sont déjà.</p>
+    </div>
+    <div class="packer">
+      <div class="stage" id="bagStage">
+        <canvas id="glbag" aria-label="Sac à dos 3D en transparence"></canvas>
+        <div class="hud"><span class="tag" style="background:rgba(5,6,15,.45)">Sac en transparence</span><div class="glass" id="bagName"></div></div>
+        <div class="gauge" id="gauge"><div class="t"><span id="gTxt">–</span><b id="gPct">–</b></div><div class="bar"><i id="gBar"></i></div></div>
+      </div>
+      <div>
+        <div class="subh" style="margin-top:0"><h3>1 · Le sac</h3><p id="bagAdv"></p></div>
+        <div class="bags" id="bags"></div>
+        <div class="subh"><h3>2 · L'eau</h3></div>
+        <div class="water"><div class="need"><div><b id="wNeed">–</b><span>à porter</span></div></div><div><p id="wTxt"></p><p class="small" id="wSmall"></p></div></div>
+        <div class="gridw" id="waterGrid"></div>
+        <div class="subh"><h3>3 · L'essentiel</h3><p>Ce que le vendeur conseille pour cette sortie, marqué « conseil ». Le reste est au choix.</p></div>
+        <div class="gridw" id="accGrid"></div>
+      </div>
+    </div>
+    <div class="next"><a class="go" href="#recap">Voir mon panier ↓</a></div>
+  </div>
+</section>
+
+<section class="s" id="recap" style="padding-top:40px">
   <div class="wrap">
     <div class="cart">
-      <span class="lbl" id="cartLbl">Ton panier</span>
-      <h2>Prêt pour ta journée.</h2>
-      <div class="lines" id="lines"></div>
+      <span class="lbl">05 · Le panier</span>
+      <h2>Prêt pour samedi.</h2>
+      <div class="summary" id="summary"></div>
+      <div id="recapLines"></div>
       <div class="actions">
-        <button class="btn p" id="add">Ajouter au panier</button>
-        <button class="btn s" id="send">Envoyer la liste au vendeur</button>
+        <button class="btn p" id="valid">Valider avec le vendeur</button>
+        <button class="btn s" id="send">Recevoir la liste sur mon téléphone</button>
+        <button class="btn s" id="essai">Réserver un essayage</button>
       </div>
-      <p class="note">Démonstration : aucun prix affiché, rien n'est commandé. Le vendeur garde le dernier mot sur le choix et la taille, en rayon.</p>
+      <p class="note">Démonstration : aucun prix affiché, rien n'est commandé. Les produits viennent du catalogue Decathlon en ligne ; la disponibilité en Suisse, les tailles et le stock se vérifient en magasin, avec le vendeur.</p>
     </div>
   </div>
 </section>
 
-<footer><div class="wrap">Concept de personal shopping randonnée · photos produits officielles Decathlon · itinéraires, météo et relief donnés à titre d'exemple.</div></footer>
+<footer class="f"><div class="wrap">Concept de personal shopping randonnée · photos produits officielles Decathlon · relief : Mapzen Terrain Tiles (AWS Open Data ; SRTM, EU-DEM et autres sources) · météo : Open-Meteo.com (CC BY 4.0) · tracés, distances et durées indicatifs, calculés sur le relief : à vérifier sur une carte de randonnée avant de partir.</div></footer>
+
+<div class="veil" id="veil"></div>
+<aside class="drawer" id="drawer" aria-label="Panier">
+  <header><b>Ton panier</b><button id="closeD" aria-label="Fermer">×</button></header>
+  <div class="dl" id="drawerLines"></div>
+  <footer><a class="go" href="#recap" id="toRecap">Voir le récapitulatif</a></footer>
+</aside>
+<div class="toast" id="toast"><img alt=""><span></span></div>
 
 <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/":"./vendor/jsm/"}}</script>
 <script type="module">
@@ -240,206 +413,413 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 
 const $=id=>document.getElementById(id);
 const IMG='img/';
+const lowPower=matchMedia('(max-width:760px)').matches;
+const finePointer=matchMedia('(pointer:fine)').matches;
+const borne=(x,a,b)=>Math.min(b,Math.max(a,x)),r50=x=>Math.round(x/50)*50;
+const fmt=n=>Math.round(n).toLocaleString('fr-CH').replace(/[\s,’]/g,"'");
+const hfmt=h=>{const m=Math.round(h*4)/4,H=Math.floor(m),M=Math.round((m-H)*60);return H+' h'+(M?' '+String(M).padStart(2,'0'):'');};
+const lfmt=l=>(Math.round(l*10)/10).toString().replace('.',',')+' l';
+function visible(el,cb){new IntersectionObserver(es=>es.forEach(e=>cb(e.isIntersecting)),{rootMargin:'150px'}).observe(el);}
 
-/* ---------- Données ---------- */
-const HIKES=[
- {id:'saleve',nom:'Le Salève',sub:'Depuis Collonges-sous-Salève',d:800,t:'T1',tl:'Sentier facile',h:3.5,dep:560,som:1379,w:0.55},
- {id:'mole',nom:'Le Môle',sub:'Depuis Chez Béroud',d:1000,t:'T2',tl:'Sentier de montagne',h:5.5,dep:860,som:1863,w:0.8},
- {id:'oche',nom:"Dent d'Oche",sub:'Depuis Bernex',d:1150,t:'T3',tl:'Montagne exigeante',h:6,dep:1070,som:2221,w:1}
-];
-// Produits : photo officielle, nom, couleurs du mannequin
+/* ---------- Catalogue (photos officielles Decathlon) ---------- */
 const P={
  'chaussure-mh100-h':{n:'Chaussures imperméables MH100 Mid',m:'Quechua',c:[[.13,.16,.22],[.07,.08,.10],[.78,.80,.83]]},
- 'chaussure-nh500-h':{n:'Chaussures chaudes imperméables NH500 Mid cuir',m:'Quechua',c:[[.52,.31,.14],[.08,.08,.08],[.30,.20,.11]]},
+ 'chaussure-nh500-h':{n:'Chaussures chaudes NH500 Mid cuir',m:'Quechua',c:[[.52,.31,.14],[.08,.08,.08],[.30,.20,.11]]},
  'chaussure-mh500-f':{n:'Chaussures légères MH500',m:'Quechua',c:[[.62,.64,.78],[.28,.28,.31],[.95,.58,.28]]},
  'chaussure-sh500-f':{n:'Chaussures imperméables SH500 Mid',m:'Quechua',c:[[.13,.15,.20],[.36,.38,.42],[.58,.44,.30]]},
  'merinos-tee-h':{n:'T-shirt mérinos Travel 500',m:'Simond',c:[[.80,.58,.18]],court:1},
  'merinos-tee-f':{n:'T-shirt mérinos Travel 500',m:'Simond',c:[[.30,.38,.50]],court:1},
  'merinos-ml-h':{n:'T-shirt manches longues 100 % mérinos MT500',m:'Simond',c:[[.07,.07,.08]]},
  'merinos-ml-f':{n:'T-shirt manches longues 100 % mérinos MT500',m:'Simond',c:[[.07,.07,.08]]},
+ 'merinos-zip-h':{n:'T-shirt mérinos manches longues col zippé',m:'Simond',c:[[.12,.12,.14]]},
  'pantalon-mt500-zip-h':{n:'Pantalon modulable 2 en 1 MT500',m:'Simond',c:[[.30,.33,.27],[.30,.33,.27],[.13,.14,.12]]},
  'pantalon-mt500-zip-f':{n:'Pantalon modulable 2 en 1 MT500',m:'Simond',c:[[.10,.13,.26],[.10,.13,.26],[.08,.09,.14]]},
  'pantalon-mt500-h':{n:'Pantalon résistant MT500',m:'Simond',c:[[.22,.22,.24],[.72,.30,.15],[.12,.12,.13]]},
- 'pantalon-mt500-f':{n:'Pantalon de trek MT500',m:'Simond',c:[[.24,.25,.27],[.08,.08,.09],[.08,.08,.09]]},
+ 'pantalon-mt500-f':{n:'Pantalon de trek MT500',m:'Simond',c:[[.24,.25,.27],[.08,.08,.09],[.08,.09,.09]]},
  'pantalon-mt900-h':{n:'Pantalon déperlant coupe-vent MT900',m:'Simond',c:[[.14,.15,.18],[.33,.38,.47],[.12,.12,.14]]},
+ 'pantalon-nh500v-h':{n:'Pantalon chaud déperlant ventilé NH500',m:'Quechua',c:[[.10,.13,.22],[.10,.13,.22],[.06,.06,.07]]},
  'pantalon-nh500-f':{n:'Pantalon chaud déperlant NH500',m:'Quechua',c:[[.07,.07,.08],[.07,.07,.08],[.05,.05,.06]]},
- 'polaire-mh500-h':{n:'Polaire zippée MH500',m:'Quechua',c:[[.32,.40,.36],[.07,.07,.08]]},
- 'polaire-mh500-f':{n:'Polaire zippée MH500',m:'Quechua',c:[[.78,.13,.17],[.85,.30,.32]]},
- 'veste-mh500-h':{n:'Veste imperméable respirante MH500',m:'Quechua',c:[[.26,.38,.34]]},
- 'veste-mh500-f':{n:'Veste imperméable légère MH500',m:'Quechua',c:[[.08,.29,.32]]},
- 'softshell-mt500-h':{n:'Veste softshell coupe-vent MT500',m:'Forclaz',c:[[.06,.06,.07]]},
- 'veste-mh100-f':{n:'Veste imperméable légère MH100',m:'Quechua',c:[[.80,.77,.72]]},
- 'sac-mh500-38l':{n:'Sac à dos MH500 38 L',m:'Quechua'},
- 'baton-mt500':{n:'Bâton de randonnée MT500',m:'Forclaz'},
- 'bonnet-mt500':{n:'Bonnet mérinos MT500',m:'Simond'},
- 'gants-mt500':{n:'Gants chauds tactiles MT500',m:'Simond'},
+ 'short-travel900-h':{n:'Short de randonnée Travel 900',m:'Forclaz',c:[[.55,.45,.30],[.55,.45,.30],[.45,.37,.25]],court:1},
+ 'polaire-mh500-h':{n:'Polaire zippée MH500',m:'Quechua',c:[[.32,.40,.36],[.07,.07,.08]],v:2.2},
+ 'polaire-mh500-f':{n:'Polaire zippée MH500',m:'Quechua',c:[[.78,.13,.17],[.85,.30,.32]],v:2.2},
+ 'polaire-mh100-h':{n:'Polaire légère MH100',m:'Quechua',c:[[.17,.25,.42]],v:1.6},
+ 'polaire-mh120-h':{n:'Polaire zippée MH120',m:'Quechua',c:[[.07,.07,.08]],v:1.8},
+ 'polaire-mh120-f':{n:'Polaire zippée MH120',m:'Quechua',c:[[.62,.63,.66]],v:1.8},
+ 'polaire-mh500w-h':{n:'Polaire chaude déperlante MH500',m:'Quechua',c:[[.10,.25,.27],[.06,.06,.07]],v:2.8},
+ 'doudoune-mt100-h':{n:'Doudoune à capuche MT100',m:'Simond',c:[[.08,.10,.18]],v:3},
+ 'veste-mh500-h':{n:'Veste imperméable respirante MH500',m:'Quechua',c:[[.26,.38,.34]],v:1.3},
+ 'veste-mh500-f':{n:'Veste imperméable légère MH500',m:'Quechua',c:[[.08,.29,.32]],v:1.1},
+ 'softshell-mt500-h':{n:'Veste softshell coupe-vent MT500',m:'Forclaz',c:[[.06,.06,.07]],v:1.6,g:'soft'},
+ 'veste-mh100-f':{n:'Veste imperméable légère MH100',m:'Quechua',c:[[.80,.77,.72]],v:1},
+ 'sac-arpenaz-20l':{n:'Sac à dos Arpenaz 100 20 L',m:'Quechua',L:20,col:[.85,.25,.35],d:'Pour les sorties courtes et faciles.'},
+ 'sac-mh500-22l':{n:'Sac à dos léger MH500 22 L',m:'Quechua',L:22,col:[.45,.62,.58],d:'Léger, compartiment poche à eau.',poche:1},
+ 'sac-mh500-25l':{n:'Sac à dos MH500 25 L',m:'Quechua',L:25,col:[.35,.45,.95],d:'Ceinture rembourrée : le sac de la journée.'},
+ 'sac-poche-2l':{n:'Sac 20+5 L avec poche à eau 2 L',m:'Kiprun 900',L:25,col:[.45,.6,.5],d:'Poche à eau 2 L incluse, format trail.',poche:2},
+ 'sac-mh500-38l':{n:'Sac à dos MH500 38 L',m:'Quechua',L:38,col:[.6,.62,.75],d:'Pour la longue journée ou l\'hiver.'},
+ 'gourde-08':{n:'Gourde isotherme inox MH900 0,8 L',m:'Quechua',v:1,cap:.8},
+ 'gourde-1l':{n:'Gourde isotherme inox MH900 1 L',m:'Quechua',v:1.3,cap:1},
+ 'housse-10-20':{n:'Housse de pluie pour sac 10 à 20 L',m:'Quechua',v:.3},
+ 'housse-20-40':{n:'Housse de pluie pour sac 20 à 40 L',m:'Forclaz',v:.35},
+ 'baton-mh100':{n:'Bâton confort MH100',m:'Quechua',v:0},
+ 'baton-mt500':{n:'Bâton de randonnée MT500',m:'Forclaz',v:0},
+ 'frontale':{n:'Frontale rechargeable Trek 100',m:'Forclaz',v:.2},
+ 'casquette':{n:'Casquette ventilée MT500',m:'Quechua',v:.35},
+ 'bonnet-mt500':{n:'Bonnet mérinos MT500',m:'Simond',v:.3},
+ 'gants-mt500':{n:'Gants chauds tactiles MT500',m:'Simond',v:.3},
+ 'tour-cou':{n:'Tour de cou mérinos Trek 500',m:'Simond',v:.1},
+ 'chaussettes':{n:'Chaussettes mérinos SH500, 2 paires',m:'Quechua',v:.4},
+ 'patchs':{n:'Patchs de réparation textile',m:'Decathlon',v:.05},
 };
 const NUTRI={
- '8811823':{n:'Barre petit-déjeuner',m:'Decathlon',u:'Avant le départ'},
- '8809670':{n:'Barre de céréales',m:'Decathlon',u:'Une par heure de montée',g:15},
- '8774306':{n:"Vive l'Abricot (poignée de 40 g)",m:'Noberasco',u:'À la pause',g:22},
- '8928081':{n:'Barre cacahuètes-amandes',m:'Decathlon',u:'Au sommet',g:9},
- '8872028':{n:'Électrolytes en poudre',m:'Decathlon',u:'Dans la gourde'},
- '8750962':{n:'Protein Recovery Bar',m:'Decathlon',u:'Au retour'},
+ '8809670':{n:'Barre de céréales',m:'Decathlon',g:15,v:.05,d:'Cinq céréales complètes, 15 g de glucides, 80 kcal : la barre de la poche de veste.'},
+ '8774306':{n:"Vive l'Abricot, sachet de 200 g",m:'Noberasco',g:17,v:.35,d:'Abricots moelleux entiers : une poignée de 30 g par heure de montée.'},
+ '8928081':{n:'Barre cacahuètes-amandes',m:'Decathlon',g:9,v:.05,d:'30 g de fruits secs et de graines, 160 kcal : dense et nourrissante, sans sucre ajouté.'},
+ '8872028':{n:'Électrolytes en poudre',m:'Decathlon',v:.3,d:'7 g pour 500 ml : sodium, magnésium, potassium, calcium, zéro sucre.'},
+ '8811823':{n:'Barre petit-déjeuner',m:'Decathlon',g:24,v:.06,d:'40 g, 24 g de glucides, sans gluten : deux barres pour un petit-déjeuner complet.'},
+ '8750962':{n:'Protein Recovery Bar',m:'Decathlon',g:25,v:.06,d:'20 g de protéines : la barre du retour, avant le repas du soir.'},
+ '8738177':{n:"Pâte d'amande énergétique",m:'Decathlon',g:15,v:.04,d:'25 g, 15 g de glucides : reste tendre au froid, se mange en montant.'},
+ '8408734':{n:'Nougat énergétique',m:'Decathlon',g:18,v:.03,d:'106 kcal, 18 g de glucides : la tradition de la montagne, ne gèle pas.'},
+ '8599146':{n:'Energy OatSnack',m:'OatSnack',g:38,v:.07,d:"Barre de 65 g à l'avoine pressée à froid : la barre moelleuse du sommet."},
+ '8808584':{n:'ISO en dosettes',m:'Decathlon',v:.4,d:'18 dosettes de 38 g : une par gourde, sans peser dans le sac.'},
 };
+const pimg=k=>IMG+(NUTRI[k]?'nutri-'+k:k)+'.webp';
+const pname=k=>(NUTRI[k]||P[k]).n, pmarq=k=>(NUTRI[k]||P[k]).m;
 
 /* ---------- État ---------- */
-const S={hike:1,temp:8,pluie:'averses',vent:'calme',profil:'h',allure:'moderee',poids:72};
+const S={profil:'h',freq:1,dp:1,allure:'moderee',poids:72,lvlSet:false,hike:-1,panel:'niveau',day:0,temp:8,pluie:'averses',vent:'calme',wx:null,ch:{},bag:null,touchedBag:false};
+const CART=new Map(); // clé → {k:produit, q, grp, pack}
+let HIKES=[];
 
-/* ---------- Règles de conseil ---------- */
+/* ---------- Niveau ---------- */
+const LVL=[{n:'Découverte',mult:1.15,d:'Des sorties de 3 à 4 h, sans difficulté technique.'},{n:'Régulier',mult:1,d:'Des journées de montagne, sentiers balisés blanc-rouge-blanc.'},{n:'Confirmé',mult:.88,d:'Longues montées et passages raides ne te font pas peur.'}];
+const DPC=[500,900,1300];
+function level(){const s=S.freq+S.dp;return s<=1?0:s<=3?1:2;}
+function dureeH(H){return H.h*.85*LVL[level()].mult*(S.allure==='intense'?.9:1);}
+function fit(H){const c=DPC[S.dp],l=level();
+ if(H.dplus<=c*1.1&&(H.cot!=='T3'||l===2))return 1;
+ if(H.dplus<=c*1.45&&!(H.cot==='T3'&&l===0))return 2;return 3;}
+const H0=()=>HIKES[S.hike];
+
+/* ---------- Tenue ---------- */
 function tenue(){
- const H=HIKES[S.hike],t=S.temp,f=S.profil==='f',pl=S.pluie!=='non';
+ const H=H0()||{cot:'T2',alt:1800},t=S.temp,f=S.profil==='f',pl=S.pluie!=='non',sx=f?'f':'h';
  const L=[];
- // Chaussures selon le terrain
  let sh,why;
- if(f){ if(H.t==='T1'&&!pl&&t>5){sh='chaussure-mh500-f';why='Sentier facile et sec : légère et accrocheuse.';} else {sh='chaussure-sh500-f';why=H.t!=='T1'?'Terrain de montagne : tige montante qui tient la cheville.':'Pluie ou froid : tige montante et membrane imperméable.';} }
- else { if(H.t==='T3'||t<=4){sh='chaussure-nh500-h';why=H.t==='T3'?'Terrain T3 : cuir, tige montante, semelle crantée.':'Froid au sommet : chaude et imperméable.';} else {sh='chaussure-mh100-h';why='Imperméable et montante : le bon choix pour '+H.tl.toLowerCase()+'.';} }
- L.push({g:'shoe',k:'Pieds · selon le terrain',p:sh,why,txt:H.t+' · '+H.tl});
- // Pantalon selon la température
+ if(f){ if(H.cot==='T1'&&!pl&&t>5){sh='chaussure-mh500-f';why='Sentier facile et sec : légère et accrocheuse.';} else {sh='chaussure-sh500-f';why=H.cot!=='T1'?'Terrain de montagne : la tige montante tient la cheville.':'Pluie ou froid : tige montante et membrane imperméable.';} }
+ else { if(H.cot==='T3'||t<=4){sh='chaussure-nh500-h';why=H.cot==='T3'?'Terrain T3 : cuir, tige montante, semelle crantée.':'Froid au sommet : chaude et imperméable.';} else {sh='chaussure-mh100-h';why='Imperméable et montante : le bon choix pour un sentier de montagne.';} }
+ L.push({id:'shoe',g:'shoe',k:'Pieds · selon le terrain',rec:sh,why,txt:H.cot+' · '+({T1:'sentier facile',T2:'sentier de montagne',T3:'montagne exigeante'})[H.cot],alts:f?['chaussure-mh500-f','chaussure-sh500-f']:['chaussure-mh100-h','chaussure-nh500-h']});
  let pa,pw;
- if(t>=18){pa=f?'pantalon-mt500-zip-f':'pantalon-mt500-zip-h';pw='Chaud : il devient short en montée.';}
- else if(t>=3){pa=f?'pantalon-mt500-f':'pantalon-mt500-h';pw='Résistant aux frottements, il respire à l\'effort.';}
- else {pa=f?'pantalon-nh500-f':'pantalon-mt900-h';pw='Sous 3 °C : déperlant et protégé du vent.';}
- L.push({g:'pant',k:'Jambes · selon la température',p:pa,why:pw,txt:t+' °C au sommet'});
- // Sous-couche selon la température
+ if(t>=18){pa='pantalon-mt500-zip-'+sx;pw='Chaud : il devient short en montée.';}
+ else if(t>=3){pa='pantalon-mt500-'+sx;pw='Résistant aux frottements, il respire à l\'effort.';}
+ else {pa=f?'pantalon-nh500-f':(pl?'pantalon-nh500v-h':'pantalon-mt900-h');pw='Sous 3 °C : déperlant et protégé du vent.';}
+ L.push({id:'pant',g:'pant',k:'Jambes · selon la température',rec:pa,why:pw,txt:t+' °C au sommet',alts:f?['pantalon-mt500-zip-f','pantalon-mt500-f','pantalon-nh500-f']:['pantalon-mt500-zip-h','pantalon-mt500-h','pantalon-mt900-h','pantalon-nh500v-h','short-travel900-h']});
  const ml=t<14;
- L.push({g:'base',k:'Première couche · contre la peau',p:(ml?'merinos-ml-':'merinos-tee-')+(f?'f':'h'),why:'La laine mérinos garde chaud même humide et ne garde pas les odeurs.',txt:ml?'Manches longues sous 14 °C':'Manches courtes au-dessus de 14 °C'});
- // Couche chaude
- if(t<=14) L.push({g:'fleece',k:'Deuxième couche · la chaleur',p:'polaire-mh500-'+(f?'f':'h'),why:t<=6?'On la garde au sommet et dans les pauses.':'Enlevée en montée, remise à la pause.',txt:'Sous 14 °C'});
- // Veste selon pluie et vent
+ L.push({id:'base',g:'base',k:'Première couche · contre la peau',rec:(ml?'merinos-ml-':'merinos-tee-')+sx,why:'La laine mérinos garde chaud même humide et ne garde pas les odeurs.',txt:ml?'Manches longues sous 14 °C':'Manches courtes au-dessus de 14 °C',alts:f?['merinos-tee-f','merinos-ml-f']:['merinos-tee-h','merinos-ml-h','merinos-zip-h']});
+ const fl=(!f&&t<=-2)?'doudoune-mt100-h':'polaire-mh500-'+sx;
+ L.push({id:'fleece',g:'fleece',k:'Deuxième couche · la chaleur',rec:fl,why:t<=6?'On la porte au sommet et dans les pauses.':t<=14?'Enlevée en montée, remise à la pause.':'Il fait doux : elle reste dans le sac pour le sommet.',txt:t<=6?'Portée':'Dans le sac',sac:t>6,alts:f?['polaire-mh500-f','polaire-mh120-f']:['polaire-mh500-h','polaire-mh100-h','polaire-mh120-h','polaire-mh500w-h','doudoune-mt100-h']});
  let ve,vw,porte=true;
- if(pl){ve='veste-mh500-'+(f?'f':'h');vw=S.pluie==='pluie'?'Pluie annoncée : membrane imperméable et respirante.':'Averses : imperméable et respirante, elle se range dans le sac.';}
+ if(pl){ve='veste-mh500-'+sx;vw=S.pluie==='pluie'?'Pluie annoncée : membrane imperméable et respirante.':'Averses : imperméable et respirante, elle se range dans le sac.';porte=S.pluie==='pluie';}
  else if(S.vent==='vente'||t<=8){ve=f?'veste-mh100-f':'softshell-mt500-h';vw=S.vent==='vente'?'Vent sur les crêtes : coupe-vent et respirante.':'Frais au sommet : une coupe-vent pour les pauses.';}
  else {ve=f?'veste-mh100-f':'softshell-mt500-h';vw='Beau temps : elle reste dans le sac, au cas où.';porte=false;}
- L.push({g:f||pl?'rain':'soft',k:'Troisième couche · pluie et vent',p:ve,why:vw,txt:porte?'Portée':'Dans le sac',sac:!porte});
+ L.push({id:'veste',g:'rain',k:'Troisième couche · pluie et vent',rec:ve,why:vw,txt:porte?'Portée':'Dans le sac',sac:!porte,alts:f?['veste-mh500-f','veste-mh100-f']:['veste-mh500-h','softshell-mt500-h']});
+ L.forEach(l=>{const c=S.ch[l.id];l.p=(c&&l.alts.includes(c))?c:l.rec;if(l.id==='veste')l.g=P[l.p].g||'rain';});
  return L;
 }
-function accessoires(){
- const H=HIKES[S.hike],A=[{p:'sac-mh500-38l',q:1,u:'Pour la tenue de rechange et le pique-nique'}];
- if(H.d>=900) A.push({p:'baton-mt500',q:2,u:'Une paire pour la descente'});
- if(S.temp<=6){A.push({p:'bonnet-mt500',q:1,u:'Froid au sommet'});A.push({p:'gants-mt500',q:1,u:'Les mains au chaud, téléphone utilisable'});}
- return A;
-}
-// Calcul nutrition, même méthode que le calculateur (sport « Randonnée et trek »)
-const borne=(x,a,b)=>Math.min(b,Math.max(a,x)),r50=x=>Math.round(x/50)*50;
+
+/* ---------- Nutrition (méthode du calculateur et du guide) ---------- */
 function nutrition(){
- const H=HIKES[S.hike],h=H.h,met={moderee:5.3,intense:7.0}[S.allure];
+ const H=H0(),h=H?dureeH(H):5,dp=H?H.dplus:900,met={moderee:5.3,intense:7.0}[S.allure];
  const kcalH=met*S.poids,kcal=kcalH*h;
  const sueurH=kcalH/1000*borne(1+0.03*(S.temp-18),0.6,1.55);
- const eauH=h>=1?Math.min(borne(r50(sueurH*700),300,800),Math.max(300,r50(sueurH*1000))):0;
- const gH=h<2?0:(S.allure==='intense'?30:15);
- const sodPerdu=sueurH*920;
- const sodH=(h>=2&&sodPerdu>=400)?borne(r50(sodPerdu*.5),300,600):0;
- const gT=gH*h;
- const items=[{id:'8811823',q:2}];
- const cer=Math.max(1,Math.ceil(gT*.5/15)),abr=Math.max(1,Math.round(gT*.3/22)),cac=Math.max(1,Math.round(gT*.2/9));
- items.push({id:'8809670',q:cer},{id:'8774306',q:abr},{id:'8928081',q:cac});
- if(sodH) items.push({id:'8872028',q:Math.max(1,Math.round(eauH*h/750)),u:'Une dose par gourde'});
- items.push({id:'8750962',q:1});
- return {kcal,eau:eauH*h,gH,gT,sodH,items};
+ const eauH=Math.min(borne(r50(sueurH*700),300,800),Math.max(300,r50(sueurH*1000)));
+ const gH=h<2?0:(S.allure==='intense'||dp>=1000?30:(h>=5?20:15));
+ const sodPerdu=sueurH*920,sodH=(h>=2&&sodPerdu>=400)?borne(r50(sodPerdu*.5),300,600):0;
+ const gT=gH*h,eau=eauH*h/1000;
+ const pack=[{id:'8809670',q:Math.max(1,Math.ceil(gT*.5/15)),u:'Une par heure de montée'},{id:'8774306',q:1,u:Math.max(1,Math.round(gT*.3/17))+' poignées à la pause'},{id:'8928081',q:Math.max(1,Math.round(gT*.2/9)),u:'Au sommet et pour la descente'}];
+ if(sodH) pack.push({id:'8872028',q:1,u:Math.max(1,Math.round(eau/0.5))+' doses de 7 g, une par 500 ml'});
+ const alt=[{id:'8811823',q:2,u:'Le petit-déjeuner, une heure avant'},{id:'8750962',q:1,u:'Au retour, avant le repas'}];
+ if(S.temp<=6){alt.push({id:'8738177',q:Math.max(2,Math.round(h)),u:'Reste tendre au froid'},{id:'8408734',q:2,u:'Ne gèle pas, se mange ganté'});}
+ else alt.push({id:'8408734',q:2,u:'La bouchée de la montée'});
+ if(h>=6) alt.push({id:'8599146',q:1,u:'La barre moelleuse du sommet'});
+ if(S.temp>=24||h>=7) alt.push({id:'8808584',q:1,u:'Une dosette par gourde, jour chaud ou long'});
+ return {h,kcal,kcalH,eau,eauH,gH,gT,sodH,pack,alt};
 }
+function waterPlan(E){
+ const bag=P[S.bag]||{};const out={items:[],txt:''};
+ if(E<=.8){out.items=[['gourde-08',1]];out.txt='Une gourde de 0,8 l suffit.';}
+ else if(E<=1.05){out.items=[['gourde-1l',1]];out.txt='Une gourde de 1 litre.';}
+ else if(E<=1.85){out.items=[['gourde-1l',1],['gourde-08',1]];out.txt='Deux gourdes, 1 l et 0,8 l : une pour monter, une pour redescendre.';}
+ else {out.poche=true;
+  if(bag.poche===2){out.items=E>2.05?[['gourde-08',1]]:[];out.txt='La poche à eau de 2 l de ton sac fait l\'essentiel'+(E>2.05?', une gourde de 0,8 l pour le reste.':'.');}
+  else{out.items=[['gourde-1l',1],['gourde-08',1]];if(E>1.95)out.items[0][1]=E>2.6?2:1;out.txt='Au-dessus de 2 l, la poche à eau devient plus pratique : on boit sans s\'arrêter. '+(bag.poche===1?'Ton sac a le compartiment : une poche de 2 l en rayon, ou les gourdes ci-dessous.':'Le sac MH500 22 L a un compartiment pour elle, le Kiprun 20+5 L l\'a incluse ; sinon, deux gourdes.');}}
+ return out;}
+function accessoires(){
+ const H=H0()||{dplus:900,cot:'T2'},h=H0()?dureeH(H):5,t=S.temp,L=P[S.bag]?P[S.bag].L:22,A=[];
+ const rc=(k,ok,u)=>A.push({k,rec:!!ok,u});
+ rc(L<=20?'housse-10-20':'housse-20-40',S.pluie!=='non','Le sac et la polaire restent au sec');
+ rc(S.profil==='f'||level()===0?'baton-mh100':'baton-mt500',H.dplus>=800||level()===0,H.dplus>=800?'Une paire : la descente fatigue les genoux':'Pour la stabilité');
+ rc('frontale',h>=5||H.cot==='T3','Si la descente s\'allonge : on ne sait jamais');
+ rc('casquette',t>=10&&S.pluie==='non','Le soleil tape plus fort en altitude');
+ rc('bonnet-mt500',t<=6,'Froid au sommet');rc('gants-mt500',t<=6,'Les mains au chaud, téléphone utilisable');
+ rc('tour-cou',t<=10||S.vent==='vente','Contre le vent sur les crêtes');
+ rc('chaussettes',S.pluie!=='non'||h>=6,'Une paire sèche pour le retour');
+ rc('patchs',false,'Un accroc sur la veste, réparé en 30 secondes');
+ return A;}
 
-/* ---------- Interface ---------- */
-function fmt(n){return Math.round(n).toLocaleString('fr-CH').replace(/ |,/g,"'")}
-function renderHikes(){
- $('hikes').innerHTML=HIKES.map((h,i)=>`<button class="hike${i===S.hike?' on':''}" data-i="${i}"><div><b>${h.nom}</b><span>${h.sub} · ${fmt(h.d)} m D+</span></div><em>${h.t}</em></button>`).join('');
- $('hikes').querySelectorAll('.hike').forEach(b=>b.onclick=()=>{S.hike=+b.dataset.i;update();});
+/* ---------- Panier ---------- */
+function cartAdd(key,k,q,grp,pack,silent){CART.set(key,{k,q,grp,pack});if(!silent)toast(k);renderCart();}
+function cartDel(key){CART.delete(key);renderCart();}
+let tT;function toast(k){const t=$('toast');t.querySelector('img').src=pimg(k);t.querySelector('span').textContent='Ajouté : '+pname(k);t.classList.add('on');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('on'),1800);$('cartbtn').classList.remove('bump');void $('cartbtn').offsetWidth;$('cartbtn').classList.add('bump');}
+const GRP=['Tenue','Sac','Eau','Équipement','Nutrition'];
+function linesHTML(rm){if(!CART.size)return '<p class="empty">Rien pour l\'instant. Ajoute la tenue, le sac et ce qu\'on emporte au fil du parcours.</p>';
+ return GRP.map(g=>{const it=[...CART].filter(([,v])=>v.grp===g);if(!it.length)return '';
+  return `<div class="cgrp">${g}</div><div class="lines">${it.map(([key,v])=>`<div class="line"><img src="${pimg(v.k)}" alt="" loading="lazy"><div><b>${pname(v.k)}</b><span>${pmarq(v.k)} · ×${v.q}</span></div>${rm?`<button data-rm="${key}" aria-label="Retirer">×</button>`:''}</div>`).join('')}</div>`;}).join('');}
+function renderCart(){
+ $('cartn').textContent=[...CART.values()].reduce((s,v)=>s+v.q,0);
+ $('drawerLines').innerHTML=linesHTML(true);$('recapLines').innerHTML=linesHTML(true);
+ document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{const key=b.dataset.rm;cartDel(key);if(key==='sac')S.bag=S.bag;renderAll();});
+ const H=H0(),wx=['Sec','Averses','Pluie'][['non','averses','pluie'].indexOf(S.pluie)];
+ $('summary').innerHTML=(H?[H.nom,dayLabel(),S.temp+' °C au sommet',wx,hfmt(dureeH(H))+' de marche',LVL[level()].n]:['Choisis d\'abord ta sortie']).map(x=>`<span>${x}</span>`).join('');
+ refreshButtons();if(window.packBag)window.packBag();}
+$('cartbtn').onclick=()=>{$('drawer').classList.add('open');$('veil').classList.add('on');};
+const closeD=()=>{$('drawer').classList.remove('open');$('veil').classList.remove('on');};
+$('closeD').onclick=closeD;$('veil').onclick=closeD;$('toRecap').onclick=closeD;
+$('valid').onclick=e=>{e.target.textContent='Transmis au vendeur ✓';e.target.classList.add('ok');};
+$('send').onclick=e=>{e.target.textContent='Liste envoyée ✓';};
+$('essai').onclick=e=>{e.target.textContent='Essayage réservé samedi matin ✓';};
+
+/* ---------- Météo (Open-Meteo, au sommet) ---------- */
+const DAYS=[];(function(){const n=new Date(),d=n.getDay();let a=(6-d+7)%7;if(a===0&&n.getHours()>=12)a=7;for(const k of[a,a+1]){const x=new Date(n);x.setDate(n.getDate()+k);DAYS.push(x);}})();
+function dayLabel(){return DAYS[S.day].toLocaleDateString('fr-CH',{weekday:'long',day:'numeric',month:'long'});}
+const WXC={0:'Grand beau',1:'Beau',2:'Nuageux',3:'Couvert',45:'Brouillard',48:'Brouillard',51:'Bruine',53:'Bruine',55:'Bruine',61:'Pluie faible',63:'Pluie',65:'Forte pluie',71:'Neige faible',73:'Neige',75:'Forte neige',80:'Averses',81:'Averses',82:'Fortes averses',85:'Averses de neige',86:'Averses de neige',95:'Orages',96:'Orages',99:'Orages'};
+async function meteo(){
+ const H=H0();if(!H)return;const ask=S.hike+'-'+S.day;meteo.ask=ask;S.wx={load:true};renderPanel();
+ const iso=d=>d.toLocaleDateString('sv-SE');
+ const ac=new AbortController(),to=setTimeout(()=>ac.abort(),7000);
+ try{const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${H.lat}&longitude=${H.lon}&elevation=${H.alt}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_speed_10m_max,weather_code&timezone=Europe%2FZurich&start_date=${iso(DAYS[0])}&end_date=${iso(DAYS[1])}`,{signal:ac.signal});clearTimeout(to);
+  const j=await r.json();if(!j.daily)throw 0;const D=j.daily,i=S.day;
+  const tmax=D.temperature_2m_max[i],tmin=D.temperature_2m_min[i],pp=D.precipitation_probability_max[i]??0,ps=D.precipitation_sum[i]??0,w=D.wind_speed_10m_max[i]??0;
+  if(meteo.ask!==ask)return;S.wx={src:'live',tmax,tmin,pp,w,code:D.weather_code[i]};
+  S.temp=Math.round(.65*tmax+.35*tmin);S.pluie=(pp>=60||ps>=3)?'pluie':pp>=30?'averses':'non';S.vent=w>=30?'vente':'calme';
+ }catch(e){clearTimeout(to);S.wx={src:'ex'};S.temp=Math.round(14-H.alt/1000*5);}
+ renderAll();}
+
+/* ---------- Panneau de la carte ---------- */
+function seg(k,opts){return `<div class="seg" data-k="${k}">${opts.map(([v,l])=>`<button data-v="${v}" class="${String(S[k])===String(v)?'on':''}">${l}</button>`).join('')}</div>`;}
+function renderPanel(){
+ const b=$('pbody');let h='';
+ if(S.panel==='niveau'){
+  h=`<span class="lbl">01 · Ton profil</span><h3>D'abord, toi.</h3><p class="muted" style="font-size:14px;margin-top:6px">Quatre questions pour trier les vingt randonnées et calculer l'énergie, l'eau et les durées à ton rythme.</p>
+  <div class="q"><span>Le rayon</span>${seg('profil',[['h','Homme'],['f','Femme']])}</div>
+  <div class="q"><span>Tu randonnes…</span>${seg('freq',[[0,'Rarement'],[1,'Quelques fois par an'],[2,'Souvent']])}</div>
+  <div class="q"><span>Le dénivelé où tu te sens bien</span>${seg('dp',[[0,'500 m'],[1,'900 m'],[2,'1 300 m et plus']])}</div>
+  <div class="q"><span>Ton allure</span>${seg('allure',[['moderee','Tranquille'],['intense','Soutenue']])}</div>
+  <div class="q"><span>Ton poids, pour l'énergie</span><div class="temp"><input type="range" id="poids" min="45" max="110" value="${S.poids}"><output id="poidsOut">${S.poids} kg</output></div></div>
+  <button class="go" id="toList">Voir mes randonnées</button>`;
+ }else if(S.panel==='liste'){
+  const l=LVL[level()],idx=HIKES.map((x,i)=>i).sort((a,c)=>fit(HIKES[a])-fit(HIKES[c])||HIKES[a].dplus-HIKES[c].dplus);
+  const g={1:'Pour toi',2:'Un cran au-dessus',3:'Pour plus tard'};let last=0;
+  h=`<span class="lbl">01 · La sortie</span><h3>Vingt randonnées, une pour samedi.</h3><div class="lvl" style="margin-top:12px"><div>Niveau <b>${l.n}</b><div class="muted" style="font-size:12px">${l.d}</div></div><button id="toLvl">Modifier</button></div>`;
+  for(const i of idx){const H=HIKES[i],f=fit(H);if(f!==last){h+=`<div class="grp g${f}"><i></i>${g[f]}</div>`;last=f;}
+   h+=`<button class="hk${f===3?' far':''}" data-i="${i}"><div><b>${H.nom}</b><span>${H.reg} · ${fmt(H.dplus)} m D+ · ${hfmt(dureeH(H))}</span></div><em>${H.cot}</em></button>`;}
+ }else{
+  const H=H0(),f=fit(H),N=nutrition();
+  const fn={1:['','Dans tes cordes : c\'est la sortie qu\'on te conseille.'],2:['f2','Un cran au-dessus de ton habitude : pars tôt et garde de la marge.'],3:['f3','Exigeante pour ton niveau : le vendeur te proposera une alternative.']}[f];
+  const neige=S.wx&&S.wx.src==='live'&&((S.wx.code>=71&&S.wx.code<=86)||(S.temp<=0&&S.pluie!=='non'));
+  const pr=H.prof,mn=Math.min(...pr),mx=Math.max(...pr),pts=pr.map((v,i)=>`${(i/(pr.length-1)*300).toFixed(1)},${(66-(v-mn)/(mx-mn||1)*58).toFixed(1)}`).join(' ');
+  const wx=S.wx||{};
+  h=`<button class="back" id="toList2">← Les vingt randonnées</button><span class="lbl">${H.reg} · ${H.type}</span><h3>${H.nom}</h3><p class="muted" style="font-size:14px;margin-top:4px">${H.dep}</p>
+  <div class="stats"><div class="stat"><span>Dénivelé</span><b>${fmt(H.dplus)} m</b></div><div class="stat"><span>Distance</span><b>${String(H.km).replace('.',',')} km</b></div><div class="stat"><span>Marche</span><b>${hfmt(dureeH(H))}</b></div><div class="stat"><span>Cotation</span><b>${H.cot}</b></div></div>
+  <svg class="prof" viewBox="0 0 300 70" preserveAspectRatio="none"><defs><linearGradient id="pg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#7d88ff" stop-opacity=".5"/><stop offset="1" stop-color="#7d88ff" stop-opacity="0"/></linearGradient></defs><polygon points="0,70 ${pts} 300,70" fill="url(#pg)"/><polyline points="${pts}" fill="none" stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>
+  <div class="muted" style="font-size:12px;display:flex;justify-content:space-between"><span>Départ ${fmt(H.altDep)} m</span><span>${H.type==='Lac'?'Lac':'Sommet'} ${fmt(H.alt)} m</span></div>
+  <div class="fitnote ${fn[0]}">${fn[1]}</div>${neige?'<div class="fitnote f3">Neige possible au sommet : chaussures montantes, bâtons, et l\'on vérifie les conditions la veille. Le vendeur peut proposer une sortie plus basse.</div>':''}
+  <div class="wx"><div class="wxhead"><span class="muted" style="font-size:13px">Météo au sommet</span>${seg('day',[[0,'Samedi'],[1,'Dimanche']])}</div>
+   ${wx.load?'<p style="margin-top:10px" class="muted">Prévision en cours…</p>':`<div style="margin-top:8px"><b style="font-size:22px">${S.temp} °C</b> <span class="muted">${wx.src==='live'?(WXC[wx.code]||'')+' · pluie '+wx.pp+' % · vent '+Math.round(wx.w)+' km/h':''}</span></div>
+   <div class="row"><span>Température</span><div class="temp"><input type="range" id="temp" min="-10" max="30" value="${S.temp}"><output id="tempOut">${S.temp} °C</output></div></div>
+   <div class="row"><span>Pluie</span>${seg('pluie',[['non','Non'],['averses','Averses'],['pluie','Pluie']])}</div>
+   <div class="row"><span>Vent</span>${seg('vent',[['calme','Calme'],['vente','Venté']])}</div>
+   <small>${wx.src==='live'?'Prévision Open-Meteo pour '+dayLabel()+', modifiable.':'Prévision indisponible : valeurs d\'exemple, modifiables.'}</small>`}</div>
+  <a class="go" href="#tenue">Habiller pour cette sortie ↓</a>
+  <p class="muted" style="font-size:12px;margin-top:10px;text-align:center">≈ ${fmt(N.kcal)} kcal · ${lfmt(N.eau)} d'eau à prévoir</p>`;
+ }
+ const st=b.scrollTop;b.innerHTML=h;if(S.panel==='detail')b.scrollTop=st;
+ b.querySelectorAll('.seg').forEach(g=>g.querySelectorAll('button').forEach(x=>x.onclick=()=>{const k=g.dataset.k,v=x.dataset.v;S[k]=isNaN(+v)||k==='profil'||k==='allure'?v:+v;if(k==='freq'||k==='dp')S.lvlSet=true;if(k==='day'){meteo();return;}renderAll();}));
+ const pd=$('poids');if(pd)pd.oninput=e=>{S.poids=+e.target.value;$('poidsOut').textContent=S.poids+' kg';};
+ const tp=$('temp');if(tp){tp.oninput=e=>{S.temp=+e.target.value;$('tempOut').textContent=S.temp+' °C';};tp.onchange=()=>renderAll();}
+ b.querySelectorAll('.hk').forEach(x=>x.onclick=()=>selectHike(+x.dataset.i));
+ const tl=$('toList'),tl2=$('toList2'),tv=$('toLvl');
+ if(tl)tl.onclick=()=>{S.panel='liste';b.scrollTop=0;renderAll();};
+ if(tl2)tl2.onclick=()=>{S.panel='liste';renderAll();};
+ if(tv)tv.onclick=()=>{S.panel='niveau';renderAll();};
 }
-document.querySelectorAll('.seg').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{
- g.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));S[g.dataset.k]=b.dataset.v;update();}));
-$('temp').oninput=e=>{S.temp=+e.target.value;$('tempOut').textContent=S.temp+' °C';update(true);};
-$('poids').oninput=e=>{S.poids=+e.target.value;$('poidsOut').textContent=S.poids+' kg';updateBag();};
+function selectHike(i){S.hike=i;S.panel='detail';S.wx={load:true};$('pbody').scrollTop=0;if(window.flyTo)window.flyTo(i);renderAll();meteo();}
 
+/* ---------- Sections ---------- */
 let lastLayers='';
-function update(soft){
- renderHikes();
- const H=HIKES[S.hike];
- $('stD').textContent=fmt(H.d)+' m';$('stT').textContent=H.t;$('stH').textContent=String(H.h).replace('.5',' h 30').replace(/^(\d+)$/,'$1 h');
- $('pinAalt').textContent=fmt(H.dep)+' m';$('pinBalt').textContent=fmt(H.som)+' m';
- if(window.selectRoute) window.selectRoute(S.hike);
- const L=tenue(),key=L.map(l=>l.p+l.txt).join('|');
- const pl={non:'Sec',averses:'Averses',pluie:'Pluie'}[S.pluie];
- $('meteo').innerHTML=`${H.nom} · samedi<br><b>${S.temp} °C</b> au sommet · ${pl}${S.vent==='vente'?' · venté':''}`;
- $('layers').innerHTML=L.map((l,i)=>{const p=P[l.p];return `<article class="layer${l.sac?' sac':''}" data-i="${i}"><div class="ph"><img src="${IMG+l.p}.webp" alt="${p.n}" loading="lazy"></div><div><div class="k">${l.k}</div><h3>${p.n}</h3><p>${p.m} · ${l.why}</p><span class="why">${l.txt}</span></div></article>`;}).join('');
- if(key!==lastLayers){lastLayers=key;if(window.dressMQ) window.dressMQ(L,!soft);}
+function renderTenue(){
+ const H=H0(),L=tenue(),pl={non:'Sec',averses:'Averses',pluie:'Pluie'}[S.pluie];
+ $('meteo').innerHTML=H?`${H.nom} · ${dayLabel().split(' ')[0]}<br><b>${S.temp} °C</b> au sommet · ${pl}${S.vent==='vente'?' · venté':''}`:`Exemple<br><b>${S.temp} °C</b> · ${pl}`;
+ $('ctxT').innerHTML=H?[H.nom,H.cot,S.temp+' °C au sommet',pl,S.profil==='f'?'Rayon femme':'Rayon homme'].map(x=>`<span>${x}</span>`).join(''):'<span>Choisis d\'abord une sortie sur la carte : en attendant, exemple à 8 °C.</span>';
+ $('layers').innerHTML=L.map((l,i)=>{const p=P[l.p],isRec=l.p===l.rec;return `<article class="layer" data-i="${i}"><div class="main"><div class="ph"><img src="${IMG+l.p}.webp" alt="${p.n}" loading="lazy"></div><div><div class="k">${l.k}</div><h3>${p.n}</h3><p>${p.m} · ${isRec?l.why:'Ton choix. Le conseil : '+P[l.rec].n+'.'}</p><span class="pill${l.sac?'':' g'}">${l.txt}</span></div></div>
+  <div class="alts"><span>Choisir :</span>${l.alts.map(a=>`<button class="alt${a===l.p?' on':''}${a===l.rec?' rec':''}" data-l="${l.id}" data-a="${a}" title="${P[a].n}"><img src="${IMG+a}.webp" alt="${P[a].n}" loading="lazy"></button>`).join('')}<button class="add" data-add="tenue:${l.id}" data-k="${l.p}">Ajouter</button></div></article>`;}).join('');
+ $('tCount').textContent=L.length+' pièces, de la chaussure à la veste';
+ document.querySelectorAll('.alt').forEach(b=>b.onclick=()=>{S.ch[b.dataset.l]=b.dataset.a;const key='tenue:'+b.dataset.l;if(CART.has(key))CART.get(key).k=b.dataset.a;renderAll();});
+ document.querySelectorAll('[data-add^="tenue:"]').forEach(b=>b.onclick=()=>{const key=b.dataset.add;if(CART.has(key))cartDel(key);else cartAdd(key,b.dataset.k,1,'Tenue',false);});
+ // la tenue du panier suit les choix
+ L.forEach(l=>{const key='tenue:'+l.id;if(CART.has(key))CART.get(key).k=l.p;});
+ const key=L.map(l=>l.p+(l.sac?'s':'')).join('|');
+ if(key!==lastLayers){const first=!lastLayers;lastLayers=key;if(window.dressMQ)window.dressMQ(L,first||true);}
  else document.querySelectorAll('.layer').forEach(e=>e.classList.add('on'));
- updateBag();
 }
-function updateBag(){
- const N=nutrition(),A=accessoires(),L=tenue();
- $('nK').textContent=fmt(N.kcal)+' kcal';
- $('nE').textContent=(Math.round(N.eau/250)/4).toString().replace('.',',')+' l';
- $('nG').textContent=N.gH?N.gH+' g/h':'Pas besoin';
- $('nS').textContent=N.sodH?N.sodH+' mg/h':'Le repas suffit';
- $('rule').innerHTML=`<b>Pendant la randonnée :</b> une barre de céréales ou une poignée de fruits secs par heure de montée, le pique-nique à mi-parcours. Boire environ ${r50(N.eau/HIKES[S.hike].h)} ml par heure, par petites gorgées.`;
- const nut=N.items.map(i=>({img:'nutri-'+i.id,n:NUTRI[i.id].n,m:NUTRI[i.id].m,q:i.q,u:i.u||NUTRI[i.id].u}));
- const acc=A.map(a=>({img:a.p,n:P[a.p].n,m:P[a.p].m,q:a.q,u:a.u}));
- $('bag').innerHTML=[...acc,...nut].map(x=>`<div class="item"><div class="ph"><img src="${IMG+x.img}.webp" alt="${x.n}" loading="lazy"></div><span class="q">×${x.q}</span><b>${x.n}</b><span>${x.m} · ${x.u}</span></div>`).join('');
- const lines=[...L.map(l=>({img:l.p,n:P[l.p].n,s:l.sac?'Dans le sac':l.k.split(' · ')[0]})),...acc.map(a=>({img:a.img,n:a.n,s:'×'+a.q})),...nut.map(x=>({img:x.img,n:x.n,s:'×'+x.q}))];
- $('lines').innerHTML=lines.map(l=>`<div class="line"><img src="${IMG+l.img}.webp" alt="" loading="lazy"><div><b>${l.n}</b><span>${l.s}</span></div></div>`).join('');
- $('cartLbl').textContent=`Ton panier · ${HIKES[S.hike].nom} · samedi · ${S.temp} °C au sommet · ${lines.length} articles`;
- $('add').textContent='Ajouter au panier';$('add').classList.remove('ok');
-}
-$('add').onclick=()=>{$('add').textContent='Ajouté ✓';$('add').classList.add('ok');};
-$('send').onclick=()=>{$('send').textContent='Liste envoyée au vendeur ✓';};
+$('addTenue').onclick=()=>{tenue().forEach(l=>cartAdd('tenue:'+l.id,l.p,1,'Tenue',false,true));toast(tenue()[0].p);};
 
-/* ---------- Carte 3D ---------- */
-function visible(el,cb){new IntersectionObserver(es=>es.forEach(e=>cb(e.isIntersecting)),{rootMargin:'200px'}).observe(el);}
-const lowPower=matchMedia('(max-width:700px)').matches;
+function cardHTML(x,key,grp,pack,rec){const it=NUTRI[x.id||x.k]||P[x.id||x.k],k=x.id||x.k;
+ return `<div class="card"><div class="ph"><img src="${pimg(k)}" alt="${it.n}" loading="lazy"></div>${x.q?`<span class="qn">×${x.q}</span>`:''}${rec?'<span class="rc">Conseil</span>':''}<b>${it.n}</b><span class="u">${it.m} · ${x.u||it.d||''}</span><button class="add" data-add="${key}" data-k="${k}" data-q="${x.q||1}" data-g="${grp}" data-p="${pack?1:0}">Ajouter</button></div>`;}
+function renderNutri(){
+ const N=nutrition(),H=H0(),hr=N.h;
+ $('nK').textContent=fmt(N.kcal)+' kcal';$('nK2').textContent=fmt(N.kcalH)+' kcal par heure, '+LVL[level()].n.toLowerCase()+', '+S.poids+' kg';
+ $('nE').textContent=lfmt(N.eau);$('nE2').textContent=fmt(N.eauH)+' ml par heure à '+S.temp+' °C';
+ $('nG').textContent=N.gH?N.gH+' g/h':'Pas besoin';$('nG2').textContent=N.gH?'≈ '+fmt(N.gT)+' g sur '+hfmt(hr):'Sortie courte';
+ $('nS').textContent=N.sodH?N.sodH+' mg/h':'Le repas suffit';$('nS2').textContent=N.sodH?'Électrolytes dans la gourde':'Pas de transpiration forte';
+ const dep=8,som=dep+hr*.58,ret=dep+hr+.5,hh=x=>{const H=Math.floor(x),M=Math.round((x-H)*4)*15;return H+(M===60?1:0)+' h'+(M%60?' '+String(M%60).padStart(2,'0'):'');};
+ const T=[['7 h','PETIT-DÉJEUNER','Complet, sans se presser. Deux barres petit-déjeuner si on part tôt.'],['Dès 8 h','EN MONTANT',`Toutes les heures : une barre ou une poignée d'abricots, ${r50(N.eauH)} ml d'eau.`],[hh(som),'SOMMET','Le pique-nique : pain, fromage, fruits, 30 minutes.'],['Descente','TENIR','De l\'eau et une barre aux oléagineux : la descente use aussi.'],['Soir','RÉCUPÉRER','Un repas chaud, beaucoup d\'eau. La barre protéinée au retour.']];
+ $('tl').innerHTML=T.map((x,i)=>`<div><i>${i+1}</i><em>${x[1]}</em><b>${x[0]}</b><span>${x[2]}</span></div>`).join('');
+ $('rule').innerHTML=`<b>Le guide :</b> « La randonnée se nourrit à l'assiette plus qu'au sachet : du vrai, du salé, de l'eau. » On boit avant d'avoir soif, on mange à chaque pause, même courte, et on remplit la gourde à chaque source.${N.sodH?' Avec cette chaleur, des électrolytes dans chaque litre.':''}`;
+ $('nutGrid').innerHTML=N.pack.map(x=>cardHTML(x,'nut:'+x.id,'Nutrition',true,true)).join('');
+ $('nutAlt').innerHTML=N.alt.map(x=>cardHTML(x,'nut:'+x.id,'Nutrition',x.id!=='8811823',false)).join('');
+ $('varP').textContent=S.temp<=6?'Il fera froid : ce qui ne gèle pas et se mange ganté passe devant.':'D\'autres produits du guide, pour le petit-déjeuner, le sommet ou le retour.';
+ N.pack.concat(N.alt).forEach(x=>{const key='nut:'+x.id;if(CART.has(key))CART.get(key).q=x.q;});
+}
+$('addNut').onclick=()=>{nutrition().pack.forEach(x=>cartAdd('nut:'+x.id,x.id,x.q,'Nutrition',true,true));toast('8809670');};
+
+function bagNeed(){ // volume en litres de ce qui part dans le sac
+ const it=[];tenue().filter(l=>l.sac).forEach(l=>it.push({k:l.p,v:P[l.p].v||1.5,src:'Tenue'}));
+ it.push({k:'pique',v:2.5,src:'Pique-nique'});
+ for(const [key,v] of CART){if(!v.pack)continue;const p=NUTRI[v.k]||P[v.k];const vol=(p.v??.2)*(NUTRI[v.k]?v.q:v.q);if(vol>0)it.push({k:v.k,v:vol,src:key,q:v.q});}
+ return it;}
+function recBag(){const N=nutrition(),E=N.eau,base=tenue().filter(l=>l.sac).reduce((s,l)=>s+(P[l.p].v||1.5),0)+2.5+Math.min(2.6,E*1.25)+1.2+(S.temp<=6?1:0);
+ const need=base*1.15;const order=['sac-arpenaz-20l','sac-mh500-22l','sac-mh500-25l','sac-mh500-38l'];
+ let r=order.find(k=>P[k].L>=need)||'sac-mh500-38l';if(E>1.85&&P[r].L<=22)r='sac-mh500-22l';if(r==='sac-arpenaz-20l'&&(H0()&&H0().cot!=='T1'))r='sac-mh500-22l';return {r,need};}
+function renderSac(){
+ const R=recBag();if(!S.touchedBag){S.bag=R.r;}
+ if(CART.has('sac'))CART.get('sac').k=S.bag;
+ const BAGS=['sac-arpenaz-20l','sac-mh500-22l','sac-mh500-25l','sac-poche-2l','sac-mh500-38l'];
+ $('bags').innerHTML=BAGS.map(k=>`<button class="bagc${k===S.bag?' on':''}" data-b="${k}"><div class="ph"><img src="${IMG+k}.webp" alt="${P[k].n}" loading="lazy"></div>${k===R.r?'<span class="rc">Conseil</span>':''}<b>${P[k].n}</b><span>${P[k].m} · ${P[k].d}</span></button>`).join('');
+ $('bags').querySelectorAll('.bagc').forEach(b=>b.onclick=()=>{S.bag=b.dataset.b;S.touchedBag=true;cartAdd('sac',S.bag,1,'Sac',false);renderAll();});
+ $('bagAdv').innerHTML=`Pour ce que tu emportes, il faut environ <b>${Math.round(R.need)} litres</b> : le conseil est le ${P[R.r].n.replace('Sac à dos ','')}. ${CART.has('sac')?'':'Touche un sac pour le mettre au panier.'}`;
+ $('bagName').innerHTML=`${P[S.bag].m}<br><b>${P[S.bag].L} L</b>`;
+ const N=nutrition(),W=waterPlan(N.eau);
+ $('wNeed').textContent=lfmt(N.eau);
+ $('wTxt').innerHTML=`Le besoin calculé plus haut : <b>${fmt(N.eauH)} ml par heure</b> pendant ${hfmt(N.h)}, à ${S.temp} °C. ${W.txt}`;
+ $('wSmall').textContent=W.poche&&P[S.bag].poche!==2?'Poche à eau seule : référence suisse à confirmer avec le vendeur, elle n\'est pas dans le catalogue en ligne consulté.':'Une source ou une buvette sur le parcours permet de porter moins.';
+ const recW=new Map(W.items);
+ $('waterGrid').innerHTML=['gourde-08','gourde-1l'].map(k=>cardHTML({k,q:recW.get(k)||1,u:recW.has(k)?(k==='gourde-1l'?'1 l, garde l\'eau fraîche ou le thé chaud':'0,8 l, se manie d\'une main'):'Au choix'},'eau:'+k,'Eau',true,recW.has(k))).join('');
+ $('accGrid').innerHTML=accessoires().sort((a,b)=>b.rec-a.rec).map(a=>cardHTML({k:a.k,q:a.k.startsWith('baton')?2:1,u:a.u},'acc:'+a.k,'Équipement',true,a.rec)).join('');
+}
+function refreshButtons(){document.querySelectorAll('[data-add]').forEach(b=>{const on=CART.has(b.dataset.add);b.classList.toggle('in',on);b.textContent=on?'✓ Dans le panier':'Ajouter';
+ if(!b.dataset.add.startsWith('tenue:'))b.onclick=()=>{const key=b.dataset.add;if(CART.has(key))cartDel(key);else cartAdd(key,b.dataset.k,+b.dataset.q,b.dataset.g,b.dataset.p==='1');};});
+ document.querySelectorAll('.bagc').forEach(b=>{});}
+function renderAll(){renderPanel();renderTenue();renderNutri();renderSac();renderCart();if(window.updatePins)window.updatePins();}
+
+/* ---------- Progression ---------- */
+const SECS=['intro','tenue','nutri','sac','recap'];
+function onScroll(){const y=innerHeight*.45;let cur='intro';for(const s of SECS){const r=$(s).getBoundingClientRect();if(r.top<y)cur=s;}
+ document.querySelectorAll('.prog a').forEach(a=>{const i=SECS.indexOf(a.dataset.s),c=SECS.indexOf(cur);a.classList.toggle('on',i===c);a.classList.toggle('done',i<c);});
+ $('top').classList.toggle('solid',cur!=='intro');}
+addEventListener('scroll',onScroll,{passive:true});
+
+/* ---------- Données : relief et randonnées ---------- */
+HIKES=await fetch('data/randos.json').then(r=>r.json());
+const relImg=new Image();relImg.src='data/relief.png';await relImg.decode();
+const RN=1024,ALT=new Float32Array(RN*RN);
+{const c=document.createElement('canvas');c.width=c.height=RN;const g=c.getContext('2d',{willReadFrequently:true});g.drawImage(relImg,0,0);const d=g.getImageData(0,0,RN,RN).data;for(let i=0;i<RN*RN;i++)ALT[i]=d[i*4]*256+d[i*4+1];}
+function alt(px,py){px=borne(px,0,RN-1.001);py=borne(py,0,RN-1.001);const x=Math.floor(px),y=Math.floor(py),fx=px-x,fy=py-y,i=y*RN+x;
+ return ALT[i]*(1-fx)*(1-fy)+ALT[i+1]*fx*(1-fy)+ALT[i+RN]*(1-fx)*fy+ALT[i+RN+1]*fx*fy;}
+const EX=1.7,UM=106,Yh=h=>h/UM*EX;
+const W=(px,py,dy=0)=>new THREE.Vector3(px-RN/2,Yh(alt(px,py))+dy,py-RN/2);
+function ll2px(lat,lon){const n=2**11*256,x=(lon+180)/360*n,r=lat*Math.PI/180,y=(1-Math.log(Math.tan(r)+1/Math.cos(r))/Math.PI)/2*n;return[(x-1057*256)/2,(y-723*256)/2];}
+
+/* ---------- Carte 3D : intro immersive puis carte ---------- */
 (function carte(){
- const cv=$('glmap'),box=$('map');
- const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
- R.setPixelRatio(Math.min(devicePixelRatio,2));
- const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(40,1,1,3000);
- function hash(x,y){let h=Math.sin(x*127.1+y*311.7)*43758.5453;return h-Math.floor(h);}
- function vnoise(x,y){const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
-  const a=hash(xi,yi),b=hash(xi+1,yi),c=hash(xi,yi+1),d=hash(xi+1,yi+1);return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v;}
- function ridged(x,y){let s=0,a=1,f=1,w=1;for(let i=0;i<6;i++){let n=1-Math.abs(vnoise(x*f,y*f)*2-1);n*=n;n*=w;w=Math.min(1,n*1.8);s+=n*a;a*=.5;f*=2.03;}return s;}
- // trois sommets : Salève (bas), Môle (moyen), Dent d'Oche (haut)
- const PEAKS=[[-130,70,26],[20,-10,62],[130,-90,82]];
- function H(x,z){let h=ridged(x/120+11.3,z/120+4.7)*24;for(const [px,pz,a] of PEAKS)h+=Math.max(0,1-Math.hypot(x-px,z-pz)/150)**1.5*a;return h-20;}
- const S0=460,G=new THREE.PlaneGeometry(S0,S0,lowPower?180:300,lowPower?180:300);G.rotateX(-Math.PI/2);
- const Pp=G.attributes.position;for(let i=0;i<Pp.count;i++)Pp.setY(i,H(Pp.getX(i),Pp.getZ(i)));G.computeVertexNormals();
- const mat=new THREE.ShaderMaterial({uniforms:{fogC:{value:new THREE.Color('#0d1236')},sun:{value:new THREE.Vector3(-.5,.7,.4).normalize()}},
-  vertexShader:`varying float vh;varying vec3 vn;varying vec3 vw;void main(){vh=position.y;vn=normal;vec4 w=modelMatrix*vec4(position,1.);vw=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
-  fragmentShader:`uniform vec3 fogC;uniform vec3 sun;varying float vh;varying vec3 vn;varying vec3 vw;
-  void main(){float h=vh;vec3 c1=vec3(.05,.07,.19),c2=vec3(.13,.17,.45),c3=vec3(.42,.47,.80),sn=vec3(.95,.96,1.);
-   vec3 c=mix(c1,c2,smoothstep(-10.,28.,h));c=mix(c,c3,smoothstep(25.,60.,h));
-   float slope=1.-normalize(vn).y;c=mix(c,sn,smoothstep(52.,66.,h)*(1.-smoothstep(.35,.6,slope)));
-   float l=max(dot(normalize(vn),sun),0.);c*=.35+.9*l;
-   float k=h/6.;float g=abs(fract(k-.5)-.5)/fwidth(k);float line=1.-min(g,1.);
-   float k2=h/30.;float g2=abs(fract(k2-.5)-.5)/fwidth(k2);float line2=1.-min(g2,1.);
-   c+=vec3(.45,.55,1.)*line*.16+vec3(.7,.8,1.)*line2*.28;
-   float d=length(vw-cameraPosition);c=mix(c,fogC,smoothstep(340.,1100.,d));gl_FragColor=vec4(c,1.);}`});
+ const cv=$('glmap'),box=$('stage3d'),sec=$('intro');
+ const R=new THREE.WebGLRenderer({canvas:cv,antialias:!lowPower,alpha:true});
+ R.setPixelRatio(Math.min(devicePixelRatio,lowPower?1.5:2));
+ const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(42,1,1,4000);
+ const N=lowPower?255:511;
+ const G=new THREE.PlaneGeometry(RN,RN,N,N);G.rotateX(-Math.PI/2);
+ const pos=G.attributes.position;for(let i=0;i<pos.count;i++){const c=i%(N+1),r=Math.floor(i/(N+1));pos.setY(i,Yh(alt(c/N*(RN-1),r/N*(RN-1))));}
+ G.computeVertexNormals();
+ const tex=new THREE.Texture(relImg);tex.needsUpdate=true;tex.generateMipmaps=false;tex.minFilter=THREE.LinearFilter;
+ const U={uRel:{value:tex},uSun:{value:new THREE.Vector3(-.45,.62,.55).normalize()},uWarm:{value:1},uFog:{value:new THREE.Color('#0d1236')},uFogN:{value:500},uFogF:{value:1700},uK:{value:UM/EX}};
+ const mat=new THREE.ShaderMaterial({uniforms:U,
+  vertexShader:`uniform float uK;varying float vA;varying vec3 vN;varying vec3 vW;varying vec2 vUv;void main(){vUv=uv;vA=position.y*uK;vN=normal;vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
+  fragmentShader:`uniform sampler2D uRel;uniform vec3 uSun;uniform float uWarm;uniform vec3 uFog;uniform float uFogN;uniform float uFogF;varying float vA;varying vec3 vN;varying vec3 vW;varying vec2 vUv;
+  void main(){float a=vA;vec3 n=normalize(vN);float sl=1.-n.y;
+   vec3 c=mix(vec3(.05,.07,.19),vec3(.13,.18,.46),smoothstep(300.,1100.,a));c=mix(c,vec3(.33,.39,.78),smoothstep(1100.,2000.,a));c=mix(c,vec3(.58,.62,.9),smoothstep(2000.,2700.,a));
+   c=mix(c,vec3(.97,.98,1.),smoothstep(2600.,3100.,a)*(1.-smoothstep(.42,.72,sl)));
+   float l=max(dot(n,uSun),0.);c*=.28+.95*l;
+   c+=uWarm*vec3(1.,.42,.22)*smoothstep(1600.,3600.,a)*l*.42;
+   float k=a/100.;float g=abs(fract(k-.5)-.5)/max(fwidth(k),1e-4);float ln=1.-min(g,1.);
+   float k2=a/500.;float g2=abs(fract(k2-.5)-.5)/max(fwidth(k2),1e-4);float ln2=1.-min(g2,1.);
+   float wm=smoothstep(.3,.7,texture2D(uRel,vUv).b);
+   c+=(vec3(.45,.55,1.)*ln*.10+vec3(.7,.8,1.)*ln2*.22)*(1.-wm);
+   vec3 V=normalize(vW-cameraPosition);float sp=pow(max(dot(reflect(V,vec3(0.,1.,0.)),uSun),0.),30.);
+   c=mix(c,vec3(.07,.11,.32)+vec3(.35,.45,1.)*sp*.8+uWarm*vec3(.5,.25,.15)*sp,wm);
+   float d=length(vW-cameraPosition);c=mix(c,uFog,smoothstep(uFogN,uFogF,d));
+   float e=min(min(vUv.x,1.-vUv.x),min(vUv.y,1.-vUv.y));gl_FragColor=vec4(c,smoothstep(0.,.07,e));}`,transparent:true});
  scene.add(new THREE.Mesh(G,mat));
- function top(px,pz){let b=[px,pz],bh=-1e9;for(let x=px-40;x<=px+40;x+=2)for(let z=pz-40;z<=pz+40;z+=2){const h=H(x,z);if(h>bh){bh=h;b=[x,z];}}return b;}
- function route(p0,p1,wig,seed){const pts=[],n=60;for(let i=0;i<=n;i++){const u=i/n;let x=p0[0]+(p1[0]-p0[0])*u,z=p0[1]+(p1[1]-p0[1])*u;
-  const px=-(p1[1]-p0[1]),pz=p1[0]-p0[0],L=Math.hypot(px,pz),w=Math.sin(u*Math.PI*3+seed)*wig*Math.sin(u*Math.PI);x+=px/L*w;z+=pz/L*w;pts.push(new THREE.Vector3(x,H(x,z)+1.2,z));}
-  return new THREE.CatmullRomCurve3(pts);}
- const ROUTES=PEAKS.map((p,i)=>{const s=top(p[0],p[1]);const st=[s[0]-90+i*20,s[1]+105-i*10];const c=route(st,s,16,i*1.7+.7);
-  const core=new THREE.Mesh(new THREE.TubeGeometry(c,300,.9,8,false),new THREE.MeshBasicMaterial({color:'#fff',transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
-  const glow=new THREE.Mesh(new THREE.TubeGeometry(c,300,2.6,8,false),new THREE.MeshBasicMaterial({color:'#6f7dff',transparent:true,opacity:.55,depthWrite:false,blending:THREE.AdditiveBlending}));
-  scene.add(core,glow);return {c,core,glow,summit:s,start:st};});
- const controls=new OrbitControls(cam,cv);controls.enableDamping=true;controls.enablePan=false;controls.minDistance=150;controls.maxDistance=620;controls.maxPolarAngle=1.35;controls.autoRotate=true;controls.autoRotateSpeed=.35;controls.enableZoom=false;
- let sel=1,drawT=0,target=new THREE.Vector3(),fly=null;
- window.selectRoute=i=>{if(i===sel&&drawT)return;sel=i;drawT=performance.now();const r=ROUTES[i];const m=r.c.getPoint(.55);
-  fly={t0:performance.now(),from:controls.target.clone(),to:new THREE.Vector3(m.x,m.y,m.z),pf:cam.position.clone(),pt:new THREE.Vector3(r.start[0]-260,230,r.start[1]+200)};};
- cam.position.set(-260,260,320);controls.target.set(0,10,0);
- const tmp=new THREE.Vector3(),E=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
- function size(){const w=box.clientWidth,h=box.clientHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();}
+ // tracés
+ const ROUTES=HIKES.map(H=>{const pts=H.path.map(([x,y])=>W(x,y,.7));const c=new THREE.CatmullRomCurve3(pts);
+  const core=new THREE.Mesh(new THREE.TubeGeometry(c,Math.max(40,pts.length*3),.45,6,false),new THREE.MeshBasicMaterial({color:'#fff',transparent:true,depthWrite:false,depthTest:false,blending:THREE.AdditiveBlending}));
+  const glow=new THREE.Mesh(new THREE.TubeGeometry(c,Math.max(40,pts.length*3),1.5,8,false),new THREE.MeshBasicMaterial({color:'#6f7dff',transparent:true,opacity:.5,depthWrite:false,depthTest:false,blending:THREE.AdditiveBlending}));
+  core.visible=glow.visible=false;core.renderOrder=glow.renderOrder=5;scene.add(core,glow);return {c,core,glow,top:pts[pts.length-1],start:pts[0]};});
+ // intro : du Mont-Blanc à la carte
+ const MBp=[774,892],MB=W(...MBp),GE=W(...ll2px(46.2105,6.1424),0);
+ const KP=[new THREE.Vector3(MB.x+120,MB.y+28,MB.z-150),new THREE.Vector3(MB.x+20,MB.y+75,MB.z-230),new THREE.Vector3(150,260,40),new THREE.Vector3(0,640,560)];
+ const KT=[new THREE.Vector3(MB.x,MB.y-8,MB.z),new THREE.Vector3(MB.x-30,MB.y-30,MB.z+10),new THREE.Vector3(40,20,-120),new THREE.Vector3(0,0,-40)];
+ const CP=new THREE.CatmullRomCurve3(KP),CT=new THREE.CatmullRomCurve3(KT);
+ const controls=new OrbitControls(cam,cv);controls.enableDamping=true;controls.enablePan=false;controls.enableZoom=false;controls.maxPolarAngle=1.3;controls.enabled=false;controls.rotateSpeed=.5;
+ let dragging=false;controls.addEventListener('start',()=>{dragging=true;want=null;});controls.addEventListener('end',()=>{dragging=false;});
+ cam.position.copy(KP[0]);controls.target.copy(KT[0]);
+ let want=null,sel=-1,drawT=0,p=0,aspect=1;const MAPP=.74;
+ const ov=[...box.querySelectorAll('.ov')];
+ function overview(){if(aspect<1)return {pos:new THREE.Vector3(0,1150,640),tgt:new THREE.Vector3(0,0,330)};const f=aspect<1.4?1.2:1;return {pos:new THREE.Vector3(0,640*f,560*f),tgt:new THREE.Vector3(0,0,-40)};}
+ window.flyTo=i=>{sel=i;drawT=performance.now();const r=ROUTES[i],m=r.c.getPoint(.5),t=r.top;
+  const dir=new THREE.Vector3(cam.position.x-m.x,0,cam.position.z-m.z).normalize();const L=r.start.distanceTo(t);const D=Math.max(110,L*2.4)*(aspect<1?1.6:1);
+  want={tgt:new THREE.Vector3(m.x,m.y,m.z).add(new THREE.Vector3(0,0,aspect<1?D*.3:0)),pos:new THREE.Vector3(m.x+dir.x*D,m.y+D*.85,m.z+dir.z*D)};
+  ROUTES.forEach((r,j)=>{r.core.visible=r.glow.visible=j===i;});updatePins();};
+ // repères des randonnées
+ const pinBox=$('pins');
+ pinBox.innerHTML=HIKES.map((H,i)=>`<button class="pin" data-i="${i}" aria-label="${H.nom}"><i></i><span>${H.nom}</span></button>`).join('');
+ const pinEls=[...pinBox.children];pinEls.forEach(b=>b.onclick=()=>{if(!S.lvlSet&&S.panel==='niveau'){S.panel='liste';}selectHike(+b.dataset.i);});
+ window.updatePins=function(){pinEls.forEach((b,i)=>{const f=S.panel==='niveau'&&!S.lvlSet?2:fit(HIKES[i]);b.classList.toggle('fit',f===1);b.classList.toggle('far',f===3);b.classList.toggle('on',i===S.hike);});};
+ const tmp=new THREE.Vector3();
+ function place(el,v,dy=0){tmp.copy(v).project(cam);const w=box.clientWidth,h=box.clientHeight;el.style.left=(tmp.x+1)/2*w+'px';el.style.top=((1-tmp.y)/2*h+dy)+'px';return tmp.z<1;}
+ function size(){const w=box.clientWidth,h=box.clientHeight;R.setSize(w,h,false);cam.aspect=w/h;aspect=w/h;cam.updateProjectionMatrix();}
  new ResizeObserver(size).observe(box);size();
  let on=false;visible(box,v=>{on=v;if(v)requestAnimationFrame(loop);});
- function pin(el,v){tmp.copy(v).project(cam);const w=box.clientWidth,h=box.clientHeight;el.style.left=(tmp.x+1)/2*w+'px';el.style.top=(1-tmp.y)/2*h+'px';}
+ const E=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
  function loop(now){
   if(!on)return;
-  if(fly){const u=Math.min(1,(now-fly.t0)/1600),e=E(u);controls.target.lerpVectors(fly.from,fly.to,e);cam.position.lerpVectors(fly.pf,fly.pt,e);if(u>=1)fly=null;}
-  const d=Math.min(1,(now-drawT)/2200),e=E(d);
-  ROUTES.forEach((r,i)=>{const s=i===sel;const n=s?Math.floor(r.core.geometry.index.count*e/6)*6:r.core.geometry.index.count;
-   r.core.geometry.setDrawRange(0,n);r.glow.geometry.setDrawRange(0,Math.floor(r.glow.geometry.index.count*(s?e:1)/6)*6);
-   r.core.material.opacity=s?1:.25;r.glow.material.opacity=s?.55:.12;});
-  controls.update();R.render(scene,cam);
-  const r=ROUTES[sel];pin($('pinA'),r.c.getPoint(0));pin($('pinB'),r.c.getPoint(1));
-  $('pinA').style.opacity=1;$('pinB').style.opacity=d>.9?1:0;
+  const r=sec.getBoundingClientRect();p=borne(-r.top/(r.height-innerHeight),0,1);
+  const e=borne(p/MAPP,0,1),mapOn=e>=1;
+  document.body.classList.toggle('mapOn',mapOn);controls.enabled=mapOn&&finePointer;cv.classList.toggle('drag',mapOn&&finePointer);
+  ov.forEach(o=>{const a=+o.dataset.a,b=+o.dataset.b,m=(a+b)/2,hw=(b-a)/2;const d=Math.abs(p-m)/hw;o.style.opacity=borne((1-d)*3,0,1);});
+  U.uWarm.value=1-E(borne(e/.7,0,1));U.uFogN.value=200+e*300;U.uFogF.value=900+e*900;
+  let tp,tt;
+  if(!mapOn){const ee=E(e);tp=CP.getPoint(ee);tt=CT.getPoint(ee);if(e>.98){const o=overview();tp.lerp(o.pos,(e-.98)/.02);tt.lerp(o.tgt,(e-.98)/.02);}
+   const o=overview();if(ee>.66){const k=(ee-.66)/.34;tp.lerp(o.pos,k*k);tt.lerp(o.tgt,k*k);}
+   cam.position.lerp(tp,.12);controls.target.lerp(tt,.12);}
+  else{ if(!want&&!dragging&&sel<0){const o=overview();want=o;}
+   if(want&&!dragging){cam.position.lerp(want.pos,.06);controls.target.lerp(want.tgt,.06);if(cam.position.distanceTo(want.pos)<.5)want=sel<0?want:null;}}
+  controls.update();
+  if(sel>=0){const d=borne((now-drawT)/2000,0,1),k=E(d);const rr=ROUTES[sel];
+   rr.core.geometry.setDrawRange(0,Math.floor(rr.core.geometry.index.count*k/3)*3);rr.glow.geometry.setDrawRange(0,Math.floor(rr.glow.geometry.index.count*k/3)*3);}
+  R.render(scene,cam);
+  // étiquettes
+  const mbv=place($('labMB'),MB,-6);$('labMB').style.opacity=(!mapOn&&p>.18&&p<.46)?1:0;
+  place($('labGE'),GE,-4);$('labGE').style.opacity=(p>.55&&(!mapOn||sel<0))?1:0;
+  HIKES.forEach((H,i)=>{const b=pinEls[i],ok=place(b,ROUTES[i].top);b.style.visibility=ok?'visible':'hidden';});
   requestAnimationFrame(loop);}
 })();
 
@@ -461,12 +841,10 @@ const lowPower=matchMedia('(max-width:700px)').matches;
   fragmentShader:'varying vec2 vU;void main(){float r=length(vU);vec3 c=mix(vec3(.10,.11,.17),vec3(.027,.03,.05),smoothstep(0.,2.6,r));float ring=exp(-pow((r-.62)/.012,2.))*.9+exp(-pow((r-.62)/.08,2.))*.12;c+=vec3(.25,.3,1.)*ring;gl_FragColor=vec4(c,1.-smoothstep(3.,6.,r));}'}));
  floor.rotation.x=-Math.PI/2;scene.add(floor);
  const sc=new THREE.Mesh(new THREE.CircleGeometry(2,64),new THREE.ShadowMaterial({opacity:.55}));sc.rotation.x=-Math.PI/2;sc.position.y=.002;sc.receiveShadow=true;scene.add(sc);
-
- // Vêtements : zones en coordonnées de la pose de repos (hauteur 1,806 m), couleurs en uniformes
  const GARMENTS={
   shoe:{off:.012,rough:.55,dir:1,glsl:`float ok=step(vB.y,.135);
    vec3 col=mix(uA,uB,smoothstep(.09,.13,vB.y));col=mix(col,uB,step(vB.z,-.06));col=mix(col,uC,step(vB.y,.032));col=mix(col,vec3(.05),step(vB.y,.012));`},
-  pant:{env:'envLeg(eP,eN);envEll(eP,eN,.2,.125,0.,.84,1.0);',off:.006,rough:.8,dir:1,glsl:`float ok=step(.125,vB.y)*step(vB.y,1.0)*step(abs(vB.x),.24);
+  pant:{env:'envLeg(eP,eN);envEll(eP,eN,.2,.125,0.,.84,1.0);',off:.006,rough:.8,dir:1,glsl:`float ok=step(uX,vB.y)*step(vB.y,1.0)*step(abs(vB.x),.24);
    vec3 col=mix(uA,uB,smoothstep(.50,.53,vB.y));col=mix(col,uC,step(.955,vB.y));`},
   base:{env:'envEll(eP,eN,.168,.12,0.,.9,1.37);envSleeve(eP,eN,.05,.034);',off:.0035,rough:.9,dir:-1,glsl:`float ok=step(.90,vB.y)*step(vB.y,1.535)*step(abs(vB.x),uX);
    vec3 col=uA;`},
@@ -528,25 +906,24 @@ const lowPower=matchMedia('(max-width:700px)').matches;
   const tf=Math.tan(cam.fov*Math.PI/360),dist=Math.max(1.12/tf,.95/(tf*cam.aspect));
   const dir=cam.position.clone().sub(controls.target).normalize();cam.position.copy(controls.target).addScaledVector(dir,dist);}
  new ResizeObserver(size).observe(box);size();
- // Révélations : une couche après l'autre, du pied à la veste
- let seq=[],t0=0;const ORDER=['shoe','pant','base','fleece','rain','soft'];
+ let seq=[],t0=0,seen=false;const ORDER=['shoe','pant','base','fleece','rain','soft'];
  window.dressMQ=(L,anim=true)=>{
-  if(!ready){pending=[L,anim];return;}
-  const worn=L.filter(l=>!l.sac);
+  if(!ready||!seen){pending=[L,anim];return;}
+  pending=null;const worn=L.filter(l=>!l.sac);
   for(const k in MATS)for(const m of MATS[k]){m.userData.u.uOn.value=0;}
   seq=worn.slice().sort((a,b)=>ORDER.indexOf(a.g)-ORDER.indexOf(b.g)).map((l,i)=>{const p=P[l.p],c=p.c||[[.5,.5,.5]];
-   for(const m of MATS[l.g]){const u=m.userData.u;u.uOn.value=1;u.uA.value.setRGB(...c[0]);u.uB.value.setRGB(...(c[1]||c[0]));u.uC.value.setRGB(...(c[2]||c[1]||c[0]));u.uX.value=p.court?.36:.715;}
-   return {g:l.g,p:l.p,at:anim?i*1.15:-5};});
+   for(const m of MATS[l.g]){const u=m.userData.u;u.uOn.value=1;u.uA.value.setRGB(...c[0]);u.uB.value.setRGB(...(c[1]||c[0]));u.uC.value.setRGB(...(c[2]||c[1]||c[0]));u.uX.value=l.g==='pant'?(p.court?.5:.125):(p.court?.36:.715);}
+   return {g:l.g,p:l.p,at:anim?i*1.0:-5};});
   t0=performance.now()/1000;
-  document.querySelectorAll('.layer').forEach(e=>e.classList.toggle('on',!anim||e.classList.contains('sac')));
-  if(anim){const idx=L.map((l,i)=>[l,i]).filter(([l])=>!l.sac);
-   seq.forEach(s=>{const i=L.findIndex(l=>l.p===s.p);setTimeout(()=>{const el=document.querySelector(`.layer[data-i="${i}"]`);el&&el.classList.add('on');},s.at*1000+300);});}
+  document.querySelectorAll('.layer').forEach(e=>e.classList.toggle('on',!anim));
+  if(anim){seq.forEach(s=>{const i=L.findIndex(l=>l.p===s.p);setTimeout(()=>{const el=document.querySelector(`.layer[data-i="${i}"]`);el&&el.classList.add('on');},s.at*1000+300);});
+   setTimeout(()=>document.querySelectorAll('.layer').forEach(e=>e.classList.add('on')),seq.length*1000+600);}
  };
- $('replay').onclick=()=>window.dressMQ(tenue(),true);
- let on=false,started=false;visible(box,v=>{on=v;if(v){if(!started&&ready){started=true;window.dressMQ(tenue(),true);}requestAnimationFrame(loop);}});
+ $('replay').onclick=()=>{seen=true;window.dressMQ(tenue(),true);};
+ let on=false;visible(box,v=>{on=v;if(v){if(!seen){seen=true;if(pending)window.dressMQ(...pending);else window.dressMQ(tenue(),true);}requestAnimationFrame(loop);}});
  function loop(now){
   if(!on)return;
-  if(ready&&!started){started=true;window.dressMQ(tenue(),true);}
+  if(ready&&seen&&pending)window.dressMQ(...pending);
   if(ready){const t=now/1000-t0;
    model.rotation.y=.06*Math.sin(now/2000);
    for(const s of seq){const g=GARMENTS[s.g],p=Math.max(0,Math.min(1,(t-s.at)/1.0)),e=1-Math.pow(1-p,3);
@@ -554,7 +931,76 @@ const lowPower=matchMedia('(max-width:700px)').matches;
   controls.update();R.render(scene,cam);requestAnimationFrame(loop);}
 })();
 
-update();
+/* ---------- Sac 3D en transparence ---------- */
+(function sac3d(){
+ const cv=$('glbag'),box=$('bagStage');
+ const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+ R.setPixelRatio(Math.min(devicePixelRatio,2));R.outputColorSpace=THREE.SRGBColorSpace;
+ const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(32,1,.05,30);
+ scene.add(new THREE.HemisphereLight(0xe6ebff,0x20243a,1.6));const dl=new THREE.DirectionalLight(0xffffff,1.6);dl.position.set(2,3,4);scene.add(dl);
+ const floor=new THREE.Mesh(new THREE.CircleGeometry(3,96),new THREE.ShaderMaterial({transparent:true,depthWrite:false,
+  vertexShader:'varying vec2 vU;void main(){vU=position.xy;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+  fragmentShader:'varying vec2 vU;void main(){float r=length(vU);vec3 c=mix(vec3(.10,.11,.2),vec3(.027,.03,.05),smoothstep(0.,1.4,r));float ring=exp(-pow((r-.42)/.008,2.))*.9+exp(-pow((r-.42)/.06,2.))*.12;c+=vec3(.25,.3,1.)*ring;gl_FragColor=vec4(c,1.-smoothstep(1.4,3.,r));}'}));
+ floor.rotation.x=-Math.PI/2;scene.add(floor);
+ const root=new THREE.Group();scene.add(root);
+ const XU={uCol:{value:new THREE.Color(.5,.6,1)},uH:{value:.5},uT:{value:0},uOver:{value:0}};
+ const xray=new THREE.ShaderMaterial({uniforms:XU,transparent:true,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,
+  vertexShader:'varying vec3 vN;varying vec3 vV;varying float vY;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);vY=position.y;gl_Position=projectionMatrix*mv;}',
+  fragmentShader:'uniform vec3 uCol;uniform float uH;uniform float uT;uniform float uOver;varying vec3 vN;varying vec3 vV;varying float vY;void main(){float f=pow(1.-abs(dot(vN,vV)),2.);float y=vY/uH;float rings=1.-smoothstep(.0,.035,abs(fract(y*9.)-.5)-.465+.0);float scan=exp(-pow((y-fract(uT*.22)*1.3+.1)*10.,2.));vec3 col=mix(uCol,vec3(1.,.45,.35),uOver);vec3 c=col*(.10+f*1.1+scan*.5)+vec3(.6,.7,1.)*rings*.10;gl_FragColor=vec4(c,1.);}'});
+ function roundedBox(w,h,d,r,s=10){const g=new THREE.BoxGeometry(w,h,d,s,s,s),p=g.attributes.position,v=new THREE.Vector3(),inn=new THREE.Vector3(w/2-r,h/2-r,d/2-r);
+  for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i);const c=new THREE.Vector3(borne(v.x,-inn.x,inn.x),borne(v.y,-inn.y,inn.y),borne(v.z,-inn.z,inn.z));const o=v.clone().sub(c);if(o.length()>1e-6)o.setLength(r);v.copy(c).add(o);p.setXYZ(i,v.x,v.y,v.z);}
+  g.computeVertexNormals();return g;}
+ let bagG=new THREE.Group();root.add(bagG);let dims={w:.3,h:.46,d:.19};
+ function buildBag(L,col){root.remove(bagG);bagG=new THREE.Group();root.add(bagG);
+  const k=Math.cbrt(L/22);dims={w:.31*k,h:.47*k,d:.2*k};XU.uH.value=dims.h;XU.uCol.value.setRGB(...col);
+  const body=new THREE.Mesh(roundedBox(dims.w,dims.h,dims.d,.06*k),xray);body.position.y=dims.h/2;bagG.add(body);
+  const lid=new THREE.Mesh(roundedBox(dims.w*.92,.07*k,dims.d*.95,.03*k,6),xray);lid.position.y=dims.h+.02*k;bagG.add(lid);
+  const pk=new THREE.Mesh(roundedBox(dims.w*.7,dims.h*.42,.05*k,.025*k,6),xray);pk.position.set(0,dims.h*.3,dims.d/2+.025*k);bagG.add(pk);
+  for(const s of[-1,1]){const c=new THREE.CatmullRomCurve3([new THREE.Vector3(s*dims.w*.22,dims.h*.92,-dims.d/2),new THREE.Vector3(s*dims.w*.28,dims.h*.8,-dims.d/2-.07*k),new THREE.Vector3(s*dims.w*.32,dims.h*.4,-dims.d/2-.06*k),new THREE.Vector3(s*dims.w*.42,dims.h*.08,-dims.d/2-.01)]);
+   bagG.add(new THREE.Mesh(new THREE.TubeGeometry(c,24,.014*k,6),xray));}
+  const hip=new THREE.Mesh(new THREE.TorusGeometry(dims.w*.62,.012*k,6,40,Math.PI),xray);hip.rotation.x=Math.PI/2;hip.position.set(0,dims.h*.1,-dims.d*.2);hip.scale.set(1,.9,1);bagG.add(hip);
+  bagG.scale.setScalar(.01);growT=performance.now();fit();}
+ let growT=0;
+ // objets dans le sac
+ const TL=new THREE.TextureLoader(),texC={};
+ const getTex=k=>{if(k==='pique')return null;if(!texC[k]){const t=TL.load(pimg(k));t.colorSpace=THREE.SRGBColorSpace;texC[k]=t;}return texC[k];};
+ const side=new THREE.MeshStandardMaterial({color:0xe9ebf3,roughness:.6}),picMat=new THREE.MeshStandardMaterial({color:0xc9a77a,roughness:.8});
+ let items=new Map();const itemsG=new THREE.Group();root.add(itemsG);
+ function makeItem(it){const s=Math.cbrt(it.v/1000);let w=s*1.3,h=s*1.05,d=s*.75;
+  const f=Math.min(1,dims.w*.92/w,dims.d*.9/d);w*=f;d*=f;h*=1/Math.max(f,.5);
+  const t=getTex(it.k);const front=t?new THREE.MeshStandardMaterial({map:t,roughness:.5}):picMat;
+  const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),[side,side,side,side,front,side]);m.userData={w,h,d,born:performance.now(),from:dims.h+.5};itemsG.add(m);return m;}
+ window.packBag=function(){
+  if(!S.bag)return;const b=P[S.bag];
+  if(bagG.userData.key!==S.bag){buildBag(b.L,b.col);bagG.userData.key=S.bag;}
+  const need=bagNeed();const keys=new Set();
+  need.forEach((it,i)=>{const id=it.src+'|'+it.k+'|'+Math.round(it.v*100);keys.add(id);if(!items.has(id)){items.set(id,makeItem(it));}});
+  for(const [id,m] of items)if(!keys.has(id)){itemsG.remove(m);items.delete(id);}
+  // rangement en couches
+  let x=0,z=0,y=0,rowD=0,layH=0;const W2=dims.w*.9,D2=dims.d*.86;
+  for(const [id,m] of items){const u=m.userData;
+   if(x+u.w>W2&&x>0){x=0;z+=rowD;rowD=0;}
+   if(z+u.d>D2&&z>0){z=0;x=0;y+=layH;layH=0;rowD=0;}
+   u.tx=-W2/2+x+u.w/2;u.ty=.02+y+u.h/2;u.tz=-D2/2+z+u.d/2;x+=u.w+.006;rowD=Math.max(rowD,u.d+.006);layH=Math.max(layH,u.h+.006);}
+  const vol=need.reduce((s,i)=>s+i.v,0),pct=vol/b.L;
+  XU.uOver.value=pct>1?1:0;$('gauge').classList.toggle('over',pct>1);
+  $('gBar').style.width=Math.min(100,pct*100)+'%';$('gPct').textContent=Math.round(pct*100)+' %';
+  $('gTxt').textContent=pct>1?`Trop plein : ${lfmt(vol).replace(' l',' L')} pour ${b.L} L, prends plus grand`:`${(Math.round(vol*10)/10).toString().replace('.',',')} L sur ${b.L} L · ${items.size} articles`;};
+ function fit(){const tf=Math.tan(cam.fov*Math.PI/360),hh=dims.h*1.12;const dist=Math.max(hh/tf,hh*.9/(tf*cam.aspect))*1.05;cam.position.set(dist*.55,dims.h*1.15,dist*.85);controls.target.set(0,dims.h*.5,0);}
+ const controls=new OrbitControls(cam,cv);controls.enableDamping=true;controls.enablePan=false;controls.enableZoom=false;controls.minPolarAngle=.6;controls.maxPolarAngle=1.6;controls.autoRotate=true;controls.autoRotateSpeed=.8;
+ function size(){const w=box.clientWidth,h=box.clientHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();fit();}
+ new ResizeObserver(size).observe(box);size();
+ let on=false;visible(box,v=>{on=v;if(v){window.packBag();requestAnimationFrame(loop);}});
+ const bounce=x=>{const n=7.5625,d=2.75;if(x<1/d)return n*x*x;if(x<2/d)return n*(x-=1.5/d)*x+.75;if(x<2.5/d)return n*(x-=2.25/d)*x+.9375;return n*(x-=2.625/d)*x+.984375;};
+ function loop(now){if(!on)return;XU.uT.value=now/1000;
+  const g=borne((now-growT)/700,0,1);bagG.scale.setScalar(.01+.99*(1-Math.pow(1-g,3)));
+  for(const m of itemsG.children){const u=m.userData;if(u.tx===undefined)continue;const k=borne((now-u.born-150)/900,0,1),e=bounce(k);
+   m.position.set(u.tx,u.from+(u.ty-u.from)*e,u.tz);m.rotation.z=(1-k)*.6;m.rotation.y=(1-k)*.8;
+   if(!u.settled&&k>=1)u.settled=1;else if(!u.settled&&k===0)m.position.y=u.from;}
+  controls.update();R.render(scene,cam);requestAnimationFrame(loop);}
+})();
+
+renderAll();onScroll();
 </script>
 </body>
 </html>
