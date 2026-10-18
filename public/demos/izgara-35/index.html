@@ -55,9 +55,90 @@ ul{padding-left:20px;margin:6px 0}
 .stamps span{aspect-ratio:1;border-radius:50%;border:2px dashed var(--sesame);display:flex;align-items:center;justify-content:center;font-size:14px}
 .stamps span.on{background:var(--braise);border-style:solid;border-color:var(--braise)}
 @media (max-width:520px){.grid3{grid-template-columns:repeat(2,1fr)}h1{font-size:44px}.pal{grid-template-columns:repeat(3,1fr)}}
+
+/* onglets */
+.tabs{position:sticky;top:0;z-index:20;display:flex;gap:6px;justify-content:center;padding:10px 16px;background:rgba(38,35,33,.94);backdrop-filter:blur(8px)}
+.tabs button{font:700 14px "DM Sans",sans-serif;letter-spacing:.04em;color:#d8cbb8;background:transparent;border:1px solid #4a433d;border-radius:99px;padding:9px 18px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--braise);border-color:var(--braise);color:#fff}
+.panel[hidden]{display:none}
+/* aperçu du site */
+.stage{background:radial-gradient(circle at 50% 0,#3a302a,#1a1715 70%);padding:28px 16px 48px;min-height:100vh}
+.stage .intro{max-width:520px;margin:0 auto 22px;text-align:center;color:#d8cbb8;font-size:15px}
+.stage .intro b{color:#fff}
+.phone{width:min(390px,100%);margin:0 auto;border-radius:44px;padding:10px;background:#0d0c0b;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 2px #2c2724}
+.screen{height:min(780px,78vh);overflow-y:auto;border-radius:34px;background:#F5ECDF;color:#262321;position:relative;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.s-nav{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(38,35,33,.92);backdrop-filter:blur(6px)}
+.s-nav img{height:38px;border-radius:8px}
+.s-nav span{font:700 12px "DM Sans";color:#F5ECDF;letter-spacing:.08em;text-transform:uppercase}
+.s-hero{position:relative;height:520px;margin-top:-62px;overflow:hidden}
+.s-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);animation:kb 14s ease-in-out infinite alternate}
+@keyframes kb{to{transform:scale(1.18) translateY(-12px)}}
+@media (prefers-reduced-motion:reduce){.s-hero img{animation:none}}
+.s-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1) 30%,rgba(20,17,15,.92))}
+.s-hero .txt{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:22px 20px;color:#fff}
+.s-hero .eb{font:700 11px "DM Sans";letter-spacing:.14em;text-transform:uppercase;color:var(--sesame)}
+.s-hero h3{font-family:"Bebas Neue";font-size:46px;line-height:.95;margin:8px 0 10px}
+.s-hero p{font-size:14px;color:#e6dccd;margin:0 0 16px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.b1,.b2{font:700 13px "DM Sans";padding:12px 16px;border-radius:99px;text-decoration:none;display:inline-block}
+.b1{background:var(--braise);color:#fff}.b2{border:1.5px solid #fff;color:#fff}
+.s-sec{padding:28px 20px}
+.s-sec h4{font-family:"Bebas Neue";font-size:34px;line-height:1;margin:4px 0 8px;color:#262321}
+.s-sec .eb{font:700 11px "DM Sans";letter-spacing:.14em;text-transform:uppercase;color:var(--braise)}
+.s-sec p{font-size:14px;color:#5a514a;margin:0 0 14px}
+.s-img{border-radius:18px;overflow:hidden;margin:0 0 14px}
+.s-img img{display:block;width:100%}
+.s-list{list-style:none;padding:0;margin:0}
+.s-list li{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px dashed #d6c8b4;font-size:14px}
+.s-list li b{font-weight:700}
+.s-list li i{font-style:normal;color:#8a7f74;font-size:12px;display:block}
+.s-list li .pr{font-family:"Bebas Neue";font-size:22px;color:var(--braise);white-space:nowrap}
+.s-dark{background:#262321;color:#F5ECDF}
+.s-dark h4{color:#F5ECDF}.s-dark p{color:#c9bdac}
+.s-dark .s-list li{border-color:#4a433d}
+.s-chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.s-chips span{flex:0 0 auto;font:700 12px "DM Sans";padding:8px 14px;border-radius:99px;background:#efe3d2;color:#262321}
+.s-chips span.on{background:#262321;color:#F5ECDF}
+.s-loy{display:flex;gap:14px;align-items:center;background:var(--braise);color:#fff;border-radius:18px;padding:16px}
+.s-loy img{width:96px;border-radius:12px}
+.s-loy b{font-family:"Bebas Neue";font-size:26px;font-weight:400;display:block;line-height:1}
+.s-foot{padding:26px 20px 90px;background:#1c1a18;color:#b5aa9c;font-size:13px;text-align:center}
+.s-foot img{width:120px;border-radius:12px;margin-bottom:10px}
+.s-cta{position:sticky;bottom:0;z-index:6;display:flex;gap:8px;padding:18px 12px 14px;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.45))}
+.s-cta a{flex:1;text-align:center}
+.s-cta .b2{border-color:#262321;color:#262321;background:#fff}
+.legend{max-width:520px;margin:20px auto 0;color:#9d9184;font-size:13px;text-align:center}
+/* la carte */
+.menu-wrap{background:#e9dfd0;padding:28px 16px 56px}
+.menu{max-width:620px;margin:0 auto;background:#262321;color:#F5ECDF;border-radius:6px;padding:34px 26px 30px;box-shadow:0 24px 60px rgba(0,0,0,.35);position:relative;overflow:hidden}
+.menu::before{content:"35";position:absolute;right:-18px;top:-40px;font-family:"Bebas Neue";font-size:260px;line-height:1;color:rgba(229,99,42,.08)}
+.menu .top{text-align:center;position:relative}
+.menu .top img{width:150px;border-radius:14px}
+.menu .top .mtag{display:block;margin-top:10px;font:700 11px "DM Sans";letter-spacing:.2em;text-transform:uppercase;color:var(--sesame)}
+.m-sec{margin-top:30px;position:relative}
+.m-sec h5,.m-box h5{font-family:"Bebas Neue";font-weight:400;font-size:34px;line-height:1;margin:0;color:var(--braise);display:flex;align-items:baseline;gap:10px}
+.m-sec h5 small,.m-box h5 small{font:700 11px "DM Sans";letter-spacing:.14em;text-transform:uppercase;color:#b5aa9c}
+.m-sec .sub{font-size:13px;color:#b5aa9c;margin:4px 0 8px}
+.m-item{display:flex;align-items:baseline;gap:8px;padding:9px 0}
+.m-item .n{font-weight:700;font-size:15px}
+.m-item .d{display:block;font-weight:400;font-size:12.5px;color:#b5aa9c;margin-top:2px}
+.m-item .dots{flex:1;border-bottom:1px dotted #5a514a;transform:translateY(-4px)}
+.m-item .p{font-family:"Bebas Neue";font-size:24px;color:#F5ECDF}
+.m-item .p.todo{font:700 11px "DM Sans";letter-spacing:.06em;text-transform:uppercase;color:var(--sesame)}
+.m-star{display:inline-block;font:700 10px "DM Sans";letter-spacing:.1em;text-transform:uppercase;background:var(--braise);color:#fff;border-radius:99px;padding:2px 7px;margin-left:6px;vertical-align:2px}
+.m-box{background:#F5ECDF;color:#262321;border-radius:14px;padding:18px;margin-top:30px}
+.m-box h5{color:#262321}
+.m-box .m-item .d{color:#6b625a}.m-box .m-item .dots{border-color:#c9bba6}.m-box .m-item .p{color:var(--braise)}
+.m-box .mnote{font-size:12.5px;color:#6b625a;margin:6px 0 0}
+.m-foot{margin-top:28px;padding-top:16px;border-top:1px solid #4a433d;font-size:12.5px;color:#b5aa9c;text-align:center}
+.menu-legend{max-width:620px;margin:16px auto 0;font-size:13px;color:#6b625a;text-align:center}
+@media (max-width:420px){.menu{padding:28px 18px}.m-sec h5,.m-box h5{font-size:30px}}
 </style>
 </head>
 <body>
+<nav class="tabs" role="tablist"><button role="tab" data-t="dossier" aria-selected="true">Dossier</button><button role="tab" data-t="site" aria-selected="false">Site</button><button role="tab" data-t="carte" aria-selected="false">Carte</button></nav>
+<section class="panel" id="p-dossier">
 <header>
 <img src="logo.svg" alt="Logo Izgara 35">
 <h1>Izgara 35</h1>
@@ -168,5 +249,74 @@ ul{padding-left:20px;margin:6px 0}
 <li>Nouvelle carte, site et Instagram en ligne</li>
 </ol>
 </div>
+</section>
+<section class="panel" id="p-site" hidden>
+<div class="stage">
+<p class="intro"><b>Aperçu du futur site.</b> Fait pour le téléphone, là où vos clients cherchent où manger. Faites défiler l'écran.</p>
+<div class="phone"><div class="screen">
+<div class="s-nav"><img src="logo.svg" alt="Izgara 35"><span>Carte · Réserver</span></div>
+<div class="s-hero"><img src="img/facade.jpg" alt="Façade Izgara 35 le soir">
+<div class="txt"><span class="eb">Grill d'Izmir · Onex</span><h3>Le vrai grill d'Izmir, à deux pas de chez vous</h3><p>Un chef d'Izmir, des brochettes grillées minute, des plateaux à partager.</p>
+<div class="btns"><a class="b1" href="#p-carte" data-go="carte">Voir la carte</a><a class="b2" href="#p-site">Réserver</a></div></div></div>
+<div class="s-sec"><span class="eb">À midi seulement</span><h4>Les Box 35</h4><p>Riz pilaf, viande grillée, sauce maison. Prêtes en quelques minutes, à emporter ou sur place.</p>
+<div class="s-img"><img src="img/box.jpg" alt="Box 35 au riz et adana" loading="lazy"></div>
+<ul class="s-list"><li><span><b>Box 35 kebap</b><i>Agneau, poulet ou mix, riz, frites</i></span><span class="pr">12.90</span></li><li><span><b>Box 35 mix</b><i>Kebap, falafel, nuggets, cordon bleu</i></span><span class="pr">14.90</span></li><li><span><b>Box 35 croustillante</b><i>Nuggets, tenders ou cordon bleu</i></span><span class="pr">12.50</span></li></ul></div>
+<div class="s-sec s-dark"><span class="eb">Le soir</span><h4>Le grill d'Izmir</h4><p>Iskender, adana, brochettes d'agneau : les recettes du chef, comme à Izmir.</p>
+<div class="s-img"><img src="img/chef.jpg" alt="Le chef au grill" loading="lazy"></div>
+<div class="s-chips"><span class="on">Grill</span><span>Plateaux</span><span>Pides</span><span>Salades</span></div>
+<ul class="s-list"><li><span><b>Iskender du chef</b><i>Kebap, pain, sauce tomate, beurre, yaourt</i></span><span class="pr">23.–</span></li><li><span><b>Adana</b><i>Brochette d'agneau épicée, grillée minute</i></span><span class="pr">23.–</span></li><li><span><b>Brochette d'agneau</b></span><span class="pr">25.–</span></li><li><span><b>Plateau grill pour 2 / pour 4</b><i>Nouveau : assortiment du grill à partager</i></span><span class="pr" style="font:700 11px 'DM Sans';color:#D9A55B">Nouveau</span></li></ul></div>
+<div class="s-sec"><div class="s-loy"><img src="img/fidelite.jpg" alt="Carte 35"><div><b>La Carte 35</b>Scannez en caisse : 7 passages, la box est pour nous.</div></div></div>
+<div class="s-sec" style="padding-top:0"><span class="eb">À emporter</span><h4>Commandez, on grille</h4><div class="s-img"><img src="img/sac.jpg" alt="Sac à emporter" loading="lazy"></div><p>Commande en ligne, retrait au comptoir. Réservation de table par WhatsApp.</p></div>
+<div class="s-foot"><img src="logo.svg" alt=""><br>Izgara 35 · Grill d'Izmir · Onex<br>Instagram · WhatsApp · Google</div>
+<div class="s-cta"><a class="b1" href="#p-site">Commander</a><a class="b2" href="#p-site">Réserver</a></div>
+</div></div>
+<p class="legend">Maquette de démonstration : les photos des plats seront remplacées par celles du shooting.</p>
+</div>
+</section>
+<section class="panel" id="p-carte" hidden>
+<div class="menu-wrap">
+<div class="menu">
+<div class="top"><img src="logo.svg" alt="Izgara 35"><span class="mtag">Grill d'Izmir · Onex</span></div>
+<div class="m-sec"><h5>Le grill d'Izmir <small>Le soir et le week-end</small></h5><p class="sub">Grillé minute par notre chef, servi avec riz pilaf, salade et pain.</p>
+<div class="m-item"><span class="n">Iskender du chef<span class="m-star">Signature</span><span class="d">Kebap sur pain, sauce tomate, beurre noisette, yaourt</span></span><span class="dots"></span><span class="p">23.–</span></div>
+<div class="m-item"><span class="n">Adana<span class="d">Brochette d'agneau haché, épicée</span></span><span class="dots"></span><span class="p">23.–</span></div>
+<div class="m-item"><span class="n">Köfte<span class="d">Boulettes de viande grillées</span></span><span class="dots"></span><span class="p">24.–</span></div>
+<div class="m-item"><span class="n">Brochette d'agneau</span><span class="dots"></span><span class="p">25.–</span></div>
+<div class="m-item"><span class="n">Brochette de poulet</span><span class="dots"></span><span class="p">23.–</span></div>
+<div class="m-item"><span class="n">Tandır</span><span class="dots"></span><span class="p">24.–</span></div>
+<div class="m-item"><span class="n">Assiette kebap<span class="d">Agneau, poulet ou mix</span></span><span class="dots"></span><span class="p">23.–</span></div>
+</div>
+<div class="m-sec"><h5>À partager <small>Nouveau</small></h5><p class="sub">Le grill du chef sur un grand plateau, pour la table.</p>
+<div class="m-item"><span class="n">Plateau grill pour 2<span class="d">Adana, köfte, brochettes, riz, salade, pain</span></span><span class="dots"></span><span class="p todo">Prix à fixer</span></div>
+<div class="m-item"><span class="n">Plateau grill pour 4<span class="d">Le grand assortiment de la maison</span></span><span class="dots"></span><span class="p todo">Prix à fixer</span></div>
+</div>
+<div class="m-box"><h5>Box 35 <small style="color:#6b625a">Midi seulement</small></h5>
+<div class="m-item"><span class="n">Box 35 kebap<span class="d">Riz, kebap agneau, poulet ou mix, frites</span></span><span class="dots"></span><span class="p">12.90</span></div>
+<div class="m-item"><span class="n">Box 35 mix<span class="d">Riz, kebap, falafel, nuggets, cordon bleu</span></span><span class="dots"></span><span class="p">14.90</span></div>
+<div class="m-item"><span class="n">Box 35 croustillante<span class="d">Riz, nuggets, tenders ou cordon bleu</span></span><span class="dots"></span><span class="p">12.50</span></div>
+<div class="m-item"><span class="n">Box 35 falafel</span><span class="dots"></span><span class="p">10.50</span></div>
+<p class="mnote">7 passages sur la Carte 35, la box suivante est offerte.</p></div>
+<div class="m-sec"><h5>Du four</h5>
+<div class="m-item"><span class="n">Lahmacun</span><span class="dots"></span><span class="p">12.–</span></div>
+<div class="m-item"><span class="n">Lahmacun kebap</span><span class="dots"></span><span class="p">15.–</span></div>
+<div class="m-item"><span class="n">Pide viande hachée</span><span class="dots"></span><span class="p">14.50</span></div>
+<div class="m-item"><span class="n">Pide fromage</span><span class="dots"></span><span class="p">12.50</span></div>
+</div>
+<div class="m-sec"><h5>Salades</h5>
+<div class="m-item"><span class="n">Salade Izmir</span><span class="dots"></span><span class="p">11.–</span></div>
+<div class="m-item"><span class="n">Salade Istanbul</span><span class="dots"></span><span class="p">11.–</span></div>
+<div class="m-item"><span class="n">Salade mêlée</span><span class="dots"></span><span class="p">10.–</span></div>
+</div>
+<div class="m-foot">Aussi à la carte : kebap en galette, sandwich ou baguette, tacos, pizzas et burgers.<br>Allergènes sur demande</div>
+</div>
+<p class="menu-legend">Proposition de nouvelle carte, avec les prix actuels du restaurant. Le contenu final et le prix des plateaux se décident avec le chef.</p>
+</div>
+</section>
+<script>
+(function(){var b=document.querySelectorAll('.tabs button');function show(t){b.forEach(function(x){x.setAttribute('aria-selected',x.dataset.t===t)});document.querySelectorAll('.panel').forEach(function(p){p.hidden=p.id!=='p-'+t});window.scrollTo(0,0);try{history.replaceState(null,'','#'+t)}catch(e){}}
+b.forEach(function(x){x.addEventListener('click',function(){show(x.dataset.t)})});
+document.querySelectorAll('[data-go]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();show(a.dataset.go)})});
+var h=location.hash.replace('#','');if(h==='site'||h==='carte')show(h);})();
+</script>
 </body>
 </html>
