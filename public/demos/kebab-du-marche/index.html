@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Identité Kebab du Marché</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--vert:#17583A;--tomate:#D93A22;--creme:#F2EFE6;--ardoise:#222A26;--kraft:#C8A273;
+--bg:#F2EFE6;--fg:#222A26;--muted:#5f6862;--card:#fbfaf6;--line:#ddd8cb}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161c19;--fg:#F2EFE6;--muted:#a9b2ac;--card:#1f2723;--line:#33403a}}
+:root[data-theme="dark"]{--bg:#161c19;--fg:#F2EFE6;--muted:#a9b2ac;--card:#1f2723;--line:#33403a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 "Figtree",system-ui,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 64px}
+header{background:var(--vert);color:var(--creme);padding:36px 16px 32px;text-align:center}
+header img{width:200px;border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+h1,h2,h3,.bs{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;letter-spacing:.01em;line-height:.95;text-transform:uppercase}
+h1{font-size:54px;margin:20px 0 8px;color:var(--creme)}
+header p{margin:0;color:#cfe0d5}
+h2{font-size:40px;margin:46px 0 10px;color:var(--vert)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) h2{color:#7fc49c}}
+h2 small{display:block;font:700 12px/1.2 "Figtree";letter-spacing:.14em;color:var(--tomate);margin-bottom:8px}
+h3{font-size:26px;margin:22px 0 6px}
+p{margin:8px 0}
+.note{background:var(--card);border-left:4px solid var(--tomate);padding:12px 14px;border-radius:8px;font-size:14px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-size:13px;padding:8px 10px;color:var(--muted)}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:99px;background:var(--tomate);color:#fff}
+.tag.alt{background:var(--muted)}
+.tag.v{background:var(--vert)}
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.sw{border-radius:10px;height:84px;display:flex;align-items:flex-end;padding:8px;font-size:11px;font-weight:700;border:1px solid var(--line)}
+.pillars{display:grid;gap:10px}
+.pillar{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.pillar b{color:var(--tomate)}
+table{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border-radius:12px;overflow:hidden}
+td,th{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.price{display:grid;gap:10px}
+.offer{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.offer.hl{border:2px solid var(--vert)}
+.offer .p{font-family:"Big Shoulders Display";font-weight:900;font-size:42px;line-height:1}
+ul,ol{padding-left:20px;margin:6px 0}
+.type{background:var(--vert);color:var(--creme);border-radius:12px;padding:18px}
+.type .t1{font-family:"Big Shoulders Display";font-weight:900;font-size:54px;line-height:.92;text-transform:uppercase}
+.type .t1 i{font-style:normal;color:#ff8a72}
+.type .t2{font-size:15px;color:#cfe0d5;margin-top:10px}
+.card{background:var(--vert);color:var(--creme);border-radius:16px;padding:18px;max-width:380px}
+.stamps{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0}
+.stamps span{aspect-ratio:1;border-radius:50%;border:2px dashed #cfe0d5;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.stamps span.on{background:var(--tomate);border-style:solid;border-color:var(--tomate);color:#fff}
+.steps{display:grid;gap:8px;counter-reset:s}
+.steps div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px 12px 50px;position:relative;font-size:15px}
+.steps div::before{counter-increment:s;content:counter(s);position:absolute;left:14px;top:11px;width:24px;height:24px;border-radius:50%;background:var(--vert);color:#fff;font:700 13px/24px "Figtree";text-align:center}
+/* Instagram */
+.ig{max-width:380px;margin:0 auto;background:#fff;color:#111;border-radius:22px;border:1px solid var(--line);overflow:hidden}
+.ig .top{padding:12px 14px;font-weight:700;font-size:14px}
+.ig .head{display:flex;align-items:center;gap:14px;padding:0 14px}
+.ig .av{width:78px;height:78px;border-radius:50%;padding:3px;background:linear-gradient(45deg,#D93A22,#17583A)}
+.ig .av img{width:100%;height:100%;border-radius:50%;border:3px solid #fff;object-fit:cover}
+.ig .stats{display:flex;flex:1;justify-content:space-around;text-align:center;font-size:12px}
+.ig .stats b{display:block;font-size:16px}
+.ig .bio{padding:10px 14px;font-size:13px;line-height:1.4}
+.ig .bio a{color:#00376b;text-decoration:none;font-weight:700}
+.ig .hl{display:flex;gap:12px;padding:4px 14px 12px;overflow:hidden}
+.ig .hl div{text-align:center;font-size:11px}
+.ig .hl i{display:block;width:58px;height:58px;border-radius:50%;background:center/cover;border:2px solid #ddd;margin-bottom:4px}
+.ig .g{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.ig .g div{aspect-ratio:4/5;background:center/cover;position:relative}
+.ig .g .t{display:flex;align-items:center;justify-content:center;text-align:center;background:#17583A;color:#F2EFE6;font:900 24px/.95 "Big Shoulders Display";text-transform:uppercase;padding:6px}
+.ig .g .t.r{background:#D93A22}
+.ig .g .rl::after{content:"▶";position:absolute;top:6px;right:8px;color:#fff;font-size:12px;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.week{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.week div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:14px}
+.week b{display:block;color:var(--tomate)}
+.ad{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+.ad svg text{font:12px "Figtree";fill:var(--fg)}
+@media (max-width:560px){.grid3{grid-template-columns:repeat(2,1fr)}h1{font-size:44px}.pal{grid-template-columns:repeat(3,1fr)}.ad{grid-template-columns:1fr}.week{grid-template-columns:1fr}}
+
+/* onglets */
+.tabs{position:sticky;top:0;z-index:20;display:flex;gap:6px;justify-content:center;padding:10px 16px;background:rgba(17,62,41,.95);backdrop-filter:blur(8px)}
+.tabs button{font:700 14px "Figtree",sans-serif;letter-spacing:.04em;color:#cfe0d5;background:transparent;border:1px solid #2f6e4f;border-radius:99px;padding:9px 18px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--tomate);border-color:var(--tomate);color:#fff}
+.panel[hidden]{display:none}
+/* aperçu du site */
+.stage{background:radial-gradient(circle at 50% 0,#1f5a3d,#0f2a1d 70%);padding:28px 16px 48px;min-height:100vh}
+.stage .intro{max-width:520px;margin:0 auto 22px;text-align:center;color:#cfe0d5;font-size:15px}
+.stage .intro b{color:#fff}
+.phone{width:min(390px,100%);margin:0 auto;border-radius:44px;padding:10px;background:#0b0f0d;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 2px #24302a}
+.screen{height:min(780px,78vh);overflow-y:auto;border-radius:34px;background:#F2EFE6;color:#222A26;position:relative;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.s-nav{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(242,239,230,.94);backdrop-filter:blur(6px);border-bottom:1px solid #ddd8cb}
+.s-nav img{height:46px;border-radius:8px}
+.s-nav span{font:700 12px "Figtree";color:#17583A;letter-spacing:.08em;text-transform:uppercase}
+.s-hero{position:relative;height:500px;overflow:hidden}
+.s-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);animation:kb 14s ease-in-out infinite alternate}
+@keyframes kb{to{transform:scale(1.16) translateY(-10px)}}
+@media (prefers-reduced-motion:reduce){.s-hero img{animation:none}}
+.s-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(10,25,17,.92))}
+.s-hero .txt{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:22px 20px;color:#fff}
+.s-hero .eb{font:700 11px "Figtree";letter-spacing:.14em;text-transform:uppercase;color:#ffb3a5}
+.s-hero h3{font-size:48px;margin:8px 0 10px;color:#fff}
+.s-hero p{font-size:14px;color:#e3ece6;margin:0 0 16px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.b1,.b2{font:700 13px "Figtree";padding:12px 16px;border-radius:99px;text-decoration:none;display:inline-block}
+.b1{background:var(--tomate);color:#fff}.b2{border:1.5px solid #fff;color:#fff}
+.s-sec{padding:28px 20px}
+.s-sec h4{font-family:"Big Shoulders Display";font-weight:900;text-transform:uppercase;font-size:36px;line-height:.95;margin:4px 0 8px;color:#17583A}
+.s-sec .eb{font:700 11px "Figtree";letter-spacing:.14em;text-transform:uppercase;color:var(--tomate)}
+.s-sec p{font-size:14px;color:#4d5651;margin:0 0 14px}
+.s-img{border-radius:18px;overflow:hidden;margin:0 0 14px}
+.s-img img{display:block;width:100%}
+.s-list{list-style:none;padding:0;margin:0}
+.s-list li{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px dashed #cfc8b6;font-size:14px}
+.s-list li b{font-weight:700}
+.s-list li i{font-style:normal;color:#7a827d;font-size:12px;display:block}
+.s-list li .pr{font-family:"Big Shoulders Display";font-weight:900;font-size:24px;color:var(--tomate);white-space:nowrap}
+.s-dark{background:#17583A;color:#F2EFE6}
+.s-dark h4{color:#F2EFE6}.s-dark p{color:#cfe0d5}.s-dark .eb{color:#ffb3a5}
+.s-dark .s-list li{border-color:#2f6e4f}.s-dark .s-list li i{color:#a9c6b5}.s-dark .s-list li .pr{color:#fff}
+.s-chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
+.s-chips span{flex:0 0 auto;font:700 12px "Figtree";padding:8px 14px;border-radius:99px;background:#24684a;color:#F2EFE6}
+.s-chips span.on{background:#F2EFE6;color:#17583A}
+.s-loy{display:flex;gap:14px;align-items:center;background:var(--tomate);color:#fff;border-radius:18px;padding:14px;font-size:14px}
+.s-loy img{width:96px;border-radius:12px}
+.s-loy b{font-family:"Big Shoulders Display";font-weight:900;text-transform:uppercase;font-size:26px;display:block;line-height:1}
+.s-order{background:#fff;border-radius:18px;padding:16px;border:1px solid #ddd8cb;font-size:14px}
+.s-order .row{display:flex;justify-content:space-between;padding:6px 0}
+.s-order .tot{border-top:1px solid #ddd8cb;margin-top:6px;padding-top:10px;font-weight:700}
+.s-order .pay{margin-top:12px;display:block;text-align:center;background:#222A26;color:#fff;border-radius:12px;padding:12px;font-weight:700;text-decoration:none}
+.s-foot{padding:26px 20px 90px;background:#0f2a1d;color:#a9c6b5;font-size:13px;text-align:center}
+.s-foot img{width:130px;border-radius:12px;margin-bottom:10px}
+.s-cta{position:sticky;bottom:0;z-index:6;display:flex;gap:8px;padding:18px 12px 14px;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.4))}
+.s-cta a{flex:1;text-align:center}
+.s-cta .b2{border-color:#17583A;color:#17583A;background:#fff}
+.legend{max-width:520px;margin:20px auto 0;color:#a9c6b5;font-size:13px;text-align:center}
+/* la carte */
+.menu-wrap{background:#e5dccb;padding:28px 16px 56px}
+.menu{max-width:640px;margin:0 auto;background:#C8A273 linear-gradient(180deg,rgba(255,255,255,.08),rgba(0,0,0,.05));color:#222A26;border-radius:6px;padding:30px 24px;box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.menu .top{text-align:center}
+.menu .top img{width:170px;border-radius:14px}
+.menu .top span{display:block;margin-top:10px;font:700 11px "Figtree";letter-spacing:.2em;text-transform:uppercase;color:#17583A}
+.m-cols{display:grid;grid-template-columns:1fr 1fr;gap:6px 26px;margin-top:20px}
+.m-sec h5{font-family:"Big Shoulders Display";font-weight:900;text-transform:uppercase;font-size:32px;line-height:1;margin:18px 0 4px;color:#17583A;display:flex;align-items:baseline;gap:8px}
+.m-sec h5 small{font:700 10px "Figtree";letter-spacing:.12em;color:#6b4f2a}
+.m-item{display:flex;align-items:baseline;gap:8px;padding:6px 0}
+.m-item .n{font-weight:700;font-size:14.5px}
+.m-item .d{display:block;font-weight:400;font-size:12px;color:#5b4527;margin-top:1px}
+.m-item .dots{flex:1;border-bottom:1px dotted #8a6c43;transform:translateY(-4px)}
+.m-item .p{font-family:"Big Shoulders Display";font-weight:900;font-size:22px;color:#D93A22}
+.m-star{display:inline-block;font:700 9.5px "Figtree";letter-spacing:.1em;text-transform:uppercase;background:#D93A22;color:#fff;border-radius:99px;padding:2px 7px;margin-left:6px;vertical-align:2px}
+.slate{margin-top:24px;background:#222A26;color:#F2EFE6;border-radius:10px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;box-shadow:inset 0 0 0 6px #6b4f2a}
+.slate .ch{font:400 24px/1.1 "Caveat Brush","Comic Sans MS",cursive}
+.slate .ch small{display:block;font-size:16px;color:#cfd6d2}
+.slate .big{font:900 46px "Big Shoulders Display"}
+.m-foot{margin-top:18px;font-size:12px;color:#5b4527;text-align:center}
+.menu-legend{max-width:640px;margin:16px auto 0;font-size:13px;color:#5f6862;text-align:center}
+@media (max-width:560px){.m-cols{grid-template-columns:1fr}.menu{padding:26px 18px}}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="tabs" role="tablist"><button role="tab" data-t="dossier" aria-selected="true">Dossier</button><button role="tab" data-t="site" aria-selected="false">Site</button><button role="tab" data-t="carte" aria-selected="false">Carte</button></nav>
+<section class="panel" id="p-dossier">
+<header>
+<img src="logo.svg" alt="Logo Kebab du Marché">
+<h1>Kebab du Marché</h1>
+<p>Onex. Identité, site, commande en ligne, réseaux et publicité.</p>
+</header>
+<div class="wrap">
+
+<p class="note" style="margin-top:20px">Proposition Nouvelle Ardoise pour le Kebab du Marché, Onex. Les mises en situation et les photos de plats sont des images de projection : les plats seront photographiés pour de vrai au shooting.</p>
+
+<h2><small>01 · Stratégie de marque</small>Le kebab du marché d'Onex</h2>
+<p>Aujourd'hui, le restaurant n'existe en ligne que par Uber Eats. Le client paie la commission, ne connaît pas le nom et commande « un kebab » chez n'importe qui. La marque redonne au lieu un visage : l'étal du marché, la broche qui tourne, la viande coupée minute.</p>
+<div class="pillars">
+<div class="pillar"><b>Promesse.</b> Le döner coupé minute et la pide du four, frais comme au marché, à deux pas de chez vous.</div>
+<div class="pillar"><b>Personnalité.</b> Populaire, généreux, direct. Le commerce du quartier qu'on aime, pas un fast-food anonyme.</div>
+<div class="pillar"><b>Le store.</b> L'auvent rayé vert et crème de l'étal. On le voit de loin sur la façade, sur les sacs et dans le fil Instagram.</div>
+<div class="pillar"><b>Cibles.</b> Midi : actifs, artisans, étudiants (formule à 17.–). Soir et week-end : familles et jeunes du quartier, à emporter jusqu'à minuit.</div>
+</div>
+
+<h2><small>02 · Logo</small>Le store du marché</h2>
+<figure style="margin-bottom:10px"><img src="logo.svg" alt="Logo principal Kebab du Marché"><figcaption><span class="tag v">Retenu</span> Le store rayé au-dessus du nom : KEBAB en grand, DU MARCHÉ en rouge tomate, la broche en signature. Fichier vectoriel, net de l'autocollant à l'enseigne.</figcaption></figure>
+<div class="grid">
+<figure><img src="img/logo-tampon.jpg" alt="Variante tampon rond" loading="lazy"><figcaption><span class="tag alt">Variante</span> Le tampon d'étal, rond. Peut servir de pastille (autocollants, photo de profil).</figcaption></figure>
+<figure><img src="img/logo-lame.jpg" alt="Variante typographique avec lame" loading="lazy"><figcaption><span class="tag alt">Variante</span> La lame : typo massive, le couteau du döner souligne le nom.</figcaption></figure>
+</div>
+<h3>Déclinaisons prévues</h3>
+<ul>
+<li>Version complète (store + nom + broche)</li>
+<li>Store seul en pastille ronde (stickers de boîtes, avatar Instagram, tampon fidélité)</li>
+<li>Nom seul horizontal (enseigne en bandeau, en-tête de carte, site)</li>
+<li>Versions une couleur : crème sur vert, vert sur kraft</li>
+<li>Motif répété pour le papier des galettes et les sacs</li>
+</ul>
+
+<h2><small>03 · Mises en situation</small>La marque dans la vraie vie</h2>
+<figure style="margin-bottom:10px"><img src="img/facade.jpg" alt="Façade avec enseigne lumineuse et store rayé" loading="lazy"><figcaption>Façade : enseigne lumineuse et vrai store rayé, visible depuis l'avenue</figcaption></figure>
+<div class="grid">
+<figure><img src="img/sac.jpg" alt="Sac kraft, boîte et galette emballée" loading="lazy"><figcaption>Sac kraft, boîte avec pastille, galette emballée</figcaption></figure>
+<figure><img src="img/galette.jpg" alt="Galette dans son papier imprimé" loading="lazy"><figcaption>Papier de galette imprimé : chaque photo client devient une pub</figcaption></figure>
+<figure><img src="img/comptoir.jpg" alt="Tablier brodé au comptoir" loading="lazy"><figcaption>Tablier brodé et ardoise du comptoir</figcaption></figure>
+<figure><img src="img/fidelite.jpg" alt="Carte de fidélité papier et téléphone" loading="lazy"><figcaption>Carte du Marché, en carton et dans le téléphone</figcaption></figure>
+</div>
+
+<h2><small>04 · Brandboard</small>Couleurs et typographie</h2>
+<div class="pal">
+<div class="sw" style="background:#17583A;color:#F2EFE6">Vert épicier<br>#17583A</div>
+<div class="sw" style="background:#D93A22;color:#fff">Tomate<br>#D93A22</div>
+<div class="sw" style="background:#F2EFE6;color:#222A26">Crème<br>#F2EFE6</div>
+<div class="sw" style="background:#C8A273;color:#222A26">Kraft<br>#C8A273</div>
+<div class="sw" style="background:#222A26;color:#F2EFE6">Ardoise<br>#222A26</div>
+</div>
+<p style="font-size:14px;color:var(--muted)">Vert pour la marque, tomate pour les prix et les boutons, crème et kraft pour les fonds, ardoise pour les prix écrits à la craie.</p>
+<div class="type" style="margin-top:12px">
+<div class="t1">Döner galette <i>13.–</i><br>Formule midi <i>17.–</i></div>
+<div class="t2">Titres : Big Shoulders Display, condensée et puissante comme le logo. Textes : Figtree, lisible sur téléphone. Ardoise : écriture à la craie.</div>
+</div>
+
+<h2><small>05 · Carte de fidélité</small>La Carte du Marché</h2>
+<div class="card">
+<div class="bs" style="font-size:30px">Kebab du Marché · Carte fidélité</div>
+<div class="stamps"><span class="on">✓</span><span class="on">✓</span><span class="on">✓</span><span class="on">✓</span><span class="on">✓</span><span class="on">✓</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
+<div style="font-size:14px;color:#cfe0d5">10 passages = 1 galette offerte. La formule midi compte double le lundi.</div>
+</div>
+<p>Dans le wallet du téléphone, avec un QR en caisse, sans appli à télécharger. Une version carton pour les habitués. Chaque carte nous donne un contact pour faire revenir le client. Seuil et cadeau à fixer avec vous selon vos marges.</p>
+
+<h2><small>06 · Commande en ligne</small>Vos clients, chez vous</h2>
+<p>Uber prend jusqu'à 30 % sur chaque commande et garde le client. On installe une commande à emporter à votre nom : le client commande sur votre site, paie avec TWINT ou carte, et vient chercher au comptoir. La commande arrive sur une tablette en cuisine.</p>
+<div class="steps">
+<div><b>Commande et paiement</b> sur votre site, sans commission par commande. Prête en 12 minutes, le client reçoit une notification.</div>
+<div><b>Fichier clients</b> : chaque commande et chaque carte de fidélité ajoute un contact (avec son accord).</div>
+<div><b>Campagnes SMS et e-mail</b> : « Mardi, pide -20 % », « Votre galette vous attend ». Vous faites revenir les clients au lieu de les racheter à Uber.</div>
+<div><b>Carton QR dans les sacs Uber</b> : « La prochaine fois, commandez en direct, la boisson est offerte. »</div>
+<div><b>Vos chiffres</b> chaque mois : commandes, panier moyen, plats qui marchent, clients qui reviennent.</div>
+</div>
+
+<h2><small>07 · Réseaux sociaux</small>La broche qui tourne, c'est votre meilleure pub</h2>
+<p>On vient filmer chez vous, on monte des réels courts et on publie à votre place. Le compte montre la viande coupée minute, la pide qui sort du four et le quartier.</p>
+<div class="ig" aria-label="Aperçu du compte Instagram">
+<div class="top">kebabdumarche.onex</div>
+<div class="head"><div class="av"><img src="logo.svg" alt=""></div><div class="stats"><span><b>48</b>publications</span><span><b>1 240</b>abonnés</span><span><b>12</b>suivis</span></div></div>
+<div class="bio"><b>Kebab du Marché</b><br>Döner coupé minute · four à pide · grill<br>Av. des Grandes-Communes 27, Onex · 7j/7 jusqu'à minuit<br><a href="#site" data-go="site">kebabdumarche.ch · Commander</a></div>
+<div class="hl"><div><i style="background-image:url(img/broche.jpg)"></i>Broche</div><div><i style="background-image:url(img/pide.jpg)"></i>Four</div><div><i style="background-image:url(img/assiette.jpg)"></i>Carte</div><div><i style="background-image:url(img/fidelite.jpg)"></i>Fidélité</div><div><i style="background-image:url(img/facade.jpg)"></i>Infos</div></div>
+<div class="g">
+<div class="rl" style="background-image:url(img/comptoir.jpg)"></div>
+<div class="t">Formule<br>midi<br>17.–</div>
+<div style="background-image:url(img/galette.jpg)"></div>
+<div style="background-image:url(img/pide.jpg)"></div>
+<div class="rl" style="background-image:url(img/broche.jpg)"></div>
+<div style="background-image:url(img/sac.jpg)"></div>
+<div class="t r">Prêt<br>en 12<br>min</div>
+<div class="rl" style="background-image:url(img/facade.jpg)"></div>
+<div style="background-image:url(img/assiette.jpg)"></div>
+</div>
+</div>
+<h3>Une semaine type</h3>
+<div class="week">
+<div><b>Lundi</b>Réel : la broche montée le matin, viande fraîche.</div>
+<div><b>Mercredi</b>Réel : la pide qui sort du four, le fromage qui file.</div>
+<div><b>Vendredi</b>Carrousel : la formule midi et l'assiette du Marché.</div>
+<div><b>Dimanche</b>Story : un avis client, ouvert jusqu'à minuit.</div>
+</div>
+
+<h2><small>08 · Publicité</small>Toucher ceux qui habitent à cinq minutes</h2>
+<div class="ad">
+<figure><img src="img/galette.jpg" alt="Exemple de publicité Instagram" loading="lazy"><figcaption><b>Sponsorisé</b> · « À 5 minutes de chez toi. Döner coupé minute, prêt en 12 min. » Bouton : Commander à emporter.</figcaption></figure>
+<div>
+<svg viewBox="0 0 280 170" role="img" aria-label="Zone de 3 km autour d'Onex"><circle cx="140" cy="85" r="78" fill="rgba(23,88,58,.14)" stroke="#17583A" stroke-dasharray="4 4"/><circle cx="140" cy="85" r="6" fill="#D93A22"/><text x="140" y="104" text-anchor="middle">Onex</text><text x="64" y="52">Lancy</text><text x="186" y="44">Petit-Lancy</text><text x="52" y="140">Bernex</text><text x="172" y="146">Confignon</text></svg>
+<table>
+<tr><td><b>Zone</b></td><td>3 km autour du restaurant</td></tr>
+<tr><td><b>Heures</b></td><td>11h–13h30 et 18h–22h</td></tr>
+<tr><td><b>Budget</b></td><td>10 à 15 CHF par jour, payé directement à Meta</td></tr>
+<tr><td><b>Google</b></td><td>Annonce sur « kebab onex » et fiche Maps complète</td></tr>
+</table>
+</div>
+</div>
+
+<h2><small>09 · Tarifs</small>Un lancement, puis on vous suit chaque mois</h2>
+<div class="price">
+<div class="offer hl"><span class="tag v">Lancement</span><div class="p">900 CHF</div><p>Identité (logo et déclinaisons, couleurs), shooting photo des plats, site sur mesure, nouvelle carte en ligne et imprimée, commande à emporter et fidélité installées à votre nom, fiche Google Maps, Instagram créé et lancé.</p></div>
+<div class="offer"><span class="tag alt">Puis, chaque mois</span><h3>Réseaux</h3><div class="p">390 CHF / mois</div><p>Une heure de shooting chez vous, 4 réels montés et publiés, le menu du jour, site et horaires tenus à jour.</p></div>
+<div class="offer"><span class="tag">Option</span><h3>Réseaux + publicité</h3><div class="p">990 CHF / mois</div><p>Deux heures de tournage, 4 réels et 8 publications, publicités Meta et Google gérées, campagnes SMS et e-mail, bilan chiffré chaque mois.</p></div>
+</div>
+<p style="font-size:14px;color:var(--muted)">À votre charge, payés directement aux services : l'abonnement de l'outil de commande et de fidélité, et le budget publicitaire. Abonnements : trois mois minimum, puis sans engagement.</p>
+
+<h2><small>10 · Et maintenant</small>Les quatre premières semaines</h2>
+<ol>
+<li>Validation du logo et de la nouvelle carte, shooting des plats</li>
+<li>Site en ligne, commande à emporter et fiche Google prêtes</li>
+<li>Instagram lancé, cartons QR dans les sacs et sur le comptoir</li>
+<li>Première publicité autour d'Onex et premier bilan</li>
+</ol>
+</div>
+</section>
+
+<section class="panel" id="p-site" hidden>
+<div class="stage">
+<p class="intro"><b>Aperçu du futur site.</b> Fait pour le téléphone, avec la commande à emporter toujours à portée de pouce. Faites défiler l'écran.</p>
+<div class="phone"><div class="screen">
+<div class="s-nav"><img src="logo.svg" alt="Kebab du Marché"><span>Carte · Commander</span></div>
+<div class="s-hero"><img src="img/facade.jpg" alt="Façade du Kebab du Marché le soir">
+<div class="txt"><span class="eb">Onex · 7j/7 jusqu'à minuit</span><h3>Le döner coupé minute</h3><p>La broche du jour, la pide qui sort du four, prêts en 12 minutes.</p>
+<div class="btns"><a class="b1" href="#commander">Commander à emporter</a><a class="b2" href="#carte" data-go="carte">Voir la carte</a></div></div></div>
+<div class="s-sec"><span class="eb">Midi, 11h–14h</span><h4>La formule midi</h4><p>Döner galette, frites et ayran. Rapide, généreux, prix clair.</p>
+<div class="s-img"><img src="img/galette.jpg" alt="Galette döner" loading="lazy"></div>
+<ul class="s-list"><li><span><b>Formule midi</b><i>Döner galette + frites + ayran</i></span><span class="pr">17.–</span></li><li><span><b>Döner galette</b><i>Crudités, oignon au sumac, sauce blanche maison</i></span><span class="pr">12.–</span></li><li><span><b>Döner box</b><i>Viande, frites et sauce</i></span><span class="pr">13.–</span></li></ul></div>
+<div class="s-sec s-dark"><span class="eb">La maison</span><h4>La broche et le four</h4><p>La viande coupée à la commande, la pâte des pides abaissée le matin.</p>
+<div class="s-img"><img src="img/comptoir.jpg" alt="Le comptoir et la broche" loading="lazy"></div>
+<div class="s-chips"><span class="on">Broche</span><span>Four</span><span>Grill</span><span>Vert</span></div>
+<ul class="s-list"><li><span><b>Pide au sucuk</b><i>Sucuk, fromage fondu</i></span><span class="pr">13.–</span></li><li><span><b>Lahmacun</b><i>Avec salade et citron : 13.–</i></span><span class="pr">10.–</span></li><li><span><b>Assiette du Marché</b><i>Köfte, poulet, döner, légumes grillés</i></span><span class="pr">26.–</span></li></ul></div>
+<div class="s-sec" id="commander"><span class="eb">À emporter</span><h4>Votre commande</h4>
+<div class="s-order"><div class="row"><span>1 × Formule midi</span><span>17.–</span></div><div class="row"><span>1 × Pide au sucuk</span><span>13.–</span></div><div class="row tot"><span>Total · prête à 12h24</span><span>30.–</span></div><a class="pay" href="#commander">Payer avec TWINT</a></div></div>
+<div class="s-sec" style="padding-top:0"><div class="s-loy"><img src="img/fidelite.jpg" alt="Carte du Marché"><div><b>La Carte du Marché</b>10 passages, la galette est pour nous. Dans votre téléphone, sans appli.</div></div></div>
+<div class="s-sec" style="padding-top:0"><div class="s-img"><img src="img/sac.jpg" alt="Sac à emporter" loading="lazy"></div><p>Av. des Grandes-Communes 27, 1213 Onex · 022 870 02 42 · tous les jours de 9h à minuit.</p></div>
+<div class="s-foot"><img src="logo.svg" alt=""><br>Kebab du Marché · Onex<br>Instagram · Google · Uber Eats</div>
+<div class="s-cta"><a class="b1" href="#commander">Commander</a><a class="b2" href="#carte" data-go="carte">La carte</a></div>
+</div></div>
+<p class="legend">Maquette de démonstration : les photos seront remplacées par celles du shooting.</p>
+</div>
+</section>
+
+<section class="panel" id="p-carte" hidden>
+<div class="menu-wrap">
+<div class="menu">
+<div class="top"><img src="logo.svg" alt="Kebab du Marché"><span>Viande coupée à la commande · Onex</span></div>
+<div class="m-cols">
+<div class="m-sec"><h5>La broche <small>veau ou poulet</small></h5>
+<div class="m-item"><span class="n">Döner galette<span class="m-star">Signature</span><span class="d">Crudités, oignon au sumac, sauce blanche</span></span><span class="dots"></span><span class="p">12.–</span></div>
+<div class="m-item"><span class="n">Döner pain</span><span class="dots"></span><span class="p">12.–</span></div>
+<div class="m-item"><span class="n">Döner baguette</span><span class="dots"></span><span class="p">13.–</span></div>
+<div class="m-item"><span class="n">Döner box<span class="d">Viande, frites et sauce</span></span><span class="dots"></span><span class="p">13.–</span></div>
+<div class="m-item"><span class="n">Assiette döner<span class="d">Riz ou frites, salade, pain</span></span><span class="dots"></span><span class="p">20.–</span></div>
+</div>
+<div class="m-sec"><h5>Le four <small>pâte du matin</small></h5>
+<div class="m-item"><span class="n">Pide au sucuk<span class="m-star">Signature</span></span><span class="dots"></span><span class="p">13.–</span></div>
+<div class="m-item"><span class="n">Pide fromage, viande ou épinards</span><span class="dots"></span><span class="p">13.–</span></div>
+<div class="m-item"><span class="n">Lahmacun<span class="d">Avec salade et citron : 13.–</span></span><span class="dots"></span><span class="p">10.–</span></div>
+<div class="m-item"><span class="n">Börek fromage ou viande</span><span class="dots"></span><span class="p">10.–</span></div>
+</div>
+<div class="m-sec"><h5>Le grill <small>riz, salade, pain</small></h5>
+<div class="m-item"><span class="n">Assiette köfte</span><span class="dots"></span><span class="p">21.–</span></div>
+<div class="m-item"><span class="n">Brochettes de poulet</span><span class="dots"></span><span class="p">21.–</span></div>
+<div class="m-item"><span class="n">Assiette du Marché<span class="d">Köfte, poulet, döner, légumes grillés</span></span><span class="dots"></span><span class="p">26.–</span></div>
+</div>
+<div class="m-sec"><h5>Vert <small>sans viande</small></h5>
+<div class="m-item"><span class="n">Falafel galette</span><span class="dots"></span><span class="p">11.–</span></div>
+<div class="m-item"><span class="n">Assiette falafel</span><span class="dots"></span><span class="p">18.–</span></div>
+<div class="m-item"><span class="n">Salade du Marché</span><span class="dots"></span><span class="p">10.–</span></div>
+<div class="m-item"><span class="n">Soupe de lentilles</span><span class="dots"></span><span class="p">10.–</span></div>
+</div>
+<div class="m-sec"><h5>Aussi <small>à emporter</small></h5>
+<div class="m-item"><span class="n">Tacos kebab, poulet, cordon bleu</span><span class="dots"></span><span class="p">11.–</span></div>
+<div class="m-item"><span class="n">Cheeseburger</span><span class="dots"></span><span class="p">12.–</span></div>
+<div class="m-item"><span class="n">Pizzas Marché, Istanbul, Kebab</span><span class="dots"></span><span class="p">16.–</span></div>
+<div class="m-item"><span class="n">Frites</span><span class="dots"></span><span class="p">6.–</span></div>
+</div>
+<div class="m-sec"><h5>Les petits <small>jusqu'à 10 ans</small></h5>
+<div class="m-item"><span class="n">Nuggets, frites et compote</span><span class="dots"></span><span class="p">11.–</span></div>
+</div>
+</div>
+<div class="slate"><div class="ch">Formule midi, 11h–14h<small>Döner galette + frites + ayran</small></div><div class="big">17.–</div></div>
+<p class="m-foot">Prix en CHF. Allergènes sur demande. 10 passages sur la Carte du Marché, la galette est offerte.</p>
+</div>
+<p class="menu-legend">Proposition de nouvelle carte : 55 plats ramenés à 30, la broche et le four en premier. Contenu et prix finaux à valider avec vous.</p>
+</div>
+</section>
+<script>
+(function(){var b=document.querySelectorAll('.tabs button');function show(t){b.forEach(function(x){x.setAttribute('aria-selected',x.dataset.t===t)});document.querySelectorAll('.panel').forEach(function(p){p.hidden=p.id!=='p-'+t});window.scrollTo(0,0);try{history.replaceState(null,'','#'+t)}catch(e){}}
+b.forEach(function(x){x.addEventListener('click',function(){show(x.dataset.t)})});
+document.querySelectorAll('[data-go]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();show(a.dataset.go)})});
+var h=location.hash.replace('#','');if(h==='site'||h==='carte')show(h);})();
+</script>
+</body>
+</html>
