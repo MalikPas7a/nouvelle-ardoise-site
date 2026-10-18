@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Réel « 15 minutes offertes » : la consultation téléphonique</title>
+<!--
+  Réel Instagram 15 s, 1080×1920, calé sur « Hip Hop 02 » (Mixkit n° 738, 97 BPM, voir son_consultation.py).
+  100 % dessiné, sans photo : le chrono de 15 minutes est le fil rouge. Il se remplit en trois tiers,
+  un par moment de l'appel (audit, canaux d'acquisition, première stratégie), puis l'éponge efface tout
+  pour « Gratuit. Sans engagement. », le drapeau suisse et l'appel à réserver.
+  ?quoi=publication → le visuel fixe 4:5 (1080×1350) tiré du même design.
+  REEL=reel-consultation node render.mjs assemble la vidéo ; node publication-consultation.mjs le visuel fixe.
+-->
+<style>
+  @font-face { font-family: Instru; src: url(fonts/instrument-sans-latin-wght-normal.woff2) format('woff2'); font-weight: 400 700; }
+  @font-face { font-family: Bodoni; src: url(fonts/bodoni-moda-latin-standard-normal.woff2) format('woff2'); font-weight: 400 900; }
+  @font-face { font-family: Bodoni; src: url(fonts/bodoni-moda-latin-standard-italic.woff2) format('woff2'); font-weight: 400 900; font-style: italic; }
+  @font-face { font-family: Brico; src: url(fonts/bricolage-grotesque-latin-standard-normal.woff2) format('woff2'); font-weight: 200 800; }
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas></canvas>
+<script src="ardoise.js"></script>
+<script>
+const PUBLICATION = new URLSearchParams(location.search).get('quoi') === 'publication';
+const L = 1080, H = PUBLICATION ? 1350 : 1920, DUREE = 15;
+window.DUREE = DUREE;
+const JAUNE = '#FFD23F', ARDOISE = '#1E2A2C', ROUGE = '#DA291C';
+const toile = document.querySelector('canvas');
+toile.width = L; toile.height = H; toile.style.width = `${L}px`; toile.style.height = `${H}px`;
+const ctx = toile.getContext('2d');
+const FOND = peindreArdoise(L, H);
+
+// ---------- outils ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const mix = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const sortie = (k) => 1 - Math.pow(1 - k, 3);
+const lisse = (k) => k * k * k * (k * (k * 6 - 15) + 10);
+const rebond = (k) => { const c = 1.7; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+const police = (c, taille, graisse = 500, famille = 'Instru', style = 'normal') => { c.font = `${style} ${graisse} ${taille}px ${famille}`; };
+
+// Les temps forts de la musique (secondes du réel) : chaque scène tombe sur un coup
+const T = { chrono: 0.03, offertes: 1.14, point: 3.95, menu: 6.08, etape2: 7.35, etape3: 8.68, plein: 10.2, eponge: [10.45, 11.0], gratuit: 11.03, cta: 12.71 };
+const ETAPES = [
+  { n: '01', titre: 'L’audit de votre situation', sous: 'où vous en êtes, vraiment.', t: T.menu },
+  { n: '02', titre: 'Vos canaux d’acquisition', sous: 'ceux qui rempliront votre salle.', t: T.etape2 },
+  { n: '03', titre: 'Une première stratégie', sous: 'prête à servir.', t: T.etape3 },
+];
+
+// Petit surtitre en capitales espacées, jaune craie
+function surtitre(c, texte, t, t0, y, { alpha = 1, taille = 30, x = L / 2, aligne = 'center' } = {}) {
+  const k = sortie(prog(t, t0, t0 + 0.35)) * alpha;
+  if (k <= 0) return;
+  c.save(); c.globalAlpha = k;
+  police(c, taille, 600); c.letterSpacing = `${taille * 0.2}px`;
+  c.fillStyle = JAUNE; c.textAlign = aligne; c.textBaseline = 'alphabetic';
+  c.fillText(texte.toUpperCase(), x, y + (1 - k) * 12);
+  c.restore();
+}
+// Une ligne de titre, mot à mot ; en italique, elle est soulignée à la craie jaune
+function ligne(c, texte, t, t0, y, taille, { italique = false, alpha = 1, couleur = '#fff', famille = 'Bodoni', graisse = 500, ecart = 0.07, souligne = italique } = {}) {
+  const mots = texte.split(' ');
+  const style = italique ? 'italic' : 'normal';
+  police(c, taille, graisse, famille, style);
+  const espace = taille * 0.27;
+  const largeurs = mots.map((m) => c.measureText(m).width);
+  const total = largeurs.reduce((a, b) => a + b, 0) + espace * (mots.length - 1);
+  let x = (L - total) / 2;
+  mots.forEach((m, j) => {
+    const p = prog(t, t0 + j * ecart, t0 + j * ecart + 0.24);
+    const k = Math.min(1, p * 3) * alpha;
+    if (k > 0) {
+      const e = mix(1.4, 1, rebond(p));
+      c.save(); c.globalAlpha = k;
+      c.translate(x + largeurs[j] / 2, y - taille * 0.3); c.scale(e, e); c.translate(-(x + largeurs[j] / 2), -(y - taille * 0.3));
+      police(c, taille, graisse, famille, style);
+      c.fillStyle = couleur; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+      c.fillText(m, x, y);
+      c.restore();
+    }
+    x += largeurs[j] + espace;
+  });
+  if (souligne) {
+    const k = sortie(prog(t, t0 + 0.2, t0 + 0.5));
+    if (k > 0) { c.save(); c.globalAlpha = alpha; traitJaune(c, (L - total) / 2, y + taille * 0.24, total, k); c.restore(); }
+  }
+}
+
+// Le drapeau suisse : carré rouge, croix blanche aux proportions officielles (bras 6/32, longueur 20/32)
+function drapeau(c, x, y, cote, { echelle = 1, alpha = 1 } = {}) {
+  if (echelle <= 0 || alpha <= 0) return;
+  c.save(); c.globalAlpha *= alpha;
+  c.translate(x, y); c.scale(echelle, echelle);
+  const u = cote / 32;
+  c.shadowColor = 'rgba(0,0,0,0.45)'; c.shadowBlur = cote * 0.12; c.shadowOffsetY = cote * 0.04;
+  c.fillStyle = ROUGE; c.beginPath(); c.roundRect(-cote / 2, -cote / 2, cote, cote, cote * 0.06); c.fill();
+  c.shadowColor = 'transparent';
+  c.fillStyle = '#fff';
+  c.fillRect(-3 * u, -10 * u, 6 * u, 20 * u);
+  c.fillRect(-10 * u, -3 * u, 20 * u, 6 * u);
+  c.restore();
+}
+
+// Le chrono : piste fine, trois tiers de 5 minutes, arc jaune qui avance
+// avance : 0 → 1 (part des 15 minutes écoulées) ; trace : 0 → 1 (dessin de la piste)
+function chrono(c, x, y, r, { avance = 0, trace = 1, texte = null, sous = null, taille = r * 1.05, alpha = 1, actif = -1 } = {}) {
+  if (alpha <= 0) return;
+  c.save(); c.globalAlpha *= alpha;
+  const debut = -Math.PI / 2;
+  c.lineCap = 'round';
+  c.strokeStyle = 'rgba(255,255,255,0.16)'; c.lineWidth = r * 0.06;
+  c.beginPath(); c.arc(x, y, r, debut, debut + Math.PI * 2 * trace); c.stroke();
+  // les repères des tiers (0, 5, 10 minutes)
+  for (let i = 0; i < 3; i++) {
+    const a = debut + (i / 3) * Math.PI * 2, k = prog(trace, i / 3, i / 3 + 0.05);
+    if (k <= 0) continue;
+    c.strokeStyle = i <= actif ? JAUNE : 'rgba(255,255,255,0.55)'; c.lineWidth = r * 0.03;
+    c.beginPath(); c.moveTo(x + Math.cos(a) * r * 0.86, y + Math.sin(a) * r * 0.86); c.lineTo(x + Math.cos(a) * r * (0.86 - 0.12 * k), y + Math.sin(a) * r * (0.86 - 0.12 * k)); c.stroke();
+  }
+  if (avance > 0) {
+    c.strokeStyle = JAUNE; c.lineWidth = r * 0.075;
+    c.shadowColor = 'rgba(255,210,63,0.55)'; c.shadowBlur = r * 0.1;
+    c.beginPath(); c.arc(x, y, r, debut, debut + Math.PI * 2 * avance); c.stroke();
+    const a = debut + Math.PI * 2 * avance;
+    c.fillStyle = JAUNE; c.beginPath(); c.arc(x + Math.cos(a) * r, y + Math.sin(a) * r, r * 0.07, 0, 7); c.fill();
+    c.shadowColor = 'transparent';
+  }
+  if (texte) {
+    police(c, taille, 700, 'Brico'); c.fillStyle = '#fff'; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    c.fillText(texte, x, y + taille * (sous ? 0.24 : 0.36));
+  }
+  if (sous) {
+    police(c, r * 0.17, 600); c.letterSpacing = `${r * 0.04}px`; c.fillStyle = JAUNE; c.textAlign = 'center';
+    c.fillText(sous.toUpperCase(), x, y + r * 0.55);
+  }
+  c.restore();
+}
+
+// Le temps écoulé de l'appel (0 → 1) pendant le menu, un tiers par étape
+function avanceAppel(t) {
+  const bornes = [T.menu, T.etape2, T.etape3, T.plein];
+  for (let i = 0; i < 3; i++) if (t < bornes[i + 1]) return (i + lisse(prog(t, bornes[i], bornes[i + 1]))) / 3;
+  return 1;
+}
+const minutes = (k) => { const s = Math.round((1 - k) * 15 * 60); return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`; };
+
+function coche(c, x, y, k, taille = 1) {
+  if (k <= 0) return;
+  c.save(); c.strokeStyle = JAUNE; c.lineWidth = 8 * taille; c.lineCap = 'round'; c.lineJoin = 'round';
+  const p = [[x - 18 * taille, y], [x - 4 * taille, y + 15 * taille], [x + 24 * taille, y - 20 * taille]];
+  c.beginPath(); c.moveTo(...p[0]);
+  const a = Math.min(1, k * 2);
+  c.lineTo(mix(p[0][0], p[1][0], a), mix(p[0][1], p[1][1], a));
+  if (k > 0.5) { const b = (k - 0.5) * 2; c.lineTo(mix(p[1][0], p[2][0], b), mix(p[1][1], p[2][1], b)); }
+  c.stroke(); c.restore();
+}
+
+// Une étape du menu : numéro jaune, titre, sous-titre en italique ; la coche quand le tiers est fini
+function etape(c, e, t, y, { fin = 99, x0 = 150, tailleTitre = 54, tailleSous = 44, fait = 0 } = {}) {
+  const k = sortie(prog(t, e.t, e.t + 0.35));
+  if (k <= 0) return;
+  c.save(); c.globalAlpha = k;
+  const dx = (1 - k) * -60;
+  police(c, tailleTitre * 1.1, 700, 'Brico'); c.fillStyle = JAUNE; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  c.fillText(e.n, x0 + dx, y);
+  const xt = x0 + tailleTitre * 1.9;
+  police(c, tailleTitre, 600); c.fillStyle = '#fff'; c.fillText(e.titre, xt + dx, y);
+  police(c, tailleSous, 500, 'Bodoni', 'italic'); c.fillStyle = 'rgba(255,255,255,0.72)';
+  c.fillText(e.sous, xt + dx, y + tailleSous * 1.3);
+  c.restore();
+  coche(c, L - x0 + 40, y - tailleTitre * 0.3, fait, tailleTitre / 54);
+}
+
+// ---------- 1. « 15 minutes offertes. » (0 → 3,95 s) puis « Un appel pour faire le point » ----------
+// Le chrono part du centre puis monte en haut de l'écran pour le menu
+function placeChrono(t) {
+  const k = lisse(prog(t, T.point, T.point + 0.55));
+  return { x: L / 2, y: mix(860, 560, k), r: mix(300, 190, k) };
+}
+
+function ouverture(c, t) {
+  if (t >= T.menu + 0.3) return;
+  const { x, y, r } = placeChrono(t);
+  const kChrono = rebond(prog(t, T.chrono, T.chrono + 0.4));
+  const trace = sortie(prog(t, T.chrono, T.chrono + 1.0));
+  // le « 15 » claque sur le premier coup, puis devient « 15:00 » quand le chrono monte
+  const kTexte = lisse(prog(t, T.point, T.point + 0.4));
+  c.save();
+  c.translate(x, y); c.scale(mix(1.5, 1, kChrono), mix(1.5, 1, kChrono)); c.translate(-x, -y);
+  c.globalAlpha = Math.min(1, prog(t, T.chrono, T.chrono + 0.12) * 1);
+  if (t < T.menu) {
+    if (kTexte < 1) chrono(c, x, y, r, { trace, texte: '15', sous: 'minutes', taille: r * 1.05, alpha: 1 - kTexte });
+    if (kTexte > 0) chrono(c, x, y, r, { trace: 1, texte: '15:00', taille: r * 0.52, alpha: kTexte });
+  }
+  c.restore();
+  // « Consultation téléphonique » / « offertes. »
+  const a1 = 1 - prog(t, T.point - 0.1, T.point + 0.15);
+  if (a1 > 0) {
+    surtitre(c, 'Consultation téléphonique', t, T.chrono + 0.3, 420, { alpha: a1 });
+    ligne(c, 'offertes.', t, T.offertes, 1350, 170, { italique: true, alpha: a1, ecart: 0 });
+    c.save(); c.globalAlpha = a1 * sortie(prog(t, 2.12, 2.45));
+    police(c, 44, 500); c.fillStyle = 'rgba(255,255,255,0.8)'; c.textAlign = 'center';
+    c.fillText('pour les restaurants', L / 2, 1480);
+    c.restore();
+  }
+  // « Un appel pour faire le point sur votre restaurant. »
+  const a2 = 1 - prog(t, T.menu - 0.15, T.menu + 0.1);
+  if (t > T.point && a2 > 0) {
+    ligne(c, 'Un appel pour', t, T.point + 0.25, 1000, 96, { alpha: a2 });
+    ligne(c, 'faire le point', t, T.point + 0.45, 1110, 96, { alpha: a2 });
+    ligne(c, 'sur votre restaurant.', t, T.point + 0.7, 1220, 96, { italique: true, alpha: a2 });
+  }
+}
+
+// ---------- 2. « Au menu de l'appel » : le chrono avance d'un tiers par étape (6,08 → 11 s) ----------
+function menu(c, t) {
+  if (t < T.menu - 0.05 || t >= T.eponge[1]) return;
+  const { x, y, r } = placeChrono(t);
+  const k = avanceAppel(t);
+  const actif = t < T.etape2 ? 0 : t < T.etape3 ? 1 : 2;
+  chrono(c, x, y, r, { avance: k, texte: minutes(k), taille: r * 0.52, actif });
+  surtitre(c, 'Au menu de l’appel', t, T.menu, 880);
+  const fin = [T.etape2, T.etape3, T.plein];
+  ETAPES.forEach((e, i) => etape(c, e, t, 1040 + i * 190, { fait: prog(t, fin[i] - 0.25, fin[i] + 0.05) }));
+}
+
+// ---------- 3. Gratuit, sans engagement, le drapeau suisse (11 → 12,7 s) ----------
+function gratuit(c, t) {
+  if (t < T.gratuit || t >= T.cta + 0.25) return;
+  const a = 1 - prog(t, T.cta - 0.05, T.cta + 0.2);
+  drapeau(c, L / 2, 700, 220, { echelle: rebond(prog(t, T.gratuit, T.gratuit + 0.4)), alpha: a });
+  ligne(c, 'Gratuit.', t, T.gratuit + 0.1, 1060, 190, { famille: 'Brico', graisse: 700, alpha: a, ecart: 0 });
+  ligne(c, 'Sans engagement.', t, T.gratuit + 0.55, 1220, 110, { italique: true, alpha: a });
+  c.save(); c.globalAlpha = a * sortie(prog(t, 12.02, 12.3));
+  police(c, 44, 500); c.fillStyle = 'rgba(255,255,255,0.8)'; c.textAlign = 'center';
+  c.fillText('Une agence genevoise, à votre écoute.', L / 2, 1360);
+  c.restore();
+}
+
+// ---------- 4. L'appel à réserver (12,7 → 15 s) ----------
+function reserver(c, t) {
+  if (t < T.cta) return;
+  const k0 = sortie(prog(t, T.cta, T.cta + 0.35));
+  // la marque
+  nLumineux(c, 330, 330, 92, { trace: sortie(prog(t, T.cta, T.cta + 0.35)), eclat: 0.8 });
+  c.save(); c.globalAlpha = k0;
+  police(c, 48, 700, 'Brico'); c.fillStyle = '#fff'; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  c.fillText('Nouvelle', 470, 368); c.fillText('Ardoise', 470, 420);
+  c.restore();
+  drapeau(c, 746, 344, 66, { echelle: rebond(prog(t, T.cta + 0.15, T.cta + 0.5)) });
+  ligne(c, 'Réservez', t, 13.03, 700, 120, { famille: 'Brico', graisse: 700, ecart: 0 });
+  ligne(c, 'vos 15 minutes.', t, 13.33, 840, 110, { italique: true });
+  // le bouton jaune, qui bat sur la musique
+  const kb = rebond(prog(t, 13.64, 14.0));
+  if (kb > 0) {
+    const battement = 1 + 0.025 * Math.max(0, 1 - ((t - 13.64) % 0.619) / 0.2);
+    c.save(); c.translate(L / 2, 1080); c.scale(kb * battement, kb * battement);
+    c.shadowColor = 'rgba(255,210,63,0.45)'; c.shadowBlur = 40;
+    c.fillStyle = JAUNE; c.beginPath(); c.roundRect(-430, -105, 860, 210, 105); c.fill();
+    c.shadowColor = 'transparent';
+    police(c, 96, 700, 'Brico'); c.fillStyle = ARDOISE; c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.fillText('078 213 38 68', 0, 6);
+    c.restore();
+  }
+  const ks = sortie(prog(t, 13.97, 14.3));
+  if (ks > 0) {
+    c.save(); c.globalAlpha = ks;
+    police(c, 46, 600); c.fillStyle = '#fff'; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    c.fillText('Appel ou WhatsApp', L / 2, 1270 + (1 - ks) * 16);
+    police(c, 38, 500); c.fillStyle = 'rgba(255,255,255,0.7)';
+    c.fillText('@nouvelleardoise.ch · nouvelleardoise.ch', L / 2, 1345 + (1 - ks) * 16);
+    c.restore();
+  }
+}
+
+// ---------- le coup d'éponge entre le menu et « Gratuit » ----------
+const CALQUE_MENU = Object.assign(document.createElement('canvas'), { width: L, height: H });
+const PISTE = { l: L, h: 1500, bande: 560, passes: 3 };
+function rendreMenuEssuye(t) {
+  const c = CALQUE_MENU.getContext('2d');
+  c.globalCompositeOperation = 'source-over'; c.clearRect(0, 0, L, H);
+  menu(c, t);
+  const k = prog(t, ...T.eponge);
+  let tete = null;
+  if (k > 0) { c.save(); c.translate(0, 260); tete = essuyage(c, lisse(k), PISTE); c.restore(); }
+  ctx.drawImage(CALQUE_MENU, 0, 0);
+  if (tete && k < 1) brosse(ctx, tete[0], tete[1] + 260, 420);
+}
+
+// Petit à-coup sur les temps forts
+const COUPS = [T.chrono, T.offertes, T.point, T.menu, T.etape2, T.etape3, T.gratuit, T.cta];
+const TAMPON = Object.assign(document.createElement('canvas'), { width: L, height: H });
+function impact(t) {
+  const passes = COUPS.filter((x) => x <= t);
+  const d = passes.length ? t - passes[passes.length - 1] : 9;
+  if (d >= 0.22) return;
+  const z = 1 + 0.035 * Math.pow(1 - d / 0.22, 2);
+  const tc = TAMPON.getContext('2d');
+  tc.clearRect(0, 0, L, H); tc.drawImage(ctx.canvas, 0, 0);
+  ctx.save(); ctx.translate(L / 2, H / 2); ctx.scale(z, z); ctx.translate(-L / 2, -H / 2);
+  ctx.drawImage(TAMPON, 0, 0); ctx.restore();
+}
+
+// ---------- le visuel fixe 4:5 ----------
+function publication(c) {
+  c.drawImage(FOND, 0, 0);
+  // en-tête : la marque et le drapeau
+  nLumineux(c, 96, 92, 56, { eclat: 0.8 });
+  police(c, 34, 700, 'Brico'); c.fillStyle = '#fff'; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  c.fillText('Nouvelle Ardoise', 182, 136);
+  drapeau(c, L - 112, 118, 64);
+  police(c, 26, 600); c.letterSpacing = '4px'; c.fillStyle = 'rgba(255,255,255,0.7)'; c.textAlign = 'right';
+  c.fillText('GENÈVE', L - 166, 128); c.letterSpacing = '0px';
+  // le chrono et l'accroche
+  chrono(c, L / 2, 365, 160, { avance: 0, texte: '15', sous: 'minutes', taille: 170 });
+  surtitre(c, 'Consultation téléphonique', 9, 0, 600, { taille: 28 });
+  ligne(c, 'offertes.', 9, 0, 715, 110, { italique: true });
+  // le menu de l'appel
+  ETAPES.forEach((e, i) => etape(c, e, 9, 855 + i * 106, { x0: 120, tailleTitre: 40, tailleSous: 32, fait: 1 }));
+  // l'appel à réserver
+  c.save();
+  c.fillStyle = JAUNE; c.beginPath(); c.roundRect(90, 1200, L - 180, 108, 54); c.fill();
+  police(c, 50, 700, 'Brico'); c.fillStyle = ARDOISE; c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillText('078 213 38 68', L / 2 - 120, 1256);
+  police(c, 28, 600); c.textAlign = 'left';
+  c.fillText('Appel ou WhatsApp', L / 2 + 70, 1242);
+  police(c, 24, 500); c.fillStyle = 'rgba(30,42,44,0.75)';
+  c.fillText('Gratuit, sans engagement', L / 2 + 70, 1276);
+  c.restore();
+}
+
+window.pret = Promise.all([
+  document.fonts.load('500 40px Instru'), document.fonts.load('600 40px Instru'), document.fonts.load('700 40px Instru'),
+  document.fonts.load('700 60px Brico'),
+  document.fonts.load('500 100px Bodoni'), document.fonts.load('italic 500 100px Bodoni'),
+]).then(() => { if (PUBLICATION) publication(ctx); });
+
+window.rendu = function (t) {
+  ctx.drawImage(FOND, 0, 0);
+  ouverture(ctx, t);
+  if (t < T.eponge[0]) menu(ctx, t); else rendreMenuEssuye(t);
+  gratuit(ctx, t);
+  reserver(ctx, t);
+  impact(t);
+};
+
+if (!navigator.webdriver && !PUBLICATION) {
+  window.pret.then(() => {
+    const debut = performance.now();
+    const boucle = () => { window.rendu(((performance.now() - debut) / 1000) % DUREE); requestAnimationFrame(boucle); };
+    boucle();
+  });
+}
+</script>
+</body>
+</html>
