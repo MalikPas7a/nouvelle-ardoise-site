@@ -38,6 +38,17 @@ h2{font-size:clamp(32px,5.2vw,58px)}
 .cartbtn i{font-style:normal;display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--bleu);color:#fff;font-size:12px}
 .cartbtn.bump{animation:bump .5s}
 @keyframes bump{30%{transform:scale(1.12)}}
+/* chargement */
+html.chargement,html.chargement body{overflow:hidden;height:100%}
+#loader{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 30%,#1d2563 0%,var(--nuit) 70%);touch-action:none;transition:opacity .8s ease,visibility .8s}
+#loader.fini{opacity:0;visibility:hidden}
+#loader .in{width:min(78vw,420px);text-align:center}
+#loader .n{display:flex;justify-content:center;align-items:baseline;margin:22px 0 18px;font-weight:800;letter-spacing:-.04em;line-height:1}
+#loader .n b{font-size:clamp(84px,24vw,150px);font-variant-numeric:tabular-nums}
+#loader .n i{font-style:normal;font-size:clamp(28px,7vw,44px);color:var(--bleu2);margin-left:6px}
+#loader .bar{height:3px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
+#loader .bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--bleu2),var(--vert2))}
+#loader p{margin-top:14px;font-size:14px;color:var(--gris);min-height:21px}
 @media (max-width:760px){.brand{display:none}.prog a span{display:none}.prog a{padding:7px 8px}.top{gap:8px;padding:8px 10px}}
 /* intro immersive + carte */
 .intro{position:relative;height:430vh}
@@ -263,6 +274,24 @@ footer.f{padding:48px 0 64px;color:var(--gris);font-size:13px}
 </style>
 </head>
 <body>
+<div id="loader" aria-live="polite"><div class="in"><span class="lbl">Personal shopping randonnée</span><div class="n"><b id="ldN">0</b><i>%</i></div><div class="bar"><span id="ldB"></span></div><p id="ldT">Chargement du relief des Alpes</p></div></div>
+<script>
+/* écran de chargement : progression réelle (octets du relief et du mannequin, première image de la carte) */
+(function(){
+ const W={js:10,data:5,relief:25,mq:45,fonts:5,map:10},P={},d=document.documentElement;let vu=0,fin=false;
+ d.classList.add('chargement');if('scrollRestoration' in history)history.scrollRestoration='manual';
+ window.LD={set(k,f){P[k]=Math.max(P[k]||0,Math.min(1,f||0));},done(k){this.set(k,1);}};
+ const cible=()=>{let t=0;for(const k in W)t+=W[k]*(P[k]||0);return t;};
+ if(document.fonts)document.fonts.ready.then(()=>LD.done('fonts'));else LD.done('fonts');
+ setTimeout(()=>{for(const k in W)LD.done(k);},25000);
+ function tick(){const t=cible();vu=Math.min(t,vu+Math.max(.35,(t-vu)*.12));const n=Math.floor(vu);
+  document.getElementById('ldN').textContent=n;document.getElementById('ldB').style.width=vu+'%';
+  document.getElementById('ldT').textContent=n<38?'Chargement du relief des Alpes':n<85?'Préparation du mannequin 3D':'Mise en place de la carte';
+  if(vu>=99.9&&!fin){fin=true;scrollTo(0,0);setTimeout(()=>{d.classList.remove('chargement');const l=document.getElementById('loader');l.classList.add('fini');setTimeout(()=>l.remove(),900);},250);return;}
+  requestAnimationFrame(tick);}
+ requestAnimationFrame(tick);
+})();
+</script>
 
 <div class="top" id="top">
   <div class="brand">Personal shopping <span>randonnée</span></div>
@@ -410,6 +439,7 @@ import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+LD.done('js');
 
 const $=id=>document.getElementById(id);
 const IMG='img/';
@@ -735,8 +765,12 @@ addEventListener('scroll',onScroll,{passive:true});
   if((dy<0&&bas)||(dy>0&&haut)){e.preventDefault();scrollBy(0,-dy);}},{passive:false});})();
 
 /* ---------- Données : relief et randonnées ---------- */
-HIKES=await fetch('data/randos.json').then(r=>r.json());
-const relImg=new Image();relImg.src='data/relief.png';await relImg.decode();
+async function chargeSuivi(url,k){const r=await fetch(url),n=+r.headers.get('content-length')||0;
+ if(!r.body||!n){const b=await r.blob();LD.done(k);return b;}
+ const rd=r.body.getReader(),ch=[];let got=0;for(;;){const {done,value}=await rd.read();if(done)break;ch.push(value);got+=value.length;LD.set(k,got/n);}
+ LD.done(k);return new Blob(ch);}
+HIKES=await fetch('data/randos.json').then(r=>r.json());LD.done('data');
+const relImg=new Image();relImg.src=URL.createObjectURL(await chargeSuivi('data/relief.png','relief'));await relImg.decode();
 const RN=1024,ALT=new Float32Array(RN*RN);
 {const c=document.createElement('canvas');c.width=c.height=RN;const g=c.getContext('2d',{willReadFrequently:true});g.drawImage(relImg,0,0);const d=g.getImageData(0,0,RN,RN).data;for(let i=0;i<RN*RN;i++)ALT[i]=d[i*4]*256+d[i*4+1];}
 function alt(px,py){px=borne(px,0,RN-1.001);py=borne(py,0,RN-1.001);const x=Math.floor(px),y=Math.floor(py),fx=px-x,fy=py-y,i=y*RN+x;
@@ -805,7 +839,7 @@ function ll2px(lat,lon){const n=2**11*256,x=(lon+180)/360*n,r=lat*Math.PI/180,y=
  new ResizeObserver(size).observe(box);size();
  let on=false;visible(box,v=>{on=v;if(v)requestAnimationFrame(loop);});
  const E=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
- let wasOn=null;
+ let wasOn=null,vu1=false;
  function loop(now){
   if(!on)return;
   const r=sec.getBoundingClientRect();p=borne(-r.top/(r.height-innerHeight),0,1);
@@ -822,7 +856,7 @@ function ll2px(lat,lon){const n=2**11*256,x=(lon+180)/360*n,r=lat*Math.PI/180,y=
   controls.update();
   if(sel>=0){const d=borne((now-drawT)/2000,0,1),k=E(d);const rr=ROUTES[sel];
    rr.core.geometry.setDrawRange(0,Math.floor(rr.core.geometry.index.count*k/3)*3);rr.glow.geometry.setDrawRange(0,Math.floor(rr.glow.geometry.index.count*k/3)*3);}
-  R.render(scene,cam);
+  R.render(scene,cam);if(!vu1){vu1=true;LD.done('map');}
   // étiquettes
   const mbv=place($('labMB'),MB,-6);$('labMB').style.opacity=(!mapOn&&p>.18&&p<.46)?1:0;
   place($('labGE'),GE,-4);$('labGE').style.opacity=(p>.55&&(!mapOn||sel<0))?1:0;
@@ -895,7 +929,7 @@ function ll2px(lat,lon){const n=2**11*256,x=(lon+180)/360*n,r=lat*Math.PI/180,y=
  }
  let model,bones={},ready=false,pending=null,Hh=1.806;
  new GLTFLoader().load('models/Xbot.glb',gl=>{
-  model=gl.scene;scene.add(model);
+  LD.done('mq');model=gl.scene;scene.add(model);
   model.traverse(o=>{if(o.name.startsWith('mixamorig'))bones[o.name.replace('mixamorig','')]=o;});
   const skinned=[];model.traverse(o=>{if(o.isSkinnedMesh)skinned.push(o);});
   skinned.forEach(o=>{o.castShadow=true;o.receiveShadow=true;o.frustumCulled=false;
@@ -906,7 +940,7 @@ function ll2px(lat,lon){const n=2**11*256,x=(lon+180)/360*n,r=lat*Math.PI/180,y=
   bones.LeftForeArm.rotateOnWorldAxis(new THREE.Vector3(0,1,0),.15);bones.RightForeArm.rotateOnWorldAxis(new THREE.Vector3(0,1,0),-.15);
   model.updateMatrixWorld(true);const hb=new THREE.Vector3();bones.HeadTop_End.getWorldPosition(hb);Hh=hb.y;
   controls.target.set(0,Hh*.52,0);ready=true;if(pending){window.dressMQ(...pending);}
- });
+ },e=>{if(e.total)LD.set('mq',e.loaded/e.total);},()=>LD.done('mq'));
  const controls=new OrbitControls(cam,cv);cv.style.touchAction='';controls.enableDamping=true;controls.enablePan=false;controls.enableZoom=false;controls.minPolarAngle=1.1;controls.maxPolarAngle=1.75;
  cam.position.set(2.2,1.2,4.6);controls.target.set(0,.95,0);
  function size(){const w=box.clientWidth,h=box.clientHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();
