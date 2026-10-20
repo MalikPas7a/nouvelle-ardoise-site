@@ -435,6 +435,41 @@ h2.D{font-size:clamp(34px,5vw,58px);max-width:900px}
 .ba .after .cap{color:var(--red)}
 .ba .after p{font-size:14px;color:#C9C5BE;margin-top:14px;line-height:1.5}
 @media (max-width:860px){.off3,.ba{grid-template-columns:1fr}}
+
+.crea{background:var(--ink);color:#fff}
+.crea .lead{color:#C9C5BE}.crea .lead b{color:#fff}
+.cr{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px}
+.cr>div{background:#161616;border:1px solid #262626;border-radius:20px;padding:20px;display:flex;flex-direction:column}
+.cr .h{font-weight:700;font-size:16px}
+.cr .f{font-family:Disp;font-size:30px;color:var(--red);margin-top:10px;line-height:1}
+.cr .f small{font-family:Body;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9A968F;font-weight:700;margin-left:6px}
+.cr p{font-size:13.5px;color:#B8B4AD;margin-top:8px;line-height:1.45}
+.cr .t{margin-top:auto;padding-top:12px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff}
+.crnote{margin-top:14px;font-size:12px;color:#8C8882}
+.ig3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
+.ig3>div{border-radius:20px;padding:22px;background:var(--red)}
+.ig3 b{display:block;font-size:17px}
+.ig3 p{font-size:14px;margin-top:8px;line-height:1.45}
+.moi{background:var(--paper)}
+.moi .grid2{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:start;margin-top:30px}
+.tl{display:grid;gap:0}
+.tl>div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:16px 0;border-top:1px solid var(--g2)}
+.tl .y{font-family:Disp;font-size:21px;color:var(--red);line-height:1}
+.tl b{display:block;font-size:16px}
+.tl small{display:block;color:var(--mute);font-size:14px;margin-top:4px;line-height:1.45}
+.why{background:var(--ink);color:#fff;border-radius:24px;padding:26px}
+.why .S{font-size:24px}
+.why ul{list-style:none;margin-top:14px;display:grid;gap:10px;font-size:15px}
+.why li{padding-left:16px;position:relative;line-height:1.45;color:#C9C5BE}
+.why li b{color:#fff}
+.why li:before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--red)}
+.eq{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.eq>div{background:#fff;border:1px solid var(--g2);border-radius:20px;padding:20px}
+.eq b{display:block;font-size:16px;margin-top:6px}
+.eq small{display:block;color:var(--mute);font-size:14px;margin-top:6px;line-height:1.45}
+.eq .cap{color:var(--red)}
+@media (max-width:860px){.tl>div{grid-template-columns:1fr;gap:6px}.cr,.ig3,.moi .grid2,.eq{grid-template-columns:1fr}.cr{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.cr{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -446,8 +481,8 @@ h2.D{font-size:clamp(34px,5vw,58px);max-width:900px}
     <p class="lead">Vos affaires sont confidentielles : on ne montre ni l'enseigne, ni l'adresse, ni le personnel. <b>On fait de cette contrainte votre signature</b> : une identité forte, des vidéos qui font rêver les repreneurs et un tunnel qui ne livre le dossier qu'aux candidats solvables. <b>Et on vous amène des vendeurs.</b></p>
     <div class="menu3">
       <a href="#offre"><span class="cap">01</span><b>Je vous amène des vendeurs</b><small>Du terrain, chaque semaine. Payé au succès.</small></a>
-      <a href="#offre"><span class="cap">02</span><b>Je fais réagir vos réseaux</b><small>LinkedIn et Instagram, en toute discrétion.</small></a>
-      <a href="#offre"><span class="cap">03</span><b>J'ouvre chaque resto vendu</b><small>Le repreneur réussit, il recommande Remicom.</small></a>
+      <a href="#instagram"><span class="cap">02</span><b>Je fais réagir vos réseaux</b><small>Instagram, LinkedIn et créateurs food, en toute discrétion.</small></a>
+      <a href="#moi"><span class="cap">03</span><b>J'ouvre chaque resto vendu</b><small>Le repreneur réussit, il recommande Remicom.</small></a>
     </div>
   </div>
   <span class="stamp st">Dossier confidentiel</span>
@@ -458,7 +493,7 @@ h2.D{font-size:clamp(34px,5vw,58px);max-width:900px}
   <p class="lead">Vous avez construit le groupe qui accompagne une reprise de A à Z. Je m'occupe de ce qui se passe <b>avant</b> (trouver les vendeurs), <b>pendant</b> (faire connaître vos affaires, discrètement) et <b>après</b> (réussir l'ouverture).</p>
   <div class="off3">
     <div class="of r"><span class="n">01</span><div class="S">Je vous amène des vendeurs.</div><p>Je visite les restaurants de Genève chaque semaine : plus de 1 700 sont dans mon outil. J'entends qui est fatigué, qui part à la retraite, qui veut céder. Je vous transmets ces contacts, en toute discrétion.</p><div class="pay"><span>Payé au succès</span></div></div>
-    <div class="of k"><span class="n">02</span><div class="S">Je fais réagir vos réseaux.</div><p>Votre LinkedIn et le compte Remicom, au format « dossier confidentiel » : jamais d'enseigne, jamais d'adresse. Des visuels et des vidéos courtes qui attirent des repreneurs sérieux, pas des curieux.</p><div class="pay"><span>Test de 3 mois</span></div></div>
+    <div class="of k"><span class="n">02</span><div class="S">Je fais réagir vos réseaux.</div><p>Instagram, LinkedIn et des créateurs food genevois, au format « dossier confidentiel » : jamais d'enseigne, jamais d'adresse. Des visuels et des vidéos courtes qui attirent des repreneurs sérieux, pas des curieux.</p><div class="pay"><span>Test de 3 mois</span></div></div>
     <div class="of"><span class="n">03</span><div class="S">J'ouvre chaque resto vendu.</div><p>Le repreneur repart avec son lancement : fiche Google, Instagram, photos, ouverture. Il réussit, il en parle, et il recommande Remicom à son tour.</p><div class="pay"><span>Pack ouverture Remicom</span></div></div>
   </div>
 
@@ -474,6 +509,52 @@ h2.D{font-size:clamp(34px,5vw,58px);max-width:900px}
   </div>
 </div></section>
 
+
+
+<section class="crea" id="instagram"><div class="wrap">
+  <div class="cap num">Instagram et créateurs</div>
+  <h2 class="D" style="margin-top:12px">Les repreneurs sont sur Instagram. Les vendeurs aussi.</h2>
+  <p class="lead">Les restaurateurs de Genève suivent quelques comptes food qui font et défont les adresses. <b>Ces voix-là peuvent parler de Remicom</b> : à ceux qui rêvent d'ouvrir, et à ceux qui pensent à céder. On les sélectionne, on vérifie leurs vrais chiffres, on cadre la confidentialité. Vous choisissez.</p>
+  <div class="ig3">
+    <div><b>Un compte Instagram Remicom Restauration</b><p>Le format « dossier confidentiel » : une affaire par semaine, floutée, chiffres exacts, un seul lien vers le Club repreneurs.</p></div>
+    <div><b>Un créateur par mois</b><p>« La visite à l'aveugle » : il découvre un restaurant à vendre sans savoir où il est. Sa vidéo sur son compte, la vôtre sur le vôtre.</p></div>
+    <div><b>Le retour 6 mois après</b><p>Il revient manger chez le repreneur. Cette fois, tout est visible : la preuve que Remicom fait réussir.</p></div>
+  </div>
+  <div class="cr">
+    <div><span class="h">@mike_in_geneva</span><span class="f">150k<small>abonnés</small></span><p>Le plus suivi de Genève sur la restauration et les sorties. Des reels qui font découvrir une adresse en 30 secondes.</p><span class="t">Grande portée</span></div>
+    <div><span class="h">@genevadiscovery</span><span class="f">66k<small>abonnés</small></span><p>« Que faire à Genève ? » : le média des bonnes adresses et des nouveautés, très partagé par les Genevois.</p><span class="t">Média local</span></div>
+    <div><span class="h">@packdsuitcase</span><span class="f">39k<small>abonnés</small></span><p>Food et histoire de Genève, organise des balades en ville. Idéal pour raconter un lieu et son passé.</p><span class="t">Storytelling</span></div>
+    <div><span class="h">@genevafoodstories</span><span class="f">36k<small>abonnés</small></span><p>Une recommandation par jour, communauté fidèle de gourmands genevois.</p><span class="t">Prescriptrice</span></div>
+    <div><span class="h">@geneva.aesthetics</span><span class="f">29k<small>abonnés</small></span><p>Foodie et voyages, très bon taux d'engagement : une audience jeune, celle des futurs repreneurs.</p><span class="t">Jeunes 25-35 ans</span></div>
+    <div><span class="h">@choisistonresto_geneva</span><span class="f">19k<small>abonnés</small></span><p>Tenu par une journaliste GaultMillau. Crédible auprès des professionnels de la restauration.</p><span class="t">Crédibilité pro</span></div>
+  </div>
+  <p class="crnote">Audiences indicatives relevées sur des outils publics (septembre-octobre 2026), à vérifier avec chaque créateur avant toute collaboration. Aucun contact pris à ce stade. Mention « collaboration commerciale » sur chaque vidéo.</p>
+</div></section>
+
+<section class="moi" id="moi"><div class="wrap">
+  <div class="cap num">Qui suis-je</div>
+  <h2 class="D" style="margin-top:12px">Vous, à 17 ans, un magasin. Moi, à 13 ans, des logos.</h2>
+  <div class="grid2">
+    <div class="tl">
+      <div><span class="y">13 ans</span><div><b>Mes premiers logos, vendus sur YouTube</b><small>Pour m'acheter ma première PlayStation. Le graphisme ne m'a plus jamais quitté.</small></div></div>
+      <div><span class="y">Decathlon</span><div><b>Le marketing appris sur le terrain</b><small>Le client, le rayon, la mise en avant, le chiffre du jour : ce qui fait vendre, concrètement.</small></div></div>
+      <div><span class="y">Aujourd'hui</span><div><b>Nouvelle Ardoise</b><small>Une agence pour la restauration et les métiers de bouche, à Genève. Je visite les restaurants chaque semaine, avec ma propre appli de prospection : une carte de plus de 1 700 adresses, une fiche par restaurant, les relances.</small></div></div>
+      <div><span class="y">Pasta Mo'</span><div><b>Mon laboratoire</b><small>Ma marque de pâtes fraîches pour les événements sportifs : 300 box au Meyrin Run, puis Gland et le Marathon de Genève. Je teste sur moi chaque outil avant de le proposer à un client.</small></div></div>
+      <div><span class="y">Demain</span><div><b>Repreneur, moi aussi</b><small>Un jour, je reprendrai un restaurant. Je connais la question des deux côtés : celle du vendeur fatigué et celle du jeune qui veut ouvrir.</small></div></div>
+    </div>
+    <div class="why"><div class="S">Pourquoi je fais ça</div><ul>
+      <li><b>Être utile</b> aux restaurateurs écrasés par l'opérationnel, qui n'ont pas le temps de se vendre.</li>
+      <li><b>Des solutions qui marchent vraiment</b>, mesurées chaque mois, pas des promesses.</li>
+      <li><b>Vivre de ma passion</b>, avec du temps pour mes trois enfants.</li>
+      <li><b>Des prix justes</b> : une équipe légère, sans les frais d'une grande agence.</li>
+      <li><b>Un vrai lieu de travail</b> : chez vous, au contact de vos courtiers, je serais là au moment où un repreneur signe.</li>
+    </ul></div>
+  </div>
+  <div class="eq">
+    <div><span class="cap">Mon équipe</span><b>Des jeunes photographes et vidéastes</b><small>Bien équipés, ils maîtrisent les codes d'Instagram et de TikTok : cadrage vertical, rythme, tendances.</small></div>
+    <div><span class="cap">Mon équipe</span><b>Des développeurs</b><small>Ils transforment une idée en outil : ma carte de 1 700 restaurants, des applis de gestion, des sites. Les mêmes peuvent faire gagner du temps à vos courtiers.</small></div>
+  </div>
+</div></section>
 
 <section class="adapt" id="reseaux"><div class="wrap">
   <div class="cap num">00 · D'abord, votre stratégie</div>
