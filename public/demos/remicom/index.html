@@ -470,6 +470,11 @@ h2.D{font-size:clamp(34px,5vw,58px);max-width:900px}
 .eq .cap{color:var(--red)}
 @media (max-width:860px){.tl>div{grid-template-columns:1fr;gap:6px}.cr,.ig3,.moi .grid2,.eq{grid-template-columns:1fr}.cr{grid-template-columns:1fr 1fr}}
 @media (max-width:480px){.cr{grid-template-columns:1fr}}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px;margin-top:44px;align-items:start}
+.duo figure{margin:0}
+.duo figcaption{margin-top:18px;text-align:center;color:#C9C5BE;font-size:15px;line-height:1.5}
+.duo figcaption b{display:block;color:#fff;font-size:17px;margin-bottom:4px}
+@media (max-width:760px){.duo{grid-template-columns:1fr;gap:40px}}
 </style>
 </head>
 <body>
@@ -510,6 +515,16 @@ h2.D{font-size:clamp(34px,5vw,58px);max-width:900px}
 </div></section>
 
 
+
+<section class="reelsec" id="reels"><div class="wrap">
+  <div class="cap num">En vidéo · Vos vraies affaires</div>
+  <h2 class="D" style="margin-top:12px">Deux annonces Remicom, en réel.</h2>
+  <p class="lead">Deux affaires réellement en vente chez vous, montées en motion design au format « L'affaire confidentielle ». On montre le quartier, jamais la rue ni l'enseigne. Le son coupé ? Les textes suffisent.</p>
+  <div class="duo">
+    <figure><div class="rphone"><video src="remicom-reel1-vous-ne-saurez-pas-ou-15s.mp4" poster="remicom-reel1-vous-ne-saurez-pas-ou-15s.jpg" controls playsinline preload="none"></video></div><figcaption><b>« Vous ne saurez pas où. »</b>Le restaurant pieds dans l'eau de La Côte. Pour les repreneurs qui ont les moyens.</figcaption></figure>
+    <figure><div class="rphone"><video src="remicom-reel4-votre-prochain-resto-19s.mp4" poster="remicom-reel4-votre-prochain-resto-19s.jpg" controls playsinline preload="none"></video></div><figcaption><b>« Et si c'était votre prochain resto ? »</b>90 places aux Eaux-Vives. Pour les jeunes qui veulent se lancer, accompagnés de A à Z avec la fiduciaire.</figcaption></figure>
+  </div>
+</div></section>
 
 <section class="crea" id="instagram"><div class="wrap">
   <div class="cap num">Instagram et créateurs</div>
