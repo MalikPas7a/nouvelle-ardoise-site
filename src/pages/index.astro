@@ -7,16 +7,11 @@ import '@fontsource/ibm-plex-mono/500.css';
 import '@fontsource/playfair-display/700.css';
 import '@fontsource/playfair-display/800.css';
 import { SITE } from '../config.js';
-import { OFFRES, PROMOTION_ACTIVE, catalogueOffres, montant, prixActuel } from '../data/offres.js';
+import { PROMOTION_ACTIVE, catalogueOffres } from '../data/offres.js';
 const title = 'Agence marketing restaurants Genève | Nouvelle Ardoise';
 const description = 'Agence de marketing et de communication pour la restauration et les métiers de bouche à Genève et Vaud : étude de marché, stratégie, identité, site, réseaux, publicité et commande en ligne.';
 const canonical = SITE.url + '/';
 const image = SITE.url + '/partage.jpg';
-const PRIX = [
-  { id: 'essentiel', etiquette: 'Site', nom: 'Site sur mesure', texte: 'Pour téléphone, carte en ligne, horaires, plan et fiche Google.' },
-  { id: 'reseauxEssentiel', etiquette: 'Réseaux', nom: 'Réseaux sociaux', mois: true, texte: 'Shooting chaque mois, quatre réels, plat du jour publié.' },
-  { id: 'lancement', etiquette: 'Lancement', nom: 'Pack lancement', texte: 'Deux heures de tournage, quatre réels montés, photos des plats.' },
-];
 const jsonLd = JSON.stringify({
   '@context':'https://schema.org', '@type':'ProfessionalService', '@id':SITE.url+'/#agence',
   name:SITE.nom, url:canonical, description, email:SITE.email, telephone:'+41782133868', image,
@@ -78,6 +73,15 @@ img { display: block; max-width: 100%; height: auto; }
 .surligne { background: linear-gradient(transparent 58%, var(--craie) 58%, var(--craie) 92%, transparent 92%); padding-inline: .06em; }
 
 .maquette { background: var(--encre); color: var(--papier); font-family: var(--mono); font-size: 12px; text-align: center; padding-block: 6px; padding-inline: 16px; }
+.lance { display: block; overflow: hidden; background: var(--craie); color: var(--encre); text-decoration: none; border-block: 1px solid var(--encre); padding-block: clamp(18px, 3vw, 34px); margin-top: clamp(64px, 10vw, 140px); }
+.lance__piste { display: flex; width: max-content; animation: lance 28s linear infinite; }
+.lance:hover .lance__piste { animation-play-state: paused; }
+.lance__bloc { display: flex; align-items: baseline; gap: clamp(18px, 2.4vw, 36px); padding-right: clamp(18px, 2.4vw, 36px); white-space: nowrap; font-size: clamp(34px, 6vw, 84px); letter-spacing: -.045em; line-height: 1; }
+.lance__bloc b { font-weight: 800; }
+.lance__bloc span { font-weight: 400; }
+.lance__bloc i { font-style: normal; font-size: .6em; }
+@keyframes lance { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .lance__piste { animation-duration: 90s; } }
 .promo { display: block; background: var(--craie); color: var(--encre); text-align: center; font-size: 14px; padding-block: 9px; padding-inline: 16px; text-decoration: none; }
 .promo b { font-weight: 700; }
 
@@ -169,6 +173,42 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .etape:hover figure img { transform: scale(1.06); }
 .etape:hover h3 .surv { background: linear-gradient(transparent 60%, var(--craie) 60%, var(--craie) 92%, transparent 92%); }
 
+/* Récit des 5 étapes */
+.recit { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; border-top: 1px solid var(--encre); }
+.recit__textes { grid-column: 1 / span 5; grid-row: 1; }
+.recit__scene { grid-column: 6 / span 7; grid-row: 1; position: sticky; top: 76px; height: calc(100svh - 96px); padding-top: 20px; }
+.recit__cadre { position: relative; height: 100%; overflow: hidden; background: var(--encre); }
+.recit__cadre figure { position: absolute; inset: 0; margin: 0; opacity: 0; transform: scale(1.08); clip-path: inset(0 0 100% 0); transition: opacity .7s ease, transform 1.4s cubic-bezier(.2,.8,.2,1), clip-path .9s cubic-bezier(.7,0,.2,1); }
+.recit__cadre figure[data-on] { opacity: 1; transform: scale(1); clip-path: inset(0 0 0 0); z-index: 1; }
+.recit__cadre figure.parti { opacity: 1; clip-path: inset(0); transform: scale(1.02); }
+.recit__cadre img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.recit__cadre figure.logo { background: var(--iz-or); }
+.recit__cadre figure.logo img { object-fit: contain; padding: 8%; }
+.recit__cadre figcaption { position: absolute; left: 16px; bottom: 16px; background: var(--papier); color: var(--encre); font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; padding: 6px 10px; }
+.recit__num { position: absolute; right: 14px; bottom: -.12em; z-index: 3; font-size: clamp(110px, 16vw, 230px); font-weight: 800; letter-spacing: -.07em; line-height: 1; color: var(--papier); opacity: .95; text-shadow: 0 2px 30px rgb(0 0 0 / .35); pointer-events: none; font-variant-numeric: tabular-nums; }
+.recit__segs { position: absolute; top: 14px; left: 14px; right: 14px; z-index: 3; display: flex; gap: 6px; }
+.recit__segs i { flex: 1; height: 3px; background: rgb(255 255 255 / .35); overflow: hidden; }
+.recit__segs b { display: block; height: 100%; width: 100%; background: var(--craie); transform: scaleX(var(--p, 0)); transform-origin: 0 50%; }
+.chap { min-height: calc(100svh - 76px); display: grid; align-content: center; gap: 18px; padding-block: 48px; border-bottom: 1px solid var(--filet); opacity: .28; transition: opacity .5s ease; }
+.chap:last-child { border-bottom: 0; }
+.chap.actif { opacity: 1; }
+.chap__n { font-family: var(--mono); font-size: 13px; }
+.chap__n i { font-style: normal; color: var(--gris); }
+.chap h3 { margin: 0; font-size: clamp(40px, 5vw, 76px); line-height: .95; letter-spacing: -.05em; font-weight: 780; text-wrap: balance; }
+.chap > p { margin: 0; font-size: 19px; color: var(--gris); max-width: 40ch; }
+.chap__iz { margin: 6px 0 0; padding: 14px 16px; border-left: 3px solid var(--iz-or); background: var(--blanc); font-size: 16px; max-width: 44ch; }
+.chap__iz b { display: block; font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--iz-or); margin-bottom: 4px; }
+@media (max-width: 900px) {
+  .recit { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .recit__scene { grid-column: 1; grid-row: 1; top: 66px; height: 58svh; padding-top: 12px; z-index: 2; background: var(--papier); }
+  .recit__textes { grid-column: 1; grid-row: 2; }
+  .chap { min-height: 62svh; align-content: start; padding-block: 28px 56px; }
+  .chap h3 { font-size: clamp(34px, 9vw, 48px); }
+  .chap > p { font-size: 17px; }
+  .recit__num { font-size: 96px; }
+}
+@media (prefers-reduced-motion: reduce) { .recit__cadre figure { transition: opacity .3s ease; transform: none; clip-path: none; } .chap { transition: none; } }
+
 /* Moment tableau de bord */
 .soir { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; align-items: center; }
 .soir__chiffre { grid-column: 1 / span 6; min-width: 0; }
@@ -250,7 +290,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .canaux p { margin: 0; color: var(--gris); }
 .canaux .mesure { font-family: var(--mono); font-size: 12px; color: var(--encre); border-top: 1px dashed var(--filet); padding-top: 10px; margin-top: 6px; }
 .canaux .mesure b { background: var(--craie); font-weight: 500; padding: 1px 5px; }
-.canaux article.large { grid-column: 1 / -1; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 28px; align-items: center; }
+.canaux article.large { grid-column: 1 / -1; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 40px; align-items: center; }
 .canaux article.large figure { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; }
 .canaux article.large img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .canaux article.large > div { display: grid; gap: 10px; max-width: 62ch; }
@@ -353,14 +393,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .legende span.cc::before { background: var(--craie); box-shadow: inset 0 0 0 1px var(--encre); }
 
 /* Prix */
-.prix { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.prix article { border-top: 1px solid var(--encre); padding-top: 16px; min-width: 0; }
-.prix h3 { margin: 10px 0 6px; font-size: 22px; letter-spacing: -.02em; }
-.prix .montant { font-size: clamp(36px, 4vw, 54px); font-weight: 800; letter-spacing: -.045em; font-variant-numeric: tabular-nums; line-height: 1; }
-.prix .montant small { font-size: 16px; font-weight: 500; letter-spacing: 0; }
-.prix s { color: var(--gris); font-size: 15px; font-weight: 500; letter-spacing: 0; margin-left: 6px; }
-.prix p { color: var(--gris); margin: 12px 0 0; max-width: 32ch; font-size: 15px; }
-.prix .remise { display: inline-block; margin-top: 10px; font-family: var(--mono); font-size: 11px; background: var(--craie); padding: 3px 7px; }
 
 /* Contact */
 .contact { padding-block: clamp(72px, 11vw, 160px); border-top: 1px solid var(--filet); }
@@ -387,7 +419,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .identite { grid-template-columns: 1fr 1fr; grid-template-rows: 300px 220px 220px; }
   .i-logo { grid-row: auto; grid-column: 1 / -1; }
   .cas__etapes { grid-template-columns: 1fr 1fr; }
-  .prix, .contact__liens { grid-template-columns: 1fr; }
+  .contact__liens { grid-template-columns: 1fr; }
   .panneau, .pm { grid-template-columns: minmax(0, 1fr); }
   .panneau > *, .pm > * { grid-column: 1 / -1 !important; }
   .pm__film { position: static; }
@@ -405,7 +437,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 </head>
 <body>
 
-{PROMOTION_ACTIVE && <a class="promo" href="#prix"><b>Offre de lancement</b> · −20 % sur toutes nos offres jusqu’au 31 octobre →</a>}
 
 <header class="tete">
   <div class="cadre">
@@ -455,29 +486,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <div class="sec__tete">
       <p class="etiquette">Accompagnement</p>
       <h2 id="acc-titre">On s’occupe de tout. Avec vous.</h2>
-      <p class="chapo">Un seul interlocuteur, de la première visite au suivi des ventes.</p>
+      <p class="chapo">Un seul interlocuteur, de la première visite au suivi des ventes. Suivez un exemple du début à la fin : Izgara 35, grill d’Izmir à Onex (projet de démonstration).</p>
     </div>
-    <div class="etapes">
-      <article class="etape"><span class="n">1</span><h3><span class="surv">Étudier votre marché</span></h3><div class="detail"><p>Votre quartier, vos concurrents, vos prix, ce que les gens cherchent sur Google.</p><ul class="puces"><li>Visite sur place</li><li>Concurrence</li><li>Fiche Google</li></ul></div><figure><img src="/accueil/salle.webp" alt="Une salle de restaurant pleine au déjeuner." width="1600" height="1067" loading="lazy"></figure></article>
-      <article class="etape"><span class="n">2</span><h3><span class="surv">Construire la stratégie</span></h3><div class="detail"><p>Deux ou trois leviers choisis pour votre chiffre d’affaires, pas dix.</p><ul class="puces"><li>Midi</li><li>Soir</li><li>Fidélité</li><li>Objectifs chiffrés</li></ul></div><figure><img src="/accueil/tablee.webp" alt="Un serveur apporte les plats à une tablée." width="1600" height="1067" loading="lazy"></figure></article>
-      <article class="etape"><span class="n">3</span><h3><span class="surv">Créer votre identité</span></h3><div class="detail"><p>Logo, carte, site ou application, réseaux. Tout parle la même langue.</p><ul class="puces"><li>Logo</li><li>Carte</li><li>Site</li><li>Instagram</li><li>Emballages</li></ul></div><figure><img src="/accueil/carte.webp" alt="Une carte de menu imprimée sur papier kraft." width="1600" height="1067" loading="lazy"></figure></article>
-      <article class="etape"><span class="n">4</span><h3><span class="surv">Mettre en place les outils</span></h3><div class="detail"><p>De nouveaux canaux qui travaillent pendant le service.</p><ul class="puces"><li>Click &amp; Collect</li><li>Paiement par QR code</li><li>Carte de fidélité</li></ul></div><figure><img src="/accueil/site.webp" alt="Un client consulte une carte de restaurant sur son téléphone." width="1600" height="1067" loading="lazy" style="object-position: 72% 40%"></figure></article>
-      <article class="etape"><span class="n">5</span><h3><span class="surv">Suivre et ajuster</span></h3><div class="detail"><p>Shootings, publications, et un point chaque mois sur ce qui rapporte.</p><ul class="puces"><li>Réels</li><li>Publications</li><li>Tableau de bord</li></ul></div><figure><img src="/accueil/reels.webp" alt="Des plats photographiés au téléphone pour les réseaux." width="1600" height="1067" loading="lazy"></figure></article>
-    </div>
-    <div class="mes mes--clair mes--outils" aria-label="Les outils en situation">
-      <div class="mes__colle">
-        <div class="mes__piste">
-          <figure class="ph f-cc"><img src="/accueil/mes/tel.webp" alt="Commande à emporter Izgara 35 sur un téléphone, prix en CHF." width="800" height="1000" loading="lazy" style="object-position: 50% 45%"><figcaption>Click &amp; Collect</figcaption></figure>
-          <figure class="ph f-qr"><img src="/accueil/mes/qr.webp" alt="Chevalet avec QR code de paiement sur une table, à côté des brochettes." width="800" height="1000" loading="lazy" style="object-position: 50% 55%"><figcaption>QR code à table</figcaption></figure>
-          <figure class="f-paye"><div class="o-tel"><span class="h">Table 6</span><div class="ok"><i>✓</i><b>84.–</b><span>Payé, merci&nbsp;!</span></div><span class="go">Laisser un avis Google</span></div><figcaption>Paiement confirmé</figcaption></figure>
-          <figure class="f-cuisine"><div class="ticket"><b>Commande 128</b><span>À emporter · 19 h 15</span><span class="t">2 × Brochettes poulet</span><span>1 × Adana kebab</span><span class="t">Payé en ligne</span></div><figcaption>Le ticket en cuisine</figcaption></figure>
-          <figure class="ph f-tdb"><img src="/accueil/mes/tdb.webp" alt="Tableau de bord des ventes sur une tablette posée au comptoir." width="800" height="1000" loading="lazy" style="object-position: 50% 50%"><figcaption>Tableau de bord</figcaption></figure>
-          <figure class="ph f-fid"><img src="/accueil/mes/fid.webp" alt="Carte de fidélité tamponnée et sa version sur téléphone." width="800" height="1000" loading="lazy" style="object-position: 50% 50%"><figcaption>Fidélité sur téléphone</figcaption></figure>
-          <figure class="f-msg"><div class="bulle"><small>Message aux habitués · jeudi 17 h</small>Ce soir, le plateau grill pour 2 est à l’honneur. On vous garde une table&nbsp;?</div><figcaption>Message aux habitués</figcaption></figure>
-        </div>
-      </div>
-      <div class="mes__barre" aria-hidden="true"><i></i></div>
-    </div>
+    <div class="recit"><div class="recit__scene"><div class="recit__cadre"><figure data-c="0" data-s="0" data-on><img src="/accueil/salle.webp" alt="Une salle de restaurant pleine au déjeuner." style="object-position: 50% 50%"><figcaption>Le midi, la salle est pleine</figcaption></figure><figure data-c="0" data-s="1"><img src="/accueil/mes/facade.webp" alt="La façade d’Izgara 35 de nuit." loading="lazy" style="object-position: 50% 35%"><figcaption>Le soir, la rue est à prendre</figcaption></figure><figure data-c="1" data-s="0"><img src="/accueil/mes/box.webp" alt="Box du midi : deux adana kebab, riz pilaf, légumes grillés." loading="lazy" style="object-position: 50% 50%"><figcaption>La box du midi, 14.90</figcaption></figure><figure data-c="1" data-s="1"><img src="/accueil/tablee.webp" alt="Un serveur apporte les plats à une tablée." loading="lazy" style="object-position: 50% 50%"><figcaption>Le plateau à partager, le soir</figcaption></figure><figure class="logo" data-c="2" data-s="0"><img src="/accueil/izgara-logo.webp" alt="Logo typographique Izgara 35, Grill d’Izmir." loading="lazy" style="object-position: 50% 50%"><figcaption>Le logo</figcaption></figure><figure data-c="2" data-s="1"><img src="/accueil/mes/sac.webp" alt="Sac et box en kraft au logo Izgara 35." loading="lazy" style="object-position: 50% 50%"><figcaption>Le sac à emporter</figcaption></figure><figure data-c="2" data-s="2"><img src="/accueil/mes/carte.webp" alt="La carte Izgara 35 sur une table en bois." loading="lazy" style="object-position: 50% 12%"><figcaption>La carte</figcaption></figure><figure data-c="3" data-s="0"><img src="/accueil/mes/tel.webp" alt="Commande à emporter Izgara 35 sur un téléphone." loading="lazy" style="object-position: 50% 45%"><figcaption>Click &amp; Collect</figcaption></figure><figure data-c="3" data-s="1"><img src="/accueil/mes/qr.webp" alt="Chevalet avec QR code de paiement sur une table." loading="lazy" style="object-position: 50% 55%"><figcaption>Paiement par QR code</figcaption></figure><figure data-c="3" data-s="2"><img src="/accueil/mes/fid.webp" alt="Carte de fidélité et sa version sur téléphone." loading="lazy" style="object-position: 50% 50%"><figcaption>La fidélité sur téléphone</figcaption></figure><figure data-c="4" data-s="0"><img src="/accueil/mes/tdb.webp" alt="Tableau de bord des ventes sur une tablette." loading="lazy" style="object-position: 50% 50%"><figcaption>Le tableau de bord</figcaption></figure><figure data-c="4" data-s="1"><img src="/accueil/reels.webp" alt="Des plats photographiés au téléphone pour les réseaux." loading="lazy" style="object-position: 50% 50%"><figcaption>Le contenu de la semaine</figcaption></figure><span class="recit__num" aria-hidden="true">01</span><div class="recit__segs" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div></div></div><div class="recit__textes"><article class="chap" data-i="0" data-n="2"><span class="chap__n">01<i>/05</i></span><h3>Étudier votre marché</h3><p>On vient sur place. Votre quartier, vos concurrents, vos prix, ce que les gens cherchent sur Google à midi et le soir.</p><ul class="puces"><li>Visite sur place</li><li>Concurrence</li><li>Fiche Google</li></ul><p class="chap__iz"><b>Chez Izgara 35</b>À Onex, le midi est plein et le soir, presque personne ne fait du grill. Il y a une place à prendre.</p></article><article class="chap" data-i="1" data-n="2"><span class="chap__n">02<i>/05</i></span><h3>Construire la stratégie</h3><p>Deux ou trois leviers choisis pour votre chiffre d’affaires, pas dix. Avec des objectifs chiffrés.</p><ul class="puces"><li>Midi</li><li>Soir</li><li>Fidélité</li><li>Objectifs</li></ul><p class="chap__iz"><b>Chez Izgara 35</b>Une box à 14.90 pour le midi, des plateaux à partager le soir, une carte de fidélité pour faire revenir.</p></article><article class="chap" data-i="2" data-n="3"><span class="chap__n">03<i>/05</i></span><h3>Créer votre identité</h3><p>Logo, carte, emballages, site ou appli, réseaux. Tout parle la même langue, du trottoir au téléphone.</p><ul class="puces"><li>Logo</li><li>Carte</li><li>Emballages</li><li>Site ou appli</li><li>Instagram</li></ul><p class="chap__iz"><b>Chez Izgara 35</b>Le 35, c’est la plaque d’Izmir. L’orange et le bleu viennent du carreau turc. On les retrouve partout.</p></article><article class="chap" data-i="3" data-n="3"><span class="chap__n">04<i>/05</i></span><h3>Mettre en place les outils</h3><p>De nouveaux canaux qui vendent pendant le service, sans commission de plateforme.</p><ul class="puces"><li>Click &amp; Collect</li><li>Paiement par QR code</li><li>Fidélité</li></ul><p class="chap__iz"><b>Chez Izgara 35</b>On commande sur le site, on paie à table en scannant, on cumule ses tampons sur son téléphone.</p></article><article class="chap" data-i="4" data-n="2"><span class="chap__n">05<i>/05</i></span><h3>Suivre et ajuster</h3><p>Shootings, publications, et un point chaque mois sur ce qui rapporte. On garde ce qui marche, on coupe le reste.</p><ul class="puces"><li>Réels</li><li>Publications</li><li>Tableau de bord</li></ul><p class="chap__iz"><b>Chez Izgara 35</b>Chaque mois, Izgara sait combien de box sont parties, d’où viennent les commandes et quel plat pousser.</p></article></div></div>
   </section>
 
 
@@ -556,47 +567,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <section class="sec cas" id="cas" aria-labelledby="cas-titre">
-    <div class="cadre">
-      <div class="sec__tete">
-        <p class="etiquette">Démonstration · Onex</p>
-        <h2 id="cas-titre">Izgara 35, grill d’Izmir à Onex.</h2>
-        <p class="chapo">Une identité complète, du logo au sac à emporter. Faites défiler.</p>
-      </div>
-      <div class="mes" id="mes">
-        <div class="mes__colle">
-          <div class="mes__piste">
-            <figure class="m-logo"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="Logo typographique Izgara 35, Grill d’Izmir" width="900" height="900"><figcaption>Le logo</figcaption></figure>
-            <figure class="ph m-ens"><img src="/accueil/mes/facade.webp" alt="La façade d’Izgara 35 de nuit, enseigne lumineuse orange." width="800" height="1000" loading="lazy" style="object-position: 50% 30%"><figcaption>L’enseigne</figcaption></figure>
-            <figure class="ph m-sac"><img src="/accueil/mes/sac.webp" alt="Sac et box en kraft imprimés au logo Izgara 35." width="800" height="1000" loading="lazy" style="object-position: 50% 50%"><figcaption>Le sac à emporter</figcaption></figure>
-            <figure class="ph m-box"><img src="/accueil/mes/box.webp" alt="Box du midi ouverte : deux adana kebab, riz pilaf, légumes grillés." width="800" height="1000" loading="lazy" style="object-position: 50% 50%"><figcaption>La box du midi</figcaption></figure>
-            <figure class="ph m-carte"><img src="/accueil/mes/carte.webp" alt="La carte Izgara 35 posée sur une table en bois." width="800" height="1000" loading="lazy" style="object-position: 50% 8%"><figcaption>La carte</figcaption></figure>
-            <figure class="m-tel"><div class="tel-cadre" aria-hidden="true"><div class="tel-defile"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="" width="900" height="900"><h4>Le grill d’Izmir, à Onex.</h4><span class="bouton">Commander à emporter</span><div class="plat"><span>Adana kebab<small>Riz pilaf, salade</small></span><span>22.–</span></div><div class="plat"><span>Brochettes de poulet<small>Marinade yaourt</small></span><span>21.–</span></div><div class="plat"><span>Plateau grill pour 2<small>Le soir seulement</small></span><span>48.–</span></div><div class="plat"><span>Iskender<small>Pain, sauce tomate</small></span><span>23.–</span></div><span class="bouton">Réserver une table</span></div></div><figcaption>Site ou appli</figcaption></figure>
-            <figure class="m-insta"><div class="grille"><span class="l"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="" width="900" height="900"></span><span>Le plat du jour</span><span>Ouvert ce soir</span><span>Adana</span><span>Box du midi</span><span>Plateau pour 2</span></div><figcaption>Instagram</figcaption></figure>
-            <figure class="m-fid"><div class="c"><b>CARTE 35</b><div class="tampons"><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span></span><span></span><span></span><span></span></div><small>Le 10<sup>e</sup> plat est offert</small></div><figcaption>La fidélité</figcaption></figure>
-          </div>
-        </div>
-        <div class="mes__barre" aria-hidden="true"><i></i></div>
-      </div>
-      <div class="cas__etapes">
-        <div><span class="n">1</span><b>Le marché</b><span>Onex, midi actif, peu de grill le soir.</span></div>
-        <div><span class="n">2</span><b>La stratégie</b><span>Box le midi, plateaux à partager le soir.</span></div>
-        <div><span class="n">3</span><b>L’identité</b><span>Le 35 d’Izmir, l’orange et le bleu du carreau.</span></div>
-        <div><span class="n">4</span><b>Les outils</b><span>Commande en ligne, carte de fidélité.</span></div>
-      </div>
-      <p class="etiquette fictif">Projet de démonstration</p>
-    </div>
-  </section>
+  {PROMOTION_ACTIVE && <a class="lance" href="/offres/" aria-label="Offre de lancement : −20 % sur toutes nos offres jusqu’au 31 octobre"><span class="lance__piste" aria-hidden="true"><span class="lance__bloc"><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i></span><span class="lance__bloc"><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i></span></span></a>}
 
-  <section class="sec cadre" id="prix" aria-labelledby="prix-titre">
-    <div class="sec__tete">
-      <p class="etiquette">À partir de</p>
-      <h2 id="prix-titre">Des prix clairs, sans surprise.</h2>
-    </div>
-    <div class="prix">
-      {PRIX.map((p) => <article><p class="etiquette">{p.etiquette}</p><h3>{p.nom}</h3><div class="montant">{montant(prixActuel(p.id))}.–{p.mois && <small> / mois</small>}{PROMOTION_ACTIVE && <s>{montant(OFFRES[p.id].prix)}.–</s>}</div>{PROMOTION_ACTIVE && <span class="remise">−20 % jusqu’au 31.10</span>}<p>{p.texte}</p></article>)}
-    </div>
-  </section>
 
   <section class="contact cadre" id="contact" aria-labelledby="contact-titre">
     <p class="etiquette">Contact</p>
@@ -678,6 +650,27 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
   // Défilements horizontaux (identité, outils) : pilotés par le défilement vertical sur ordinateur, au doigt ailleurs
   const grand = matchMedia('(min-width: 901px)');
+  // Récit des 5 étapes : la scène suit la lecture
+  (() => {
+    const recit = document.querySelector('.recit'); if (!recit) return;
+    const chaps = [...recit.querySelectorAll('.chap')], figs = [...recit.querySelectorAll('.recit__cadre figure')];
+    const num = recit.querySelector('.recit__num'), segs = [...recit.querySelectorAll('.recit__segs b')];
+    let cle = '0-0', tic = false;
+    const maj = () => {
+      tic = false;
+      const mi = innerHeight * .55; let c = 0, prog = 0;
+      chaps.forEach((ch, i) => { const r = ch.getBoundingClientRect(); if (r.top < mi) { c = i; prog = Math.min(1, Math.max(0, (mi - r.top) / r.height)); } });
+      const n = +chaps[c].dataset.n, s = Math.min(n - 1, Math.floor(prog * n));
+      segs.forEach((b, i) => b.style.setProperty('--p', i < c ? 1 : i > c ? 0 : prog.toFixed(3)));
+      if (cle === c + '-' + s) return;
+      cle = c + '-' + s;
+      chaps.forEach((ch, i) => ch.classList.toggle('actif', i === c));
+      figs.forEach((f) => { const on = +f.dataset.c === c && +f.dataset.s === s; if (f.hasAttribute('data-on') && !on) { f.classList.add('parti'); setTimeout(() => f.classList.remove('parti'), 900); } f.toggleAttribute('data-on', on); });
+      num.textContent = String(c + 1).padStart(2, '0');
+    };
+    addEventListener('scroll', () => { if (!tic) { tic = true; requestAnimationFrame(maj); } }, { passive: true });
+    addEventListener('resize', maj); maj();
+  })();
   document.querySelectorAll('.mes').forEach((mes) => {
     const colle = mes.querySelector('.mes__colle'), piste = mes.querySelector('.mes__piste'), barre = mes.querySelector('.mes__barre i');
     let dist = 0;
