@@ -109,14 +109,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .btn--creux { background: transparent; color: var(--encre); }
 
 /* Mur animé (en attendant la vidéo) */
-.mur { margin-top: clamp(32px, 5vw, 56px); display: grid; grid-template-columns: 1.4fr 1fr 1fr; grid-template-rows: 260px 260px; gap: 8px; }
+.mur { margin-top: clamp(32px, 5vw, 56px); display: grid; grid-template-columns: 1.4fr 1fr 1fr; grid-template-rows: 210px 210px; gap: 8px; }
 .tuile { position: relative; overflow: hidden; background: var(--encre); min-width: 0; }
 .tuile > img { width: 100%; height: 100%; object-fit: cover; animation: lent 18s ease-in-out infinite alternate; }
 @keyframes lent { from { transform: scale(1); } to { transform: scale(1.12); } }
 .tuile__nom { position: absolute; left: 12px; bottom: 12px; background: var(--papier); color: var(--encre); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 5px 9px; }
 .t-photo { grid-row: span 2; }
 .t-logo { background: var(--iz-or); display: grid; place-items: center; }
-.t-logo .iz-img { width: 100%; height: 100%; object-fit: contain; }
+.t-logo .iz-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; animation: none; }
 .iz-img { display: block; }
 .t-site { background: #D9D4C7; display: grid; place-items: center; grid-row: span 2; }
 .t-cmd { background: var(--blanc); border: 1px solid var(--encre); padding: 14px; display: flex; flex-direction: column; gap: 8px; justify-content: flex-end; }
@@ -160,11 +160,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .etape { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; padding-block: 28px; border-bottom: 1px solid var(--filet); align-items: center; }
 .etape .n { grid-column: 1 / span 1; font-family: var(--mono); font-size: 13px; align-self: start; padding-top: 10px; }
 .etape h3 { grid-column: 2 / span 4; margin: 0; font-size: clamp(26px, 2.8vw, 38px); letter-spacing: -.035em; line-height: 1.02; font-weight: 750; }
-.etape .detail { grid-column: 6 / span 4; min-width: 0; }
+.etape .detail { grid-column: 6 / span 5; min-width: 0; }
 .etape .detail p { margin: 0 0 12px; color: var(--gris); }
 .puces { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; list-style: none; }
 .puces li { font-family: var(--mono); font-size: 12px; border: 1px solid var(--encre); border-radius: 999px; padding: 4px 10px; }
-.etape figure { grid-column: 10 / span 3; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; background: var(--encre); }
+.etape figure { grid-column: 11 / span 2; margin: 0; aspect-ratio: 3 / 2; overflow: hidden; background: var(--encre); }
 .etape figure img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.8,.2,1); }
 .etape:hover figure img { transform: scale(1.06); }
 .etape:hover h3 .surv { background: linear-gradient(transparent 60%, var(--craie) 60%, var(--craie) 92%, transparent 92%); }
@@ -259,7 +259,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .mes__colle { position: relative; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .mes__colle::-webkit-scrollbar { display: none; }
 .mes__piste { display: flex; gap: 12px; width: max-content; padding-bottom: 4px; }
-.mes__piste > figure { scroll-snap-align: start; margin: 0; width: min(78vw, 520px); height: min(62vh, 480px); position: relative; overflow: hidden; flex: none; display: grid; place-items: center; }
+.mes__piste > figure { scroll-snap-align: start; margin: 0; width: min(70vw, 400px); height: min(56vh, 420px); position: relative; overflow: hidden; flex: none; display: grid; place-items: center; }
 .mes__piste figcaption { position: absolute; left: 12px; bottom: 12px; background: var(--papier); color: var(--encre); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 5px 9px; }
 .mes__barre { height: 2px; background: #3A3A37; margin-top: 16px; }
 .mes__barre i { display: block; height: 100%; width: 0; background: var(--craie); }
@@ -301,6 +301,50 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .m-fid .tampons span { border-color: var(--iz-creme); }
 .m-fid .tampons span.ok { background: var(--iz-creme); }
 
+
+/* Outils en situation (même défilement que l'identité, en clair) */
+.mes--clair .mes__barre { background: var(--filet); }
+.mes--clair .mes__barre i { background: var(--encre); }
+.mes--outils { margin-top: clamp(40px, 6vw, 72px); }
+.mes--outils .mes__piste > figure { width: min(66vw, 330px); height: 400px; border: 1px solid var(--filet); }
+.mes--outils figcaption { border: 1px solid var(--filet); }
+.o-tel { width: 190px; height: 330px; border: 6px solid var(--encre); border-radius: 28px; background: var(--blanc); padding: 18px 14px; display: flex; flex-direction: column; gap: 9px; font-size: 13px; box-shadow: 0 24px 30px -22px rgb(0 0 0 / .5); }
+.o-tel .h { font-weight: 800; font-size: 15px; letter-spacing: -.01em; }
+.o-tel .r { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--filet); padding-bottom: 6px; }
+.o-tel .go { margin-top: auto; background: var(--encre); color: var(--papier); text-align: center; padding: 10px; border-radius: 10px; font-weight: 700; }
+.o-tel .ok { margin: auto 0; text-align: center; display: grid; gap: 6px; justify-items: center; }
+.o-tel .ok i { width: 54px; height: 54px; border-radius: 50%; background: var(--craie); border: 2px solid var(--encre); display: grid; place-items: center; font-style: normal; font-size: 26px; font-weight: 800; }
+.o-tel .ok b { font-size: 28px; letter-spacing: -.03em; }
+.f-cc { background: #E6E3DA; }
+.f-qr { background: linear-gradient(#cfb38f, #b8966d); }
+.chevalet { background: var(--blanc); width: 170px; padding: 18px 16px; display: grid; justify-items: center; gap: 10px; text-align: center; box-shadow: 0 30px 30px -20px rgb(0 0 0 / .55); transform: perspective(600px) rotateX(8deg); }
+.chevalet canvas { width: 120px; height: 120px; image-rendering: pixelated; }
+.chevalet b { font-size: 15px; }
+.chevalet span { font-size: 12px; color: var(--gris); }
+.f-paye { background: #D9DEE4; }
+.f-cuisine { background: #2A2A28; }
+.ticket { width: 180px; background: #FAFAF6; padding: 16px 14px 22px; font-family: var(--mono); font-size: 12px; display: grid; gap: 6px; box-shadow: 0 20px 30px -16px rgb(0 0 0 / .7); clip-path: polygon(0 0, 100% 0, 100% 96%, 90% 100%, 80% 96%, 70% 100%, 60% 96%, 50% 100%, 40% 96%, 30% 100%, 20% 96%, 10% 100%, 0 96%); }
+.ticket b { font-size: 14px; }
+.ticket .t { border-top: 1px dashed #999; padding-top: 6px; }
+.f-tdb { background: var(--papier); }
+.ecran { width: 86%; background: var(--blanc); border: 1px solid var(--encre); padding: 14px; display: grid; gap: 10px; }
+.ecran b { font-size: 30px; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.ecran .barres { height: 110px; }
+.f-fid { background: #1E1E1C; }
+.f-fid .o-tel { background: #121211; color: var(--papier); border-color: #3a3a37; }
+.f-fid .carte-w { margin-top: 10px; border-radius: 12px; background: var(--craie); color: var(--encre); padding: 12px; display: grid; gap: 8px; }
+.f-fid .carte-w .tampons span { border-color: var(--encre); }
+.f-fid .carte-w .tampons span.ok { background: var(--encre); }
+.f-msg { background: #EAE7E0; }
+.bulle { max-width: 82%; background: var(--blanc); border: 1px solid var(--filet); border-radius: 16px 16px 16px 4px; padding: 12px 14px; font-size: 14px; line-height: 1.35; box-shadow: 0 12px 20px -14px rgb(0 0 0 / .35); }
+.bulle small { display: block; color: var(--gris); font-size: 11px; margin-bottom: 4px; font-family: var(--mono); }
+.barres { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; align-items: end; border-bottom: 1px solid var(--encre); }
+.barres i { display: block; background: var(--encre); }
+.barres i.cc { background: var(--craie); box-shadow: inset 0 0 0 1px var(--encre); }
+.legende { display: flex; gap: 16px; font-size: 12px; color: var(--gris); flex-wrap: wrap; }
+.legende span::before { content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; background: var(--encre); }
+.legende span.cc::before { background: var(--craie); box-shadow: inset 0 0 0 1px var(--encre); }
+
 /* Prix */
 .prix { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .prix article { border-top: 1px solid var(--encre); padding-top: 16px; min-width: 0; }
@@ -326,7 +370,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .ouv__bas > *, .sec__tete > *, .etape > *, .soir > * { grid-column: 1 / -1 !important; min-width: 0; }
   .ouv__bas .actions { justify-content: flex-start; }
   .sec__tete .etiquette { padding-top: 0; }
-  .etape { gap: 12px; }
+  .etape { grid-template-columns: minmax(0, 1fr) 92px; gap: 6px 16px; }
+  .etape > * { grid-column: 1 !important; }
+  .etape figure { grid-column: 2 !important; grid-row: 1 / span 3; align-self: start; aspect-ratio: 1; width: 92px; }
   .etape .n { padding-top: 0; }
   .mur { grid-template-columns: 1fr 1fr; grid-template-rows: 300px 220px 220px; }
   .t-photo { grid-row: auto; grid-column: 1 / -1; }
@@ -408,8 +454,22 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <article class="etape"><span class="n">1</span><h3><span class="surv">Étudier votre marché</span></h3><div class="detail"><p>Votre quartier, vos concurrents, vos prix, ce que les gens cherchent sur Google.</p><ul class="puces"><li>Visite sur place</li><li>Concurrence</li><li>Fiche Google</li></ul></div><figure><img src="/accueil/salle.webp" alt="Une salle de restaurant pleine au déjeuner." width="1600" height="1067" loading="lazy"></figure></article>
       <article class="etape"><span class="n">2</span><h3><span class="surv">Construire la stratégie</span></h3><div class="detail"><p>Deux ou trois leviers choisis pour votre chiffre d’affaires, pas dix.</p><ul class="puces"><li>Midi</li><li>Soir</li><li>Fidélité</li><li>Objectifs chiffrés</li></ul></div><figure><img src="/accueil/tablee.webp" alt="Un serveur apporte les plats à une tablée." width="1600" height="1067" loading="lazy"></figure></article>
       <article class="etape"><span class="n">3</span><h3><span class="surv">Créer votre identité</span></h3><div class="detail"><p>Logo, carte, site ou application, réseaux. Tout parle la même langue.</p><ul class="puces"><li>Logo</li><li>Carte</li><li>Site</li><li>Instagram</li><li>Emballages</li></ul></div><figure><img src="/accueil/carte.webp" alt="Une carte de menu imprimée sur papier kraft." width="1600" height="1067" loading="lazy"></figure></article>
-      <article class="etape"><span class="n">4</span><h3><span class="surv">Mettre en place les outils</span></h3><div class="detail"><p>De nouveaux canaux qui travaillent pendant le service.</p><ul class="puces"><li>Click &amp; Collect</li><li>Paiement par QR code</li><li>Carte de fidélité</li></ul></div><figure><img src="/accueil/site.webp" alt="Un client consulte une carte de restaurant sur son téléphone." width="1600" height="1067" loading="lazy"></figure></article>
+      <article class="etape"><span class="n">4</span><h3><span class="surv">Mettre en place les outils</span></h3><div class="detail"><p>De nouveaux canaux qui travaillent pendant le service.</p><ul class="puces"><li>Click &amp; Collect</li><li>Paiement par QR code</li><li>Carte de fidélité</li></ul></div><figure><img src="/accueil/site.webp" alt="Un client consulte une carte de restaurant sur son téléphone." width="1600" height="1067" loading="lazy" style="object-position: 72% 40%"></figure></article>
       <article class="etape"><span class="n">5</span><h3><span class="surv">Suivre et ajuster</span></h3><div class="detail"><p>Shootings, publications, et un point chaque mois sur ce qui rapporte.</p><ul class="puces"><li>Réels</li><li>Publications</li><li>Tableau de bord</li></ul></div><figure><img src="/accueil/reels.webp" alt="Des plats photographiés au téléphone pour les réseaux." width="1600" height="1067" loading="lazy"></figure></article>
+    </div>
+    <div class="mes mes--clair mes--outils" aria-label="Les outils en situation">
+      <div class="mes__colle">
+        <div class="mes__piste">
+          <figure class="f-cc"><div class="o-tel"><span class="h">Votre commande</span><div class="r"><span>Adana kebab</span><span>22.–</span></div><div class="r"><span>Brochettes × 2</span><span>38.–</span></div><div class="r"><span>Retrait</span><span>19 h 15</span></div><span class="go">Commander · 60.–</span></div><figcaption>Click &amp; Collect</figcaption></figure>
+          <figure class="f-qr"><div class="chevalet"><canvas class="qr" width="25" height="25" role="img" aria-label="QR code d’exemple"></canvas><b>Table 6</b><span>Scannez, payez, c’est réglé.</span></div><figcaption>QR code à table</figcaption></figure>
+          <figure class="f-paye"><div class="o-tel"><span class="h">Table 6</span><div class="ok"><i>✓</i><b>84.–</b><span>Payé, merci&nbsp;!</span></div><span class="go">Laisser un avis Google</span></div><figcaption>Paiement confirmé</figcaption></figure>
+          <figure class="f-cuisine"><div class="ticket"><b>Commande 128</b><span>À emporter · 19 h 15</span><span class="t">2 × Brochettes poulet</span><span>1 × Adana kebab</span><span class="t">Payé en ligne</span></div><figcaption>Le ticket en cuisine</figcaption></figure>
+          <figure class="f-tdb"><div class="ecran"><p class="etiquette">Cette semaine</p><b>8 420.–</b><div class="barres barres-auto" aria-hidden="true"></div><div class="legende"><span>En salle</span><span class="cc">En ligne</span></div></div><figcaption>Tableau de bord</figcaption></figure>
+          <figure class="f-fid"><div class="o-tel"><span class="h">Cartes</span><div class="carte-w"><b>Carte fidélité</b><div class="tampons"><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span></span><span></span><span></span></div><small>Encore 3 plats</small></div></div><figcaption>Fidélité sur téléphone</figcaption></figure>
+          <figure class="f-msg"><div class="bulle"><small>Message aux habitués · jeudi 17 h</small>Ce soir, le plateau grill pour 2 est à l’honneur. On vous garde une table&nbsp;?</div><figcaption>Message aux habitués</figcaption></figure>
+        </div>
+      </div>
+      <div class="mes__barre" aria-hidden="true"><i></i></div>
     </div>
   </section>
 
@@ -509,7 +569,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
             <figure class="m-fid"><div class="c"><b>CARTE 35</b><div class="tampons"><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span></span><span></span><span></span><span></span></div><small>Le 10<sup>e</sup> plat est offert</small></div><figcaption>La fidélité</figcaption></figure>
           </div>
         </div>
-        <div class="mes__barre" aria-hidden="true"><i id="mes-barre"></i></div>
+        <div class="mes__barre" aria-hidden="true"><i></i></div>
       </div>
       <div class="cas__etapes">
         <div><span class="n">1</span><b>Le marché</b><span>Onex, midi actif, peu de grill le soir.</span></div>
@@ -609,19 +669,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     let f = 0; setInterval(() => { f = (f + 1) % imgs.length; film.src = imgs[f]; }, f === 0 ? 160 : 160);
   }
 
-  // Identité : défilement horizontal piloté par le défilement vertical (ordinateur), au doigt ailleurs
-  const mes = document.getElementById('mes');
-  if (mes) {
-    const colle = mes.querySelector('.mes__colle'), piste = mes.querySelector('.mes__piste'), barre = document.getElementById('mes-barre');
-    const grand = matchMedia('(min-width: 901px)');
+  // Défilements horizontaux (identité, outils) : pilotés par le défilement vertical sur ordinateur, au doigt ailleurs
+  const grand = matchMedia('(min-width: 901px)');
+  document.querySelectorAll('.mes').forEach((mes) => {
+    const colle = mes.querySelector('.mes__colle'), piste = mes.querySelector('.mes__piste'), barre = mes.querySelector('.mes__barre i');
     let dist = 0;
-    const mesure = () => {
-      if (calme || !grand.matches) { mes.classList.remove('epingle'); piste.style.transform = ''; return; }
-      mes.classList.add('epingle');
-      dist = Math.max(0, piste.scrollWidth - colle.clientWidth);
-      mes.style.setProperty('--h', (colle.offsetHeight + dist) + 'px');
-      bouge();
-    };
     const bouge = () => {
       if (mes.classList.contains('epingle')) {
         const r = mes.getBoundingClientRect(), p = Math.min(1, Math.max(0, (90 - r.top) / Math.max(1, dist)));
@@ -630,10 +682,32 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         barre.style.width = (colle.scrollLeft / Math.max(1, colle.scrollWidth - colle.clientWidth) * 100) + '%';
       }
     };
+    const mesure = () => {
+      if (calme || !grand.matches) { mes.classList.remove('epingle'); piste.style.transform = ''; bouge(); return; }
+      mes.classList.add('epingle');
+      dist = Math.max(0, piste.scrollWidth - colle.clientWidth);
+      mes.style.setProperty('--h', (colle.offsetHeight + dist) + 'px');
+      bouge();
+    };
     addEventListener('scroll', bouge, { passive: true }); colle.addEventListener('scroll', bouge, { passive: true });
     addEventListener('resize', mesure); grand.addEventListener('change', mesure);
     addEventListener('load', mesure); mesure();
-  }
+  });
+
+  // QR décoratifs (motif fixe, ne pointe nulle part)
+  document.querySelectorAll('canvas.qr').forEach((cv) => {
+    const x = cv.getContext('2d'), n = 25; let s = 35;
+    const r = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+    x.fillStyle = '#fff'; x.fillRect(0, 0, n, n); x.fillStyle = '#121211';
+    for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) if (r() > .52) x.fillRect(i, j, 1, 1);
+    const oeil = (a, b) => { x.fillStyle = '#fff'; x.fillRect(a - 1, b - 1, 9, 9); x.fillStyle = '#121211'; x.fillRect(a, b, 7, 7); x.fillStyle = '#fff'; x.fillRect(a + 1, b + 1, 5, 5); x.fillStyle = '#121211'; x.fillRect(a + 2, b + 2, 3, 3); };
+    oeil(0, 0); oeil(n - 7, 0); oeil(0, n - 7);
+  });
+  // Barres du tableau de bord (exemple)
+  document.querySelectorAll('.barres-auto').forEach((b) => {
+    const salle = [52, 60, 58, 70, 88, 96, 64], cc = [14, 18, 20, 26, 36, 40, 22], max = 140;
+    b.innerHTML = salle.map((v, i) => `<div style="display:flex;flex-direction:column;justify-content:flex-end;height:100%"><i class="cc" style="height:${cc[i] / max * 100}%"></i><i style="height:${v / max * 100}%"></i></div>`).join('');
+  });
 })();
 </script>
 
