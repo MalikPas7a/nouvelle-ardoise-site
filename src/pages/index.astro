@@ -9,19 +9,31 @@ import '@fontsource/ibm-plex-mono/500.css';
 import '@fontsource/playfair-display/700.css';
 import '@fontsource/playfair-display/800.css';
 import { SITE } from '../config.js';
-import { PROMOTION_ACTIVE, catalogueOffres } from '../data/offres.js';
-const title = 'Agence marketing restaurants Genève | Nouvelle Ardoise';
-const description = 'Agence de marketing et de communication pour la restauration et les métiers de bouche à Genève et Vaud : étude de marché, stratégie, identité, site, réseaux, publicité et commande en ligne.';
+import { PROMOTION_ACTIVE } from '../data/offres.js';
+const title = 'Agence marketing restaurant Genève & Vaud | Nouvelle Ardoise';
+const description = 'Agence de marketing et de communication pour restaurants, cafés et artisans de bouche à Genève, Lausanne et dans tout le canton de Vaud : stratégie, identité visuelle, site, Instagram, publicité, Uber Eats et Click & Collect.';
 const canonical = SITE.url + '/';
 const image = SITE.url + '/partage.jpg';
+const faq = [["Qu’est-ce qu’une agence marketing pour restaurants ?", "Une agence qui ne travaille qu’avec la restauration et les métiers de bouche. Nouvelle Ardoise étudie votre marché, construit votre stratégie, crée votre identité (logo, carte, site, Instagram) et installe les outils qui vendent : commande en ligne, paiement par QR code, fiche Google et Uber Eats."], ["Dans quelles villes intervenez-vous ?", "À Genève et dans le canton de Vaud : Genève, Carouge, Onex, Meyrin, Lancy, Nyon, Morges, Lausanne et La Côte. On vient sur place pour l’étude du quartier et pour les shootings."], ["Comment attirer plus de clients dans mon restaurant ?", "On choisit deux ou trois leviers selon votre quartier : une fiche Google soignée, des réels Instagram tournés chez vous, de la publicité locale ciblée, une fiche Uber Eats avec des photos pro, et la fidélité. Chaque mois, on mesure ce qui rapporte et on ajuste."], ["Pouvez-vous optimiser notre fiche Uber Eats ?", "Oui. Photos pro de chaque plat, carte réécrite, catégories et options rangées, offres au bon moment. On suit les vues de la fiche, le taux de commande et le panier moyen."], ["Proposez-vous la commande en ligne sans commission ?", "Oui. On installe le Click & Collect sur votre propre site et le paiement par QR code à table : les commandes arrivent sans commission de plateforme et sans décrocher le téléphone."], ["Travaillez-vous aussi avec les boulangers, pâtissiers et chocolatiers ?", "Oui. Les artisans de bouche ont leur page : site, photos, réels et fiche Google pensés pour la boutique et les commandes."]];
+const film = SITE.url + '/accueil/film/comment-on-travaille.mp4';
 const jsonLd = JSON.stringify({
-  '@context':'https://schema.org', '@type':'ProfessionalService', '@id':SITE.url+'/#agence',
-  name:SITE.nom, url:canonical, description, email:SITE.email, telephone:'+41782133868', image,
-  founder:{'@type':'Person',name:SITE.responsable},
-  address:{'@type':'PostalAddress',streetAddress:SITE.adresse,postalCode:SITE.localite.split(' ')[0],addressLocality:'Genève',addressCountry:'CH'},
-  areaServed:[{'@type':'AdministrativeArea',name:'Genève'},{'@type':'AdministrativeArea',name:'Vaud'}],
-  sameAs:['https://www.instagram.com/'+SITE.instagram+'/'],
-  hasOfferCatalog:catalogueOffres(SITE.url),
+  '@context':'https://schema.org',
+  '@graph':[
+    {'@type':['ProfessionalService','LocalBusiness'], '@id':SITE.url+'/#agence',
+      name:SITE.nom, url:canonical, description, slogan:'Place à la mise en place.',
+      email:SITE.email, telephone:'+41782133868', image, logo:SITE.url+'/apple-touch-icon.png',
+      founder:{'@type':'Person',name:SITE.responsable},
+      address:{'@type':'PostalAddress',streetAddress:SITE.adresse,postalCode:SITE.localite.split(' ')[0],addressLocality:'Genève',addressRegion:'GE',addressCountry:'CH'},
+      areaServed:['Genève','Carouge','Onex','Meyrin','Lancy','Nyon','Morges','Lausanne','Canton de Vaud','Suisse romande'].map((n)=>({'@type':'Place',name:n})),
+      knowsAbout:['Marketing de restaurant','Communication pour la restauration','Identité visuelle','Création de logo','Site web de restaurant','Instagram et réels','Publicité Meta et Google','Référencement local Google','Optimisation Uber Eats','Click & Collect','Paiement par QR code','Fidélisation','Shooting photo culinaire'],
+      makesOffer:['Étude de marché','Stratégie marketing','Identité visuelle','Site web ou application','Réseaux sociaux et réels','Publicité locale','Optimisation Uber Eats','Click & Collect et paiement QR','Tableau de bord des ventes'].map((n)=>({'@type':'Offer',itemOffered:{'@type':'Service',name:n,areaServed:'Genève et Vaud'}})),
+      sameAs:['https://www.instagram.com/'+SITE.instagram+'/'],
+      inLanguage:'fr-CH'},
+    {'@type':'WebSite','@id':SITE.url+'/#site',url:SITE.url+'/',name:SITE.nom,inLanguage:'fr-CH',publisher:{'@id':SITE.url+'/#agence'}},
+    {'@type':'WebPage','@id':canonical+'#page',url:canonical,name:title,description,isPartOf:{'@id':SITE.url+'/#site'},about:{'@id':SITE.url+'/#agence'},primaryImageOfPage:image,inLanguage:'fr-CH'},
+    {'@type':'VideoObject',name:'Comment on travaille, en 5 étapes',description:'Le film de Nouvelle Ardoise : étudier le marché, construire la stratégie, créer l’identité, installer les outils, suivre et ajuster.',thumbnailUrl:SITE.url+'/accueil/film/affiche.webp',contentUrl:film,uploadDate:'2026-10-21',duration:'PT32S',inLanguage:'fr-CH',publisher:{'@id':SITE.url+'/#agence'}},
+    {'@type':'FAQPage','@id':canonical+'#questions',mainEntity:faq.map(([q,r])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:r}}))},
+  ],
 });
 ---
 <!doctype html>
@@ -29,7 +41,10 @@ const jsonLd = JSON.stringify({
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#F4F4F0" />
+  <meta name="theme-color" content="#F2EDE4" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="geo.region" content="CH-GE" />
+  <meta name="geo.placename" content="Genève" />
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
@@ -44,7 +59,10 @@ const jsonLd = JSON.stringify({
   <meta property="og:image" content={image} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Nouvelle Ardoise, agence de marketing pour restaurants à Genève et Vaud" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
   <style is:global>
 /* Grille suisse 12 colonnes, papier et encre ; le jaune craie ne sert qu'à surligner. Un seul thème, voulu (papier).
    Les couleurs vert/or ne servent qu'à l'identité fictive du client (Izgara 35). */
@@ -451,6 +469,14 @@ h1 em, h2 em, h3 em, .trait > span { font-style: italic; color: var(--encre); ba
 .film video { width: 100%; max-width: 100%; height: auto; aspect-ratio: 16 / 9; display: block; background: var(--encre); border: 1px solid var(--encre); }
 .film figcaption { font-size: 15px; color: var(--gris); }
 .film figcaption span { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--encre); background: var(--craie); padding: 2px 6px; margin-right: 8px; }
+.ouv__sur { display: block; font-family: var(--mono) !important; font-size: 12px !important; letter-spacing: .08em !important; font-weight: 400 !important; line-height: 1.5; margin-bottom: clamp(14px, 2vw, 24px); }
+.faq__liste { display: grid; border-top: 1px solid var(--encre); max-width: 860px; margin-left: auto; }
+.faq details { border-bottom: 1px solid var(--filet); padding-block: 18px; }
+.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; font-size: clamp(17px, 1.6vw, 20px); font-weight: 500; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; font-family: var(--mono); flex: none; }
+.faq details[open] summary::after { content: '−'; }
+.faq details p { margin: 12px 0 0; color: var(--gris); max-width: 62ch; line-height: 1.55; }
 </style>
   <script type="application/ld+json" is:inline set:html={jsonLd} />
 </head>
@@ -473,8 +499,7 @@ h1 em, h2 em, h3 em, .trait > span { font-style: italic; color: var(--encre); ba
 
 <main id="haut">
   <section class="ouv cadre" aria-labelledby="titre">
-    <p class="etiquette">Agence de marketing et de communication · Restauration et métiers de bouche · Genève &amp; Vaud</p>
-    <h1 id="titre">Place à la <span class="trait"><svg viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true"><path d="M6 26 C 140 12, 300 30, 594 14"/></svg><span>mise en place.</span></span></h1>
+    <h1 id="titre"><span class="etiquette ouv__sur">Agence de marketing et de communication pour restaurants · Restauration et métiers de bouche · Genève &amp; Vaud</span>Place à la <span class="trait"><svg viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true"><path d="M6 26 C 140 12, 300 30, 594 14"/></svg><span>mise en place.</span></span></h1>
     <div class="ouv__bas">
       <p>On étudie votre marché, on construit votre stratégie, on crée votre image et vos outils. Puis on suit les résultats avec vous, chaque mois.</p>
       <div class="actions"><a class="btn" href="#contact">Parler de votre maison <span aria-hidden="true">→</span></a><a class="btn btn--creux" href="#accompagnement">Voir comment</a></div>
@@ -624,6 +649,11 @@ h1 em, h2 em, h3 em, .trait > span { font-style: italic; color: var(--encre); ba
   {PROMOTION_ACTIVE && <a class="lance" href="/offres/" aria-label="Offre de lancement : −20 % sur toutes nos offres jusqu’au 31 octobre"><span class="lance__piste" aria-hidden="true"><span class="lance__bloc"><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i></span><span class="lance__bloc"><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i></span></span></a>}
 
 
+  <section class="sec cadre faq" id="questions" aria-labelledby="faq-titre">
+    <div class="sec__tete"><p class="etiquette">Questions</p><h2 id="faq-titre">Ce qu’on nous demande <span class="surligne">souvent.</span></h2></div>
+    <div class="faq__liste"><details><summary>Qu’est-ce qu’une agence marketing pour restaurants ?</summary><p>Une agence qui ne travaille qu’avec la restauration et les métiers de bouche. Nouvelle Ardoise étudie votre marché, construit votre stratégie, crée votre identité (logo, carte, site, Instagram) et installe les outils qui vendent : commande en ligne, paiement par QR code, fiche Google et Uber Eats.</p></details><details><summary>Dans quelles villes intervenez-vous ?</summary><p>À Genève et dans le canton de Vaud : Genève, Carouge, Onex, Meyrin, Lancy, Nyon, Morges, Lausanne et La Côte. On vient sur place pour l’étude du quartier et pour les shootings.</p></details><details><summary>Comment attirer plus de clients dans mon restaurant ?</summary><p>On choisit deux ou trois leviers selon votre quartier : une fiche Google soignée, des réels Instagram tournés chez vous, de la publicité locale ciblée, une fiche Uber Eats avec des photos pro, et la fidélité. Chaque mois, on mesure ce qui rapporte et on ajuste.</p></details><details><summary>Pouvez-vous optimiser notre fiche Uber Eats ?</summary><p>Oui. Photos pro de chaque plat, carte réécrite, catégories et options rangées, offres au bon moment. On suit les vues de la fiche, le taux de commande et le panier moyen.</p></details><details><summary>Proposez-vous la commande en ligne sans commission ?</summary><p>Oui. On installe le Click & Collect sur votre propre site et le paiement par QR code à table : les commandes arrivent sans commission de plateforme et sans décrocher le téléphone.</p></details><details><summary>Travaillez-vous aussi avec les boulangers, pâtissiers et chocolatiers ?</summary><p>Oui. Les artisans de bouche ont leur page : site, photos, réels et fiche Google pensés pour la boutique et les commandes.</p></details></div>
+  </section>
+
   <section class="contact cadre" id="contact" aria-labelledby="contact-titre">
     <p class="etiquette">Contact</p>
     <h2 id="contact-titre">Un café chez vous, <span class="surligne">hors service&nbsp;?</span></h2>
@@ -635,7 +665,7 @@ h1 em, h2 em, h3 em, .trait > span { font-style: italic; color: var(--encre); ba
   </section>
 </main>
 
-<footer class="pied"><div class="cadre"><span>Nouvelle Ardoise · Genève</span><span><a href="/offres/">Offres</a> · <a href="/questions/">Questions</a> · <a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a></span></div></footer>
+<footer class="pied"><div class="cadre"><span>Nouvelle Ardoise · Agence marketing pour restaurants · Chemin des Sports 16, 1203 Genève · 078 213 38 68 · Genève, Lausanne et Vaud</span><span><a href="/offres/">Offres</a> · <a href="/questions/">Questions</a> · <a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a></span></div></footer>
 
 <script is:inline>
 (function () {
