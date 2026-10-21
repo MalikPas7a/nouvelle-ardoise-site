@@ -80,6 +80,9 @@ img { display: block; max-width: 100%; height: auto; }
 .lance__bloc b { font-weight: 800; }
 .lance__bloc span { font-weight: 400; }
 .lance__bloc i { font-style: normal; font-size: .6em; }
+.lance--360 { margin-top: 0; padding-block: 11px; }
+.lance--360 .lance__bloc { font-size: clamp(13px, 1.3vw, 16px); text-transform: uppercase; letter-spacing: .08em; gap: 16px; padding-right: 16px; font-family: var(--mono); }
+.lance--360 .lance__piste { animation-duration: 60s; animation-direction: reverse; }
 @keyframes lance { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .lance__piste { animation-duration: 90s; } }
 .promo { display: block; background: var(--craie); color: var(--encre); text-align: center; font-size: 14px; padding-block: 9px; padding-inline: 16px; text-decoration: none; }
@@ -481,6 +484,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <div class="tuile t-cmd" id="mur-cmd"><span class="tuile__nom">Commandes</span></div>
     </div>
   </section>
+
+  <div class="lance lance--360" role="img" aria-label="Communication à 360° : Logo, Site, Appli, Instagram, Shooting photo, Vidéo, Drone, Fiche Google, Publicité, Uber Eats, Click & Collect, QR code, Fidélité, Emballages, Prospection."><span class="lance__piste" aria-hidden="true"><span class="lance__bloc"><b>Communication à 360°</b><i aria-hidden="true">✳</i><span>Logo</span><i aria-hidden="true">✳</i><span>Site</span><i aria-hidden="true">✳</i><span>Appli</span><i aria-hidden="true">✳</i><span>Instagram</span><i aria-hidden="true">✳</i><span>Shooting photo</span><i aria-hidden="true">✳</i><span>Vidéo</span><i aria-hidden="true">✳</i><span>Drone</span><i aria-hidden="true">✳</i><span>Fiche Google</span><i aria-hidden="true">✳</i><span>Publicité</span><i aria-hidden="true">✳</i><span>Uber Eats</span><i aria-hidden="true">✳</i><span>Click &amp; Collect</span><i aria-hidden="true">✳</i><span>QR code</span><i aria-hidden="true">✳</i><span>Fidélité</span><i aria-hidden="true">✳</i><span>Emballages</span><i aria-hidden="true">✳</i><span>Prospection</span><i aria-hidden="true">✳</i></span><span class="lance__bloc"><b>Communication à 360°</b><i aria-hidden="true">✳</i><span>Logo</span><i aria-hidden="true">✳</i><span>Site</span><i aria-hidden="true">✳</i><span>Appli</span><i aria-hidden="true">✳</i><span>Instagram</span><i aria-hidden="true">✳</i><span>Shooting photo</span><i aria-hidden="true">✳</i><span>Vidéo</span><i aria-hidden="true">✳</i><span>Drone</span><i aria-hidden="true">✳</i><span>Fiche Google</span><i aria-hidden="true">✳</i><span>Publicité</span><i aria-hidden="true">✳</i><span>Uber Eats</span><i aria-hidden="true">✳</i><span>Click &amp; Collect</span><i aria-hidden="true">✳</i><span>QR code</span><i aria-hidden="true">✳</i><span>Fidélité</span><i aria-hidden="true">✳</i><span>Emballages</span><i aria-hidden="true">✳</i><span>Prospection</span><i aria-hidden="true">✳</i></span></span></div>
 
   <section class="sec cadre" id="accompagnement" aria-labelledby="acc-titre">
     <div class="sec__tete">
