@@ -253,6 +253,54 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @media (max-width: 900px) { .canaux { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .canaux { grid-template-columns: 1fr; } }
 
+
+/* Identité Izgara : défilement horizontal de mises en situation (épinglé sur ordinateur, au doigt sur téléphone) */
+.mes { position: relative; margin-top: 8px; }
+.mes__colle { position: relative; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.mes__colle::-webkit-scrollbar { display: none; }
+.mes__piste { display: flex; gap: 12px; width: max-content; padding-bottom: 4px; }
+.mes__piste > figure { scroll-snap-align: start; margin: 0; width: min(78vw, 520px); height: min(62vh, 480px); position: relative; overflow: hidden; flex: none; display: grid; place-items: center; }
+.mes__piste figcaption { position: absolute; left: 12px; bottom: 12px; background: var(--papier); color: var(--encre); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 5px 9px; }
+.mes__barre { height: 2px; background: #3A3A37; margin-top: 16px; }
+.mes__barre i { display: block; height: 100%; width: 0; background: var(--craie); }
+.mes.epingle { height: var(--h, 300vh); }
+.mes.epingle .mes__colle { position: sticky; top: 90px; overflow: hidden; }
+.mes.epingle .mes__piste { will-change: transform; }
+.m-logo { background: var(--iz-or); }
+.m-logo .iz-img { width: 92%; height: 92%; object-fit: contain; }
+.m-ens { background: linear-gradient(#262a30, #15181c); }
+.m-ens .mur-ens { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgb(255 255 255 / .03) 0 2px, transparent 2px 64px); }
+.m-ens .caisson { position: relative; width: 78%; aspect-ratio: 2.4; background: var(--iz-or); border-radius: 6px; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 16px; padding: 12px 20px; box-shadow: 0 0 60px 10px rgb(191 87 52 / .45), 0 30px 40px -20px rgb(0 0 0 / .8); }
+.m-ens .caisson .iz-img { height: 100%; width: auto; aspect-ratio: 1; object-fit: cover; border-radius: 4px; }
+.m-ens .caisson b { font-family: var(--grotesk); color: var(--iz-creme); font-size: clamp(16px, 2.4vw, 26px); letter-spacing: .18em; font-weight: 800; }
+.m-ens .vitre { position: absolute; left: 11%; right: 11%; bottom: 0; height: 30%; background: linear-gradient(rgb(255 196 120 / .25), rgb(255 160 90 / .08)); border: 3px solid #0d0f12; border-bottom: 0; }
+.m-sac { background: #D8D1C4; }
+.m-sac .sac { position: relative; width: 46%; aspect-ratio: .78; background: linear-gradient(100deg, #b98c5c, #cfa474 45%, #b5895a); border-radius: 3px 3px 6px 6px; box-shadow: 18px 24px 30px -18px rgb(0 0 0 / .45); display: grid; place-items: center; margin-top: 14%; }
+.m-sac .sac::before { content: ""; position: absolute; top: -26%; left: 30%; width: 40%; height: 34%; border: 7px solid #a77c4f; border-bottom: 0; border-radius: 60px 60px 0 0; }
+.m-sac .sac::after { content: ""; position: absolute; inset: 0 0 auto; height: 9%; background: rgb(0 0 0 / .08); }
+.m-sac .sac .iz-img { width: 60%; aspect-ratio: 1; object-fit: cover; border-radius: 50%; mix-blend-mode: multiply; }
+.m-box { background: #2B2B2B; }
+.m-box .boite { width: 58%; aspect-ratio: 1.35; background: linear-gradient(160deg, #c99a68, #a97b4c); border-radius: 4px; position: relative; display: grid; place-items: center; box-shadow: 0 40px 40px -24px rgb(0 0 0 / .8); transform: perspective(700px) rotateX(28deg); }
+.m-box .boite .iz-img { width: 46%; aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 4px solid var(--iz-creme); }
+.m-carte { background: #3b2f27; }
+.m-carte .feuille { width: 56%; aspect-ratio: .7; background: var(--iz-creme); color: var(--iz-vert); padding: 7% 7%; display: grid; align-content: start; gap: 8px; box-shadow: 0 30px 40px -20px rgb(0 0 0 / .7); transform: rotate(-3deg); }
+.m-carte .feuille .iz-img { width: 34%; aspect-ratio: 1; object-fit: cover; margin: 0 auto 6px; }
+.m-carte .feuille h5 { margin: 4px 0 2px; font-family: var(--grotesk); font-size: 13px; letter-spacing: .2em; color: var(--iz-or); }
+.m-carte .feuille .l { display: flex; justify-content: space-between; font-size: 12px; border-bottom: 1px dotted rgb(30 58 95 / .35); padding-bottom: 3px; gap: 8px; }
+.m-tel { background: #CFC8BA; }
+.m-tel .tel-cadre { width: min(230px, 54%); }
+.m-insta { background: var(--iz-creme); }
+.m-insta .grille { width: 74%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.m-insta .grille span { aspect-ratio: 1; background: var(--iz-vert); color: var(--iz-creme); display: grid; place-items: center; text-align: center; font-weight: 750; font-size: clamp(11px, 1.2vw, 14px); padding: 6px; letter-spacing: -.01em; }
+.m-insta .grille span:nth-child(2n) { background: var(--iz-or); }
+.m-insta .grille span.l { background: var(--iz-or); padding: 0; }
+.m-insta .grille span.l .iz-img { width: 100%; height: 100%; object-fit: cover; }
+.m-fid { background: #1a2233; }
+.m-fid .c { width: 62%; aspect-ratio: 1.6; border-radius: 14px; background: var(--iz-or); padding: 18px; display: grid; align-content: space-between; color: var(--iz-creme); box-shadow: 0 30px 40px -20px rgb(0 0 0 / .8); transform: rotate(4deg); }
+.m-fid .c b { font-size: 18px; letter-spacing: .1em; }
+.m-fid .tampons span { border-color: var(--iz-creme); }
+.m-fid .tampons span.ok { background: var(--iz-creme); }
+
 /* Prix */
 .prix { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .prix article { border-top: 1px solid var(--encre); padding-top: 16px; min-width: 0; }
@@ -446,14 +494,22 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <div class="sec__tete">
         <p class="etiquette">Démonstration · Onex</p>
         <h2 id="cas-titre">Izgara 35, grill d’Izmir à Onex.</h2>
-        <p class="chapo">Une identité complète, du logo au sac à emporter.</p>
+        <p class="chapo">Une identité complète, du logo au sac à emporter. Faites défiler.</p>
       </div>
-      <div class="identite">
-        <div class="i-logo"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="Logo Izgara 35, Grill d’Izmir" width="900" height="900"></div>
-        <div class="i-carte"><h5>Le grill</h5><div class="l"><span>Adana kebab</span><span>22.–</span></div><div class="l"><span>Brochettes de poulet</span><span>21.–</span></div><div class="l"><span>Iskender</span><span>23.–</span></div><div class="l"><span>Plateau pour 2</span><span>48.–</span></div></div>
-        <div class="i-box"><div class="eti"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="Logo Izgara 35, Grill d’Izmir" width="900" height="900"></div></div>
-        <div class="i-fid"><div class="c"><b>Carte 35</b><div class="tampons"><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span></span><span></span><span></span><span></span></div><small>Le 10<sup>e</sup> plat est offert</small></div></div>
-        <div class="i-insta"><span>Le plat du jour</span><span>Adana</span><span>Ouvert ce soir</span><span>Box du midi</span><span>Plateau pour 2</span><span>Onex</span></div>
+      <div class="mes" id="mes">
+        <div class="mes__colle">
+          <div class="mes__piste">
+            <figure class="m-logo"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="Logo typographique Izgara 35, Grill d’Izmir" width="900" height="900"><figcaption>Le logo</figcaption></figure>
+            <figure class="m-ens"><div class="mur-ens"></div><div class="caisson"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="" width="900" height="900"><b>GRILL D’IZMIR</b></div><div class="vitre"></div><figcaption>L’enseigne</figcaption></figure>
+            <figure class="m-sac"><div class="sac"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="" width="900" height="900"></div><figcaption>Le sac à emporter</figcaption></figure>
+            <figure class="m-box"><div class="boite"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="" width="900" height="900"></div><figcaption>La box du midi</figcaption></figure>
+            <figure class="m-carte"><div class="feuille"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="" width="900" height="900"><h5>LE GRILL</h5><div class="l"><span>Adana kebab</span><span>22.–</span></div><div class="l"><span>Brochettes de poulet</span><span>21.–</span></div><div class="l"><span>Iskender</span><span>23.–</span></div><div class="l"><span>Plateau pour 2</span><span>48.–</span></div><div class="l"><span>Box du midi</span><span>14.90</span></div></div><figcaption>La carte</figcaption></figure>
+            <figure class="m-tel"><div class="tel-cadre" aria-hidden="true"><div class="tel-defile"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="" width="900" height="900"><h4>Le grill d’Izmir, à Onex.</h4><span class="bouton">Commander à emporter</span><div class="plat"><span>Adana kebab<small>Riz pilaf, salade</small></span><span>22.–</span></div><div class="plat"><span>Brochettes de poulet<small>Marinade yaourt</small></span><span>21.–</span></div><div class="plat"><span>Plateau grill pour 2<small>Le soir seulement</small></span><span>48.–</span></div><div class="plat"><span>Iskender<small>Pain, sauce tomate</small></span><span>23.–</span></div><span class="bouton">Réserver une table</span></div></div><figcaption>Le site</figcaption></figure>
+            <figure class="m-insta"><div class="grille"><span class="l"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="" width="900" height="900"></span><span>Le plat du jour</span><span>Ouvert ce soir</span><span>Adana</span><span>Box du midi</span><span>Plateau pour 2</span></div><figcaption>Instagram</figcaption></figure>
+            <figure class="m-fid"><div class="c"><b>CARTE 35</b><div class="tampons"><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span></span><span></span><span></span><span></span></div><small>Le 10<sup>e</sup> plat est offert</small></div><figcaption>La fidélité</figcaption></figure>
+          </div>
+        </div>
+        <div class="mes__barre" aria-hidden="true"><i id="mes-barre"></i></div>
       </div>
       <div class="cas__etapes">
         <div><span class="n">1</span><b>Le marché</b><span>Onex, midi actif, peu de grill le soir.</span></div>
@@ -551,6 +607,32 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     const imgs = []; for (let k = 1; k <= 72; k += 3) imgs.push('/accueil/pm/' + String(k).padStart(3, '0') + '.webp');
     imgs.forEach((u) => { const im = new Image(); im.src = u; });
     let f = 0; setInterval(() => { f = (f + 1) % imgs.length; film.src = imgs[f]; }, f === 0 ? 160 : 160);
+  }
+
+  // Identité : défilement horizontal piloté par le défilement vertical (ordinateur), au doigt ailleurs
+  const mes = document.getElementById('mes');
+  if (mes) {
+    const colle = mes.querySelector('.mes__colle'), piste = mes.querySelector('.mes__piste'), barre = document.getElementById('mes-barre');
+    const grand = matchMedia('(min-width: 901px)');
+    let dist = 0;
+    const mesure = () => {
+      if (calme || !grand.matches) { mes.classList.remove('epingle'); piste.style.transform = ''; return; }
+      mes.classList.add('epingle');
+      dist = Math.max(0, piste.scrollWidth - colle.clientWidth);
+      mes.style.setProperty('--h', (colle.offsetHeight + dist) + 'px');
+      bouge();
+    };
+    const bouge = () => {
+      if (mes.classList.contains('epingle')) {
+        const r = mes.getBoundingClientRect(), p = Math.min(1, Math.max(0, (90 - r.top) / Math.max(1, dist)));
+        piste.style.transform = `translate3d(${-p * dist}px,0,0)`; barre.style.width = (p * 100) + '%';
+      } else {
+        barre.style.width = (colle.scrollLeft / Math.max(1, colle.scrollWidth - colle.clientWidth) * 100) + '%';
+      }
+    };
+    addEventListener('scroll', bouge, { passive: true }); colle.addEventListener('scroll', bouge, { passive: true });
+    addEventListener('resize', mesure); grand.addEventListener('change', mesure);
+    addEventListener('load', mesure); mesure();
   }
 })();
 </script>
