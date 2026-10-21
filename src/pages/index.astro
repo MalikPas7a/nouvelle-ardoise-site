@@ -1,7 +1,9 @@
 ---
-// Accueil « Papier et encre » (refonte du 21.10.2026) : une seule police, le jaune craie pour surligner,
+// Accueil « Éditorial » (refonte du 21.10.2026) : titres en Instrument Serif, texte en Inter Tight, crème et terracotta,
 // l'accompagnement en 5 étapes, l'équipe, les canaux, Pasta Mo' (cas réel) et Izgara 35 (démonstration fictive).
-import '@fontsource-variable/schibsted-grotesk';
+import '@fontsource/instrument-serif/400.css';
+import '@fontsource/instrument-serif/400-italic.css';
+import '@fontsource-variable/inter-tight';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import '@fontsource/playfair-display/700.css';
@@ -47,16 +49,18 @@ const jsonLd = JSON.stringify({
 /* Grille suisse 12 colonnes, papier et encre ; le jaune craie ne sert qu'à surligner. Un seul thème, voulu (papier).
    Les couleurs vert/or ne servent qu'à l'identité fictive du client (Izgara 35). */
 :root {
-  --papier: #F4F4F0;
-  --encre: #121211;
-  --gris: #5E5E58;
-  --filet: #D6D6CF;
-  --craie: #FFD23F;
-  --blanc: #FFFFFF;
+  --papier: #F2EDE4;
+  --encre: #1B1915;
+  --gris: #6A6359;
+  --filet: #DCD3C4;
+  --craie: #A9481F;
+  --craie-clair: #EDD5C3;
+  --blanc: #FAF7F1;
   --iz-vert: #1E3A5F;
   --iz-or: #BF5734;
   --iz-creme: #EFE6D2;
-  --grotesk: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --grotesk: 'Inter Tight Variable', 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
   --iz-serif: 'Playfair Display', Georgia, serif;
   --max: 1240px;
@@ -70,17 +74,17 @@ img { display: block; max-width: 100%; height: auto; }
 :focus-visible { outline: 2px solid var(--encre); outline-offset: 3px; }
 .cadre { max-width: var(--max); margin-inline: auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
 .etiquette { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris); margin: 0; }
-.surligne { background: linear-gradient(transparent 58%, var(--craie) 58%, var(--craie) 92%, transparent 92%); padding-inline: .06em; }
+.surligne { font-style: italic; color: var(--craie); }
 
 .maquette { background: var(--encre); color: var(--papier); font-family: var(--mono); font-size: 12px; text-align: center; padding-block: 6px; padding-inline: 16px; }
-.lance { display: block; overflow: hidden; background: var(--craie); color: var(--encre); text-decoration: none; border-block: 1px solid var(--encre); padding-block: clamp(18px, 3vw, 34px); margin-top: clamp(64px, 10vw, 140px); }
+.lance { display: block; overflow: hidden; background: var(--craie); color: var(--papier); text-decoration: none; border-block: 1px solid var(--encre); padding-block: clamp(18px, 3vw, 34px); margin-top: clamp(64px, 10vw, 140px); }
 .lance__piste { display: flex; width: max-content; animation: lance 28s linear infinite; }
 .lance:hover .lance__piste { animation-play-state: paused; }
 .lance__bloc { display: flex; align-items: baseline; gap: clamp(18px, 2.4vw, 36px); padding-right: clamp(18px, 2.4vw, 36px); white-space: nowrap; font-size: clamp(34px, 6vw, 84px); letter-spacing: -.045em; line-height: 1; }
 .lance__bloc b { font-weight: 800; }
 .lance__bloc span { font-weight: 400; }
 .lance__bloc i { font-style: normal; font-size: .6em; }
-.lance--360 { margin-top: 0; padding-block: 11px; }
+.lance--360 { margin-top: 0; padding-block: 11px; background: var(--encre); }
 .lance--360 .lance__bloc { font-size: clamp(13px, 1.3vw, 16px); text-transform: uppercase; letter-spacing: .08em; gap: 16px; padding-right: 16px; font-family: var(--mono); }
 .lance--360 .lance__piste { animation-duration: 60s; animation-direction: reverse; }
 @keyframes lance { to { transform: translateX(-50%); } }
@@ -112,7 +116,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .ouv__bas p { grid-column: 1 / span 6; margin: 0; font-size: clamp(18px, 1.7vw, 22px); line-height: 1.35; max-width: 36ch; }
 .ouv__bas .actions { grid-column: 8 / span 5; display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap; }
 .btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--encre); color: var(--papier); text-decoration: none; font-weight: 600; font-size: 15px; border: 1px solid var(--encre); }
-.btn:hover { background: var(--craie); color: var(--encre); }
+.btn:hover { background: var(--craie); border-color: var(--craie); color: var(--papier); }
 .btn--creux { background: transparent; color: var(--encre); }
 
 /* Mur animé (en attendant la vidéo) */
@@ -174,7 +178,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .etape figure { grid-column: 11 / span 2; margin: 0; aspect-ratio: 3 / 2; overflow: hidden; background: var(--encre); }
 .etape figure img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.8,.2,1); }
 .etape:hover figure img { transform: scale(1.06); }
-.etape:hover h3 .surv { background: linear-gradient(transparent 60%, var(--craie) 60%, var(--craie) 92%, transparent 92%); }
+
 
 /* Récit des 5 étapes */
 .recit { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; border-top: 1px solid var(--encre); }
@@ -292,7 +296,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .canaux h3 { margin: 0; font-size: clamp(22px, 2.2vw, 30px); letter-spacing: -.03em; line-height: 1.05; }
 .canaux p { margin: 0; color: var(--gris); }
 .canaux .mesure { font-family: var(--mono); font-size: 12px; color: var(--encre); border-top: 1px dashed var(--filet); padding-top: 10px; margin-top: 6px; }
-.canaux .mesure b { background: var(--craie); font-weight: 500; padding: 1px 5px; }
+.canaux .mesure b { background: var(--craie-clair); font-weight: 500; padding: 1px 5px; }
 .canaux article.large { grid-column: 1 / -1; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 40px; align-items: center; }
 .canaux article.large figure { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; }
 .canaux article.large img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -435,6 +439,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html { scroll-behavior: auto; }
 }
+
+/* Éditorial : tous les titres et grands chiffres en Instrument Serif, sans graisse ni serrage de grotesque */
+:is(h1, h2, h3, .grand, .recit__num, .lance__bloc b, .phrase) { font-family: var(--serif) !important; font-weight: 400 !important; letter-spacing: -.02em !important; }
+.lance--360 .lance__bloc b { font-family: var(--mono) !important; letter-spacing: .08em !important; font-weight: 500 !important; }
+h1 em, h2 em, h3 em, .trait > span { font-style: italic; color: var(--craie); }
+.trait svg { display: none; }
+.ouv h1 { line-height: .92; }
+.chap h3 { line-height: .98; }
 </style>
   <script type="application/ld+json" is:inline set:html={jsonLd} />
 </head>
