@@ -11,7 +11,7 @@
   --ardoise-2: #2B3A3C;
   --gris: #57666A;
   --trait: #D5DBD6;
-  --jaune: #A9481F;
+  --jaune: #FFD23F;
 
   --titre: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --texte: 'Inter Tight Variable', 'Helvetica Neue', Arial, sans-serif;
@@ -61,7 +61,7 @@ ul, ol { padding: 0; list-style: none; }
 .btn:hover { background: #000; }
 .btn:active { transform: scale(0.97); }
 .btn--petit { min-height: 44px; padding: 0 18px; font-size: 0.95rem; }
-.btn--jaune { background: var(--jaune); color: var(--blanc); }
+.btn--jaune { background: var(--jaune); color: var(--ardoise); }
 .btn--jaune:hover { background: #FFE07A; }
 .btn--clair { background: var(--nappe); color: var(--ardoise); box-shadow: inset 0 0 0 1.5px var(--ardoise); }
 .btn--clair:hover { background: var(--ardoise); color: var(--blanc); }
