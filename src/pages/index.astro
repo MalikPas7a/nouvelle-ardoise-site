@@ -250,6 +250,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .canaux p { margin: 0; color: var(--gris); }
 .canaux .mesure { font-family: var(--mono); font-size: 12px; color: var(--encre); border-top: 1px dashed var(--filet); padding-top: 10px; margin-top: 6px; }
 .canaux .mesure b { background: var(--craie); font-weight: 500; padding: 1px 5px; }
+.canaux article.large { grid-column: 1 / -1; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 28px; align-items: center; }
+.canaux article.large figure { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; }
+.canaux article.large img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.canaux article.large > div { display: grid; gap: 10px; max-width: 62ch; }
+@media (max-width: 560px) { .canaux article.large { grid-template-columns: minmax(0, 110px) minmax(0, 1fr); gap: 16px; } }
 @media (max-width: 900px) { .canaux { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .canaux { grid-template-columns: 1fr; } }
 
@@ -506,7 +511,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <article><p class="etiquette">Contenu</p><h3>Donner faim chaque semaine</h3><p>Réels, plat du jour, coulisses. Le contenu qui fait venir, pas celui qui fait joli.</p><p class="mesure">On mesure : <b>réservations</b> <b>messages</b></p></article>
       <article><p class="etiquette">Commande en ligne</p><h3>Vendre sans décrocher</h3><p>Click &amp; Collect et paiement par QR code, sans commission de plateforme.</p><p class="mesure">On mesure : <b>panier moyen</b> <b>commandes</b></p></article>
       <article><p class="etiquette">Fidélité</p><h3>Faire revenir</h3><p>Carte de fidélité sur téléphone et messages aux habitués au bon moment.</p><p class="mesure">On mesure : <b>clients qui reviennent</b></p></article>
-      <article><p class="etiquette">Prospection</p><h3>Aller chercher les gros volumes</h3><p>Entreprises, traiteur, événements : on prépare les listes et les relances avec vous.</p><p class="mesure">On mesure : <b>rendez-vous</b> <b>contrats</b></p></article>
+      <article><p class="etiquette">Prospection</p><h3>Aller chercher les gros volumes</h3><p>Entreprises, traiteur, événements : on prépare les listes et les relances avec vous.</p><p class="mesure">On mesure : <b>rendez-vous</b> <b>contrats</b></p></article><article class="large"><figure><img src="/accueil/mes/box.webp" alt="Box Izgara 35 photographiée pour une fiche de livraison." width="800" height="1000" loading="lazy"></figure><div><p class="etiquette">Livraison</p><h3>Sortir du lot sur Uber Eats</h3><p>Sur Uber Eats, on choisit avec les yeux. Photos pro de chaque plat, carte réécrite, catégories et options bien rangées, offres au bon moment : votre fiche passe devant celles du quartier.</p><p class="mesure">On mesure : <b>vues de la fiche</b> <b>taux de commande</b> <b>panier moyen</b></p></div></article>
     </div>
   </section>
 
