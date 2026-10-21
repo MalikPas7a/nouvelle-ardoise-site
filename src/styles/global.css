@@ -5,16 +5,16 @@
    ========================================================================== */
 
 :root {
-  --nappe: #F5F7F4;
+  --nappe: #F4F4F0;
   --blanc: #FFFFFF;
-  --ardoise: #1E2A2C;
+  --ardoise: #121211;
   --ardoise-2: #2B3A3C;
   --gris: #57666A;
   --trait: #D5DBD6;
   --jaune: #FFD23F;
 
-  --titre: 'Bricolage Grotesque Variable', 'Arial Narrow', sans-serif;
-  --texte: 'Instrument Sans Variable', system-ui, sans-serif;
+  --titre: 'Schibsted Grotesk Variable', 'Helvetica Neue', Arial, sans-serif;
+  --texte: 'Schibsted Grotesk Variable', 'Helvetica Neue', Arial, sans-serif;
 
   --cadre: 1200px;
   --marge: clamp(20px, 5vw, 48px);

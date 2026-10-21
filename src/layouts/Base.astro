@@ -1,6 +1,6 @@
 ---
-import '@fontsource-variable/bricolage-grotesque/opsz.css';
-import '@fontsource-variable/instrument-sans/wght.css';
+import '@fontsource-variable/schibsted-grotesk';
+import '@fontsource/ibm-plex-mono/400.css';
 import '../styles/global.css';
 import Logo from '../components/Logo.astro';
 import QRCode from 'qrcode';
@@ -11,9 +11,9 @@ const { title, description, page } = Astro.props;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 // Le menu : une page par sujet. La page en cours est signalée (aria-current).
 const MENU = [
-  { href: '/restaurants/', nom: 'Restaurants', page: 'restaurants' },
-  { href: '/artisans/', nom: 'Artisans', page: 'artisans' },
+  { href: '/#accompagnement', nom: 'Accompagnement', page: 'accompagnement' },
   { href: '/realisations/', nom: 'Réalisations', page: 'realisations' },
+  { href: '/artisans/', nom: 'Artisans', page: 'artisans' },
   { href: '/offres/', nom: 'Offres', page: 'offres' },
 ];
 const actuel = (p) => (p === page ? 'page' : undefined);
