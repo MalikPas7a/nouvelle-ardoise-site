@@ -46,7 +46,7 @@ const qrInstagram = (await QRCode.toString(instagram, { type: 'svg', margin: 0, 
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Nouvelle Ardoise, agence de marketing et de communication pour la restauration et les métiers de bouche">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#1E2A2C">
+<meta name="theme-color" content="#F2EDE4">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <!-- Le navigateur prépare la page suivante dès qu'on survole un lien interne -->
@@ -99,7 +99,7 @@ const qrInstagram = (await QRCode.toString(instagram, { type: 'svg', margin: 0, 
     </div>
     <p>Osteria del Lago, Chez Léonie, Sora et Maison Fève sont des adresses inventées pour ces démonstrations.</p>
     <p><a href="/restaurants/">Restaurants</a><br><a href="/artisans/">Artisans</a><br><a href="/realisations/">Réalisations</a><br><a href="/offres/">Offres et prix</a><br><a href="/questions/">Questions fréquentes</a><br><a href="/contact/">Contact</a></p>
-    <p><a href={'mailto:' + SITE.email}>{SITE.email}</a><br><a href="/mentions-legales/">Mentions légales</a><br><a href="/confidentialite/">Confidentialité et cookies</a></p>
+    <p>{SITE.adresse}, {SITE.localite}<br>078 213 38 68<br><a href={'mailto:' + SITE.email}>{SITE.email}</a><br><a href="/mentions-legales/">Mentions légales</a><br><a href="/confidentialite/">Confidentialité et cookies</a></p>
   </div>
 </footer>
 <script>
