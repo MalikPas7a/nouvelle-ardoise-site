@@ -1,8 +1,7 @@
-import { PROMOTION_ACTIVE, OFFRES, montant, prixActuel } from './offres.js';
 // Questions fréquentes : affichées sur /questions/, balisées pour Google (FAQPage)
 // et reprises dans /llms.txt pour les moteurs de réponse (ChatGPT, Perplexity, Gemini, Claude).
 // Chaque réponse commence par la réponse directe, en une ou deux phrases, puis précise.
-// Les prix doivent rester identiques à ceux de la page Offres.
+// Aucun prix : toutes les formules sont sur devis.
 export const QUESTIONS = [
   { q: 'Une carte en ligne peut-elle aussi rester disponible en PDF ?', r: 'Oui. La carte en HTML permet de consulter les plats directement dans le site sur téléphone. Un PDF peut compléter cette version pour l’impression ; Google peut aussi indexer les PDF textuels.' },
   { q: 'Les plats en réalité augmentée fonctionnent-ils sur tous les téléphones ?', r: 'La compatibilité dépend du téléphone et du navigateur. La présentation classique des plats reste disponible quand un appareil ne prend pas en charge la réalité augmentée. Les fonctionnalités prévues sont définies dans le devis.' },
@@ -14,11 +13,11 @@ export const QUESTIONS = [
   },
   {
     q: 'Combien coûte un site web pour un restaurant à Genève ?',
-    r: `Les sites Nouvelle Ardoise coûtent CHF ${montant(prixActuel('essentiel'))} (Essentiel), CHF ${montant(prixActuel('signature'))} (Signature, avec deux heures de shooting) ou CHF ${montant(prixActuel('maison'))} puis CHF ${montant(PROMOTION_ACTIVE ? OFFRES.maison.suiviPromotion : OFFRES.maison.suivi)} par mois (Maison). ${PROMOTION_ACTIVE ? `Ces prix de lancement sont valables pour les commandes jusqu’au 31 octobre 2026. La mensualité Maison de CHF ${montant(OFFRES.maison.suiviPromotion)} vaut les trois premiers mois, puis CHF ${montant(OFFRES.maison.suivi)} par mois. Les tarifs standards sont indiqués sur la page Offres.` : 'Prix fixes, affichés sur la page Offres.'}`,
+    r: 'Chaque site est sur devis, après un premier rendez-vous de vingt minutes chez vous. Trois formules : Essentiel (une page sur mesure, carte, horaires, fiche Google), Signature (avec le plat signature animé et deux heures de shooting) et Maison (suivi complet, photographe, carte en deux langues). Le devis est clair et fixé avant de commencer.',
   },
   {
     q: 'Combien coûte la gestion des réseaux sociaux d’un restaurant ?',
-    r: `Réseaux Essentiel coûte CHF ${montant(prixActuel('reseauxEssentiel'))} par mois : une heure de shooting, quatre Reels, menu du jour et entretien du site. Premium coûte CHF ${montant(prixActuel('reseauxPremium'))} par mois et ajoute huit publications, toute la carte en photo et la gestion des publicités Meta et Google. Le budget publicitaire est séparé. ${PROMOTION_ACTIVE ? `Pour les commandes jusqu’au 31 octobre 2026, les prix réduits s’appliquent aux trois premiers mois, puis CHF ${montant(OFFRES.reseauxEssentiel.prix)} et CHF ${montant(OFFRES.reseauxPremium.prix)} par mois respectivement.` : ''} Trois mois minimum, puis sans engagement.`,
+    r: 'Sur devis, selon la formule. Réseaux Essentiel : une heure de shooting par mois, quatre Reels, menu du jour et entretien du site. Premium ajoute huit publications, toute la carte en photo et la gestion des publicités Meta et Google, avec un budget publicitaire séparé. Trois mois minimum, puis sans engagement.',
   },
   {
     q: 'Que contiennent les 4 réels par mois ?',
@@ -30,7 +29,7 @@ export const QUESTIONS = [
   },
   {
     q: 'Peut-on ajouter la réservation, le click and collect ou le paiement TWINT ?',
-    r: 'Oui, en option, avec toutes les offres. Nouvelle Ardoise branche sur le site la réservation de table (TheFork, Zenchef, foratable ou un nouvel outil), le click and collect ou le paiement en ligne par carte et TWINT. Ces options ne sont pas comprises dans les prix affichés ; leur coût dépend de la solution et figure dans le devis.',
+    r: 'Oui, en option, avec toutes les offres. Nouvelle Ardoise branche sur le site la réservation de table (TheFork, Zenchef, foratable ou un nouvel outil), le click and collect ou le paiement en ligne par carte et TWINT. Ces options ne sont pas comprises dans les formules ; leur coût dépend de la solution et figure dans le devis.',
   },
   {
     q: 'En combien de temps le site est-il en ligne ?',

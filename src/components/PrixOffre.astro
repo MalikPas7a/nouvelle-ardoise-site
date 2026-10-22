@@ -1,16 +1,3 @@
 ---
-import { OFFRES, PROMOTION_ACTIVE, montant, prixActuel } from '../data/offres.js';
-const { id, accueil = false } = Astro.props;
-const prix = prixActuel(id);
-const offre = OFFRES[id];
-const unite = offre.mensuel ? '/ mois' : id === 'lancement' ? '/ ponctuel' : '/ projet';
+// Plus aucun prix affiché sur le site (demande du 22.10.2026) : les formules restent, sans prix.
 ---
-<p class={accueil ? 'price' : 'offre__prix'}>
-  {PROMOTION_ACTIVE && <s class={accueil ? 'price-standard' : undefined}>CHF {montant(offre.prix)}</s>}
-  CHF {montant(prix)}
-  {accueil && <span>{unite}</span>}
-  {PROMOTION_ACTIVE && <span class={accueil ? 'price-discount' : 'offre__remise'}>−20 %</span>}
-  {offre.mensuel && <small>{PROMOTION_ACTIVE ? `Par mois les trois premiers mois, puis CHF ${montant(offre.prix)}` : 'Par mois'}</small>}
-  {!accueil && id === 'lancement' && <small>Une seule fois</small>}
-  {offre.suivi && <small>Puis CHF {montant(PROMOTION_ACTIVE ? offre.suiviPromotion : offre.suivi)} par mois{PROMOTION_ACTIVE && ` les trois premiers mois, puis CHF ${montant(offre.suivi)}`}</small>}
-</p>
