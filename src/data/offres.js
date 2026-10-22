@@ -1,4 +1,4 @@
-// Source commune aux prix affichés, à la FAQ et aux données structurées.
+// Formules et dates de l’offre de lancement. Les prix restent internes : plus aucun n’est affiché sur le site (22.10.2026).
 export const PROMOTION_FIN = '2026-10-31';
 export function promotionActive(date = new Date()) {
   const parts = new Intl.DateTimeFormat('fr-CH', { timeZone: 'Europe/Zurich', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(date);
@@ -19,17 +19,10 @@ export function prixActuel(id, active = PROMOTION_ACTIVE) {
   if (!Object.hasOwn(OFFRES, id)) throw new RangeError(`Offre inconnue : ${id}`);
   return active ? OFFRES[id].promotion : OFFRES[id].prix;
 }
-export function catalogueOffres(url, active = PROMOTION_ACTIVE) {
+export function catalogueOffres(url) {
+  // Sans prix : toutes les formules sont sur devis.
   return {
     '@type': 'OfferCatalog', name: 'Offres Nouvelle Ardoise', url: `${url}/offres/`,
-    itemListElement: Object.entries(OFFRES).map(([id, offre]) => {
-      const price = prixActuel(id, active);
-      const conditions = active ? ` Offre de lancement pour les commandes jusqu’au 31 octobre 2026.${offre.mensuel ? ` Prix mensuel pendant les trois premiers mois, puis CHF ${montant(offre.prix)} par mois.` : ''}` : '';
-      const suivi = offre.suivi ? ` Puis CHF ${montant(active ? offre.suiviPromotion : offre.suivi)} par mois${active ? ` pendant trois mois, puis CHF ${montant(offre.suivi)} par mois` : ''}.` : '';
-      return { '@type': 'Offer', name: offre.nom, description: offre.description + suivi + conditions, url: `${url}/offres/`, priceCurrency: 'CHF', price,
-        ...(active ? { priceValidUntil: PROMOTION_FIN } : {}),
-        ...(offre.mensuel ? { priceSpecification: { '@type': 'UnitPriceSpecification', price, priceCurrency: 'CHF', unitText: 'par mois' } } : {}),
-      };
-    }),
+    itemListElement: Object.values(OFFRES).map((offre) => ({ '@type': 'Offer', name: offre.nom, description: offre.description, url: `${url}/offres/` })),
   };
 }
