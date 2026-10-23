@@ -202,7 +202,7 @@ a:hover{color:#1F5A3A;}
     <span>du midi.</span>
   </h2>
   <p style="position:absolute; left:100px; top:560px; width:620px; margin:0; font-size:36px; font-weight:500; line-height:1.2; color:#A39C90;">La même appli, côté clients du midi.</p>
-  <div style="position:absolute; left:812px; top:150px; display:flex; gap:36px;">
+  <div data-m="phones" style="position:absolute; left:812px; top:150px; display:flex; gap:36px;">
     <div style="display:flex; flex-direction:column; gap:26px;">
       <div style="width:312px; height:660px; border-radius:48px; background:#3A3A3A; padding:10px; box-sizing:border-box;">
         <div style="width:100%; height:100%; border-radius:39px; background:#FFFFFF; color:#111111; overflow:hidden; display:flex; flex-direction:column; gap:14px; padding:24px 20px 20px; box-sizing:border-box;">
@@ -313,7 +313,7 @@ a:hover{color:#1F5A3A;}
       <div style="position:absolute; left:0; right:0; top:126px; height:46px; background:#E8641E; color:#111111; display:flex; align-items:center; justify-content:center; font-family:'DM Mono',monospace; font-size:22px; letter-spacing:.06em;">N°03 DELHI</div>
     </div>
   </div>
-  <div style="position:absolute; left:1020px; top:120px; width:800px; height:800px; background:#E6DDCB; color:#6B645A;">
+  <div data-m="photo" style="position:absolute; left:1020px; top:120px; width:800px; height:800px; background:#E6DDCB; color:#6B645A;">
     <img src="img/craque-box-dessus.jpg" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
   </div>
   <sc-if value="{{ pauses }}" hint-placeholder-val="{{ true }}">
@@ -329,7 +329,7 @@ a:hover{color:#1F5A3A;}
 <section data-label="Midi puis soir" data-screen-label="07 Midi puis soir" data-speaker-notes="CRAQUE démarre le midi, dans les canaux qu'ils maîtrisent déjà : clients traiteur, organisations du quartier, click &amp; collect. Pas de bruit public. On cale le coût matière, les recettes et la cadence de la cuisine. Seulement ensuite, on ouvre le soir avec le lancement complet. C'est aussi la réponse à la cuisine vide le soir." style="background:#1F5A3A; color:#F6F1E7; font-family:'Archivo',sans-serif; overflow:hidden;">
   <div style="position:absolute; left:100px; top:90px; font-family:'DM Mono',monospace; font-size:26px; letter-spacing:.14em; text-transform:uppercase; color:#CFE3D6;">Étape 3 · Le lancement en deux temps</div>
   <h2 style="position:absolute; left:100px; top:150px; margin:0; font-size:106px; font-weight:900; line-height:.92; letter-spacing:-0.035em; white-space:nowrap;">Le midi d’abord. Le soir ensuite.</h2>
-  <div style="position:absolute; left:100px; right:100px; top:340px; height:560px; display:grid; grid-template-columns:minmax(0,1fr) 90px minmax(0,1fr); gap:0;">
+  <div data-m="temps" style="position:absolute; left:100px; right:100px; top:340px; height:560px; display:grid; grid-template-columns:minmax(0,1fr) 90px minmax(0,1fr); gap:0;">
     <div style="background:#F6F1E7; color:#111111; padding:44px 48px; display:flex; flex-direction:column; justify-content:space-between; min-width:0;">
       <div style="display:flex; flex-direction:column; gap:18px;">
         <span style="font-family:'DM Mono',monospace; font-size:26px; letter-spacing:.14em; text-transform:uppercase; color:#1F5A3A;">Temps 1 · En silence</span>
@@ -361,7 +361,7 @@ a:hover{color:#1F5A3A;}
 <section data-label="Le rendu réel" data-screen-label="08 Le rendu réel" data-speaker-notes="Six mises en situation. Les cadres reçoivent les photos réelles après le premier shooting en plongée, au flash." style="background:#111111; color:#F6F1E7; font-family:'Archivo',sans-serif; overflow:hidden;">
   <div style="position:absolute; left:100px; top:90px; font-family:'DM Mono',monospace; font-size:26px; letter-spacing:.14em; text-transform:uppercase; color:#8CC0A0;">Étape 3 · Sur le terrain</div>
   <h2 style="position:absolute; left:100px; top:150px; margin:0; font-size:120px; font-weight:900; line-height:.92; letter-spacing:-0.035em;">Le rendu réel.</h2>
-  <div style="position:absolute; left:100px; right:100px; top:320px; height:620px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); gap:24px;">
+  <div data-m="rendus" style="position:absolute; left:100px; right:100px; top:320px; height:620px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); gap:24px;">
     <div style="display:flex; flex-direction:column; gap:12px; min-height:0;">
       <div style="flex:1; min-height:0; position:relative; background:#1C1C1C; color:#A39C90;"><img src="img/rendu-box.jpg" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;"></div>
       <span style="font-family:'DM Mono',monospace; font-size:24px; letter-spacing:.06em;">01 · Box, une couleur par édition</span>
@@ -400,11 +400,11 @@ a:hover{color:#1F5A3A;}
 <section data-label="L'identité" data-screen-label="09 L'identité" data-speaker-notes="Le mot se fend comme une croûte : la moitié haute glisse vers la droite. Le Q seul sert d'avatar, d'icône d'appli et de tampon. Quatre couleurs fixes, la couleur d'édition reste sur la bande du couvercle." style="background:#1F5A3A; color:#F6F1E7; font-family:'Archivo',sans-serif; overflow:hidden;">
   <div style="position:absolute; left:100px; top:90px; font-family:'DM Mono',monospace; font-size:26px; letter-spacing:.14em; text-transform:uppercase;">Étape 3 · L’identité</div>
   <h2 style="position:absolute; left:100px; top:150px; margin:0; font-size:120px; font-weight:900; line-height:.92; letter-spacing:-0.035em;">L’identité.</h2>
-  <div style="position:absolute; left:92px; top:300px; font-size:300px; font-weight:900; font-stretch:125%; line-height:.9; letter-spacing:-0.02em; color:#F6F1E7;">
+  <div data-m="bigword" style="position:absolute; left:92px; top:300px; font-size:300px; font-weight:900; font-stretch:125%; line-height:.9; letter-spacing:-0.02em; color:#F6F1E7;">
     <span style="display:block; clip-path:inset(51% -5% -10% -5%);">CRAQUE</span>
     <span style="position:absolute; left:0; top:0; display:block; clip-path:inset(-10% -5% 50% -5%); transform:translateX(12px);">CRAQUE</span>
   </div>
-  <div style="position:absolute; left:100px; right:100px; top:640px; display:flex; gap:56px; align-items:flex-start;">
+  <div data-m="idrow" style="position:absolute; left:100px; right:100px; top:640px; display:flex; gap:56px; align-items:flex-start;">
     <div style="display:flex; flex-direction:column; gap:14px;">
       <div style="width:250px; height:250px; background:#111111; display:flex; align-items:center; justify-content:center;">
         <div style="position:relative; font-size:180px; font-weight:900; font-stretch:125%; line-height:.9; color:#F6F1E7;">
@@ -522,7 +522,7 @@ a:hover{color:#1F5A3A;}
   <div style="position:absolute; left:100px; top:90px; font-family:'DM Mono',monospace; font-size:26px; letter-spacing:.14em; text-transform:uppercase;">Nouvelle Ardoise</div>
   <h2 style="position:absolute; left:100px; top:150px; margin:0; font-size:120px; font-weight:900; line-height:.92; letter-spacing:-0.035em;">Qui je suis.</h2>
   <p style="position:absolute; left:100px; top:300px; margin:0; font-size:36px; font-weight:600; line-height:1.2;">Un seul interlocuteur, une équipe de spécialistes prête à s’activer.</p>
-  <div style="position:absolute; left:100px; right:100px; top:410px; height:520px; display:grid; grid-template-columns:500px minmax(0,1fr) 400px minmax(0,1fr) 500px; grid-template-rows:repeat(2,minmax(0,1fr)); row-gap:24px;">
+  <div data-m="team" style="position:absolute; left:100px; right:100px; top:410px; height:520px; display:grid; grid-template-columns:500px minmax(0,1fr) 400px minmax(0,1fr) 500px; grid-template-rows:repeat(2,minmax(0,1fr)); row-gap:24px;">
     <div style="grid-column:1; grid-row:1; background:#111111; color:#F6F1E7; padding:30px; display:flex; flex-direction:column; justify-content:space-between;">
       <span style="font-family:'DM Mono',monospace; font-size:24px; color:#A39C90;">01</span>
       <span style="font-size:44px; font-weight:800; line-height:1.02; letter-spacing:-0.02em;">Terrain et prospection</span>
@@ -651,7 +651,7 @@ a:hover{color:#1F5A3A;}
     </div>
     <span style="margin-top:18px; font-family:'DM Mono',monospace; font-size:22px; letter-spacing:.08em; color:#A39C90;">OBJECTIFS PROPOSÉS · À FIXER ENSEMBLE</span>
   </div>
-  <div style="position:absolute; left:0; right:0; top:780px; height:130px; background:#1F5A3A; color:#F6F1E7; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:center; padding:0 100px; box-sizing:border-box;">
+  <div data-m="band" style="position:absolute; left:0; right:0; top:780px; height:130px; background:#1F5A3A; color:#F6F1E7; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:center; padding:0 100px; box-sizing:border-box;">
     <div style="display:flex; align-items:baseline; gap:20px;"><span style="font-family:'DM Mono',monospace; font-size:26px;">01</span><span style="font-size:64px; font-weight:900; letter-spacing:-0.03em;">On teste</span></div>
     <div style="display:flex; align-items:baseline; gap:20px;"><span style="font-family:'DM Mono',monospace; font-size:26px;">02</span><span style="font-size:64px; font-weight:900; letter-spacing:-0.03em;">On apprend</span></div>
     <div style="display:flex; align-items:baseline; gap:20px;"><span style="font-family:'DM Mono',monospace; font-size:26px;">03</span><span style="font-size:64px; font-weight:900; letter-spacing:-0.03em;">On ajuste</span></div>
@@ -703,12 +703,68 @@ class Component extends DCLogic {
   function close(){ win.hidden=true; win.style.display='none'; }
   close();
   document.addEventListener('click',function(e){
-    var a=e.target.closest&&e.target.closest('a[href="appli.html"]'); if(!a) return;
+    var a=e.target.closest&&e.target.closest('a[href="appli.html"]'); if(!a) return; if(window.__mobileDeck&&window.__mobileDeck.matches) return;
     e.preventDefault(); e.stopPropagation(); open();
   },true);
   document.getElementById('appClose').addEventListener('click',close);
   window.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!win.hidden){ e.stopPropagation(); close(); } },true);
   window.__closeApp=close;
+})();
+</script>
+<style id="m-css">
+#mdeck{display:none}
+html.m-on,html.m-on body{background:#111111;height:auto;overflow:auto}
+html.m-on #dc-root{display:none!important}
+html.m-on #mdeck{display:block}
+#mdeck .m-s{position:relative!important;width:860px;min-height:0!important;height:auto!important;padding:64px 48px 72px;box-sizing:border-box;overflow:hidden}
+#mdeck .m-s > [style*="position:absolute"],#mdeck .m-s > [style*="position: absolute"],#mdeck .m-s > sc-if > [style*="position:absolute"],#mdeck .m-s > sc-if > [style*="position: absolute"]{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;transform:none!important}
+#mdeck .m-s > *,#mdeck .m-s > sc-if{margin-bottom:32px!important}
+#mdeck .m-s > h2{margin-bottom:40px!important}
+#mdeck .m-s > *:last-child{margin-bottom:0!important}
+#mdeck .m-s [style*="height:6px"]{display:none}
+#mdeck .m-s > [style*="position:absolute"],#mdeck .m-s > [style*="position: absolute"]{height:auto!important;width:auto!important;max-width:100%}
+#mdeck .m-s [style*="nowrap"]{white-space:normal!important}
+#mdeck .m-s [style*="grid-template-columns:repeat(4"],#mdeck .m-s [style*="grid-template-columns:repeat(5"]{grid-template-columns:repeat(2,minmax(0,1fr))!important;height:auto!important}
+#mdeck [data-m=phones]{zoom:.7;gap:24px!important}
+#mdeck [data-m=temps]{grid-template-columns:minmax(0,1fr)!important}
+#mdeck [data-m=temps] > :nth-child(2){transform:rotate(90deg);height:90px}
+#mdeck [data-m=temps] > div{gap:28px}
+#mdeck [data-m=bigword]{font-size:128px!important;margin-left:-4px}
+#mdeck [data-m=photo]{width:100%!important;aspect-ratio:1/1}
+#mdeck [data-m=rendus]{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:none!important;height:auto!important}
+#mdeck [data-m=rendus] [style*="flex:1"]{flex:none!important;aspect-ratio:4/3}
+#mdeck [data-m=idrow]{flex-wrap:wrap;gap:36px!important}
+#mdeck [data-m=team]{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:auto!important;gap:20px!important}
+#mdeck [data-m=team] > *{grid-column:auto!important;grid-row:auto!important;min-height:200px}
+#mdeck [data-m=team] > [style*="height:3px"]{display:none}
+#mdeck [data-m=team] > [style*="grid-row:1 / 3"]{grid-column:1 / 3!important;order:-1;height:380px}
+#mdeck [data-m=band]{padding:36px 48px!important;margin:0 -48px 28px!important;max-width:none!important;width:auto!important}
+#mdeck [data-m=band]{grid-template-columns:minmax(0,1fr)!important;row-gap:10px}
+#mdeck [data-m=band] span[style*="64px"]{font-size:54px!important}
+#mdeck .m-s [style*="grid-template-columns"] > *{min-height:0}
+#mdeck sc-if{display:block}
+</style>
+<script>
+(function(){
+  var mq=window.matchMedia('(max-width: 1100px) and (orientation: portrait)');
+  function build(){
+    var src=document.querySelectorAll('deck-stage > section');
+    if(!src.length){ return setTimeout(build,120); }
+    var box=document.getElementById('mdeck');
+    if(!box){ box=document.createElement('main'); box.id='mdeck'; document.body.appendChild(box); }
+    box.innerHTML='';
+    src.forEach(function(sec){ var c=sec.cloneNode(true); c.querySelectorAll('[style]').forEach(function(e){ e.setAttribute('style', e.getAttribute('style').replace(/:\s+/g,':').replace(/grid-row:1\s*\/\s*3/g,'grid-row:1 / 3')); }); c.classList.add('m-s'); c.removeAttribute('data-deck-active'); box.appendChild(c); });
+    fit();
+  }
+  function fit(){ var z=window.innerWidth/860; document.querySelectorAll('#mdeck .m-s').forEach(function(c){ c.style.zoom=z; }); }
+  function apply(){
+    if(mq.matches){ document.documentElement.classList.add('m-on'); build(); }
+    else { document.documentElement.classList.remove('m-on'); }
+  }
+  window.__mobileDeck=mq;
+  if(mq.addEventListener) mq.addEventListener('change',apply);
+  window.addEventListener('resize',function(){ if(mq.matches) fit(); });
+  apply();
 })();
 </script>
 </body>
