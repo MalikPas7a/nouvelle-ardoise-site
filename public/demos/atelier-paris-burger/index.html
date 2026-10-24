@@ -7,10 +7,9 @@
 <title>Atelier Paris Burger · Genève, face au Jet d'eau</title>
 <meta name="description" content="Burger, baguette et sauce Café de Paris. Genève, face au Jet d'eau.">
 <meta name="theme-color" content="#4A1019">
-<link rel="stylesheet" href="/demos/fonts/fonts.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Manrope:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
 <style>
 /* Direction 1 « Maison Café de Paris » · palette A
    Grille 12 colonnes desktop / 4 mobile · rythme 8 px · une seule couleur d'action : le bordeaux. */
@@ -18,7 +17,7 @@
   --creme:#F2EBDD; --papier:#F8F3E9; --encre:#1A1412; --gris:#6B5F56; --filet:#D8CBB4;
   --bordeaux:#4A1019; --bordeaux-2:#3A0C14; --bordeaux-3:#5E1724; --or:#D99125;
   --cadre:#E6DBC8; --cadre-sombre:#2E090F;
-  --f-display:"Bodoni Moda",Didot,"Bodoni 72",Georgia,serif;
+  --f-display:"Gloock","Bodoni Moda",Georgia,serif;
   --f-texte:"Manrope","Helvetica Neue",Arial,sans-serif;
   --f-mono:"DM Mono",ui-monospace,Menlo,monospace;
   --gutter:max(20px,env(safe-area-inset-left,0px));
@@ -32,12 +31,14 @@
 html{-webkit-text-size-adjust:100%}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
-body{margin:0;background:var(--creme);color:var(--encre);font:400 var(--t-m)/1.6 var(--f-texte);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{margin:0;font-synthesis:none;background:var(--creme);color:var(--encre);font:400 var(--t-m)/1.6 var(--f-texte);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 img,svg{display:block;max-width:100%}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--or);outline-offset:3px}
-h1,h2,h3{font-family:var(--f-display);font-weight:500;margin:0;line-height:1;text-wrap:balance;letter-spacing:-.01em}
-h1 em,h2 em,h3 em{font-style:italic;font-weight:500}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;margin:0;line-height:1.02;text-wrap:balance;letter-spacing:-.02em;font-synthesis:none}
+h1 em,h2 em,h3 em{font-style:normal;color:var(--bordeaux)}
+.ouverture em,.sauce em,.appli em,.pied em{color:var(--or)}
+h1 em,h2 em,h3 em{font-style:normal;font-weight:400}
 p{margin:0}
 .wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:max(20px,env(safe-area-inset-right,0px))}
 .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--s3)}
@@ -89,7 +90,7 @@ figure{margin:0}
 .menu-mobile[hidden]{display:none}
 .menu-mobile .ferme{align-self:flex-end;background:none;border:1px solid rgba(242,235,221,.5);color:inherit;font:500 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;padding:12px 14px}
 .menu-mobile nav{display:grid;gap:var(--s2);margin-top:var(--s6)}
-.menu-mobile nav a{font:500 44px/1.1 var(--f-display);text-decoration:none}
+.menu-mobile nav a{font:400 44px/1.1 var(--f-display);text-decoration:none}
 .menu-mobile .actions{margin-top:auto;display:grid;gap:10px}
 .menu-mobile .btn{justify-content:center}
 
@@ -141,7 +142,7 @@ figure{margin:0}
 .geste figure{margin:0}
 .geste .etape{display:flex;align-items:baseline;gap:12px;margin-top:var(--s2)}
 .geste .etape b{font:500 var(--t-xs)/1 var(--f-mono);letter-spacing:.14em;color:var(--bordeaux)}
-.geste .etape span{font:500 28px/1.1 var(--f-display);font-style:italic}
+.geste .etape span{font:400 28px/1.1 var(--f-display)}
 
 /* La carte */
 .carte{padding-block:var(--s12) var(--s16);border-top:1px solid var(--filet)}
@@ -155,7 +156,7 @@ figure{margin:0}
 .cat h3{font-size:30px;padding-bottom:var(--s2);border-bottom:1px solid var(--encre);display:flex;justify-content:space-between;align-items:baseline}
 .cat h3 small{font:500 var(--t-xs)/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
 .plat{display:grid;grid-template-columns:1fr auto;gap:4px var(--s3);padding-block:18px;border-bottom:1px solid var(--filet)}
-.plat .nom{font:500 21px/1.25 var(--f-display);display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.plat .nom{font:400 21px/1.25 var(--f-display);display:flex;flex-wrap:wrap;align-items:center;gap:10px}
 .plat .prix{font:500 15px/1.6 var(--f-mono);font-variant-numeric:tabular-nums;text-align:right}
 .plat .desc{grid-column:1/2;color:var(--gris);font-size:var(--t-s)}
 .pastille{font:500 10px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bordeaux);border:1px solid var(--bordeaux);padding:5px 7px;border-radius:999px;white-space:nowrap}
@@ -188,7 +189,7 @@ figure{margin:0}
 .fiche .fermer{position:absolute;top:calc(env(safe-area-inset-top,0px) + 16px);right:16px;z-index:3;width:44px;height:44px;border-radius:50%;border:1px solid rgba(242,235,221,.45);background:rgba(46,9,15,.5);color:var(--creme);font:400 22px/1 var(--f-texte);cursor:pointer}
 .fiche .corps{flex:1;overflow-y:auto;padding:var(--s4) var(--s4) calc(var(--s4) + env(safe-area-inset-bottom,0px));display:grid;gap:var(--s3);align-content:start}
 .fiche .cat-nom{font:500 var(--t-xs)/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--bordeaux)}
-.fiche h3{font:500 40px/1.05 var(--f-display);letter-spacing:-.01em;margin:6px 0 0}
+.fiche h3{font:400 40px/1.05 var(--f-display);letter-spacing:-.01em;margin:6px 0 0}
 .fiche .ligne{display:flex;justify-content:space-between;align-items:center;gap:var(--s2);flex-wrap:wrap}
 .fiche .prix{font:500 18px/1 var(--f-mono)}
 .fiche .desc{color:var(--gris);margin:0}
@@ -206,6 +207,7 @@ figure{margin:0}
 .fiche .nav button{background:none;border:0;padding:8px 0;font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--gris);cursor:pointer}
 .fiche .nav button:hover{color:var(--bordeaux)}
 .panier{position:fixed;z-index:65;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);background:var(--bordeaux);color:var(--creme);display:flex;align-items:center;gap:var(--s3);padding:10px 10px 10px 20px;font:500 12px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;box-shadow:0 18px 40px rgba(26,20,18,.3);transition:transform .45s var(--ease)}
+.panier:not(.visible){visibility:hidden}
 .panier.visible{transform:translate(-50%,0)}
 .panier a{background:var(--creme);color:var(--bordeaux);text-decoration:none;padding:12px 14px}
 @media (max-width:900px){
@@ -252,9 +254,9 @@ figure{margin:0}
 .villes{padding-block:var(--s12);border-bottom:1px solid var(--filet)}
 .villes ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--encre)}
 .villes li{padding:var(--s3) var(--s2) 0 0;display:grid;gap:6px}
-.villes li b{font:500 clamp(24px,2.6vw,36px)/1.1 var(--f-display)}
+.villes li b{font:400 clamp(24px,2.6vw,36px)/1.1 var(--f-display)}
 .villes li span{font:500 var(--t-xs)/1.4 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
-.villes li.ici b{color:var(--bordeaux);font-style:italic}
+.villes li.ici b{color:var(--bordeaux)}
 .villes .lab{color:var(--bordeaux);margin-bottom:var(--s3);display:block}
 
 /* Instagram */
