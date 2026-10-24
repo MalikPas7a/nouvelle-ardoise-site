@@ -618,3 +618,8 @@ html:not(.notes) .ph figcaption b{font-size:11px;opacity:.75}
 .adresse .statut,.adresses .statut{font-size:11px}
 @media (max-width:760px){.adresses .liste-a,.adresses .liste-a:has(> :nth-child(3):last-child){scroll-padding-inline:var(--gutter)}}
 .pied .bouton-notes{position:static;opacity:.8;background:transparent;backdrop-filter:none;min-height:44px}
+/* Histoire : ouverture du chapitrage */
+.ix-entete{max-width:1360px;margin:0 auto;padding:clamp(88px,12vw,140px) var(--gutter) 0}
+.ix-entete h2{max-width:16ch;margin-top:14px;font:400 clamp(38px,5.6vw,84px)/1.02 var(--f-display);letter-spacing:-.02em}
+html:not(.notes) .ix-ph span{font-size:0}
+html:not(.notes) .ix-ph span b{font-size:11px;opacity:.75}

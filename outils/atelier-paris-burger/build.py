@@ -19,6 +19,7 @@ def section(nom):
 def ecrire(chemin, contenu):
     chemin = os.path.join(SORTIE, chemin)
     os.makedirs(os.path.dirname(chemin), exist_ok=True)
+    contenu = contenu.replace('<span class="lab">Contact</span>', '<span class="lab">Contact</span><a href="mailto:info@atelier-paris-burger.com">info@atelier-paris-burger.com</a>')
     open(chemin, 'w', encoding='utf-8').write(contenu)
 
 # ---------- Pièces communes ----------
@@ -369,6 +370,8 @@ def decale(m):
 partie = ijs2[ijs2.index('  // 3. Ils s'):]
 partie = re.sub(r"(\}, )(\d+(?:\.\d+)?)\)", decale, partie)
 ijs2 = ijs2[:ijs2.index('  // 3. Ils s')] + partie
+ijs2 = ijs2.replace("gsap.from(el, {y:60, opacity:0, duration:1, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 82%', once:true}});",
+                    "gsap.fromTo(el, {y:40, opacity:0}, {y:0, opacity:1, duration:0.7, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 85%', once:true}});")
 ijs2 = ijs2.replace("end:'+=600%'", "end:'+=700%'").replace(",\n    onUpdate:function(s){ gsap.set('#progres', {scaleX:s.progress}); }", "")
 assert '#mot0' in ijs2 and "end:'+=700%'" in ijs2
 
@@ -386,6 +389,30 @@ ihist2 = ihist2.replace('<span class="lab">Chapitre 3 · Genève</span><h3>Premi
                         '<span class="lab">Chapitre 3 · Aujourd\'hui</span><h3>Madrid, Ibiza, et maintenant Genève.</h3><p>Une maison qui voyage sans changer sa recette. Deux adresses à Genève : les Eaux-Vives et Versoix.</p><div class="ix-ph"><span><b>Photo · Les adresses</b>Montage de façades, même cadrage · 3:2</span></div>')
 ihist2 = ihist2.replace('>2026<', '>Genève<')
 assert 'Chapitre 3 · Aujourd' in ihist2
+# Histoire reprise du site actuel du client (atelier-paris-burger.com/fr/accueil, lu le 24.10), resserrée
+def chapitre(an, lab, titre, texte, photo, cadre):
+    return ('    <div class="ix-chap"><div class="ix-an" data-r>%s</div><div class="ix-txt" data-r><span class="lab">%s</span>'
+            '<h3>%s</h3><p>%s</p><div class="ix-ph"><span><b>%s</b>%s</span></div></div></div>\n') % (an, lab, titre, texte, photo, cadre)
+CHAPITRES = (
+    '    <div class="ix-entete" data-r><span class="lab">L\'histoire</span><h2>Une maison née d\'une histoire construite dans le temps.</h2></div>\n' +
+    chapitre('Paris', 'Chapitre 1 · Fin des années 1970',
+             'Une sauce naît à Paris.',
+             'Au cœur de la maison, notre sauce Café de Paris, travaillée à Paris dès la fin des années 1970 et le début des années 1980.',
+             'Photo archive ou reconstitution', 'Cuisine parisienne · 3:2') +
+    chapitre('40 ans', 'Chapitre 2 · Transmise',
+             'Transmise, affinée, perfectionnée.',
+             'Plus de quarante ans de savoir-faire, servie pendant des décennies dans des restaurants parisiens emblématiques. Elle est aujourd\'hui notre signature.',
+             'Photo · La sauce', 'Très gros plan, cuillère, texture · 3:2') +
+    chapitre('Atelier', 'Chapitre 3 · Le geste',
+             'Faire évoluer l\'héritage, pas le copier.',
+             'Le burger premium et la baguette portent un savoir-faire précis, exigeant et constant. Fidèle à l\'esprit d\'origine, avec sa propre identité.',
+             'Photo · Burger et baguette', 'Côte à côte, même lumière · 3:2') +
+    chapitre('Europe', 'Chapitre 4 · Aujourd\'hui',
+             'De Genève à l\'Europe.',
+             'Un restaurant phare à Genève, l\'Espagne pour première étape avec Madrid, Barcelone et Ibiza, et des cuisines dédiées à la livraison à travers l\'Europe.',
+             'Photo · Les adresses', 'Montage de façades, même cadrage · 3:2'))
+debut = ihist2.index('    <div class="ix-chap">'); fin = ihist2.index('  </section>', debut)
+ihist2 = ihist2[:debut] + CHAPITRES + ihist2[fin:]
 
 js_maison = '''<script>
 // Ouverture au scroll : smasher, assembler, couper, tremper, plonger dans la sauce
@@ -394,9 +421,6 @@ js_maison = '''<script>
   if(reduce || !window.gsap || !window.ScrollTrigger){ document.documentElement.classList.add('statique'); return; }
   gsap.registerPlugin(ScrollTrigger);
 ''' + ijs2 + '''  window.addEventListener('resize', function(){ final = empile(); ScrollTrigger.refresh(); });
-  gsap.utils.toArray('[data-r]').forEach(function(el){
-    gsap.from(el, {y:60, opacity:0, duration:1, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 82%', once:true}});
-  });
 })();
 </script>
 '''
