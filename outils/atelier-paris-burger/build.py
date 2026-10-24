@@ -50,6 +50,13 @@ js = js.replace("  function chf(n){ return n.toFixed(2).replace('.00','.–') + 
                 "  var EUR = document.body.dataset.devise === '€';\n  function chf(n){ return EUR ? n.toFixed(2).replace('.', ',') + ' €' : n.toFixed(2).replace('.00','.–') + ' CHF'; }")
 assert 'var EUR' in js and "replace(',', '.')" in js
 assert js.count('if(!document.getElementById') >= 2
+# Audit 24.10 : interface plus vive
+for avant, apres in [("duration:0.8, ease:'power3.out'", "duration:0.6, ease:'power3.out'"),
+                     ("inHero ? 0.55 : 0", "inHero ? 0.3 : 0"),
+                     ("duration:1.1, ease:'expo.out', scrollTrigger:{trigger:el, start:'top 90%'", "duration:0.8, ease:'expo.out', scrollTrigger:{trigger:el, start:'top 92%'"),
+                     ("duration:0.9, ease:'power3.out', stagger:0.045", "duration:0.7, ease:'power3.out', stagger:0.035")]:
+    assert avant in js, avant
+    js = js.replace(avant, apres)
 ICI = os.path.dirname(os.path.abspath(__file__))
 immersif_js = open(os.path.join(ICI, 'immersif.js'), encoding='utf-8').read()
 immersif_css = open(os.path.join(ICI, 'immersif.css'), encoding='utf-8').read()
@@ -150,9 +157,37 @@ def tete(titre, description, prefixe_assets, extra_css=''):
 </head>
 ''' % (html.escape(titre), html.escape(description), prefixe_assets, extra_css)
 
-def entete(racine, liens, cta, cta_href):
-    nav = '\n'.join('      <a href="%s">%s</a>' % l for l in liens)
-    navm = '\n'.join('    <a href="%s">%s</a>' % l for l in liens)
+def retirer_bloc(src, debut):
+    i = src.index(debut); j = i; prof = 0
+    while True:
+        o = src.find('<div', j); f = src.find('</div>', j)
+        if o != -1 and o < f: prof += 1; j = o + 4
+        else:
+            prof -= 1; j = f + 6
+            if prof == 0: break
+    return src[:i] + src[j:].lstrip(' ').lstrip('\n')
+
+def nom_court(a):
+    return a['ville'] if a['ville'] != 'Genève' else 'Genève ' + a['quartier']
+
+def entete(racine, liens, cta, cta_href, actuelle=None):
+    def lien_adr(a, ind):
+        cur = ' aria-current="page"' if a['slug'] == actuelle else ''
+        return '%s<a href="%s%s/"%s><span>%s</span><small>%s</small></a>' % (ind, racine, a['slug'], cur, nom_court(a), html.escape(a['statut']))
+    adr = '\n'.join(lien_adr(a, '          ') for a in ADRESSES)
+    adrm = '\n'.join(lien_adr(a, '      ') for a in ADRESSES)
+    nav = '\n'.join('      <a href="%s">%s</a>' % l for l in liens) + '''
+      <div class="nav-adr">
+        <button type="button" id="adr-bouton" aria-expanded="false" aria-controls="adr-menu">Nos adresses</button>
+        <div class="adr-menu" id="adr-menu" hidden>
+          <a class="adr-maison" href="%s"><span>La maison</span><small>Accueil de la marque</small></a>
+%s
+        </div>
+      </div>''' % (racine, adr)
+    navm = '\n'.join('    <a href="%s">%s</a>' % l for l in liens) + '''
+    <div class="menu-adr"><span class="lab">Nos adresses</span>
+%s
+    </div>''' % adrm
     return '''<a class="skip" href="#contenu">Aller au contenu</a>
 
 <header class="top" id="top">
@@ -297,11 +332,13 @@ def page_adresse(a):
             ap = re.sub(r'<div class="cent".*?</div>\n      </div>\n', '', ap, flags=re.S) if False else ap
             ap = ap.replace('Inscrivez-vous sur la liste d\'ouverture, présentez votre ticket QR au comptoir. QR code d\'exemple.',
                             'Inscrivez-vous dans l\'application, présentez votre ticket QR au comptoir. QR code d\'exemple.').replace('href="#liste">Je m\'inscris', 'href="#">Je m\'inscris')
+        if a['etat'] == 'ouverture':
+            ap = retirer_bloc(ap, '<div class="cent"')
         corps.append(ap)
     corps.append(carte_adresses(r, a['slug']))
     corps.append(s_insta)
     page = tete(titre, 'Atelier Paris Burger, %s. Burger, baguette et la sauce de la maison.' % lieu, r) + \
-        '<body data-page="adresse" data-devise="%s">\n' % ('€' if a['devise'] == '€' or a['etat'] == 'prepa' else 'CHF') + logo + '\n' + entete(r, liens, cta, href) + '\n<main id="contenu">\n' + '\n\n'.join(corps) + '\n</main>\n\n' + \
+        '<body data-page="adresse" data-devise="%s">\n' % ('€' if a['devise'] == '€' or a['etat'] == 'prepa' else 'CHF') + logo + '\n' + entete(r, liens, cta, href, a['slug']) + '\n<main id="contenu">\n' + '\n\n'.join(corps) + '\n</main>\n\n' + \
         pied(r, a) + '\n' + fiche + '\n' + scripts_fin(r) + '</body>\n</html>\n'
     page = page.replace('Café de Paris</span>', 'Café de Paris</span>')  # pastilles inchangées
     ecrire(a['slug'] + '/index.html', page)
@@ -335,9 +372,12 @@ ijs2 = ijs2[:ijs2.index('  // 3. Ils s')] + partie
 ijs2 = ijs2.replace("end:'+=600%'", "end:'+=700%'").replace(",\n    onUpdate:function(s){ gsap.set('#progres', {scaleX:s.progress}); }", "")
 assert '#mot0' in ijs2 and "end:'+=700%'" in ijs2
 
+def barre_villes():
+    return '<nav class="ix-villes" aria-label="Choisir une adresse">' + ''.join('<a href="%s/"><span>%s</span><small>%s</small></a>' % (a['slug'], nom_court(a), html.escape(a['statut'])) for a in ADRESSES) + '</nav>'
+
 ihtml2 = ihtml.replace('<div class="ix-mot" id="mot1">Assembler.</div>', '<div class="ix-mot" id="mot0">Smasher.</div>\n    <div class="ix-mot" id="mot1">Assembler.</div>')
 ihtml2 = ihtml2.replace('<h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Genève, face au Jet d\'eau · novembre 2026</p>',
-                        '<h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Paris · Madrid · Ibiza · Genève</p>')
+                        '<h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Paris · Madrid · Ibiza · Genève</p>' + barre_villes())
 ihtml2 = ihtml2.replace('<b>Prototype de mouvement.</b> Les cadres dorés seront les vraies photos détourées de chaque ingrédient, prises au shooting.',
                         '<b>Prototype de mouvement.</b> Les cadres dorés seront la séquence filmée : smash, assemblage, coupe, trempage.')
 assert 'mot0' in ihtml2
@@ -365,7 +405,7 @@ carte_m = carte_m.replace("Noms et prix d'exemple, à remplacer par la carte dé
                           "La carte signature, la même dans toutes nos adresses. Prix et disponibilités selon l'adresse. Touchez un plat pour le voir en 3D.")
 accueil = tete('Atelier Paris Burger · La maison', 'Une maison, une sauce. Burger, baguette et la sauce de la maison, à Madrid, Ibiza et Genève.', '') + \
     '<body data-page="maison">\n' + logo + '\n' + \
-    entete('./', [('#histoire', "L'histoire"), ('#carte', 'La carte'), ('#adresses', 'Nos adresses')], 'Nos adresses', '#adresses') + \
+    entete('./', [('#histoire', "L'histoire"), ('#carte', 'La carte')], 'Nos adresses', '#adresses') + \
     '\n<main id="contenu">\n' + ihtml2 + '\n\n' + ihist2 + '\n\n' + s_geste + '\n\n' + carte_m + '\n\n' + carte_adresses('') + '\n' + s_insta + '\n</main>\n\n' + \
     pied('') + '\n' + fiche + '\n' + scripts_fin('') + js_maison + '</body>\n</html>\n'
 ecrire('index.html', accueil)
