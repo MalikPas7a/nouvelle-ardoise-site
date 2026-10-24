@@ -61,16 +61,16 @@
   function go(){
     document.querySelectorAll('[data-split]').forEach(function(el){
       split(el);
-      gsap.fromTo(el.querySelectorAll('.mot'), {yPercent:110}, {yPercent:0, duration:0.9, ease:'power3.out', stagger:0.045,
+      gsap.fromTo(el.querySelectorAll('.mot'), {yPercent:110}, {yPercent:0, duration:0.7, ease:'power3.out', stagger:0.035,
         scrollTrigger: el.closest('.ouverture') ? null : {trigger:el, start:'top 84%', once:true}, delay: el.closest('.ouverture') ? 0.15 : 0});
     });
     gsap.utils.toArray('[data-reveal]').forEach(function(el){
       var inHero = el.closest('.ouverture');
-      gsap.to(el, {opacity:1, y:0, duration:0.8, ease:'power3.out', delay: inHero ? 0.55 : 0,
+      gsap.to(el, {opacity:1, y:0, duration:0.6, ease:'power3.out', delay: inHero ? 0.3 : 0,
         scrollTrigger: inHero ? null : {trigger:el, start:'top 88%', once:true}});
     });
     gsap.utils.toArray('.ph[data-clip]').forEach(function(el){
-      gsap.to(el, {clipPath:'inset(0% 0 0 0)', duration:1.1, ease:'expo.out', scrollTrigger:{trigger:el, start:'top 90%', once:true}});
+      gsap.to(el, {clipPath:'inset(0% 0 0 0)', duration:0.8, ease:'expo.out', scrollTrigger:{trigger:el, start:'top 92%', once:true}});
     });
     // Ouverture : léger recul de l'image au défilement
     if(document.querySelector('.ouverture .media')) gsap.to('.ouverture .media', {yPercent:12, ease:'none', scrollTrigger:{trigger:'.ouverture', start:'top top', end:'bottom top', scrub:1}});
@@ -295,6 +295,49 @@
     });
   }
 
+  // Nos adresses : menu déroulant (clic, clavier, survol sur ordinateur)
+  var adrB = document.getElementById('adr-bouton'), adrM = document.getElementById('adr-menu');
+  if(adrB && adrM){
+    var minuterie = null;
+    var ouvre = function(o){ clearTimeout(minuterie); adrM.hidden = !o; adrB.setAttribute('aria-expanded', o ? 'true' : 'false'); };
+    adrB.addEventListener('click', function(){ ouvre(adrM.hidden); });
+    if(!tactile){
+      var zone = adrB.parentNode;
+      zone.addEventListener('mouseenter', function(){ ouvre(true); });
+      zone.addEventListener('mouseleave', function(){ minuterie = setTimeout(function(){ ouvre(false); }, 160); });
+    }
+    document.addEventListener('click', function(e){ if(!adrB.parentNode.contains(e.target)) ouvre(false); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !adrM.hidden){ ouvre(false); adrB.focus(); } });
+    adrM.addEventListener('focusout', function(e){ if(!adrB.parentNode.contains(e.relatedTarget)) ouvre(false); });
+  }
+
+  // Accueil : la barre des villes n'est cliquable que tant que le titre est visible
+  var titre = document.querySelector('.ix-titre');
+  if(titre && titre.querySelector('.ix-villes')){
+    var maj = function(){ titre.style.pointerEvents = parseFloat(getComputedStyle(titre).opacity) > .5 ? '' : 'none'; };
+    window.addEventListener('scroll', maj, {passive: true}); maj();
+  }
+
+  // Pages de la maison préchargées : le changement d'adresse est instantané
+  var dejaPrecharge = {};
+  function precharger(href){
+    if(dejaPrecharge[href]) return; dejaPrecharge[href] = 1;
+    var l = document.createElement('link'); l.rel = 'prefetch'; l.href = href; document.head.appendChild(l);
+  }
+  document.querySelectorAll('a[href]').forEach(function(a){
+    var u; try { u = new URL(a.href, location.href); } catch(e){ return; }
+    if(u.origin !== location.origin || u.pathname.indexOf('/demos/atelier-paris-burger/') !== 0 || u.pathname === location.pathname) return;
+    ['pointerenter','focus','touchstart'].forEach(function(ev){ a.addEventListener(ev, function(){ precharger(u.pathname); }, {passive: true, once: true}); });
+  });
+  if('requestIdleCallback' in window) requestIdleCallback(function(){ document.querySelectorAll('.adr-menu a, .ix-villes a').forEach(function(a){ precharger(new URL(a.href, location.href).pathname); }); });
+
+  // Notes de maquette : masquées par défaut, un bouton discret les affiche
+  var bn = document.createElement('button'); bn.type = 'button'; bn.className = 'bouton-notes';
+  var notesOn = false; try { notesOn = sessionStorage.getItem('apb-notes') === '1'; } catch(e){}
+  var majNotes = function(){ document.documentElement.classList.toggle('notes', notesOn); bn.setAttribute('aria-pressed', notesOn ? 'true' : 'false'); bn.textContent = notesOn ? 'Masquer les notes' : 'Notes de maquette'; };
+  bn.addEventListener('click', function(){ notesOn = !notesOn; try { sessionStorage.setItem('apb-notes', notesOn ? '1' : '0'); } catch(e){} majNotes(); });
+  (document.querySelector('.pied .bas') || document.body).appendChild(bn); majNotes();
+
   // Rideau bordeaux entre les pages de la maison
   if(!reduit){
     var rideau = document.createElement('div'); rideau.className = 'rideau'; rideau.setAttribute('aria-hidden', 'true'); rideau.innerHTML = logo;
@@ -304,7 +347,7 @@
       try { sessionStorage.removeItem('apb-rideau'); } catch(e){}
       rideau.classList.add('couvre');
       requestAnimationFrame(function(){ requestAnimationFrame(function(){ rideau.classList.add('part'); }); });
-      setTimeout(function(){ rideau.className = 'rideau'; }, 900);
+      setTimeout(function(){ rideau.className = 'rideau'; }, 650);
     }
     document.addEventListener('click', function(e){
       var l = e.target.closest && e.target.closest('a[href]');
@@ -315,7 +358,7 @@
       e.preventDefault();
       try { sessionStorage.setItem('apb-rideau', '1'); } catch(err){}
       rideau.className = 'rideau entre';
-      setTimeout(function(){ location.href = u.href; }, 520);
+      setTimeout(function(){ location.href = u.href; }, 300);
     });
     window.addEventListener('pageshow', function(e){ if(e.persisted) rideau.className = 'rideau'; });
   }

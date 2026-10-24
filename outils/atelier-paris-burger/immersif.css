@@ -79,3 +79,74 @@
   .rideau,.vol-goutte,.plat .goutte{display:none!important}
 }
 @media (hover:none){.adresse:hover .ph img,.plat:hover .vignette .ph{transform:none}}
+
+/* Nos adresses : menu déroulant de l'en-tête, liste du menu mobile, barre des villes de l'accueil */
+.nav{align-items:center}
+.nav-adr{position:relative}
+.nav-adr>button{font:500 13px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:inherit;background:none;border:0;padding:14px 0;cursor:pointer;display:inline-flex;align-items:center;gap:8px;opacity:.88}
+.nav-adr>button::after{content:"";width:6px;height:6px;border-right:1.5px solid var(--or);border-bottom:1.5px solid var(--or);transform:translateY(-2px) rotate(45deg);transition:transform .3s var(--ease)}
+.nav-adr>button[aria-expanded="true"]{opacity:1}
+.nav-adr>button[aria-expanded="true"]::after{transform:translateY(1px) rotate(225deg)}
+.adr-menu{position:absolute;right:-16px;top:calc(100% + 10px);min-width:300px;padding:10px;background:var(--bordeaux-2);border:1px solid rgba(217,145,37,.35);box-shadow:0 24px 60px rgba(20,4,8,.45);display:grid;gap:2px;z-index:60}
+.adr-menu[hidden]{display:none}
+.adr-menu a{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:12px 14px;min-height:44px;text-decoration:none!important;opacity:1;color:var(--creme);transition:background .25s var(--ease)}
+.adr-menu a span{font:400 22px/1.1 var(--f-display);letter-spacing:0;text-transform:none}
+.adr-menu a small{font:500 10px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--or);white-space:nowrap}
+.adr-menu a:hover,.adr-menu a:focus-visible{background:rgba(242,235,221,.08)}
+.adr-menu a[aria-current="page"]{background:rgba(217,145,37,.14)}
+.adr-menu .adr-maison{border-bottom:1px solid rgba(217,145,37,.25);margin-bottom:4px}
+.menu-mobile nav .menu-adr{display:grid;gap:2px;margin-top:var(--s3);padding-top:var(--s2);border-top:1px solid rgba(217,145,37,.3)}
+.menu-mobile nav .menu-adr .lab{margin-bottom:6px}
+.menu-mobile nav .menu-adr a{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:400 26px/1.15 var(--f-display);padding:8px 0;min-height:44px}
+.menu-mobile nav .menu-adr a small{font:500 10px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--or);white-space:nowrap}
+.menu-mobile nav .menu-adr a[aria-current="page"] span{color:var(--or)}
+.ix-villes{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:clamp(22px,3.4vh,36px);pointer-events:auto}
+.ix-villes a{display:grid;gap:5px;justify-items:center;padding:12px 18px;min-width:150px;border:1px solid rgba(217,145,37,.45);color:var(--creme);text-decoration:none;transition:background .3s var(--ease),border-color .3s var(--ease)}
+.ix-villes a span{font:400 19px/1.1 var(--f-display)}
+.ix-villes a small{font:500 9.5px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--or)}
+.ix-villes a:hover,.ix-villes a:focus-visible{background:rgba(217,145,37,.16);border-color:var(--or)}
+@media (max-width:760px){.ix-villes{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ix-villes a{min-width:0;padding:10px 8px}.ix-villes a span{font-size:16px}}
+.ix-dedans{pointer-events:none}
+.ix-titre{z-index:8}
+.adr-menu a,.menu-mobile nav .menu-adr a{display:grid;justify-content:start;gap:6px}
+.adr-menu a span{white-space:nowrap}
+@media (max-width:760px){.ix-scene .sceau{display:none}}
+
+/* ---------- Audit 24.10 : épuré, lisible, tactile ---------- */
+/* Notes de maquette masquées par défaut ; le bouton « Notes » les affiche */
+html:not(.notes) .variante,html:not(.notes) .exemple,html:not(.notes) .ix-legende,html:not(.notes) .liste .note,html:not(.notes) .ouverture .media .ph figcaption{display:none!important}
+html:not(.notes) .ph figcaption{font-size:0}
+html:not(.notes) .ph figcaption b{font-size:11px;opacity:.75}
+.bouton-notes{position:fixed;left:14px;bottom:14px;z-index:300;min-height:36px;padding:8px 12px;font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--creme);background:rgba(58,12,20,.82);border:1px solid rgba(217,145,37,.5);backdrop-filter:blur(6px);cursor:pointer;opacity:.7;transition:opacity .2s}
+.bouton-notes:hover,.bouton-notes:focus-visible,.bouton-notes[aria-pressed="true"]{opacity:1}
+/* Plus aucun texte sous 11 px */
+.exemple,.statut,.pastille,.insta .ph figcaption,.ix-villes a small{font-size:11px}
+.sceau text{font-size:9px}
+/* Carte : les plats sans photo (accompagnements, desserts) gardent leur description en pleine largeur */
+.plat:not(:has(.vignette)){grid-template-columns:1fr auto}
+.plat:not(:has(.vignette)) .desc{grid-column:1/2}
+/* Adresses : la grille suit le nombre de cartes */
+.adresses .liste-a{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.adresses .liste-a:has(> :nth-child(3):last-child){grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){
+  .adresses .liste-a,.adresses .liste-a:has(> :nth-child(3):last-child){display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(var(--gutter) * -1);padding:0 var(--gutter) 6px;scrollbar-width:none}
+  .adresses .liste-a::-webkit-scrollbar{display:none}
+  .adresses .liste-a .adresse{flex:0 0 74%;scroll-snap-align:start}
+  .adresse .ph{aspect-ratio:4/5}
+}
+/* Pied : le nom n'est écrit qu'une fois (la signature) */
+.pied .logo p{display:none}
+/* Zones tactiles d'au moins 44 px */
+@media (hover:none),(max-width:1024px){
+  .pied a,.atelier a,.langues a{display:inline-flex;align-items:center;min-height:44px}
+  .langues a{min-width:36px;justify-content:center}
+  .liste input[type="checkbox"]{width:24px;height:24px}
+}
+.nav>a{padding-block:14px}
+/* Interface plus vive */
+.btn::before,.btn::after{transition-duration:.45s}
+.rideau.entre{transition-duration:.32s}
+.rideau.part{transition-duration:.5s;transition-delay:0s}
+.adresse .statut,.adresses .statut{font-size:11px}
+@media (max-width:760px){.adresses .liste-a,.adresses .liste-a:has(> :nth-child(3):last-child){scroll-padding-inline:var(--gutter)}}
+.pied .bouton-notes{position:static;opacity:.8;background:transparent;backdrop-filter:none;min-height:44px}
