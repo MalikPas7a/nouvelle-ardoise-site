@@ -16,7 +16,36 @@ def entre(texte, debut, fin):
 def section(nom):
     return entre(src, '<section class="%s"' % nom, '</section>')
 
+# Photos d'essai libres de droits (CC0, rawpixel via Openverse), posées dans les cadres en attendant le shooting
+PHOTOS = {
+    'Photo archive ou reconstitution': ('paris', 'Avenue des Champs-Élysées, Paris, photo d\'archive'),
+    'Photo · La sauce': ('beurre', 'Beurre étalé au couteau sur du pain'),
+    'Photo · Burger et baguette': ('smash', 'Steaks hachés écrasés sur la plaque, cheddar qui fond'),
+    'Photo · Les adresses': ('ibiza-ville', 'Ibiza, la vieille ville vue du port'),
+    'Photo 3a · Couper': ('couper', 'Burger coupé en deux'),
+    'Photo 3b · Tremper': ('tremper', 'Frite trempée dans la sauce'),
+    'Photo 3c · Croquer': ('croquer', 'Mains qui prennent un burger et des frites'),
+    'Photo · Façade, lac et Jet d\'eau': ('eaux-vives', 'Les quais de Genève, photo d\'archive'),
+    'Photo 6 · Façade, lac et Jet d\'eau': ('eaux-vives', 'Les quais de Genève, photo d\'archive'),
+    'Photo · Façade de Versoix': ('versoix', 'Le Léman vu de la rive'),
+    'Photo · Façade de Madrid': ('madrid', 'Façades de la Gran Vía, Madrid'),
+    'Photo · Façade d\'Ibiza': ('ibiza', 'Ruelle de la vieille ville d\'Ibiza'),
+    'Photo 5 · Salle et comptoir': ('salle', 'Steaks sur la plaque de cuisson'),
+    'Photos 4 · Plats de la carte': ('insta5', 'Burger cheddar'),
+    'Photo 7a': ('insta1', 'Burger et frites'), 'Photo 7b': ('insta2', 'Burger brioché et frites'),
+    'Photo 7c': ('insta3', 'Sandwich garni'), 'Photo 7d': ('insta4', 'Frites épicées'),
+    'Photo 7e': ('insta5', 'Burger cheddar'), 'Photo 7f': ('insta6', 'Frites et sauce'),
+}
+def poser_photos(contenu, racine):
+    for lab, (f, alt) in PHOTOS.items():
+        motif = re.compile(r'(<(?:div|figure) class="[^"]*\b(?:ix-ph|ph)\b[^"]*"[^>]*>)(\s*<(?:figcaption|span)><b>' + re.escape(lab) + '</b>)')
+        img = '<img class="ph-img" src="%sassets/photos/%s.webp" alt="%s" loading="lazy" decoding="async">' % (racine, f, html.escape(alt))
+        contenu = motif.sub(lambda m: m.group(1) + img + m.group(2), contenu)
+    return contenu.replace('Maquette Nouvelle Ardoise · photos à venir', 'Maquette Nouvelle Ardoise · photos d\'essai libres de droits (CC0), remplacées au shooting')
+
 def ecrire(chemin, contenu):
+    if chemin.endswith('.html'):
+        contenu = poser_photos(contenu, '../' * chemin.count('/'))
     chemin = os.path.join(SORTIE, chemin)
     os.makedirs(os.path.dirname(chemin), exist_ok=True)
     contenu = contenu.replace('<span class="lab">Contact</span>', '<span class="lab">Contact</span><a href="mailto:info@atelier-paris-burger.com">info@atelier-paris-burger.com</a>')
@@ -59,8 +88,8 @@ for avant, apres in [("duration:0.8, ease:'power3.out'", "duration:0.6, ease:'po
     assert avant in js, avant
     js = js.replace(avant, apres)
 ICI = os.path.dirname(os.path.abspath(__file__))
-immersif_js = open(os.path.join(ICI, 'immersif.js'), encoding='utf-8').read()
-immersif_css = open(os.path.join(ICI, 'immersif.css'), encoding='utf-8').read()
+immersif_js = open(os.path.join(ICI, 'immersif.js'), encoding='utf-8').read() + open(os.path.join(ICI, 'sauce.js'), encoding='utf-8').read()
+immersif_css = open(os.path.join(ICI, 'immersif.css'), encoding='utf-8').read() + open(os.path.join(ICI, 'sauce.css'), encoding='utf-8').read() + open(os.path.join(ICI, 'photos.css'), encoding='utf-8').read()
 ecrire('assets/apb.js', '// Atelier Paris Burger · scripts partagés (maquette Nouvelle Ardoise)\n' + js + immersif_js)
 
 # Intro au scroll : classes préfixées « ix- » pour ne pas croiser celles du site
@@ -372,6 +401,9 @@ partie = re.sub(r"(\}, )(\d+(?:\.\d+)?)\)", decale, partie)
 ijs2 = ijs2[:ijs2.index('  // 3. Ils s')] + partie
 ijs2 = ijs2.replace("gsap.from(el, {y:60, opacity:0, duration:1, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 82%', once:true}});",
                     "gsap.fromTo(el, {y:40, opacity:0}, {y:0, opacity:1, duration:0.7, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 85%', once:true}});")
+ijs2 = ijs2.replace("    .to('#plongee', {clipPath:'circle(150% at 50% 88%)', duration:1.4, ease:'power2.in'}, 6.2)\n", "")
+ijs2 = ijs2.replace("    .to('#dedans h2', {scale:1.04, duration:0.8}, 7.5);", "    .to('#dedans h2', {scale:1.04, duration:0.8}, 7.5);\n  if(window.apbSauce) window.apbSauce(tl, 5.75, 6.2);")
+assert 'apbSauce' in ijs2 and "clipPath:'circle" not in ijs2
 ijs2 = ijs2.replace("end:'+=600%'", "end:'+=700%'").replace(",\n    onUpdate:function(s){ gsap.set('#progres', {scaleX:s.progress}); }", "")
 assert '#mot0' in ijs2 and "end:'+=700%'" in ijs2
 

@@ -36,13 +36,13 @@
     .to('#mot3', {opacity:1, duration:0.3}, 4.2)
     .to('#bassin', {bottom:'-24vh', duration:1, ease:'power2.out'}, 4.1)
     .to('#moitieG', {xPercent:-40, opacity:0, duration:0.8, ease:'power2.in'}, 4.3)
-    .to('#moitieD', {xPercent:-8, y:vh(30), rotation:28, duration:1.1, ease:'power2.in'}, 4.3)
+    .to('#moitieD', {xPercent:-8, y:vh(46), rotation:28, duration:1.3, ease:'power2.in'}, 4.3)
     .to('#mot3', {opacity:0, duration:0.3}, 5.3)
   // 6. Le visiteur plonge à son tour
-    .to('#plongee', {clipPath:'circle(150% at 50% 88%)', duration:1.4, ease:'power2.in'}, 5.4)
     .to('#legende', {opacity:0, duration:0.3}, 5.4)
     .to('#dedans', {opacity:1, duration:0.6}, 6.5)
     .to('#dedans h2', {scale:1.04, duration:0.8}, 6.7);
+  if(window.apbSauce) window.apbSauce(tl, 4.95, 5.4, 7);
 
   gsap.utils.toArray('[data-r]').forEach(function(el){
     gsap.fromTo(el, {y:40, opacity:0}, {y:0, opacity:1, duration:0.7, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 85%', once:true}});

@@ -623,3 +623,40 @@ html:not(.notes) .ph figcaption b{font-size:11px;opacity:.75}
 .ix-entete h2{max-width:16ch;margin-top:14px;font:400 clamp(38px,5.6vw,84px)/1.02 var(--f-display);letter-spacing:-.02em}
 html:not(.notes) .ix-ph span{font-size:0}
 html:not(.notes) .ix-ph span b{font-size:11px;opacity:.75}
+
+/* ---------- Sauce vivante : texture, reflets, ondes, vague de plongée ---------- */
+.ix-bassin{overflow:hidden;background:
+  radial-gradient(ellipse 34% 16% at 38% 20%,rgba(255,244,214,.75),transparent 70%),
+  radial-gradient(ellipse 60% 50% at 50% 35%,var(--sauce-3) 0%,var(--sauce) 42%,var(--sauce-2) 82%,#8C5A1E 100%);
+  animation:apb-ondule 7s ease-in-out infinite}
+.ix-bassin::before,.ix-plongee::before,.ix-histoire::after{content:"";position:absolute;inset:0;background-image:var(--apb-herbes,none);background-size:420px 420px;opacity:.5;mix-blend-mode:multiply;pointer-events:none}
+.ix-bassin::after{content:"";position:absolute;left:18%;top:12%;width:40%;height:22%;border-radius:50%;background:radial-gradient(ellipse,rgba(255,250,232,.55),transparent 70%);filter:blur(6px);animation:apb-reflet 9s ease-in-out infinite alternate;pointer-events:none}
+@keyframes apb-ondule{0%,100%{border-radius:50% 50% 50% 50%/50% 50% 50% 50%}33%{border-radius:48% 52% 50% 50%/46% 54% 50% 50%}66%{border-radius:52% 48% 50% 50%/53% 47% 50% 50%}}
+@keyframes apb-reflet{from{transform:translateX(0) scale(1)}to{transform:translateX(70%) scale(1.15,.85)}}
+.apb-ondes{position:absolute;left:50%;top:71vh;width:0;height:0;z-index:5;pointer-events:none}
+.apb-ondes i{position:absolute;left:0;top:0;width:min(60vw,560px);height:min(9vw,84px);margin:calc(min(9vw,84px)/-2) 0 0 calc(min(60vw,560px)/-2);border-radius:50%;border:2px solid rgba(255,240,200,.85);box-shadow:0 0 18px rgba(235,203,128,.6);opacity:0;transform:scale(.15)}
+.apb-ondes b{position:absolute;left:0;top:0;width:14px;height:20px;margin:-10px 0 0 -7px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(circle at 35% 30%,var(--sauce-3),var(--sauce) 55%,var(--sauce-2));opacity:0}
+.ix-plongee{clip-path:none!important;transform:translateY(calc(102% + 90px));overflow:visible}
+.ix-plongee .vague{position:absolute;left:0;right:0;bottom:100%;height:70px;margin-bottom:-1px;background:var(--apb-vague) repeat-x;background-size:640px 70px;animation:apb-vague 3.2s linear infinite}
+.ix-plongee .vague+.vague{height:54px;opacity:.55;background-size:520px 54px;animation-duration:4.6s;animation-direction:reverse}
+@keyframes apb-vague{to{background-position-x:640px}}
+.apb-bulles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.apb-bulles i{position:absolute;bottom:-30px;border-radius:50%;border:1px solid rgba(255,248,230,.65);background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.55),rgba(255,240,200,.08) 60%);animation:apb-bulle linear infinite}
+@keyframes apb-bulle{from{transform:translateY(0) translateX(0)}50%{transform:translateY(-55vh) translateX(10px)}to{transform:translateY(-115vh) translateX(-6px);opacity:0}}
+.ix-histoire{isolation:isolate}
+.ix-histoire::after{z-index:0;opacity:.35}
+.ix-histoire>*{position:relative;z-index:1}
+.ix-histoire .apb-bulles{position:absolute;z-index:0}
+@media (prefers-reduced-motion:reduce){.ix-bassin,.ix-bassin::after,.ix-plongee .vague,.apb-bulles i{animation:none}.apb-bulles{display:none}}
+.statique .apb-ondes{display:none}
+
+/* ---------- Photos d'essai libres de droits (CC0), à remplacer par le shooting ---------- */
+.ph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0}
+.ph:has(>.ph-img)::before,.ph:has(>.ph-img)::after{display:none}
+html:not(.notes) .ph:has(>.ph-img) figcaption,html:not(.notes) .ix-ph:has(>.ph-img)>span{display:none}
+.ph:has(>.ph-img) figcaption,.ix-ph:has(>.ph-img)>span{z-index:1;background:rgba(26,20,18,.72);color:#F2EBDD;padding:8px 10px}
+.ix-chap .ix-ph:has(>.ph-img){overflow:hidden;border:0}
+.ix-chap .ix-ph .ph-img{transition:transform 1.2s var(--ease)}
+.ix-chap .ix-ph:hover .ph-img{transform:scale(1.03)}
+.adresse .ph .ph-img{filter:sepia(.18) saturate(.92) contrast(1.02)}
+.credit-photos{display:block;font:500 10px/1.5 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;opacity:.7}
