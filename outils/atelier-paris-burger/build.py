@@ -50,7 +50,10 @@ js = js.replace("  function chf(n){ return n.toFixed(2).replace('.00','.–') + 
                 "  var EUR = document.body.dataset.devise === '€';\n  function chf(n){ return EUR ? n.toFixed(2).replace('.', ',') + ' €' : n.toFixed(2).replace('.00','.–') + ' CHF'; }")
 assert 'var EUR' in js and "replace(',', '.')" in js
 assert js.count('if(!document.getElementById') >= 2
-ecrire('assets/apb.js', '// Atelier Paris Burger · scripts partagés (maquette Nouvelle Ardoise)\n' + js)
+ICI = os.path.dirname(os.path.abspath(__file__))
+immersif_js = open(os.path.join(ICI, 'immersif.js'), encoding='utf-8').read()
+immersif_css = open(os.path.join(ICI, 'immersif.css'), encoding='utf-8').read()
+ecrire('assets/apb.js', '// Atelier Paris Burger · scripts partagés (maquette Nouvelle Ardoise)\n' + js + immersif_js)
 
 # Intro au scroll : classes préfixées « ix- » pour ne pas croiser celles du site
 icss = intro[intro.index('<style>') + 7:intro.index('</style>')]
@@ -110,7 +113,7 @@ css_maison = r'''
 .fil a{color:var(--or);text-decoration:none}
 .fil a:hover{text-decoration:underline}
 '''
-ecrire('assets/apb.css', '/* Atelier Paris Burger · styles partagés (maquette Nouvelle Ardoise) */\n' + css + css_maison)
+ecrire('assets/apb.css', '/* Atelier Paris Burger · styles partagés (maquette Nouvelle Ardoise) */\n' + css + css_maison + immersif_css)
 
 # ---------- Adresses ----------
 def maps(a):

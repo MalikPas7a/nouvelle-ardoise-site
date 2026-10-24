@@ -466,3 +466,84 @@ figure{margin:0}
 .fil{font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:#C9AE97;margin-bottom:var(--s3)}
 .fil a{color:var(--or);text-decoration:none}
 .fil a:hover{text-decoration:underline}
+
+/* ---------- Couche immersive : boutons sauce, cartes vivantes, rideau, sceau ---------- */
+:root{--vague:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q15 0 30 6 T60 6 T90 6 T120 6 V12 H0Z'/%3E%3C/svg%3E")}
+
+/* Boutons : la sauce monte, le texte roule */
+.btn{position:relative;overflow:hidden;isolation:isolate;transition:color .35s var(--ease),border-color .35s var(--ease),transform .18s var(--ease)}
+.btn::before,.btn::after{content:"";position:absolute;left:-2px;right:-2px;z-index:-1;pointer-events:none;transition:transform .65s cubic-bezier(.2,.8,.2,1)}
+.btn::before{top:-2px;bottom:-2px;background:var(--remplit,var(--sauce));transform:translateY(105%)}
+.btn::after{height:10px;top:-8px;background:var(--remplit,var(--sauce));-webkit-mask:var(--vague) 0 0/60px 10px repeat-x;mask:var(--vague) 0 0/60px 10px repeat-x;transform:translateY(calc(100% + 60px));animation:apb-vague 1.6s linear infinite paused}
+.btn:hover::before,.btn:focus-visible::before,.btn.presse::before{transform:translateY(0)}
+.btn:hover::after,.btn:focus-visible::after,.btn.presse::after{transform:translateY(-100%);animation-play-state:running}
+@keyframes apb-vague{to{-webkit-mask-position:60px 0;mask-position:60px 0}}
+.btn:active{transform:translateY(1px) scale(.985)}
+.btn-plein{--remplit:var(--sauce)}
+.btn-plein:hover,.btn-plein:focus-visible,.btn-plein.presse{background:var(--bordeaux);color:var(--bordeaux);border-color:var(--sauce)}
+.btn-contour{--remplit:var(--bordeaux)}
+.btn-contour:hover,.btn-contour:focus-visible,.btn-contour.presse{background:transparent;color:var(--creme)}
+.sur-sombre .btn-plein:hover,.sur-sombre .btn-plein:focus-visible{background:var(--creme);color:var(--bordeaux);border-color:var(--sauce)}
+.sur-sombre .btn-contour{--remplit:var(--creme)}
+.sur-sombre .btn-contour:hover,.sur-sombre .btn-contour:focus-visible{background:transparent;color:var(--bordeaux)}
+.fiche .action .btn{--remplit:var(--sauce)}
+.fiche .action .btn:hover{color:var(--bordeaux);background:var(--bordeaux)}
+.btn .roule{display:inline-grid;overflow:hidden;line-height:1.15;height:1.15em}
+.btn .roule>span{grid-area:1/1;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.btn .roule>span+span{transform:translateY(110%)}
+.btn:hover .roule>span:first-child,.btn:focus-visible .roule>span:first-child{transform:translateY(-110%)}
+.btn:hover .roule>span+span,.btn:focus-visible .roule>span+span{transform:translateY(0)}
+
+/* Carte : un filet de sauce souligne le plat survolé, la goutte tombe */
+.plat{position:relative}
+.plat .nom{position:relative;width:fit-content}
+.plat .nom::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:100%;background:var(--sauce);transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.plat .goutte{position:absolute;width:7px;height:9px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--sauce);opacity:0;pointer-events:none}
+.plat:hover .nom::after,.plat:focus-visible .nom::after{transform:scaleX(1)}
+.plat:hover .vignette .ph,.plat:focus-visible .vignette .ph{transform:scale(1.04)}
+.plat .vignette .ph{transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+@keyframes apb-goutte{0%{opacity:0;transform:translateY(-4px) scale(.4)}25%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(26px) scale(.7,1.2)}}
+
+/* Adresses : coordonnées, photo qui respire, flèche qui avance */
+.adresse .coord{display:block;margin-top:6px;font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.adresse .ph{overflow:hidden}
+.adresse .ph img,.adresse .ph video{transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.adresse:hover .ph img,.adresse:focus-visible .ph img{transform:scale(1.04)}
+.adresse h3{position:relative;width:fit-content}
+.adresse h3::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--sauce);transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.adresse:hover h3::after,.adresse:focus-visible h3::after{transform:scaleX(1)}
+.adresse .aller{display:inline-block;transition:transform .5s cubic-bezier(.2,.8,.2,1),letter-spacing .5s}
+.adresse:hover .aller,.adresse:focus-visible .aller{transform:translateX(8px)}
+.adresse h3{transition:color .4s}
+.adresse:hover h3{color:var(--or)}
+
+/* Panier : la goutte de sauce part du bouton et tombe dans la commande */
+.vol-goutte{position:fixed;z-index:400;width:16px;height:20px;margin:-10px 0 0 -8px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--sauce);box-shadow:inset -3px -4px 0 rgba(0,0,0,.12);pointer-events:none}
+.panier.rebond{animation:apb-rebond .55s cubic-bezier(.3,1.6,.5,1)}
+@keyframes apb-rebond{0%{transform:translateY(0) scale(1)}35%{transform:translateY(3px) scale(1.06,.94)}100%{transform:none}}
+
+/* Sceau « Depuis 1978 » qui tourne avec le défilement */
+.sceau{position:absolute;z-index:3;right:clamp(16px,4vw,60px);top:42%;width:clamp(96px,10vw,132px);aspect-ratio:1;color:var(--or);pointer-events:none}
+.sceau svg{width:100%;height:100%;display:block;overflow:visible}
+.sceau text{font:500 9px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;fill:currentColor}
+.sceau .ab{position:absolute;inset:34%;}
+.sceau .ab svg{color:var(--or)}
+@media (max-width:760px){.sceau{width:78px;top:86px;right:14px}}
+
+/* Rideau bordeaux entre les pages de la maison */
+.rideau{position:fixed;inset:0;z-index:900;background:var(--bordeaux-2);display:grid;place-items:center;transform:translateY(100%);pointer-events:none}
+.rideau svg{width:72px;height:72px;color:var(--or);opacity:0;transform:scale(.85);transition:opacity .35s .1s,transform .5s .1s cubic-bezier(.2,.8,.2,1)}
+.rideau.entre{transition:transform .5s cubic-bezier(.7,0,.3,1);transform:translateY(0);pointer-events:auto}
+.rideau.entre svg,.rideau.part svg{opacity:1;transform:none}
+.rideau.couvre{transform:translateY(0)}
+.rideau.part{transition:transform .7s .1s cubic-bezier(.7,0,.3,1);transform:translateY(-100%)}
+
+/* Pied : la signature géante */
+.signature{overflow:hidden;padding:clamp(40px,6vw,80px) 0 0;color:var(--or);font-family:var(--f-display);font-size:clamp(40px,10.6vw,176px);line-height:1;padding-bottom:.12em;letter-spacing:-.02em;white-space:nowrap;text-align:center}
+.signature span{display:inline-block}
+
+@media (prefers-reduced-motion:reduce){
+  .btn::before,.btn::after,.btn .roule>span,.plat .nom::after,.adresse .ph img,.adresse h3::after,.adresse .aller{transition:none!important;animation:none!important}
+  .rideau,.vol-goutte,.plat .goutte{display:none!important}
+}
+@media (hover:none){.adresse:hover .ph img,.plat:hover .vignette .ph{transform:none}}
