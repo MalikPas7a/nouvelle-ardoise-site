@@ -113,11 +113,14 @@ css_maison = r'''
 ecrire('assets/apb.css', '/* Atelier Paris Burger · styles partagés (maquette Nouvelle Ardoise) */\n' + css + css_maison)
 
 # ---------- Adresses ----------
+def maps(a):
+    return 'Atelier+Paris+Burger+' + a['adresse'].replace('<br>', ' ').replace(' ', '+')
+
 ADRESSES = [
     {'slug': 'geneve-eaux-vives', 'ville': 'Genève', 'quartier': 'Eaux-Vives', 'pays': 'CH', 'devise': 'CHF', 'etat': 'ouverture',
-     'statut': 'Ouverture novembre 2026', 'sous': "Face au Jet d'eau", 'photo': "Façade, lac et Jet d'eau"},
+     'statut': 'Ouverture novembre 2026', 'sous': "Quai Gustave-Ador 24, face au Jet d'eau", 'adresse': 'Quai Gustave-Ador 24<br>1207 Genève', 'photo': "Façade, lac et Jet d'eau"},
     {'slug': 'geneve-versoix', 'ville': 'Genève', 'quartier': 'Versoix', 'pays': 'CH', 'devise': 'CHF', 'etat': 'ouvert',
-     'statut': '[Statut à confirmer]', 'sous': 'Au bord du lac, côté Versoix', 'photo': 'Façade de Versoix'},
+     'statut': '[Statut à confirmer]', 'sous': 'Quai de Versoix 1, au bord du lac', 'adresse': 'Quai de Versoix 1<br>1290 Versoix', 'photo': 'Façade de Versoix'},
     {'slug': 'madrid', 'ville': 'Madrid', 'quartier': '[Quartier]', 'pays': 'ES', 'devise': '€', 'etat': 'prepa',
      'statut': 'Ouvert', 'sous': '[Adresse à compléter]', 'photo': 'Façade de Madrid'},
     {'slug': 'ibiza', 'ville': 'Ibiza', 'quartier': '[Quartier]', 'pays': 'ES', 'devise': '€', 'etat': 'prepa',
@@ -200,7 +203,7 @@ def carte_adresses(racine, actuelle=None):
 def pied(racine, a=None):
     adr = ''.join('<a href="%s%s/">%s</a>' % (racine, x['slug'], nom_complet(x)) for x in ADRESSES)
     if a:
-        col1 = '<div class="col"><span class="lab">%s</span><p>[Adresse à compléter]<br>%s</p><a href="#atelier">Plan d\'accès</a></div>' % (html.escape(nom_complet(a)), a['ville'])
+        col1 = '<div class="col"><span class="lab">%s</span><p>%s</p><a href="#atelier">Plan d\'accès</a></div>' % (html.escape(nom_complet(a)), a.get('adresse', '[Adresse à compléter]<br>' + a['ville']))
         col2 = '<div class="col"><span class="lab">Horaires</span><p>[Lun – Jeu 11h30 – 22h]<br>[Ven – Dim 11h30 – 23h]</p></div>'
     else:
         col1 = '<div class="col"><span class="lab">Nos adresses</span>%s</div>' % adr
@@ -283,6 +286,7 @@ def page_adresse(a):
             at = at.replace("Photo 6 · Façade, lac et Jet d'eau", 'Photo 6 · Façade et terrasse de Versoix').replace('Jet+d%27eau+Gen%C3%A8ve', 'Versoix')
         else:
             at = at.replace("Genève · face au Jet d'eau", "Genève · Eaux-Vives, face au Jet d'eau")
+        at = at.replace('[Adresse à compléter]<br>Genève', a['adresse']).replace('Jet+d%27eau+Gen%C3%A8ve', maps(a)).replace('q=Versoix"', 'q=' + maps(a) + '"')
         corps.append(at)
         ap = s_appli
         if a['etat'] == 'ouvert':
