@@ -162,6 +162,61 @@ figure{margin:0}
 .exemple{font:500 10px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:#9A6A12;background:#F4E2BE;padding:4px 6px}
 .vignette{display:none}
 
+/* Carte interactive : chaque plat ouvre sa fiche */
+.plat{cursor:pointer;position:relative;transition:background .3s var(--ease)}
+.plat::after{content:"Voir en 3D  →";position:absolute;right:0;bottom:18px;font:500 10px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bordeaux);opacity:0;transform:translateX(-6px);transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.plat:hover::after,.plat:focus-visible::after{opacity:1;transform:none}
+.plat:hover .nom,.plat:focus-visible .nom{color:var(--bordeaux)}
+.plat:focus-visible{outline:2px solid var(--or);outline-offset:4px}
+.fiche-fond{position:fixed;inset:0;z-index:70;background:rgba(26,20,18,.55);opacity:0;transition:opacity .35s var(--ease)}
+.fiche{position:fixed;z-index:71;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--papier);color:var(--encre);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .5s var(--ease);overscroll-behavior:contain}
+.fiche-ouverte .fiche-fond{opacity:1}.fiche-ouverte .fiche{transform:none}
+.fiche[hidden],.fiche-fond[hidden]{display:none}
+.fiche .scene{position:relative;flex:none;height:min(52vh,460px);background:radial-gradient(ellipse 65% 60% at 50% 58%,#5E1724 0%,#3A0C14 60%,#2E090F 100%);color:var(--creme);overflow:hidden}
+.fiche .scene model-viewer{width:100%;height:100%;--poster-color:transparent;background:transparent}
+.fiche .scene model-viewer::part(default-ar-button){display:none}
+.scene .vide{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:var(--s4)}
+.scene .socle{position:absolute;left:50%;bottom:22%;width:58%;aspect-ratio:3/1;transform:translateX(-50%);border-radius:50%;border:1px solid rgba(217,145,37,.45);box-shadow:inset 0 -18px 40px rgba(0,0,0,.35)}
+.scene .socle::before{content:"";position:absolute;inset:18%;border-radius:50%;border:1px dashed rgba(217,145,37,.35);animation:tour 14s linear infinite}
+@keyframes tour{to{transform:rotate(360deg)}}
+.scene .vide p{position:relative;font:500 11px/1.6 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:#C9AE97;max-width:30ch;margin-top:-12%}
+.scene .vide p b{display:block;color:var(--or);font-weight:500;margin-bottom:6px}
+.scene .outils{position:absolute;left:var(--s3);right:var(--s3);bottom:var(--s2);display:flex;justify-content:space-between;align-items:center;gap:var(--s2)}
+.scene .outils span{font:500 10px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:#C9AE97}
+.scene .ar{font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--creme);background:transparent;border:1px solid rgba(242,235,221,.45);padding:11px 14px;cursor:pointer}
+.scene .ar[disabled]{opacity:.45;cursor:not-allowed}
+.fiche .fermer{position:absolute;top:calc(env(safe-area-inset-top,0px) + 16px);right:16px;z-index:3;width:44px;height:44px;border-radius:50%;border:1px solid rgba(242,235,221,.45);background:rgba(46,9,15,.5);color:var(--creme);font:400 22px/1 var(--f-texte);cursor:pointer}
+.fiche .corps{flex:1;overflow-y:auto;padding:var(--s4) var(--s4) calc(var(--s4) + env(safe-area-inset-bottom,0px));display:grid;gap:var(--s3);align-content:start}
+.fiche .cat-nom{font:500 var(--t-xs)/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--bordeaux)}
+.fiche h3{font:500 40px/1.05 var(--f-display);letter-spacing:-.01em;margin:6px 0 0}
+.fiche .ligne{display:flex;justify-content:space-between;align-items:center;gap:var(--s2);flex-wrap:wrap}
+.fiche .prix{font:500 18px/1 var(--f-mono)}
+.fiche .desc{color:var(--gris);margin:0}
+.fiche h4{font:500 var(--t-xs)/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin:0 0 10px}
+.fiche ul.compo{list-style:none;margin:0;padding:0;border-top:1px solid var(--filet)}
+.fiche ul.compo li{padding:10px 0;border-bottom:1px solid var(--filet);font-size:var(--t-s)}
+.fiche .allerg{display:flex;flex-wrap:wrap;gap:6px}
+.fiche .allerg span{font:500 10px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--filet);padding:6px 8px;color:var(--encre)}
+.fiche .action{position:sticky;bottom:calc(-1 * (var(--s4) + env(safe-area-inset-bottom,0px)));background:var(--papier);padding-block:var(--s2) calc(var(--s2) + env(safe-area-inset-bottom,0px));margin-bottom:calc(-1 * (var(--s4) + env(safe-area-inset-bottom,0px)));border-top:1px solid var(--filet);display:flex;gap:var(--s2);align-items:center}
+.qte{display:flex;align-items:center;border:1px solid var(--encre)}
+.qte button{width:44px;height:46px;background:none;border:0;font:500 18px/1 var(--f-mono);cursor:pointer;color:var(--encre)}
+.qte output{min-width:28px;text-align:center;font:500 15px/1 var(--f-mono)}
+.fiche .action .btn{flex:1;justify-content:center;background:var(--bordeaux);color:var(--creme);border-color:var(--bordeaux);cursor:pointer;height:48px}
+.fiche .nav{display:flex;justify-content:space-between;gap:var(--s2)}
+.fiche .nav button{background:none;border:0;padding:8px 0;font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--gris);cursor:pointer}
+.fiche .nav button:hover{color:var(--bordeaux)}
+.panier{position:fixed;z-index:65;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);background:var(--bordeaux);color:var(--creme);display:flex;align-items:center;gap:var(--s3);padding:10px 10px 10px 20px;font:500 12px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;box-shadow:0 18px 40px rgba(26,20,18,.3);transition:transform .45s var(--ease)}
+.panier.visible{transform:translate(-50%,0)}
+.panier a{background:var(--creme);color:var(--bordeaux);text-decoration:none;padding:12px 14px}
+@media (max-width:900px){
+  .plat::after{display:none}
+  .fiche{top:auto;width:100%;height:calc(100% - 40px);transform:translateY(100%)}
+  .fiche .scene{height:42vh}
+  .fiche .corps{padding-inline:var(--gutter)}
+  .fiche h3{font-size:32px}
+}
+@media (prefers-reduced-motion:reduce){.fiche,.fiche-fond,.panier{transition:none}.scene .socle::before{animation:none}}
+
 /* L'atelier */
 .atelier{padding-block:var(--s16);background:var(--papier);border-top:1px solid var(--filet)}
 .atelier .grid{row-gap:var(--s6);align-items:end}
@@ -491,6 +546,26 @@ figure{margin:0}
   </div>
 </footer>
 
+
+<!-- Fiche plat : vue 3D + composition + commande -->
+<div class="fiche-fond" id="fiche-fond" hidden></div>
+<aside class="fiche" id="fiche" role="dialog" aria-modal="true" aria-labelledby="fiche-nom" hidden>
+  <div class="scene" id="fiche-scene">
+    <button class="fermer" id="fiche-fermer" aria-label="Fermer">×</button>
+    <div class="vide" id="fiche-vide"><div class="socle" aria-hidden="true"></div><p><b>Vue 3D · scan du vrai plat</b>Le plat tournera ici, au doigt. Scan à faire au shooting.</p></div>
+    <div class="outils"><span>Glisser pour tourner · pincer pour zoomer</span><button class="ar" id="fiche-ar" disabled>Voir sur ma table</button></div>
+  </div>
+  <div class="corps">
+    <div><span class="cat-nom" id="fiche-cat"></span><h3 id="fiche-nom"></h3></div>
+    <div class="ligne"><span id="fiche-pastille"></span><span class="prix" id="fiche-prix"></span></div>
+    <p class="desc" id="fiche-desc"></p>
+    <div><h4>Composition</h4><ul class="compo" id="fiche-compo"></ul></div>
+    <div><h4>Allergènes</h4><div class="allerg" id="fiche-allerg"></div></div>
+    <div class="nav"><button id="fiche-prec">← Plat précédent</button><button id="fiche-suiv">Plat suivant →</button></div>
+    <div class="action"><div class="qte"><button id="moins" aria-label="Retirer un">−</button><output id="qte">1</output><button id="plus" aria-label="Ajouter un">+</button></div><button class="btn" id="ajouter">Ajouter · <span id="total"></span></button></div>
+  </div>
+</aside>
+<div class="panier" id="panier" aria-live="polite"><span id="panier-txt"></span><a href="#appli">Commander</a></div>
 <script src="/demos/vendor/gsap.min.js"></script>
 <script src="/demos/vendor/ScrollTrigger.min.js"></script>
 <script src="/demos/vendor/lenis.min.js"></script>
@@ -534,6 +609,7 @@ figure{margin:0}
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
     gsap.ticker.lagSmoothing(0);
+    window.apbLenis = lenis;
   }
 
   // Titres : révélation masquée mot par mot (sans SplitText), nom complet gardé pour les lecteurs d'écran
@@ -571,6 +647,97 @@ figure{margin:0}
     gsap.to('.ouverture .media', {yPercent:12, ease:'none', scrollTrigger:{trigger:'.ouverture', start:'top top', end:'bottom top', scrub:1}});
     window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
   }
+})();
+</script>
+<script>
+// Carte interactive : un clic sur un plat ouvre sa fiche (3D, composition, allergènes, commande)
+(function(){
+  // Données d'exemple, à remplacer par la carte définitive. glb : chemin du scan 3D du vrai plat.
+  var D = {
+    'Le Café de Paris':{c:['Pain brioché toasté','Bœuf haché minute, 150 g','Cheddar affiné','Oignons confits','Sauce Café de Paris'],a:['Gluten','Lait','Œuf','Moutarde']},
+    'Le Double Maison':{c:['Pain brioché toasté','Deux steaks de bœuf, 2 × 110 g','Double cheddar','Pickles maison','Sauce Café de Paris'],a:['Gluten','Lait','Œuf','Moutarde']},
+    'Le Poulet':{c:['Pain brioché toasté','Poulet croustillant','Salade','Sauce blanche aux herbes'],a:['Gluten','Lait','Œuf']},
+    'Le Végétal':{c:['Pain brioché toasté','Galette de légumes grillés','Chèvre','Roquette'],a:['Gluten','Lait']},
+    'La Parisienne':{c:['Baguette tradition','Bœuf tranché fin','Oignons','Sauce Café de Paris'],a:['Gluten','Lait','Œuf','Moutarde']},
+    'La Volaille':{c:['Baguette tradition','Poulet rôti','Crudités','Mayonnaise maison'],a:['Gluten','Œuf','Moutarde']},
+    'Frites maison':{c:['Pommes de terre fraîches','Fleur de sel'],a:[]},
+    'Frites trempées':{c:['Frites maison','Sauce Café de Paris'],a:['Lait','Œuf','Moutarde']},
+    'Mousse au chocolat':{c:['Chocolat noir','Œufs','Crème'],a:['Lait','Œuf']},
+    'Citronnade maison':{c:['Citron pressé','Menthe fraîche','Sucre de canne'],a:[]},
+    'Thé glacé maison':{c:['Thé infusé chaque matin','Pêche','Sucre de canne'],a:[]}
+  };
+  var plats = Array.prototype.slice.call(document.querySelectorAll('.carte .plat'));
+  var fiche = document.getElementById('fiche'), fond = document.getElementById('fiche-fond');
+  var $ = function(id){ return document.getElementById(id); };
+  var i = 0, q = 1, dernier = null, panier = 0, mvCharge = false;
+
+  function info(el){
+    var nom = el.querySelector('.nom').childNodes[0].textContent.trim();
+    var prix = parseFloat(el.querySelector('.prix').textContent.replace(/[^\d.]/g,'')) || 0;
+    var d = el.querySelector('.desc').cloneNode(true); var ex = d.querySelector('.exemple'); if(ex) ex.remove();
+    return {nom:nom, prix:prix, desc:d.textContent.trim(), sauce:!!el.querySelector('.pastille'), cat:el.closest('.cat').querySelector('h3').childNodes[0].textContent.trim(), glb:el.dataset.glb, x:D[nom]||{c:[],a:[]}};
+  }
+  function chf(n){ return n.toFixed(2).replace('.00','.–') + ' CHF'; }
+  function total(){ $('qte').textContent = q; $('total').textContent = chf(info(plats[i]).prix * q); }
+  function remplir(){
+    var p = info(plats[i]);
+    $('fiche-cat').textContent = p.cat; $('fiche-nom').textContent = p.nom; $('fiche-desc').textContent = p.desc;
+    $('fiche-prix').textContent = chf(p.prix) + ' · exemple';
+    $('fiche-pastille').innerHTML = p.sauce ? '<span class="pastille">Sauce Café de Paris</span>' : '';
+    $('fiche-compo').innerHTML = p.x.c.map(function(t){ return '<li>' + t + '</li>'; }).join('');
+    $('fiche-allerg').innerHTML = p.x.a.length ? p.x.a.map(function(t){ return '<span>' + t + '</span>'; }).join('') : '<span>Aucun allergène majeur</span>';
+    var scene = $('fiche-scene'), ancien = scene.querySelector('model-viewer'); if(ancien) ancien.remove();
+    $('fiche-vide').hidden = !!p.glb; $('fiche-ar').disabled = !p.glb;
+    if(p.glb){
+      if(!mvCharge){ var sc = document.createElement('script'); sc.type = 'module'; sc.src = '/demos/vendor/model-viewer.min.js'; document.head.appendChild(sc); mvCharge = true; }
+      var mv = document.createElement('model-viewer');
+      ['camera-controls','auto-rotate','ar'].forEach(function(a){ mv.setAttribute(a,''); });
+      mv.setAttribute('src', p.glb); mv.setAttribute('alt', p.nom + ' en 3D'); mv.setAttribute('touch-action','pan-y');
+      mv.setAttribute('ar-modes','webxr scene-viewer quick-look'); mv.setAttribute('shadow-intensity','1.1'); mv.setAttribute('environment-image','neutral');
+      scene.insertBefore(mv, scene.firstChild);
+      $('fiche-ar').onclick = function(){ mv.activateAR && mv.activateAR(); };
+    }
+    q = 1; total();
+  }
+  function ouvrir(n){
+    i = n; dernier = plats[n]; remplir();
+    fond.hidden = false; fiche.hidden = false;
+    requestAnimationFrame(function(){ document.body.classList.add('fiche-ouverte'); });
+    document.documentElement.style.overflow = 'hidden'; if(window.apbLenis) window.apbLenis.stop();
+    $('fiche-fermer').focus();
+  }
+  function fermer(){
+    document.body.classList.remove('fiche-ouverte');
+    document.documentElement.style.overflow = ''; if(window.apbLenis) window.apbLenis.start();
+    setTimeout(function(){ fiche.hidden = true; fond.hidden = true; }, 500);
+    if(dernier) dernier.focus();
+  }
+  plats.forEach(function(el, n){
+    el.setAttribute('role','button'); el.setAttribute('tabindex','0');
+    el.setAttribute('aria-label', info(el).nom + ', voir la fiche et la vue 3D');
+    el.addEventListener('click', function(){ ouvrir(n); });
+    el.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); ouvrir(n); } });
+  });
+  $('fiche-fermer').addEventListener('click', fermer); fond.addEventListener('click', fermer);
+  $('fiche-prec').addEventListener('click', function(){ i = (i - 1 + plats.length) % plats.length; remplir(); });
+  $('fiche-suiv').addEventListener('click', function(){ i = (i + 1) % plats.length; remplir(); });
+  $('moins').addEventListener('click', function(){ if(q > 1){ q--; total(); } });
+  $('plus').addEventListener('click', function(){ if(q < 20){ q++; total(); } });
+  $('ajouter').addEventListener('click', function(){
+    panier += q; $('panier-txt').textContent = panier + (panier > 1 ? ' articles' : ' article') + ' dans la commande';
+    $('panier').classList.add('visible'); fermer();
+  });
+  document.addEventListener('keydown', function(e){
+    if(fiche.hidden) return;
+    if(e.key === 'Escape') fermer();
+    if(e.key === 'ArrowRight') $('fiche-suiv').click();
+    if(e.key === 'ArrowLeft') $('fiche-prec').click();
+    if(e.key === 'Tab'){ // garder le focus dans la fiche
+      var f = fiche.querySelectorAll('button:not([disabled]),[href]'); var a = f[0], z = f[f.length - 1];
+      if(e.shiftKey && document.activeElement === a){ e.preventDefault(); z.focus(); }
+      else if(!e.shiftKey && document.activeElement === z){ e.preventDefault(); a.focus(); }
+    }
+  });
 })();
 </script>
 </body>
