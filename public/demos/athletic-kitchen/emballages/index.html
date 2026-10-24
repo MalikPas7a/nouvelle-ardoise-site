@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Emballages · Athletic Kitchen</title>
+<meta name="description" content="Maquette d'emballages à emporter aux couleurs d'Athletic Kitchen : sac, bols, gobelet, box et papier.">
+<meta name="theme-color" content="#1C2A63">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=DM+Mono:wght@500&display=swap">
+<style>
+/* Charte Athletic Kitchen : bleu marine, rouge, blanc. Titres Archivo extra-large, étiquettes mono. */
+:root{
+  --navy:#1C2A63; --rouge:#E3342B; --blanc:#FFFFFF; --casse:#F4F4F2; --encre:#0E1430; --gris:#5A6080; --filet:#D9DCE6;
+  --f-titre:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"DM Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--casse);color:var(--encre)}
+body{font:400 17px/1.6 var(--f-titre);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.lab{font:500 12px/1.4 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gris)}
+h1,h2,h3{font-family:var(--f-titre);font-weight:900;font-stretch:125%;text-transform:uppercase;margin:0;line-height:.92;letter-spacing:-.02em;text-wrap:balance}
+h1{font-size:clamp(40px,7vw,96px)}
+h2{font-size:clamp(28px,4vw,52px)}
+h3{font-size:20px;line-height:1.05}
+em{font-style:normal;color:var(--rouge)}
+p{margin:0;max-width:60ch}
+.top{background:var(--navy);color:var(--blanc)}
+.top .wrap{padding-block:22px;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.top .lab{color:#C9D0EA}
+.marque{font:900 18px/1 var(--f-titre);font-stretch:125%;text-transform:uppercase;letter-spacing:-.01em}
+.marque em{color:var(--rouge)}
+header.hero{background:var(--navy);color:var(--blanc);padding-bottom:0}
+header.hero .wrap{padding-block:48px 40px;display:grid;gap:20px}
+header.hero p{font-size:19px;color:#DDE2F3}
+.plein{background:var(--navy)}
+.plein img{width:100%;max-width:1800px;margin:0 auto}
+section.wrap{padding-block:72px;display:grid;gap:28px}
+.cap{font:500 12px/1.4 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gris);padding-top:12px}
+/* avant / après */
+.compare{position:relative;overflow:hidden;background:#ddd;aspect-ratio:3/2;user-select:none;touch-action:pan-y}
+.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.compare .apres{clip-path:inset(0 0 0 var(--x,50%))}
+.compare .ligne{position:absolute;top:0;bottom:0;left:var(--x,50%);width:3px;margin-left:-1.5px;background:var(--blanc);pointer-events:none}
+.compare .poignee{position:absolute;top:50%;left:var(--x,50%);width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;background:var(--blanc);display:grid;place-items:center;pointer-events:none;box-shadow:0 4px 18px rgba(0,0,0,.25);font:900 18px/1 var(--f-titre);color:var(--navy)}
+.compare input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.tag{position:absolute;top:14px;padding:8px 12px;font:500 11px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;pointer-events:none}
+.tag.g{left:14px;background:var(--blanc);color:var(--navy)}
+.tag.d{right:14px;background:var(--navy);color:var(--blanc)}
+.compare:has(input:focus-visible){outline:3px solid var(--navy);outline-offset:4px}
+/* liste */
+.grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;background:var(--filet);border:2px solid var(--filet)}
+.grille div{background:var(--blanc);padding:24px;display:grid;gap:10px;align-content:start}
+.grille .n{font:500 12px/1 var(--f-mono);letter-spacing:.14em;color:var(--rouge)}
+.grille p{color:var(--gris);font-size:16px}
+.niveaux{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.niveaux div{padding:28px;display:grid;gap:12px;align-content:start;border-top:8px solid var(--navy);background:var(--blanc)}
+.niveaux div:nth-child(2){border-top-color:var(--rouge)}
+.niveaux div:nth-child(3){background:var(--navy);color:var(--blanc);border-top-color:var(--rouge)}
+.niveaux div:nth-child(3) p{color:#DDE2F3}
+.niveaux p{color:var(--gris);font-size:16px}
+.etapes{counter-reset:e;display:grid;gap:0;margin:0;padding:0;list-style:none;border-top:2px solid var(--navy)}
+.etapes li{counter-increment:e;display:grid;grid-template-columns:64px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--filet);font-size:18px}
+.etapes li::before{content:counter(e,decimal-leading-zero);font:900 28px/1 var(--f-titre);font-stretch:125%;color:var(--rouge)}
+footer{background:var(--navy);color:#C9D0EA}
+footer .wrap{padding-block:40px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;align-items:center}
+footer a{color:var(--blanc);text-decoration:none;border-bottom:2px solid var(--rouge)}
+.note{font-size:14px;color:var(--gris)}
+@media (prefers-reduced-motion:no-preference){.compare .apres,.compare .ligne,.compare .poignee{transition:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><span class="marque">Athletic <em>Kitchen</em></span><span class="lab">Maquette · Emballages à emporter</span></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="lab" style="color:#C9D0EA">Genève · Eaux-Vives</span>
+    <h1>Votre marque,<br><em>jusque dans le sac.</em></h1>
+    <p>Sac, bols, gobelet, box et papier aux couleurs d'Athletic Kitchen. Chaque commande à emporter fait votre pub dans la rue, au bureau et jusqu'à la salle de sport.</p>
+  </div>
+  <div class="plein"><img src="img/univers-box.webp" srcset="img/univers-box-1000.webp 1000w, img/univers-box.webp 1800w" sizes="100vw" width="1800" height="1200" alt="Sac, box et gobelet Athletic Kitchen sur fond rouge" fetchpriority="high"></div>
+</header>
+
+<section class="wrap" aria-labelledby="t-avant">
+  <span class="lab">01 · Avant / après</span>
+  <h2 id="t-avant">Le même sac.<br><em>Une autre marque.</em></h2>
+  <p>Faites glisser le curseur : à gauche les emballages kraft neutres d'aujourd'hui, à droite les mêmes aux couleurs d'Athletic Kitchen.</p>
+  <div class="compare" id="cmp">
+    <img src="img/avant-neutre.webp" width="1800" height="1200" alt="Emballages kraft neutres" loading="lazy">
+    <img class="apres" src="img/univers-box.webp" width="1800" height="1200" alt="Emballages Athletic Kitchen" loading="lazy">
+    <span class="tag g">Avant · neutre</span><span class="tag d">Après · Athletic</span>
+    <span class="ligne"></span><span class="poignee" aria-hidden="true">⇆</span>
+    <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après">
+  </div>
+</section>
+
+<div class="plein"><img src="img/univers-bols.webp" srcset="img/univers-bols-1000.webp 1000w, img/univers-bols.webp 1800w" sizes="100vw" width="1800" height="1200" alt="Bols scellés par un sticker AK, sac et gobelet Athletic Kitchen" loading="lazy"></div>
+
+<section class="wrap" aria-labelledby="t-set">
+  <span class="lab">02 · Le set complet</span>
+  <h2 id="t-set">Cinq pièces,<br><em>une seule signature.</em></h2>
+  <div class="grille">
+    <div><span class="n">01</span><h3>Sac kraft</h3><p>Grand monogramme AK devant, bandes sport sur les côtés. Celui qu'on voit le plus dehors.</p></div>
+    <div><span class="n">02</span><h3>Bol et couvercle</h3><p>Pour les bowls et les plats protéinés. Le couvercle est scellé par un sticker AK.</p></div>
+    <div><span class="n">03</span><h3>Gobelet</h3><p>Smoothies, cafés, boissons protéinées. Bandes marine et rouge, AK des deux côtés.</p></div>
+    <div><span class="n">04</span><h3>Box</h3><p>Wraps, burgers healthy, desserts. «&nbsp;Protéines · Légumes · Goût&nbsp;» sur le bandeau.</p></div>
+    <div><span class="n">05</span><h3>Papier ingraissable</h3><p>Motif AK répété. Il habille le plateau et la photo Instagram.</p></div>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="t-niv">
+  <span class="lab">03 · Trois façons de commencer</span>
+  <h2 id="t-niv">Du sticker<br><em>à la création complète.</em></h2>
+  <div class="niveaux">
+    <div><span class="lab">Niveau 1</span><h3>Sticker AK</h3><p>Sur vos emballages neutres actuels. Rapide, sans attendre l'usine : idéal pour démarrer tout de suite.</p></div>
+    <div><span class="lab">Niveau 2</span><h3>Impression 1 à 2 couleurs</h3><p>Votre logo imprimé directement sur le sac, le gobelet et les bols.</p></div>
+    <div><span class="lab" style="color:#C9D0EA">Niveau 3</span><h3>Création complète</h3><p>L'univers entier, comme sur cette page : couleurs pleines, monogramme, bandes, papier assorti.</p></div>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="t-next">
+  <span class="lab">04 · Prochaine étape</span>
+  <h2 id="t-next">On valide,<br><em>on imprime un échantillon.</em></h2>
+  <ol class="etapes">
+    <li>Vous choisissez le niveau et les pièces dont vous avez besoin.</li>
+    <li>On cale le logo, les couleurs et les quantités avec notre fournisseur partenaire.</li>
+    <li>Échantillon imprimé, vraie photo, puis la commande.</li>
+  </ol>
+  <p class="note">Visuels 3D de maquette réalisés par Nouvelle Ardoise. Le monogramme AK est une proposition. Quantités minimales et délais confirmés avec le fournisseur avant toute commande.</p>
+</section>
+
+<footer><div class="wrap"><span class="marque">Athletic <em>Kitchen</em></span><span>Préparé par <a href="https://nouvelleardoise.ch">Nouvelle Ardoise</a> · <a href="tel:+41782133868">078 213 38 68</a></span></div></footer>
+
+<script>
+const c=document.getElementById('cmp'),r=c.querySelector('input');
+r.addEventListener('input',()=>c.style.setProperty('--x',r.value+'%'));
+</script>
+</body>
+</html>
