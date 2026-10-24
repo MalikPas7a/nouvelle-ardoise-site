@@ -50,6 +50,13 @@ js = js.replace("  function chf(n){ return n.toFixed(2).replace('.00','.–') + 
                 "  var EUR = document.body.dataset.devise === '€';\n  function chf(n){ return EUR ? n.toFixed(2).replace('.', ',') + ' €' : n.toFixed(2).replace('.00','.–') + ' CHF'; }")
 assert 'var EUR' in js and "replace(',', '.')" in js
 assert js.count('if(!document.getElementById') >= 2
+# Audit 24.10 : interface plus vive
+for avant, apres in [("duration:0.8, ease:'power3.out'", "duration:0.6, ease:'power3.out'"),
+                     ("inHero ? 0.55 : 0", "inHero ? 0.3 : 0"),
+                     ("duration:1.1, ease:'expo.out', scrollTrigger:{trigger:el, start:'top 90%'", "duration:0.8, ease:'expo.out', scrollTrigger:{trigger:el, start:'top 92%'"),
+                     ("duration:0.9, ease:'power3.out', stagger:0.045", "duration:0.7, ease:'power3.out', stagger:0.035")]:
+    assert avant in js, avant
+    js = js.replace(avant, apres)
 ICI = os.path.dirname(os.path.abspath(__file__))
 immersif_js = open(os.path.join(ICI, 'immersif.js'), encoding='utf-8').read()
 immersif_css = open(os.path.join(ICI, 'immersif.css'), encoding='utf-8').read()
@@ -149,6 +156,16 @@ def tete(titre, description, prefixe_assets, extra_css=''):
 <link rel="stylesheet" href="%sassets/apb.css">%s
 </head>
 ''' % (html.escape(titre), html.escape(description), prefixe_assets, extra_css)
+
+def retirer_bloc(src, debut):
+    i = src.index(debut); j = i; prof = 0
+    while True:
+        o = src.find('<div', j); f = src.find('</div>', j)
+        if o != -1 and o < f: prof += 1; j = o + 4
+        else:
+            prof -= 1; j = f + 6
+            if prof == 0: break
+    return src[:i] + src[j:].lstrip(' ').lstrip('\n')
 
 def nom_court(a):
     return a['ville'] if a['ville'] != 'Genève' else 'Genève ' + a['quartier']
@@ -315,6 +332,8 @@ def page_adresse(a):
             ap = re.sub(r'<div class="cent".*?</div>\n      </div>\n', '', ap, flags=re.S) if False else ap
             ap = ap.replace('Inscrivez-vous sur la liste d\'ouverture, présentez votre ticket QR au comptoir. QR code d\'exemple.',
                             'Inscrivez-vous dans l\'application, présentez votre ticket QR au comptoir. QR code d\'exemple.').replace('href="#liste">Je m\'inscris', 'href="#">Je m\'inscris')
+        if a['etat'] == 'ouverture':
+            ap = retirer_bloc(ap, '<div class="cent"')
         corps.append(ap)
     corps.append(carte_adresses(r, a['slug']))
     corps.append(s_insta)
