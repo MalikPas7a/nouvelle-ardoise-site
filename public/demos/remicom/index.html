@@ -489,6 +489,18 @@ h2.D{font-size:clamp(34px,5vw,58px);max-width:900px}
 .duo.trio{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}.duo.trio .rphone{width:100%;border-radius:40px;padding:8px}.duo.trio .rphone video{border-radius:32px}.ig3.two{grid-template-columns:repeat(2,minmax(0,1fr))}@media (max-width:860px){.duo.trio,.ig3.two{grid-template-columns:1fr}.duo.trio .rphone{width:min(320px,100%)}}
 .kpi>div{min-width:0}.kpi .D{font-size:clamp(24px,7.4vw,34px)}
 .ig3.two{align-items:stretch}
+.vsteps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:40px}
+.vsteps>div{border:1px solid #2A2A2A;border-radius:20px;padding:22px;background:#141414}
+.vsteps>div:last-child{border-color:var(--red)}
+.vsteps span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);font-weight:700}
+.vsteps b{display:block;font-family:Disp;font-size:22px;margin-top:10px;line-height:1.1}
+.vsteps small{display:block;color:#C9C5BE;font-size:14px;line-height:1.5;margin-top:10px}
+.vgain{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.vgain>div{background:var(--red);border-radius:20px;padding:22px;font-size:15px;line-height:1.5}
+.vgain b{display:block;font-size:17px;margin-bottom:4px}
+@media (max-width:960px){.vsteps{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.vsteps,.vgain{grid-template-columns:1fr}}
+.reelsec .lead b{color:#fff}
 </style>
 </head>
 <body>
@@ -528,14 +540,15 @@ h2.D{font-size:clamp(34px,5vw,58px);max-width:900px}
 </div></section>
 
 <section class="reelsec" id="reels"><div class="wrap">
-  <div class="cap num">En vidéo · Vos vraies affaires</div>
-  <h2 class="D" style="margin-top:12px">Trois annonces Remicom, en réel.</h2>
-  <p class="lead">Trois affaires réellement en vente chez vous, au format « L'affaire confidentielle » : le quartier, jamais la rue ni l'enseigne. Son coupé, les textes suffisent.</p>
+  <div class="cap num">En vidéo · Trois formats</div>
+  <h2 class="D" style="margin-top:12px">Trois façons de parler aux repreneurs.</h2>
+  <p class="lead">Le motion design pour vos affaires, le podcast pour votre expertise, la vidéo au téléphone pour l'émotion. <b>On alterne, le compte reste vivant.</b></p>
   <div class="duo trio">
-    <figure><div class="rphone"><video src="remicom-reel1-vous-ne-saurez-pas-ou-15s.mp4" poster="remicom-reel1-vous-ne-saurez-pas-ou-15s.jpg" controls playsinline preload="none"></video></div><figcaption><b>« Vous ne saurez pas où. »</b>Le restaurant pieds dans l'eau de La Côte. Pour les repreneurs qui ont les moyens.</figcaption></figure>
-    <figure><div class="rphone"><video src="remicom-reel4-votre-prochain-resto-19s.mp4" poster="remicom-reel4-votre-prochain-resto-19s.jpg" controls playsinline preload="none"></video></div><figcaption><b>« Et si c'était votre prochain resto ? »</b>90 places aux Eaux-Vives. Pour les jeunes qui veulent se lancer, accompagnés de A à Z avec la fiduciaire.</figcaption></figure>
-    <figure><div class="rphone"><video src="remicom-reel-paquis-15s.mp4" poster="remicom-reel-paquis-15s-poster.jpg" controls playsinline preload="none"></video></div><figcaption><b>« Un restaurant à Genève. »</b>120 m² aux Pâquis. Les chiffres donnent envie, l'adresse reste secrète.</figcaption></figure>
+    <figure><div class="rphone"><video src="remicom-reel4-votre-prochain-resto-19s.mp4" poster="remicom-reel4-votre-prochain-resto-19s.jpg" controls playsinline preload="none"></video></div><figcaption><b>L'affaire confidentielle</b>Une vraie annonce Remicom : 90 places aux Eaux-Vives. Le quartier, les chiffres, jamais l'adresse.</figcaption></figure>
+    <figure><div class="rphone"><video src="remicom-avatar-pod.mp4" poster="remicom-avatar-pod.jpg" controls playsinline preload="none"></video></div><figcaption><b>Le podcast</b>« 3 questions avant de signer. » Les conseils d'un expert, qui renvoient vers le dossier.</figcaption></figure>
+    <figure><div class="rphone"><video src="remicom-avatar-ugc.mp4" poster="remicom-avatar-ugc.jpg" controls playsinline preload="none"></video></div><figcaption><b>La vidéo au téléphone</b>Un futur repreneur raconte sa recherche et découvre le Club. Naturel, comme une story.</figcaption></figure>
   </div>
+  <p class="crnote" style="color:#8C8882;margin-top:28px">Podcast et vidéo au téléphone : démonstrations jouées par des avatars. En vrai, tournés avec vous, vos courtiers ou de vrais repreneurs.</p>
 </div></section>
 
 <section id="themes"><div class="wrap">
@@ -695,6 +708,22 @@ h2.D{font-size:clamp(34px,5vw,58px);max-width:900px}
   </div>
 </div></section>
 
+<section class="reelsec" id="vision"><div class="wrap">
+  <div class="cap num">La vision</div>
+  <h2 class="D" style="margin-top:12px">Remicom, le média des restaurants de Genève.</h2>
+  <p class="lead">Les réseaux ne servent pas qu'à vendre des affaires. Ils construisent une audience : celle qui cherche un restaurant à reprendre, et celle qui cherche où manger. <b>Cette audience devient une vitrine pour chaque repreneur.</b></p>
+  <div class="vsteps">
+    <div><span>Mois 1 à 3</span><b>Lancer</b><small>Du contenu chaque jour, de la publicité Instagram et les créateurs food de Genève pour faire parler. On fait monter les abonnés et les vues.</small></div>
+    <div><span>Mois 3 à 6</span><b>Raconter</b><small>Le portrait du repreneur : chaque reprise devient une histoire. Les gourmands viennent manger, le repreneur remplit sa salle.</small></div>
+    <div><span>Mois 6 à 12</span><b>Devenir une référence</b><small>Un compte food à part entière, que Genève suit pour savoir ce qui ouvre et où aller manger.</small></div>
+    <div><span>Ensuite</span><b>Élargir</b><small>Une newsletter, un podcast, des rencontres entre repreneurs. Le média vit par lui-même.</small></div>
+  </div>
+  <div class="vgain">
+    <div><b>Pour vos repreneurs</b>Une visibilité qu'aucun concurrent ne peut leur offrir, dès le jour de l'ouverture.</div>
+    <div><b>Pour Remicom</b>Une audience qui vous appartient, et qui fait venir vendeurs et repreneurs d'elle-même.</div>
+  </div>
+</div></section>
+
 <section class="cta"><div class="wrap">
   <div class="D">On fait un test<br>de 3 mois ?</div>
   <p>Vos réseaux relancés, vos premiers dossiers filmés, un premier repreneur lancé. Des chiffres, puis vous décidez.</p>
@@ -702,7 +731,7 @@ h2.D{font-size:clamp(34px,5vw,58px);max-width:900px}
 </div></section>
 
 <footer class="foot"><div class="wrap">
-  <b>Proposition réalisée par Nouvelle Ardoise</b>, agence de marketing digital, Genève. Simulation : le compte et ses chiffres d'audience sont fictifs ; les caractéristiques des biens (places, surfaces, fonds, loyers) sont reprises des annonces publiques Remicom du jour, sans adresse. Photos et vidéos d'illustration libres de droits (Pexels). Aucune image générée par IA.
+  <b>Proposition réalisée par Nouvelle Ardoise</b>, agence de marketing digital, Genève. Simulation : le compte et ses chiffres d'audience sont fictifs ; les caractéristiques des biens (places, surfaces, fonds, loyers) sont reprises des annonces publiques Remicom du jour, sans adresse. Photos et vidéos d'illustration libres de droits (Pexels). Podcast et vidéo au téléphone : démonstrations réalisées avec des avatars générés par IA.
 </div></footer>
 </body>
 </html>
