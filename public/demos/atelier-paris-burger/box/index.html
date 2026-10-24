@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Box à emporter · Atelier Paris Burger</title>
+<meta name="description" content="La box à emporter Atelier Paris Burger : burger ou baguette, frites qui restent croustillantes, pot de sauce de la maison.">
+<meta name="theme-color" content="#4A1019">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap">
+<style>
+/* Charte Atelier Paris Burger (direction « Maison Café de Paris », palette A) : une seule couleur d'action, le bordeaux.
+   Mise en page : la box en grand, puis la fiche technique en deux colonnes. Thème unique, celui de la marque. */
+:root{
+  --creme:#F2EBDD; --papier:#F8F3E9; --encre:#1A1412; --gris:#6B5F56; --filet:#D8CBB4;
+  --bordeaux:#4A1019; --or:#D99125; --or-texte:#9A6412;
+  --f-display:"Gloock",Georgia,"Times New Roman",serif;
+  --f-texte:"Manrope","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"DM Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+html,body{background:var(--creme);color:var(--encre)}
+body{font:400 16px/1.6 var(--f-texte);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.wrap{padding-block:40px 8px;display:grid;gap:12px}
+.lab{font:500 12px/1.4 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;margin:0;line-height:1.05;letter-spacing:-.015em;text-wrap:balance}
+h1{font-size:clamp(36px,5.6vw,72px)}
+h1 em,h2 em{font-style:normal;color:var(--bordeaux)}
+h2{font-size:clamp(26px,3vw,38px)}
+h3{font-size:21px}
+p{margin:0;max-width:62ch}
+.chapo{font-size:18px;color:var(--gris)}
+.stage{position:relative;margin-top:24px;border-top:1px solid var(--filet);border-bottom:1px solid var(--filet)}
+#scene{display:block;width:100%;height:min(72vh,720px);min-height:380px;cursor:grab;touch-action:none}
+#scene:active{cursor:grabbing}
+.bar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;justify-content:space-between;padding-block:14px}
+.grp{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.grp .lab{margin-right:4px}
+button{font:500 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;padding:12px 16px;border:1px solid var(--bordeaux);background:transparent;color:var(--bordeaux);cursor:pointer;transition:background .25s,color .25s}
+button:hover{background:var(--bordeaux);color:var(--creme)}
+button[aria-pressed="true"]{background:var(--bordeaux);color:var(--creme)}
+button:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+.astuce{font:400 12px/1.4 var(--f-mono);color:var(--gris);letter-spacing:.06em}
+.loading[hidden]{display:none}
+.loading{position:absolute;inset:0;display:grid;place-items:center;font:500 12px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gris);pointer-events:none}
+section.wrap{padding-block:56px;display:grid;gap:28px;border-bottom:1px solid var(--filet)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:28px 48px}
+.cols > *{min-width:0}
+dl{margin:0;display:grid;gap:0}
+dl > div{display:grid;grid-template-columns:minmax(110px,30%) 1fr;gap:16px;padding-block:14px;border-top:1px solid var(--filet)}
+dt{font:500 12px/1.6 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bordeaux)}
+dd{margin:0}
+.num{font-variant-numeric:tabular-nums}
+ol.raisons{margin:0;padding:0;list-style:none;display:grid;gap:18px;counter-reset:r}
+ol.raisons li{display:grid;grid-template-columns:36px 1fr;gap:14px;counter-increment:r}
+ol.raisons li::before{content:counter(r);font:400 26px/1 var(--f-display);color:var(--or-texte)}
+ol.raisons b{font-weight:600}
+.note{background:var(--papier);border-left:2px solid var(--or);padding:18px 20px;display:grid;gap:8px}
+a{color:var(--bordeaux)}
+footer.wrap{padding-block:32px 48px}
+@media (max-width:600px){dl > div{grid-template-columns:1fr;gap:4px}#scene{height:60vh}}
+@media (prefers-reduced-motion:reduce){button{transition:none}}
+/* Visuels remplis : la box avec le burger, les frites et la sauce */
+.hero-photo{margin:28px 0 0;position:relative}
+.hero-photo img{display:block;width:100%;height:auto;outline:1px solid var(--filet);outline-offset:-1px;aspect-ratio:2420/1728;background:var(--papier)}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;padding-block:20px 8px}
+figure{margin:0;display:grid;gap:10px}
+.duo img{display:block;width:100%;height:auto;outline:1px solid var(--filet);outline-offset:-1px;background:var(--papier)}
+figcaption{font:400 12px/1.5 var(--f-mono);letter-spacing:.08em;color:var(--gris)}
+.mention{font:400 12px/1.5 var(--f-mono);letter-spacing:.06em;color:var(--gris);padding-block:6px 0}
+.sauce{display:grid;gap:10px}
+.sauce b{font-weight:600}
+
+</style>
+</head>
+<body>
+<header class="wrap">
+  <p class="lab">Atelier Paris Burger · Emballage à emporter</p>
+  <h1>Une box, <em>deux cloisons</em>, des frites qui restent croustillantes.</h1>
+  <p class="chapo">Le smash à gauche, les frites à droite, la sauce de la maison dans son pot. La même boîte accueille aussi la baguette : on change seulement la cloison.</p>
+  <figure class="hero-photo">
+    <img src="img/box-apb-burger-trois-quarts.webp" width="1600" height="1143" alt="La box Atelier Paris Burger ouverte, bordeaux et or : un smash burger double cheddar, des frites dorées et un pot de sauce beurre aux herbes" fetchpriority="high">
+  </figure>
+</header>
+
+<div class="wrap duo">
+  <figure>
+    <img src="img/box-apb-burger-plongee.webp" width="1600" height="1195" loading="lazy" alt="Vue de dessus de la box version burger : smash burger, frites et pot de sauce, le sceau du pot posé à côté">
+    <figcaption>Cloison burger · case 13 × 17 cm, frites et sauce à droite</figcaption>
+  </figure>
+  <figure>
+    <img src="img/box-apb-baguette-plongee.webp" width="1600" height="1143" loading="lazy" alt="Vue de dessus de la box version baguette : baguette entrecôte devant, frites et pot de sauce derrière">
+    <figcaption>Cloison baguette · case 24 × 8 cm devant, frites et sauce derrière</figcaption>
+  </figure>
+</div>
+<p class="wrap mention">Visuels d'intention : la box est la maquette exacte, le produit sera photographié dans un vrai échantillon imprimé.</p>
+
+<section class="wrap sauce">
+  <h2>La sauce de la maison, <em>dans son pot</em></h2>
+  <p>Un beurre aux herbes doré, servi tiède. Le pot carton de 60 ml est calé dans sa collerette pour ne pas se renverser, et son couvercle porte le sceau « Paris · depuis 1978 ». On l'ouvre, on trempe, on mange.</p>
+</section>
+
+<section class="wrap">
+  <h2>La maquette en 3D</h2>
+  <p class="chapo">Tournez la box, ouvrez-la, changez de cloison.</p>
+</section>
+<div class="stage" style="margin-top:0">
+  <canvas id="scene" aria-label="Box Atelier Paris Burger en 3D, à faire tourner avec la souris ou le doigt"></canvas>
+  <div class="loading" id="loading">Chargement de la box…</div>
+</div>
+<div class="wrap bar">
+  <div class="grp" role="group" aria-label="Ouverture">
+    <span class="lab">Box</span>
+    <button id="b-ouvrir" aria-pressed="true">Ouverte</button>
+    <button id="b-fermer" aria-pressed="false">Fermée</button>
+  </div>
+  <div class="grp" role="group" aria-label="Cloison">
+    <span class="lab">Cloison</span>
+    <button id="b-burger" aria-pressed="true">Burger</button>
+    <button id="b-baguette" aria-pressed="false">Baguette</button>
+  </div>
+  <div class="grp" role="group" aria-label="Point de vue">
+    <span class="lab">Vue</span>
+    <button id="v-hero" aria-pressed="false">Trois quarts</button>
+    <button id="v-dessus" aria-pressed="false">Dessus</button>
+    <button id="v-face" aria-pressed="false">Face</button>
+  </div>
+  <p class="astuce">Glisser pour tourner · pincer ou molette pour zoomer</p>
+</div>
+
+<section class="wrap">
+  <h2>Fiche technique</h2>
+  <div class="cols">
+    <dl>
+      <div><dt>Format</dt><dd class="num">24 × 17 × 7,5 cm, couvercle à charnière, rabat avant et deux rabats intérieurs</dd></div>
+      <div><dt>Matière</dt><dd>Micro-cannelure E (≈ 1,5 mm), kraft à fibres vierges, face extérieure blanche imprimée</dd></div>
+      <div><dt>Intérieur</dt><dd>Barrière graisse à base d'eau, sans PFAS, imprimée crème</dd></div>
+      <div><dt>Impression</dt><dd>Offset 2 tons dehors (bordeaux, or), 1 ton dedans ; dorure à chaud or sur le logo du couvercle ; vernis mat à l'eau, sans plastique</dd></div>
+    </dl>
+    <dl>
+      <div><dt>Burger</dt><dd class="num">Case 13 × 17 cm, frites 11 × 10,5 cm, pot devant à droite</dd></div>
+      <div><dt>Baguette</dt><dd class="num">Case 24 × 8 cm devant, frites 16 × 9 cm et pot derrière</dd></div>
+      <div><dt>Sauce</dt><dd class="num">Pot carton 60 ml, couvercle imprimé du sceau « Paris · depuis 1978 », tenu par une collerette</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Pourquoi les frites restent croustillantes</h2>
+  <ol class="raisons">
+    <li><p><b>Six évents au-dessus des frites.</b> La vapeur sort au lieu de retomber sur les frites. Ils sont visibles sur le couvercle, et dans l'ombre de la box quand elle est ouverte.</p></li>
+    <li><p><b>Une cannelure qui respire.</b> Le carton ondulé garde la chaleur sans faire de buée, à l'inverse d'une boîte en plastique ou en carton plein.</p></li>
+    <li><p><b>Une cloison entre les frites et le reste.</b> Le burger et la sauce, qui sont humides, ne touchent pas les frites.</p></li>
+    <li><p><b>Pas de fenêtre ni de film.</b> Rien qui retienne la condensation, et une box qui se recycle avec le papier.</p></li>
+  </ol>
+</section>
+
+<section class="wrap">
+  <h2>Fabrication en Turquie</h2>
+  <div class="cols">
+    <p>Trois usines turques font déjà des box burger imprimées pour de grandes chaînes. Délai : 6 à 9 semaines après l'accord sur l'échantillon, transport routier compris. Pas de droits de douane suisses sur le carton depuis 2024, seulement la TVA à 8,1 %. L'étude de faisabilité (normes, coûts, usines) est remise à part.</p>
+  </div>
+</section>
+
+<footer class="wrap"><p class="lab">Maquette Nouvelle Ardoise · Octobre 2026 · Couleurs et polices de la charte Atelier Paris Burger</p></footer>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script>window.LOGO_SVG='<svg xmlns="http://www.w3.org/2000/svg" viewBox="100 100 1000 1000"><path fill="#D99125" fill-rule="evenodd" d="M568.0,1003.0C548.0,1000.7 542.4,1000.0 528.5,997.6C520.2,996.2 512.6,994.6 511.5,994.2C510.4,993.7 504.3,992.1 498.0,990.5C480.3,986.3 475.4,984.7 446.5,973.5C442.6,972.0 434.9,968.6 429.2,965.9C423.6,963.2 418.6,961.0 418.1,961.0C417.6,961.0 416.7,960.3 416.0,959.5C415.3,958.7 412.7,957.1 410.1,955.9C404.8,953.6 387.4,943.5 384.5,941.0C383.4,940.1 380.7,938.3 378.5,937.1C376.3,935.8 372.6,933.4 370.2,931.7C340.1,909.6 327.5,898.5 302.0,871.4C291.5,860.2 292.4,861.3 273.3,836.1C270.9,833.0 268.5,829.4 267.8,828.0C267.1,826.6 265.4,823.9 263.9,822.0C261.5,818.9 254.5,807.2 248.1,795.7C245.5,790.9 232.4,765.0 230.4,760.5C227.1,753.1 224.0,744.5 223.4,741.1C223.0,739.1 222.2,736.8 221.6,736.0C220.2,734.3 217.6,726.1 211.1,703.5C209.9,699.4 206.5,684.2 204.9,676.0C202.5,663.3 199.0,632.7 198.6,619.0C197.9,600.2 199.4,566.3 201.5,552.0C202.4,546.2 203.5,537.9 204.1,533.5C204.6,529.1 205.3,524.8 205.6,524.0C205.9,523.2 207.0,518.5 208.0,513.5C210.3,502.4 215.6,483.5 217.6,479.7C218.3,478.1 219.0,475.9 219.0,474.8C219.0,473.7 220.1,470.2 221.4,467.1C222.6,464.0 224.3,459.9 225.0,458.0C225.6,456.1 226.9,452.7 227.7,450.5C232.5,437.5 251.0,402.3 260.2,388.8C262.3,385.6 264.4,382.0 264.9,380.8C265.8,378.5 270.9,371.4 280.5,359.2C283.3,355.8 286.5,351.5 287.8,349.7C294.9,339.8 321.0,312.8 336.7,299.2C341.2,295.3 345.7,291.4 346.7,290.5C353.7,284.2 391.8,257.7 395.9,256.3C397.2,255.8 408.0,249.6 414.0,245.9C414.8,245.4 417.1,244.2 419.0,243.4C420.9,242.5 426.3,240.0 430.9,237.8C435.5,235.6 441.1,233.2 443.3,232.4C445.5,231.6 447.8,230.6 448.4,230.1C451.3,227.8 495.6,213.6 508.0,211.1C536.4,205.2 543.8,204.1 563.0,202.5C598.8,199.6 649.1,201.6 671.5,206.9C673.7,207.5 677.7,208.2 680.3,208.5C683.0,208.9 687.0,209.8 689.2,210.6C691.5,211.4 695.6,212.4 698.4,212.9C702.8,213.7 719.5,218.7 728.5,221.8C730.1,222.4 735.8,224.4 741.0,226.1C746.2,227.9 751.0,229.6 751.5,230.0C752.0,230.4 755.9,232.1 760.2,233.8C769.3,237.5 796.0,251.1 799.7,254.0C801.1,255.1 802.7,256.0 803.1,256.0C804.5,256.0 829.5,272.6 838.3,279.4C842.7,282.8 847.2,286.2 848.4,287.0C850.5,288.4 854.1,291.5 866.0,301.8C886.5,319.5 916.0,352.3 928.3,371.0C930.3,374.0 933.2,378.3 934.9,380.5C936.5,382.7 939.5,387.4 941.6,391.0C943.6,394.6 945.8,398.2 946.5,399.0C948.4,401.2 964.4,432.5 967.0,439.0C968.2,442.0 969.8,445.9 970.5,447.5C980.2,470.1 987.1,492.2 993.5,521.5C997.6,540.6 998.9,549.9 1000.6,572.5C1002.2,595.2 1001.9,631.5 1000.0,641.0C999.5,643.5 998.2,652.6 997.0,661.2C995.1,675.6 994.1,681.1 989.5,700.5C987.0,711.6 981.3,729.8 976.9,741.0C975.7,744.0 973.7,749.2 972.5,752.5C971.2,755.8 969.5,759.9 968.6,761.5C967.7,763.1 967.0,764.9 967.0,765.3C967.0,768.1 950.0,800.2 942.0,812.5C939.8,815.8 937.6,819.6 937.0,820.9C936.4,822.2 934.8,824.7 933.5,826.4C932.1,828.1 930.6,830.0 930.2,830.5C929.7,831.1 928.5,832.9 927.5,834.5C923.3,841.2 906.7,861.9 898.3,871.0C891.7,878.1 872.4,897.2 867.0,902.0C863.5,905.0 859.9,908.2 859.0,909.0C854.4,913.3 838.1,925.9 835.5,927.3C833.9,928.1 831.8,929.7 830.8,930.7C824.3,937.9 775.6,964.8 753.1,973.6C749.5,975.0 742.7,977.7 738.0,979.5C733.3,981.3 725.5,984.0 720.5,985.5C715.5,987.0 709.5,988.8 707.0,989.7C704.5,990.5 700.2,991.6 697.3,992.1C694.4,992.6 691.0,993.4 689.7,993.9C688.3,994.5 682.8,995.6 677.4,996.5C671.9,997.3 663.7,998.7 659.0,999.5C654.3,1000.4 647.4,1001.5 643.5,1002.1C634.4,1003.4 577.7,1004.1 568.0,1003.0Z M631.5,984.0C646.5,983.0 660.5,981.3 671.0,979.0C708.4,971.0 739.4,960.7 766.5,947.3C778.5,941.3 781.2,939.9 790.3,934.6C795.1,931.8 800.3,928.9 801.8,928.1C803.3,927.4 805.4,926.0 806.5,925.0C807.6,924.1 809.2,923.0 810.0,922.6C811.4,922.0 816.2,918.7 831.6,907.5C842.4,899.8 861.3,882.7 875.5,867.8C891.2,851.4 897.1,844.6 907.6,830.5C919.4,814.6 929.6,798.3 939.2,780.2C947.3,764.8 947.0,765.4 953.0,751.0C955.8,744.1 958.6,737.6 959.0,736.5C960.5,733.3 967.2,712.8 968.1,709.0C968.5,707.1 970.3,700.3 972.0,694.0C975.3,682.0 975.4,681.2 978.9,659.0C982.0,638.8 983.0,624.8 983.0,600.5C983.0,567.4 977.9,529.0 969.8,502.1C968.7,498.5 966.9,492.4 965.8,488.5C962.3,476.8 956.0,459.8 950.9,448.0C946.9,438.8 935.0,415.8 931.9,411.2C930.3,408.8 928.3,405.5 927.4,403.7C924.6,398.2 910.9,378.0 910.0,378.0C909.5,378.0 908.8,377.1 908.5,376.0C908.1,374.8 905.7,371.3 903.1,368.2C900.5,365.1 897.4,361.1 896.2,359.3C892.6,354.2 862.8,322.3 860.0,320.6C859.2,320.1 856.5,317.9 853.9,315.6C823.1,287.8 774.3,257.8 740.0,245.5C735.9,244.0 729.1,241.5 725.0,240.0C717.0,237.0 705.4,233.5 698.2,232.0C695.8,231.5 693.5,230.8 692.9,230.5C690.3,228.8 663.6,224.3 637.0,220.9C622.3,219.0 575.3,219.2 559.0,221.3C536.0,224.1 532.6,224.7 511.0,229.4C507.4,230.2 501.4,231.8 497.5,233.0C493.6,234.2 488.7,235.6 486.5,236.2C484.3,236.8 481.6,237.6 480.5,238.1C478.0,239.2 471.2,241.6 464.0,244.0C455.7,246.8 441.0,253.2 432.5,257.7C430.9,258.5 424.8,261.7 419.0,264.6C409.5,269.5 389.5,281.6 384.5,285.4C383.4,286.3 380.0,288.6 377.0,290.6C356.1,304.7 317.7,341.0 302.5,361.2C301.4,362.6 297.8,367.1 294.5,371.2C291.2,375.3 286.0,382.6 283.0,387.4C280.0,392.3 275.6,399.0 273.3,402.4C265.8,413.2 250.8,443.2 243.5,462.0C237.0,478.8 236.9,479.1 234.0,489.0C232.7,493.1 230.9,499.2 229.9,502.5C225.6,516.8 221.1,541.9 218.5,566.0C216.3,586.2 216.5,624.7 218.9,643.5C221.8,666.1 227.3,694.8 230.6,704.5C231.4,706.7 233.1,712.3 234.4,717.0C235.8,721.7 237.8,727.8 238.8,730.5C239.9,733.2 242.6,740.5 244.9,746.5C249.4,758.3 253.8,767.7 255.0,768.5C255.4,768.8 256.1,770.1 256.4,771.6C256.8,773.0 258.1,775.8 259.4,777.8C260.6,779.8 263.4,784.9 265.5,789.0C267.6,793.1 270.6,798.3 272.1,800.5C273.5,802.7 277.8,809.2 281.6,815.0C288.5,825.7 297.6,837.6 308.5,850.2C311.8,854.1 315.4,858.4 316.5,859.9C320.4,865.0 337.7,881.4 357.5,898.8C364.5,904.9 397.0,928.0 398.6,928.0C398.9,928.0 401.9,929.9 405.3,932.1C408.7,934.4 414.0,937.5 417.0,938.9C420.0,940.4 423.4,942.1 424.5,942.8C433.8,948.2 473.1,965.0 476.7,965.0C477.7,965.0 479.4,965.7 480.4,966.5C481.5,967.3 483.4,968.0 484.5,968.0C485.7,968.0 489.3,968.9 492.6,970.1C499.4,972.4 505.6,973.9 526.0,978.1C534.0,979.7 542.8,981.5 545.5,982.1C557.8,984.7 604.4,985.7 631.5,984.0Z M582.0,950.4C580.1,950.2 572.2,949.6 564.5,949.0C548.7,947.7 530.6,944.5 527.3,942.4C526.1,941.6 523.8,938.4 522.2,935.3C520.6,932.1 517.0,925.5 514.0,920.5C511.1,915.5 507.0,908.3 504.9,904.4C502.8,900.5 498.5,892.9 495.4,887.4C492.3,882.0 488.2,874.6 486.3,871.0C484.3,867.5 482.1,864.0 481.4,863.2C479.5,861.4 479.6,856.1 481.5,855.3C482.4,855.0 483.8,855.4 484.8,856.3C485.7,857.1 491.4,861.1 497.5,865.2C503.6,869.2 510.1,873.6 512.0,875.0C519.3,880.0 521.1,881.1 528.7,885.1C533.0,887.4 538.3,890.3 540.5,891.6C542.7,892.9 545.2,894.2 546.0,894.6C546.8,895.0 552.2,897.4 558.0,900.0C563.8,902.6 571.6,905.8 575.5,907.0C579.4,908.2 583.6,909.6 585.0,910.2C590.1,912.3 604.7,915.8 620.5,918.6C635.2,921.3 676.4,921.3 690.5,918.6C705.8,915.7 740.3,903.7 747.0,899.0C748.4,898.0 751.1,896.6 753.0,895.7C758.4,893.5 777.7,881.4 783.4,876.7C786.2,874.4 790.6,870.7 793.2,868.5C795.7,866.3 798.4,864.0 799.2,863.4C806.2,857.4 824.8,835.0 830.9,825.1C837.3,814.7 847.0,796.5 847.0,794.9C847.0,794.4 847.9,792.1 848.9,789.7C854.5,777.8 862.6,745.7 864.0,730.6C864.6,724.5 865.5,715.7 866.0,711.0C868.7,687.5 866.0,644.1 860.0,614.0C852.3,575.7 842.1,549.9 823.5,522.2C808.9,500.2 798.1,489.9 780.5,481.1L771.5,476.5L758.7,476.2C744.2,475.8 742.2,476.1 724.5,482.5C717.4,485.1 710.1,487.4 708.5,487.7C706.9,488.0 704.6,488.9 703.4,489.6C701.6,490.8 694.0,493.7 677.5,499.6C675.3,500.4 672.6,501.5 671.5,502.0C668.4,503.5 648.0,511.0 644.0,512.1C637.1,514.1 636.0,514.2 634.5,513.0C632.9,511.7 632.4,500.5 633.8,498.4C634.2,497.7 638.3,495.9 643.0,494.2C661.8,487.4 666.3,485.5 684.9,476.2C707.9,464.7 710.7,463.2 714.7,460.2C716.4,459.0 718.2,458.0 718.7,458.0C719.3,458.0 722.3,455.8 725.4,453.0C728.5,450.3 731.5,448.0 732.0,448.0C732.5,448.0 735.5,444.6 738.6,440.5C743.7,433.7 745.9,430.1 752.0,418.5C755.7,411.5 760.1,392.5 760.7,380.7C761.7,362.0 758.9,348.6 750.8,333.2C744.8,321.9 744.8,321.9 739.1,315.5C725.0,299.7 707.0,288.6 687.5,283.4C684.8,282.7 680.0,281.4 677.0,280.5C656.4,274.3 625.2,270.4 622.0,273.6C621.3,274.3 621.0,352.5 621.0,538.1C621.0,797.8 621.0,801.6 623.0,807.8C625.6,816.2 629.3,822.3 634.1,826.1C638.5,829.6 639.0,831.5 635.8,832.3C631.5,833.4 534.4,833.1 531.6,832.1C528.2,830.7 528.3,828.5 532.0,826.3C536.2,823.9 543.2,812.6 544.4,806.5C545.9,798.8 546.4,319.2 545.0,306.9C543.5,294.4 540.8,289.8 533.0,286.5C528.6,284.6 525.7,284.1 518.6,284.0C509.0,284.0 500.0,286.2 484.0,292.6C479.3,294.5 475.1,296.0 474.8,296.0C474.0,296.0 451.5,306.6 449.0,308.1C448.2,308.6 445.7,309.9 443.5,311.0C441.3,312.1 435.9,315.3 431.5,318.0C427.1,320.7 422.0,323.7 420.1,324.5C415.4,326.8 390.4,348.0 385.6,353.8C385.0,354.6 381.8,358.2 378.5,361.8C349.8,393.6 328.6,425.8 313.8,460.0C310.6,467.4 308.0,473.9 308.0,474.3C308.0,474.8 307.3,476.6 306.5,478.3C305.7,480.1 304.4,483.8 303.6,486.5C302.9,489.2 301.1,495.3 299.7,500.0C298.3,504.7 296.0,515.0 294.6,523.0C293.1,531.0 291.5,540.0 290.9,543.0C289.3,551.2 288.6,588.0 289.9,598.5C292.7,621.5 293.0,623.2 296.7,633.6C299.5,641.4 306.8,647.0 314.4,647.0C321.7,647.0 327.6,643.1 353.0,621.9C359.0,616.9 369.9,609.3 381.1,602.5C382.0,601.9 385.2,599.9 388.1,597.9C399.1,590.7 431.2,573.7 447.5,566.4C459.1,561.3 474.2,555.0 475.0,555.0C475.4,555.0 479.1,553.5 483.2,551.6C487.2,549.8 494.3,547.0 499.0,545.5C503.7,544.0 509.3,541.9 511.5,540.9C521.2,536.4 529.1,534.0 531.1,535.0C533.3,536.2 533.1,535.7 533.3,543.7C533.4,548.8 533.1,550.3 531.5,551.9C530.4,552.9 522.4,556.5 513.8,559.9C505.1,563.2 491.8,569.0 484.3,572.8C459.6,585.0 448.1,591.0 447.5,592.0C447.2,592.5 445.0,593.8 442.7,594.8C440.4,595.8 435.1,598.9 431.0,601.7C426.9,604.5 422.5,607.2 421.3,607.9C418.0,609.6 392.9,629.1 382.4,638.0C373.2,645.9 356.1,663.6 351.6,670.0C347.8,675.5 344.2,682.5 340.4,691.7C337.2,699.7 337.0,701.0 337.0,711.4C337.0,721.9 339.1,732.8 341.9,736.4C342.3,737.0 343.4,739.5 344.3,742.0C345.9,746.3 349.7,752.9 355.2,760.8C359.2,766.7 373.9,783.2 381.9,790.8C395.1,803.6 415.7,817.9 432.4,826.2C436.0,828.0 439.0,829.8 439.0,830.2C439.0,830.7 437.8,831.5 436.4,832.0C432.9,833.4 343.0,833.3 339.5,832.0C336.2,830.7 334.4,828.6 315.9,804.0C307.1,792.2 293.4,769.3 287.3,756.0C279.4,739.0 276.0,731.2 276.0,730.4C276.0,729.9 274.5,725.8 272.7,721.5C269.0,712.6 266.6,704.7 262.5,689.0C261.0,683.2 259.2,676.2 258.4,673.5C257.2,668.9 255.1,653.5 252.9,633.0C251.7,621.4 251.8,580.6 253.0,569.5C253.6,564.5 254.5,556.7 255.0,552.0C256.1,542.1 256.8,538.9 260.9,522.0C267.8,494.0 271.8,482.7 284.3,455.0C291.6,438.9 296.2,430.3 304.6,417.6C305.6,416.0 307.4,413.2 308.5,411.4C322.7,388.3 356.3,350.9 379.0,332.9C392.3,322.4 405.1,313.1 412.0,309.0C413.9,307.8 418.0,305.4 421.0,303.5C449.5,286.2 473.5,275.3 501.0,267.5C512.4,264.3 515.4,263.6 534.0,259.9C553.6,255.9 572.7,254.5 606.5,254.6C641.5,254.6 659.7,256.7 687.0,263.7C692.2,265.0 699.0,266.8 702.1,267.5C705.2,268.3 709.3,269.6 711.1,270.4C713.0,271.2 718.5,273.3 723.5,275.0C739.9,280.9 750.9,286.2 762.5,293.7C771.1,299.3 787.0,313.4 787.0,315.4C787.0,316.1 787.9,317.5 789.1,318.6C792.1,321.3 797.4,331.3 800.9,340.8C804.4,350.2 807.0,365.8 807.0,376.9C807.0,384.6 803.8,403.6 802.0,407.0C801.4,408.0 801.0,409.7 801.0,410.7C801.0,413.0 794.1,427.7 790.5,433.2C783.2,444.4 781.4,446.7 778.6,449.2C774.1,453.1 775.7,455.2 784.7,456.7C795.0,458.4 818.6,466.6 826.0,471.0C827.4,471.9 829.4,473.1 830.5,473.7C845.8,482.5 851.0,486.4 868.0,501.0C877.4,509.1 892.9,526.0 896.8,532.5C897.9,534.1 899.4,536.1 900.3,536.9C901.3,537.6 902.0,538.7 902.0,539.3C902.0,539.9 902.9,541.3 904.0,542.5C905.1,543.7 907.1,546.7 908.4,549.1C915.0,561.5 923.0,578.0 924.5,582.0C927.1,589.2 932.0,608.0 933.0,614.5C933.5,617.8 934.4,623.2 935.1,626.5C936.0,630.6 936.4,640.9 936.4,659.0C936.3,681.7 936.0,686.9 934.3,695.6C933.1,701.1 931.5,707.2 930.7,709.2C929.9,711.2 928.6,715.4 928.0,718.7C927.3,721.9 926.3,725.4 925.6,726.5C924.9,727.6 924.0,729.7 923.6,731.2C922.8,734.7 912.5,756.7 905.1,770.8C902.9,775.1 893.1,791.2 890.4,795.0C889.1,796.9 886.3,800.9 884.2,803.9C879.5,810.7 865.8,827.6 858.3,835.9C849.8,845.3 831.2,863.3 828.4,864.8C827.1,865.5 826.0,866.4 826.0,866.9C826.0,868.5 799.7,889.1 788.9,896.0C779.6,902.0 771.0,907.0 770.2,907.0C769.7,907.0 768.6,907.7 767.9,908.6C764.2,913.1 726.1,929.4 706.5,934.9C675.1,943.7 654.4,947.4 625.8,949.4C605.1,950.9 591.1,951.2 582.0,950.4Z"/></svg>';</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+// Atelier Paris Burger · box à emporter (maquette Nouvelle Ardoise)
+// Unités : centimètres. Sol de la box à y = 0.
+const C = {
+  bordeaux: '#4A1019', bordeaux2: '#3A0C14', creme: '#F2EBDD', or: '#D99125',
+  kraft: '#B48A5E', encre: '#1A1412'
+};
+const W = 24, D = 17, H = 7.5, T = 0.16, HD = 6.2, FLAP = 3.2;
+const PX = 64; // pixels par cm pour les textures
+
+const canvasEl = document.getElementById('scene');
+const renderer = new THREE.WebGLRenderer({ canvas: canvasEl, antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.6;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+scene.environmentIntensity = 0.95;
+scene.background = new THREE.Color(C.creme);
+scene.add(new THREE.HemisphereLight(0xfff4e6, 0xb08a70, 1.1));
+
+const camera = new THREE.PerspectiveCamera(30, 1, 1, 500);
+const controls = new OrbitControls(camera, canvasEl);
+controls.enableDamping = true;
+controls.minDistance = 30; controls.maxDistance = 110;
+controls.maxPolarAngle = Math.PI * 0.49;
+controls.target.set(1.5, 6.5, -1);
+
+const key = new THREE.DirectionalLight(0xfff3e2, 5.2);
+key.position.set(-28, 46, 26);
+key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048);
+key.shadow.camera.left = -30; key.shadow.camera.right = 30;
+key.shadow.camera.top = 30; key.shadow.camera.bottom = -30;
+key.shadow.radius = 9; key.shadow.bias = -0.0008; key.shadow.normalBias = 0.05;
+scene.add(key);
+const fill = new THREE.DirectionalLight(0xffe9d6, 2.2);
+fill.position.set(30, 18, 30);
+scene.add(fill);
+
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(400, 400), new THREE.ShadowMaterial({ opacity: 0.17, color: 0x3a2116 }));
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true;
+scene.add(ground);
+
+// ---------- Textures ----------
+const logoImgs = {};
+function loadLogo(name, fill) {
+  return new Promise(res => {
+    const svg = window.LOGO_SVG.replace(/fill="#D99125"/g, `fill="${fill}"`);
+    const img = new Image();
+    img.onload = () => { logoImgs[name] = img; res(); };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  });
+}
+// le SVG a un viewBox 1000 x 1000, le cercle occupe l'essentiel
+function drawLogo(ctx, name, cx, cy, size) {
+  ctx.drawImage(logoImgs[name], cx - size / 2, cy - size / 2, size, size);
+}
+
+function mk(wcm, hcm, base) {
+  const c = document.createElement('canvas');
+  c.width = Math.round(wcm * PX); c.height = Math.round(hcm * PX);
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = base; ctx.fillRect(0, 0, c.width, c.height);
+  return { c, ctx, w: c.width, h: c.height };
+}
+// Grain papier : très léger, pour éviter l'aplat numérique
+let grainCanvas;
+function grain() {
+  if (grainCanvas) return grainCanvas;
+  const g = document.createElement('canvas'); g.width = g.height = 512;
+  const x = g.getContext('2d'); const d = x.createImageData(512, 512);
+  for (let i = 0; i < d.data.length; i += 4) {
+    const v = 128 + (Math.random() - 0.5) * 60;
+    d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255;
+  }
+  x.putImageData(d, 0, 0);
+  grainCanvas = g; return g;
+}
+function paperize(t, amount = 0.06) {
+  t.ctx.save();
+  t.ctx.globalAlpha = amount; t.ctx.globalCompositeOperation = 'overlay';
+  const p = t.ctx.createPattern(grain(), 'repeat'); t.ctx.fillStyle = p; t.ctx.fillRect(0, 0, t.w, t.h);
+  t.ctx.restore();
+}
+function tex(t) {
+  const x = new THREE.CanvasTexture(t.c);
+  x.colorSpace = THREE.SRGBColorSpace; x.anisotropy = 8;
+  return x;
+}
+function dataTex(t) { const x = new THREE.CanvasTexture(t.c); x.anisotropy = 8; return x; }
+
+function text(ctx, s, x, y, font, color, align = 'center', spacing = 0) {
+  ctx.save(); ctx.font = font; ctx.fillStyle = color; ctx.textAlign = align; ctx.textBaseline = 'middle';
+  if (spacing) ctx.letterSpacing = spacing + 'px';
+  ctx.fillText(s, x, y); ctx.restore();
+}
+function circleText(ctx, s, cx, cy, r, font, color, start = -Math.PI / 2, spacing = 1.0) {
+  ctx.save(); ctx.font = font; ctx.fillStyle = color; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  const chars = [...s];
+  const widths = chars.map(ch => ctx.measureText(ch).width * spacing);
+  const total = widths.reduce((a, b) => a + b, 0);
+  let a = start - total / r / 2;
+  chars.forEach((ch, i) => {
+    const aw = widths[i] / r; a += aw / 2;
+    ctx.save(); ctx.translate(cx + Math.cos(a) * r, cy + Math.sin(a) * r); ctx.rotate(a + Math.PI / 2);
+    ctx.fillText(ch, 0, 0); ctx.restore(); a += aw / 2;
+  });
+  ctx.restore();
+}
+function hairline(ctx, x, y, w, h, color, lw) {
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = lw; ctx.strokeRect(x, y, w, h); ctx.restore();
+}
+
+// ---------- Matériaux ----------
+const kraftMat = new THREE.MeshStandardMaterial({ color: C.kraft, roughness: 0.95 });
+let bump;
+function paperMat(map, opts = {}) {
+  if (!bump) { bump = new THREE.CanvasTexture(grain()); bump.wrapS = bump.wrapT = THREE.RepeatWrapping; bump.repeat.set(6, 6); }
+  return new THREE.MeshStandardMaterial(Object.assign({ map, roughness: 0.82, metalness: 0, bumpMap: bump, bumpScale: 0.012 }, opts));
+}
+// Dorure à chaud : la zone du logo devient métallique et satinée
+function foilMats(t, mr) {
+  const m = paperMat(tex(t));
+  m.roughnessMap = dataTex(mr); m.metalnessMap = dataTex(mr);
+  m.roughness = 1; m.metalness = 1; m.envMapIntensity = 1.0;
+  return m;
+}
+function mrCanvas(wcm, hcm) { return mk(wcm, hcm, 'rgb(0,214,0)'); } // G = rugosité .84, B = métal 0
+const FOIL = 'rgb(0,96,0)'; // satiné, non métallique : rendu fidèle de l'or de la charte
+
+const cremePlain = () => { const t = mk(8, 8, C.creme); paperize(t, 0.05); const x = tex(t); x.wrapS = x.wrapT = THREE.RepeatWrapping; return paperMat(x); };
+const cremeMat = cremePlain();
+
+function slab(w, h, d, faces) {
+  // faces : [px, nx, py, ny, pz, nz], kraft par défaut sur les tranches
+  const g = new THREE.BoxGeometry(w, h, d);
+  const mats = faces.map(f => f || kraftMat);
+  const m = new THREE.Mesh(g, mats);
+  m.castShadow = true; m.receiveShadow = true;
+  return m;
+}
+
+// ---------- Visuels imprimés ----------
+const VARIANTS = {
+  burger: {
+    label: 'Box Burger',
+    // cases en coordonnées intérieures (x de -W/2 à W/2, z de -D/2 (fond) à D/2 (devant))
+    cells: [
+      { name: 'Le burger', x0: -W / 2, x1: 1.2, z0: -D / 2, z1: D / 2 },
+      { name: 'Les frites', x0: 1.2, x1: W / 2, z0: -D / 2, z1: 2.0 },
+      { name: 'La sauce', x0: 1.2, x1: W / 2, z0: 2.0, z1: D / 2, sauce: true }
+    ],
+    walls: [{ axis: 'z', at: 1.2, from: -D / 2, to: D / 2 }, { axis: 'x', at: 2.0, from: 1.2, to: W / 2 }]
+  },
+  baguette: {
+    label: 'Box Baguette',
+    cells: [
+      { name: 'La baguette', x0: -W / 2, x1: W / 2, z0: 0.6, z1: D / 2 },
+      { name: 'Les frites', x0: -W / 2, x1: 4.0, z0: -D / 2, z1: 0.6 },
+      { name: 'La sauce', x0: 4.0, x1: W / 2, z0: -D / 2, z1: 0.6, sauce: true }
+    ],
+    walls: [{ axis: 'x', at: 0.6, from: -W / 2, to: W / 2 }, { axis: 'z', at: 4.0, from: -D / 2, to: 0.6 }]
+  }
+};
+function friesCell(v) { return VARIANTS[v].cells.find(c => c.name === 'Les frites'); }
+// Évents au-dessus des frites : la vapeur s'échappe, les frites restent croustillantes
+function ventsFor(v) {
+  const f = friesCell(v);
+  const cx = (f.x0 + f.x1) / 2, cz = (f.z0 + f.z1) / 2;
+  const out = [];
+  const cols = v === 'burger' ? 2 : 3, rows = 3;
+  for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) {
+    out.push({ x: cx + (i - (cols - 1) / 2) * 3.0, z: cz + (j - (rows - 1) / 2) * 2.1 });
+  }
+  return out;
+}
+function drawVents(ctx, vents, toCanvas, color) {
+  ctx.save(); ctx.fillStyle = color;
+  vents.forEach(p => {
+    const [x, y] = toCanvas(p.x, p.z);
+    ctx.beginPath(); ctx.ellipse(x, y, 1.05 * PX, 0.26 * PX, 0, 0, Math.PI * 2); ctx.fill();
+  });
+  ctx.restore();
+}
+
+function lidTop(v) {
+  const LW = W + 0.1, LD = D + 0.1;
+  const t = mk(LW, LD, C.bordeaux), mr = mrCanvas(LW, LD);
+  paperize(t, 0.07);
+  const cx = t.w * 0.5, cy = t.h * 0.47;
+  // filet or en bordure
+  const inset = 0.8 * PX;
+  hairline(t.ctx, inset, inset, t.w - 2 * inset, t.h - 2 * inset, C.or, 3);
+  hairline(mr.ctx, inset, inset, t.w - 2 * inset, t.h - 2 * inset, FOIL, 3);
+  const size = 7.4 * PX;
+  const fx = v === 'burger' ? -W / 2 + (1.2 + W / 2) / 2 : 0; // logo centré sur la case du sandwich
+  const lx = v === 'burger' ? (fx / LW + 0.5) * t.w : cx;
+  const ly = v === 'burger' ? cy : t.h * 0.66;
+  drawLogo(t.ctx, 'or', lx, ly, size); drawLogo(mr.ctx, 'foil', lx, ly, size);
+  const ty = ly + size * 0.62;
+  text(t.ctx, 'ATELIER PARIS BURGER', lx, ty, `400 ${0.62 * PX}px Gloock`, C.creme, 'center', 0.16 * PX);
+  text(t.ctx, 'GENÈVE · MADRID · IBIZA', lx, ty + 0.75 * PX, `500 ${0.36 * PX}px "DM Mono"`, C.or, 'center', 0.12 * PX);
+  // perforations : peintes en noir dans la carte alpha
+  const alpha = mk(LW, LD, '#fff');
+  const vents = ventsFor(v);
+  const toC = (x, z) => [(x / LW + 0.5) * t.w, (z / LD + 0.5) * t.h];
+  drawVents(alpha.ctx, vents, toC, '#000');
+  // légende discrète près des évents
+  const f = friesCell(v);
+  const [vx, vy] = toC((f.x0 + f.x1) / 2, f.z1 - 0.5);
+  if (v === 'burger') text(t.ctx, 'FRITES CROUSTILLANTES · ÉVENTS', vx, vy + 0.1 * PX, `500 ${0.26 * PX}px "DM Mono"`, 'rgba(242,235,221,.7)', 'center', 0.08 * PX);
+  else text(t.ctx, 'FRITES CROUSTILLANTES · ÉVENTS', vx, vy + 0.1 * PX, `500 ${0.26 * PX}px "DM Mono"`, 'rgba(242,235,221,.7)', 'center', 0.08 * PX);
+  return { t, mr, alpha, toC };
+}
+function lidInside(v) {
+  const LW = W + 0.1, LD = D + 0.1;
+  const t = mk(LW, LD, C.creme);
+  paperize(t, 0.05);
+  // canvas haut = bord avant du couvercle (en haut quand la box est ouverte)
+  const cx = t.w / 2;
+  // le texte reste dans la moitié avant : les évents des frites sont toujours vers le fond
+  const y0 = 2.6 * PX;
+  text(t.ctx, 'Ouvrir. Couper. Tremper.', cx, y0, `400 ${1.5 * PX}px Gloock`, C.bordeaux);
+  t.ctx.save(); t.ctx.fillStyle = C.or; t.ctx.fillRect(cx - 1.2 * PX, y0 + 1.25 * PX, 2.4 * PX, 3); t.ctx.restore();
+  text(t.ctx, 'LA SAUCE DE LA MAISON, TRAVAILLÉE À PARIS DEPUIS 1978', cx, y0 + 2.0 * PX, `500 ${0.34 * PX}px "DM Mono"`, C.bordeaux, 'center', 0.1 * PX);
+  hairline(t.ctx, 0.8 * PX, 0.8 * PX, t.w - 1.6 * PX, t.h - 1.6 * PX, 'rgba(74,16,25,.35)', 2);
+  const alpha = mk(LW, LD, '#fff');
+  const toC = (x, z) => [(x / LW + 0.5) * t.w, (0.5 - z / LD) * t.h];
+  drawVents(alpha.ctx, ventsFor(v), toC, '#000');
+  return { t, alpha };
+}
+function frontFlapArt() {
+  const t = mk(W + 0.1, FLAP, C.bordeaux), mr = mrCanvas(W + 0.1, FLAP);
+  paperize(t, 0.07);
+  t.ctx.save(); t.ctx.fillStyle = C.or; t.ctx.fillRect(0, t.h - 0.55 * PX, t.w, 2); t.ctx.restore();
+  mr.ctx.save(); mr.ctx.fillStyle = FOIL; mr.ctx.fillRect(0, t.h - 0.55 * PX, t.w, 2); mr.ctx.restore();
+  const s = 1.9 * PX;
+  drawLogo(t.ctx, 'or', t.w / 2, t.h * 0.44, s); drawLogo(mr.ctx, 'foil', t.w / 2, t.h * 0.44, s);
+  text(t.ctx, 'SOULEVER ICI', t.w * 0.18, t.h * 0.44, `500 ${0.3 * PX}px "DM Mono"`, 'rgba(242,235,221,.75)', 'center', 0.12 * PX);
+  text(t.ctx, 'À DÉGUSTER CHAUD', t.w * 0.82, t.h * 0.44, `500 ${0.3 * PX}px "DM Mono"`, 'rgba(242,235,221,.75)', 'center', 0.12 * PX);
+  return { t, mr };
+}
+function frontWallArt() {
+  const t = mk(W, H, C.bordeaux), mr = mrCanvas(W, H);
+  paperize(t, 0.07);
+  // le haut de la façade est recouvert par le rabat : le titre vit dans la partie visible
+  text(t.ctx, 'Atelier Paris Burger', t.w / 2, t.h * 0.66, `400 ${1.15 * PX}px Gloock`, C.or);
+  text(t.ctx, 'BURGER · BAGUETTE · SAUCE DE LA MAISON', t.w / 2, t.h * 0.66 + 1.05 * PX, `500 ${0.28 * PX}px "DM Mono"`, 'rgba(242,235,221,.8)', 'center', 0.14 * PX);
+  return { t, mr };
+}
+function sideArt(label) {
+  const t = mk(D - 2 * T, H, C.bordeaux); paperize(t, 0.07);
+  text(t.ctx, label, t.w / 2, t.h * 0.42, `400 ${0.95 * PX}px Gloock`, C.creme);
+  text(t.ctx, 'GENÈVE · MADRID · IBIZA', t.w / 2, t.h * 0.42 + 1.0 * PX, `500 ${0.3 * PX}px "DM Mono"`, C.or, 'center', 0.14 * PX);
+  return t;
+}
+function backArt(v) {
+  const t = mk(W, H, C.bordeaux); paperize(t, 0.07);
+  text(t.ctx, 'CARTON MICRO-CANNELÉ · FIBRES VIERGES · SANS PFAS', t.w / 2, t.h * 0.78, `500 ${0.3 * PX}px "DM Mono"`, 'rgba(242,235,221,.75)', 'center', 0.12 * PX);
+  text(t.ctx, 'ENCRES CONFORMES À L\'ORDONNANCE SUISSE · À RECYCLER AVEC LE PAPIER-CARTON', t.w / 2, t.h * 0.78 + 0.5 * PX, `500 ${0.24 * PX}px "DM Mono"`, 'rgba(242,235,221,.55)', 'center', 0.1 * PX);
+  drawLogo(t.ctx, 'or', t.w / 2, t.h * 0.38, 2.6 * PX);
+  return t;
+}
+function floorArt(v) {
+  const t = mk(W, D, C.creme); paperize(t, 0.05);
+  const toC = (x, z) => [(x / W + 0.5) * t.w, (z / D + 0.5) * t.h];
+  VARIANTS[v].cells.forEach(c => {
+    if (c.sauce) return;
+    const [x, y] = toC((c.x0 + c.x1) / 2, (c.z0 + c.z1) / 2);
+    // un motif discret dans chaque case, sous l'aliment
+    t.ctx.save(); t.ctx.globalAlpha = 0.09; drawLogo(t.ctx, 'bordeaux', x, y, 5 * PX); t.ctx.restore();
+    const [lx, ly] = toC(c.x0 + 0.55, c.z1 - 0.55);
+    text(t.ctx, c.name.toUpperCase(), lx, ly, `500 ${0.3 * PX}px "DM Mono"`, C.bordeaux, 'left', 0.12 * PX);
+  });
+  return t;
+}
+function shelfArt() {
+  const t = mk(8, 8, C.creme); paperize(t, 0.05); return t;
+}
+function potSideArt() {
+  // développé du pot : 2π r ≈ 19 cm
+  const t = mk(19.5, 3.6, C.bordeaux); paperize(t, 0.07);
+  t.ctx.save(); t.ctx.fillStyle = C.or; t.ctx.fillRect(0, 0.35 * PX, t.w, 2); t.ctx.fillRect(0, t.h - 0.45 * PX, t.w, 2); t.ctx.restore();
+  for (let k = 0; k < 2; k++) {
+    const x = t.w * (0.25 + 0.5 * k);
+    text(t.ctx, 'SAUCE DE LA MAISON', x, t.h * 0.52, `500 ${0.34 * PX}px "DM Mono"`, C.creme, 'center', 0.14 * PX);
+  }
+  return t;
+}
+function potLidArt() {
+  const s = 6.6;
+  const t = mk(s, s, C.creme), mr = mrCanvas(s, s);
+  paperize(t, 0.05);
+  const c = t.w / 2;
+  t.ctx.save(); t.ctx.fillStyle = C.bordeaux; t.ctx.beginPath(); t.ctx.arc(c, c, c * 0.98, 0, Math.PI * 2); t.ctx.fill(); t.ctx.restore();
+  t.ctx.save(); t.ctx.strokeStyle = C.or; t.ctx.lineWidth = 2; t.ctx.beginPath(); t.ctx.arc(c, c, c * 0.88, 0, Math.PI * 2); t.ctx.stroke(); t.ctx.restore();
+  drawLogo(t.ctx, 'or', c, c, 2.9 * PX); drawLogo(mr.ctx, 'foil', c, c, 2.9 * PX);
+  circleText(t.ctx, 'PARIS · DEPUIS 1978 · SAUCE DE LA MAISON ·', c, c, c * 0.72, `500 ${0.3 * PX}px "DM Mono"`, C.creme, -Math.PI / 2, 1.25);
+  return { t, mr };
+}
+
+// ---------- Construction ----------
+const root = new THREE.Group();
+scene.add(root);
+let lidPivot, flapPivot, insertGroup, lidMeshes = {}, current = 'burger';
+
+function build(v) {
+  current = v;
+  while (root.children.length) root.remove(root.children[0]);
+  const front = frontWallArt();
+  const outerFront = foilMats(front.t, front.mr);
+  const back = paperMat(tex(backArt(v)));
+  const side = foilMats(sideArt('Atelier Paris Burger'), mrCanvas(D - 2 * T, H));
+  const floor = paperMat(tex(floorArt(v)));
+  const bottomOut = paperMat(tex((() => { const t = mk(W, D, C.bordeaux2); paperize(t, 0.07); return t; })()));
+
+  // fond
+  // le fond est pris entre les quatre parois (pas de tranche commune, pas de scintillement)
+  const f = slab(W - 2 * T, T, D - 2 * T, [null, null, floor, bottomOut, null, null]);
+  f.position.y = T / 2; root.add(f);
+  // façade
+  const fw = slab(W, H, T, [null, null, null, null, outerFront, cremeMat]);
+  fw.position.set(0, H / 2, D / 2 - T / 2); root.add(fw);
+  // dos
+  const bw = slab(W, H, T, [null, null, null, null, back, cremeMat]);
+  bw.rotation.y = Math.PI; bw.position.set(0, H / 2, -D / 2 + T / 2); root.add(bw);
+  // côtés
+  [1, -1].forEach(s => {
+    const sw = slab(D - 2 * T, H, T, [null, null, null, null, side, cremeMat]);
+    sw.rotation.y = s * Math.PI / 2; sw.position.set(s * (W / 2 - T / 2), H / 2, 0); root.add(sw);
+  });
+
+  // cloisons (insert plié, crème des deux côtés)
+  insertGroup = new THREE.Group(); root.add(insertGroup);
+  VARIANTS[v].walls.forEach(wl => {
+    const len = wl.to - wl.from - 2 * T;
+    const m = slab(len, HD, T, [null, null, null, null, cremeMat, cremeMat]);
+    if (wl.axis === 'z') { m.rotation.y = Math.PI / 2; m.position.set(wl.at, HD / 2 + T, (wl.from + wl.to) / 2); }
+    else { m.position.set((wl.from + wl.to) / 2, HD / 2 + T, wl.at); }
+    insertGroup.add(m);
+  });
+  // collerette qui cale le pot à sauce
+  const sc = VARIANTS[v].cells.find(c => c.sauce);
+  const sw = sc.x1 - sc.x0 - 2 * T, sd = sc.z1 - sc.z0 - 2 * T;
+  const scx = (sc.x0 + sc.x1) / 2, scz = (sc.z0 + sc.z1) / 2;
+  const shape = new THREE.Shape();
+  shape.moveTo(-sw / 2, -sd / 2); shape.lineTo(sw / 2, -sd / 2); shape.lineTo(sw / 2, sd / 2); shape.lineTo(-sw / 2, sd / 2); shape.closePath();
+  const hole = new THREE.Path(); hole.absarc(0, 0, 2.62, 0, Math.PI * 2, true); shape.holes.push(hole);
+  const sg = new THREE.ExtrudeGeometry(shape, { depth: T, bevelEnabled: false, curveSegments: 64 });
+  sg.rotateX(-Math.PI / 2);
+  // UV planes simples pour la face du dessus
+  const shelfTex = tex(shelfArt()); shelfTex.wrapS = shelfTex.wrapT = THREE.RepeatWrapping; shelfTex.repeat.set(0.12, 0.12);
+  const shelf = new THREE.Mesh(sg, [paperMat(shelfTex), kraftMat]);
+  shelf.castShadow = shelf.receiveShadow = true;
+  shelf.position.set(scx, 3.2, scz); insertGroup.add(shelf);
+  // petits pieds de la collerette (pliés)
+  [-1, 1].forEach(s => {
+    const leg = slab(T, 3.2 - T, sd, [cremeMat, cremeMat, null, null, null, null]);
+    leg.position.set(scx + s * (sw / 2 - T / 2), (3.2 - T) / 2 + T, scz); insertGroup.add(leg);
+  });
+
+  // pot à sauce 60 ml (carton enduit, couvercle carton)
+  const pot = new THREE.Group();
+  const prof = [];
+  const rb = 2.05, rt = 2.55, ph = 3.5;
+  prof.push(new THREE.Vector2(0.001, 0));
+  prof.push(new THREE.Vector2(rb, 0));
+  prof.push(new THREE.Vector2(rt, ph));
+  prof.push(new THREE.Vector2(rt + 0.18, ph + 0.05));
+  prof.push(new THREE.Vector2(rt + 0.2, ph + 0.18));
+  const lg = new THREE.LatheGeometry(prof, 96);
+  const potTex = tex(potSideArt()); potTex.wrapS = THREE.RepeatWrapping;
+  const potMesh = new THREE.Mesh(lg, paperMat(potTex, { side: THREE.DoubleSide }));
+  potMesh.castShadow = potMesh.receiveShadow = true; pot.add(potMesh);
+  const pl = potLidArt();
+  const lidM = foilMats(pl.t, pl.mr);
+  const lidGeo = new THREE.CylinderGeometry(rt + 0.28, rt + 0.28, 0.12, 96);
+  const potLid = new THREE.Mesh(lidGeo, [kraftMat, lidM, cremeMat]);
+  potLid.castShadow = true; potLid.position.y = ph + 0.24; pot.add(potLid);
+  // languette d'ouverture
+  const tab = slab(1.1, 0.04, 0.6, [null, null, cremeMat, cremeMat, null, null]);
+  tab.position.set(0, ph + 0.25, rt + 0.45); pot.add(tab);
+  pot.position.set(scx, T, scz);
+  pot.rotation.y = Math.PI / 2;
+  insertGroup.add(pot);
+
+  // couvercle articulé au dos
+  const lt = lidTop(v), li = lidInside(v);
+  const alphaTop = dataTex(lt.alpha), alphaIn = dataTex(li.alpha);
+  const topM = foilMats(lt.t, lt.mr); topM.alphaMap = alphaTop; topM.alphaTest = 0.5;
+  const inM = paperMat(tex(li.t)); inM.alphaMap = alphaIn; inM.alphaTest = 0.5;
+  const kraftV = kraftMat.clone();
+  lidPivot = new THREE.Group(); lidPivot.position.set(0, H, -D / 2); root.add(lidPivot);
+  const lid = slab(W + 0.1, T, D + 0.1, [kraftV, kraftV, topM, inM, null, null]);
+  lid.material = [kraftV, kraftV, topM, inM, kraftMat, kraftMat];
+  lid.customDepthMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, alphaMap: alphaTop, alphaTest: 0.5 });
+  lid.position.set(0, T / 2, (D + 0.1) / 2); lidPivot.add(lid);
+  // rabat avant
+  flapPivot = new THREE.Group(); flapPivot.position.set(0, T / 2, D + 0.1 + T / 2); lidPivot.add(flapPivot);
+  const ff = frontFlapArt();
+  const flap = slab(W + 0.1, FLAP, T, [null, null, null, null, foilMats(ff.t, ff.mr), cremeMat]);
+  flap.position.set(0, -FLAP / 2, 0); flapPivot.add(flap);
+  // rabats latéraux (anti-poussière) : ils glissent à l'intérieur des côtés
+  const dustTex = tex((() => { const t = mk(4, 4, C.creme); paperize(t, .05); return t; })());
+  [1, -1].forEach(s => {
+    const sh = new THREE.Shape();
+    const z0 = -D / 2 + 0.9, z1 = D / 2 - 0.9;
+    sh.moveTo(z0, 0); sh.lineTo(z1, 0); sh.lineTo(z1 - 1.6, -2.4); sh.lineTo(z0 + 1.6, -2.4); sh.closePath();
+    const g = new THREE.ExtrudeGeometry(sh, { depth: T, bevelEnabled: false });
+    const m = new THREE.Mesh(g, [paperMat(dustTex), kraftMat]);
+    m.castShadow = true;
+    m.rotation.y = -Math.PI / 2;
+    m.position.set(s * (W / 2 - T - 0.1) + (s > 0 ? 0 : T), -T / 2, 0);
+    lid.add(m);
+  });
+  setOpen(state.open, true);
+}
+
+// ---------- État & animation ----------
+const state = { open: 1, target: 1 };
+function applyOpen(o) {
+  const e = o < 0.5 ? 2 * o * o : 1 - Math.pow(-2 * o + 2, 2) / 2;
+  lidPivot.rotation.x = -e * THREE.MathUtils.degToRad(108);
+  // le rabat avant se déplie légèrement à l'ouverture
+  flapPivot.rotation.x = e * THREE.MathUtils.degToRad(18);
+}
+function setOpen(v, instant) { state.target = v; if (instant) { state.open = v; applyOpen(v); } }
+
+function resize() {
+  const w = canvasEl.clientWidth, h = canvasEl.clientHeight;
+  renderer.setSize(w, h, false); camera.aspect = w / h;
+  // sur téléphone, on élargit le champ pour garder la box entière
+  camera.fov = camera.aspect < 1 ? 50 : 30; camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', resize);
+
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function loop() {
+  requestAnimationFrame(loop);
+  if (window.APB && window.APB.still) return;
+  const d = state.target - state.open;
+  if (Math.abs(d) > 0.0005) { state.open += reduce ? d : d * 0.06; applyOpen(state.open); }
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+const VIEWS = {
+  hero: [40, 40, 70], face: [0, 26, 62], dessus: [1.5, 80, 12], profil: [58, 22, 20], trois: [-42, 34, 44]
+};
+function view(name) { const p = VIEWS[name] || VIEWS.hero; camera.position.set(...p); controls.update(); }
+
+window.APB = { root, THREE,
+  setOpen, build, view, render: () => { controls.update(); renderer.render(scene, camera); },
+  ready: null, setBg(c) { scene.background = c ? new THREE.Color(c) : null; }
+};
+
+window.APB.ready = (async () => {
+  await Promise.all([
+    document.fonts.load(`400 60px Gloock`), document.fonts.load(`500 20px "DM Mono"`),
+    loadLogo('or', C.or), loadLogo('foil', FOIL), loadLogo('bordeaux', C.bordeaux)
+  ]);
+  await document.fonts.ready;
+  resize(); view('hero'); build('burger'); loop();
+})();
+
+// ---------- Commandes de la page ----------
+window.APB.ready.then(() => {
+  const load = document.getElementById('loading'); if (load) load.hidden = true;
+  const press = (ids, on) => ids.forEach(id => document.getElementById(id).setAttribute('aria-pressed', String(id === on)));
+  const q = id => document.getElementById(id);
+  q('b-ouvrir').onclick = () => { setOpen(1); press(['b-ouvrir', 'b-fermer'], 'b-ouvrir'); };
+  q('b-fermer').onclick = () => { setOpen(0); press(['b-ouvrir', 'b-fermer'], 'b-fermer'); };
+  q('b-burger').onclick = () => { build('burger'); press(['b-burger', 'b-baguette'], 'b-burger'); };
+  q('b-baguette').onclick = () => { build('baguette'); press(['b-burger', 'b-baguette'], 'b-baguette'); };
+  ['hero', 'dessus', 'face'].forEach(v => { q('v-' + v).onclick = () => { view(v); press(['v-hero', 'v-dessus', 'v-face'], 'v-' + v); }; });
+});
+
+</script>
+
+</body>
+</html>
