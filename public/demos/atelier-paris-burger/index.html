@@ -826,11 +826,11 @@ figure{margin:0}
 <script>
 // Liste d'ouverture : compte à rebours, agenda (.ics) et formulaire (maquette, rien n'est envoyé)
 (function(){
-  var OUVERTURE = new Date('2026-11-14T11:30:00+01:00'); // date d'exemple, à remplacer par la vraie
+  var OUVERTURE = new Date('2026-11-06T11:30:00+01:00'); // hypothèse du devis (ven. 06.11.2026), à confirmer
   var j = Math.max(0, Math.ceil((OUVERTURE - new Date()) / 864e5));
   document.querySelectorAll('[data-jours]').forEach(function(el){ el.textContent = j > 0 ? 'J-' + j : 'Ouvert'; });
   var ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Atelier Paris Burger//FR','BEGIN:VEVENT','UID:ouverture@atelier-paris-burger','DTSTAMP:20261024T000000Z',
-    'DTSTART:20261114T103000Z','DTEND:20261114T133000Z','SUMMARY:Ouverture Atelier Paris Burger','LOCATION:Genève\\, face au Jet d\'eau','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    'DTSTART:20261106T103000Z','DTEND:20261106T133000Z','SUMMARY:Ouverture Atelier Paris Burger','LOCATION:Genève\\, face au Jet d\'eau','END:VEVENT','END:VCALENDAR'].join('\r\n');
   document.getElementById('agenda').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
   var form = document.getElementById('form-liste');
   function err(id, input, msg){ document.getElementById(id).textContent = msg; if(input) input.setAttribute('aria-invalid', msg ? 'true' : 'false'); return !msg; }
