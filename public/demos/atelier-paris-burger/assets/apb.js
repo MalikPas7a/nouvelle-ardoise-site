@@ -261,6 +261,10 @@
       '<circle cx="60" cy="60" r="58" fill="none" stroke="currentColor" stroke-opacity=".35"/>' +
       '<text><textPath href="#sceau-c" textLength="298" lengthAdjust="spacing">Sauce de la maison · Paris · plus de 40 ans ·</textPath></text></svg><div class="ab">' + logo + '</div>';
     hote.appendChild(sc);
+    // Dans l'ouverture au scroll, le sceau s'efface avec le titre pour laisser place aux mots
+    if(!reduit && window.gsap && window.ScrollTrigger && hote.classList.contains('ix-scene')){
+      gsap.to(sc, {opacity:0, ease:'none', scrollTrigger:{trigger:hote, start:'top top', end:function(){ return '+=' + window.innerHeight * 0.4; }, scrub:true}});
+    }
     if(!reduit){
       var tour = sc.querySelector('svg'), angle = 0, vitesse = 0, dernier = window.scrollY;
       (function boucle(){

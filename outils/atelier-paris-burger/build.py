@@ -433,4 +433,37 @@ accueil = tete('Atelier Paris Burger · La maison', 'Une maison, une sauce. Burg
     '\n<main id="contenu">\n' + ihtml2 + '\n\n' + ihist2 + '\n\n' + s_geste + '\n\n' + carte_m + '\n\n' + carte_adresses('') + '\n' + s_insta + '\n</main>\n\n' + \
     pied('') + '\n' + fiche + '\n' + scripts_fin('') + js_maison + '</body>\n</html>\n'
 ecrire('index.html', accueil)
+
+# ---------- Simulation avec une vraie photo (essai avant le tournage) ----------
+# Photo libre de droits CC0 (rawpixel), détourée et coupée en deux couches (pain du dessus / reste).
+# À remplacer par la séquence filmée au shooting : smash, assemblage, coupe, trempage.
+SIM_BURGER = '''<div class="ix-burger sim-burger" id="burger" aria-hidden="true">
+      <div class="sim-cadre">
+        <div class="sim-entier" id="entier"><img class="sim-base" id="base" src="../assets/simulation/base.webp" alt="" width="909" height="779" decoding="async"><img class="sim-haut" id="haut" src="../assets/simulation/haut.webp" alt="" width="909" height="779" decoding="async"></div>
+        <div class="sim-moitie g" id="moitieG"><img src="../assets/simulation/entier.webp" alt="" width="909" height="779" decoding="async"></div>
+        <div class="sim-moitie d" id="moitieD"><img src="../assets/simulation/entier.webp" alt="" width="909" height="779" decoding="async"></div>
+      </div>
+    </div>'''
+i = ihtml2.index('<div class="ix-burger"'); j = ihtml2.index('<div class="ix-mot"', i)
+ihtml_sim = ihtml2[:i] + SIM_BURGER + '\n    ' + ihtml2[j:]
+ihtml_sim = re.sub(r'<a href="([\w-]+/)"><span>', r'<a href="../\1"><span>', ihtml_sim)
+ihtml_sim = ihtml_sim.replace('<div class="ix-coupe" id="coupe"></div>', '<div class="ix-coupe sim-coupe" id="coupe"></div>')
+ihtml_sim = re.sub(r'<p class="ix-legende lab" id="legende">.*?</p>',
+    '<p class="sim-credit lab" id="legende"><b>Simulation.</b> Photo d\'essai libre de droits (CC0, rawpixel), remplacée par la séquence filmée au shooting.</p>', ihtml_sim, flags=re.S)
+assert 'sim-credit' in ihtml_sim and 'ix-calque' not in ihtml_sim and 'href="../geneve-versoix/"' in ihtml_sim
+
+css_sim = open(os.path.join(ICI, 'simulation.css'), encoding='utf-8').read()
+js_sim = open(os.path.join(ICI, 'simulation.js'), encoding='utf-8').read()
+fin_sim = '''<section class="sim-fin">
+  <span class="lab">Simulation · avant le tournage</span>
+  <h2>Le mouvement est là.<br>Il manque la vraie lumière.</h2>
+  <p>Cette page teste l'ouverture avec une photo libre de droits. Au shooting, on filme le vrai geste : la viande écrasée sur la plaque, l'assemblage, la coupe, la moitié trempée dans la sauce.</p>
+  <div class="actions"><a class="btn" href="../">Revenir à la maison</a></div>
+</section>'''
+simulation = tete('Atelier Paris Burger · Simulation de l\'ouverture', 'Essai de l\'ouverture au scroll avec une vraie photo, avant le tournage.', '../', '\n<style>\n' + css_sim + '</style>') + \
+    '<body data-page="maison" class="sim">\n' + logo + '\n' + \
+    entete('../', [('../#histoire', "L'histoire"), ('../#carte', 'La carte')], 'Nos adresses', '../#adresses') + \
+    '\n<main id="contenu">\n' + ihtml_sim + '\n\n' + ihist2 + '\n\n' + fin_sim + '\n</main>\n\n' + \
+    pied('../') + '\n' + scripts_fin('../') + '<script>\n' + js_sim + '</script>\n</body>\n</html>\n'
+ecrire('simulation/index.html', simulation)
 print('ok')
