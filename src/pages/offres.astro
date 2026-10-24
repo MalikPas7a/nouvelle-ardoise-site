@@ -1,27 +1,27 @@
 ---
-// Les offres et les prix, puis la méthode. Choisir une offre ouvre le formulaire de contact avec l'offre présélectionnée.
+// Les offres (sans prix, sur devis), puis la méthode. Choisir une offre ouvre le formulaire de contact avec l'offre présélectionnée.
 import Base from '../layouts/Base.astro';
 import Appel from '../components/Appel.astro';
 const lien = (offre) => '/contact/?offre=' + encodeURIComponent(offre);
 import PrixOffre from '../components/PrixOffre.astro';
 import { SITE } from '../config.js';
-import { catalogueOffres, OFFRES, PROMOTION_ACTIVE, montant, prixActuel } from '../data/offres.js';
+import { catalogueOffres, PROMOTION_ACTIVE } from '../data/offres.js';
 const jsonLd = JSON.stringify({ '@context': 'https://schema.org', ...catalogueOffres(SITE.url) });
 ---
-<Base page="offres" title="Tarifs sites et réseaux sociaux | Nouvelle Ardoise" description={`Sites web dès CHF ${montant(prixActuel('essentiel'))}, réseaux sociaux dès CHF ${montant(prixActuel('reseauxEssentiel'))} par mois. Offres pour restaurants et artisans de Genève et Vaud.`}>
+<Base page="offres" title="Offres sites et réseaux sociaux | Nouvelle Ardoise" description="Sites web, vidéo et réseaux sociaux, design : nos formules pour restaurants et artisans de Genève et Vaud, sur devis.">
 <script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
 
 <!-- ============ Offres ============ -->
 <section class="bloc" id="offres">
   <div class="cadre">
     <header class="bloc__tete">
-      <h1 class="titre-2">Nos offres, des prix affichés</h1>
-      <p>Un prix fixe, annoncé avant de commencer. Pas d’options à cocher, pas de surprise sur la facture.</p>
-      {PROMOTION_ACTIVE && <p class="lancement-note"><b>Offre de lancement : −20 % sur toutes nos offres</b> pour toute commande avant le 31 octobre 2026. Pour les abonnements, la remise vaut pendant les 3 premiers mois. Les prix barrés sont nos prix normaux, appliqués à partir du 1er novembre 2026.</p>}
+      <h1 class="titre-2">Nos offres</h1>
+      <p>Trois familles de formules. On en parle chez vous, puis vous recevez un devis clair avant de commencer.</p>
+      {PROMOTION_ACTIVE && <p class="lancement-note"><b>Offre de lancement</b> pour toute commande avant le 31 octobre 2026 : demandez-la dans votre devis.</p>}
     </header>
     <div class="onglets onglets--trois" role="tablist" aria-label="Choisir le type d’offre" data-onglets>
-      <button type="button" role="tab" id="onglet-site" aria-controls="offres-site" aria-selected="true"><b>Créer votre site</b><span>3 offres, dès CHF {montant(prixActuel('essentiel'))}{PROMOTION_ACTIVE && ' (−20 %)'}</span></button>
-      <button type="button" role="tab" id="onglet-reseaux" data-ancres="#reseaux #exemple-sora" aria-controls="offres-reseaux" aria-selected="false" tabindex="-1"><b>Vidéo et réseaux sociaux</b><span>Dès CHF {montant(prixActuel('reseauxEssentiel'))} par mois{PROMOTION_ACTIVE && ' (−20 %)'}</span></button>
+      <button type="button" role="tab" id="onglet-site" aria-controls="offres-site" aria-selected="true"><b>Créer votre site</b><span>3 formules, sur devis</span></button>
+      <button type="button" role="tab" id="onglet-reseaux" data-ancres="#reseaux #exemple-sora" aria-controls="offres-reseaux" aria-selected="false" tabindex="-1"><b>Vidéo et réseaux sociaux</b><span>3 formules, sur devis</span></button>
       <button type="button" role="tab" id="onglet-design" data-ancres="#design" aria-controls="offres-design" aria-selected="false" tabindex="-1"><b>Design</b><span>Sur devis, selon vos besoins</span></button>
     </div>
     <div class="offres__panneau" id="offres-site" role="tabpanel" aria-labelledby="onglet-site">
@@ -51,7 +51,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', ...catalogueOf
           <li>Deux heures de shooting offertes à la création : vos produits et votre savoir-faire au cœur du site</li>
           <li>Plat du jour mis en ligne chaque matin (avec l’abonnement Réseaux Essentiel)</li>
         </ul>
-        <p class="offre__suivi"><b>Ensuite, l’abonnement Réseaux Essentiel</b> : entretien du site, réseaux sociaux et une heure de shooting par mois, CHF {montant(prixActuel('reseauxEssentiel'))} par mois{PROMOTION_ACTIVE && ` les trois premiers mois, puis CHF ${montant(OFFRES.reseauxEssentiel.prix)} par mois`}. <a href="#reseaux">Voir l’abonnement</a></p>
+        <p class="offre__suivi"><b>Ensuite, l’abonnement Réseaux Essentiel</b> : entretien du site, réseaux sociaux et une heure de shooting par mois. <a href="#reseaux">Voir l’abonnement</a></p>
         <a class="btn btn--jaune" href={lien('Signature')} data-offre="Signature">Choisir Signature</a>
       </article>
       <article class="offre">
@@ -137,7 +137,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', ...catalogueOf
           <h3 class="titre-3">Sans site ni réseaux : le design seul</h3>
           <p>Votre image, de la vitrine à l’addition. On dessine ce dont vous avez besoin, rien de plus, et on s’occupe de l’impression si vous le souhaitez.</p>
           <p class="offre__prix design__prix">Sur devis</p>
-          <p class="offre__pour">Un prix fixe annoncé avant de commencer, selon ce que vous choisissez.</p>
+          <p class="offre__pour">Un devis clair avant de commencer, selon ce que vous choisissez.</p>
           <a class="btn btn--jaune" href={lien('Design sur devis')} data-offre="Design sur devis">Demander un devis design</a>
         </div>
         <ul class="design__liste">
@@ -153,7 +153,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', ...catalogueOf
     <div class="vente">
       <p class="vente__sur">En option, avec toutes nos offres</p>
       <h3 class="titre-3">Réservation, click and collect, paiement TWINT</h3>
-      <p>Ces options ne sont pas comprises dans nos prix. Selon votre métier, nous branchons sur votre site l’une de ces solutions, avec n’importe laquelle de nos offres, site ou réseaux :</p>
+      <p>Ces options ne sont pas comprises dans nos formules. Selon votre métier, nous branchons sur votre site l’une de ces solutions, avec n’importe laquelle de nos offres, site ou réseaux :</p>
       <ul>
         <li><b>Réservation de table</b> : avec l’outil que vous utilisez déjà (TheFork, Zenchef, foratable), ou un nouveau.</li>
         <li><b>Click and collect</b> : vos clients commandent en ligne et passent chercher leur commande à l’heure choisie.</li>
