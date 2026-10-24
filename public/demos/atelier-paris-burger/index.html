@@ -168,7 +168,7 @@ figure{margin:0}
 
 /* Carte interactive : chaque plat ouvre sa fiche */
 .plat{cursor:pointer;position:relative;transition:background .3s var(--ease)}
-.plat::after{content:"Voir la fiche  →";position:absolute;right:0;bottom:18px;font:500 10px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bordeaux);opacity:0;transform:translateX(-6px);transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.plat::after{content:"Voir en 3D  →";position:absolute;right:0;bottom:18px;font:500 10px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bordeaux);opacity:0;transform:translateX(-6px);transition:opacity .3s var(--ease),transform .3s var(--ease)}
 .plat:hover::after,.plat:focus-visible::after{opacity:1;transform:none}
 .plat:hover .nom,.plat:focus-visible .nom{color:var(--bordeaux)}
 .plat:focus-visible{outline:2px solid var(--bordeaux);outline-offset:4px}
@@ -222,6 +222,45 @@ figure{margin:0}
   .fiche h3{font-size:32px}
 }
 @media (prefers-reduced-motion:reduce){.fiche,.fiche-fond,.panier{transition:none}.scene .socle::before{animation:none}}
+
+/* Liste d'ouverture : avant le jour J, la seule action utile */
+.liste [hidden]{display:none!important}
+.liste{background:var(--bordeaux);color:var(--creme);padding-block:var(--s16)}
+.liste .grid{row-gap:var(--s6);align-items:start}
+.liste .gauche{grid-column:1/6;display:grid;gap:var(--s3)}
+.liste .gauche .lab{color:var(--or)}
+.liste .compte{font:400 clamp(96px,14vw,210px)/1 var(--f-display);letter-spacing:-.04em;color:var(--creme)}
+.liste .compte small{display:block;margin-top:22px;font:500 12px/1.5 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:#C9AE97}
+.liste h2{font-size:var(--t-xl)}
+.liste h2 em{color:var(--or)}
+.liste ul.avantages{list-style:none;margin:0;padding:0;border-top:1px solid rgba(217,145,37,.35)}
+.liste ul.avantages li{display:flex;gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid rgba(217,145,37,.35);font-size:var(--t-s);color:#E3D2BC}
+.liste ul.avantages b{font:500 11px/1 var(--f-mono);color:var(--or);letter-spacing:.1em}
+.liste .agenda{justify-self:start}
+.liste .gauche :focus-visible{outline-color:var(--or)}
+.liste form{grid-column:7/13;display:grid;gap:var(--s3);background:var(--papier);color:var(--encre);padding:var(--s6) var(--s4) var(--s4)}
+.liste form h3{font-size:30px}
+.liste .champ{display:grid;gap:8px}
+.liste label,.liste legend{font:500 11px/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+.liste input[type=text],.liste input[type=email],.liste input[type=tel]{width:100%;min-height:50px;border:0;border-bottom:1px solid var(--encre);background:transparent;font:400 18px/1.4 var(--f-texte);color:var(--encre);padding:8px 0;border-radius:0}
+.liste input:focus-visible{outline:none;border-bottom:2px solid var(--bordeaux)}
+.liste input[aria-invalid=true]{border-bottom-color:#A3121F}
+.liste .erreur{font-size:13px;color:#A3121F;min-height:1em}
+.liste fieldset{border:0;margin:0;padding:0;display:grid;gap:10px}
+.liste .langs{display:flex;gap:8px}
+.liste .langs label{display:inline-flex;align-items:center;justify-content:center;min-width:56px;min-height:44px;border:1px solid var(--filet);cursor:pointer;color:var(--encre)}
+.liste .langs input{position:absolute;opacity:0;pointer-events:none}
+.liste .langs input:checked+span{color:var(--creme)}
+.liste .langs label:has(input:checked){background:var(--bordeaux);border-color:var(--bordeaux);color:var(--creme)}
+.liste .langs label:has(input:focus-visible){outline:2px solid var(--bordeaux);outline-offset:2px}
+.liste .accord{display:flex;gap:12px;align-items:flex-start;font:400 14px/1.5 var(--f-texte);text-transform:none;letter-spacing:0;color:var(--gris);cursor:pointer}
+.liste .accord input{width:20px;height:20px;margin-top:2px;accent-color:var(--bordeaux);flex:none}
+.liste form .btn{justify-content:center;min-height:54px;cursor:pointer}
+.liste .note{font:500 10px/1.5 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.liste .merci{grid-column:7/13;background:var(--papier);color:var(--encre);padding:var(--s6) var(--s4);display:grid;gap:var(--s2)}
+.liste .merci h3{font-size:36px}
+.liste .merci h3 em{font-style:normal;color:var(--bordeaux)}
+@media (max-width:900px){.liste .gauche,.liste form,.liste .merci{grid-column:1/-1}.liste form{padding:var(--s4) var(--s3)}}
 
 /* L'atelier */
 .atelier{padding-block:var(--s16);background:var(--papier);border-top:1px solid var(--filet)}
@@ -357,8 +396,8 @@ figure{margin:0}
     </nav>
     <div class="langues" aria-label="Langue"><a href="#" aria-current="true">FR</a><span aria-hidden="true">·</span><a href="#">EN</a><span aria-hidden="true">·</span><a href="#">ES</a></div>
     <div class="actions sur-sombre">
-      <a class="btn btn-contour" href="#appli">Réserver</a>
-      <a class="btn btn-plein" href="#appli">Commander</a>
+      <a class="btn btn-contour" href="#carte">La carte</a>
+      <a class="btn btn-plein" href="#liste">Liste d'ouverture</a>
     </div>
     <button class="burger-nav" id="ouvrir" aria-expanded="false" aria-controls="menu">Menu</button>
   </div>
@@ -373,8 +412,8 @@ figure{margin:0}
   </nav>
   <div class="langues"><a href="#" aria-current="true">FR</a><span>·</span><a href="#">EN</a><span>·</span><a href="#">ES</a></div>
   <div class="actions sur-sombre">
-    <a class="btn btn-plein" href="#appli">Commander</a>
-    <a class="btn btn-contour" href="#appli">Réserver une table</a>
+    <a class="btn btn-plein" href="#liste">Rejoindre la liste d'ouverture</a>
+    <a class="btn btn-contour" href="#carte">Voir la carte</a>
   </div>
 </div>
 
@@ -393,11 +432,11 @@ figure{margin:0}
       <h1 data-split>La sauce <em>Café de Paris</em>, enfin à Genève.</h1>
       <div class="sous">
         <div>
-          <span class="lab">Ouverture le [date à confirmer] · Face au Jet d'eau</span>
+          <span class="lab"><span class="j-moins" data-jours>J-21</span> · Ouverture le [date à confirmer] · Face au Jet d'eau</span>
           <p data-reveal>Burger, baguette et sauce Café de Paris. Genève, face au Jet d'eau.</p>
         </div>
         <div class="actions" data-reveal>
-          <a class="btn btn-plein" href="#appli">Commander</a>
+          <a class="btn btn-plein" href="#liste">Rejoindre la liste d'ouverture</a>
           <a class="btn btn-contour" href="#carte">Voir la carte</a>
         </div>
       </div>
@@ -478,6 +517,42 @@ figure{margin:0}
     </div>
   </section>
 
+  <section class="liste" id="liste" aria-labelledby="liste-titre">
+    <div class="wrap grid">
+      <div class="gauche sur-sombre">
+        <span class="lab" data-reveal>La liste d'ouverture</span>
+        <p class="compte" data-reveal><span data-jours>J-21</span><small>Ouverture le [date à confirmer] · Genève, face au Jet d'eau</small></p>
+        <h2 id="liste-titre" data-split>Soyez là <em>le premier jour</em>.</h2>
+        <ul class="avantages" data-reveal>
+          <li><b>01</b>Une invitation à la soirée d'ouverture</li>
+          <li><b>02</b>Les 100 premiers inscrits : un burger offert</li>
+          <li><b>03</b>La carte et les horaires, avant tout le monde</li>
+        </ul>
+        <a class="btn btn-contour agenda" id="agenda" href="#" download="ouverture-atelier-paris-burger.ics">Ajouter à mon agenda</a>
+      </div>
+      <form id="form-liste" novalidate data-reveal>
+        <h3>Rejoindre la liste</h3>
+        <div class="champ"><label for="l-prenom">Prénom</label><input id="l-prenom" name="prenom" type="text" autocomplete="given-name" required><span class="erreur" id="e-prenom"></span></div>
+        <div class="champ"><label for="l-mail">E-mail</label><input id="l-mail" name="email" type="email" autocomplete="email" inputmode="email" required><span class="erreur" id="e-mail"></span></div>
+        <div class="champ"><label for="l-tel">Téléphone (facultatif, pour un SMS le jour J)</label><input id="l-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel"></div>
+        <fieldset><legend>Langue</legend><div class="langs">
+          <label><input type="radio" name="langue" value="fr" checked><span>FR</span></label>
+          <label><input type="radio" name="langue" value="en"><span>EN</span></label>
+          <label><input type="radio" name="langue" value="es"><span>ES</span></label>
+        </div></fieldset>
+        <label class="accord"><input type="checkbox" id="l-accord" required><span>J'accepte de recevoir les nouvelles de l'ouverture. Désinscription en un clic, données jamais revendues.</span></label>
+        <span class="erreur" id="e-accord"></span>
+        <button class="btn btn-plein" type="submit">Rejoindre la liste</button>
+        <p class="note">Maquette : rien n'est envoyé. À brancher sur l'outil d'e-mailing du client.</p>
+      </form>
+      <div class="merci" id="merci" hidden tabindex="-1" aria-live="polite">
+        <span class="lab">C'est noté</span>
+        <h3>Merci <em id="merci-nom"></em>, vous êtes sur la liste.</h3>
+        <p>Vous recevrez l'invitation et votre ticket burger offert par e-mail, quelques jours avant l'ouverture.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="atelier" id="atelier">
     <div class="wrap grid">
       <div class="tete">
@@ -498,7 +573,7 @@ figure{margin:0}
   <section class="appli" id="appli">
     <div class="wrap sur-sombre">
       <div class="entete">
-        <p class="lab" data-reveal>L'application</p>
+        <p class="lab" data-reveal>L'application · dès l'ouverture</p>
         <h2 data-split>Commander, réserver, <em>revenir</em>.</h2>
       </div>
       <div class="blocs">
@@ -508,8 +583,8 @@ figure{margin:0}
       </div>
       <div class="cent" data-reveal>
         <div class="qr" aria-label="QR code d'exemple"><svg viewBox="0 0 29 29" shape-rendering="crispEdges" aria-hidden="true"><path fill="#1A1412" d="M0 0h7v7H0zM22 0h7v7h-7zM0 22h7v7H0z"/><path fill="#F2EBDD" d="M1 1h5v5H1zM23 1h5v5h-5zM1 23h5v5H1z"/><path fill="#1A1412" d="M2 2h3v3H2zM24 2h3v3h-3zM2 24h3v3H2zM9 1h2v2H9zM13 0h1v4h-1zM16 2h3v1h-3zM9 5h4v1H9zM15 5h2v3h-2zM19 4h1v4h-1zM8 8h3v2H8zM12 9h2v1h-2zM0 9h2v2H0zM3 10h3v1H3zM22 9h3v1h-3zM26 10h3v2h-3zM9 12h1v4H9zM12 12h4v1h-4zM18 11h2v3h-2zM22 13h2v2h-2zM1 13h1v3H1zM4 14h3v1H4zM11 15h2v2h-2zM15 15h1v3h-1zM25 15h3v1h-3zM20 16h2v2h-2zM8 18h2v1H8zM12 19h3v2h-3zM17 19h1v4h-1zM23 18h2v3h-2zM27 19h2v1h-2zM9 22h2v3H9zM13 23h3v1h-3zM19 22h2v2h-2zM22 23h1v4h-1zM25 22h1v2h-1zM12 26h2v3h-2zM16 26h3v1h-3zM20 26h2v2h-2zM24 26h4v1h-4zM26 28h3v1h-3z"/></svg></div>
-        <div><h3>Les 100 premiers inscrits reçoivent un <em>burger offert</em>.</h3><p>Inscrivez-vous dans l'application, présentez votre ticket QR au comptoir. QR code d'exemple.</p></div>
-        <a class="btn btn-plein" href="#">Je m'inscris</a>
+        <div><h3>Les 100 premiers inscrits reçoivent un <em>burger offert</em>.</h3><p>Inscrivez-vous sur la liste d'ouverture, présentez votre ticket QR au comptoir. QR code d'exemple.</p></div>
+        <a class="btn btn-plein" href="#liste">Je m'inscris</a>
       </div>
     </div>
   </section>
@@ -745,6 +820,29 @@ figure{margin:0}
       if(e.shiftKey && document.activeElement === a){ e.preventDefault(); z.focus(); }
       else if(!e.shiftKey && document.activeElement === z){ e.preventDefault(); a.focus(); }
     }
+  });
+})();
+</script>
+<script>
+// Liste d'ouverture : compte à rebours, agenda (.ics) et formulaire (maquette, rien n'est envoyé)
+(function(){
+  var OUVERTURE = new Date('2026-11-14T11:30:00+01:00'); // date d'exemple, à remplacer par la vraie
+  var j = Math.max(0, Math.ceil((OUVERTURE - new Date()) / 864e5));
+  document.querySelectorAll('[data-jours]').forEach(function(el){ el.textContent = j > 0 ? 'J-' + j : 'Ouvert'; });
+  var ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Atelier Paris Burger//FR','BEGIN:VEVENT','UID:ouverture@atelier-paris-burger','DTSTAMP:20261024T000000Z',
+    'DTSTART:20261114T103000Z','DTEND:20261114T133000Z','SUMMARY:Ouverture Atelier Paris Burger','LOCATION:Genève\\, face au Jet d\'eau','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  document.getElementById('agenda').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+  var form = document.getElementById('form-liste');
+  function err(id, input, msg){ document.getElementById(id).textContent = msg; if(input) input.setAttribute('aria-invalid', msg ? 'true' : 'false'); return !msg; }
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var p = form.prenom, m = form.email, a = document.getElementById('l-accord');
+    var ok = err('e-prenom', p, p.value.trim() ? '' : 'Votre prénom, s\'il vous plaît.');
+    ok = err('e-mail', m, /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m.value.trim()) ? '' : 'Une adresse e-mail valide, s\'il vous plaît.') && ok;
+    ok = err('e-accord', null, a.checked ? '' : 'Cochez la case pour recevoir l\'invitation.') && ok;
+    if(!ok){ var first = form.querySelector('[aria-invalid=true]') || a; first.focus(); return; }
+    document.getElementById('merci-nom').textContent = p.value.trim();
+    form.hidden = true; var merci = document.getElementById('merci'); merci.hidden = false; merci.focus();
   });
 })();
 </script>
