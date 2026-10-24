@@ -192,6 +192,135 @@ ol.etapes b{font-weight:600}
 .total b{font:400 32px/1 var(--f-display);color:var(--bordeaux);font-weight:400}
 @media (max-width:760px){.reel{grid-template-columns:1fr}.phone{max-width:320px;margin:0 auto}ol.etapes li{grid-template-columns:1fr;gap:2px}th,td.ref{width:auto}table,tbody,tr,th,td{display:block}tr{border-top:1px solid var(--filet);padding-block:12px}th,td{border:0;padding:0 0 4px}}
 @media (prefers-reduced-motion:reduce){.film video{display:none}.film .fixe{display:block!important}}
+
+/* Présentation : film d'ouverture, chiffres clés, détails, réel, normes, commande, calendrier */
+.film{margin:28px 0 0;position:relative;background:#F1E7DB;outline:1px solid var(--filet);outline-offset:-1px;overflow:hidden}
+.film video,.film img{display:block;width:100%;height:auto;aspect-ratio:1600/1142}
+.cles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:0;border-top:1px solid var(--filet);margin-top:28px}
+.cles > div{padding:18px 18px 18px 0;display:grid;gap:4px;border-bottom:1px solid var(--filet)}
+.cles b{font:400 clamp(28px,3.2vw,40px)/1 var(--f-display);color:var(--bordeaux);font-weight:400}
+.cles span{font:500 12px/1.5 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.hero-photo{margin:0}
+.hero-photo img,.duo img,.details img{outline:1px solid var(--filet);outline-offset:-1px}
+.hero-photo img,.duo img{display:block;width:100%;height:auto;aspect-ratio:2420/1728;background:var(--papier)}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;padding-block:20px 8px}
+figure{margin:0;display:grid;gap:10px}
+figcaption{font:400 12px/1.5 var(--f-mono);letter-spacing:.08em;color:var(--gris)}
+.mention{font:400 12px/1.5 var(--f-mono);letter-spacing:.06em;color:var(--gris);padding-block:6px 0}
+.details{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:32px 24px}
+.details article{display:grid;gap:12px;align-content:start}
+.details img{display:block;width:100%;height:auto;aspect-ratio:4/3;background:var(--papier)}
+.details h3{font-size:22px}
+.details p{color:var(--gris);font-size:15px}
+.reel{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:40px 56px;align-items:center}
+.phone{position:relative;border-radius:34px;padding:10px;background:var(--encre);box-shadow:0 30px 60px -30px rgba(26,20,18,.45)}
+.phone video,.phone img{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:26px;background:var(--bordeaux)}
+.son{position:absolute;right:22px;bottom:22px;background:rgba(26,20,18,.6);color:var(--creme);border-color:transparent;padding:10px 12px}
+.son:hover{background:var(--creme);color:var(--bordeaux)}
+.legende{background:var(--papier);padding:16px 18px;font-size:15px;display:grid;gap:6px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;vertical-align:top;padding:14px 16px 14px 0;border-top:1px solid var(--filet)}
+th{font:500 12px/1.6 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bordeaux);font-weight:500;width:26%}
+td.ref{font:400 13px/1.6 var(--f-mono);color:var(--gris);width:28%}
+.tab{overflow-x:auto}
+.prix{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px}
+.prix > div{border:1px solid var(--filet);padding:22px;display:grid;gap:8px;align-content:start;background:var(--papier)}
+.prix .gros{font:400 clamp(30px,3.4vw,42px)/1.05 var(--f-display);color:var(--bordeaux)}
+.prix p{font-size:15px;color:var(--gris)}
+ol.etapes{margin:0;padding:0;list-style:none;display:grid;gap:0}
+ol.etapes li{display:grid;grid-template-columns:minmax(120px,22%) 1fr;gap:16px;padding-block:14px;border-top:1px solid var(--filet)}
+ol.etapes .d{font:500 13px/1.6 var(--f-mono);letter-spacing:.06em;color:var(--bordeaux)}
+ol.etapes b{font-weight:600}
+.total{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;padding-top:16px;border-top:2px solid var(--bordeaux)}
+.total b{font:400 32px/1 var(--f-display);color:var(--bordeaux);font-weight:400}
+@media (max-width:760px){.reel{grid-template-columns:1fr}.phone{max-width:320px;margin:0 auto}ol.etapes li{grid-template-columns:1fr;gap:2px}th,td.ref{width:auto}table,tbody,tr,th,td{display:block}tr{border-top:1px solid var(--filet);padding-block:12px}th,td{border:0;padding:0 0 4px}}
+@media (prefers-reduced-motion:reduce){.film video{display:none}.film .fixe{display:block!important}}
+
+/* Présentation : film d'ouverture, chiffres clés, détails, réel, normes, commande, calendrier */
+.film{margin:28px 0 0;position:relative;background:#F1E7DB;outline:1px solid var(--filet);outline-offset:-1px;overflow:hidden}
+.film video,.film img{display:block;width:100%;height:auto;aspect-ratio:1600/1142}
+.cles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:0;border-top:1px solid var(--filet);margin-top:28px}
+.cles > div{padding:18px 18px 18px 0;display:grid;gap:4px;border-bottom:1px solid var(--filet)}
+.cles b{font:400 clamp(28px,3.2vw,40px)/1 var(--f-display);color:var(--bordeaux);font-weight:400}
+.cles span{font:500 12px/1.5 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.hero-photo{margin:0}
+.hero-photo img,.duo img,.details img{outline:1px solid var(--filet);outline-offset:-1px}
+.hero-photo img,.duo img{display:block;width:100%;height:auto;aspect-ratio:2420/1728;background:var(--papier)}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;padding-block:20px 8px}
+figure{margin:0;display:grid;gap:10px}
+figcaption{font:400 12px/1.5 var(--f-mono);letter-spacing:.08em;color:var(--gris)}
+.mention{font:400 12px/1.5 var(--f-mono);letter-spacing:.06em;color:var(--gris);padding-block:6px 0}
+.details{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:32px 24px}
+.details article{display:grid;gap:12px;align-content:start}
+.details img{display:block;width:100%;height:auto;aspect-ratio:4/3;background:var(--papier)}
+.details h3{font-size:22px}
+.details p{color:var(--gris);font-size:15px}
+.reel{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:40px 56px;align-items:center}
+.phone{position:relative;border-radius:34px;padding:10px;background:var(--encre);box-shadow:0 30px 60px -30px rgba(26,20,18,.45)}
+.phone video,.phone img{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:26px;background:var(--bordeaux)}
+.son{position:absolute;right:22px;bottom:22px;background:rgba(26,20,18,.6);color:var(--creme);border-color:transparent;padding:10px 12px}
+.son:hover{background:var(--creme);color:var(--bordeaux)}
+.legende{background:var(--papier);padding:16px 18px;font-size:15px;display:grid;gap:6px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;vertical-align:top;padding:14px 16px 14px 0;border-top:1px solid var(--filet)}
+th{font:500 12px/1.6 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bordeaux);font-weight:500;width:26%}
+td.ref{font:400 13px/1.6 var(--f-mono);color:var(--gris);width:28%}
+.tab{overflow-x:auto}
+.prix{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px}
+.prix > div{border:1px solid var(--filet);padding:22px;display:grid;gap:8px;align-content:start;background:var(--papier)}
+.prix .gros{font:400 clamp(30px,3.4vw,42px)/1.05 var(--f-display);color:var(--bordeaux)}
+.prix p{font-size:15px;color:var(--gris)}
+ol.etapes{margin:0;padding:0;list-style:none;display:grid;gap:0}
+ol.etapes li{display:grid;grid-template-columns:minmax(120px,22%) 1fr;gap:16px;padding-block:14px;border-top:1px solid var(--filet)}
+ol.etapes .d{font:500 13px/1.6 var(--f-mono);letter-spacing:.06em;color:var(--bordeaux)}
+ol.etapes b{font-weight:600}
+.total{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;padding-top:16px;border-top:2px solid var(--bordeaux)}
+.total b{font:400 32px/1 var(--f-display);color:var(--bordeaux);font-weight:400}
+@media (max-width:760px){.reel{grid-template-columns:1fr}.phone{max-width:320px;margin:0 auto}ol.etapes li{grid-template-columns:1fr;gap:2px}th,td.ref{width:auto}table,tbody,tr,th,td{display:block}tr{border-top:1px solid var(--filet);padding-block:12px}th,td{border:0;padding:0 0 4px}}
+@media (prefers-reduced-motion:reduce){.film video{display:none}.film .fixe{display:block!important}}
+
+/* Présentation : film d'ouverture, chiffres clés, détails, réel, normes, commande, calendrier */
+.film{margin:28px 0 0;position:relative;background:#F1E7DB;outline:1px solid var(--filet);outline-offset:-1px;overflow:hidden}
+.film video,.film img{display:block;width:100%;height:auto;aspect-ratio:1600/1142}
+.cles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:0;border-top:1px solid var(--filet);margin-top:28px}
+.cles > div{padding:18px 18px 18px 0;display:grid;gap:4px;border-bottom:1px solid var(--filet)}
+.cles b{font:400 clamp(28px,3.2vw,40px)/1 var(--f-display);color:var(--bordeaux);font-weight:400}
+.cles span{font:500 12px/1.5 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.hero-photo{margin:0}
+.hero-photo img,.duo img,.details img{outline:1px solid var(--filet);outline-offset:-1px}
+.hero-photo img,.duo img{display:block;width:100%;height:auto;aspect-ratio:2420/1728;background:var(--papier)}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;padding-block:20px 8px}
+figure{margin:0;display:grid;gap:10px}
+figcaption{font:400 12px/1.5 var(--f-mono);letter-spacing:.08em;color:var(--gris)}
+.mention{font:400 12px/1.5 var(--f-mono);letter-spacing:.06em;color:var(--gris);padding-block:6px 0}
+.details{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:32px 24px}
+.details article{display:grid;gap:12px;align-content:start}
+.details img{display:block;width:100%;height:auto;aspect-ratio:4/3;background:var(--papier)}
+.details h3{font-size:22px}
+.details p{color:var(--gris);font-size:15px}
+.reel{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:40px 56px;align-items:center}
+.phone{position:relative;border-radius:34px;padding:10px;background:var(--encre);box-shadow:0 30px 60px -30px rgba(26,20,18,.45)}
+.phone video,.phone img{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:26px;background:var(--bordeaux)}
+.son{position:absolute;right:22px;bottom:22px;background:rgba(26,20,18,.6);color:var(--creme);border-color:transparent;padding:10px 12px}
+.son:hover{background:var(--creme);color:var(--bordeaux)}
+.legende{background:var(--papier);padding:16px 18px;font-size:15px;display:grid;gap:6px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;vertical-align:top;padding:14px 16px 14px 0;border-top:1px solid var(--filet)}
+th{font:500 12px/1.6 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bordeaux);font-weight:500;width:26%}
+td.ref{font:400 13px/1.6 var(--f-mono);color:var(--gris);width:28%}
+.tab{overflow-x:auto}
+.prix{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px}
+.prix > div{border:1px solid var(--filet);padding:22px;display:grid;gap:8px;align-content:start;background:var(--papier)}
+.prix .gros{font:400 clamp(30px,3.4vw,42px)/1.05 var(--f-display);color:var(--bordeaux)}
+.prix p{font-size:15px;color:var(--gris)}
+ol.etapes{margin:0;padding:0;list-style:none;display:grid;gap:0}
+ol.etapes li{display:grid;grid-template-columns:minmax(120px,22%) 1fr;gap:16px;padding-block:14px;border-top:1px solid var(--filet)}
+ol.etapes .d{font:500 13px/1.6 var(--f-mono);letter-spacing:.06em;color:var(--bordeaux)}
+ol.etapes b{font-weight:600}
+.total{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;padding-top:16px;border-top:2px solid var(--bordeaux)}
+.total b{font:400 32px/1 var(--f-display);color:var(--bordeaux);font-weight:400}
+@media (max-width:760px){.reel{grid-template-columns:1fr}.phone{max-width:320px;margin:0 auto}ol.etapes li{grid-template-columns:1fr;gap:2px}th,td.ref{width:auto}table,tbody,tr,th,td{display:block}tr{border-top:1px solid var(--filet);padding-block:12px}th,td{border:0;padding:0 0 4px}}
+@media (prefers-reduced-motion:reduce){.film video{display:none}.film .fixe{display:block!important}}
 </style>
 </head>
 <body>
@@ -770,7 +899,8 @@ function build(v) {
   const sc = VARIANTS[v].cells.find(c => c.sauce);
   const sw = sc.x1 - sc.x0 - 2 * T, sd = sc.z1 - sc.z0 - 2 * T;
   const scx = (sc.x0 + sc.x1) / 2, scz = (sc.z0 + sc.z1) / 2;
-  const SH_Y = 3.5 - T, SH_R = 2.55 + 0.04;
+  // plateau haut, juste sous le rebord du pot : le pot y est suspendu et dépasse à peine des cloisons
+  const SH_Y = HD + T - 0.64, SH_R = 2.55 + 0.04;
   const shape = new THREE.Shape();
   shape.moveTo(-sw / 2, -sd / 2); shape.lineTo(sw / 2, -sd / 2); shape.lineTo(sw / 2, sd / 2); shape.lineTo(-sw / 2, sd / 2); shape.closePath();
   const hole = new THREE.Path(); hole.absarc(0, 0, SH_R, 0, Math.PI * 2, true); shape.holes.push(hole);
@@ -836,7 +966,11 @@ function build(v) {
   // languette d'ouverture
   const tab = slab(1.1, 0.04, 0.6, [null, null, cremeMat, cremeMat, null, null]);
 
-  pot.position.set(scx, T, scz);
+  // beurre aux herbes doré dans le pot
+  const sauce = new THREE.Mesh(new THREE.CircleGeometry(rb + (rt - rb) * 0.78, 96), new THREE.MeshStandardMaterial({ color: 0xD9A23A, roughness: 0.32 }));
+  sauce.rotation.x = -Math.PI / 2; sauce.position.y = ph * 0.78; pot.add(sauce);
+  // le rebord du pot repose sur le plateau de la collerette
+  pot.position.set(scx, SH_Y + T + 0.1 - ph, scz);
   pot.rotation.y = Math.PI / 2;
   insertGroup.add(pot);
 
@@ -901,7 +1035,7 @@ function loop() {
 }
 
 const VIEWS = {
-  hero: [40, 40, 70], gros: [22, 34, 34, 1.5, 3.2, 0.5], plongee: [8, 46, 26, 1.5, 2.5, 1.0], large: [30, 36, 46, 2.5, 4.5, 0], vitrine: [25, 33, 52, 3.0, 7.0, -1.5], face: [0, 26, 62], dessus: [1.5, 80, 12], profil: [58, 22, 20], trois: [-42, 34, 44]
+  hero: [40, 40, 70], gros: [22, 34, 34, 1.5, 3.2, 0.5], plongee: [8, 46, 26, 1.5, 2.5, 1.0], large: [30, 36, 46, 2.5, 4.5, 0], vitrine: [25, 33, 52, 3.0, 7.0, -1.5], face: [0, 44, 54, 0, 3.5, 0], dessus: [1.5, 80, 12], profil: [58, 22, 20], trois: [-42, 34, 44]
 };
 function view(name) { const p = VIEWS[name] || VIEWS.hero; camera.position.set(p[0], p[1], p[2]); if (p.length > 3) controls.target.set(p[3], p[4], p[5]); else controls.target.set(1.5, 6.5, -1); controls.update(); }
 
