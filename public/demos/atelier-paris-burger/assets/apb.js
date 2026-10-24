@@ -253,13 +253,13 @@
     }
   }
 
-  // Sceau « Depuis 1978 » : tourne doucement, accélère avec le défilement
+  // Sceau « Paris · plus de 40 ans » : tourne doucement, accélère avec le défilement
   var hote = document.querySelector('.ouverture') || document.querySelector('.ix-scene');
   if(hote){
     var sc = document.createElement('div'); sc.className = 'sceau'; sc.setAttribute('aria-hidden', 'true');
     sc.innerHTML = '<svg viewBox="0 0 120 120"><defs><path id="sceau-c" d="M60 60 m-48 0 a48 48 0 1 1 96 0 a48 48 0 1 1 -96 0"/></defs>' +
       '<circle cx="60" cy="60" r="58" fill="none" stroke="currentColor" stroke-opacity=".35"/>' +
-      '<text><textPath href="#sceau-c" textLength="298" lengthAdjust="spacing">Depuis 1978 · Sauce de la maison · Paris ·</textPath></text></svg><div class="ab">' + logo + '</div>';
+      '<text><textPath href="#sceau-c" textLength="298" lengthAdjust="spacing">Sauce de la maison · Paris · plus de 40 ans ·</textPath></text></svg><div class="ab">' + logo + '</div>';
     hote.appendChild(sc);
     if(!reduit){
       var tour = sc.querySelector('svg'), angle = 0, vitesse = 0, dernier = window.scrollY;

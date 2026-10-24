@@ -84,9 +84,11 @@
   </section>
 
 <section class="ix-histoire" id="histoire" aria-label="L'histoire de la sauce">
-    <div class="ix-chap"><div class="ix-an" data-r>1978</div><div class="ix-txt" data-r><span class="lab">Chapitre 1 · Paris</span><h3>La recette naît dans une cuisine parisienne.</h3><p>Beurre, herbes, épices : une sauce qu'on ne trouvait qu'à Paris. [Histoire exacte à valider avec le client.]</p><div class="ix-ph"><span><b>Photo archive ou reconstitution</b>Cuisine parisienne, noir et blanc · 3:2</span></div></div></div>
-    <div class="ix-chap"><div class="ix-an" data-r>40 ans</div><div class="ix-txt" data-r><span class="lab">Chapitre 2 · Transmise</span><h3>Servie, affinée, jamais changée d'esprit.</h3><p>Des décennies de service dans des restaurants parisiens. La même main, le même geste.</p><div class="ix-ph"><span><b>Photo 2 · La sauce</b>Très gros plan, cuillère, texture · 3:2</span></div></div></div>
-    <div class="ix-chap"><div class="ix-an" data-r>Genève</div><div class="ix-txt" data-r><span class="lab">Chapitre 3 · Aujourd'hui</span><h3>Madrid, Ibiza, et maintenant Genève.</h3><p>Une maison qui voyage sans changer sa recette. Deux adresses à Genève : les Eaux-Vives et Versoix.</p><div class="ix-ph"><span><b>Photo · Les adresses</b>Montage de façades, même cadrage · 3:2</span></div></div></div>
+    <div class="ix-entete" data-r><span class="lab">L'histoire</span><h2>Une maison née d'une histoire construite dans le temps.</h2></div>
+    <div class="ix-chap"><div class="ix-an" data-r>Paris</div><div class="ix-txt" data-r><span class="lab">Chapitre 1 · Fin des années 1970</span><h3>Une sauce naît à Paris.</h3><p>Au cœur de la maison, notre sauce Café de Paris, travaillée à Paris dès la fin des années 1970 et le début des années 1980.</p><div class="ix-ph"><span><b>Photo archive ou reconstitution</b>Cuisine parisienne · 3:2</span></div></div></div>
+    <div class="ix-chap"><div class="ix-an" data-r>40 ans</div><div class="ix-txt" data-r><span class="lab">Chapitre 2 · Transmise</span><h3>Transmise, affinée, perfectionnée.</h3><p>Plus de quarante ans de savoir-faire, servie pendant des décennies dans des restaurants parisiens emblématiques. Elle est aujourd'hui notre signature.</p><div class="ix-ph"><span><b>Photo · La sauce</b>Très gros plan, cuillère, texture · 3:2</span></div></div></div>
+    <div class="ix-chap"><div class="ix-an" data-r>Atelier</div><div class="ix-txt" data-r><span class="lab">Chapitre 3 · Le geste</span><h3>Faire évoluer l'héritage, pas le copier.</h3><p>Le burger premium et la baguette portent un savoir-faire précis, exigeant et constant. Fidèle à l'esprit d'origine, avec sa propre identité.</p><div class="ix-ph"><span><b>Photo · Burger et baguette</b>Côte à côte, même lumière · 3:2</span></div></div></div>
+    <div class="ix-chap"><div class="ix-an" data-r>Europe</div><div class="ix-txt" data-r><span class="lab">Chapitre 4 · Aujourd'hui</span><h3>De Genève à l'Europe.</h3><p>Un restaurant phare à Genève, l'Espagne pour première étape avec Madrid, Barcelone et Ibiza, et des cuisines dédiées à la livraison à travers l'Europe.</p><div class="ix-ph"><span><b>Photo · Les adresses</b>Montage de façades, même cadrage · 3:2</span></div></div></div>
   </section>
 
 <section class="geste" aria-labelledby="geste-titre">
@@ -190,7 +192,7 @@
     <div class="logo"><svg aria-hidden="true"><use href="#apb-logo"/></svg><p>Atelier Paris Burger</p></div>
     <div class="col"><span class="lab">Nos adresses</span><a href="geneve-eaux-vives/">Genève · Eaux-Vives</a><a href="geneve-versoix/">Genève · Versoix</a><a href="madrid/">Madrid</a><a href="ibiza/">Ibiza</a></div>
     <div class="col"><span class="lab">La maison</span><a href="#histoire">L'histoire</a><a href="#carte">La carte</a></div>
-    <div class="col"><span class="lab">Contact</span><a href="tel:+41000000000">[+41 00 000 00 00]</a><a href="#">[Instagram]</a></div>
+    <div class="col"><span class="lab">Contact</span><a href="mailto:info@atelier-paris-burger.com">info@atelier-paris-burger.com</a><a href="tel:+41000000000">[+41 00 000 00 00]</a><a href="#">[Instagram]</a></div>
     <div class="col"><span class="lab">Langue</span><p>Français · English · Español</p></div>
     <div class="bas"><span>© 2026 Atelier Paris Burger</span><span>Mentions légales · Confidentialité</span><span>Maquette Nouvelle Ardoise · photos à venir</span></div>
   </div>
@@ -272,12 +274,9 @@
     .to('#dedans h2', {scale:1.04, duration:0.8}, 7.5);
 
   gsap.utils.toArray('[data-r]').forEach(function(el){
-    gsap.from(el, {y:60, opacity:0, duration:1, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 82%', once:true}});
+    gsap.fromTo(el, {y:40, opacity:0}, {y:0, opacity:1, duration:0.7, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 85%', once:true}});
   });
   window.addEventListener('resize', function(){ final = empile(); ScrollTrigger.refresh(); });
-  gsap.utils.toArray('[data-r]').forEach(function(el){
-    gsap.from(el, {y:60, opacity:0, duration:1, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 82%', once:true}});
-  });
 })();
 </script>
 </body>
