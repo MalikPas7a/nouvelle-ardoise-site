@@ -96,6 +96,29 @@
     });
   }
 
+  // Nos adresses : menu déroulant (clic, clavier, survol sur ordinateur)
+  var adrB = document.getElementById('adr-bouton'), adrM = document.getElementById('adr-menu');
+  if(adrB && adrM){
+    var minuterie = null;
+    var ouvre = function(o){ clearTimeout(minuterie); adrM.hidden = !o; adrB.setAttribute('aria-expanded', o ? 'true' : 'false'); };
+    adrB.addEventListener('click', function(){ ouvre(adrM.hidden); });
+    if(!tactile){
+      var zone = adrB.parentNode;
+      zone.addEventListener('mouseenter', function(){ ouvre(true); });
+      zone.addEventListener('mouseleave', function(){ minuterie = setTimeout(function(){ ouvre(false); }, 220); });
+    }
+    document.addEventListener('click', function(e){ if(!adrB.parentNode.contains(e.target)) ouvre(false); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !adrM.hidden){ ouvre(false); adrB.focus(); } });
+    adrM.addEventListener('focusout', function(e){ if(!adrB.parentNode.contains(e.relatedTarget)) ouvre(false); });
+  }
+
+  // Accueil : la barre des villes n'est cliquable que tant que le titre est visible
+  var titre = document.querySelector('.ix-titre');
+  if(titre && titre.querySelector('.ix-villes')){
+    var maj = function(){ titre.style.pointerEvents = parseFloat(getComputedStyle(titre).opacity) > .5 ? '' : 'none'; };
+    window.addEventListener('scroll', maj, {passive: true}); maj();
+  }
+
   // Rideau bordeaux entre les pages de la maison
   if(!reduit){
     var rideau = document.createElement('div'); rideau.className = 'rideau'; rideau.setAttribute('aria-hidden', 'true'); rideau.innerHTML = logo;
