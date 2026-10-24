@@ -19,22 +19,12 @@ def section(nom):
 # Photos d'essai libres de droits (CC0, rawpixel via Openverse), posées dans les cadres en attendant le shooting
 PHOTOS = {
     'Photo archive ou reconstitution': ('paris', 'Avenue des Champs-Élysées, Paris, photo d\'archive'),
-    'Photo · La sauce': ('beurre', 'Beurre étalé au couteau sur du pain'),
-    'Photo · Burger et baguette': ('smash', 'Steaks hachés écrasés sur la plaque, cheddar qui fond'),
     'Photo · Les adresses': ('ibiza-ville', 'Ibiza, la vieille ville vue du port'),
-    'Photo 3a · Couper': ('couper', 'Burger coupé en deux'),
-    'Photo 3b · Tremper': ('tremper', 'Frite trempée dans la sauce'),
-    'Photo 3c · Croquer': ('croquer', 'Mains qui prennent un burger et des frites'),
     'Photo · Façade, lac et Jet d\'eau': ('eaux-vives', 'Les quais de Genève, photo d\'archive'),
     'Photo 6 · Façade, lac et Jet d\'eau': ('eaux-vives', 'Les quais de Genève, photo d\'archive'),
     'Photo · Façade de Versoix': ('versoix', 'Le Léman vu de la rive'),
     'Photo · Façade de Madrid': ('madrid', 'Façades de la Gran Vía, Madrid'),
     'Photo · Façade d\'Ibiza': ('ibiza', 'Ruelle de la vieille ville d\'Ibiza'),
-    'Photo 5 · Salle et comptoir': ('salle', 'Steaks sur la plaque de cuisson'),
-    'Photos 4 · Plats de la carte': ('insta5', 'Burger cheddar'),
-    'Photo 7a': ('insta1', 'Burger et frites'), 'Photo 7b': ('insta2', 'Burger brioché et frites'),
-    'Photo 7c': ('insta3', 'Sandwich garni'), 'Photo 7d': ('insta4', 'Frites épicées'),
-    'Photo 7e': ('insta5', 'Burger cheddar'), 'Photo 7f': ('insta6', 'Frites et sauce'),
 }
 def poser_photos(contenu, racine):
     for lab, (f, alt) in PHOTOS.items():
@@ -466,33 +456,35 @@ accueil = tete('Atelier Paris Burger · La maison', 'Une maison, une sauce. Burg
     pied('') + '\n' + fiche + '\n' + scripts_fin('') + js_maison + '</body>\n</html>\n'
 ecrire('index.html', accueil)
 
-# ---------- Simulation avec une vraie photo (essai avant le tournage) ----------
-# Photo libre de droits CC0 (rawpixel), détourée et coupée en deux couches (pain du dessus / reste).
-# À remplacer par la séquence filmée au shooting : smash, assemblage, coupe, trempage.
-SIM_BURGER = '''<div class="ix-burger sim-burger" id="burger" aria-hidden="true">
-      <div class="sim-cadre">
-        <div class="sim-entier" id="entier"><img class="sim-base" id="base" src="../assets/simulation/base.webp" alt="" width="909" height="779" decoding="async"><img class="sim-haut" id="haut" src="../assets/simulation/haut.webp" alt="" width="909" height="779" decoding="async"></div>
-        <div class="sim-moitie g" id="moitieG"><img src="../assets/simulation/entier.webp" alt="" width="909" height="779" decoding="async"></div>
-        <div class="sim-moitie d" id="moitieD"><img src="../assets/simulation/entier.webp" alt="" width="909" height="779" decoding="async"></div>
-      </div>
-    </div>'''
+# ---------- Simulation avec les visuels du lancement (essai avant le tournage) ----------
+# Visuels d'intention générés pour le lancement Smash Burger, sauce recolorée en beurre doré (pas de vert).
+# La vue éclatée est coupée en 5 couches qui se posent puis se resserrent avant le burger assemblé.
+# À remplacer par la séquence filmée au shooting : smash, assemblage, trempage.
+S = '../assets/simulation/'
+COUCHES = [('pBas', 'couche-pain-bas'), ('oignons', 'couche-oignons'), ('steaks', 'couche-steaks'), ('sauce', 'couche-sauce'), ('pHaut', 'couche-pain-haut')]
+SIM_BURGER = '<div class="sim-studio" id="studio" aria-hidden="true">\n' + \
+    '      <div class="sim-plancha" id="plancha"><img src="' + S + 'plancha.webp" alt="" width="1080" height="1935" decoding="async"><div class="sim-plancha-ombre"></div></div>\n' + \
+    '      <div class="sim-pile" id="pile">' + ''.join('<img class="sim-couche" id="%s" src="%s%s.webp" alt="" width="1080" height="1935" decoding="async">' % (i, S, f) for i, f in COUCHES) + \
+    '<img class="sim-assemble" id="assemble" src="' + S + 'assemble.webp" alt="" width="1080" height="1935" decoding="async"></div>\n' + \
+    '      <img class="sim-trempe" id="trempe" src="' + S + 'trempe.webp" alt="" width="1080" height="1935" decoding="async">\n' + \
+    '    </div>\n    <div class="sim-voile" id="voile" aria-hidden="true"></div>'
 i = ihtml2.index('<div class="ix-burger"'); j = ihtml2.index('<div class="ix-mot"', i)
 ihtml_sim = ihtml2[:i] + SIM_BURGER + '\n    ' + ihtml2[j:]
 ihtml_sim = re.sub(r'<a href="([\w-]+/)"><span>', r'<a href="../\1"><span>', ihtml_sim)
-ihtml_sim = ihtml_sim.replace('<div class="ix-coupe" id="coupe"></div>', '<div class="ix-coupe sim-coupe" id="coupe"></div>')
+ihtml_sim = ihtml_sim.replace('<div class="ix-coupe" id="coupe"></div>', '').replace('<div class="ix-mot" id="mot2">Couper.</div>', '')
 ihtml_sim = re.sub(r'<p class="ix-legende lab" id="legende">.*?</p>',
-    '<p class="sim-credit lab" id="legende"><b>Simulation.</b> Photo d\'essai libre de droits (CC0, rawpixel), remplacée par la séquence filmée au shooting.</p>', ihtml_sim, flags=re.S)
-assert 'sim-credit' in ihtml_sim and 'ix-calque' not in ihtml_sim and 'href="../geneve-versoix/"' in ihtml_sim
+    '<p class="sim-credit lab" id="legende"><b>Simulation.</b> Visuels d\'intention, remplacés par la séquence filmée au shooting.</p>', ihtml_sim, flags=re.S)
+assert 'sim-credit' in ihtml_sim and 'mot2' not in ihtml_sim and 'ix-calque' not in ihtml_sim and 'href="../geneve-versoix/"' in ihtml_sim
 
 css_sim = open(os.path.join(ICI, 'simulation.css'), encoding='utf-8').read()
 js_sim = open(os.path.join(ICI, 'simulation.js'), encoding='utf-8').read()
 fin_sim = '''<section class="sim-fin">
   <span class="lab">Simulation · avant le tournage</span>
   <h2>Le mouvement est là.<br>Il manque la vraie lumière.</h2>
-  <p>Cette page teste l'ouverture avec une photo libre de droits. Au shooting, on filme le vrai geste : la viande écrasée sur la plaque, l'assemblage, la coupe, la moitié trempée dans la sauce.</p>
+  <p>Cette page teste l'ouverture avec des visuels d'intention. Au shooting, on filme le vrai geste : la viande écrasée sur la plaque, l'assemblage couche par couche, le burger trempé dans la sauce.</p>
   <div class="actions"><a class="btn" href="../">Revenir à la maison</a></div>
 </section>'''
-simulation = tete('Atelier Paris Burger · Simulation de l\'ouverture', 'Essai de l\'ouverture au scroll avec une vraie photo, avant le tournage.', '../', '\n<style>\n' + css_sim + '</style>') + \
+simulation = tete('Atelier Paris Burger · Simulation de l\'ouverture', 'Essai de l\'ouverture au scroll avant le tournage.', '../', '\n<style>\n' + css_sim + '</style>') + \
     '<body data-page="maison" class="sim">\n' + logo + '\n' + \
     entete('../', [('../#histoire', "L'histoire"), ('../#carte', 'La carte')], 'Nos adresses', '../#adresses') + \
     '\n<main id="contenu">\n' + ihtml_sim + '\n\n' + ihist2 + '\n\n' + fin_sim + '\n</main>\n\n' + \

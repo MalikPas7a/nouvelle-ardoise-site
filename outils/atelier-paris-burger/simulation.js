@@ -1,48 +1,46 @@
-// Simulation : la même ouverture, avec une vraie photo détourée
+// Simulation : l'ouverture avec les visuels du lancement (plancha, assemblage couche par couche, trempage, plongée)
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce || !window.gsap || !window.ScrollTrigger){ document.documentElement.classList.add('statique'); return; }
   gsap.registerPlugin(ScrollTrigger);
-  var vh = function(v){ return function(){ return window.innerHeight * v / 100; }; };
-  gsap.set('#base', {y:vh(-70), opacity:0});
-  gsap.set('#haut', {y:vh(-60), rotation:-7, opacity:0});
+  // Décalage de chaque couche entre la vue éclatée et le burger assemblé (en % de la hauteur de l'image)
+  var couches = [['#pBas', -7.3], ['#oignons', -3.9], ['#steaks', 0], ['#sauce', 6.2], ['#pHaut', 11.6]];
+  couches.forEach(function(c){ gsap.set(c[0], {yPercent:-55, opacity:0}); });
+  gsap.set('#plancha', {scale:1.14, opacity:0});
+  gsap.set('#trempe', {scale:1.1, opacity:0, transformOrigin:'52% 74%'});
 
-  var tl = gsap.timeline({defaults:{ease:'none'}, scrollTrigger:{trigger:'#scene', start:'top top', end:'+=700%', scrub:1, pin:true, anticipatePin:1, invalidateOnRefresh:true}});
-  // 1. Le titre s'efface
+  var tl = gsap.timeline({defaults:{ease:'none'}, scrollTrigger:{trigger:'#scene', start:'top top', end:'+=800%', scrub:1, pin:true, anticipatePin:1, invalidateOnRefresh:true}});
+  // 1. Le titre s'efface, le studio noir s'installe
   tl.to('#titre', {opacity:0, y:-60, duration:0.6}, 0).to('#indice', {opacity:0, duration:0.3}, 0)
-  // 2. Smasher : le burger tombe et s'écrase sur la plaque
-    .to('#mot0', {opacity:1, duration:0.3}, 0.4)
-    .to('#base', {opacity:1, duration:0.2}, 0.3)
-    .to('#base', {y:0, duration:0.6, ease:'power3.in'}, 0.3)
-    .to('#base', {scaleY:0.84, scaleX:1.07, duration:0.2, ease:'power2.out'}, 0.9)
-    .to('#base', {scaleY:1, scaleX:1, duration:0.45, ease:'elastic.out(1,0.45)'}, 1.1)
-    .to('#mot0', {opacity:0, duration:0.3}, 1.4)
-  // 3. Assembler : le pain du dessus se pose
-    .to('#mot1', {opacity:1, duration:0.3}, 1.6)
-    .to('#haut', {opacity:1, duration:0.2}, 1.6)
-    .to('#haut', {y:0, rotation:0, duration:0.9, ease:'power2.inOut'}, 1.6)
-    .to('#base', {scaleY:0.96, scaleX:1.015, duration:0.12}, 2.5)
-    .to('#base', {scaleY:1, scaleX:1, duration:0.3, ease:'elastic.out(1,0.5)'}, 2.62)
-    .to('#mot1', {opacity:0, duration:0.3}, 2.8)
-  // 4. Couper : la lame descend, les deux moitiés s'ouvrent
-    .to('#mot2', {opacity:1, duration:0.3}, 3.0)
-    .to('#coupe', {opacity:1, height:'62vh', duration:0.5, ease:'power3.out'}, 3.0)
-    .set('#entier', {opacity:0}, 3.5).set('.sim-moitie', {opacity:1}, 3.5)
-    .to('#coupe', {opacity:0, duration:0.25}, 3.5)
-    .to('#moitieG', {xPercent:-9, rotation:-5, duration:0.6, ease:'power2.out'}, 3.5)
-    .to('#moitieD', {xPercent:9, rotation:5, duration:0.6, ease:'power2.out'}, 3.5)
-    .to('#mot2', {opacity:0, duration:0.3}, 4.0)
-  // 5. Tremper : la sauce monte, une moitié plonge dedans
-    .to('#mot3', {opacity:1, duration:0.3}, 4.2)
-    .to('#bassin', {bottom:'-24vh', duration:1, ease:'power2.out'}, 4.1)
-    .to('#moitieG', {xPercent:-40, opacity:0, duration:0.8, ease:'power2.in'}, 4.3)
-    .to('#moitieD', {xPercent:-8, y:vh(46), rotation:28, duration:1.3, ease:'power2.in'}, 4.3)
-    .to('#mot3', {opacity:0, duration:0.3}, 5.3)
-  // 6. Le visiteur plonge à son tour
-    .to('#legende', {opacity:0, duration:0.3}, 5.4)
-    .to('#dedans', {opacity:1, duration:0.6}, 6.5)
-    .to('#dedans h2', {scale:1.04, duration:0.8}, 6.7);
-  if(window.apbSauce) window.apbSauce(tl, 4.95, 5.4, 7);
+    .to('#legende', {opacity:0, duration:0.3}, 0.3)
+    .to('#studio', {opacity:1, duration:0.4}, 0.3)
+  // 2. Smasher : la plancha, la presse, la croûte
+    .to('#plancha', {opacity:1, duration:0.4}, 0.4)
+    .to('#plancha', {scale:1, duration:1.6, ease:'power1.out'}, 0.4)
+    .to('#mot0', {opacity:1, duration:0.3}, 0.6)
+    .to('#mot0', {opacity:0, duration:0.3}, 1.5)
+    .to('#plancha', {opacity:0, duration:0.4}, 1.6)
+  // 3. Assembler : chaque couche se pose, puis tout se resserre et la sauce fond
+    .to('#mot1', {opacity:1, duration:0.3}, 2.0);
+  couches.forEach(function(c, i){
+    tl.to(c[0], {opacity:1, duration:0.2}, 1.9 + i * 0.25)
+      .to(c[0], {yPercent:0, duration:0.55, ease:'power3.out'}, 1.9 + i * 0.25)
+      .to(c[0], {yPercent:c[1], duration:0.5, ease:'power2.inOut'}, 3.5);
+  });
+  tl.to('#assemble', {opacity:1, duration:0.4}, 3.9)
+    .set('.sim-couche', {opacity:0}, 4.3)
+    .to('#mot1', {opacity:0, duration:0.3}, 4.2)
+  // 4. Tremper : la caméra avance, le burger plonge dans le pot
+    .to('#pile', {scale:1.35, opacity:0, duration:0.5, ease:'power2.in'}, 4.5)
+    .to('#trempe', {opacity:1, duration:0.4}, 4.7)
+    .to('#trempe', {scale:1, duration:1.1, ease:'power1.out'}, 4.7)
+    .to('#mot3', {opacity:1, duration:0.3}, 4.8)
+    .to('#mot3', {opacity:0, duration:0.3}, 5.8)
+  // 5. Le visiteur plonge à son tour dans la sauce
+    .to('#trempe', {scale:2.6, duration:1, ease:'power2.in'}, 5.8)
+    .to('#voile', {opacity:1, duration:0.5}, 6.4)
+    .to('#dedans', {opacity:1, duration:0.5}, 6.7)
+    .to('#dedans h2', {scale:1.04, duration:0.8}, 6.9);
 
   gsap.utils.toArray('[data-r]').forEach(function(el){
     gsap.fromTo(el, {y:40, opacity:0}, {y:0, opacity:1, duration:0.7, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 85%', once:true}});
