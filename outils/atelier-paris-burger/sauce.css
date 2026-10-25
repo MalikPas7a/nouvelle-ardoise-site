@@ -1,0 +1,5 @@
+/* ---------- Sauce : reflet lent sur le bassin, nappe de plongée au bord adouci ---------- */
+.ix-bassin{overflow:hidden;background:
+  radial-gradient(ellipse 34% 16% at 38% 20%,rgba(255,244,214,.6),transparent 70%),
+  radial-gradient(ellipse 60% 50% at 50% 35%,var(--sauce-3) 0%,var(--sauce) 42%,var(--sauce-2) 82%,#8C5A1E 100%)}
+.ix-plongee{clip-path:none!important;transform:translateY(110%);-webkit-mask-image:linear-gradient(transparent,#000 9%);mask-image:linear-gradient(transparent,#000 9%)}
