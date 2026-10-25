@@ -7,32 +7,32 @@
 .btn::before,.btn::after{content:"";position:absolute;left:-2px;right:-2px;z-index:-1;pointer-events:none;transition:transform .65s cubic-bezier(.2,.8,.2,1)}
 .btn::before{top:-2px;bottom:-2px;background:var(--remplit,var(--sauce));transform:translateY(105%)}
 .btn::after{height:10px;top:-8px;background:var(--remplit,var(--sauce));-webkit-mask:var(--vague) 0 0/60px 10px repeat-x;mask:var(--vague) 0 0/60px 10px repeat-x;transform:translateY(calc(100% + 60px));animation:apb-vague 1.6s linear infinite paused}
-.btn:hover::before,.btn:focus-visible::before,.btn.presse::before{transform:translateY(0)}
-.btn:hover::after,.btn:focus-visible::after,.btn.presse::after{transform:translateY(-100%);animation-play-state:running}
+@media (hover:hover){.btn:hover::before,.btn:focus-visible::before,.btn.presse::before{transform:translateY(0)}}
+@media (hover:hover){.btn:hover::after,.btn:focus-visible::after,.btn.presse::after{transform:translateY(-100%);animation-play-state:running}}
 @keyframes apb-vague{to{-webkit-mask-position:60px 0;mask-position:60px 0}}
 .btn:active{transform:translateY(1px) scale(.985)}
 .btn-plein{--remplit:var(--sauce)}
-.btn-plein:hover,.btn-plein:focus-visible,.btn-plein.presse{background:var(--bordeaux);color:var(--bordeaux);border-color:var(--sauce)}
+@media (hover:hover){.btn-plein:hover,.btn-plein:focus-visible,.btn-plein.presse{background:var(--bordeaux);color:var(--bordeaux);border-color:var(--sauce)}}
 .btn-contour{--remplit:var(--bordeaux)}
-.btn-contour:hover,.btn-contour:focus-visible,.btn-contour.presse{background:transparent;color:var(--creme)}
-.sur-sombre .btn-plein:hover,.sur-sombre .btn-plein:focus-visible{background:var(--creme);color:var(--bordeaux);border-color:var(--sauce)}
+@media (hover:hover){.btn-contour:hover,.btn-contour:focus-visible,.btn-contour.presse{background:transparent;color:var(--creme)}}
+@media (hover:hover){.sur-sombre .btn-plein:hover,.sur-sombre .btn-plein:focus-visible{background:var(--creme);color:var(--bordeaux);border-color:var(--sauce)}}
 .sur-sombre .btn-contour{--remplit:var(--creme)}
-.sur-sombre .btn-contour:hover,.sur-sombre .btn-contour:focus-visible{background:transparent;color:var(--bordeaux)}
+@media (hover:hover){.sur-sombre .btn-contour:hover,.sur-sombre .btn-contour:focus-visible{background:transparent;color:var(--bordeaux)}}
 .fiche .action .btn{--remplit:var(--sauce)}
-.fiche .action .btn:hover{color:var(--bordeaux);background:var(--bordeaux)}
+@media (hover:hover){.fiche .action .btn:hover{color:var(--bordeaux);background:var(--bordeaux)}}
 .btn .roule{display:inline-grid;overflow:hidden;line-height:1.15;height:1.15em}
 .btn .roule>span{grid-area:1/1;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 .btn .roule>span+span{transform:translateY(110%)}
-.btn:hover .roule>span:first-child,.btn:focus-visible .roule>span:first-child{transform:translateY(-110%)}
-.btn:hover .roule>span+span,.btn:focus-visible .roule>span+span{transform:translateY(0)}
+@media (hover:hover){.btn:hover .roule>span:first-child,.btn:focus-visible .roule>span:first-child{transform:translateY(-110%)}}
+@media (hover:hover){.btn:hover .roule>span+span,.btn:focus-visible .roule>span+span{transform:translateY(0)}}
 
 /* Carte : un filet de sauce souligne le plat survolé, la goutte tombe */
 .plat{position:relative}
 .plat .nom{position:relative;width:fit-content}
 .plat .nom::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:100%;background:var(--sauce);transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
 .plat .goutte{position:absolute;width:7px;height:9px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--sauce);opacity:0;pointer-events:none}
-.plat:hover .nom::after,.plat:focus-visible .nom::after{transform:scaleX(1)}
-.plat:hover .vignette .ph,.plat:focus-visible .vignette .ph{transform:scale(1.04)}
+@media (hover:hover){.plat:hover .nom::after,.plat:focus-visible .nom::after{transform:scaleX(1)}}
+@media (hover:hover){.plat:hover .vignette .ph,.plat:focus-visible .vignette .ph{transform:scale(1.04)}}
 .plat .vignette .ph{transition:transform .8s cubic-bezier(.2,.8,.2,1)}
 @keyframes apb-goutte{0%{opacity:0;transform:translateY(-4px) scale(.4)}25%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(26px) scale(.7,1.2)}}
 
@@ -40,18 +40,18 @@
 .adresse .coord{display:block;margin-top:6px;font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;opacity:.7}
 .adresse .ph{overflow:hidden}
 .adresse .ph img,.adresse .ph video{transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
-.adresse:hover .ph img,.adresse:focus-visible .ph img{transform:scale(1.04)}
+@media (hover:hover){.adresse:hover .ph img,.adresse:focus-visible .ph img{transform:scale(1.04)}}
 .adresse h3{position:relative;width:fit-content}
 .adresse h3::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--sauce);transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
-.adresse:hover h3::after,.adresse:focus-visible h3::after{transform:scaleX(1)}
-.adresse .aller{display:inline-block;transition:transform .5s cubic-bezier(.2,.8,.2,1),letter-spacing .5s}
-.adresse:hover .aller,.adresse:focus-visible .aller{transform:translateX(8px)}
+@media (hover:hover){.adresse:hover h3::after,.adresse:focus-visible h3::after{transform:scaleX(1)}}
+.adresse .aller{display:inline-block;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+@media (hover:hover){.adresse:hover .aller,.adresse:focus-visible .aller{transform:translateX(8px)}}
 .adresse h3{transition:color .4s}
-.adresse:hover h3{color:var(--or)}
+@media (hover:hover){.adresse:hover h3{color:var(--bordeaux)}}
 
 /* Panier : la goutte de sauce part du bouton et tombe dans la commande */
 .vol-goutte{position:fixed;z-index:400;width:16px;height:20px;margin:-10px 0 0 -8px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--sauce);box-shadow:inset -3px -4px 0 rgba(0,0,0,.12);pointer-events:none}
-.panier.rebond{animation:apb-rebond .55s cubic-bezier(.3,1.6,.5,1)}
+.panier.rebond{animation:apb-rebond .4s cubic-bezier(.23,1,.32,1)}
 @keyframes apb-rebond{0%{transform:translateY(0) scale(1)}35%{transform:translateY(3px) scale(1.06,.94)}100%{transform:none}}
 
 /* Sceau « Depuis 1978 » qui tourne avec le défilement */
@@ -64,11 +64,11 @@
 
 /* Rideau bordeaux entre les pages de la maison */
 .rideau{position:fixed;inset:0;z-index:900;background:var(--bordeaux-2);display:grid;place-items:center;transform:translateY(100%);pointer-events:none}
-.rideau svg{width:72px;height:72px;color:var(--or);opacity:0;transform:scale(.85);transition:opacity .35s .1s,transform .5s .1s cubic-bezier(.2,.8,.2,1)}
-.rideau.entre{transition:transform .5s cubic-bezier(.7,0,.3,1);transform:translateY(0);pointer-events:auto}
+.rideau svg{width:72px;height:72px;color:var(--or);opacity:0;transition:opacity .15s}
+.rideau.entre{transition:transform .24s cubic-bezier(.32,.72,0,1);transform:translateY(0);pointer-events:auto}
 .rideau.entre svg,.rideau.part svg{opacity:1;transform:none}
 .rideau.couvre{transform:translateY(0)}
-.rideau.part{transition:transform .7s .1s cubic-bezier(.7,0,.3,1);transform:translateY(-100%)}
+.rideau.part{transition:transform .3s cubic-bezier(.32,.72,0,1);transform:translateY(-100%)}
 
 /* Pied : la signature géante */
 .signature{overflow:hidden;padding:clamp(40px,6vw,80px) 0 0;color:var(--or);font-family:var(--f-display);font-size:clamp(40px,10.6vw,176px);line-height:1;padding-bottom:.12em;letter-spacing:-.02em;white-space:nowrap;text-align:center}
@@ -92,7 +92,7 @@
 .adr-menu a{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:12px 14px;min-height:44px;text-decoration:none!important;opacity:1;color:var(--creme);transition:background .25s var(--ease)}
 .adr-menu a span{font:400 22px/1.1 var(--f-display);letter-spacing:0;text-transform:none}
 .adr-menu a small{font:500 10px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--or);white-space:nowrap}
-.adr-menu a:hover,.adr-menu a:focus-visible{background:rgba(242,235,221,.08)}
+@media (hover:hover){.adr-menu a:hover,.adr-menu a:focus-visible{background:rgba(242,235,221,.08)}}
 .adr-menu a[aria-current="page"]{background:rgba(217,145,37,.14)}
 .adr-menu .adr-maison{border-bottom:1px solid rgba(217,145,37,.25);margin-bottom:4px}
 .menu-mobile nav .menu-adr{display:grid;gap:2px;margin-top:var(--s3);padding-top:var(--s2);border-top:1px solid rgba(217,145,37,.3)}
@@ -104,7 +104,7 @@
 .ix-villes a{display:grid;gap:5px;justify-items:center;padding:12px 18px;min-width:150px;border:1px solid rgba(217,145,37,.45);color:var(--creme);text-decoration:none;transition:background .3s var(--ease),border-color .3s var(--ease)}
 .ix-villes a span{font:400 19px/1.1 var(--f-display)}
 .ix-villes a small{font:500 9.5px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--or)}
-.ix-villes a:hover,.ix-villes a:focus-visible{background:rgba(217,145,37,.16);border-color:var(--or)}
+@media (hover:hover){.ix-villes a:hover,.ix-villes a:focus-visible{background:rgba(217,145,37,.16);border-color:var(--or)}}
 @media (max-width:760px){.ix-villes{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ix-villes a{min-width:0;padding:10px 8px}.ix-villes a span{font-size:16px}}
 .ix-dedans{pointer-events:none}
 .ix-titre{z-index:8}
@@ -118,7 +118,7 @@ html:not(.notes) .variante,html:not(.notes) .exemple,html:not(.notes) .ix-legend
 html:not(.notes) .ph figcaption{font-size:0}
 html:not(.notes) .ph figcaption b{font-size:11px;opacity:.75}
 .bouton-notes{position:fixed;left:14px;bottom:14px;z-index:300;min-height:36px;padding:8px 12px;font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--creme);background:rgba(58,12,20,.82);border:1px solid rgba(217,145,37,.5);backdrop-filter:blur(6px);cursor:pointer;opacity:.7;transition:opacity .2s}
-.bouton-notes:hover,.bouton-notes:focus-visible,.bouton-notes[aria-pressed="true"]{opacity:1}
+@media (hover:hover){.bouton-notes:hover,.bouton-notes:focus-visible,.bouton-notes[aria-pressed="true"]{opacity:1}}
 /* Plus aucun texte sous 11 px */
 .exemple,.statut,.pastille,.insta .ph figcaption,.ix-villes a small{font-size:11px}
 .sceau text{font-size:9px}
