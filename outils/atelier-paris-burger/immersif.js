@@ -68,13 +68,20 @@
     }
     if(!reduit){
       var tour = sc.querySelector('svg'), angle = 0, vitesse = 0, dernier = window.scrollY;
-      (function boucle(){
+      function boucle(){
         var y = window.scrollY, v = Math.abs(y - dernier); dernier = y;
         vitesse += (Math.min(v, 60) * .25 - vitesse) * .08;
         angle = (angle + .12 + vitesse) % 360;
         tour.style.transform = 'rotate(' + angle + 'deg)';
-        requestAnimationFrame(boucle);
-      })();
+        if(visible) requestAnimationFrame(boucle); else enCours = false;
+      }
+      // La boucle ne tourne que lorsque le sceau est à l'écran
+      var visible = true, enCours = true;
+      new IntersectionObserver(function(e){
+        visible = e[0].isIntersecting;
+        if(visible && !enCours){ enCours = true; dernier = window.scrollY; requestAnimationFrame(boucle); }
+      }).observe(sc);
+      boucle();
     }
   }
 
@@ -152,7 +159,7 @@
       try { sessionStorage.removeItem('apb-rideau'); } catch(e){}
       rideau.classList.add('couvre');
       requestAnimationFrame(function(){ requestAnimationFrame(function(){ rideau.classList.add('part'); }); });
-      setTimeout(function(){ rideau.className = 'rideau'; }, 650);
+      setTimeout(function(){ rideau.className = 'rideau'; }, 360);
     }
     document.addEventListener('click', function(e){
       var l = e.target.closest && e.target.closest('a[href]');
@@ -163,7 +170,7 @@
       e.preventDefault();
       try { sessionStorage.setItem('apb-rideau', '1'); } catch(err){}
       rideau.className = 'rideau entre';
-      setTimeout(function(){ location.href = u.href; }, 300);
+      setTimeout(function(){ location.href = u.href; }, 240);
     });
     window.addEventListener('pageshow', function(e){ if(e.persisted) rideau.className = 'rideau'; });
   }

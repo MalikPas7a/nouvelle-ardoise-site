@@ -170,7 +170,21 @@ css_maison = r'''
 .fil a{color:var(--or);text-decoration:none}
 .fil a:hover{text-decoration:underline}
 '''
-ecrire('assets/apb.css', '/* Atelier Paris Burger · styles partagés (maquette Nouvelle Ardoise) */\n' + css + css_maison + immersif_css)
+# Décor allégé (choix de Malik, 25.10) : la police machine à écrire en petites capitales faisait « site généré ».
+# Les étiquettes passent en Manrope, en minuscules, à 13 px minimum. Seuls la signature de la marque et le sceau gardent les capitales.
+GARDER_CAPITALES = ('.marque span', '.pied .logo p', '.sceau text')
+def alleger(feuille):
+    def regle(m):
+        sel, corps = m.group(1), m.group(2)
+        if 'var(--f-mono)' not in corps or sel.strip().endswith(GARDER_CAPITALES):
+            return m.group(0)
+        corps = corps.replace(';text-transform:uppercase', '').replace('text-transform:uppercase;', '').replace('text-transform:uppercase', '')
+        corps = re.sub(r'letter-spacing:\.\d+em', 'letter-spacing:.005em', corps)
+        corps = re.sub(r'(font:\s*\d{3}\s+)(\d+(?:\.\d+)?)px', lambda f: f.group(1) + ('13' if float(f.group(2)) < 13 else f.group(2)) + 'px', corps)
+        return sel + '{' + corps + '}'
+    feuille = re.sub(r'([^{}]+)\{([^{}]*)\}', regle, feuille)
+    return feuille.replace('--f-mono:"DM Mono",ui-monospace,Menlo,monospace', '--f-mono:"Manrope","Helvetica Neue",Arial,sans-serif')
+ecrire('assets/apb.css', alleger('/* Atelier Paris Burger · styles partagés (maquette Nouvelle Ardoise) */\n' + css + css_maison + immersif_css))
 
 # ---------- Adresses ----------
 def maps(a):
@@ -202,7 +216,7 @@ def tete(titre, description, prefixe_assets, extra_css=''):
 <meta name="theme-color" content="#4A1019">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Manrope:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Manrope:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="%sassets/apb.css">%s
 </head>
 ''' % (html.escape(titre), html.escape(description), prefixe_assets, extra_css)
@@ -316,6 +330,7 @@ def scripts_fin(racine):
 ''' % racine
 
 def carte_devise(sec, devise):
+    sec = re.sub(r"Noms et prix d'exemple[^<]*", "La carte signature, la même dans toutes nos adresses. Touchez un plat pour le découvrir.", sec)
     if devise == '€':
         sec = re.sub(r'\[(\d+)\.–\]', lambda m: '[%d,50 €]' % max(1, int(m.group(1)) - 1), sec)
         sec = re.sub(r"Noms et prix d'exemple[^<]*", "La carte signature, la même dans toutes nos adresses. Touchez un plat pour le découvrir.", sec)
@@ -499,14 +514,15 @@ def ouverture_html(racine):
     villes = barre_villes().replace('<a href="', '<a href="' + racine)
     hero = ('    <div class="ov-p ov-hero" id="titre"><div class="ov-hero-in"><h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Paris · Madrid · Ibiza · Genève</p>' + villes + '</div>'
             '<div class="ov-indice" aria-hidden="true"><span class="lab">Faites défiler</span><i></i></div>'
-            '<p class="ov-credit lab"><b>Visuels d\'intention.</b> Remplacés par la séquence filmée au shooting.</p></div>\n')
+            '<figure class="ov-hero-img"><img src="%shero-trempe.webp" alt="Le burger trempé dans la sauce Café de Paris" width="1536" height="2752" fetchpriority="high" decoding="async">'
+            '<figcaption class="ov-credit">Visuel d\'intention, remplacé au shooting</figcaption></figure></div>\n' % S)
     couches = ''.join('<div class="ov-couche" id="%s">%s<span class="ov-etq %s%s" style="top:%s%%">%s</span></div>' % (i, img(f, ''), cote, ' ov-etq-sauce' if i == 'ov-sauce' else '', top, txt) for i, f, cote, top, txt in OV_COUCHES)
     assemble = ('    <figure class="ov-p ov-v ov-assemblage" id="v-assemble" aria-label="Assembler"><div class="ov-pile" aria-hidden="true">' + couches + img('assemble', 'ov-assemble') + '</div><div class="ov-ombre"></div>'
                 '<figcaption class="ov-mot">Assembler.<small>Pain brioché, double steak, cheddar, oignons et la <b>sauce Café de Paris</b>.</small></figcaption></figure>\n')
     def chap(c):
         an, lab, titre, texte, ph = c
         photo = '<div class="ix-ph"><span><b>%s</b>%s</span></div>' % ph if ph else ''
-        return '    <article class="ov-p ov-t"><div class="ix-an" data-r>%s</div><div data-r><span class="lab">%s</span><h3>%s</h3><p>%s</p></div>%s</article>\n' % (an, lab, titre, texte, photo)
+        return '    <article class="ov-p ov-t"><div class="ix-an" data-r>%s</div><div data-r><h3>%s</h3><p>%s</p></div>%s</article>\n' % (an, titre, texte, photo)
     def etape(e):
         f, mot, sous, pos = e
         return ('    <figure class="ov-p ov-v" aria-label="%s">%s<div class="ov-ombre"></div><figcaption class="ov-mot">%s<small>%s</small></figcaption></figure>\n'
@@ -516,7 +532,7 @@ def ouverture_html(racine):
         corps += etape(e) + chap(c)
     fin = ('    <div class="ov-p ov-fin"><svg aria-hidden="true"><use href="#apb-logo"/></svg><p>Une maison, une sauce.</p>'
            '<a class="btn btn-plein" href="%s#carte">Découvrir la carte</a></div>\n' % racine)
-    return ('<section class="ov" id="ouverture" aria-label="Ouverture et histoire de la maison">\n  <h2 class="sr-only">L\'histoire de la maison</h2>\n  <div class="ov-piste" id="piste">\n' + hero + corps + fin +
+    return ('<section class="ov" id="ouverture" aria-label="Ouverture et histoire de la maison">\n  <div class="ov-piste" id="piste">\n' + hero + '    <h2 class="sr-only">L\'histoire de la maison</h2>\n' + corps + fin +
             '  </div>\n</section>\n<span id="histoire" aria-hidden="true"></span>')
 
 js_maison = '''<script>
