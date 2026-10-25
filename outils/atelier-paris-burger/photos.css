@@ -6,6 +6,6 @@ html:not(.notes) .ph:has(>.ph-img) figcaption,html:not(.notes) .ix-ph:has(>.ph-i
 .ph:has(>.ph-img) figcaption,.ix-ph:has(>.ph-img)>span{z-index:1;background:rgba(26,20,18,.72);color:#F2EBDD;padding:8px 10px}
 .ix-chap .ix-ph:has(>.ph-img){overflow:hidden;border:0}
 .ix-chap .ix-ph .ph-img{transition:transform 1.2s var(--ease)}
-.ix-chap .ix-ph:hover .ph-img{transform:scale(1.03)}
+@media (hover:hover){.ix-chap .ix-ph:hover .ph-img{transform:scale(1.03)}}
 .adresse .ph .ph-img{filter:sepia(.18) saturate(.92) contrast(1.02)}
 .credit-photos{display:block;font:500 10px/1.5 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;opacity:.7}

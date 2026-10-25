@@ -5,7 +5,7 @@
 .ov-piste{position:relative}
 .ov-p{position:relative;margin:0;overflow:hidden}
 .ov-hero{min-height:100vh;min-height:100svh;display:grid;place-items:center;text-align:center;padding:110px var(--gutter) 90px;
-  background:radial-gradient(ellipse 70% 60% at 50% 55%,#5E1724 0%,#3A0C14 60%,#240609 100%)}
+  background:#3A0C14}
 .ov-hero h1{font-size:clamp(46px,8vw,128px)}
 .ov-hero h1 em{font-style:normal;color:var(--or)}
 .ov-hero>div>p{margin-top:22px;color:#C9AE97}
@@ -35,13 +35,13 @@
 .ov-etq::before{content:"";width:46px;height:1px;background:var(--or);flex:none}
 .ov-etq.d{left:84%;white-space:normal;width:min(190px,calc((66vw - 100svh*1536/2752)/2))}
 .ov-etq.g{right:86%;flex-direction:row-reverse}
-.ov-etq.ov-etq-sauce{color:var(--or);font:400 22px/1.1 var(--f-display);letter-spacing:0;text-transform:none}
+.ov-etq.ov-etq-sauce{color:var(--or)}
 
 /* Panneaux chapitre : la sauce en aplat, texte bordeaux */
 .ov-t{background:var(--sauce);color:var(--bordeaux);display:flex;flex-direction:column;justify-content:center;padding:110px var(--gutter) 80px}
 .ov-t .ix-an{font:400 clamp(56px,7vw,112px)/.9 var(--f-display);letter-spacing:-.04em}
 .ov-t .lab{display:block;margin-top:22px;color:#5A2A12}
-.ov-t h3{margin-top:10px;font-size:clamp(28px,3vw,46px)}
+.ov-t h3{margin-top:28px;font-size:clamp(28px,3vw,46px)}
 .ov-t p{margin-top:14px;font-size:18px;line-height:1.55;color:#4A2310;max-width:40ch}
 .ov-t .ix-ph{margin-top:26px;aspect-ratio:3/2;position:relative;overflow:hidden;max-width:min(100%,calc(36svh*1.5))}
 .ov-t .ix-ph>span{display:none}
@@ -120,3 +120,36 @@ html:not(.notes) div:has(> p > a[href="tel:+41000000000"]){display:none}
 .ov-fin .btn{background:var(--creme);color:var(--bordeaux);border-color:var(--creme)}
 .ov-fin p{font-size:clamp(28px,3vw,46px)}
 .ouverture .media .ph::before,.ouverture .media .ph::after{display:none}
+
+/* Premier écran : le produit tout de suite, la sauce en grand à côté du titre */
+.ov-hero-img{position:relative;margin:0;overflow:hidden;background:#000}
+.ov-hero-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 58%}
+.ov-hero .ov-credit{position:absolute;left:auto;top:auto;right:16px;bottom:14px;max-width:none;font:400 11px/1.4 var(--f-texte);letter-spacing:0;text-transform:none;color:rgba(242,235,221,.62);text-align:right}
+@media (min-width:901px){
+  .ov-hero{display:grid;grid-template-columns:minmax(0,1fr) 44%;place-items:stretch;text-align:left;padding:0}
+  .ov-hero-in{align-self:center;padding:110px clamp(36px,4.4vw,80px) 120px}
+  .ov-hero h1{font-size:clamp(56px,6.6vw,112px)}
+  .ov-hero .ix-villes{max-width:640px}
+  .ov-indice{left:clamp(36px,4.4vw,80px);transform:none}
+}
+@media (max-width:900px){
+  .ov-hero{display:flex;flex-direction:column;padding:0;place-items:stretch;min-height:0}
+  .ov-hero-img{order:-1;height:54svh;flex:none}
+  .ov-hero-in{padding:28px var(--gutter) 84px}
+  .ov-hero h1{font-size:clamp(44px,12.5vw,60px)}
+}
+/* En-tête plein sur l'accueil : le menu ne flotte pas sur la photo */
+body[data-page="maison"] .top{background:#3A0C14;border-bottom-color:rgba(217,145,37,.25)}
+
+/* Adresses du premier écran : une liste, pas des boîtes */
+.ov-hero .ix-villes{display:grid;grid-template-columns:repeat(2,minmax(0,max-content));justify-content:start;gap:18px 44px;margin-top:40px}
+.ov-hero .ix-villes a{display:grid;gap:4px;justify-items:start;padding:0;min-width:0;border:0;background:none}
+.ov-hero .ix-villes a>span{font:400 clamp(20px,1.7vw,26px)/1.1 var(--f-display);transition:color .3s var(--ease)}
+.ov-hero .ix-villes a small{font:500 13px/1.3 var(--f-texte);letter-spacing:0;text-transform:none;color:var(--or)}
+.ov-hero .ix-villes a small *{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit}
+@media (hover:hover){.ov-hero .ix-villes a:hover>span{color:var(--or)}}
+.ov-hero .ix-villes a:hover,.ov-hero .ix-villes a:focus-visible{background:none}
+@media (max-width:900px){.ov-hero-in{text-align:left}.ov-hero .ix-villes{gap:16px 28px;margin-top:28px}.ov-hero .ix-villes a>span{font-size:20px}}
+@media (max-width:900px){.ov-indice{left:var(--gutter);transform:none}}
+/* Le premier écran cadre la coulure et le bol : la sauce, pas la même image que « Tremper » */
+.ov-hero-img img{object-position:56% 82%;transform:scale(1.32);transform-origin:56% 88%}
