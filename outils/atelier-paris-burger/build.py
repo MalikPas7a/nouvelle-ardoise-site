@@ -527,13 +527,14 @@ def ouverture_html(racine):
         f, mot, sous, pos = e
         return ('    <figure class="ov-p ov-v" aria-label="%s">%s<div class="ov-ombre"></div><figcaption class="ov-mot">%s<small>%s</small></figcaption></figure>\n'
                 % (mot.rstrip('.'), img(f, 'ov-img', pos).replace('alt=""', 'alt="%s"' % sous.rstrip('.')), mot, sous))
-    corps = assemble + chap(OV_CHAPITRES[0])
-    for e, c in zip(OV_ETAPES, OV_CHAPITRES[1:]):
-        corps += etape(e) + chap(c)
-    fin = ('    <div class="ov-p ov-fin"><svg aria-hidden="true"><use href="#apb-logo"/></svg><p>Une maison, une sauce.</p>'
-           '<a class="btn btn-plein" href="%s#carte">Découvrir la carte</a></div>\n' % racine)
-    return ('<section class="ov" id="ouverture" aria-label="Ouverture et histoire de la maison">\n  <div class="ov-piste" id="piste">\n' + hero + '    <h2 class="sr-only">L\'histoire de la maison</h2>\n' + corps + fin +
-            '  </div>\n</section>\n<span id="histoire" aria-hidden="true"></span>')
+    # Le burger d'abord, seul, à l'horizontale ; l'histoire ensuite, dans sa propre section (retour Malik 25.10 : mélangés, on ne comprenait rien)
+    hist = ''.join('      <li class="hist-ch"><span class="hist-mot">%s</span><h3>%s</h3><p>%s</p></li>\n' % (an, titre, texte) for an, lab, titre, texte, ph in OV_CHAPITRES)
+    histoire = ('<section class="hist" id="histoire" aria-labelledby="hist-titre">\n  <div class="wrap">\n'
+                '    <h2 id="hist-titre">Une sauce, <em>quarante ans</em> d\'histoire.</h2>\n'
+                '    <ol class="hist-liste">\n' + hist + '    </ol>\n  </div>\n</section>\n')
+    return ('<section class="ov-hero-s" aria-label="Accueil">\n' + hero.replace('class="ov-p ov-hero"', 'class="ov-hero"') + '</section>\n'
+            '<section class="ov" id="ouverture" aria-label="Le burger, étape par étape">\n  <h2 class="sr-only">Le burger, étape par étape</h2>\n  <div class="ov-piste" id="piste">\n'
+            + assemble + ''.join(etape(e) for e in OV_ETAPES) + '  </div>\n</section>\n' + histoire)
 
 js_maison = '''<script>
 // Ouverture au scroll : smasher, assembler, couper, tremper, plonger dans la sauce
@@ -550,7 +551,7 @@ carte_m = carte_m.replace("Noms et prix d'exemple, à remplacer par la carte dé
                           "La carte signature, la même dans toutes nos adresses. Prix et disponibilités selon l'adresse. Touchez un plat pour le découvrir.")
 accueil = tete('Atelier Paris Burger · La maison', 'Une maison, une sauce. Burger, baguette et la sauce de la maison, à Madrid, Ibiza et Genève.', '') + \
     '<body data-page="maison">\n' + logo + '\n' + \
-    entete('./', [('#ouverture', "L'histoire"), ('#carte', 'La carte')], 'Liste d\'ouverture', 'geneve-eaux-vives/#liste') + \
+    entete('./', [('#histoire', "L'histoire"), ('#carte', 'La carte')], 'Liste d\'ouverture', 'geneve-eaux-vives/#liste') + \
     '\n<main id="contenu">\n' + ouverture_html('') + '\n\n' + carte_m + '\n\n' + carte_adresses('') + '\n' + s_insta + '\n</main>\n\n' + \
     pied('') + '\n' + fiche + '\n' + scripts_fin('') + '</body>\n</html>\n'
 ecrire('index.html', accueil)
