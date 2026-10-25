@@ -18,20 +18,35 @@ def section(nom):
 
 # Photos d'essai libres de droits (CC0, rawpixel via Openverse), posées dans les cadres en attendant le shooting
 PHOTOS = {
+    # Villes : photos libres de droits (CC0). Plats : visuels d'intention du lancement, sauce en beurre doré.
     'Photo archive ou reconstitution': ('paris', 'Avenue des Champs-Élysées, Paris, photo d\'archive'),
     'Photo · Les adresses': ('ibiza-ville', 'Ibiza, la vieille ville vue du port'),
-    'Photo · Façade, lac et Jet d\'eau': ('eaux-vives', 'Les quais de Genève, photo d\'archive'),
-    'Photo 6 · Façade, lac et Jet d\'eau': ('eaux-vives', 'Les quais de Genève, photo d\'archive'),
+    'Photo · Façade, lac et Jet d\'eau': ('insta-6', 'Le burger de la maison face au Jet d\'eau'),
+    'Photo 6 · Façade, lac et Jet d\'eau': ('insta-6', 'Le burger de la maison face au Jet d\'eau'),
     'Photo · Façade de Versoix': ('versoix', 'Le Léman vu de la rive'),
+    'Photo 6 · Façade et terrasse de Versoix': ('versoix', 'Le Léman vu de la rive'),
     'Photo · Façade de Madrid': ('madrid', 'Façades de la Gran Vía, Madrid'),
     'Photo · Façade d\'Ibiza': ('ibiza', 'Ruelle de la vieille ville d\'Ibiza'),
+    'Photo · Burger et baguette': ('coupe-large', 'Le burger de la maison coupé en deux'),
+    'Photo · La sauce': ('sauce', 'La sauce de la maison qui coule dans le pot'),
+    'Photo 3a · Couper': ('geste-couper', 'Le burger coupé net en deux'),
+    'Photo 3b · Tremper': ('geste-tremper', 'La moitié trempée dans la sauce'),
+    'Photo 3c · Croquer': ('geste-croquer', 'La moitié nappée de sauce, prête à croquer'),
+    'Photos 4 · Plats de la carte': ('carte', 'Le burger signature de la maison'),
+    'Photo 5 · Salle et comptoir': ('plancha-large', 'La viande écrasée sur la plancha'),
+    'Photo 7a': ('insta-1', 'La plancha'),
+    'Photo 7b': ('insta-2', 'Le burger assemblé'),
+    'Photo 7c': ('insta-3', 'Le burger coupé'),
+    'Photo 7d': ('insta-4', 'Le trempage'),
+    'Photo 7e': ('insta-5', 'Le burger en couches'),
+    'Photo 7f': ('insta-6', 'Face au Jet d\'eau'),
 }
 def poser_photos(contenu, racine):
     for lab, (f, alt) in PHOTOS.items():
         motif = re.compile(r'(<(?:div|figure) class="[^"]*\b(?:ix-ph|ph)\b[^"]*"[^>]*>)(\s*<(?:figcaption|span)><b>' + re.escape(lab) + '</b>)')
         img = '<img class="ph-img" src="%sassets/photos/%s.webp" alt="%s" loading="lazy" decoding="async">' % (racine, f, html.escape(alt))
         contenu = motif.sub(lambda m: m.group(1) + img + m.group(2), contenu)
-    return contenu.replace('Maquette Nouvelle Ardoise · photos à venir', 'Maquette Nouvelle Ardoise · photos d\'essai libres de droits (CC0), remplacées au shooting')
+    return contenu.replace('Maquette Nouvelle Ardoise · photos à venir', 'Maquette Nouvelle Ardoise · photos d\'essai (villes libres de droits, plats en visuels d\'intention), remplacées au shooting')
 
 def ecrire(chemin, contenu):
     if chemin.endswith('.html'):
