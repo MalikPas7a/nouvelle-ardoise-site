@@ -503,7 +503,7 @@ fin_sim = '''<section class="sim-fin">
 simulation = tete('Atelier Paris Burger · Simulation de l\'ouverture', 'Essai de l\'ouverture au scroll avant le tournage.', '../', '\n<style>\n' + css_sim + '</style>') + \
     '<body data-page="maison" class="sim">\n' + logo + '\n' + \
     entete('../', [('../#histoire', "L'histoire"), ('../#carte', 'La carte')], 'Nos adresses', '../#adresses') + \
-    '\n<main id="contenu">\n' + ihtml_sim + '\n\n' + ihist2 + '\n\n' + fin_sim + '\n</main>\n\n' + \
+    '\n<main id="contenu">\n<div class="sim-duo" id="duo">\n' + ihtml_sim + '\n\n' + ihist2 + '\n</div>\n\n' + fin_sim + '\n</main>\n\n' + \
     pied('../') + '\n' + scripts_fin('../') + '<script>\n' + js_sim + '</script>\n</body>\n</html>\n'
 ecrire('simulation/index.html', simulation)
 print('ok')

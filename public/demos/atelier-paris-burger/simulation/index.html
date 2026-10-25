@@ -44,6 +44,32 @@
 .statique .sim-studio{position:relative;inset:auto;opacity:1;height:80vh;margin-top:48px;background:none}
 .statique .sim-plancha,.statique .sim-trempe,.statique .sim-coupe,.statique .sim-couche,.statique .sim-voile{display:none}
 .statique .sim-pile .sim-assemble{opacity:1}
+.statique .sim-duo{display:block}
+/* Ordinateur : écran coupé en deux, l'animation fixe à gauche, l'histoire défile à l'horizontale à droite */
+@media (min-width:901px){
+  .sim-duo{display:grid;grid-template-columns:50vw 50vw;height:100vh;height:100svh;overflow:hidden;background:var(--sauce)}
+  .sim-duo>.ix-scene{grid-column:1;grid-row:1;position:relative;z-index:2}
+  .sim-duo>.ix-histoire{grid-column:2;grid-row:1;display:flex;height:100%;overflow:visible;background:none;will-change:transform}
+  .sim-duo>.ix-histoire::before,.sim-duo>.ix-histoire::after{display:none}
+  .sim-duo .ix-entete,.sim-duo .ix-chap{flex:0 0 50vw;width:50vw;max-width:none;height:100%;min-height:0;margin:0;display:flex;flex-direction:column;justify-content:center;padding:96px clamp(32px,4.5vw,72px) 48px}
+  .sim-duo .ix-entete h2{font-size:clamp(40px,4.4vw,72px)}
+  .sim-duo .ix-chap{gap:12px}
+  .sim-duo .ix-chap+.ix-chap,.sim-duo .ix-entete+.ix-chap{border-left:1px solid rgba(74,16,25,.18)}
+  .sim-duo .ix-chap .ix-an{font-size:clamp(52px,5.6vw,96px)}
+  .sim-duo .ix-chap .ix-txt h3{font-size:clamp(26px,2.6vw,40px)}
+  .sim-duo .ix-chap .ix-txt p{font-size:17px;margin-top:12px}
+  .sim-duo .ix-chap .ix-ph{margin-top:20px;width:min(100%,calc(38svh*1.5))}
+  .sim-duo .ix-titre h1{font-size:clamp(46px,5.2vw,88px)}
+  .sim-duo .ix-titre .ix-villes{max-width:520px;margin-inline:auto}
+  .sim-duo .ix-mot{right:auto;left:var(--gutter);top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 40px);transform:none}
+  .sim-duo .sim-plancha-ombre{background:linear-gradient(0deg,rgba(5,2,3,.6),transparent 40%)}
+  .sim-duo .sim-trempe,.sim-duo .sim-coupe{-webkit-mask-image:none;mask-image:none}
+  .sim-duo .ix-dedans{display:none}
+  .sim-duo .sim-voile{background:var(--sauce)}
+  .statique .sim-duo{display:block;height:auto;overflow:visible}
+  .statique .sim-duo>.ix-histoire{display:block}
+  .statique .sim-duo .ix-entete,.statique .sim-duo .ix-chap{width:auto;height:auto;min-height:100svh}
+}
 </style>
 </head>
 <body data-page="maison" class="sim">
@@ -94,6 +120,7 @@
 </div>
 
 <main id="contenu">
+<div class="sim-duo" id="duo">
 <section class="ix-scene" id="scene" aria-label="Ouverture">
     <div class="ix-titre" id="titre"><h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Paris · Madrid · Ibiza · Genève</p><nav class="ix-villes" aria-label="Choisir une adresse"><a href="../geneve-eaux-vives/"><span>Genève Eaux-Vives</span><small>Ouverture novembre 2026</small></a><a href="../geneve-versoix/"><span>Genève Versoix</span><small>[Statut à confirmer]</small></a><a href="../madrid/"><span>Madrid</span><small>Ouvert</small></a><a href="../ibiza/"><span>Ibiza</span><small>Ouvert</small></a></nav></div>
     <div class="ix-indice" id="indice"><span class="lab">Faites défiler</span><i></i></div>
@@ -123,6 +150,7 @@
     <div class="ix-chap"><div class="ix-an" data-r>Atelier</div><div class="ix-txt" data-r><span class="lab">Chapitre 3 · Le geste</span><h3>Faire évoluer l'héritage, pas le copier.</h3><p>Le burger premium et la baguette portent un savoir-faire précis, exigeant et constant. Fidèle à l'esprit d'origine, avec sa propre identité.</p><div class="ix-ph"><img class="ph-img" src="../assets/photos/coupe-large.webp" alt="Le burger de la maison coupé en deux" loading="lazy" decoding="async"><span><b>Photo · Burger et baguette</b>Côte à côte, même lumière · 3:2</span></div></div></div>
     <div class="ix-chap"><div class="ix-an" data-r>Europe</div><div class="ix-txt" data-r><span class="lab">Chapitre 4 · Aujourd'hui</span><h3>De Genève à l'Europe.</h3><p>Un restaurant phare à Genève, l'Espagne pour première étape avec Madrid, Barcelone et Ibiza, et des cuisines dédiées à la livraison à travers l'Europe.</p><div class="ix-ph"><img class="ph-img" src="../assets/photos/ibiza-ville.webp" alt="Ibiza, la vieille ville vue du port" loading="lazy" decoding="async"><span><b>Photo · Les adresses</b>Montage de façades, même cadrage · 3:2</span></div></div></div>
   </section>
+</div>
 
 <section class="sim-fin">
   <span class="lab">Simulation · avant le tournage</span>
@@ -153,55 +181,68 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce || !window.gsap || !window.ScrollTrigger){ document.documentElement.classList.add('statique'); return; }
   gsap.registerPlugin(ScrollTrigger);
-  // Décalage de chaque couche entre la vue éclatée et le burger assemblé (en % de la hauteur de l'image)
-  var couches = [['#pBas', -7.3], ['#oignons', -3.9], ['#steaks', 0], ['#sauce', 6.2], ['#pHaut', 11.6]];
-  couches.forEach(function(c){ gsap.set(c[0], {yPercent:-55, opacity:0}); });
-  // Transitions par zoom avant : l'image sortante plonge vers son sujet, l'entrante arrive grossie et se pose
-  gsap.set('#plancha', {scale:1.4, opacity:0, transformOrigin:'45% 62%'});
-  gsap.set('#coupe', {scale:1.4, opacity:0, transformOrigin:'50% 50%'});
-  gsap.set('#trempe', {scale:1.4, opacity:0, transformOrigin:'52% 74%'});
+  function ouverture(duo){
+    // Décalage de chaque couche entre la vue éclatée et le burger assemblé (en % de la hauteur de l'image)
+    var couches = [['#pBas', -7.3], ['#oignons', -3.9], ['#steaks', 0], ['#sauce', 6.2], ['#pHaut', 11.6]];
+    couches.forEach(function(c){ gsap.set(c[0], {yPercent:-55, opacity:0}); });
+    // Transitions par zoom avant : l'image sortante plonge vers son sujet, l'entrante arrive grossie et se pose
+    gsap.set('#plancha', {scale:1.4, opacity:0, transformOrigin:'45% 62%'});
+    gsap.set('#coupe', {scale:1.4, opacity:0, transformOrigin:'50% 50%'});
+    gsap.set('#trempe', {scale:1.4, opacity:0, transformOrigin:'52% 74%'});
 
-  var tl = gsap.timeline({defaults:{ease:'none'}, scrollTrigger:{trigger:'#scene', start:'top top', end:'+=950%', scrub:1, pin:true, anticipatePin:1, invalidateOnRefresh:true}});
-  // 1. Le titre s'efface, le studio noir s'installe
-  tl.to('#titre', {opacity:0, y:-60, duration:0.6}, 0).to('#indice', {opacity:0, duration:0.3}, 0)
-    .to('#legende', {opacity:0, duration:0.3}, 0.3)
-    .to('#studio', {opacity:1, duration:0.4}, 0.3)
-  // 2. Assembler : chaque couche se pose, puis tout se resserre et la sauce fond
-    .to('#mot1', {opacity:1, duration:0.3}, 0.6);
-  couches.forEach(function(c, i){
-    tl.to(c[0], {opacity:1, duration:0.2}, 0.5 + i * 0.25)
-      .to(c[0], {yPercent:0, duration:0.55, ease:'power3.out'}, 0.5 + i * 0.25)
-      .to(c[0], {yPercent:c[1], duration:0.5, ease:'power2.inOut'}, 2.1);
-  });
-  tl.to('#assemble', {opacity:1, duration:0.4}, 2.5)
-    .set('.sim-couche', {opacity:0}, 2.9)
-    .to('#mot1', {opacity:0, duration:0.3}, 2.8)
-  // 3. Smasher : zoom dans le burger, on arrive sur la plancha
-    .to('#pile', {scale:1.8, duration:0.6, ease:'power2.in'}, 2.95)
-    .to('#pile', {opacity:0, duration:0.25}, 3.3)
-    .to('#plancha', {opacity:1, duration:0.25}, 3.3)
-    .to('#plancha', {scale:1, duration:1.2, ease:'power2.out'}, 3.3)
-    .to('#mot0', {opacity:1, duration:0.3}, 3.5)
-    .to('#mot0', {opacity:0, duration:0.3}, 4.3)
-  // 4. Couper : zoom dans la viande écrasée, on arrive sur les deux moitiés
-    .to('#plancha', {scale:1.8, duration:0.6, ease:'power2.in'}, 4.4)
-    .to('#plancha', {opacity:0, duration:0.25}, 4.75)
-    .to('#coupe', {opacity:1, duration:0.25}, 4.75)
-    .to('#coupe', {scale:1, duration:1.1, ease:'power2.out'}, 4.75)
-    .to('#mot2', {opacity:1, duration:0.3}, 4.95)
-    .to('#mot2', {opacity:0, duration:0.3}, 5.8)
-  // 5. Tremper : zoom dans la coupe, on arrive sur le pot
-    .to('#coupe', {scale:1.8, duration:0.6, ease:'power2.in'}, 5.85)
-    .to('#coupe', {opacity:0, duration:0.25}, 6.2)
-    .to('#trempe', {opacity:1, duration:0.25}, 6.2)
-    .to('#trempe', {scale:1, duration:1, ease:'power2.out'}, 6.2)
-    .to('#mot3', {opacity:1, duration:0.3}, 6.4)
-    .to('#mot3', {opacity:0, duration:0.3}, 7.1)
-  // 6. Le visiteur plonge à son tour dans la sauce
-    .to('#trempe', {scale:2.6, duration:1, ease:'power2.in'}, 7.2)
-    .to('#voile', {opacity:1, duration:0.5}, 7.8)
-    .to('#dedans', {opacity:1, duration:0.5}, 8.1)
-    .to('#dedans h2', {scale:1.04, duration:0.8}, 8.3);
+    // Ordinateur : l'écran coupé en deux est épinglé, l'animation à gauche, les chapitres défilent à l'horizontale à droite.
+    // Téléphone : la scène est épinglée en plein écran, l'histoire vient après.
+    var tl = gsap.timeline({defaults:{ease:'none'}, scrollTrigger: duo
+      ? {trigger:'#duo', start:'top top', end:'+=600%', scrub:1, pin:true, anticipatePin:1, invalidateOnRefresh:true}
+      : {trigger:'#scene', start:'top top', end:'+=950%', scrub:1, pin:true, anticipatePin:1, invalidateOnRefresh:true}});
+    if(duo){
+      var hist = document.getElementById('histoire');
+      tl.to(hist, {x:function(){ return -(hist.scrollWidth - hist.offsetWidth); }, duration:8.4}, 0.4);
+    }
+    // 1. Le titre s'efface, le studio noir s'installe
+    tl.to('#titre', {opacity:0, y:-60, duration:0.6}, 0).to('#indice', {opacity:0, duration:0.3}, 0)
+      .to('#legende', {opacity:0, duration:0.3}, 0.3)
+      .to('#studio', {opacity:1, duration:0.4}, 0.3)
+    // 2. Assembler : chaque couche se pose, puis tout se resserre et la sauce fond
+      .to('#mot1', {opacity:1, duration:0.3}, 0.6);
+    couches.forEach(function(c, i){
+      tl.to(c[0], {opacity:1, duration:0.2}, 0.5 + i * 0.25)
+        .to(c[0], {yPercent:0, duration:0.55, ease:'power3.out'}, 0.5 + i * 0.25)
+        .to(c[0], {yPercent:c[1], duration:0.5, ease:'power2.inOut'}, 2.1);
+    });
+    tl.to('#assemble', {opacity:1, duration:0.4}, 2.5)
+      .set('.sim-couche', {opacity:0}, 2.9)
+      .to('#mot1', {opacity:0, duration:0.3}, 2.8)
+    // 3. Smasher : zoom dans le burger, on arrive sur la plancha
+      .to('#pile', {scale:1.8, duration:0.6, ease:'power2.in'}, 2.95)
+      .to('#pile', {opacity:0, duration:0.25}, 3.3)
+      .to('#plancha', {opacity:1, duration:0.25}, 3.3)
+      .to('#plancha', {scale:1, duration:1.2, ease:'power2.out'}, 3.3)
+      .to('#mot0', {opacity:1, duration:0.3}, 3.5)
+      .to('#mot0', {opacity:0, duration:0.3}, 4.3)
+    // 4. Couper : zoom dans la viande écrasée, on arrive sur les deux moitiés
+      .to('#plancha', {scale:1.8, duration:0.6, ease:'power2.in'}, 4.4)
+      .to('#plancha', {opacity:0, duration:0.25}, 4.75)
+      .to('#coupe', {opacity:1, duration:0.25}, 4.75)
+      .to('#coupe', {scale:1, duration:1.1, ease:'power2.out'}, 4.75)
+      .to('#mot2', {opacity:1, duration:0.3}, 4.95)
+      .to('#mot2', {opacity:0, duration:0.3}, 5.8)
+    // 5. Tremper : zoom dans la coupe, on arrive sur le pot
+      .to('#coupe', {scale:1.8, duration:0.6, ease:'power2.in'}, 5.85)
+      .to('#coupe', {opacity:0, duration:0.25}, 6.2)
+      .to('#trempe', {opacity:1, duration:0.25}, 6.2)
+      .to('#trempe', {scale:1, duration:1, ease:'power2.out'}, 6.2)
+      .to('#mot3', {opacity:1, duration:0.3}, 6.4)
+      .to('#mot3', {opacity:0, duration:0.3}, 7.1)
+    // 6. Le visiteur plonge à son tour dans la sauce
+      .to('#trempe', {scale:2.6, duration:1, ease:'power2.in'}, 7.2)
+      .to('#voile', {opacity:1, duration:0.5}, 7.8)
+      .to('#dedans', {opacity:1, duration:0.5}, 8.1)
+      .to('#dedans h2', {scale:1.04, duration:0.8}, 8.3);
+  }
+  var mm = gsap.matchMedia();
+  mm.add('(min-width: 901px)', function(){ ouverture(true); });
+  mm.add('(max-width: 900px)', function(){ ouverture(false); });
 
   gsap.utils.toArray('[data-r]').forEach(function(el){
     gsap.fromTo(el, {y:40, opacity:0}, {y:0, opacity:1, duration:0.7, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 85%', once:true}});

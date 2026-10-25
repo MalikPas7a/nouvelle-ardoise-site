@@ -30,3 +30,29 @@
 .statique .sim-studio{position:relative;inset:auto;opacity:1;height:80vh;margin-top:48px;background:none}
 .statique .sim-plancha,.statique .sim-trempe,.statique .sim-coupe,.statique .sim-couche,.statique .sim-voile{display:none}
 .statique .sim-pile .sim-assemble{opacity:1}
+.statique .sim-duo{display:block}
+/* Ordinateur : écran coupé en deux, l'animation fixe à gauche, l'histoire défile à l'horizontale à droite */
+@media (min-width:901px){
+  .sim-duo{display:grid;grid-template-columns:50vw 50vw;height:100vh;height:100svh;overflow:hidden;background:var(--sauce)}
+  .sim-duo>.ix-scene{grid-column:1;grid-row:1;position:relative;z-index:2}
+  .sim-duo>.ix-histoire{grid-column:2;grid-row:1;display:flex;height:100%;overflow:visible;background:none;will-change:transform}
+  .sim-duo>.ix-histoire::before,.sim-duo>.ix-histoire::after{display:none}
+  .sim-duo .ix-entete,.sim-duo .ix-chap{flex:0 0 50vw;width:50vw;max-width:none;height:100%;min-height:0;margin:0;display:flex;flex-direction:column;justify-content:center;padding:96px clamp(32px,4.5vw,72px) 48px}
+  .sim-duo .ix-entete h2{font-size:clamp(40px,4.4vw,72px)}
+  .sim-duo .ix-chap{gap:12px}
+  .sim-duo .ix-chap+.ix-chap,.sim-duo .ix-entete+.ix-chap{border-left:1px solid rgba(74,16,25,.18)}
+  .sim-duo .ix-chap .ix-an{font-size:clamp(52px,5.6vw,96px)}
+  .sim-duo .ix-chap .ix-txt h3{font-size:clamp(26px,2.6vw,40px)}
+  .sim-duo .ix-chap .ix-txt p{font-size:17px;margin-top:12px}
+  .sim-duo .ix-chap .ix-ph{margin-top:20px;width:min(100%,calc(38svh*1.5))}
+  .sim-duo .ix-titre h1{font-size:clamp(46px,5.2vw,88px)}
+  .sim-duo .ix-titre .ix-villes{max-width:520px;margin-inline:auto}
+  .sim-duo .ix-mot{right:auto;left:var(--gutter);top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 40px);transform:none}
+  .sim-duo .sim-plancha-ombre{background:linear-gradient(0deg,rgba(5,2,3,.6),transparent 40%)}
+  .sim-duo .sim-trempe,.sim-duo .sim-coupe{-webkit-mask-image:none;mask-image:none}
+  .sim-duo .ix-dedans{display:none}
+  .sim-duo .sim-voile{background:var(--sauce)}
+  .statique .sim-duo{display:block;height:auto;overflow:visible}
+  .statique .sim-duo>.ix-histoire{display:block}
+  .statique .sim-duo .ix-entete,.statique .sim-duo .ix-chap{width:auto;height:auto;min-height:100svh}
+}
