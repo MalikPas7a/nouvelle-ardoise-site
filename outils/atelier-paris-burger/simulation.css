@@ -4,13 +4,13 @@
 .sim-plancha{position:absolute;inset:0;will-change:transform,opacity}
 .sim-plancha img{width:100%;height:100%;object-fit:cover;object-position:50% 42%}
 .sim-plancha-ombre{position:absolute;inset:0;background:linear-gradient(270deg,rgba(5,2,3,.62),transparent 42%)}
-.sim-pile,.sim-trempe{position:absolute;top:0;height:100%;width:calc(100vh*1536/2752);left:calc(50% - 100vh*768/2752)}
-@supports (height:100svh){.sim-pile,.sim-trempe{width:calc(100svh*1536/2752);left:calc(50% - 100svh*768/2752)}}
+.sim-pile,.sim-trempe,.sim-coupe{position:absolute;top:0;height:100%;width:calc(100vh*1536/2752);left:calc(50% - 100vh*768/2752)}
+@supports (height:100svh){.sim-pile,.sim-trempe,.sim-coupe{width:calc(100svh*1536/2752);left:calc(50% - 100svh*768/2752)}}
 .sim-pile{will-change:transform,opacity;transform-origin:50% 45%}
 .sim-pile img,.sim-trempe{mix-blend-mode:lighten}
 .sim-pile img{position:absolute;inset:0;width:100%;height:100%}
 .sim-pile .sim-assemble{opacity:0}
-.sim-trempe{will-change:transform,opacity;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.sim-trempe,.sim-coupe{will-change:transform,opacity;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
 .sim-voile{position:absolute;inset:0;z-index:6;opacity:0;background:radial-gradient(ellipse 80% 70% at 50% 40%,rgba(244,226,180,.86) 0%,rgba(231,201,128,.9) 55%,rgba(204,160,78,.94) 100%)}
 .sim .ix-bassin,.sim .ix-plongee,.sim .apb-ondes{display:none}
 .sim-credit{position:absolute;left:var(--gutter);bottom:calc(env(safe-area-inset-bottom,0px) + 22px);z-index:8;color:#C9AE97;max-width:52ch;font-size:11px}
@@ -22,11 +22,11 @@
 .sim-fin .actions{margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .sim-fin .btn{background:var(--creme);color:var(--bordeaux);border-color:var(--creme)}
 @media (max-width:900px){
-  .sim-trempe{-webkit-mask-image:none;mask-image:none}
+  .sim-trempe,.sim-coupe{-webkit-mask-image:none;mask-image:none}
   .sim .ix-mot{bottom:calc(env(safe-area-inset-bottom,0px) + 30px)}
   .sim-plancha-ombre{background:linear-gradient(0deg,rgba(5,2,3,.6),transparent 40%)}
   .sim-credit{bottom:auto;top:calc(env(safe-area-inset-top,0px) + 78px);right:var(--gutter)}
 }
 .statique .sim-studio{position:relative;inset:auto;opacity:1;height:80vh;margin-top:48px;background:none}
-.statique .sim-plancha,.statique .sim-trempe,.statique .sim-couche,.statique .sim-voile{display:none}
+.statique .sim-plancha,.statique .sim-trempe,.statique .sim-coupe,.statique .sim-couche,.statique .sim-voile{display:none}
 .statique .sim-pile .sim-assemble{opacity:1}

@@ -458,30 +458,31 @@ ecrire('index.html', accueil)
 
 # ---------- Simulation avec les visuels du lancement (essai avant le tournage) ----------
 # Visuels d'intention générés pour le lancement Smash Burger, sauce recolorée en beurre doré (pas de vert).
-# La vue éclatée est coupée en 5 couches qui se posent puis se resserrent avant le burger assemblé.
-# À remplacer par la séquence filmée au shooting : smash, assemblage, trempage.
+# Ordre voulu par Malik : assemblage (5 couches qui se posent puis se resserrent), smash, coupe, trempage.
+# À remplacer par la séquence filmée au shooting.
 S = '../assets/simulation/'
 COUCHES = [('pBas', 'couche-pain-bas'), ('oignons', 'couche-oignons'), ('steaks', 'couche-steaks'), ('sauce', 'couche-sauce'), ('pHaut', 'couche-pain-haut')]
 SIM_BURGER = '<div class="sim-studio" id="studio" aria-hidden="true">\n' + \
     '      <div class="sim-plancha" id="plancha"><img src="' + S + 'plancha.webp" alt="" width="1080" height="1935" decoding="async"><div class="sim-plancha-ombre"></div></div>\n' + \
     '      <div class="sim-pile" id="pile">' + ''.join('<img class="sim-couche" id="%s" src="%s%s.webp" alt="" width="1080" height="1935" decoding="async">' % (i, S, f) for i, f in COUCHES) + \
     '<img class="sim-assemble" id="assemble" src="' + S + 'assemble.webp" alt="" width="1080" height="1935" decoding="async"></div>\n' + \
+    '      <img class="sim-coupe" id="coupe" src="' + S + 'coupe.webp" alt="" width="1080" height="1935" decoding="async">\n' + \
     '      <img class="sim-trempe" id="trempe" src="' + S + 'trempe.webp" alt="" width="1080" height="1935" decoding="async">\n' + \
     '    </div>\n    <div class="sim-voile" id="voile" aria-hidden="true"></div>'
 i = ihtml2.index('<div class="ix-burger"'); j = ihtml2.index('<div class="ix-mot"', i)
 ihtml_sim = ihtml2[:i] + SIM_BURGER + '\n    ' + ihtml2[j:]
 ihtml_sim = re.sub(r'<a href="([\w-]+/)"><span>', r'<a href="../\1"><span>', ihtml_sim)
-ihtml_sim = ihtml_sim.replace('<div class="ix-coupe" id="coupe"></div>', '').replace('<div class="ix-mot" id="mot2">Couper.</div>', '')
+ihtml_sim = ihtml_sim.replace('<div class="ix-coupe" id="coupe"></div>', '')
 ihtml_sim = re.sub(r'<p class="ix-legende lab" id="legende">.*?</p>',
     '<p class="sim-credit lab" id="legende"><b>Simulation.</b> Visuels d\'intention, remplacés par la séquence filmée au shooting.</p>', ihtml_sim, flags=re.S)
-assert 'sim-credit' in ihtml_sim and 'mot2' not in ihtml_sim and 'ix-calque' not in ihtml_sim and 'href="../geneve-versoix/"' in ihtml_sim
+assert 'sim-credit' in ihtml_sim and 'id="coupe"' in ihtml_sim and ihtml_sim.count('id="coupe"') == 1 and 'ix-calque' not in ihtml_sim and 'href="../geneve-versoix/"' in ihtml_sim
 
 css_sim = open(os.path.join(ICI, 'simulation.css'), encoding='utf-8').read()
 js_sim = open(os.path.join(ICI, 'simulation.js'), encoding='utf-8').read()
 fin_sim = '''<section class="sim-fin">
   <span class="lab">Simulation · avant le tournage</span>
   <h2>Le mouvement est là.<br>Il manque la vraie lumière.</h2>
-  <p>Cette page teste l'ouverture avec des visuels d'intention. Au shooting, on filme le vrai geste : la viande écrasée sur la plaque, l'assemblage couche par couche, le burger trempé dans la sauce.</p>
+  <p>Cette page teste l'ouverture avec des visuels d'intention. Au shooting, on filme le vrai geste : la viande écrasée sur la plaque, l'assemblage couche par couche, la coupe, le burger trempé dans la sauce.</p>
   <div class="actions"><a class="btn" href="../">Revenir à la maison</a></div>
 </section>'''
 simulation = tete('Atelier Paris Burger · Simulation de l\'ouverture', 'Essai de l\'ouverture au scroll avant le tournage.', '../', '\n<style>\n' + css_sim + '</style>') + \
