@@ -48,6 +48,10 @@
 .ov-t .ix-ph .ph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 html.notes .ov-t .ix-ph>span{display:block;position:absolute;left:12px;bottom:10px;z-index:2;font:500 10px/1.5 var(--f-mono);color:var(--creme)}
 
+html.ov-h .ov{height:100vh;height:100svh;overflow:hidden}
+html.ov-h .ov-piste{display:flex;height:100%;width:max-content;will-change:transform}
+html.ov-h .ov-p{flex:0 0 auto;height:100%}
+html.ov-h .ov-v{width:100vw}
 @media (min-width:901px){
   html.ov-h .ov{height:100vh;height:100svh;overflow:hidden}
   html.ov-h .ov-piste{display:flex;height:100%;width:max-content;will-change:transform}
@@ -153,3 +157,23 @@ body[data-page="maison"] .top{background:#3A0C14;border-bottom-color:rgba(217,14
 @media (max-width:900px){.ov-indice{left:var(--gutter);transform:none}}
 /* Le premier écran cadre la coulure et le bol : la sauce, pas la même image que « Tremper » */
 .ov-hero-img img{object-position:56% 82%;transform:scale(1.32);transform-origin:56% 88%}
+
+/* La bande : l'assemblage occupe tout l'écran, les étapes suivent */
+html.ov-h .ov-v.ov-assemblage{width:100vw}
+@media (min-width:901px){html.ov-h .ov-v:not(.ov-assemblage){width:56vw}}
+@media (max-width:900px){
+  .ov-pile,html.ov-h .ov-pile{top:47%;left:50%;height:auto;aspect-ratio:1536/2752;width:min(92vw,76svh*1536/2752);translate:-50% -50%}
+}
+
+/* L'histoire, à part et clairement titrée */
+.hist{background:var(--sauce);color:var(--bordeaux);padding-block:clamp(72px,11vw,150px)}
+.hist h2{font-size:clamp(40px,5.6vw,88px);max-width:14ch}
+.hist h2 em{font-style:normal;color:#7A1F2B}
+.hist-liste{list-style:none;margin:clamp(40px,6vw,80px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(24px,3vw,48px)}
+.hist-ch{border-top:1px solid rgba(74,16,25,.35);padding-top:22px}
+.hist-mot{display:block;font:400 clamp(40px,4.4vw,68px)/.9 var(--f-display);letter-spacing:-.03em}
+.hist-ch h3{margin-top:18px;font-size:clamp(22px,1.8vw,28px)}
+.hist-ch p{margin-top:12px;font-size:17px;line-height:1.55;color:#4A2310;max-width:36ch}
+@media (max-width:900px){.hist-liste{grid-template-columns:1fr;gap:36px}}
+@media (min-width:600px) and (max-width:900px){.hist-liste{grid-template-columns:1fr 1fr}}
+.ov-hero{position:relative;color:var(--creme)}
