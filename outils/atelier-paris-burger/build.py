@@ -196,9 +196,9 @@ ADRESSES = [
     {'slug': 'geneve-versoix', 'ville': 'Genève', 'quartier': 'Versoix', 'pays': 'CH', 'devise': 'CHF', 'etat': 'ouvert',
      'statut': '[Statut à confirmer]', 'sous': 'Quai de Versoix 1, au bord du lac', 'adresse': 'Quai de Versoix 1<br>1290 Versoix', 'photo': 'Façade de Versoix'},
     {'slug': 'madrid', 'ville': 'Madrid', 'quartier': '[Quartier]', 'pays': 'ES', 'devise': '€', 'etat': 'prepa',
-     'statut': 'Ouvert', 'sous': '[Adresse à compléter]', 'photo': 'Façade de Madrid'},
+     'statut': 'Ouvert', 'sous': 'Madrid, Espagne', 'photo': 'Façade de Madrid'},
     {'slug': 'ibiza', 'ville': 'Ibiza', 'quartier': '[Quartier]', 'pays': 'ES', 'devise': '€', 'etat': 'prepa',
-     'statut': 'Ouvert', 'sous': '[Adresse à compléter]', 'photo': "Façade d'Ibiza"},
+     'statut': 'Ouvert', 'sous': 'Ibiza, Baléares', 'photo': "Façade d'Ibiza"},
 ]
 
 def nom_complet(a):
@@ -305,7 +305,7 @@ def carte_adresses(racine, actuelle=None):
 def pied(racine, a=None):
     adr = ''.join('<a href="%s%s/">%s</a>' % (racine, x['slug'], nom_complet(x)) for x in ADRESSES)
     if a:
-        col1 = '<div class="col"><span class="lab">%s</span><p>%s</p><a href="#atelier">Plan d\'accès</a></div>' % (html.escape(nom_complet(a)), a.get('adresse', '[Adresse à compléter]<br>' + a['ville']))
+        col1 = '<div class="col"><span class="lab">%s</span><p>%s</p><a href="#atelier">Plan d\'accès</a></div>' % (html.escape(nom_complet(a)), a.get('adresse', a['sous']))
         col2 = '<div class="col"><span class="lab">Horaires</span><p>[Lun – Jeu 11h30 – 22h]<br>[Ven – Dim 11h30 – 23h]</p></div>'
     else:
         col1 = '<div class="col"><span class="lab">Nos adresses</span>%s</div>' % adr
