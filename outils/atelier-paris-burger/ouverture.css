@@ -60,7 +60,7 @@ html.ov-h .ov-v{width:100vw}
   html.ov-h .ov-v{width:58vw}
   html.ov-h .ov-v.ov-assemblage{width:66vw}
   /* La vue éclatée tient sous l'en-tête et laisse la place au mot « Assembler. » à gauche */
-  html.ov-h .ov-pile{top:8svh;height:90svh;width:calc(90svh*1536/2752);left:calc(58% - 90svh*768/2752)}
+  html.ov-h .ov-pile{top:8svh;height:90svh;width:calc(90svh*1536/2752);left:calc(50% - 90svh*768/2752)}
   html.ov-h .ov-t{width:42vw;padding:110px clamp(36px,4.4vw,80px) 70px}
   html.ov-h .ov-t+.ov-v{border-left:0}
 }
@@ -70,7 +70,7 @@ html.ov-h .ov-v{width:100vw}
   .ov-credit{bottom:auto;top:calc(env(safe-area-inset-top,0px) + 84px);right:var(--gutter);max-width:none}
   .ov-indice{bottom:calc(env(safe-area-inset-bottom,0px) + 24px)}
 }
-.statique .ov-couche{display:none}
+
 .statique .ov-assemble{opacity:1}
 .statique .ov-indice{display:none}
 #v-assemble .ov-mot small{opacity:0}
