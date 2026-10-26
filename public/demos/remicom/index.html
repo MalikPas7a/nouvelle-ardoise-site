@@ -47,12 +47,13 @@ img,video{max-width:100%;display:block}
 /* 0 couverture */
 .cover .bg{position:absolute;inset:0;background:url(p-salle.jpg) center/cover;opacity:.32;filter:grayscale(.4)}
 .cover .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,11,.2),rgba(11,11,11,.9))}
-.cover .T{font-size:clamp(34px,8.8vw,156px)}
+.cover .T{font-size:clamp(30px,6.2vw,108px)}
 .cover .sous{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
 .cover .sous p{font-size:clamp(18px,2vw,26px);font-weight:500;max-width:34ch}
-.duo{display:flex;align-items:center;gap:clamp(12px,1.4vw,20px)}
-.duo img{height:clamp(22px,2.6vw,38px);width:auto;display:block}
-.duo i{width:1px;height:clamp(20px,2.4vw,34px);background:rgba(245,243,239,.45)}
+.cover .mid{align-items:center;text-align:center}
+.biglogo{display:block;width:clamp(240px,42vw,620px);height:auto;margin:0 auto clamp(4px,1vh,12px)}
+.cover .sous{justify-content:center}
+.cover .sous p{margin:0 auto}
 .plan{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px;background:var(--l);border:2px solid var(--l)}
 .plan span{background:var(--k);padding:10px 12px;color:var(--p)!important;font-size:12px}
 .plan b{display:block;color:var(--r);font-weight:700}
@@ -162,8 +163,9 @@ img,video{max-width:100%;display:block}
 <!-- 0 · Couverture -->
 <section class="s k cover" id="t0" aria-label="Couverture">
   <div class="bg"></div>
-  <div class="top"><span class="duo"><img src="remicom-blanc.png" alt="Remicom"><i></i><span class="mono">Nouvelle Ardoise</span></span><span class="mono">Proposition · branche restauration</span></div>
+  <div class="top"><span class="mono">Proposition · branche restauration</span><span class="mono">Nouvelle Ardoise</span></div>
   <div class="mid">
+    <img class="biglogo" src="remicom-blanc.png" alt="Remicom" width="972" height="271">
     <h1 class="T">Confidentiel.<br>Mais <span class="red">visible.</span></h1>
     <div class="sous"><p>Comment vos affaires deviennent un média, dans le respect total de la confidentialité.</p></div>
   </div>
