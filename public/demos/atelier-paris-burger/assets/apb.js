@@ -82,12 +82,12 @@
 (function(){
   // Données d'exemple, à remplacer par la carte définitive. glb : chemin du scan 3D du vrai plat.
   var D = {
-    'Le Café de Paris':{c:['Pain brioché toasté','Bœuf haché minute, 150 g','Cheddar affiné','Oignons confits','Sauce Café de Paris servie à part'],a:['À valider par la cuisine']},
-    'Le Double Maison':{c:['Pain brioché toasté','Deux steaks de bœuf, 2 × 110 g','Double cheddar','Pickles maison','Sauce Café de Paris servie à part'],a:['À valider par la cuisine']},
-    'Le Poulet':{c:['Pain brioché toasté','Poulet croustillant','Salade','Sauce blanche aux herbes'],a:['À valider par la cuisine']},
-    'Le Végétal':{c:['Pain brioché toasté','Galette de légumes grillés','Chèvre','Roquette'],a:['À valider par la cuisine']},
+    'Le Signature':{c:['Pain brioché toasté','Bœuf haché minute, 150 g','Cheddar affiné','Oignons confits','Sauce Café de Paris servie à part'],a:['À valider par la cuisine']},
+    'Le Double':{c:['Pain brioché toasté','Deux steaks de bœuf, 2 × 110 g','Double cheddar','Pickles maison','Sauce Café de Paris servie à part'],a:['À valider par la cuisine']},
+    'Le Marais':{c:['Pain brioché toasté','Poulet croustillant','Salade','Sauce blanche aux herbes'],a:['À valider par la cuisine']},
+    'Le Jardin':{c:['Pain brioché toasté','Galette de légumes grillés','Chèvre','Roquette'],a:['À valider par la cuisine']},
     'La Parisienne':{c:['Baguette tradition','Bœuf tranché fin','Oignons','Sauce Café de Paris'],a:['À valider par la cuisine']},
-    'La Volaille':{c:['Baguette tradition','Poulet rôti','Crudités','Mayonnaise maison'],a:['À valider par la cuisine']},
+    'La Rive Gauche':{c:['Baguette tradition','Poulet rôti','Crudités','Mayonnaise maison'],a:['À valider par la cuisine']},
     'Frites maison':{c:['Pommes de terre fraîches','Fleur de sel'],a:['À valider par la cuisine']},
     'Frites trempées':{c:['Frites maison','Sauce Café de Paris'],a:['À valider par la cuisine']},
     'Mousse au chocolat':{c:['Chocolat noir','Œufs','Crème'],a:['À valider par la cuisine']},
@@ -463,7 +463,7 @@
   var fiche = document.getElementById('fiche'); if(!fiche) return;
   var vide = document.getElementById('fiche-vide'), nom = document.getElementById('fiche-nom');
   var src = (document.querySelector('script[src$="assets/apb.js"]') || {}).src || '';
-  var IMAGES = {'Le Café de Paris':'carte', 'Le Double Maison':'carte'};
+  var IMAGES = {'Le Signature':'carte', 'Le Double':'carte'};
   new MutationObserver(function(){
     if(fiche.hidden || document.documentElement.classList.contains('notes')) return;
     var n = nom.textContent.trim();
