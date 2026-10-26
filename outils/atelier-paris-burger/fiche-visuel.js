@@ -5,7 +5,7 @@
   var fiche = document.getElementById('fiche'); if(!fiche) return;
   var vide = document.getElementById('fiche-vide'), nom = document.getElementById('fiche-nom');
   var src = (document.querySelector('script[src$="assets/apb.js"]') || {}).src || '';
-  var IMAGES = {'Le Café de Paris':'carte', 'Le Double Maison':'carte'};
+  var IMAGES = {'Le Signature':'carte', 'Le Double':'carte'};
   new MutationObserver(function(){
     if(fiche.hidden || document.documentElement.classList.contains('notes')) return;
     var n = nom.textContent.trim();

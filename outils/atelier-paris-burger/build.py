@@ -360,7 +360,7 @@ def page_adresse(a):
     if a['etat'] == 'ouverture':
         o = o.replace("Ouverture le [date à confirmer] · Face au Jet d'eau", "Ouverture le [date à confirmer] · Eaux-Vives, face au Jet d'eau")
         o = o.replace("<p data-reveal>Burger, baguette et sauce Café de Paris. Genève, face au Jet d'eau.</p>",
-                      "<p data-reveal>Burger, baguette et la sauce de la maison. Aux Eaux-Vives, face au Jet d'eau.</p>")
+                      "<p data-reveal>La sauce de Paris a trouvé son quai.</p>")
     else:
         o = o.replace('<span class="lab"><span class="j-moins" data-jours>J-21</span> · Ouverture le [date à confirmer] · Face au Jet d\'eau</span>',
                       '<span class="lab">%s · %s</span>' % (a['statut'], a['sous']))
@@ -451,7 +451,7 @@ def barre_villes():
 
 ihtml2 = ihtml.replace('<div class="ix-mot" id="mot1">Assembler.</div>', '<div class="ix-mot" id="mot0">Smasher.</div>\n    <div class="ix-mot" id="mot1">Assembler.</div>')
 ihtml2 = ihtml2.replace('<h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Genève, face au Jet d\'eau · novembre 2026</p>',
-                        '<h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Paris · Madrid · Ibiza · Genève</p>' + barre_villes())
+                        '<h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Née à Paris. Servie à Madrid, Ibiza et Genève.</p>' + barre_villes())
 ihtml2 = ihtml2.replace('<b>Prototype de mouvement.</b> Les cadres dorés seront les vraies photos détourées de chaque ingrédient, prises au shooting.',
                         '<b>Prototype de mouvement.</b> Les cadres dorés seront la séquence filmée : smash, assemblage, coupe, trempage.')
 assert 'mot0' in ihtml2
@@ -467,20 +467,20 @@ def chapitre(an, lab, titre, texte, photo, cadre):
 CHAPITRES = (
     '    <div class="ix-entete" data-r><span class="lab">L\'histoire</span><h2>Une maison née d\'une histoire construite dans le temps.</h2></div>\n' +
     chapitre('Paris', 'Chapitre 1 · Fin des années 1970',
-             'Une sauce naît à Paris.',
-             'Au cœur de la maison, notre sauce Café de Paris, travaillée à Paris dès la fin des années 1970 et le début des années 1980.',
+             'Fin des années 1970.',
+             'Dans une cuisine parisienne, une sauce au beurre et aux herbes trouve sa recette. Elle ne la quittera plus.',
              'Photo archive ou reconstitution', 'Cuisine parisienne · 3:2') +
     chapitre('40 ans', 'Chapitre 2 · Transmise',
-             'Transmise, affinée, perfectionnée.',
-             'Plus de quarante ans de savoir-faire, servie pendant des décennies dans des restaurants parisiens emblématiques. Elle est aujourd\'hui notre signature.',
+             'La recette ne s\'écrit pas. Elle se transmet.',
+             'Pendant plus de quarante ans, elle a été servie dans des brasseries de Paris. Peu de gens savent ce qu\'elle contient. Nous en faisons partie.',
              'Photo · La sauce', 'Très gros plan, cuillère, texture · 3:2') +
     chapitre('Atelier', 'Chapitre 3 · Le geste',
-             'Faire évoluer l\'héritage, pas le copier.',
-             'Le burger premium et la baguette portent un savoir-faire précis, exigeant et constant. Fidèle à l\'esprit d\'origine, avec sa propre identité.',
+             'La sauce n\'a pas changé. On lui a fait un burger.',
+             'Pain brioché, double smash, cheddar, oignons. Rien dedans ne couvre son goût : elle est servie à côté, et c\'est vous qui trempez.',
              'Photo · Burger et baguette', 'Côte à côte, même lumière · 3:2') +
     chapitre('Europe', 'Chapitre 4 · Aujourd\'hui',
-             'De Genève à l\'Europe.',
-             'Un restaurant phare à Genève, l\'Espagne pour première étape avec Madrid, Barcelone et Ibiza, et des cuisines dédiées à la livraison à travers l\'Europe.',
+             'Madrid, Ibiza, et bientôt Genève.',
+             'La même recette, la même saucière, sur chaque table. Genève ouvre en novembre, face au Jet d\'eau.',
              'Photo · Les adresses', 'Montage de façades, même cadrage · 3:2'))
 debut = ihist2.index('    <div class="ix-chap">'); fin = ihist2.index('  </section>', debut)
 ihist2 = ihist2[:debut] + CHAPITRES + ihist2[fin:]
@@ -491,34 +491,33 @@ ihist2 = ihist2[:debut] + CHAPITRES + ihist2[fin:]
 OV_COUCHES = [('ov-pbas', 'couche-pain-bas', 'd', 82, 'Pain brioché toasté'),
               ('ov-oignons', 'couche-oignons', 'd', 71.5, 'Oignons'),
               ('ov-steaks', 'couche-steaks', 'd', 50, 'Double smash, cheddar'),
-              ('ov-sauce', 'couche-sauce', 'd', 29.8, 'Sauce Café de Paris'),
               ('ov-phaut', 'couche-pain-haut', 'd', 17.6, 'Pain brioché')]
 OV_CHAPITRES = [
-    ('Paris', 'Chapitre 1 · Fin des années 1970', 'Une sauce naît à Paris.',
-     'Au cœur de la maison, notre sauce Café de Paris, travaillée à Paris dès la fin des années 1970 et le début des années 1980.',
+    ('Paris', 'Chapitre 1 · Fin des années 1970', 'Fin des années 1970.',
+     'Dans une cuisine parisienne, une sauce au beurre et aux herbes trouve sa recette. Elle ne la quittera plus.',
      None),
-    ('40 ans', 'Chapitre 2 · Transmise', 'Transmise, affinée, perfectionnée.',
-     'Plus de quarante ans de savoir-faire, servie pendant des décennies dans des restaurants parisiens emblématiques. Elle est aujourd\'hui notre signature.', None),
-    ('Atelier', 'Chapitre 3 · Le geste', 'Faire évoluer l\'héritage, pas le copier.',
-     'Le burger premium et la baguette portent un savoir-faire précis, exigeant et constant. Fidèle à l\'esprit d\'origine, avec sa propre identité.', None),
-    ('Europe', 'Chapitre 4 · Aujourd\'hui', 'De Genève à l\'Europe.',
-     'Un restaurant phare à Genève, l\'Espagne pour première étape avec Madrid, Barcelone et Ibiza, et des cuisines dédiées à la livraison à travers l\'Europe.',
+    ('40 ans', 'Chapitre 2 · Transmise', 'La recette ne s\'écrit pas. Elle se transmet.',
+     'Pendant plus de quarante ans, elle a été servie dans des brasseries de Paris. Peu de gens savent ce qu\'elle contient. Nous en faisons partie.', None),
+    ('Atelier', 'Chapitre 3 · Le geste', 'La sauce n\'a pas changé. On lui a fait un burger.',
+     'Pain brioché, double smash, cheddar, oignons. Rien dedans ne couvre son goût : elle est servie à côté, et c\'est vous qui trempez.', None),
+    ('Aujourd\'hui', 'Chapitre 4 · Aujourd\'hui', 'Madrid, Ibiza, et bientôt Genève.',
+     'La même recette, la même saucière, sur chaque table. Genève ouvre en novembre, face au Jet d\'eau.',
      None)]
-OV_ETAPES = [('plancha', 'Smasher.', 'La boule de viande écrasée sur la plancha brûlante.', '50% 45%'),
+OV_ETAPES = [('plancha', 'Smasher.', 'Le bœuf écrasé sur la plancha, jusqu\'à la croûte.', '50% 45%'),
              ('coupe', 'Couper.', 'Net, en deux, le cheddar qui file.', '50% 47%'),
-             ('trempe', 'Tremper.', 'La moitié plongée dans la sauce Café de Paris.', '50% 78%')]
+             ('trempe', 'Tremper.', 'La sauce, à part. Chaque bouchée y plonge.', '50% 78%')]
 
 def ouverture_html(racine):
     S = racine + 'assets/simulation/'
     img = lambda f, cls, pos='': '<img class="%s" src="%s%s.webp" alt="" width="1080" height="1935" decoding="async"%s>' % (cls, S, f, ' style="object-position:%s"' % pos if pos else '')
     villes = barre_villes().replace('<a href="', '<a href="' + racine)
-    hero = ('    <div class="ov-p ov-hero" id="titre"><div class="ov-hero-in"><h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Paris · Madrid · Ibiza · Genève</p>' + villes + '</div>'
+    hero = ('    <div class="ov-p ov-hero" id="titre"><div class="ov-hero-in"><h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Née à Paris. Servie à Madrid, Ibiza et Genève.</p>' + villes + '</div>'
             '<div class="ov-indice" aria-hidden="true"><span class="lab">Faites défiler</span><i></i></div>'
             '<figure class="ov-hero-img"><img src="%shero-trempe.webp" alt="Le burger trempé dans la sauce Café de Paris" width="1536" height="2752" fetchpriority="high" decoding="async">'
             '<figcaption class="ov-credit">Visuel d\'intention, remplacé au shooting</figcaption></figure></div>\n' % S)
     couches = ''.join('<div class="ov-couche" id="%s">%s<span class="ov-etq %s%s" style="top:%s%%">%s</span></div>' % (i, img(f, ''), cote, ' ov-etq-sauce' if i == 'ov-sauce' else '', top, txt) for i, f, cote, top, txt in OV_COUCHES)
-    assemble = ('    <figure class="ov-p ov-v ov-assemblage" id="v-assemble" aria-label="Assembler"><div class="ov-pile" aria-hidden="true">' + couches + img('assemble', 'ov-assemble') + '</div><div class="ov-ombre"></div>'
-                '<figcaption class="ov-mot">Assembler.<small>Pain brioché, double steak, cheddar, oignons et la <b>sauce Café de Paris</b>.</small></figcaption></figure>\n')
+    assemble = ('    <figure class="ov-p ov-v ov-assemblage" id="v-assemble" aria-label="Assembler"><div class="ov-pile" aria-hidden="true">' + couches + '</div><div class="ov-ombre"></div>'
+                '<figcaption class="ov-mot">Assembler.<small>Pain brioché, double steak, cheddar et oignons. La sauce, elle, attend à côté.</small></figcaption></figure>\n')
     def chap(c):
         an, lab, titre, texte, ph = c
         photo = '<div class="ix-ph"><span><b>%s</b>%s</span></div>' % ph if ph else ''
@@ -527,13 +526,14 @@ def ouverture_html(racine):
         f, mot, sous, pos = e
         return ('    <figure class="ov-p ov-v" aria-label="%s">%s<div class="ov-ombre"></div><figcaption class="ov-mot">%s<small>%s</small></figcaption></figure>\n'
                 % (mot.rstrip('.'), img(f, 'ov-img', pos).replace('alt=""', 'alt="%s"' % sous.rstrip('.')), mot, sous))
-    corps = assemble + chap(OV_CHAPITRES[0])
-    for e, c in zip(OV_ETAPES, OV_CHAPITRES[1:]):
-        corps += etape(e) + chap(c)
-    fin = ('    <div class="ov-p ov-fin"><svg aria-hidden="true"><use href="#apb-logo"/></svg><p>Une maison, une sauce.</p>'
-           '<a class="btn btn-plein" href="%s#carte">Découvrir la carte</a></div>\n' % racine)
-    return ('<section class="ov" id="ouverture" aria-label="Ouverture et histoire de la maison">\n  <div class="ov-piste" id="piste">\n' + hero + '    <h2 class="sr-only">L\'histoire de la maison</h2>\n' + corps + fin +
-            '  </div>\n</section>\n<span id="histoire" aria-hidden="true"></span>')
+    # Le burger d'abord, seul, à l'horizontale ; l'histoire ensuite, dans sa propre section (retour Malik 25.10 : mélangés, on ne comprenait rien)
+    hist = ''.join('      <li class="hist-ch"><span class="hist-mot">%s</span><h3>%s</h3><p>%s</p></li>\n' % (an, titre, texte) for an, lab, titre, texte, ph in OV_CHAPITRES)
+    histoire = ('<section class="hist" id="histoire" aria-labelledby="hist-titre">\n  <div class="wrap">\n'
+                '    <h2 id="hist-titre">Quarante ans dans une <em>saucière</em>.</h2>\n'
+                '    <ol class="hist-liste">\n' + hist + '    </ol>\n  </div>\n</section>\n')
+    return ('<section class="ov-hero-s" aria-label="Accueil">\n' + hero.replace('class="ov-p ov-hero"', 'class="ov-hero"') + '</section>\n'
+            '<section class="ov" id="ouverture" aria-label="Le burger, étape par étape">\n  <h2 class="sr-only">Le burger, étape par étape</h2>\n  <div class="ov-piste" id="piste">\n'
+            + assemble + ''.join(etape(e) for e in OV_ETAPES) + '  </div>\n</section>\n' + histoire)
 
 js_maison = '''<script>
 // Ouverture au scroll : smasher, assembler, couper, tremper, plonger dans la sauce
@@ -550,7 +550,7 @@ carte_m = carte_m.replace("Noms et prix d'exemple, à remplacer par la carte dé
                           "La carte signature, la même dans toutes nos adresses. Prix et disponibilités selon l'adresse. Touchez un plat pour le découvrir.")
 accueil = tete('Atelier Paris Burger · La maison', 'Une maison, une sauce. Burger, baguette et la sauce de la maison, à Madrid, Ibiza et Genève.', '') + \
     '<body data-page="maison">\n' + logo + '\n' + \
-    entete('./', [('#ouverture', "L'histoire"), ('#carte', 'La carte')], 'Liste d\'ouverture', 'geneve-eaux-vives/#liste') + \
+    entete('./', [('#histoire', "L'histoire"), ('#carte', 'La carte')], 'Liste d\'ouverture', 'geneve-eaux-vives/#liste') + \
     '\n<main id="contenu">\n' + ouverture_html('') + '\n\n' + carte_m + '\n\n' + carte_adresses('') + '\n' + s_insta + '\n</main>\n\n' + \
     pied('') + '\n' + fiche + '\n' + scripts_fin('') + '</body>\n</html>\n'
 ecrire('index.html', accueil)
