@@ -50,7 +50,9 @@ img,video{max-width:100%;display:block}
 .cover .T{font-size:clamp(34px,8.8vw,156px)}
 .cover .sous{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
 .cover .sous p{font-size:clamp(18px,2vw,26px);font-weight:500;max-width:34ch}
-.logo{background:#fff;padding:10px 14px;width:clamp(150px,16vw,220px)}
+.duo{display:flex;align-items:center;gap:clamp(12px,1.4vw,20px)}
+.duo img{height:clamp(22px,2.6vw,38px);width:auto;display:block}
+.duo i{width:1px;height:clamp(20px,2.4vw,34px);background:rgba(245,243,239,.45)}
 .plan{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px;background:var(--l);border:2px solid var(--l)}
 .plan span{background:var(--k);padding:10px 12px;color:var(--p)!important;font-size:12px}
 .plan b{display:block;color:var(--r);font-weight:700}
@@ -113,6 +115,7 @@ img,video{max-width:100%;display:block}
 .boucle span:last-child{background:var(--r);color:#fff}
 .boucle em{font-style:normal;display:block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.08em;color:var(--gk);font-stretch:100%}
 .boucle span:last-child em{color:#fff}
+.boucle small{display:block;font-family:'Archivo',sans-serif;font-stretch:100%;text-transform:none;font-weight:500;font-size:clamp(12px,1vw,15px);letter-spacing:0;margin-top:6px;opacity:.85}
 
 /* 6 propositions */
 .tri{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;background:var(--k);border:2px solid var(--k)}
@@ -159,19 +162,19 @@ img,video{max-width:100%;display:block}
 <!-- 0 · Couverture -->
 <section class="s k cover" id="t0" aria-label="Couverture">
   <div class="bg"></div>
-  <div class="top"><span class="mono">Nouvelle Ardoise × Remicom</span><span class="mono">Proposition · branche restauration</span></div>
+  <div class="top"><span class="duo"><img src="remicom-blanc.png" alt="Remicom"><i></i><span class="mono">Nouvelle Ardoise</span></span><span class="mono">Proposition · branche restauration</span></div>
   <div class="mid">
     <h1 class="T">Confidentiel.<br>Mais <span class="red">visible.</span></h1>
-    <div class="sous"><p>Comment vos affaires deviennent un média, dans le respect total de la confidentialité.</p><img class="logo" src="logo-remicom.jpg" alt="Remicom"></div>
+    <div class="sous"><p>Comment vos affaires deviennent un média, dans le respect total de la confidentialité.</p></div>
   </div>
   <div class="plan mono">
-    <span><b>01</b>Le constat</span><span><b>02</b>L'idée</span><span><b>03</b>La preuve</span><span><b>04</b>Qui exécute</span><span><b>05</b>Le suivi</span><span><b>06</b>L'offre</span><span><b>07</b>La suite</span>
+    <span><b>01</b>Le constat</span><span><b>02</b>La preuve</span><span><b>03</b>Qui exécute</span><span><b>04</b>Le suivi</span><span><b>05</b>L'offre</span><span><b>06</b>La suite</span>
   </div>
 </section>
 
 <!-- 1 · Le constat -->
 <section class="s pp" id="t1" aria-label="Le constat">
-  <div class="top"><span class="mono">01 / 07 · Le constat</span><span class="mono">Votre post du 20 octobre</span></div>
+  <div class="top"><span class="mono">01 / 06 · Le constat</span><span class="mono">Votre post du 20 octobre</span></div>
   <div class="mid">
     <h2 class="T h" style="font-size:clamp(36px,5.6vw,96px)">L'audience est là.<br><span class="red">Il manque le format.</span></h2>
     <div class="chif tab">
@@ -184,28 +187,9 @@ img,video{max-width:100%;display:block}
   <div class="q"><span class="mono">Pause</span><p>C'est aussi ce que vous ressentez ?</p></div>
 </section>
 
-<!-- 2 · L'idée -->
-<section class="s k" id="t2" aria-label="L'idée">
-  <div class="top"><span class="mono">02 / 07 · L'idée</span><span class="mono">Le format maison</span></div>
-  <div class="mid">
-    <div class="idee">
-      <div>
-        <h2 class="T h">L'affaire<br><span class="red">confidentielle.</span></h2>
-        <div class="jam">
-          <p>Jamais <s>l'enseigne</s></p>
-          <p>Jamais <s>la rue</s></p>
-          <p>Jamais <s>l'équipe</s></p>
-        </div>
-      </div>
-      <div class="ph"><img src="p-cles.jpg" alt="Une main ouverte, des clés suspendues au-dessus."><span class="stp">Confidentiel</span><div class="num"><span class="mono">Dossier n°</span><div class="n tab">2041</div></div></div>
-    </div>
-  </div>
-  <div class="q"><span class="mono">Pause</span><p>Ce format respecte votre façon de vendre ?</p></div>
-</section>
-
 <!-- 3a · La preuve : les réels -->
 <section class="s k" id="t3" aria-label="La preuve, les réels">
-  <div class="top"><span class="mono">03 / 07 · La preuve</span><span class="mono">Vos vraies affaires, en réel</span></div>
+  <div class="top"><span class="mono">02 / 06 · La preuve</span><span class="mono">Vos vraies affaires, en réel</span></div>
   <div class="mid">
     <div class="reels">
       <div class="reel"><video src="remicom-reel1-vous-ne-saurez-pas-ou-15s.mp4" poster="remicom-reel1-vous-ne-saurez-pas-ou-15s.jpg" controls playsinline preload="none"></video><p><span class="mono">La Côte · 15 s</span>« Vous ne saurez pas où. »</p></div>
@@ -217,7 +201,7 @@ img,video{max-width:100%;display:block}
 
 <!-- 3b · La preuve : sur les réseaux -->
 <section class="s pp" id="t3b" aria-label="La preuve, sur les réseaux">
-  <div class="top"><span class="mono">03 / 07 · La preuve</span><span class="mono">Simulation · chiffres d'annonces réelles</span></div>
+  <div class="top"><span class="mono">02 / 06 · La preuve</span><span class="mono">Simulation · chiffres d'annonces réelles</span></div>
   <div class="mid">
     <div class="res">
       <video autoplay muted loop playsinline preload="metadata" poster="remicom-motion-reseaux-poster.jpg" aria-label="Animation : le fil Instagram Remicom, les vues et les messages de repreneurs qui montent.">
@@ -239,9 +223,9 @@ img,video{max-width:100%;display:block}
 
 <!-- 4 · Qui exécute -->
 <section class="s k" id="t4" aria-label="Qui exécute">
-  <div class="top"><span class="mono">04 / 07 · Qui exécute</span><span class="mono">Des experts, un seul interlocuteur</span></div>
+  <div class="top"><span class="mono">03 / 06 · Qui exécute</span><span class="mono">Des experts, un seul interlocuteur</span></div>
   <div class="mid">
-    <h2 class="T h" style="font-size:clamp(36px,5.6vw,96px)">Des experts,<br><span class="red">un seul interlocuteur.</span></h2>
+    <h2 class="T h" style="font-size:clamp(32px,4.6vw,80px)">Des experts,<br><span class="red">un seul interlocuteur.</span></h2>
     <div class="eco">
       <div class="col">
         <div class="met"><span class="mono">Mon associé</span><b>Terrain</b><small>Les restaurants visités chaque semaine, chaque repreneur suivi après la signature.</small></div>
@@ -253,13 +237,14 @@ img,video{max-width:100%;display:block}
         <div class="met"><span class="mono">Outils</span><b>Experts développement</b><small>Club repreneurs, formulaires, outils sur mesure : vos courtiers gagnent du temps.</small></div>
       </div>
     </div>
+    <p class="lede">Un seul numéro. Vous validez, je coordonne tout le monde : vous gagnez du temps.</p>
   </div>
   <div class="q"><span class="mono">Pause</span><p>Chez vous, qui serait mon interlocuteur ?</p></div>
 </section>
 
 <!-- 5 · Le suivi -->
 <section class="s w" id="t5" aria-label="Le suivi">
-  <div class="top"><span class="mono">05 / 07 · Le suivi</span><span class="mono">Ce qu'on regarde ensemble, chaque mois</span></div>
+  <div class="top"><span class="mono">04 / 06 · Le suivi</span><span class="mono">Ce qu'on regarde ensemble, chaque mois</span></div>
   <div class="mid">
     <h2 class="T h" style="font-size:clamp(34px,5.2vw,88px)">On suit les chiffres.<br><span class="red">On ajuste.</span></h2>
     <div style="overflow-x:auto">
@@ -274,14 +259,14 @@ img,video{max-width:100%;display:block}
       </table>
     </div>
     <p class="pubnote">Publicité Meta (Instagram, Facebook) : le budget est payé par Remicom, nous la pilotons. Un rapport chiffré chaque mois.</p>
-    <div class="boucle"><span><em>Mois après mois</em>On teste</span><span><em>Bilan d'une page</em>On apprend</span><span><em>Le 1er du mois</em>On ajuste</span></div>
+    <div class="boucle opt"><span><em>Deux accroches par affaire</em>On teste<small>On garde celle qui fait écrire.</small></span><span><em>Pub sans messages</em>On coupe<small>Le budget ne dort jamais.</small></span><span><em>Ce qui marche</em>On renforce<small>Plus de budget, plus de formats.</small></span><span><em>Le ciblage</em>On affine<small>Des repreneurs, pas des curieux.</small></span></div>
   </div>
   <div class="q"><span class="mono">Pause</span><p>Quel chiffre compte le plus pour vous ?</p></div>
 </section>
 
 <!-- 6 · L'offre -->
 <section class="s pp" id="t6" aria-label="L'offre">
-  <div class="top"><span class="mono">06 / 07 · L'offre</span><span class="mono">Pendant · après la vente</span></div>
+  <div class="top"><span class="mono">05 / 06 · L'offre</span><span class="mono">Pendant · après la vente</span></div>
   <div class="mid">
     <h2 class="T h" style="font-size:clamp(36px,5.6vw,96px)">Deux choses.<br><span class="red">Simplement.</span></h2>
     <div class="tri two">
@@ -294,27 +279,27 @@ img,video{max-width:100%;display:block}
 
 <!-- 6b · La vision -->
 <section class="s k" id="t6b" aria-label="La vision">
-  <div class="top"><span class="mono">06 / 07 · La vision</span><span class="mono">À 12 mois</span></div>
+  <div class="top"><span class="mono">05 / 06 · La vision</span><span class="mono">À 12 mois</span></div>
   <div class="mid">
     <h2 class="T h" style="font-size:clamp(34px,5.2vw,88px)">Remicom, le média<br><span class="red">des restaurants de Genève.</span></h2>
     <div class="etapes">
       <div><span class="mono">Mois 1 à 3</span><b>Lancer : contenu chaque jour, publicité, créateurs food.</b></div>
       <div><span class="mono">Mois 3 à 6</span><b>Raconter : le portrait de chaque repreneur.</b></div>
       <div><span class="mono">Mois 6 à 12</span><b>Devenir la référence : ce qui ouvre, où manger.</b></div>
-      <div><span class="mono">Ensuite</span><b>Élargir : newsletter, podcast.</b></div>
+      <div><span class="mono">Le but</span><b>Plus de contacts qualifiés, des affaires vendues plus vite.</b></div>
     </div>
-    <p class="lede">Vos repreneurs gagnent une visibilité unique. Remicom gagne une audience qui lui appartient.</p>
+    <p class="lede">Une audience qui appartient à Remicom travaille pour chaque vente : vos courtiers gagnent du temps, vos repreneurs démarrent fort.</p>
   </div>
   <div class="q"><span class="mono">Pause</span><p>Vous voyez Remicom aller jusque-là ?</p></div>
 </section>
 
 <!-- 7 · La prochaine étape -->
 <section class="s k fin" id="t7" aria-label="La prochaine étape">
-  <div class="top"><span class="mono">07 / 07 · La suite</span><span class="mono"><a href="proposition/" style="color:inherit">La proposition détaillée →</a></span></div>
+  <div class="top"><span class="mono">06 / 06 · La suite</span><span class="mono"><a href="proposition/" style="color:inherit">La proposition détaillée →</a></span></div>
   <div class="mid">
     <h2 class="T">On fait un test<br><span class="red">de 3 mois ?</span></h2>
     <div class="etapes">
-      <div><span class="mono">Semaine 1</span><b>On fixe les KPI ensemble.</b></div>
+      <div><span class="mono">Semaine 1</span><b>On fixe les objectifs ensemble.</b></div>
       <div><span class="mono">Semaine 2</span><b>Premier dossier filmé.</b></div>
       <div><span class="mono">Fin du mois 1</span><b>Premier bilan chiffré.</b></div>
       <div><span class="mono">Mois 3</span><b>Vous décidez.</b></div>
