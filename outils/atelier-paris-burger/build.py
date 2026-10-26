@@ -491,7 +491,6 @@ ihist2 = ihist2[:debut] + CHAPITRES + ihist2[fin:]
 OV_COUCHES = [('ov-pbas', 'couche-pain-bas', 'd', 82, 'Pain brioché toasté'),
               ('ov-oignons', 'couche-oignons', 'd', 71.5, 'Oignons'),
               ('ov-steaks', 'couche-steaks', 'd', 50, 'Double smash, cheddar'),
-              ('ov-sauce', 'couche-sauce', 'd', 29.8, 'Sauce Café de Paris'),
               ('ov-phaut', 'couche-pain-haut', 'd', 17.6, 'Pain brioché')]
 OV_CHAPITRES = [
     ('Paris', 'Chapitre 1 · Fin des années 1970', 'Une sauce naît à Paris.',
@@ -506,7 +505,7 @@ OV_CHAPITRES = [
      None)]
 OV_ETAPES = [('plancha', 'Smasher.', 'La boule de viande écrasée sur la plancha brûlante.', '50% 45%'),
              ('coupe', 'Couper.', 'Net, en deux, le cheddar qui file.', '50% 47%'),
-             ('trempe', 'Tremper.', 'La moitié plongée dans la sauce Café de Paris.', '50% 78%')]
+             ('trempe', 'Tremper.', 'Servie à part, la sauce Café de Paris : chaque bouchée y plonge.', '50% 78%')]
 
 def ouverture_html(racine):
     S = racine + 'assets/simulation/'
@@ -517,8 +516,8 @@ def ouverture_html(racine):
             '<figure class="ov-hero-img"><img src="%shero-trempe.webp" alt="Le burger trempé dans la sauce Café de Paris" width="1536" height="2752" fetchpriority="high" decoding="async">'
             '<figcaption class="ov-credit">Visuel d\'intention, remplacé au shooting</figcaption></figure></div>\n' % S)
     couches = ''.join('<div class="ov-couche" id="%s">%s<span class="ov-etq %s%s" style="top:%s%%">%s</span></div>' % (i, img(f, ''), cote, ' ov-etq-sauce' if i == 'ov-sauce' else '', top, txt) for i, f, cote, top, txt in OV_COUCHES)
-    assemble = ('    <figure class="ov-p ov-v ov-assemblage" id="v-assemble" aria-label="Assembler"><div class="ov-pile" aria-hidden="true">' + couches + img('assemble', 'ov-assemble') + '</div><div class="ov-ombre"></div>'
-                '<figcaption class="ov-mot">Assembler.<small>Pain brioché, double steak, cheddar, oignons et la <b>sauce Café de Paris</b>.</small></figcaption></figure>\n')
+    assemble = ('    <figure class="ov-p ov-v ov-assemblage" id="v-assemble" aria-label="Assembler"><div class="ov-pile" aria-hidden="true">' + couches + '</div><div class="ov-ombre"></div>'
+                '<figcaption class="ov-mot">Assembler.<small>Pain brioché, double steak, cheddar et oignons. La sauce, elle, attend à côté.</small></figcaption></figure>\n')
     def chap(c):
         an, lab, titre, texte, ph = c
         photo = '<div class="ix-ph"><span><b>%s</b>%s</span></div>' % ph if ph else ''

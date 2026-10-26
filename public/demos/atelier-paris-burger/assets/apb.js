@@ -82,8 +82,8 @@
 (function(){
   // Données d'exemple, à remplacer par la carte définitive. glb : chemin du scan 3D du vrai plat.
   var D = {
-    'Le Café de Paris':{c:['Pain brioché toasté','Bœuf haché minute, 150 g','Cheddar affiné','Oignons confits','Sauce Café de Paris'],a:['À valider par la cuisine']},
-    'Le Double Maison':{c:['Pain brioché toasté','Deux steaks de bœuf, 2 × 110 g','Double cheddar','Pickles maison','Sauce Café de Paris'],a:['À valider par la cuisine']},
+    'Le Café de Paris':{c:['Pain brioché toasté','Bœuf haché minute, 150 g','Cheddar affiné','Oignons confits','Sauce Café de Paris servie à part'],a:['À valider par la cuisine']},
+    'Le Double Maison':{c:['Pain brioché toasté','Deux steaks de bœuf, 2 × 110 g','Double cheddar','Pickles maison','Sauce Café de Paris servie à part'],a:['À valider par la cuisine']},
     'Le Poulet':{c:['Pain brioché toasté','Poulet croustillant','Salade','Sauce blanche aux herbes'],a:['À valider par la cuisine']},
     'Le Végétal':{c:['Pain brioché toasté','Galette de légumes grillés','Chèvre','Roquette'],a:['À valider par la cuisine']},
     'La Parisienne':{c:['Baguette tradition','Bœuf tranché fin','Oignons','Sauce Café de Paris'],a:['À valider par la cuisine']},
@@ -395,7 +395,8 @@
   ScrollTrigger.config({ignoreMobileResize:true});   // la barre d'adresse de l'iPhone ne relance pas les calculs
   var piste = document.getElementById('piste'), assemblage = document.getElementById('v-assemble');
   // Décalage de chaque couche entre la vue éclatée et le burger assemblé (en % de la hauteur de l'image)
-  var couches = [['#ov-pbas', -7.3], ['#ov-oignons', -3.9], ['#ov-steaks', 0], ['#ov-sauce', 6.2], ['#ov-phaut', 11.6]];
+  // La sauce Café de Paris n'est pas dans le burger : elle est servie à part, pour tremper
+  var couches = [['#ov-pbas', -7.3], ['#ov-oignons', -3.9], ['#ov-steaks', 0], ['#ov-phaut', 12.4]];
   var GLISSE = 0.5;   // px de scroll par px de bande : la bande va plus vite que la molette
 
   // Les couches tombent et les étiquettes s'affichent (durée 1)
@@ -406,14 +407,12 @@
     });
     return tl.fromTo('.ov-etq', {opacity:0}, {opacity:1, duration:0.2, stagger:0.05}, 0.7);
   }
-  // Les couches se serrent, puis le burger assemblé prend le relais (durée 1)
+  // Les couches se serrent : le burger est monté (durée 1)
   function serre(){
     var tl = gsap.timeline({defaults:{ease:'none'}});
     tl.to('.ov-etq', {opacity:0, duration:0.15}, 0.25);
-    couches.forEach(function(c){ tl.to(c[0], {yPercent:c[1], duration:0.35, ease:'power2.inOut'}, 0.3); });
-    return tl.to('.ov-assemble', {opacity:1, duration:0.25}, 0.6)
-      .set('.ov-couche', {opacity:0}, 0.86)
-      .to('#v-assemble .ov-mot small', {opacity:1, duration:0.2}, 0.65)
+    couches.forEach(function(c){ tl.to(c[0], {yPercent:c[1], duration:0.4, ease:'power2.inOut'}, 0.3); });
+    return tl.to('#v-assemble .ov-mot small', {opacity:1, duration:0.2}, 0.65)
       .to({}, {duration:0.14});
   }
 
