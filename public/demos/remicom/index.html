@@ -112,7 +112,7 @@ img,video{max-width:100%;display:block}
 .sujets:has(.thmore[open]) .th7{display:none}
 .sujets h2 .o2,.sujets:has(.thmore[open]) h2 .o1{display:none}.sujets:has(.thmore[open]) h2 .o2{display:inline}
 .res .simu{position:relative}
-.res .simu::after{content:"Simulation";position:absolute;top:14px;right:14px;background:var(--r);color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px}
+.res .simu::after{content:"Simulation · chiffres fictifs";position:absolute;top:14px;right:14px;background:var(--r);color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px}
 @media (min-width:821px){.q{padding-right:300px}}
 @media (min-width:821px) and (max-height:820px){.kpi th,.kpi td{padding-block:5px}.pubnote{margin:4px 0}.boucle span{padding:8px 14px}.boucle small{display:none}.s{gap:14px}.met small{font-size:13px}}
 @media (min-width:821px) and (max-height:740px){.boucle{display:none}}
@@ -193,6 +193,11 @@ img,video{max-width:100%;display:block}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.q{transition:none}}
 .kpi td.d{font-size:clamp(15px,1.4vw,20px);font-weight:500;color:var(--k)}.kpi td.d.red{color:var(--r)}
 .pubnote{font-size:clamp(14px,1.2vw,17px);color:var(--gp);margin:clamp(10px,1.4vh,18px) 0}
+
+/* finitions audit 27.10 */
+.T{line-height:.95}
+@media (min-width:821px) and (max-height:900px){.boucle small{display:none}.boucle span{padding:8px 14px}.kpi th,.kpi td{padding-block:5px}.pubnote{margin:4px 0}}
+@media (min-width:821px) and (max-height:760px){.boucle{display:none}}
 </style>
 </head>
 <body>
@@ -217,7 +222,7 @@ img,video{max-width:100%;display:block}
   <div class="mid">
     <h2 class="T h" style="font-size:clamp(36px,5.6vw,96px)">L'audience est là.<br><span class="red">Il manque le format.</span></h2>
     <div class="chif tab">
-      <div><b>31 000</b><span class="mono">abonnés</span></div>
+      <div><b>31'000</b><span class="mono">abonnés</span></div>
       <div><b>3 à 17</b><span class="mono">réactions par post</span></div>
       <div><b>~1</b><span class="mono">post par jour</span></div>
     </div>
@@ -241,7 +246,7 @@ img,video{max-width:100%;display:block}
 
 <!-- 3b · La preuve : sur les réseaux -->
 <section class="s pp" id="t3b" aria-label="La preuve, sur les réseaux">
-  <div class="top"><span class="mono">02 / 06 · La preuve</span><span class="mono">Simulation</span></div>
+  <div class="top"><span class="mono">02 / 06 · La preuve</span><span class="mono">Maquette · aucun chiffre promis</span></div>
   <div class="mid">
     <div class="res">
       <div class="simu"><video autoplay muted loop playsinline preload="metadata" poster="remicom-motion-reseaux-poster.jpg" aria-label="Animation : le fil Instagram Remicom, les vues et les messages de repreneurs qui montent.">
@@ -262,7 +267,7 @@ img,video{max-width:100%;display:block}
 </section>
 
 <!-- 3c · Les sujets -->
-<section class="s w sujets" id="t3c" aria-label="Les sujets">
+<section class="s pp sujets" id="t3c" aria-label="Les sujets">
   <div class="top"><span class="mono">02 / 06 · La preuve</span><span class="mono">Les sujets · toutes vos branches</span></div>
   <div class="mid">
     <h2 class="T h" style="font-size:clamp(32px,4.6vw,80px)"><span class="o1">7 sujets<br><span class="red">pour commencer.</span></span><span class="o2">13 autres<br><span class="red">sujets.</span></span></h2>
@@ -335,8 +340,8 @@ img,video{max-width:100%;display:block}
       </div>
       <div class="moi"><span>Nouvelle Ardoise</span><b>Malik</b><span>Chef d'orchestre</span></div>
       <div class="col">
-        <div class="met"><span class="mono">Visibilité</span><b>Experts réseaux</b><small>Publicité Instagram, Facebook, Google : le bon public, mesuré chaque semaine.</small></div>
-        <div class="met"><span class="mono">Outils</span><b>Experts développement</b><small>Club repreneurs, formulaires, outils sur mesure : vos courtiers gagnent du temps.</small></div>
+        <div class="met"><span class="mono">Visibilité</span><b>Experts réseaux</b><small>Publicité Instagram, Facebook, Google : le bon public, ajusté chaque semaine.</small></div>
+        <div class="met"><span class="mono">Outils</span><b>Experts développement</b><small>Formulaires, suivi des demandes, outils sur mesure : vos courtiers gagnent du temps.</small></div>
       </div>
     </div>
   </div>
@@ -354,12 +359,13 @@ img,video{max-width:100%;display:block}
         <tbody>
           <tr><td>Vues<small>Instagram, Facebook, LinkedIn, TikTok</small></td><td class="d">Vos affaires sont-elles vues ?</td></tr>
           <tr><td>Contacts<small>Messages et demandes de dossier</small></td><td class="d">Donnent-elles envie d'écrire ?</td></tr>
-          <tr><td>Repreneurs qualifiés<small>Inscrits au Club, dossier vérifié</small></td><td class="d">Les bons profils arrivent-ils ?</td></tr>
-          <tr><td>Repreneurs lancés<small>Pack de lancement pris à l'ouverture</small></td><td class="d red">Réussissent-ils, et recommandent-ils Remicom ?</td></tr>
+          <tr><td>Dossiers envoyés<small>Engagement de confidentialité signé</small></td><td class="d">Les bons profils vont-ils jusqu'au dossier ?</td></tr>
+          <tr><td>Affaires conclues<small>Source notée par le courtier</small></td><td class="d red">Les réseaux font-ils vendre ?</td></tr>
+          <tr><td>Repreneurs lancés<small>Pack de lancement pris à l'ouverture</small></td><td class="d">Réussissent-ils, et recommandent-ils Remicom ?</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="pubnote">Publicité Meta (Instagram, Facebook) : le budget est payé par Remicom, nous la pilotons. Un rapport chiffré chaque mois.</p>
+    <p class="pubnote">Chaque affaire a son lien suivi, chaque courtier note la source du contact. Publicité Meta : budget payé et plafonné par Remicom, arrêt possible à tout moment. Un rapport chiffré chaque mois. Rien ne sort sans votre validation.</p>
     <div class="boucle opt"><span><em>Deux accroches par affaire</em>On teste<small>On garde celle qui fait écrire.</small></span><span><em>Pub sans messages</em>On coupe<small>Le budget ne dort jamais.</small></span><span><em>Ce qui marche</em>On renforce<small>Plus de budget, plus de formats.</small></span><span><em>Le ciblage</em>On affine<small>Des repreneurs, pas des curieux.</small></span></div>
   </div>
   <div class="q"><span class="mono">Pause</span><p>Quel chiffre compte le plus pour vous ?</p></div>
@@ -371,7 +377,7 @@ img,video{max-width:100%;display:block}
   <div class="mid">
     <h2 class="T h" style="font-size:clamp(34px,5.2vw,88px)">Remicom, le média<br><span class="red">des restaurants de Genève.</span></h2>
     <div class="etapes">
-      <div><span class="mono">Mois 1 à 3</span><b>Lancer : contenu chaque jour, publicité, créateurs food.</b></div>
+      <div><span class="mono">Mois 1 à 3</span><b>Lancer : 3 formats par semaine, publicité, créateurs food.</b></div>
       <div><span class="mono">Mois 3 à 6</span><b>Raconter : le portrait de chaque repreneur.</b></div>
       <div><span class="mono">Mois 6 à 12</span><b>Devenir la référence : qui reprend, qui ouvre.</b></div>
       <div><span class="mono">Le but</span><b>Plus de contacts qualifiés, des affaires vendues plus vite.</b></div>
@@ -386,7 +392,7 @@ img,video{max-width:100%;display:block}
   <div class="mid">
     <h2 class="T h" style="font-size:clamp(36px,5.6vw,96px)">Deux choses.<br><span class="red">Simplement.</span></h2>
     <div class="tri two">
-      <div><span class="n">01</span><b>Je gère vos réseaux</b><p>Réels, visuels, publicités et créateurs food, au format confidentiel.</p><span class="tag">Test de 3 mois</span></div>
+      <div><span class="n">01</span><b>Je gère vos réseaux</b><p>Réels, visuels, publicités et créateurs food sur Instagram, Facebook et LinkedIn, au format confidentiel. Votre LinkedIn reste le vôtre : on vous prépare les posts.</p><span class="tag">Test de 3 mois</span></div>
       <div><span class="n">02</span><b>Je lance vos repreneurs</b><p>Fiche Google, Instagram, photos, vidéo d'ouverture : le repreneur démarre fort et recommande Remicom.</p><span class="tag">Réservé à vos repreneurs</span></div>
     </div>
   </div>
@@ -399,7 +405,7 @@ img,video{max-width:100%;display:block}
   <div class="mid">
     <h2 class="T">On fait un test<br><span class="red">de 3 mois ?</span></h2>
     <div class="etapes">
-      <div><span class="mono">Semaine 1</span><b>On fixe les objectifs ensemble.</b></div>
+      <div><span class="mono">Semaine 1</span><b>On fixe les objectifs et qui valide chaque post.</b></div>
       <div><span class="mono">Semaine 2</span><b>Premier dossier filmé.</b></div>
       <div><span class="mono">Fin du mois 1</span><b>Premier bilan chiffré.</b></div>
       <div><span class="mono">Mois 3</span><b>Vous décidez.</b></div>
