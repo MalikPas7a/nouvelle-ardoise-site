@@ -116,6 +116,17 @@ img,video{max-width:100%;display:block}
 @media (min-width:821px){.q{padding-right:300px}}
 @media (min-width:821px) and (max-height:820px){.kpi th,.kpi td{padding-block:5px}.pubnote{margin:4px 0}.boucle span{padding:8px 14px}.boucle small{display:none}.s{gap:14px}.met small{font-size:13px}}
 @media (min-width:821px) and (max-height:740px){.boucle{display:none}}
+/* 3d qui je suis */
+.frise{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;background:var(--l);border:2px solid var(--l)}
+.frise li{background:var(--k);padding:clamp(14px,1.6vw,22px);display:grid;align-content:start;gap:8px;min-width:0}
+.frise .mono{color:var(--r)!important;font-weight:700;font-size:12px}
+.frise b{font-stretch:115%;font-weight:800;text-transform:uppercase;font-size:clamp(16px,1.4vw,21px);line-height:1.05}
+.frise small{color:var(--gk);font-size:clamp(13px,1.05vw,15px);line-height:1.35}
+.frise li:last-child{background:var(--r)}.frise li:last-child .mono,.frise li:last-child small{color:#fff!important}
+@media (max-width:1100px){.frise{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:820px){.frise{grid-template-columns:minmax(0,1fr)}}
+.regle{max-width:1100px;width:100%;margin:0 auto;color:var(--gk)!important;font-size:12px}
+.regle b{color:var(--p);font-weight:700}
 /* 4 écosystème */
 .eco{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(14px,2vw,28px);align-items:center}
 .eco .col{display:grid;gap:clamp(14px,2vw,28px)}
@@ -224,6 +235,7 @@ img,video{max-width:100%;display:block}
       <div class="reel"><video src="remicom-reel4-votre-prochain-resto-19s.mp4" poster="remicom-reel4-votre-prochain-resto-19s.jpg" controls playsinline preload="none"></video><p><span class="mono">Eaux-Vives · 19 s · voix off</span>«&nbsp;Et si c'était votre prochain resto&nbsp;?&nbsp;»</p></div>
       <div class="reel"><video src="remicom-parcours-frontalier-56s.mp4" poster="remicom-parcours-frontalier-56s.jpg" controls playsinline preload="none"></video><p><span class="mono">Frontaliers · 56 s · voix off</span>«&nbsp;Reprendre à Genève quand on vit en France.&nbsp;»</p></div>
     </div>
+    <p class="mono regle"><b>Règle n° 1 :</b> accord écrit du vendeur · il valide avant publication · jamais l'enseigne, la rue ni le personnel.</p>
   </div>
 </section>
 
@@ -294,6 +306,23 @@ img,video{max-width:100%;display:block}
   </div>
 </section>
 
+<!-- 3d · Qui je suis -->
+<section class="s k moi-s" id="t4a" aria-label="Qui je suis">
+  <div class="top"><span class="mono">03 / 06 · Qui exécute</span><span class="mono">Malik Younes · Nouvelle Ardoise</span></div>
+  <div class="mid">
+    <h2 class="T h" style="font-size:clamp(32px,4.6vw,80px)">J'ai vendu mes premiers logos<br><span class="red">à 13 ans.</span></h2>
+    <ol class="frise">
+      <li><span class="mono">13 ans</span><b>Mes premiers logos</b><small>Vendus sur YouTube. Le graphisme ne m'a plus quitté.</small></li>
+      <li><span class="mono">Decathlon</span><b>Meilleur vendeur digital de Suisse</b><small>Depuis 2 ans. Ce qui fait vendre, sur le terrain.</small></li>
+      <li><span class="mono">Projets</span><b>Chef de projet événementiel</b><small>Coordonner, tenir les délais le jour J.</small></li>
+      <li><span class="mono">Aujourd'hui</span><b>Nouvelle Ardoise</b><small>Je visite des restaurants chaque semaine, à Genève.</small></li>
+      <li><span class="mono">Pasta Mo'</span><b>Mon laboratoire</b><small>La marque de ma femme : je teste tout là avant un client.</small></li>
+      <li><span class="mono">Demain</span><b>Repreneur, moi aussi</b><small>Je connais la question des deux côtés.</small></li>
+    </ol>
+    <p class="lede">Ma raison d'être : être utile aux restaurateurs, avec des résultats mesurés chaque mois.</p>
+  </div>
+</section>
+
 <!-- 4 · Qui exécute -->
 <section class="s k" id="t4" aria-label="Qui exécute">
   <div class="top"><span class="mono">03 / 06 · Qui exécute</span><span class="mono">Des experts, un seul interlocuteur</span></div>
@@ -301,7 +330,7 @@ img,video{max-width:100%;display:block}
     <h2 class="T h" style="font-size:clamp(32px,4.6vw,80px)">Des experts,<br><span class="red">un seul interlocuteur.</span></h2>
     <div class="eco">
       <div class="col">
-        <div class="met"><span class="mono">Mon associé</span><b>Terrain</b><small>Les restaurants visités chaque semaine, chaque repreneur suivi après la signature.</small></div>
+        <div class="met"><span class="mono">Mon frère, mon associé</span><b>Terrain</b><small>Les restaurants visités chaque semaine, chaque repreneur suivi après la signature.</small></div>
         <div class="met"><span class="mono">Image</span><b>Photographes pro</b><small>Photo, vidéo, drone et montage, avec du matériel professionnel.</small></div>
       </div>
       <div class="moi"><span>Nouvelle Ardoise</span><b>Malik</b><span>Chef d'orchestre</span></div>
