@@ -38,3 +38,19 @@ Boucle de travail : direction choisie avec Malik, puis code, puis contrôle dans
 - Pas de curseur personnalisé ni d'effet magnétique sur un site de restaurant, sauf demande explicite.
 - Choisir la direction artistique avec Malik avant de coder (guide `/mnt/project-files/styles/guide-styles.md`).
 - Les images d'archives ou de musées proposées par `taste-skill` ne remplacent jamais une photo de plat : la nourriture vient toujours du client ou du photographe.
+
+## Vidéos et motion design : compétences
+
+Compétences motion dans `.claude/skills/`, à utiliser pour toutes les vidéos, réels et animations (Nouvelle Ardoise et clients) :
+
+- Charlie Hills (MIT, github.com/charlie947/motion-graphics-skills) : `brand-intake` (à lancer en premier pour une marque), `motion-brief-writer`, `motion-prompt-writer`, `reference-to-motion`, `motion-effects`, `launch-video`, `apple-launch-film`, `title-sequence-3d`, `animated-chart`, `milestone-reveal`, `vox-explainer`, `newsletter-promo`, `model-showdown`, `loop-cover`, `reel-export` (formats 9:16, 1:1, 16:9).
+- Bart (MIT, github.com/Barty-Bart/motion-graphics) : `motion-broll` (habillage animé calé sur la voix d'une vidéo), `object-separation` (détourer une personne ou un produit dans une vidéo), `explainer-default`, `explainer-engaging`, `explainer-high-energy`. Son skill `sound-effects` n'est pas installé : il est construit autour d'une musique et de whoosh.
+- cth9191 (MIT, github.com/cth9191/animate) : `animate-procedural` (animations dessinées en code : papier découpé, encre, riso, carnet, isométrique…, avec storyboard validé avant rendu). Renommé pour ne pas écraser `animate` d'Emil Kowalski.
+- whaleyxbt (MIT, github.com/whaleyxbt/claude-motion) : `claude-motion` (projet Remotion complet, règles de goût chiffrées, relecture planche par planche, simulations web en 60 i/s).
+- LottieFiles (MIT, github.com/LottieFiles/motion-design-skill) : `motion-design` (principes de mise en mouvement, durées, courbes, chorégraphie, valables en CSS, GSAP, Lottie, Remotion).
+
+Chaque SKILL.md commence par un encadré « Règles Nouvelle Ardoise » qui passe avant le reste :
+
+- AUCUNE MUSIQUE dans aucune vidéo (ni fournie, ni synthétisée). Voix off, vrais bruitages sobres et rares, silences. Jamais de whoosh, riser ou impact cinéma.
+- Jamais d'alcool ; nourriture uniquement en vraies photos du client ou du photographe.
+- Relire chaque vidéo image par image (planches) avant de la livrer.
