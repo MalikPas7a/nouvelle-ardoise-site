@@ -19,7 +19,8 @@ html{scroll-behavior:smooth}
 body{background:var(--nuit);color:var(--blanc);font-family:"Work Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{display:block;max-width:100%}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
-.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left))}
+html{scroll-padding-top:64px}
 .tag{display:inline-block;white-space:nowrap;padding:6px 14px;border:1.5px solid rgba(255,255,255,.55);border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
 .lbl{font-size:13px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--bleu2)}
 h1,h2{font-weight:800;letter-spacing:-.035em;line-height:1.02}
@@ -42,9 +43,9 @@ h2{font-size:clamp(32px,5.2vw,58px)}
 .cartbtn i{font-style:normal;display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--bleu);color:#fff;font-size:12px}
 .cartbtn.bump{animation:bump .5s}
 @keyframes bump{30%{transform:scale(1.12)}}
-@media (max-width:760px){.brand{display:none}.prog a span{display:none}.prog a{padding:7px 8px}.top{gap:8px;padding:8px 10px}}
+@media (max-width:760px){.brand{display:none}.prog a span{display:none}.prog a.on span{display:inline}.prog a{padding:7px 8px}.top{gap:8px;padding:8px 10px}}
 /* intro immersive + carte */
-.intro{position:relative;height:430vh}
+.intro{position:relative;height:500vh}
 .stage3d{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;overflow:clip;background:radial-gradient(ellipse at 50% 18%,#2a378f 0%,#121845 42%,var(--nuit) 78%)}
 .stage3d canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .stage3d canvas.drag{touch-action:none}
@@ -80,8 +81,7 @@ h2{font-size:clamp(32px,5.2vw,58px)}
 .mapOn .mapbadge{opacity:1}
 .panel{position:absolute;right:18px;top:72px;bottom:18px;width:400px;display:flex;flex-direction:column;background:rgba(9,12,32,.86);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:24px;overflow:hidden;overflow:clip;transform:translateX(30px);opacity:0;pointer-events:none;transition:.5s}
 .mapOn .panel{transform:none;opacity:1;pointer-events:auto}
-.pbody{overflow:auto;padding:20px;flex:1;-webkit-overflow-scrolling:touch}
-@media (pointer:fine){.pbody{overscroll-behavior:contain}}
+.pbody{overflow:auto;padding:20px;flex:1;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .panel h3{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
 .panel .lbl{display:block;margin-bottom:8px}
 .q{margin-top:16px}
@@ -121,8 +121,11 @@ input[type=range]{accent-color:var(--bleu2);width:150px}
 .wx small{display:block;color:var(--gris);font-size:12px;margin-top:6px}
 .wxhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .wxhead b{font-size:22px}
+@media (max-width:860px) and (orientation:portrait){
+ .panel{left:10px;right:10px;width:auto;top:auto;bottom:calc(10px + env(safe-area-inset-bottom));max-height:54%;border-radius:22px}
+ .panel.tall{max-height:64%}
+}
 @media (max-width:860px){
- .panel{left:10px;right:10px;width:auto;top:auto;bottom:10px;max-height:54%;border-radius:22px}
  .ov.o2,.ov.o3{top:14vh}
  .mapbadge{display:none}
  .stats{grid-template-columns:repeat(2,1fr)}
@@ -240,24 +243,24 @@ section.s{padding:110px 0 90px;position:relative}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .note{font-size:13px;color:#6a6d80;margin-top:16px}
 /* tiroir panier */
-.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);z-index:70;visibility:hidden;background:var(--blanc);color:#141414;transform:translateX(105%);transition:transform .45s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:-30px 0 60px rgba(0,0,0,.4)}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,92vw);z-index:70;visibility:hidden;background:var(--blanc);color:#141414;transform:translateX(105%);transition:transform .45s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:-30px 0 60px rgba(0,0,0,.4)}
 .drawer.open{transform:none;visibility:visible}
 .drawer header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid #e6e7ee}
 .drawer header h2{font-size:20px;letter-spacing:-.02em}
 .drawer header button{font-size:26px;color:#6a6d80}
 .drawer .dl{overflow:auto;padding:4px 20px 20px;flex:1}
 .drawer .lines{grid-template-columns:1fr}
-.drawer footer{padding:16px 20px;border-top:1px solid #e6e7ee}
+.drawer footer{padding:16px 20px calc(16px + env(safe-area-inset-bottom));border-top:1px solid #e6e7ee}
 .drawer footer .go{margin:0}
 .veil{position:fixed;inset:0;background:rgba(5,6,15,.5);z-index:60;opacity:0;pointer-events:none;transition:.3s}
 .veil.on{opacity:1;pointer-events:auto}
-.toast{position:fixed;left:50%;bottom:22px;z-index:80;transform:translate(-50%,30px);opacity:0;background:var(--blanc);color:#141414;border-radius:999px;padding:10px 18px 10px 10px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;box-shadow:0 18px 40px rgba(0,0,0,.4);transition:.35s;pointer-events:none;max-width:92vw}
+.toast{position:fixed;left:0;right:0;margin:0 auto;width:max-content;bottom:calc(16px + env(safe-area-inset-bottom));z-index:80;transform:translateY(30px);opacity:0;background:var(--blanc);color:#141414;border-radius:999px;padding:10px 18px 10px 10px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;box-shadow:0 18px 40px rgba(0,0,0,.4);transition:.35s;pointer-events:none;max-width:calc(100vw - 32px)}
 .toast img{width:36px;height:36px;border-radius:50%;object-fit:cover;background:#f3f3f3}
-.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast.on{opacity:1;transform:none}
 footer.f{padding:48px 0 64px;color:var(--gris);font-size:13px}
 @media (max-width:900px){
  .dress,.packer{grid-template-columns:1fr}
- .stage{position:relative;top:0;height:68vh;min-height:420px}
+ .stage{position:sticky;top:56px;z-index:2;height:36svh;min-height:230px}
  .nums{grid-template-columns:repeat(2,1fr)}
  .tl{grid-template-columns:1fr;gap:14px}
  .tl:before{left:15px;right:auto;top:16px;bottom:16px;width:2px;height:auto;background:linear-gradient(var(--bleu2),var(--vert2))}
@@ -270,6 +273,19 @@ footer.f{padding:48px 0 64px;color:var(--gris);font-size:13px}
 .skip{position:fixed;left:12px;top:-60px;z-index:90;padding:10px 16px;border-radius:999px;background:var(--blanc);color:#141414;font-weight:700;text-decoration:none;transition:top .2s}
 .skip:focus{top:12px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.layer{opacity:1;transform:none}}
+@media (pointer:coarse){
+ .pin{padding:13px}
+ .seg button,.prog a{min-height:40px}
+ .back,.lvl button{padding:10px 0}
+ input[type=range]{height:32px}
+ .drawer header button,.line button{min-width:44px;min-height:44px}
+}
+@media (max-height:500px) and (orientation:landscape){
+ .panel{width:min(360px,45vw);top:60px}
+ .ov.o1{padding-top:70px}
+ .stage{position:relative;top:0;min-height:0;height:calc(100svh - 80px)}
+ .prog a span,.prog a.on span{display:none}
+}
 </style>
 </head>
 <body>
@@ -294,24 +310,24 @@ footer.f{padding:48px 0 64px;color:var(--gris);font-size:13px}
     <div class="lab" id="labMB"><div>Mont-Blanc<br><b>4 808 m</b></div><i></i></div>
     <div class="lab shop" id="labGE"><div>Decathlon Les Cygnes<br><b>Genève</b></div><i></i></div>
     <div id="pins" inert></div>
-    <div class="ov o1" data-a="-1" data-b=".13"><div class="wrap">
+    <div class="ov o1" data-a="-1" data-b=".11"><div class="wrap">
       <span class="tag">Concept · données d'exemple</span>
       <h1 style="margin-top:20px">Samedi,<br><span>on monte.</span></h1>
       <p>Du Jura au Mont-Blanc, vingt randonnées à moins de deux heures du magasin. On choisit la sortie, on s'habille couche par couche, on remplit le sac. Tout le reste, c'est la montagne.</p>
       <div class="scrollhint"><i></i>Fais défiler pour décoller</div>
     </div></div>
-    <div class="ov o2" data-a=".2" data-b=".42"><div class="wrap">
+    <div class="ov o2" data-a=".15" data-b=".36"><div class="wrap">
       <div class="big">4 808 m</div>
       <p>Le Mont-Blanc. Le relief vient de vraies données d'altitude, du Léman jusqu'aux glaciers, avec la hauteur exagérée pour mieux le lire.</p>
     </div></div>
-    <div class="ov o3" data-a=".5" data-b=".72"><div class="wrap">
+    <div class="ov o3" data-a=".4" data-b=".6"><div class="wrap">
       <h2>Chaque sortie<br>a son équipement.</h2>
       <p>Le terrain, la météo du jour J et ton niveau décident de la tenue, de l'eau à porter et de ce que tu manges en route.</p>
     </div></div>
     <div class="mapbadge"><span class="tag" style="background:rgba(5,6,15,.5)">Relief réel, hauteur exagérée · tracés indicatifs</span></div>
     <aside class="panel" id="panel" aria-label="Choix de la sortie" inert><div class="pbody" id="pbody"></div></aside>
   </div>
-  <div id="carte" style="position:absolute;top:330vh"></div>
+  <div id="carte" style="position:absolute;top:265vh;scroll-margin-top:0"></div>
 </section>
 
 <section class="s" id="tenue" style="background:linear-gradient(#0b0e24,#0e1236)">
@@ -597,7 +613,7 @@ function linesHTML(rm){if(!CART.size)return '<p class="empty">Rien pour l\'insta
 function renderCart(){
  $('cartn').textContent=CART.size;['valid','send','essai'].forEach(i=>{$(i).disabled=!CART.size;});
  $('drawerLines').innerHTML=linesHTML(true);$('recapLines').innerHTML=linesHTML(true);
- document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{const key=b.dataset.rm;cartDel(key);if(key==='sac')S.touchedBag=false;renderAll();});
+ document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{const key=b.dataset.rm;cartDel(key);if(key==='sac')S.touchedBag=false;renderAll();if($('drawer').classList.contains('open'))$('closeD').focus();});
  const H=H0(),wx=['Sec','Averses','Pluie'][['non','averses','pluie'].indexOf(S.pluie)];
  $('readyH').textContent=H?'Prêt pour '+dayLabel().split(' ')[0]+'.':'Prêt pour la sortie.';
  $('summary').innerHTML=(H?[H.nom,dayLabel(),S.temp+' °C au sommet',wx,hfmt(dureeH(H))+' de marche',LVL[level()].n]:['Choisis d\'abord ta sortie']).map(x=>`<span>${x}</span>`).join('');
@@ -630,7 +646,7 @@ async function meteo(){
 const SEGL={profil:'Coupe',freq:'Fréquence',dp:'Dénivelé',allure:'Allure',day:'Jour',pluie:'Pluie',vent:'Vent'};
 function seg(k,opts){return `<div class="seg" data-k="${k}" role="group" aria-label="${SEGL[k]}">${opts.map(([v,l])=>{const on=String(S[k])===String(v);return `<button data-v="${v}" class="${on?'on':''}" aria-pressed="${on}">${l}</button>`;}).join('')}</div>`;}
 function renderPanel(){
- const b=$('pbody');let h='';
+ const b=$('pbody');let h='';$('panel').classList.toggle('tall',S.panel!=='niveau');
  if(S.panel==='niveau'){
   h=`<span class="lbl">01 · Ton profil</span><h3 tabindex="-1">D'abord, toi.</h3><p class="muted" style="font-size:14px;margin-top:6px">Cinq questions pour trier les vingt randonnées et calculer l'énergie, l'eau et les durées à ton rythme.</p>
   <div class="q"><span>La coupe des vêtements</span>${seg('profil',[['h','Homme'],['f','Femme']])}</div>
@@ -764,11 +780,10 @@ function onScroll(){const y=innerHeight*.45;let cur='intro';for(const s of SECS)
  $('top').classList.toggle('solid',cur!=='intro');}
 addEventListener('scroll',onScroll,{passive:true});
 /* panneau de la carte au doigt : arrivé en bout de liste, le geste fait défiler la page */
-(()=>{const b=$('pbody');let y=0;
- b.addEventListener('touchstart',e=>{y=e.touches[0].clientY;},{passive:true});
+(()=>{const b=$('pbody');let y=0,edge=0;
+ b.addEventListener('touchstart',e=>{y=e.touches[0].clientY;edge=(b.scrollTop<=0?1:0)|(b.scrollTop+b.clientHeight>=b.scrollHeight-1?2:0);},{passive:true});
  b.addEventListener('touchmove',e=>{const ny=e.touches[0].clientY,dy=ny-y;y=ny;
-  const bas=b.scrollTop+b.clientHeight>=b.scrollHeight-1,haut=b.scrollTop<=0;
-  if((dy<0&&bas)||(dy>0&&haut)){e.preventDefault();scrollBy(0,-dy);}},{passive:false});})();
+  if((dy<0&&edge&2)||(dy>0&&edge&1)){if(e.cancelable)e.preventDefault();scrollBy(0,-dy);}},{passive:false});})();
 
 /* ---------- Données : relief et randonnées ---------- */
 HIKES=await fetch('data/randos.json').then(r=>r.json());
@@ -824,9 +839,9 @@ function carte(){
  const controls=new OrbitControls(cam,cv);cv.style.touchAction='';controls.enableDamping=true;controls.enablePan=false;controls.enableZoom=false;controls.maxPolarAngle=1.3;controls.enabled=false;controls.rotateSpeed=.5;
  let dragging=false;controls.addEventListener('start',()=>{dragging=true;want=null;});controls.addEventListener('end',()=>{dragging=false;});
  cam.position.copy(KP[0]);controls.target.copy(KT[0]);
- let want=null,sel=-1,drawT=0,p=0,aspect=1;const MAPP=.74;
+ let want=null,sel=-1,drawT=0,p=0,aspect=1;const MAPP=.62;
  const ov=[...box.querySelectorAll('.ov')];
- function overview(){if(aspect<1)return {pos:new THREE.Vector3(0,1150,640),tgt:new THREE.Vector3(0,0,330)};const f=aspect<1.4?1.2:1;return {pos:new THREE.Vector3(0,640*f,560*f),tgt:new THREE.Vector3(0,0,-40)};}
+ function overview(){if(aspect<1)return {pos:new THREE.Vector3(0,2150,1010),tgt:new THREE.Vector3(0,0,380)};const f=aspect<1.4?1.2:1;return {pos:new THREE.Vector3(0,640*f,560*f),tgt:new THREE.Vector3(0,0,-40)};}
  window.flyTo=i=>{sel=i;drawT=RM?-1e9:performance.now();const r=ROUTES[i],m=r.c.getPoint(.5),t=r.top;
   const dir=new THREE.Vector3(cam.position.x-m.x,0,cam.position.z-m.z).normalize();const L=r.start.distanceTo(t);const D=Math.max(110,L*2.4)*(aspect<1?1.6:1);
   want={tgt:new THREE.Vector3(m.x,m.y,m.z).add(new THREE.Vector3(0,0,aspect<1?D*.3:0)),pos:new THREE.Vector3(m.x+dir.x*D,m.y+D*.85,m.z+dir.z*D)};
@@ -851,7 +866,7 @@ function carte(){
   const e=borne(p/MAPP,0,1),mapOn=e>=1;
   if(mapOn!==wasOn){wasOn=mapOn;if(mapOn!==loop.map){loop.map=mapOn;document.body.classList.toggle('mapOn',mapOn);$('panel').inert=$('pins').inert=!mapOn;}controls.enabled=mapOn&&finePointer;cv.classList.toggle('drag',mapOn&&finePointer);}
   ov.forEach(o=>{const a=+o.dataset.a,b=+o.dataset.b,m=(a+b)/2,hw=(b-a)/2;const d=Math.abs(p-m)/hw;o.style.opacity=borne((1-d)*3,0,1);});
-  U.uWarm.value=1-E(borne(e/.7,0,1));U.uFogN.value=200+e*300;U.uFogF.value=900+e*900;
+  U.uWarm.value=1-E(borne(e/.7,0,1));const fk=aspect<1?1+e*.8:1;U.uFogN.value=(200+e*300)*fk;U.uFogF.value=(900+e*900)*fk;
   let tp,tt;
   if(!mapOn){const ee=E(e);tp=CP.getPoint(ee);tt=CT.getPoint(ee);if(e>.98){const o=overview();tp.lerp(o.pos,(e-.98)/.02);tt.lerp(o.tgt,(e-.98)/.02);}
    const o=overview();if(ee>.66){const k=(ee-.66)/.34;tp.lerp(o.pos,k*k);tt.lerp(o.tgt,k*k);}
@@ -863,8 +878,8 @@ function carte(){
    rr.core.geometry.setDrawRange(0,Math.floor(rr.core.geometry.index.count*k/3)*3);rr.glow.geometry.setDrawRange(0,Math.floor(rr.glow.geometry.index.count*k/3)*3);}
   R.render(scene,cam);
   // étiquettes
-  const mbv=place($('labMB'),MB,-6);$('labMB').style.opacity=(!mapOn&&p>.18&&p<.46)?1:0;
-  place($('labGE'),GE,-4);$('labGE').style.opacity=(p>.55&&(!mapOn||sel<0))?1:0;
+  const mbv=place($('labMB'),MB,-6);$('labMB').style.opacity=(!mapOn&&p>.15&&p<.39)?1:0;
+  place($('labGE'),GE,-4);$('labGE').style.left=borne(parseFloat($('labGE').style.left),90,BW-90)+'px';$('labGE').style.opacity=(p>.46&&(!mapOn||sel<0))?1:0;
   if(mapOn)HIKES.forEach((H,i)=>{const b=pinEls[i],ok=place(b,ROUTES[i].top);b.style.visibility=ok?'visible':'hidden';});
   requestAnimationFrame(loop);}
 }
@@ -874,7 +889,7 @@ function carte(){
  const cv=$('glmq'),box=$('stage');
  const R=new THREE.WebGLRenderer({canvas:cv,antialias:!lowPower,alpha:true});
  R.setPixelRatio(Math.min(devicePixelRatio,lowPower?1.5:2));R.outputColorSpace=THREE.SRGBColorSpace;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=.95;
- R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+ R.shadowMap.enabled=!lowPower;R.shadowMap.type=THREE.PCFSoftShadowMap;
  const scene=new THREE.Scene();scene.environment=new THREE.PMREMGenerator(R).fromScene(new RoomEnvironment(),.04).texture;
  const cam=new THREE.PerspectiveCamera(30,1,.05,60);
  scene.add(new THREE.HemisphereLight(0xdfe6ff,0x101018,.4));
