@@ -74,12 +74,14 @@ h2{font-size:clamp(32px,5.2vw,58px)}
 .pin span{display:none;background:rgba(255,255,255,.95);color:#141414;font-size:12px;font-weight:700;padding:4px 9px;border-radius:8px;white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.4)}
 .pin:hover span,.pin.on span{display:block}
 .pin.on{z-index:3}
+.panel{z-index:4}
 .pin.on i{transform:scale(1.35);background:#fff;border-color:var(--bleu2)}
 .mapbadge{position:absolute;left:18px;bottom:18px;display:flex;gap:8px;flex-wrap:wrap;opacity:0;transition:opacity .4s;pointer-events:none}
 .mapOn .mapbadge{opacity:1}
 .panel{position:absolute;right:18px;top:72px;bottom:18px;width:400px;display:flex;flex-direction:column;background:rgba(9,12,32,.86);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:24px;overflow:hidden;overflow:clip;transform:translateX(30px);opacity:0;pointer-events:none;transition:.5s}
 .mapOn .panel{transform:none;opacity:1;pointer-events:auto}
 .pbody{overflow:auto;padding:20px;flex:1;-webkit-overflow-scrolling:touch}
+@media (pointer:fine){.pbody{overscroll-behavior:contain}}
 .panel h3{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
 .panel .lbl{display:block;margin-bottom:8px}
 .q{margin-top:16px}
@@ -235,6 +237,7 @@ section.s{padding:110px 0 90px;position:relative}
 .btn.p{background:var(--bleu);color:#fff}
 .btn.s{background:#eceefa;color:var(--bleu)}
 .btn.ok{background:var(--vert)!important;color:#fff!important}
+.btn:disabled{opacity:.45;cursor:not-allowed}
 .note{font-size:13px;color:#6a6d80;margin-top:16px}
 /* tiroir panier */
 .drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);z-index:70;visibility:hidden;background:var(--blanc);color:#141414;transform:translateX(105%);transition:transform .45s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:-30px 0 60px rgba(0,0,0,.4)}
@@ -426,6 +429,7 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 const $=id=>document.getElementById(id);
 const IMG='img/';
 const lowPower=matchMedia('(max-width:760px)').matches;
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer=matchMedia('(pointer:fine)').matches;
 const borne=(x,a,b)=>Math.min(b,Math.max(a,x)),r50=x=>Math.round(x/50)*50;
 const fmt=n=>Math.round(n).toLocaleString('fr-CH').replace(/[\s,’']/g,'\u202f');
@@ -546,7 +550,7 @@ function nutrition(){
  const H=H0(),h=H?dureeH(H):5,dp=H?H.dplus:900,met={moderee:5.3,intense:7.0}[S.allure];
  const kcalH=met*S.poids,kcal=kcalH*h;
  const sueurH=kcalH/1000*borne(1+0.03*(S.temp-18),0.6,1.55);
- const eauH=Math.max(S.temp>=22?500:300,Math.min(borne(r50(sueurH*700),300,800),Math.max(300,r50(sueurH*1000))));
+ const eauH=borne(r50(sueurH*750+Math.max(0,S.temp-15)*20),300,900);
  const gH=h<2?0:(S.allure==='intense'||dp>=1000?30:(h>=5?20:15));
  const sodPerdu=sueurH*920,sodH=(h>=2&&sodPerdu>=400)?borne(r50(sodPerdu*.5),300,600):0;
  const gT=gH*h,eau=eauH*h/1000;
@@ -567,7 +571,7 @@ function waterPlan(E){
  else if(E<=1.8){out.items=[['gourde-1l',1],['gourde-08',1]];out.txt='Deux gourdes, 1 L et 0,8 L : une pour monter, une pour redescendre.';}
  else {out.poche=true;
   if(bag.poche===2){out.items=fill(Math.max(0,E-2));out.txt='La poche à eau de 2 L de ton sac fait l\'essentiel'+(out.items.length?', une gourde pour le reste.':'.');}
-  else{out.items=fill(E);out.txt='Au-dessus de 2 L, la poche à eau devient plus pratique : on boit sans s\'arrêter. '+(bag.poche===1?'Ton sac a le compartiment : une poche de 2 L en rayon, ou les gourdes ci-dessous.':'Le sac MH500 22 L a un compartiment pour elle, le Kiprun 20+5 L l\'a incluse ; sinon, deux gourdes.');}}
+  else{out.items=fill(E);const g=out.items.map(([k,q])=>q+' × '+(k==='gourde-1l'?'1 L':'0,8 L')).join(' + ');out.txt='Au-dessus de 2 L, la poche à eau devient plus pratique : on boit sans s\'arrêter. '+(bag.poche===1?'Ton sac a le compartiment : une poche de 2 L en rayon, ou les gourdes ('+g+').':'Le sac MH500 22 L a un compartiment pour elle, le Kiprun 20+5 L l\'a incluse ; sinon, les gourdes ('+g+').');}}
  return out;}
 function accessoires(){
  const H=H0()||{dplus:900,cot:'T2'},h=H0()?dureeH(H):5,t=S.temp,L=P[S.bag]?P[S.bag].L:22,A=[];
@@ -591,9 +595,9 @@ function linesHTML(rm){if(!CART.size)return '<p class="empty">Rien pour l\'insta
  return GRP.map(g=>{const it=[...CART].filter(([,v])=>v.grp===g);if(!it.length)return '';
   return `<div class="cgrp">${g}</div><div class="lines">${it.map(([key,v])=>`<div class="line"><img src="${pimg(v.k)}" alt="" loading="lazy"><div><b>${pname(v.k)}</b><span>${pmarq(v.k)} · ×${v.q}</span></div>${rm?`<button data-rm="${key}" aria-label="Retirer ${pname(v.k)}">×</button>`:''}</div>`).join('')}</div>`;}).join('');}
 function renderCart(){
- $('cartn').textContent=[...CART.values()].reduce((s,v)=>s+v.q,0);
+ $('cartn').textContent=CART.size;['valid','send','essai'].forEach(i=>{$(i).disabled=!CART.size;});
  $('drawerLines').innerHTML=linesHTML(true);$('recapLines').innerHTML=linesHTML(true);
- document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{const key=b.dataset.rm;cartDel(key);if(key==='sac')S.bag=S.bag;renderAll();});
+ document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{const key=b.dataset.rm;cartDel(key);if(key==='sac')S.touchedBag=false;renderAll();});
  const H=H0(),wx=['Sec','Averses','Pluie'][['non','averses','pluie'].indexOf(S.pluie)];
  $('readyH').textContent=H?'Prêt pour '+dayLabel().split(' ')[0]+'.':'Prêt pour la sortie.';
  $('summary').innerHTML=(H?[H.nom,dayLabel(),S.temp+' °C au sommet',wx,hfmt(dureeH(H))+' de marche',LVL[level()].n]:['Choisis d\'abord ta sortie']).map(x=>`<span>${x}</span>`).join('');
@@ -616,10 +620,10 @@ async function meteo(){
  const ac=new AbortController(),to=setTimeout(()=>ac.abort(),7000);
  try{const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${H.lat}&longitude=${H.lon}&elevation=${H.alt}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_speed_10m_max,weather_code&timezone=Europe%2FZurich&start_date=${iso(DAYS[0])}&end_date=${iso(DAYS[1])}`,{signal:ac.signal});clearTimeout(to);
   const j=await r.json();if(!j.daily)throw 0;const D=j.daily,i=S.day;
-  const tmax=D.temperature_2m_max[i],tmin=D.temperature_2m_min[i],pp=D.precipitation_probability_max[i]??0,ps=D.precipitation_sum[i]??0,w=D.wind_speed_10m_max[i]??0;
+  const tmax=D.temperature_2m_max[i],tmin=D.temperature_2m_min[i];if(tmax==null||tmin==null)throw 0;const pp=D.precipitation_probability_max[i]??0,ps=D.precipitation_sum[i]??0,w=D.wind_speed_10m_max[i]??0;
   if(meteo.ask!==ask)return;S.wx={src:'live',tmax,tmin,pp,w,code:D.weather_code[i]};
   S.temp=Math.round(.65*tmax+.35*tmin);S.pluie=(pp>=60||ps>=3)?'pluie':pp>=30?'averses':'non';S.vent=w>=30?'vente':'calme';
- }catch(e){clearTimeout(to);S.wx={src:'ex'};S.temp=Math.round(14-H.alt/1000*5);}
+ }catch(e){clearTimeout(to);if(meteo.ask!==ask)return;S.wx={src:'ex'};S.temp=Math.round(14-H.alt/1000*5);}
  renderAll();}
 
 /* ---------- Panneau de la carte ---------- */
@@ -689,7 +693,7 @@ function renderTenue(){
  // la tenue du panier suit les choix
  L.forEach(l=>{const key='tenue:'+l.id;if(CART.has(key))CART.get(key).k=l.p;});
  const key=L.map(l=>l.p+(l.sac?'s':'')).join('|');
- if(key!==lastLayers){const first=!lastLayers;lastLayers=key;if(window.dressMQ)window.dressMQ(L,first||true);}
+ if(key!==lastLayers){const first=!lastLayers;lastLayers=key;if(window.dressMQ)window.dressMQ(L,!RM);}
  else document.querySelectorAll('.layer').forEach(e=>e.classList.add('on'));
 }
 $('addTenue').onclick=()=>{const L=tenue();L.forEach(l=>cartAdd('tenue:'+l.id,l.p,1,'Tenue',false,true));toast(L[0].p,L.length+' articles ajoutés : la tenue complète');};
@@ -709,7 +713,9 @@ function renderNutri(){
  $('nutGrid').innerHTML=N.pack.map(x=>cardHTML(x,'nut:'+x.id,'Nutrition',true,true)).join('');
  $('nutAlt').innerHTML=N.alt.map(x=>cardHTML(x,'nut:'+x.id,'Nutrition',x.id!=='8811823',false)).join('');
  $('varP').textContent=S.temp<=6?'Il fera froid : ce qui ne gèle pas et se mange ganté passe devant.':'D\'autres produits du guide, pour le petit-déjeuner, le sommet ou le retour.';
+ const NK=new Set(N.pack.concat(N.alt).map(x=>'nut:'+x.id));
  N.pack.concat(N.alt).forEach(x=>{const key='nut:'+x.id;if(CART.has(key))CART.get(key).q=x.q;});
+ for(const key of [...CART.keys()])if(key.startsWith('nut:')&&!NK.has(key))CART.delete(key);
 }
 $('addNut').onclick=()=>{const pk=nutrition().pack;pk.forEach(x=>cartAdd('nut:'+x.id,x.id,x.q,'Nutrition',true,true));toast('8809670',pk.length+' produits ajoutés : le pack nutrition');};
 
@@ -719,8 +725,8 @@ function bagNeed(){ // volume en litres de ce qui part dans le sac
  if(![...CART.keys()].some(k=>k.startsWith('eau:')))waterPlan(nutrition().eau).items.forEach(([k,q])=>{for(let i=0;i<q;i++)it.push({k,v:P[k].v,src:'Eau (conseil)'+i});});
  for(const [key,v] of CART){if(!v.pack)continue;const p=NUTRI[v.k]||P[v.k];const vol=(p.v??.2)*(NUTRI[v.k]?v.q:v.q);if(vol>0)it.push({k:v.k,v:vol,src:key,q:v.q});}
  return it;}
-function recBag(){const N=nutrition(),E=N.eau,base=tenue().filter(l=>l.sac).reduce((s,l)=>s+(P[l.p].v||1.5),0)+2.5+Math.min(2.6,E*1.25)+1.2+(S.temp<=6?1:0);
- const need=base*1.15;const order=['sac-arpenaz-20l','sac-mh500-22l','sac-mh500-25l','sac-mh500-38l'];
+function recBag(){const E=nutrition().eau,acc=[...CART.keys()].some(k=>k.startsWith('acc:'));
+ const need=(bagNeed().reduce((s,i)=>s+i.v,0)+(acc?0:1.2+(S.temp<=6?1:0)))*1.15;const order=['sac-arpenaz-20l','sac-mh500-22l','sac-mh500-25l','sac-mh500-38l'];
  let r=order.find(k=>P[k].L>=need)||'sac-mh500-38l';if(E>1.85&&P[r].L<=22)r='sac-mh500-22l';if(r==='sac-arpenaz-20l'&&(H0()&&H0().cot!=='T1'))r='sac-mh500-22l';return {r,need};}
 function renderSac(){
  const R=recBag();if(!S.touchedBag){S.bag=R.r;}
@@ -735,6 +741,7 @@ function renderSac(){
  $('wTxt').innerHTML=`Le besoin calculé plus haut : <b>${fmt(N.eauH)} ml par heure</b> pendant ${hfmt(N.h)}, à ${S.temp} °C. ${W.txt}`;
  $('wSmall').textContent=W.poche&&P[S.bag].poche!==2?'Poche à eau vendue à part : demande la référence au vendeur.':'Une source ou une buvette sur le parcours permet de porter moins.';
  const recW=new Map(W.items);
+ ['gourde-08','gourde-1l'].forEach(k=>{const c=CART.get('eau:'+k);if(c&&recW.has(k))c.q=recW.get(k);});
  $('waterGrid').innerHTML=['gourde-08','gourde-1l'].map(k=>cardHTML({k,q:recW.get(k)||1,u:recW.has(k)?(k==='gourde-1l'?'1 L, garde l\'eau fraîche ou le thé chaud':'0,8 L, se manie d\'une main'):'Au choix'},'eau:'+k,'Eau',true,recW.has(k))).join('');
  $('accGrid').innerHTML=accessoires().sort((a,b)=>b.rec-a.rec).map(a=>cardHTML({k:a.k,q:a.k.startsWith('baton')?2:1,u:a.u},'acc:'+a.k,'Équipement',true,a.rec)).join('');
 }
@@ -820,9 +827,10 @@ function carte(){
  let want=null,sel=-1,drawT=0,p=0,aspect=1;const MAPP=.74;
  const ov=[...box.querySelectorAll('.ov')];
  function overview(){if(aspect<1)return {pos:new THREE.Vector3(0,1150,640),tgt:new THREE.Vector3(0,0,330)};const f=aspect<1.4?1.2:1;return {pos:new THREE.Vector3(0,640*f,560*f),tgt:new THREE.Vector3(0,0,-40)};}
- window.flyTo=i=>{sel=i;drawT=performance.now();const r=ROUTES[i],m=r.c.getPoint(.5),t=r.top;
+ window.flyTo=i=>{sel=i;drawT=RM?-1e9:performance.now();const r=ROUTES[i],m=r.c.getPoint(.5),t=r.top;
   const dir=new THREE.Vector3(cam.position.x-m.x,0,cam.position.z-m.z).normalize();const L=r.start.distanceTo(t);const D=Math.max(110,L*2.4)*(aspect<1?1.6:1);
   want={tgt:new THREE.Vector3(m.x,m.y,m.z).add(new THREE.Vector3(0,0,aspect<1?D*.3:0)),pos:new THREE.Vector3(m.x+dir.x*D,m.y+D*.85,m.z+dir.z*D)};
+  if(aspect>=1){const rt=want.tgt.clone().sub(want.pos).cross(new THREE.Vector3(0,1,0)).setY(0).normalize().multiplyScalar(D*.35);want.tgt.add(rt);want.pos.add(rt);}
   ROUTES.forEach((r,j)=>{r.core.visible=r.glow.visible=j===i;});updatePins();};
  // repères des randonnées
  const pinBox=$('pins');
@@ -849,7 +857,7 @@ function carte(){
    const o=overview();if(ee>.66){const k=(ee-.66)/.34;tp.lerp(o.pos,k*k);tt.lerp(o.tgt,k*k);}
    cam.position.lerp(tp,.12);controls.target.lerp(tt,.12);}
   else{ if(!want&&!dragging&&sel<0){const o=overview();want=o;}
-   if(want&&!dragging){cam.position.lerp(want.pos,.06);controls.target.lerp(want.tgt,.06);if(cam.position.distanceTo(want.pos)<.5)want=sel<0?want:null;}}
+   if(want&&!dragging){cam.position.lerp(want.pos,RM?1:.06);controls.target.lerp(want.tgt,RM?1:.06);if(cam.position.distanceTo(want.pos)<.5)want=sel<0?want:null;}}
   controls.update();
   if(sel>=0){const d=borne((now-drawT)/2000,0,1),k=E(d);const rr=ROUTES[sel];
    rr.core.geometry.setDrawRange(0,Math.floor(rr.core.geometry.index.count*k/3)*3);rr.glow.geometry.setDrawRange(0,Math.floor(rr.glow.geometry.index.count*k/3)*3);}
@@ -1022,6 +1030,7 @@ function carte(){
    if(x+u.w>W2&&x>0){x=0;z+=rowD;rowD=0;}
    if(z+u.d>D2&&z>0){z=0;x=0;y+=layH;layH=0;rowD=0;}
    u.tx=-W2/2+x+u.w/2;u.ty=.02+y+u.h/2;u.tz=-D2/2+z+u.d/2;x+=u.w+.006;rowD=Math.max(rowD,u.d+.006);layH=Math.max(layH,u.h+.006);}
+  const top=.02+y+layH;itemsG.scale.setScalar(top>dims.h*.95?dims.h*.95/top:1);
   const vol=need.reduce((s,i)=>s+i.v,0),pct=vol/b.L;
   XU.uOver.value=pct>1?1:0;$('gauge').classList.toggle('over',pct>1);
   $('gBar').style.width=Math.min(100,pct*100)+'%';$('gPct').textContent=Math.round(pct*100)+' %';
