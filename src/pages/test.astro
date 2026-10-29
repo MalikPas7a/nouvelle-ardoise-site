@@ -1,0 +1,20 @@
+---
+// Lien court pour les réseaux sociaux (bio Instagram, réels, stories) : nouvelleardoise.ch/test/
+// Le test de visibilité seul, sans le reste de l'accueil.
+import Cartographe from '../layouts/Cartographe.astro';
+import TestVisibilite from '../components/TestVisibilite.astro';
+---
+<Cartographe title="Testez votre visibilité en 30 secondes | Nouvelle Ardoise" description="Tapez le nom de votre commerce : Google, site, Instagram et vente en ligne passés en revue en direct, avec vos trois priorités. Gratuit, Genève et Vaud." chemin="/test/" test="#test">
+  <section class="seul cadre">
+    <p class="etiquette">Nouvelle Ardoise · Agence de marketing · Genève &amp; Vaud</p>
+    <p class="seul__chapo">Votre commerce sur Google, sur votre site, sur Instagram et en vente en ligne : quatre voyants, trois priorités, en direct.</p>
+    <TestVisibilite titre="h1" />
+    <p class="seul__retour"><a href="/">Découvrir l’agence <span aria-hidden="true">→</span></a></p>
+  </section>
+</Cartographe>
+<style>
+.seul { max-width: 680px; padding-block: clamp(28px, 6vw, 72px); display: grid; gap: 18px; }
+.seul__chapo { margin: 0 0 8px; font-size: 19px; line-height: 1.4; }
+.seul__retour { margin: 12px 0 0; }
+.seul__retour a { font-weight: 600; text-decoration: none; }
+</style>

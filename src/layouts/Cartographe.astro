@@ -1,0 +1,148 @@
+---
+// Gabarit « Cartographe » (29.10.2026) : l'accueil tous métiers et la page /test/.
+// Papier et encre, Instrument Serif pour les titres, Inter Tight pour le texte, IBM Plex Mono pour les repères.
+// L'appel à l'action « Tester ma visibilité » reste toujours à portée : bouton dans l'en-tête, barre fixe sur téléphone.
+import '@fontsource/instrument-serif/400.css';
+import '@fontsource/instrument-serif/400-italic.css';
+import '@fontsource-variable/inter-tight';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import { SITE } from '../config.js';
+
+const { title, description, chemin = '/', jsonLd = null, test = '/#test' } = Astro.props;
+const canonical = SITE.url + chemin;
+const image = SITE.url + '/partage.jpg';
+---
+<!doctype html>
+<html lang="fr-CH">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#F2EDE4" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="geo.region" content="CH-GE" />
+  <meta name="geo.placename" content="Genève" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://nouvelle-ardoise-app.vercel.app" crossorigin />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:site_name" content={SITE.nom} />
+  <meta property="og:locale" content="fr_CH" />
+  <meta property="og:image" content={image} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  {jsonLd && <script type="application/ld+json" is:inline set:html={jsonLd} />}
+  <style is:global>
+:root {
+  --papier: #F2EDE4;
+  --papier-2: #EAE3D6;
+  --encre: #1B1915;
+  --encre-2: #2A2620;
+  --gris: #6A6359;
+  --gris-nuit: #A39B8D;
+  --filet: #DCD3C4;
+  --filet-nuit: #3B362E;
+  --craie: #FFD23F;
+  --bon: #2F7A4A;
+  --moyen: #C98A0B;
+  --faible: #C2410C;
+  --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --grotesk: 'Inter Tight Variable', 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  --max: 1240px;
+  --sortie: cubic-bezier(.2, .8, .2, 1);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--papier); color: var(--encre); font-family: var(--grotesk); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+img { display: block; max-width: 100%; height: auto; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--encre); outline-offset: 3px; }
+.cadre { max-width: var(--max); margin-inline: auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+.etiquette { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris); margin: 0; }
+.serif { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; }
+.surligne { background: linear-gradient(transparent 60%, var(--craie) 60% 92%, transparent 92%); padding-inline: .06em; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--encre); color: var(--papier); text-decoration: none; font-weight: 600; font-size: 15px; border: 1px solid var(--encre); cursor: pointer; transition: background-color .2s, color .2s, transform .15s var(--sortie); white-space: nowrap; }
+.btn:hover { background: var(--craie); color: var(--encre); }
+.btn:active { transform: scale(.97); }
+.btn--craie { background: var(--craie); color: var(--encre); }
+.btn--craie:hover { background: var(--encre); color: var(--papier); }
+.btn--creux { background: transparent; color: var(--encre); }
+.btn--petit { min-height: 40px; padding: 0 16px; font-size: 14px; }
+
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--papier); }
+.tete { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--papier) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--filet); }
+.tete .cadre { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 66px; }
+.marque { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+.marque svg { width: 22px; height: 25px; }
+.marque svg path { fill: none; stroke: var(--encre); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.nav { display: flex; gap: 26px; align-items: center; font-size: 15px; }
+.nav a:not(.btn) { text-decoration: none; }
+.nav a:not(.btn):hover { text-decoration: underline; text-underline-offset: 4px; }
+.nav .tel { font-family: var(--mono); font-size: 13px; }
+@media (max-width: 960px) { .nav a:not(.btn) { display: none; } }
+
+.pied { border-top: 1px solid var(--filet); padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); font-size: 14px; color: var(--gris); }
+.pied .cadre { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; }
+.pied a { text-decoration: none; }
+.pied a:hover { text-decoration: underline; }
+
+/* Barre fixe sur téléphone : l'appel à l'action toujours sous le pouce */
+.barre { position: fixed; z-index: 30; left: 0; right: 0; bottom: 0; display: none; gap: 8px; padding: 10px max(12px, env(safe-area-inset-left, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)); background: color-mix(in srgb, var(--papier) 94%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid var(--filet); transform: translateY(110%); transition: transform .35s var(--sortie); }
+.barre.visible { transform: none; }
+.barre .btn { flex: 1; }
+.barre .btn--creux { flex: 0 0 auto; padding: 0 18px; }
+@media (max-width: 760px) { .barre { display: flex; } .pied { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); } }
+@media (prefers-reduced-motion: reduce) { .barre { transition: none; } }
+  </style>
+</head>
+<body>
+<header class="tete">
+  <div class="cadre">
+    <a class="marque" href="/" aria-label="Nouvelle Ardoise, accueil"><svg viewBox="0 0 32 36" aria-hidden="true"><path d="M6 30V6l20 24V6"/></svg><span>Nouvelle Ardoise</span></a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="/#voyants">Le test</a>
+      <a href="/#metiers">Métiers</a>
+      <a href="/#carte">Zone</a>
+      <a href="/restauration/">Restauration</a>
+      <a href="/realisations/">Réalisations</a>
+      <a class="tel" href="tel:+41782133868">078 213 38 68</a>
+      <a class="btn btn--craie btn--petit" href={test} data-cta>Tester ma visibilité</a>
+    </nav>
+  </div>
+</header>
+
+<main id="haut">
+  <slot />
+</main>
+
+<footer class="pied"><div class="cadre"><span>Nouvelle Ardoise · Agence de marketing et de communication · {SITE.adresse}, {SITE.localite} · 078 213 38 68 · Genève, Vaud et Suisse romande</span><span><a href="/restauration/">Restauration</a> · <a href="/artisans/">Artisans</a> · <a href="/questions/">Questions</a> · <a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a></span></div></footer>
+
+<div class="barre" id="barre" aria-label="Actions rapides">
+  <a class="btn btn--craie" href={test} data-cta>Tester ma visibilité</a>
+  <a class="btn btn--creux" href="tel:+41782133868" aria-label="Appeler le 078 213 38 68">Appeler</a>
+</div>
+
+<script is:inline>
+// La barre du bas apparaît une fois l'ouverture dépassée, et se retire quand le test est à l'écran.
+(function () {
+  const barre = document.getElementById('barre'); if (!barre) return;
+  const test = document.getElementById('test');
+  let testVisible = false;
+  if (test && 'IntersectionObserver' in window) new IntersectionObserver((e) => { testVisible = e[0].isIntersecting; maj(); }, { threshold: 0 }).observe(test);
+  function maj() { barre.classList.toggle('visible', scrollY > innerHeight * .6 && !testVisible); }
+  addEventListener('scroll', maj, { passive: true }); maj();
+})();
+</script>
+</body>
+</html>

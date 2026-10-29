@@ -13,7 +13,8 @@ const { title, description, page } = Astro.props;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 // Le menu : une page par sujet. La page en cours est signalée (aria-current).
 const MENU = [
-  { href: '/#accompagnement', nom: 'Accompagnement', page: 'accompagnement' },
+  { href: '/#metiers', nom: 'Métiers', page: 'metiers' },
+  { href: '/restauration/', nom: 'Restauration', page: 'restauration' },
   { href: '/realisations/', nom: 'Réalisations', page: 'realisations' },
   { href: '/artisans/', nom: 'Artisans', page: 'artisans' },
   { href: '/offres/', nom: 'Offres', page: 'offres' },
