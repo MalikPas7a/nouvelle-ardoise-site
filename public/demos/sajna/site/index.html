@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0d0b09">
+<title>Sajna · Restaurant indien halal à Cornavin (démo)</title>
+<meta name="description" content="Démo de site pour Sajna, restaurant indien halal rue de Neuchâtel 18 à Genève : carte, commande à emporter, réservation et fidélité.">
+<meta property="og:title" content="Sajna · Démo de site avec commande à emporter">
+<meta property="og:description" content="Carte complète, commande à emporter payée par TWINT, réservation et club fidélité. Démo Nouvelle Ardoise.">
+<meta property="og:image" content="https://nouvelleardoise.ch/demos/sajna/img/og.jpg">
+<link rel="icon" href="../img/logo-sajna.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="../img/butter-chicken.webp">
+<style>
+:root{
+  --noir:#0d0b09;--noir2:#16130f;--noir3:#201b15;--ligne:#2e281f;
+  --or:#d4b05c;--or2:#ecd28a;--or3:#a8812f;
+  --creme:#f4ecdc;--creme2:#e9dec8;--encre:#17130e;--gris:#a59a86;--gris2:#776d5d;
+  --piment:#c9502e;--vert:#5f8f5a;
+  --pad:clamp(18px,4.5vw,48px);--max:1180px;--r:14px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:120px}
+body{margin:0;background:var(--noir);color:var(--creme);font:16px/1.55 "Work Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--or);outline-offset:3px;border-radius:6px}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.serif{font-family:"Bodoni Moda",Georgia,serif}
+.kick{font:500 12px/1 Oswald,"Work Sans",sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--or)}
+h1,h2,h3{font-family:"Bodoni Moda",Georgia,serif;font-weight:500;letter-spacing:-.01em;margin:0;line-height:1.04}
+h2{font-size:clamp(34px,6vw,64px)}
+h2 em,h1 em{font-style:italic;color:var(--or2)}
+.lead{color:var(--gris);font-size:clamp(16px,2.2vw,19px);max-width:36em}
+.ex{position:absolute;right:10px;bottom:10px;font:500 10px/1 "Work Sans";letter-spacing:.06em;text-transform:uppercase;background:rgba(13,11,9,.66);color:#e9dec8;padding:5px 7px;border-radius:999px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);pointer-events:none}
+
+/* bandeau démo */
+.demo{background:var(--or);color:var(--encre);font-size:13px;text-align:center;padding:8px 40px 8px 14px;position:relative;line-height:1.35}
+.demo b{font-weight:600}
+.demo button{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;font-size:18px;line-height:28px}
+
+/* en-tête */
+.top{position:sticky;top:0;z-index:40;background:rgba(13,11,9,.82);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid rgba(212,176,92,.14)}
+.top .wrap{display:flex;align-items:center;gap:18px;height:66px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{width:34px;height:34px}
+.brand span{font:600 22px/1 Oswald,sans-serif;letter-spacing:.04em;background:linear-gradient(120deg,#f3de95,#c9a24a 55%,#ecd28a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand small{display:block;font:500 9.5px/1 "Work Sans";letter-spacing:.2em;text-transform:uppercase;color:var(--gris);margin-top:4px;-webkit-text-fill-color:var(--gris)}
+.nav{display:none;gap:26px;margin-left:auto;font-size:14.5px}
+.nav a{text-decoration:none;color:var(--creme2);opacity:.85;transition:opacity .2s}
+.nav a:hover{opacity:1}
+.cartbtn{margin-left:auto;display:flex;align-items:center;gap:9px;background:var(--or);color:var(--encre);font-weight:600;font-size:14.5px;padding:10px 16px;border-radius:999px;transition:transform .16s var(--ease),background .2s}
+.cartbtn:active{transform:scale(.97)}
+@media (hover:hover){.cartbtn:hover{background:var(--or2)}}
+.cartbtn svg{width:18px;height:18px}
+.cartbtn .n{min-width:22px;height:22px;border-radius:999px;background:var(--encre);color:var(--or2);font-size:12px;display:grid;place-items:center;padding:0 6px}
+.cartbtn .n.bump{animation:bump .4s var(--ease)}
+@keyframes bump{40%{transform:scale(1.35)}}
+@media (min-width:900px){.nav{display:flex}.cartbtn{margin-left:10px}}
+@media (max-width:400px){.brand small{display:none}}@media (max-width:340px){.cartbtn .lbl{display:none}}
+
+/* hero */
+.hero{position:relative;min-height:calc(100svh - 104px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.hero picture,.hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(13,11,9,.15) 0%,rgba(13,11,9,.35) 40%,rgba(13,11,9,.94) 88%,var(--noir) 100%),radial-gradient(90% 60% at 0% 100%,rgba(13,11,9,.75),transparent 70%)}
+.hero .wrap{padding-bottom:clamp(36px,7vh,80px);padding-top:120px}
+.hero .logo{width:62px;height:62px;margin-bottom:22px;filter:drop-shadow(0 6px 22px rgba(0,0,0,.45))}
+.hero h1{font-size:clamp(46px,9.4vw,112px);max-width:11ch;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+.hero p{font-size:clamp(17px,2.4vw,21px);color:var(--creme2);max-width:31em;margin:20px 0 0}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:600;font-size:16px;padding:15px 22px;border-radius:999px;text-decoration:none;transition:transform .16s var(--ease),background .2s,border-color .2s;min-height:52px}
+.btn:active{transform:scale(.97)}
+.btn.p{background:var(--or);color:var(--encre)}
+.btn.g{border:1px solid rgba(244,236,220,.38);color:var(--creme)}
+@media (hover:hover){.btn.p:hover{background:var(--or2)}.btn.g:hover{border-color:var(--creme)}}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:30px;font-size:14px;color:var(--creme2)}
+.facts span{display:flex;align-items:center;gap:8px}
+.facts i{width:6px;height:6px;border-radius:50%;background:var(--or);display:inline-block}
+.open{color:#9fd39a}.closed{color:#e9a48f}
+
+/* sections */
+section{padding:clamp(72px,11vw,140px) 0}
+.sec-h{display:grid;gap:16px;margin-bottom:clamp(30px,5vw,56px)}
+
+/* trois indes */
+.regions{display:grid;gap:14px}
+.reg{position:relative;border-radius:var(--r);overflow:hidden;min-height:420px;display:flex;align-items:flex-end;isolation:isolate;background:var(--noir2)}
+.reg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.2s var(--ease)}
+.reg::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 30%,rgba(13,11,9,.92))}
+@media (hover:hover){.reg:hover img{transform:scale(1.04)}}
+.reg .t{padding:24px}
+.reg .kick{display:block;margin-bottom:10px}
+.reg h3{font-size:clamp(28px,3.4vw,38px)}
+.reg p{color:var(--creme2);font-size:15px;margin:10px 0 0;max-width:30em}
+.reg .ex{top:12px;bottom:auto}
+@media (min-width:860px){.regions{grid-template-columns:1.2fr 1fr 1fr}.reg{min-height:540px}}
+
+/* bandeau or */
+.marq{background:var(--or);color:var(--encre);overflow:hidden;padding:14px 0;white-space:nowrap}
+.marq div{display:inline-flex;gap:38px;animation:mq 38s linear infinite;font:600 15px/1 Oswald,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding-right:38px}
+.marq div span::before{content:"◆";margin-right:38px;font-size:9px;vertical-align:2px}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* carte */
+.menu{background:var(--creme);color:var(--encre)}
+.menu .lead{color:#6c624f}
+.menu h2 em{color:var(--or3)}
+.menu .kick{color:var(--or3)}
+.tabs{position:sticky;top:66px;z-index:20;background:var(--creme);margin:0 calc(var(--pad)*-1);padding:12px var(--pad);border-bottom:1px solid #e0d4bb;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;padding:10px 15px;border-radius:999px;border:1px solid #d9ccb1;font-size:14px;font-weight:500;color:#4b4335;transition:background .2s,color .2s,border-color .2s;min-height:42px}
+.tab[aria-current="true"]{background:var(--encre);color:var(--creme);border-color:var(--encre)}
+.cat{padding-top:44px}
+.cat h3{font-size:clamp(28px,4vw,40px);display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.cat h3 small{font:400 15px/1.4 "Work Sans";color:#7a6f5b}
+.grid{display:grid;gap:12px;margin-top:20px}
+@media (min-width:700px){.grid{grid-template-columns:1fr 1fr}}
+@media (min-width:1080px){.grid{grid-template-columns:1fr 1fr 1fr}}
+.dish{display:grid;grid-template-columns:1fr 104px;gap:14px;align-items:stretch;text-align:left;background:#fffaf0;border:1px solid #e6dac1;border-radius:var(--r);padding:14px;transition:border-color .2s,box-shadow .25s,transform .16s var(--ease);width:100%}
+.dish.noimg{grid-template-columns:1fr}
+@media (hover:hover){.dish:hover{border-color:#cdb98d;box-shadow:0 10px 30px -18px rgba(60,40,10,.45)}}
+.dish:active{transform:scale(.99)}
+.dish .nm{font:600 17px/1.25 "Work Sans";color:var(--encre)}
+.dish .ds{font-size:14px;color:#6f6553;margin-top:5px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dish .row{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.dish .pr{font-weight:600;font-size:15.5px}
+.tag{font-size:11.5px;font-weight:500;padding:4px 8px;border-radius:999px;background:#f1e6cf;color:#6b5320}
+.tag.hot{background:#f8e0d6;color:#a63b1c}
+.tag.veg{background:#e3eedd;color:#3e6a38}
+.dish .ph{display:block;position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1/1;align-self:start}
+.dish .ph img{width:100%;height:100%;object-fit:cover}
+.dish .ph .ex{right:5px;bottom:5px;font-size:8.5px;padding:3px 5px}
+.plus{width:34px;height:34px;border-radius:50%;background:var(--encre);color:var(--creme);display:grid;place-items:center;margin-left:auto;font-size:20px;line-height:1}
+.feat .dish{grid-template-columns:1fr}
+.feat .dish .ph{aspect-ratio:4/3;order:-1}
+.feat .dish .ph .ex{font-size:10px;padding:5px 7px;right:8px;bottom:8px}
+
+/* savoir-faire */
+.craft{display:grid;gap:clamp(28px,5vw,64px);align-items:center}
+.craft .ph{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/5}
+.craft .ph img{width:100%;height:100%;object-fit:cover}
+.pts{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:0}
+.pts li{display:grid;grid-template-columns:44px 1fr;gap:14px;padding:18px 0;border-top:1px solid var(--ligne)}
+.pts li:last-child{border-bottom:1px solid var(--ligne)}
+.pts .ic{width:44px;height:44px;border-radius:50%;border:1px solid rgba(212,176,92,.45);display:grid;place-items:center;color:var(--or)}
+.pts .ic svg{width:20px;height:20px}
+.pts b{display:block;font-weight:600;font-size:17px}
+.pts span{color:var(--gris);font-size:15px}
+@media (min-width:900px){.craft{grid-template-columns:1fr 1fr}}
+
+/* fidélité */
+.club{display:grid;gap:clamp(28px,5vw,64px);align-items:center}
+.lcard{position:relative;border-radius:22px;padding:26px;aspect-ratio:1.586/1;max-width:460px;width:100%;background:radial-gradient(120% 120% at 100% 0%,rgba(236,210,138,.22),transparent 55%),linear-gradient(145deg,#1d1914,#0b0a08);border:1px solid rgba(212,176,92,.35);box-shadow:0 30px 60px -30px rgba(0,0,0,.8);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.lcard::before{content:"";position:absolute;inset:-40% -10% auto auto;width:70%;aspect-ratio:1;background:url(../img/logo-sajna.svg) center/contain no-repeat;opacity:.08;transform:rotate(-12deg)}
+.lcard .h{display:flex;justify-content:space-between;align-items:center}
+.lcard .h b{font:600 18px/1 Oswald;letter-spacing:.14em;text-transform:uppercase;color:var(--or2)}
+.lcard .h img{width:30px;height:30px}
+.stamps{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:300px}
+.stamps i{aspect-ratio:1;border-radius:50%;border:1px dashed rgba(212,176,92,.5);display:grid;place-items:center;font-style:normal;font-size:11px;color:var(--gris)}
+.stamps i.on{background:var(--or);border:0;color:var(--encre)}
+.stamps i.on::after{content:"✓";font-weight:700;font-size:13px}
+.stamps i.gift{border-style:solid;color:var(--or2);font-size:15px}
+.lcard .f{display:flex;justify-content:space-between;font-size:13px;color:var(--gris)}
+.lcard .f b{color:var(--creme)}
+.perks{display:grid;gap:10px;margin-top:26px}
+.perk{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px solid var(--ligne);border-radius:var(--r);background:var(--noir2)}
+.perk b{display:block}
+.perk span{color:var(--gris);font-size:14.5px}
+.perk .n{font:600 26px/1 "Bodoni Moda";color:var(--or);min-width:52px}
+@media (min-width:900px){.club{grid-template-columns:1fr 1fr}}
+
+/* réservation */
+.resa{background:var(--noir2);border-top:1px solid var(--ligne);border-bottom:1px solid var(--ligne)}
+.rgrid{display:grid;gap:clamp(28px,5vw,64px)}
+@media (min-width:900px){.rgrid{grid-template-columns:1fr 1fr}}
+form .f2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fld{display:grid;gap:6px;margin-bottom:12px}
+.fld label{font-size:13px;color:var(--gris);font-weight:500}
+.fld input,.fld select,.fld textarea{background:var(--noir);border:1px solid #3a3227;border-radius:12px;padding:13px 14px;font-size:16px;min-height:50px;width:100%;transition:border-color .2s}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:0;border-color:var(--or)}
+.fld .err{font-size:13px;color:#f0a58f;display:none}
+.fld.bad input,.fld.bad select{border-color:#d4664a}
+.fld.bad .err{display:block}
+.ok{display:none;border:1px solid rgba(159,211,154,.4);background:rgba(95,143,90,.12);border-radius:var(--r);padding:20px}
+.ok b{display:block;font-size:18px;margin-bottom:4px}
+.ok span{color:var(--creme2)}
+
+/* avis */
+.notes{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+.note{border:1px solid var(--ligne);border-radius:var(--r);padding:20px;background:var(--noir2)}
+.note b{font:500 clamp(38px,6vw,56px)/1 "Bodoni Moda";color:var(--or2);display:block}
+.note span{color:var(--gris);font-size:14.5px;display:block;margin-top:8px}
+@media (min-width:900px){.notes{grid-template-columns:repeat(4,1fr)}}
+
+/* infos */
+.info{display:grid;gap:14px}
+@media (min-width:900px){.info{grid-template-columns:1.1fr 1fr 1fr}}
+.box{border:1px solid var(--ligne);border-radius:var(--r);padding:22px;background:var(--noir2)}
+.box h3{font-size:26px;margin-bottom:12px}
+.box p{margin:0;color:var(--creme2)}
+.hours{width:100%;border-collapse:collapse;font-size:15px}
+.hours td{padding:7px 0;border-bottom:1px solid var(--ligne);color:var(--creme2)}
+.hours td:last-child{text-align:right}
+.hours tr.today td{color:var(--or2);font-weight:600}
+.lnk{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.lnk a{font-size:14.5px;padding:10px 14px;border:1px solid #3a3227;border-radius:999px;text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+@media (hover:hover){.lnk a:hover{border-color:var(--or)}}
+
+footer{padding:56px 0 120px;border-top:1px solid var(--ligne);color:var(--gris);font-size:14px}
+footer .wrap{display:grid;gap:18px}
+footer .brand{margin-bottom:6px}
+footer a{color:var(--or2)}
+@media (min-width:900px){footer{padding-bottom:56px}}
+
+/* barre mobile */
+.bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:45;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--or);color:var(--encre);border-radius:999px;padding:8px 8px 8px 20px;box-shadow:0 18px 40px -12px rgba(0,0,0,.7);transform:translateY(160%);transition:transform .45s var(--ease)}
+.bar.show{transform:none}
+.bar b{font-weight:600}
+.bar span{font-size:14px}
+.bar button{background:var(--encre);color:var(--or2);border-radius:999px;padding:12px 18px;font-weight:600;font-size:15px;min-height:46px}
+@media (min-width:900px){.bar{display:none}}
+
+/* feuille plat + panier */
+.scrim{position:fixed;inset:0;z-index:60;background:rgba(5,4,3,.62);opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;z-index:70;left:0;right:0;bottom:0;max-height:92svh;background:var(--creme);color:var(--encre);border-radius:22px 22px 0 0;transform:translateY(105%);transition:transform .42s var(--ease);display:flex;flex-direction:column;overflow:hidden}
+.sheet.on{transform:none}
+@media (min-width:900px){
+  .sheet{left:auto;top:0;bottom:0;right:0;width:460px;max-height:none;border-radius:0;transform:translateX(105%)}
+  .sheet.on{transform:none}
+}
+.grab{width:42px;height:5px;border-radius:9px;background:#d4c6a8;margin:10px auto 0;flex:none}
+@media (min-width:900px){.grab{display:none}}
+.sh-h{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 12px;border-bottom:1px solid #e3d7bf;flex:none}
+.sh-h b{font:500 26px/1 "Bodoni Moda"}
+.x{width:40px;height:40px;border-radius:50%;background:#efe4cd;font-size:20px;display:grid;place-items:center}
+.sh-b{overflow-y:auto;padding:18px 20px;flex:1;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.sh-f{padding:14px 20px calc(14px + env(safe-area-inset-bottom));border-top:1px solid #e3d7bf;background:#fffaf0;flex:none}
+.big{width:100%;display:flex;justify-content:space-between;align-items:center;background:var(--encre);color:var(--creme);border-radius:999px;padding:16px 22px;font-weight:600;font-size:16px;min-height:56px;transition:transform .16s var(--ease),opacity .2s}
+.big:active{transform:scale(.98)}
+.big[disabled]{opacity:.4;cursor:not-allowed}
+.big.or{background:var(--or);color:var(--encre)}
+.dimg{position:relative;margin:-18px -20px 18px;aspect-ratio:16/10;overflow:hidden;background:#e9dec8}
+.dimg img{width:100%;height:100%;object-fit:cover}
+.dsec{margin-top:20px}
+.dsec>b{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#7a6f5b;margin-bottom:10px;font-weight:600}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid #d6c8aa;border-radius:999px;padding:10px 14px;font-size:14.5px;min-height:44px;background:#fffaf0;transition:background .2s,border-color .2s,color .2s}
+.opt[aria-pressed="true"]{background:var(--encre);color:var(--creme);border-color:var(--encre)}
+.qty{display:inline-flex;align-items:center;border:1px solid #d6c8aa;border-radius:999px;background:#fffaf0}
+.qty button{width:44px;height:44px;font-size:20px;display:grid;place-items:center}
+.qty span{min-width:28px;text-align:center;font-weight:600}
+.line{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #e6dac1}
+.line img,.line .pl{width:56px;height:56px;border-radius:10px;object-fit:cover;background:#ecdfc5;display:grid;place-items:center}
+.line .pl img{width:26px;height:26px;opacity:.5;border-radius:0}
+.line b{display:block;font-size:15px}
+.line small{display:block;color:#7a6f5b;font-size:13px}
+.line .qty button{width:36px;height:36px;font-size:17px}
+.line .rm{font-size:12.5px;color:#a63b1c;text-decoration:underline;margin-top:4px}
+.empty{text-align:center;padding:40px 10px;color:#7a6f5b}
+.empty img{width:56px;height:56px;margin:0 auto 14px;opacity:.35}
+.empty b{display:block;color:var(--encre);font-size:18px;margin-bottom:6px}
+.sum{margin-top:14px;font-size:15px}
+.sum div{display:flex;justify-content:space-between;padding:4px 0}
+.sum .tot{font-weight:700;font-size:18px;padding-top:10px;border-top:1px solid #e6dac1;margin-top:6px}
+.sum .save{color:#3e6a38}
+.steps{display:flex;gap:6px;margin-bottom:18px}
+.steps i{flex:1;height:4px;border-radius:9px;background:#e3d7bf}
+.steps i.on{background:var(--encre)}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.slot{border:1px solid #d6c8aa;border-radius:12px;padding:11px 6px;text-align:center;font-weight:500;font-size:15px;background:#fffaf0;min-height:46px}
+.slot[aria-pressed="true"]{background:var(--encre);color:var(--creme);border-color:var(--encre)}
+.slot small{display:block;font-size:11px;font-weight:400;opacity:.75}
+.sheet .fld label{color:#6f6553}
+.sheet .fld input{background:#fffaf0;border-color:#d6c8aa;color:var(--encre)}
+.pays{display:grid;gap:8px}
+.pay{display:flex;align-items:center;gap:14px;border:1px solid #d6c8aa;border-radius:14px;padding:14px;background:#fffaf0;text-align:left;min-height:62px}
+.pay[aria-pressed="true"]{border:2px solid var(--encre);padding:13px}
+.pay .lg{width:46px;height:30px;border-radius:6px;display:grid;place-items:center;font:700 11px/1 "Work Sans";letter-spacing:.02em}
+.pay b{display:block;font-size:15.5px}
+.pay small{display:block;color:#7a6f5b;font-size:13px}
+.pay .rd{margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid #b7a888}
+.pay[aria-pressed="true"] .rd{border:6px solid var(--encre)}
+.hint{font-size:13px;color:#7a6f5b;margin-top:10px}
+.done{text-align:center;padding:10px 0}
+.done .ck{width:76px;height:76px;border-radius:50%;background:var(--encre);color:var(--or2);display:grid;place-items:center;margin:8px auto 18px}
+.done .ck svg{width:34px;height:34px;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .6s .2s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.done h3{font-size:32px}
+.done p{color:#6f6553;margin:10px auto 0;max-width:24em}
+.ticket{margin:22px 0 0;border:1px dashed #cbb98f;border-radius:16px;padding:16px;text-align:left;background:#fffaf0}
+.ticket div{display:flex;justify-content:space-between;padding:5px 0;font-size:15px}
+.ticket .k{color:#7a6f5b}
+.pts-earned{margin-top:14px;background:var(--encre);color:var(--creme);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;text-align:left;font-size:14.5px}
+.pts-earned b{color:var(--or2)}
+.toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom));z-index:80;transform:translate(-50%,20px);background:var(--encre);color:var(--creme);border:1px solid rgba(212,176,92,.4);padding:12px 16px;border-radius:999px;font-size:14.5px;opacity:0;pointer-events:none;transition:opacity .25s,transform .35s var(--ease);white-space:nowrap;max-width:calc(100vw - 32px);overflow:hidden;text-overflow:ellipsis}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (min-width:900px){.toast{bottom:28px}}
+
+/* apparition */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .marq div{animation:none}
+  .sheet,.scrim,.bar,.toast{transition:none}
+  .reg img{transition:none}
+  .done .ck svg{animation:none;stroke-dashoffset:0}
+}
+body.lock{overflow:hidden}
+</style>
+</head>
+<body>
+
+<div class="demo" id="demo"><b>Démo Nouvelle Ardoise pour Sajna.</b> Photos d'exemple, aucune commande n'est envoyée. <button type="button" aria-label="Fermer le bandeau" onclick="this.parentNode.remove()">×</button></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#accueil" aria-label="Sajna, accueil">
+      <img src="../img/logo-sajna.svg" alt="" width="34" height="34">
+      <span>SAJNA<small>Restaurant indien · halal</small></span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#carte">La carte</a><a href="#maison">La maison</a><a href="#club">Club Sajna</a><a href="#reserver">Réserver</a><a href="#infos">Infos</a>
+    </nav>
+    <button class="cartbtn" type="button" id="openCart" aria-label="Ouvrir le panier">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+      <span class="lbl">Commander</span><span class="n" id="cartN">0</span>
+    </button>
+  </div>
+</header>
+
+<main id="accueil">
+<section class="hero" style="padding:0">
+  <img class="bg" src="../img/butter-chicken.webp" alt="Butter chicken dans une poêle, sauce crémée et coriandre" width="1600" height="1066" fetchpriority="high">
+  <span class="ex" style="top:14px;bottom:auto;right:14px">Photo d'exemple</span>
+  <div class="wrap">
+    <img class="logo rv" src="../img/logo-sajna.svg" alt="" width="62" height="62">
+    <h1 class="rv">Trois Indes, <em>une adresse.</em></h1>
+    <p class="rv">Le tandoor du Nord, les épices du Kerala, les recettes du Bengale. Cuisine halal, à deux minutes de la gare Cornavin.</p>
+    <div class="ctas rv">
+      <a class="btn p" href="#carte">Commander à emporter</a>
+      <a class="btn g" href="#reserver">Réserver une table</a>
+    </div>
+    <div class="facts rv">
+      <span><i></i><b id="status">Ouvert</b></span>
+      <span><i></i>Rue de Neuchâtel 18, Genève</span>
+      <span><i></i>Prêt en 20 minutes</span>
+      <span><i></i>Paiement TWINT</span>
+    </div>
+  </div>
+</section>
+
+<div class="marq" aria-hidden="true"><div><span>Halal</span><span>Tandoor</span><span>Biryani</span><span>Kerala</span><span>Bengale</span><span>Fait maison</span><span>Végétarien</span><span>Cornavin</span><span>Halal</span><span>Tandoor</span><span>Biryani</span><span>Kerala</span><span>Bengale</span><span>Fait maison</span><span>Végétarien</span><span>Cornavin</span></div></div>
+
+<section id="maison">
+  <div class="wrap">
+    <div class="sec-h">
+      <span class="kick rv">La maison</span>
+      <h2 class="rv">Une carte que l'on ne trouve <em>nulle part ailleurs</em> à Genève.</h2>
+      <p class="lead rv">Trois cuisines de l'Inde et du Bengale, cuisinées par la même équipe, dans la même cuisine.</p>
+    </div>
+    <div class="regions">
+      <article class="reg rv"><img src="../img/tikka-grill-s.webp" srcset="../img/tikka-grill-s.webp 720w, ../img/tikka-grill.webp 1600w" sizes="(min-width:860px) 40vw, 100vw" alt="Brochettes de poulet tikka sur les braises" loading="lazy" width="720" height="440"><span class="ex">Photo d'exemple</span><div class="t"><span class="kick">Le Nord</span><h3>Le tandoor</h3><p>Chicken tikka, naans cuits à la flamme, butter chicken. Les classiques, faits comme il faut.</p></div></article>
+      <article class="reg rv"><img src="../img/vada-sambar-s.webp" srcset="../img/vada-sambar-s.webp 720w, ../img/vada-sambar.webp 1600w" sizes="(min-width:860px) 30vw, 100vw" alt="Vada, sambar et chutneys de l'Inde du Sud" loading="lazy" width="720" height="426"><span class="ex">Photo d'exemple</span><div class="t"><span class="kick">Le Sud</span><h3>Le Kerala</h3><p>Dosa, vada, sambar, Kerala beef masala et biryani Malabar.</p></div></article>
+      <article class="reg rv"><img src="../img/biryani-kanchi-s.webp" srcset="../img/biryani-kanchi-s.webp 720w, ../img/biryani-kanchi.webp 1600w" sizes="(min-width:860px) 30vw, 100vw" alt="Biryani à l'agneau servi sur un plat" loading="lazy" width="720" height="480"><span class="ex">Photo d'exemple</span><div class="t"><span class="kick">L'Est</span><h3>Le Bengale</h3><p>Kanchi biryani, halim, khichuri, poisson bengali. Les recettes de la maison.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="carte">
+  <div class="wrap">
+    <div class="sec-h">
+      <span class="kick rv">À emporter · prêt en 20 min</span>
+      <h2 class="rv">La carte. <em>Commandez, passez, c'est prêt.</em></h2>
+      <p class="lead rv">Choisissez vos plats, l'heure de retrait et payez par TWINT. Sans commission pour le restaurant, et vos points fidélité sont crédités.</p>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Catégories de la carte"></nav>
+    <div id="cats"></div>
+  </div>
+</section>
+
+<section id="savoir">
+  <div class="wrap craft">
+    <div class="ph rv"><img src="../img/thali-s.webp" srcset="../img/thali-s.webp 720w, ../img/thali.webp 1600w" sizes="(min-width:900px) 50vw, 100vw" alt="Thali végétarien : paratha, légumes, daal et achar" loading="lazy" width="720" height="480" style="aspect-ratio:auto"><span class="ex">Photo d'exemple</span></div>
+    <div>
+      <span class="kick rv">Le savoir-faire</span>
+      <h2 class="rv" style="margin-top:16px">Ce qui se passe <em>en cuisine.</em></h2>
+      <ul class="pts">
+        <li class="rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 3c2 3 5 5 5 9a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-8Z"/></svg></span><div><b>Le four tandoor</b><span>Viandes marinées puis saisies à très haute température, naans cuits contre la paroi.</span></div></li>
+        <li class="rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M8.5 12.5l2.3 2.3 4.7-5"/></svg></span><div><b>Viande halal</b><span>Toute la viande servie est halal. La carte le dit clairement, à chaque plat.</span></div></li>
+        <li class="rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 18c4-1 6-6 16-12-2 8-6 13-12 13"/><path d="M4 18l6-6"/></svg></span><div><b>Épices moulues sur place</b><span>Masala, garam masala, tarka : le parfum vient de la cuisine, pas d'un sachet.</span></div></li>
+        <li class="rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M5 12a7 7 0 0 0 14 0M8 8c0-2 1-3 2-4M12 8c0-2 1-3 2-4"/></svg></span><div><b>Végétarien et sans gluten</b><span>Une vingtaine de plats végétariens, et des plats sans gluten signalés sur la carte.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="club" style="padding-top:0">
+  <div class="wrap club">
+    <div>
+      <span class="kick rv">Club Sajna</span>
+      <h2 class="rv" style="margin-top:16px">Vos habitudes <em>récompensées.</em></h2>
+      <p class="lead rv" style="margin-top:16px">Chaque commande passée sur ce site remplit votre carte. Pas d'application à télécharger : votre numéro de téléphone suffit.</p>
+      <div class="perks">
+        <div class="perk rv"><span class="n">10</span><div><b>10 commandes, un biryani offert</b><span>La carte se remplit toute seule à chaque retrait.</span></div></div>
+        <div class="perk rv"><span class="n">🎂</span><div><b>Un dessert maison pour votre anniversaire</b><span>Rasmalai ou gulab jamun, offert la semaine de votre anniversaire.</span></div></div>
+        <div class="perk rv"><span class="n">1er</span><div><b>Les nouveaux plats en premier</b><span>Un message quand le poisson bengali revient à la carte.</span></div></div>
+      </div>
+    </div>
+    <div class="rv" style="display:grid;place-items:center">
+      <div class="lcard" aria-label="Exemple de carte de fidélité Club Sajna, 6 commandes sur 10">
+        <div class="h"><b>Club Sajna</b><img src="../img/logo-sajna.svg" alt="" width="30" height="30"></div>
+        <div class="stamps" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i>7</i><i>8</i><i>9</i><i class="gift">★</i></div>
+        <div class="f"><span>Exemple · <b>6 / 10</b></span><span>Prochain cadeau : <b>Kanchi biryani</b></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="resa" id="reserver">
+  <div class="wrap rgrid">
+    <div>
+      <span class="kick rv">Réserver</span>
+      <h2 class="rv" style="margin-top:16px">Une table <em>ce soir&nbsp;?</em></h2>
+      <p class="lead rv" style="margin-top:16px">Réservation confirmée par SMS. Pour un groupe ou un repas d'entreprise près de Cornavin, laissez un mot : on prépare un menu à partager.</p>
+    </div>
+    <div>
+      <form id="resaForm" novalidate>
+        <div class="f2">
+          <div class="fld"><label for="rDate">Date</label><input id="rDate" type="date" required><span class="err">Choisissez une date.</span></div>
+          <div class="fld"><label for="rTime">Heure</label><select id="rTime" required></select><span class="err">Choisissez une heure.</span></div>
+        </div>
+        <div class="f2">
+          <div class="fld"><label for="rPers">Personnes</label><select id="rPers"></select></div>
+          <div class="fld"><label for="rTel">Téléphone</label><input id="rTel" type="tel" inputmode="tel" autocomplete="tel" placeholder="079 123 45 67" required><span class="err">Numéro suisse à 10 chiffres.</span></div>
+        </div>
+        <div class="fld"><label for="rNom">Nom</label><input id="rNom" type="text" autocomplete="name" placeholder="Votre nom" required><span class="err">Indiquez votre nom.</span></div>
+        <button class="btn p" type="submit" style="width:100%;margin-top:6px">Réserver la table</button>
+      </form>
+      <div class="ok" id="resaOk" role="status" tabindex="-1"><b>C'est noté.</b><span id="resaTxt"></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="avis">
+  <div class="wrap">
+    <div class="sec-h">
+      <span class="kick rv">Ils en parlent</span>
+      <h2 class="rv">Plus de <em>2 000 avis</em> en ligne.</h2>
+    </div>
+    <div class="notes">
+      <div class="note rv"><b>9,0</b><span>sur 10 sur TheFork, plus de 1 600 avis</span></div>
+      <div class="note rv"><b>4,0</b><span>sur 5 sur Uber Eats, plus de 150 notes</span></div>
+      <div class="note rv"><b>221</b><span>avis sur Tripadvisor</span></div>
+      <div class="note rv"><b>2 min</b><span>à pied de la gare Cornavin</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="infos" style="padding-top:0">
+  <div class="wrap info">
+    <div class="box rv">
+      <h3>Nous trouver</h3>
+      <p>Rue de Neuchâtel 18<br>1201 Genève<br>À deux minutes de la gare Cornavin. Parking du Cygne.</p>
+      <div class="lnk">
+        <a href="https://maps.google.com/?q=Sajna+Restaurant+Rue+de+Neuch%C3%A2tel+18+Gen%C3%A8ve" target="_blank" rel="noopener">Itinéraire</a>
+        <a href="tel:+41227312696">022 731 26 96</a>
+        <a href="https://wa.me/41782389621" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="box rv">
+      <h3>Horaires</h3>
+      <table class="hours" id="hours"></table>
+    </div>
+    <div class="box rv">
+      <h3>Groupes et traiteur</h3>
+      <p>Repas d'équipe, anniversaire, fête de famille : biryani et curries en grands plats, à emporter ou servis chez vous.</p>
+      <div class="lnk"><a href="https://wa.me/41782389621?text=Bonjour%2C%20je%20souhaite%20un%20devis%20traiteur" target="_blank" rel="noopener">Demander un devis</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#accueil"><img src="../img/logo-sajna.svg" alt="" width="34" height="34"><span>SAJNA<small>Restaurant indien · halal</small></span></a>
+    <p style="margin:0">Démo réalisée par <a href="https://nouvelleardoise.ch">Nouvelle Ardoise</a> pour Sajna. Les photos sont des photos d'exemple : sur le vrai site, ce seront vos plats, photographiés chez vous. Carte et prix repris de votre carte en ligne. Horaires à confirmer.</p>
+  </div>
+</footer>
+
+<div class="bar" id="bar" aria-hidden="true"><span><b id="barN">0 article</b> · <span id="barT">CHF 0.00</span></span><button type="button" id="barBtn">Voir le panier</button></div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="sheet" id="dishSheet" role="dialog" aria-modal="true" aria-labelledby="dTitle" aria-hidden="true"></aside>
+<aside class="sheet" id="cartSheet" role="dialog" aria-modal="true" aria-labelledby="cTitle" aria-hidden="true"></aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+var IMG='../img/';
+// Carte reprise de la carte en ligne de Sajna (prix CHF). img = photo d'exemple.
+var MENU=[
+ {id:'sig',t:'Signatures',s:'Les plats que l’on commande le plus',feat:true,items:[
+  {id:'butter',n:'Butter chicken',d:'Poulet grillé au tandoor, sauce tomate, beurre et crème, recette de la maison.',p:27,img:'butter-chicken',spice:1,side:1},
+  {id:'kanchi',n:'Kanchi biryani',d:'Agneau avec os, riz basmati et épices, à la façon de Dacca. La spécialité bengalie.',p:30,img:'biryani-kanchi',tags:['Bengale'],spice:2},
+  {id:'lsajna',n:'Lamb sajna',d:'Agneau mijoté au lait de coco, raisins secs, noix de cajou et épices.',p:29,img:'agneau-curry',spice:2,side:1},
+  {id:'ctm',n:'Chicken tikka masala',d:'Poulet grillé au tandoor dans une sauce tikka masala relevée.',p:26,img:'pot-cuivre',spice:2,side:1},
+  {id:'saumon',n:'Saumon curry',d:'Saumon mijoté dans un curry relevé, coriandre fraîche.',p:23,img:'saumon-curry',spice:2,side:1},
+  {id:'gsajna',n:'Gambas sajna special',d:'Gambas grillées au four, sauce spéciale de la maison.',p:30,spice:1,side:1}
+ ]},
+ {id:'ent',t:'Entrées',s:'Samoussas faits maison, pakoras, halim',items:[
+  {id:'samb',n:'Samosa bengali',d:'Petits pois, carottes, pommes de terre, chou-fleur et cacahuètes, pâte bengalie.',p:7,img:'samosa',tags:['Végétarien','Fait maison']},
+  {id:'samk',n:'Samosa keema',d:'Agneau haché légèrement épicé, roulé dans une pâte à l’indienne.',p:8,tags:['Fait maison']},
+  {id:'vada',n:'Vada',d:'Beignets de lentilles noires du Kerala, sambar et chutney.',p:8,img:'vada-sambar',tags:['Végétarien','Kerala']},
+  {id:'onion',n:'Onion pakora',d:'Beignets d’oignons à la farine de pois chiches, épicés.',p:8,tags:['Vegan']},
+  {id:'ppak',n:'Paneer pakora',d:'Fromage frais aux herbes, en beignet de pois chiches.',p:10,tags:['Végétarien']},
+  {id:'halim',n:'Halim',d:'Lentilles mijotées avec des os d’agneau et des épices. Une recette du Bengale.',p:10,tags:['Bengale']}
+ ]},
+ {id:'tan',t:'Tandoor',s:'Servi sans accompagnement',items:[
+  {id:'ctikka',n:'Chicken tikka',d:'Blancs de poulet marinés, grillés au tandoor.',p:17,img:'tikka-grill',side:1},
+  {id:'ctand',n:'Chicken tandoori',d:'Poulet mariné aux épices, grillé au tandoor.',p:16,side:1},
+  {id:'ltikka',n:'Lamb tikka',d:'Agneau mariné dans une sauce épicée, grillé au tandoor.',p:18,spice:2,side:1},
+  {id:'mixed',n:'Tandoori mixed grill',d:'Poulet, seekh kebab et poisson, grillés au tandoor.',p:30,side:1},
+  {id:'gtand',n:'Gambas tandoori',d:'Gambas grillées au tandoor et aux épices.',p:28,side:1}
+ ]},
+ {id:'cur',t:'Curries',s:'Servi sans accompagnement : ajoutez riz ou naan',items:[
+  {id:'ccs',n:'Chicken curry special',d:'Poulet sans os dans une sauce spéciale de la maison.',p:25,img:'curry-poele',spice:2,side:1},
+  {id:'ckor',n:'Chicken korma',d:'Sauce aux noix de cajou, amandes, crème et raisins. Doux.',p:24,spice:0,side:1},
+  {id:'rogan',n:'Lamb roghan josh',d:'Agneau traditionnel, moyennement épicé.',p:28,img:'curry-naan',spice:1,side:1},
+  {id:'kbeef',n:'Kerala beef masala',d:'Bœuf épicé dans une sauce du Kerala.',p:30,tags:['Kerala'],spice:3,side:1},
+  {id:'fishb',n:'Fish bengali',d:'Poisson hilsa dans une sauce au curry et aux épices.',p:25,tags:['Bengale'],spice:2,side:1},
+  {id:'bpal',n:'Beef palak',d:'Bœuf aux épinards.',p:28,spice:1,side:1}
+ ]},
+ {id:'bir',t:'Biryani',s:'Riz basmati safrané, cuit avec la viande',items:[
+  {id:'cbir',n:'Chicken biryani',d:'Poulet cuit avec le riz basmati, safran et épices.',p:28,img:'biryani-poulet',spice:2},
+  {id:'lbir',n:'Lamb biryani',d:'Agneau et riz basmati safrané aux épices.',p:30,img:'biryani-terre',spice:2},
+  {id:'mbir',n:'Malabar chicken biryani',d:'Poulet mariné à la façon du Kerala, herbes fraîches et masala malabar.',p:28,img:'karahi',tags:['Kerala'],spice:3},
+  {id:'pbir',n:'Punjabi biryani',d:'Légumes au yaourt étuvés avec le riz basmati safrané.',p:25,tags:['Végétarien'],spice:2}
+ ]},
+ {id:'veg',t:'Végétarien',s:'Une vingtaine de plats sans viande',items:[
+  {id:'palak',n:'Palak paneer',d:'Épinards et fromage frais.',p:16,tags:['Végétarien','Sans gluten'],spice:1,side:1},
+  {id:'dmak',n:'Daal makhni',d:'Lentilles noires mijotées au beurre et à la crème.',p:16,tags:['Végétarien','Sans gluten'],spice:1,side:1},
+  {id:'chana',n:'Chana punjabi',d:'Pois chiches et tomates au masala punjabi.',p:15,tags:['Vegan'],spice:2,side:1},
+  {id:'baig',n:'Baigan bharta',d:'Aubergines grillées, tomates, oignons et épices.',p:16,tags:['Végétarien'],spice:2,side:1},
+  {id:'dosa',n:'Masala dosa',d:'Grande crêpe de riz et lentilles, farcie de légumes épicés, chutney.',p:22,tags:['Kerala','Végétarien'],spice:2},
+  {id:'pkor',n:'Paneer korma',d:'Fromage frais, sauce amandes, noix de cajou et raisins.',p:18,tags:['Végétarien'],spice:0,side:1}
+ ]},
+ {id:'pain',t:'Naans et riz',s:'Cuits à la commande',items:[
+  {id:'bnaan',n:'Butter naan',d:'Pain au beurre cuit dans le tandoor.',p:5},
+  {id:'gnaan',n:'Garlic naan',d:'Naan à l’ail.',p:6},
+  {id:'cnaan',n:'Cheese naan',d:'Naan au fromage.',p:6},
+  {id:'knaan',n:'Keema naan',d:'Naan farci à la viande hachée.',p:10},
+  {id:'porotta',n:'Kerala porotta',d:'Pain feuilleté du Kerala.',p:6,tags:['Kerala']},
+  {id:'safran',n:'Pulao safrani',d:'Riz basmati au safran.',p:6},
+  {id:'khich',n:'Bhuna khichuri',d:'Riz basmati, lentilles rouges et cumin. Recette bengalie.',p:10,tags:['Bengale','Vegan']}
+ ]},
+ {id:'des',t:'Desserts',s:'Faits maison',items:[
+  {id:'halwa',n:'Halwa',d:'Gâteau fondant au safran.',p:6,img:'halwa'},
+  {id:'gulab',n:'Gulab jamun',d:'Boulettes de lait frites, servies au sirop.',p:6},
+  {id:'rasm',n:'Rasmalai',d:'Petites boules de fromage maison dans un lait sucré.',p:7,tags:['Bengale']},
+  {id:'kulfi',n:'Pista kulfi',d:'Glace indienne à la pistache.',p:7}
+ ]},
+ {id:'bois',t:'Boissons maison',s:'Lassis préparés à la commande',items:[
+  {id:'mlassi',n:'Lassi à la mangue',d:'Yaourt et mangue.',p:6},
+  {id:'slassi',n:'Sajna lassi spéciale',d:'Yaourt à la rose, à la mangue et à la noix de coco.',p:7},
+  {id:'salt',n:'Lassi salé',d:'Yaourt, sel et cumin.',p:5}
+ ]}
+];
+var SIDES=[{id:'bnaan',n:'Butter naan',p:5},{id:'gnaan',n:'Garlic naan',p:6},{id:'safran',n:'Riz safran',p:6}];
+var SPICE=['Doux','Moyen','Relevé','Très relevé'];
+var BY={};MENU.forEach(function(c){c.items.forEach(function(i){BY[i.id]=i;});});
+
+// horaires (à confirmer avec le restaurant) : 7 j/7
+var HRS=[[[11,30],[14,30]],[[18,0],[23,0]]];
+var DAYS=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+
+var $=function(s,r){return (r||document).querySelector(s);};
+function chf(n){return 'CHF '+n.toFixed(2);}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+var store={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- statut ouvert / fermé ---------- */
+function mins(h){return h[0]*60+h[1];}
+function openNow(d){var m=d.getHours()*60+d.getMinutes();return HRS.some(function(r){return m>=mins(r[0])&&m<mins(r[1]);});}
+(function(){
+  var d=new Date(),st=$('#status');
+  if(openNow(d)){st.textContent='Ouvert maintenant';st.className='open';}
+  else{st.textContent='Fermé · commandez pour plus tard';st.className='closed';}
+  var t=$('#hours'),today=d.getDay(),h='';
+  [1,2,3,4,5,6,0].forEach(function(i){h+='<tr'+(i===today?' class="today"':'')+'><td>'+DAYS[i]+'</td><td>11h30–14h30 · 18h–23h</td></tr>';});
+  t.innerHTML=h;
+})();
+
+/* ---------- carte ---------- */
+function spiceTag(s){if(s==null)return '';var lbl=['Doux','Épicé','Épicé','Très épicé'][s];return s>=2?'<span class="tag hot">'+lbl+'</span>':'';}
+function tagsHtml(i){return (i.tags||[]).map(function(t){return '<span class="tag'+(/V[ée]g|Vegan/.test(t)?' veg':'')+'">'+esc(t)+'</span>';}).join('')+spiceTag(i.spice);}
+function dishHtml(i){
+  var ph=i.img?'<span class="ph"><img src="'+IMG+i.img+'-s.webp" alt="" loading="lazy" width="360" height="360"><span class="ex">Exemple</span></span>':'';
+  return '<button type="button" class="dish'+(i.img?'':' noimg')+'" data-id="'+i.id+'" aria-label="'+esc(i.n)+', '+i.p+' francs. Voir et ajouter"><span><span class="nm">'+esc(i.n)+'</span><span class="ds">'+esc(i.d)+'</span><span class="row"><span class="pr">'+chf(i.p)+'</span>'+tagsHtml(i)+'<span class="plus" aria-hidden="true">+</span></span></span>'+ph+'</button>';
+}
+(function(){
+  var tabs='',cats='';
+  MENU.forEach(function(c,k){
+    tabs+='<button type="button" class="tab" data-c="'+c.id+'"'+(k===0?' aria-current="true"':'')+'>'+esc(c.t)+'</button>';
+    cats+='<div class="cat'+(c.feat?' feat':'')+'" id="c-'+c.id+'"><h3>'+esc(c.t)+' <small>'+esc(c.s)+'</small></h3><div class="grid">'+c.items.map(dishHtml).join('')+'</div></div>';
+  });
+  $('#tabs').innerHTML=tabs;$('#cats').innerHTML=cats;
+  $('#tabs').addEventListener('click',function(e){var b=e.target.closest('.tab');if(!b)return;var el=document.getElementById('c-'+b.dataset.c);var y=el.getBoundingClientRect().top+scrollY-128;scrollTo({top:y,behavior:rm?'auto':'smooth'});});
+  $('#cats').addEventListener('click',function(e){var b=e.target.closest('.dish');if(b)openDish(b.dataset.id,b);});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){var id=en.target.id.slice(2);[].forEach.call(document.querySelectorAll('.tab'),function(t){var on=t.dataset.c===id;t.setAttribute('aria-current',on?'true':'false');if(on){var tb=$('#tabs');tb.scrollTo({left:t.offsetLeft-tb.clientWidth/2+t.clientWidth/2,behavior:rm?'auto':'smooth'});}});}});},{rootMargin:'-140px 0px -60% 0px'});
+    [].forEach.call(document.querySelectorAll('.cat'),function(c){io.observe(c);});
+  }
+})();
+
+/* ---------- panier ---------- */
+var cart=store.get('sajna-cart',[]);
+function key(l){return l.id+'|'+l.sp+'|'+(l.note||'');}
+function count(){return cart.reduce(function(a,l){return a+l.q;},0);}
+function total(){return cart.reduce(function(a,l){return a+l.q*BY[l.id].p;},0);}
+function save(){store.set('sajna-cart',cart);paint();}
+function paint(){
+  var n=count(),t=total();
+  var cn=$('#cartN');cn.textContent=n;cn.classList.remove('bump');void cn.offsetWidth;if(n)cn.classList.add('bump');
+  $('#barN').textContent=n+(n>1?' articles':' article');$('#barT').textContent=chf(t);
+  $('#bar').classList.toggle('show',n>0&&!sheetOpen);
+}
+function add(id,q,sp,silent){
+  var l={id:id,q:q,sp:sp==null?-1:sp};var k=key(l),f=cart.filter(function(x){return key(x)===k;})[0];
+  if(f)f.q+=q;else cart.push(l);save();
+  if(!silent)toast(q+' × '+BY[id].n+' ajouté');
+}
+var tt;function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('on');},2200);}
+
+/* ---------- feuilles ---------- */
+var sheetOpen=null,lastFocus=null;
+function openSheet(el){lastFocus=document.activeElement;$('#toast').classList.remove('on');sheetOpen=el;el.classList.add('on');el.setAttribute('aria-hidden','false');$('#scrim').classList.add('on');document.body.classList.add('lock');$('#bar').classList.remove('show');setTimeout(function(){var f=el.querySelector('.x');if(f)f.focus();},50);}
+function closeSheet(){if(!sheetOpen)return;sheetOpen.classList.remove('on');sheetOpen.setAttribute('aria-hidden','true');sheetOpen=null;$('#scrim').classList.remove('on');document.body.classList.remove('lock');paint();if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+$('#scrim').addEventListener('click',closeSheet);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet();if(e.key==='Tab'&&sheetOpen){var f=sheetOpen.querySelectorAll('button:not([disabled]),input,select,textarea,a[href]');if(!f.length)return;var a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}});
+// glisser vers le bas pour fermer (téléphone)
+[].forEach.call(document.querySelectorAll('.sheet'),function(sh){
+  var y0=null,dy=0;
+  sh.addEventListener('touchstart',function(e){var b=sh.querySelector('.sh-b');if(b&&b.scrollTop>0&&!e.target.closest('.sh-h,.grab'))return;y0=e.touches[0].clientY;dy=0;},{passive:true});
+  sh.addEventListener('touchmove',function(e){if(y0==null)return;dy=e.touches[0].clientY-y0;if(dy>0&&innerWidth<900){sh.style.transition='none';sh.style.transform='translateY('+dy+'px)';}},{passive:true});
+  sh.addEventListener('touchend',function(){if(y0==null)return;sh.style.transition='';sh.style.transform='';if(dy>110)closeSheet();y0=null;});
+});
+
+/* fiche plat */
+function openDish(id){
+  var i=BY[id],sp=i.spice==null?-1:Math.min(i.spice,2),q=1,sides={};
+  var el=$('#dishSheet');
+  function render(){
+    var extra=Object.keys(sides).reduce(function(a,k){return a+BY[k].p;},0);
+    el.innerHTML='<div class="grab"></div><div class="sh-h"><b id="dTitle">'+esc(i.n)+'</b><button type="button" class="x" aria-label="Fermer">×</button></div>'+
+    '<div class="sh-b">'+(i.img?'<div class="dimg"><img src="'+IMG+i.img+'.webp" alt="'+esc(i.n)+'" width="1600" height="1000"><span class="ex">Photo d’exemple</span></div>':'')+
+    '<p style="margin:0;color:#5d5444">'+esc(i.d)+'</p><div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">'+tagsHtml(i)+'<span class="tag">Halal</span></div>'+
+    (i.spice!=null?'<div class="dsec"><b>Niveau d’épices</b><div class="opts" role="group" aria-label="Niveau d’épices">'+SPICE.map(function(s,k){return '<button type="button" class="opt" data-sp="'+k+'" aria-pressed="'+(k===sp)+'">'+s+'</button>';}).join('')+'</div></div>':'')+
+    (i.side?'<div class="dsec"><b>Avec ça ?</b><div class="opts" role="group" aria-label="Accompagnements">'+SIDES.map(function(s){return '<button type="button" class="opt" data-side="'+s.id+'" aria-pressed="'+(!!sides[s.id])+'">+ '+s.n+' · '+s.p+'.–</button>';}).join('')+'</div></div>':'')+
+    '<div class="dsec"><b>Quantité</b><div class="qty"><button type="button" data-q="-1" aria-label="Moins">−</button><span aria-live="polite">'+q+'</span><button type="button" data-q="1" aria-label="Plus">+</button></div></div>'+
+    '</div><div class="sh-f"><button type="button" class="big or" id="addBtn"><span>Ajouter au panier</span><span>'+chf(q*i.p+extra)+'</span></button></div>';
+  }
+  render();
+  el.onclick=function(e){
+    var b=e.target.closest('button');if(!b)return;
+    if(b.classList.contains('x'))return closeSheet();
+    if(b.dataset.sp){sp=+b.dataset.sp;render();el.querySelector('[data-sp="'+sp+'"]').focus();return;}
+    if(b.dataset.side){var s=b.dataset.side;if(sides[s])delete sides[s];else sides[s]=1;render();el.querySelector('[data-side="'+s+'"]').focus();return;}
+    if(b.dataset.q){q=Math.max(1,Math.min(20,q+(+b.dataset.q)));var sc=el.querySelector('.sh-b').scrollTop;render();el.querySelector('.sh-b').scrollTop=sc;el.querySelector('[data-q="'+b.dataset.q+'"]').focus();return;}
+    if(b.id==='addBtn'){add(id,q,i.spice!=null?sp:-1,true);Object.keys(sides).forEach(function(s){add(s,1,-1,true);});closeSheet();toast(q+' × '+i.n+(Object.keys(sides).length?' + accompagnement':'')+' ajouté');}
+  };
+  openSheet(el);
+}
+
+/* panier + retrait + paiement */
+var step=0,order={slot:null,name:'',tel:'',pay:'twint'};
+function slots(){
+  var out=[],now=new Date(),start=new Date(now.getTime()+20*60000);
+  start.setMinutes(Math.ceil(start.getMinutes()/15)*15,0,0);
+  for(var d=0;d<2&&out.length<9;d++){
+    HRS.forEach(function(r){
+      for(var m=mins(r[0])+15;m<=mins(r[1])-30&&out.length<9;m+=15){
+        var t=new Date(now);t.setDate(now.getDate()+d);t.setHours(Math.floor(m/60),m%60,0,0);
+        if(t>=start)out.push(t);
+      }
+    });
+  }
+  return out;
+}
+function hm(t){return t.getHours()+'h'+String(t.getMinutes()).padStart(2,'0');}
+function dayLbl(t){var n=new Date();return t.getDate()===n.getDate()?'aujourd’hui':'demain';}
+function openCart(){step=0;renderCart();openSheet($('#cartSheet'));}
+function renderCart(){
+  var el=$('#cartSheet'),n=count(),t=total(),h='';
+  var bars='<div class="steps" aria-hidden="true">'+[0,1,2].map(function(k){return '<i class="'+(k<=step?'on':'')+'"></i>';}).join('')+'</div>';
+  var title=['Votre commande','Retrait','Paiement','Merci !'][step];
+  h+='<div class="grab"></div><div class="sh-h"><b id="cTitle">'+title+'</b><button type="button" class="x" aria-label="Fermer">×</button></div><div class="sh-b">';
+  if(step===0){
+    if(!n){h+='<div class="empty"><img src="../img/logo-sajna-noir.svg" alt=""><b>Votre panier est vide</b>Ajoutez un plat depuis la carte : prêt en 20 minutes, à deux pas de Cornavin.</div><button type="button" class="big" data-go="carte"><span>Voir la carte</span><span>→</span></button>';}
+    else{
+      h+=bars+cart.map(function(l,k){var i=BY[l.id];return '<div class="line">'+(i.img?'<img src="'+IMG+i.img+'-s.webp" alt="">':'<span class="pl"><img src="../img/logo-sajna-noir.svg" alt=""></span>')+'<div><b>'+esc(i.n)+'</b><small>'+(l.sp>=0?SPICE[l.sp]+' · ':'')+chf(i.p)+'</small><button type="button" class="rm" data-rm="'+k+'">Retirer</button></div><div class="qty"><button type="button" data-l="'+k+'" data-d="-1" aria-label="Moins de '+esc(i.n)+'">−</button><span>'+l.q+'</span><button type="button" data-l="'+k+'" data-d="1" aria-label="Plus de '+esc(i.n)+'">+</button></div></div>';}).join('');
+      var hasNaan=cart.some(function(l){return /naan|porotta|safran|khich/.test(l.id);}),hasMain=cart.some(function(l){return BY[l.id].side;});
+      if(hasMain&&!hasNaan)h+='<div class="dsec"><b>On vous propose</b><div class="opts">'+SIDES.map(function(s){return '<button type="button" class="opt" data-up="'+s.id+'">+ '+s.n+' · '+s.p+'.–</button>';}).join('')+'</div></div>';
+      h+='<div class="sum"><div><span>Sous-total</span><span>'+chf(t)+'</span></div><div class="save"><span>Points Club Sajna</span><span>+'+Math.floor(t)+'</span></div><div class="tot"><span>Total</span><span>'+chf(t)+'</span></div></div>';
+    }
+  }else if(step===1){
+    var ss=slots();if(!order.slot&&ss.length)order.slot=ss[0].getTime();
+    h+=bars+'<div class="dsec" style="margin-top:0"><b>Heure de retrait</b><div class="slots">'+ss.map(function(s){return '<button type="button" class="slot" data-slot="'+s.getTime()+'" aria-pressed="'+(order.slot===s.getTime())+'">'+hm(s)+'<small>'+dayLbl(s)+'</small></button>';}).join('')+'</div><p class="hint">Rue de Neuchâtel 18, au comptoir. Nous préparons votre commande pour l’heure choisie.</p></div>'+
+      '<div class="dsec"><b>Vos coordonnées</b><div class="fld" id="fN"><label for="oNom">Nom</label><input id="oNom" autocomplete="name" value="'+esc(order.name)+'" placeholder="Votre nom"><span class="err">Indiquez votre nom.</span></div><div class="fld" id="fT"><label for="oTel">Téléphone</label><input id="oTel" type="tel" inputmode="tel" autocomplete="tel" value="'+esc(order.tel)+'" placeholder="079 123 45 67"><span class="err">Numéro suisse à 10 chiffres, pour le SMS « c’est prêt ».</span></div></div>';
+  }else if(step===2){
+    var P=[['twint','TWINT','Payer avec l’app TWINT','#000','#fff'],['card','CARTE','Visa, Mastercard, Apple Pay, Google Pay','#1d1914','#ecd28a'],['shop','SUR PLACE','Payer au comptoir au retrait','#efe4cd','#17130e']];
+    h+=bars+'<div class="pays" role="radiogroup" aria-label="Moyen de paiement">'+P.map(function(p){return '<button type="button" class="pay" role="radio" data-pay="'+p[0]+'" aria-pressed="'+(order.pay===p[0])+'" aria-checked="'+(order.pay===p[0])+'"><span class="lg" style="background:'+p[3]+';color:'+p[4]+'">'+p[1]+'</span><span><b>'+(p[0]==='twint'?'TWINT':p[0]==='card'?'Carte ou mobile':'Au comptoir')+'</b><small>'+p[2]+'</small></span><span class="rd"></span></button>';}).join('')+'</div>'+
+      '<div class="ticket"><div><span class="k">Retrait</span><span>'+hm(new Date(order.slot))+' · '+dayLbl(new Date(order.slot))+'</span></div><div><span class="k">Articles</span><span>'+n+'</span></div><div><span class="k">Total</span><b>'+chf(t)+'</b></div></div><p class="hint">Démo : aucun paiement n’est débité.</p>';
+  }else{
+    var num='SJ-'+String(Math.floor(1000+Math.random()*9000));
+    h+='<div class="done"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h3>Commande reçue</h3><p>Merci '+esc(order.name.split(' ')[0])+'. La cuisine a votre commande : vous recevrez un SMS au '+esc(order.tel)+' quand elle sera prête.</p>'+
+      '<div class="ticket"><div><span class="k">N° de commande</span><b>'+num+'</b></div><div><span class="k">Retrait</span><span>'+hm(new Date(order.slot))+' · '+dayLbl(new Date(order.slot))+'</span></div><div><span class="k">Adresse</span><span>Rue de Neuchâtel 18</span></div><div><span class="k">Payé</span><span>'+chf(order.total)+' · '+({twint:'TWINT',card:'Carte',shop:'Au comptoir'})[order.pay]+'</span></div></div>'+
+      '<div class="pts-earned"><img src="../img/logo-sajna.svg" alt="" width="28" height="28"><span><b>+'+Math.floor(order.total)+' points Club Sajna.</b> Encore '+Math.max(1,9-(store.get('sajna-orders',0)%10))+' commandes avant votre biryani offert.</span></div>'+
+      '<p class="hint" style="text-align:center">Démo Nouvelle Ardoise : cette commande n’a pas été envoyée.</p></div>';
+  }
+  h+='</div>';
+  if(step===0&&n)h+='<div class="sh-f"><button type="button" class="big or" data-next><span>Choisir l’heure de retrait</span><span>'+chf(t)+'</span></button></div>';
+  if(step===1)h+='<div class="sh-f"><button type="button" class="big or" data-next><span>Continuer vers le paiement</span><span>→</span></button><button type="button" class="hint" data-back style="display:block;margin:10px auto 0;text-decoration:underline">Retour au panier</button></div>';
+  if(step===2)h+='<div class="sh-f"><button type="button" class="big or" data-next><span>'+(order.pay==='twint'?'Payer avec TWINT':order.pay==='card'?'Payer par carte':'Confirmer la commande')+'</span><span>'+chf(t)+'</span></button><button type="button" class="hint" data-back style="display:block;margin:10px auto 0;text-decoration:underline">Retour</button></div>';
+  if(step===3)h+='<div class="sh-f"><button type="button" class="big" data-close><span>Retour au site</span><span>✓</span></button></div>';
+  el.innerHTML=h;
+}
+$('#cartSheet').addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;
+  if(b.classList.contains('x')||b.hasAttribute('data-close'))return closeSheet();
+  if(b.dataset.go){closeSheet();var c=document.getElementById(b.dataset.go);scrollTo({top:c.getBoundingClientRect().top+scrollY-70,behavior:rm?'auto':'smooth'});return;}
+  if(b.dataset.rm!=null){var gone=BY[cart[+b.dataset.rm].id].n;cart.splice(+b.dataset.rm,1);save();renderCart();toast(gone+' retiré');return;}
+  if(b.dataset.l!=null){var l=cart[+b.dataset.l];l.q+= +b.dataset.d;if(l.q<1)cart.splice(+b.dataset.l,1);save();renderCart();var nb=$('#cartSheet [data-l="'+b.dataset.l+'"][data-d="'+b.dataset.d+'"]');if(nb)nb.focus();return;}
+  if(b.dataset.up){add(b.dataset.up,1,-1,true);renderCart();toast(BY[b.dataset.up].n+' ajouté');return;}
+  if(b.dataset.slot){order.slot=+b.dataset.slot;[].forEach.call(document.querySelectorAll('#cartSheet .slot'),function(s){s.setAttribute('aria-pressed',String(+s.dataset.slot===order.slot));});return;}
+  if(b.dataset.pay){order.pay=b.dataset.pay;renderCart();var pb=$('#cartSheet [data-pay="'+order.pay+'"]');if(pb)pb.focus();return;}
+  if(b.hasAttribute('data-back')){step--;renderCart();return;}
+  if(b.hasAttribute('data-next')){
+    if(step===1){
+      order.name=$('#oNom').value.trim();order.tel=$('#oTel').value.trim();
+      var okN=order.name.length>1,okT=/^(\+41|0041|0)\s?\d{2}(\s?\d){7}$/.test(order.tel.replace(/[.\-]/g,' ').replace(/\s+/g,' '));
+      $('#fN').classList.toggle('bad',!okN);$('#fT').classList.toggle('bad',!okT);
+      if(!okN){$('#oNom').focus();return;}if(!okT){$('#oTel').focus();return;}
+    }
+    if(step===2){order.total=total();store.set('sajna-orders',store.get('sajna-orders',0)+1);cart=[];save();}
+    step++;renderCart();$('#cartSheet .sh-b').scrollTop=0;
+  }
+});
+$('#openCart').addEventListener('click',openCart);$('#barBtn').addEventListener('click',openCart);
+paint();
+
+/* ---------- réservation ---------- */
+(function(){
+  var d=$('#rDate'),t=$('#rTime'),p=$('#rPers'),now=new Date();
+  var iso=function(x){return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');};
+  d.min=iso(now);d.value=iso(now);
+  var o='<option value="">Heure</option>';['11:30','12:00','12:30','13:00','13:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30'].forEach(function(h){o+='<option>'+h+'</option>';});t.innerHTML=o;
+  var q='';for(var i=1;i<=12;i++)q+='<option'+(i===2?' selected':'')+' value="'+i+'">'+i+(i>1?' personnes':' personne')+'</option>';p.innerHTML=q;
+  $('#resaForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var tel=$('#rTel').value.replace(/[.\-]/g,' ').replace(/\s+/g,' ').trim();
+    var checks=[[d,!!d.value&&d.value>=d.min],[t,!!t.value],[$('#rTel'),/^(\+41|0041|0)\s?\d{2}(\s?\d){7}$/.test(tel)],[$('#rNom'),$('#rNom').value.trim().length>1]];
+    var first=null;checks.forEach(function(c){c[0].parentNode.classList.toggle('bad',!c[1]);if(!c[1]&&!first)first=c[0];});
+    if(first){first.focus();return;}
+    var dt=new Date(d.value+'T12:00');var dl=dt.toLocaleDateString('fr-CH',{weekday:'long',day:'numeric',month:'long'});
+    $('#resaTxt').textContent=' Table pour '+p.value+' le '+dl+' à '+t.value.replace(':','h')+', au nom de '+$('#rNom').value.trim()+'. Confirmation par SMS (démo : rien n’est envoyé).';
+    this.style.display='none';var ok=$('#resaOk');ok.style.display='block';ok.focus();
+  });
+})();
+
+/* ---------- apparition ---------- */
+if('IntersectionObserver' in window&&!rm){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px'});
+  [].forEach.call(document.querySelectorAll('.rv'),function(el,i){el.style.transitionDelay=(i%4*70)+'ms';io.observe(el);});
+}else{[].forEach.call(document.querySelectorAll('.rv'),function(el){el.classList.add('on');});}
+})();
+</script>
+</body>
+</html>
