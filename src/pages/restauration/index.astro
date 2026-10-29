@@ -14,22 +14,16 @@ const title = 'Agence marketing restaurant Genève & Vaud | Nouvelle Ardoise';
 const description = 'Agence de marketing et de communication pour restaurants, cafés et artisans de bouche à Genève, Lausanne et dans tout le canton de Vaud : stratégie, identité visuelle, site, Instagram, publicité, Uber Eats et Click & Collect.';
 const canonical = SITE.url + '/restauration/';
 const image = SITE.url + '/partage.jpg';
-const faq = [["Qu’est-ce qu’une agence marketing pour restaurants ?", "Une agence qui ne travaille qu’avec la restauration et les métiers de bouche. Nouvelle Ardoise étudie votre marché, construit votre stratégie, crée votre identité (logo, carte, site, Instagram) et installe les outils qui vendent : commande en ligne, paiement par QR code, fiche Google et Uber Eats."], ["Dans quelles villes intervenez-vous ?", "À Genève et dans le canton de Vaud : Genève, Carouge, Onex, Meyrin, Lancy, Nyon, Morges, Lausanne et La Côte. On vient sur place pour l’étude du quartier et pour les shootings."], ["Comment attirer plus de clients dans mon restaurant ?", "On choisit deux ou trois leviers selon votre quartier : une fiche Google soignée, des réels Instagram tournés chez vous, de la publicité locale ciblée, une fiche Uber Eats avec des photos pro, et la fidélité. Chaque mois, on mesure ce qui rapporte et on ajuste."], ["Pouvez-vous optimiser notre fiche Uber Eats ?", "Oui. Photos pro de chaque plat, carte réécrite, catégories et options rangées, offres au bon moment. On suit les vues de la fiche, le taux de commande et le panier moyen."], ["Proposez-vous la commande en ligne sans commission ?", "Oui. On installe le Click & Collect sur votre propre site et le paiement par QR code à table : les commandes arrivent sans commission de plateforme et sans décrocher le téléphone."], ["Travaillez-vous aussi avec les boulangers, pâtissiers et chocolatiers ?", "Oui. Les artisans de bouche ont leur page : site, photos, réels et fiche Google pensés pour la boutique et les commandes."]];
+const faq = [["Qu’est-ce qu’une agence marketing pour restaurants ?", "Une agence dont la restauration et les métiers de bouche sont la spécialité (nous accompagnons aussi commerces, artisans, cabinets et PME). Nouvelle Ardoise étudie votre marché, construit votre stratégie, crée votre identité (logo, carte, site, Instagram) et installe les outils qui vendent : commande en ligne, paiement par QR code, fiche Google et Uber Eats."], ["Dans quelles villes intervenez-vous ?", "Dans les cantons de Genève et de Vaud : Genève, Carouge, Onex, Meyrin, Lancy, Versoix, Nyon, Gland, Rolle, Morges, Lausanne, Vevey, Montreux et Yverdon. On vient sur place pour l’étude du quartier et pour les shootings."], ["Comment attirer plus de clients dans mon restaurant ?", "On choisit deux ou trois leviers selon votre quartier : une fiche Google soignée, des réels Instagram tournés chez vous, de la publicité locale ciblée, une fiche Uber Eats avec des photos pro, et la fidélité. Chaque mois, on mesure ce qui rapporte et on ajuste."], ["Pouvez-vous optimiser notre fiche Uber Eats ?", "Oui. Photos pro de chaque plat, carte réécrite, catégories et options rangées, offres au bon moment. On suit les vues de la fiche, le taux de commande et le panier moyen."], ["Proposez-vous la commande en ligne sans commission ?", "Oui. On installe le Click & Collect sur votre propre site et le paiement par QR code à table : les commandes arrivent sans commission de plateforme et sans décrocher le téléphone."], ["Travaillez-vous aussi avec les boulangers, pâtissiers et chocolatiers ?", "Oui. Les artisans de bouche ont leur page : site, photos, réels et fiche Google pensés pour la boutique et les commandes."]];
 const film = SITE.url + '/accueil/film/comment-on-travaille.mp4';
 const jsonLd = JSON.stringify({
   '@context':'https://schema.org',
   '@graph':[
-    {'@type':['ProfessionalService','LocalBusiness'], '@id':SITE.url+'/#agence',
-      name:SITE.nom, url:canonical, description, slogan:'Place à la mise en place.',
-      email:SITE.email, telephone:'+41782133868', image, logo:SITE.url+'/apple-touch-icon.png',
-      founder:{'@type':'Person',name:SITE.responsable},
-      address:{'@type':'PostalAddress',streetAddress:SITE.adresse,postalCode:SITE.localite.split(' ')[0],addressLocality:'Genève',addressRegion:'GE',addressCountry:'CH'},
-      areaServed:['Genève','Carouge','Onex','Meyrin','Lancy','Nyon','Morges','Lausanne','Canton de Vaud','Suisse romande'].map((n)=>({'@type':'Place',name:n})),
-      knowsAbout:['Marketing de restaurant','Communication pour la restauration','Identité visuelle','Création de logo','Site web de restaurant','Instagram et réels','Publicité Meta et Google','Référencement local Google','Optimisation Uber Eats','Click & Collect','Paiement par QR code','Fidélisation','Shooting photo culinaire'],
-      makesOffer:['Étude de marché','Stratégie marketing','Identité visuelle','Site web ou application','Réseaux sociaux et réels','Publicité locale','Optimisation Uber Eats','Click & Collect et paiement QR','Tableau de bord des ventes'].map((n)=>({'@type':'Offer',itemOffered:{'@type':'Service',name:n,areaServed:'Genève et Vaud'}})),
-      sameAs:['https://www.instagram.com/'+SITE.instagram+'/'],
-      inLanguage:'fr-CH'},
-    {'@type':'WebSite','@id':SITE.url+'/#site',url:SITE.url+'/',name:SITE.nom,inLanguage:'fr-CH',publisher:{'@id':SITE.url+'/#agence'}},
+    {'@type':'Service','@id':canonical+'#service',name:'Marketing pour restaurants et métiers de bouche',serviceType:'Agence marketing restaurant',description,url:canonical,
+      provider:{'@id':SITE.url+'/#agence'},
+      areaServed:['Genève','Carouge','Onex','Meyrin','Lancy','Versoix','Nyon','Gland','Rolle','Morges','Lausanne','Vevey','Montreux','Yverdon-les-Bains','Canton de Vaud','Suisse romande'].map((n)=>({'@type':'Place',name:n})),
+      hasOfferCatalog:{'@type':'OfferCatalog',name:'Prestations pour la restauration',itemListElement:['Étude de marché','Stratégie marketing','Identité visuelle','Site web ou application','Réseaux sociaux et réels','Publicité locale','Optimisation Uber Eats','Click & Collect et paiement QR','Tableau de bord des ventes'].map((n)=>({'@type':'Offer',itemOffered:{'@type':'Service',name:n,areaServed:'Genève et Vaud'}}))}},
+    {'@type':'BreadcrumbList','@id':canonical+'#fil',itemListElement:[{'@type':'ListItem',position:1,name:'Accueil',item:SITE.url+'/'},{'@type':'ListItem',position:2,name:'Restauration',item:canonical}]},
     {'@type':'WebPage','@id':canonical+'#page',url:canonical,name:title,description,isPartOf:{'@id':SITE.url+'/#site'},about:{'@id':SITE.url+'/#agence'},primaryImageOfPage:image,inLanguage:'fr-CH'},
     {'@type':'VideoObject',name:'Comment on travaille, en 5 étapes',description:'Le film de Nouvelle Ardoise : étudier le marché, construire la stratégie, créer l’identité, installer les outils, suivre et ajuster.',thumbnailUrl:SITE.url+'/accueil/film/affiche.webp',contentUrl:film,uploadDate:'2026-10-21',duration:'PT32S',inLanguage:'fr-CH',publisher:{'@id':SITE.url+'/#agence'}},
     {'@type':'FAQPage','@id':canonical+'#questions',mainEntity:faq.map(([q,r])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:r}}))},
@@ -106,7 +100,7 @@ img { display: block; max-width: 100%; height: auto; }
 .lance--360 .lance__bloc { font-size: clamp(13px, 1.3vw, 16px); text-transform: uppercase; letter-spacing: .08em; gap: 16px; padding-right: 16px; font-family: var(--mono); }
 .lance--360 .lance__piste { animation-duration: 60s; animation-direction: reverse; }
 @keyframes lance { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .lance__piste { animation-duration: 90s; } }
+@media (prefers-reduced-motion: reduce) { .lance .lance__piste { animation: none; transform: none; } }
 .promo { display: block; background: var(--craie); color: var(--encre); text-align: center; font-size: 14px; padding-block: 9px; padding-inline: 16px; text-decoration: none; }
 .promo b { font-weight: 700; }
 
@@ -121,6 +115,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .nav .tel { font-family: var(--mono); font-size: 13px; padding: 8px 12px; border: 1px solid var(--encre); border-radius: 999px; white-space: nowrap; }
 .nav .tel:hover { background: var(--encre); color: var(--papier); text-decoration: none; }
+.nav .tel--craie { background: var(--craie); font-family: var(--grotesk); font-weight: 600; font-size: 14px; }
 
 /* Ouverture */
 .ouv { padding-block: clamp(44px, 8vw, 110px) clamp(40px, 6vw, 72px); }
@@ -494,6 +489,7 @@ h1 em, h2 em, h3 em, .trait > span { font-style: italic; color: var(--encre); ba
       <a href="/artisans/">Artisans</a>
       <a href="#contact">Contact</a>
       <a class="tel" href="#contact">078 213 38 68</a>
+      <a class="tel tel--craie" href="/#test">Tester ma visibilité</a>
     </nav>
   </div>
 </header>
@@ -652,7 +648,7 @@ h1 em, h2 em, h3 em, .trait > span { font-style: italic; color: var(--encre); ba
 
   <section class="sec cadre faq" id="questions" aria-labelledby="faq-titre">
     <div class="sec__tete"><p class="etiquette">Questions</p><h2 id="faq-titre">Ce qu’on nous demande <span class="surligne">souvent.</span></h2></div>
-    <div class="faq__liste"><details><summary>Qu’est-ce qu’une agence marketing pour restaurants ?</summary><p>Une agence qui ne travaille qu’avec la restauration et les métiers de bouche. Nouvelle Ardoise étudie votre marché, construit votre stratégie, crée votre identité (logo, carte, site, Instagram) et installe les outils qui vendent : commande en ligne, paiement par QR code, fiche Google et Uber Eats.</p></details><details><summary>Dans quelles villes intervenez-vous ?</summary><p>À Genève et dans le canton de Vaud : Genève, Carouge, Onex, Meyrin, Lancy, Nyon, Morges, Lausanne et La Côte. On vient sur place pour l’étude du quartier et pour les shootings.</p></details><details><summary>Comment attirer plus de clients dans mon restaurant ?</summary><p>On choisit deux ou trois leviers selon votre quartier : une fiche Google soignée, des réels Instagram tournés chez vous, de la publicité locale ciblée, une fiche Uber Eats avec des photos pro, et la fidélité. Chaque mois, on mesure ce qui rapporte et on ajuste.</p></details><details><summary>Pouvez-vous optimiser notre fiche Uber Eats ?</summary><p>Oui. Photos pro de chaque plat, carte réécrite, catégories et options rangées, offres au bon moment. On suit les vues de la fiche, le taux de commande et le panier moyen.</p></details><details><summary>Proposez-vous la commande en ligne sans commission ?</summary><p>Oui. On installe le Click & Collect sur votre propre site et le paiement par QR code à table : les commandes arrivent sans commission de plateforme et sans décrocher le téléphone.</p></details><details><summary>Travaillez-vous aussi avec les boulangers, pâtissiers et chocolatiers ?</summary><p>Oui. Les artisans de bouche ont leur page : site, photos, réels et fiche Google pensés pour la boutique et les commandes.</p></details></div>
+    <div class="faq__liste"><details><summary>Qu’est-ce qu’une agence marketing pour restaurants ?</summary><p>Une agence dont la restauration et les métiers de bouche sont la spécialité (nous accompagnons aussi commerces, artisans, cabinets et PME). Nouvelle Ardoise étudie votre marché, construit votre stratégie, crée votre identité (logo, carte, site, Instagram) et installe les outils qui vendent : commande en ligne, paiement par QR code, fiche Google et Uber Eats.</p></details><details><summary>Dans quelles villes intervenez-vous ?</summary><p>Dans les cantons de Genève et de Vaud : Genève, Carouge, Onex, Meyrin, Lancy, Versoix, Nyon, Gland, Rolle, Morges, Lausanne, Vevey, Montreux et Yverdon. On vient sur place pour l’étude du quartier et pour les shootings.</p></details><details><summary>Comment attirer plus de clients dans mon restaurant ?</summary><p>On choisit deux ou trois leviers selon votre quartier : une fiche Google soignée, des réels Instagram tournés chez vous, de la publicité locale ciblée, une fiche Uber Eats avec des photos pro, et la fidélité. Chaque mois, on mesure ce qui rapporte et on ajuste.</p></details><details><summary>Pouvez-vous optimiser notre fiche Uber Eats ?</summary><p>Oui. Photos pro de chaque plat, carte réécrite, catégories et options rangées, offres au bon moment. On suit les vues de la fiche, le taux de commande et le panier moyen.</p></details><details><summary>Proposez-vous la commande en ligne sans commission ?</summary><p>Oui. On installe le Click & Collect sur votre propre site et le paiement par QR code à table : les commandes arrivent sans commission de plateforme et sans décrocher le téléphone.</p></details><details><summary>Travaillez-vous aussi avec les boulangers, pâtissiers et chocolatiers ?</summary><p>Oui. Les artisans de bouche ont leur page : site, photos, réels et fiche Google pensés pour la boutique et les commandes.</p></details></div>
   </section>
 
   <section class="contact cadre" id="contact" aria-labelledby="contact-titre">
@@ -727,10 +723,13 @@ h1 em, h2 em, h3 em, .trait > span { font-style: italic; color: var(--encre); ba
 
   // Pasta Mo' : petit film image par image (parmesan puis huile d'olive)
   const film = document.getElementById('pm-film');
-  if (film && !calme) {
+  if (film && !calme && 'IntersectionObserver' in window) {
     const imgs = []; for (let k = 1; k <= 72; k += 3) imgs.push('/accueil/pm/' + String(k).padStart(3, '0') + '.webp');
-    imgs.forEach((u) => { const im = new Image(); im.src = u; });
-    let f = 0; setInterval(() => { f = (f + 1) % imgs.length; film.src = imgs[f]; }, f === 0 ? 160 : 160);
+    let f = 0, tourne = 0, charge = false, visible = false;
+    const jouer = () => { if (tourne || document.hidden) return; if (!charge) { charge = true; imgs.forEach((u) => { const im = new Image(); im.src = u; }); } tourne = setInterval(() => { f = (f + 1) % imgs.length; film.src = imgs[f]; }, 160); };
+    const arreter = () => { clearInterval(tourne); tourne = 0; };
+    new IntersectionObserver((e) => { visible = e[0].isIntersecting; if (visible) jouer(); else arreter(); }, { rootMargin: '200px' }).observe(film);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) arreter(); else if (visible) jouer(); });
   }
 
   // Défilements horizontaux (identité, outils) : pilotés par le défilement vertical sur ordinateur, au doigt ailleurs
