@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#111311">
+<title>Al Amir · Proposition Nouvelle Ardoise</title>
+<meta name="description" content="Ce que Nouvelle Ardoise peut faire pour Al Amir aux Pâquis : Uber Eats, photos, Instagram, nouveau site avec commande à emporter.">
+<meta property="og:title" content="Al Amir · Ce qu'on peut faire ensemble">
+<meta property="og:description" content="Uber Eats, vraies photos, Instagram et un site avec commande à emporter payée par TWINT.">
+<meta property="og:image" content="https://nouvelleardoise.ch/demos/al-amir/img/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter+Tight:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nuit:#111311;--nuit2:#1a1d1a;--safran:#F2B705;--safran2:#ffd24a;--cedre:#2E7D57;--creme:#F6F0E4;--papier:#fffaf0;
+  --encre:#161816;--gris:#6d6a62;--gris-n:#a7a397;--ligne:#e4dccb;--ligne-n:#2c302c;--rouge:#c8442c;
+  --pad:clamp(20px,5vw,40px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (min-height:620px){html{scroll-snap-type:y proximity}}
+body{margin:0;background:var(--nuit);color:var(--creme);font:16px/1.5 "Inter Tight",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+.s{min-height:100svh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:72px var(--pad) 64px;position:relative;overflow:hidden}
+.in{width:100%;max-width:620px;margin:0 auto}
+.light{background:var(--creme);color:var(--encre)}
+.paper{background:var(--papier);color:var(--encre)}
+.kick{font:600 12px/1 "Inter Tight";letter-spacing:.16em;text-transform:uppercase;color:var(--safran);display:flex;gap:10px;align-items:center;margin:0 0 18px}
+.light .kick,.paper .kick{color:var(--cedre)}
+.kick i{font-style:normal;opacity:.55}
+h1,h2{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.02em;line-height:1.02;margin:0}
+h1{font-size:clamp(44px,12vw,84px)}
+h2{font-size:clamp(34px,8.6vw,58px)}
+h2 em,h1 em{font-style:italic;font-weight:400;color:var(--safran)}
+.light h2 em,.paper h2 em{color:var(--cedre)}
+.lead{font-size:clamp(17px,4.4vw,20px);line-height:1.45;margin:18px 0 0;color:var(--gris-n);max-width:34em}
+.light .lead,.paper .lead{color:var(--gris)}
+.ar{font-family:"Noto Naskh Arabic",serif;font-weight:600}
+
+/* couverture */
+.cover{background:radial-gradient(120% 70% at 85% 10%,rgba(242,183,5,.16),transparent 60%),var(--nuit)}
+.cover .ar{font-size:clamp(40px,11vw,72px);color:var(--safran);line-height:1;margin-bottom:14px;direction:rtl}
+.cover .meta{margin-top:34px;display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--ligne-n);border-radius:999px;padding:7px 12px;font-size:13px;color:var(--gris-n)}
+.light .chip,.paper .chip{border-color:var(--ligne);color:var(--gris)}
+.from{margin-top:40px;font-size:14px;color:var(--gris-n)}
+.from b{color:var(--creme);font-weight:600}
+.hint{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gris-n)}
+.hint span{display:inline-block;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(5px)}}
+
+/* forces */
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px}
+.fact{background:var(--papier);border:1px solid var(--ligne);border-radius:16px;padding:16px 16px 14px}
+.fact b{display:block;font:600 clamp(28px,7.5vw,40px)/1 Fraunces,serif;letter-spacing:-.02em;color:var(--encre)}
+.fact span{display:block;margin-top:6px;font-size:14px;color:var(--gris);line-height:1.35}
+.src{font-size:12px;color:var(--gris);margin-top:14px}
+
+/* constats */
+.issues{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:10px}
+.issues li{display:grid;grid-template-columns:30px 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--ligne-n)}
+.issues li:last-child{border-bottom:1px solid var(--ligne-n)}
+.issues .n{font:600 14px/1.6 "Inter Tight";color:var(--safran)}
+.issues b{display:block;font-weight:600;font-size:17px;color:var(--creme)}
+.issues span{display:block;color:var(--gris-n);font-size:15px;margin-top:2px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.duo figure{margin:0}
+.duo img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px}
+.duo figcaption{font-size:12px;color:var(--gris-n);margin-top:6px}
+
+/* listes d'action */
+.acts{list-style:none;padding:0;margin:26px 0 0;counter-reset:a}
+.acts li{counter-increment:a;position:relative;padding:14px 0 14px 46px;border-top:1px solid var(--ligne)}
+.acts li:last-child{border-bottom:1px solid var(--ligne)}
+.acts li::before{content:counter(a,decimal-leading-zero);position:absolute;left:0;top:15px;font:600 13px/1 "Inter Tight";color:var(--cedre);background:rgba(46,125,87,.1);border-radius:999px;padding:6px 7px}
+.acts b{display:block;font-size:17px;font-weight:600}
+.acts span{display:block;font-size:15px;color:var(--gris);margin-top:2px}
+.dark-acts li{border-color:var(--ligne-n)}
+.dark-acts li::before{color:var(--safran);background:rgba(242,183,5,.12)}
+.dark-acts span{color:var(--gris-n)}
+
+/* photos */
+.shotlist{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:26px}
+.shot{border:1px solid var(--ligne-n);border-radius:14px;padding:14px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between;background:var(--nuit2)}
+.shot b{font:600 19px/1.15 Fraunces,serif}
+.shot span{font-size:13px;color:var(--gris-n);margin-top:8px}
+.rule{margin-top:20px;border-left:3px solid var(--safran);padding:4px 0 4px 14px;font-size:15px;color:var(--gris-n)}
+.rule b{color:var(--creme)}
+
+/* insta */
+.feed{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:26px}
+.tile{aspect-ratio:4/5;border-radius:12px;padding:12px;display:flex;flex-direction:column;justify-content:flex-end;font:600 15px/1.15 Fraunces,serif}
+.tile small{display:block;font:500 11px/1.3 "Inter Tight";letter-spacing:.06em;text-transform:uppercase;opacity:.75;margin-bottom:6px}
+.t1{background:var(--nuit);color:var(--safran)}
+.t2{background:var(--cedre);color:var(--creme)}
+.t3{background:var(--safran);color:var(--encre)}
+.rhythm{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+
+/* calcul commission */
+.calc{margin-top:26px;background:var(--nuit);color:var(--creme);border-radius:18px;padding:20px}
+.calc .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px solid var(--ligne-n);font-size:15px}
+.calc .row:last-of-type{border-bottom:0}
+.calc .row b{font:600 20px/1 Fraunces,serif;white-space:nowrap}
+.calc .big b{font-size:30px;color:var(--safran)}
+.calc p{margin:10px 0 0;font-size:12px;color:var(--gris-n)}
+.feat{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+
+/* directions */
+.dirs{display:grid;gap:12px;margin-top:26px}
+.dir{border-radius:18px;padding:18px;position:relative;overflow:hidden;min-height:150px;display:flex;flex-direction:column;justify-content:space-between}
+.dir .t{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.dir .h{margin-top:22px}
+.dir .p{font-size:14px;margin-top:8px;opacity:.85;max-width:30em}
+.dir .sw{display:flex;gap:6px;margin-top:14px}
+.dir .sw i{width:22px;height:22px;border-radius:50%;border:1px solid rgba(127,127,127,.35)}
+.dir .rec{position:absolute;top:14px;right:14px;background:var(--safran);color:var(--encre);font:700 11px/1 "Inter Tight";letter-spacing:.08em;text-transform:uppercase;padding:7px 9px;border-radius:999px}
+.d1{background:#0c0d0c;color:#f4efe2;border:1px solid #2a2d2a}
+.d1 .h{font:800 34px/1 "Inter Tight";letter-spacing:-.03em;text-transform:uppercase}
+.d1 .h span{color:var(--safran);text-shadow:0 0 18px rgba(242,183,5,.55)}
+.d2{background:#efe6d3;color:#1f3b2c}
+.d2 .h{font:400 34px/1 Fraunces,serif;font-style:italic}
+.d3{background:var(--safran);color:#141414}
+.d3 .h{font:800 38px/.95 Fraunces,serif;letter-spacing:-.03em}
+
+/* objectifs */
+.kpis{display:grid;gap:10px;margin-top:26px}
+.kpi{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;padding:14px 16px;border:1px solid var(--ligne-n);border-radius:16px;background:var(--nuit2)}
+.kpi b{font:600 clamp(30px,8vw,42px)/1 Fraunces,serif;color:var(--safran);min-width:3.2ch;letter-spacing:-.02em}
+.kpi span{font-size:15px;color:var(--gris-n);line-height:1.35}
+.kpi span strong{color:var(--creme);font-weight:600;display:block}
+
+/* offres */
+.offers{display:grid;gap:12px;margin-top:24px}
+.of{background:var(--papier);border:1px solid var(--ligne);border-radius:18px;padding:18px}
+.of.rec{border:2px solid var(--cedre);position:relative}
+.of.rec::after{content:"Conseillée";position:absolute;top:-11px;left:16px;background:var(--cedre);color:#fff;font:700 11px/1 "Inter Tight";letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;border-radius:999px}
+.of .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.of h3{font:600 24px/1 Fraunces,serif;margin:0}
+.of .px{font:600 22px/1 Fraunces,serif;white-space:nowrap}
+.of .px small{font:500 12px "Inter Tight";color:var(--gris)}
+.of p{margin:6px 0 0;font-size:14px;color:var(--gris)}
+.of ul{margin:12px 0 0;padding:0 0 0 18px;font-size:14.5px;line-height:1.45}
+.of li{margin:3px 0}
+.monthly{margin-top:14px;font-size:14px;color:var(--gris);border-top:1px solid var(--ligne);padding-top:12px}
+.monthly b{color:var(--encre)}
+
+/* fin */
+.end{background:radial-gradient(110% 60% at 15% 95%,rgba(46,125,87,.28),transparent 60%),var(--nuit)}
+.steps{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:12px}
+.steps li{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start}
+.steps .d{width:40px;height:40px;border-radius:50%;border:1px solid var(--safran);color:var(--safran);display:grid;place-items:center;font:600 15px "Inter Tight"}
+.steps b{display:block;font-size:17px}
+.steps span{display:block;color:var(--gris-n);font-size:15px}
+.wa{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:30px;background:var(--safran);color:var(--encre);text-decoration:none;font:700 17px/1 "Inter Tight";padding:18px 20px;border-radius:999px;transition:transform .16s ease,background .16s ease}
+.wa:active{transform:scale(.98)}
+@media (hover:hover){.wa:hover{background:var(--safran2)}}
+.wa svg{width:22px;height:22px}
+.tel{display:block;text-align:center;margin-top:14px;color:var(--gris-n);font-size:15px;text-decoration:none}
+.tel b{color:var(--creme)}
+.sign{margin-top:40px;padding-top:18px;border-top:1px solid var(--ligne-n);font-size:13px;color:var(--gris-n);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* progression */
+.prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:20;background:transparent}
+.prog i{display:block;height:100%;width:0;background:var(--safran);transition:width .2s linear}
+.count{position:fixed;top:12px;right:14px;z-index:20;font:600 12px/1 "Inter Tight";letter-spacing:.08em;padding:7px 10px;border-radius:999px;background:rgba(17,19,17,.72);color:var(--creme);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+
+/* apparition */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}.hint span{animation:none}}
+@media (min-width:760px){.dirs{grid-template-columns:1fr 1fr 1fr}.dir{min-height:230px}.offers{grid-template-columns:1fr 1fr 1fr}.in.wide{max-width:980px}}
+</style>
+</head>
+<body>
+<div class="prog" aria-hidden="true"><i id="pg"></i></div>
+<div class="count" id="ct" aria-hidden="true">1 / 11</div>
+
+<!-- 1 couverture -->
+<section class="s cover" aria-label="Couverture">
+  <div class="in">
+    <div class="ar rv" lang="ar">الأمير</div>
+    <h1 class="rv">Al Amir,<br><em>ce qu'on peut faire ensemble.</em></h1>
+    <p class="lead rv">Plus de commandes, de vraies photos de vos plats, un Instagram vivant et votre propre site pour commander sans commission.</p>
+    <div class="meta rv"><span class="chip">Rue de Berne 37 · Pâquis</span><span class="chip">Uber Eats</span><span class="chip">Photos</span><span class="chip">Instagram</span><span class="chip">Site et commande</span></div>
+    <p class="from rv">Proposition préparée par <b>Malik Younes</b>, Nouvelle Ardoise, Genève.</p>
+  </div>
+  <div class="hint" aria-hidden="true"><span>Faites défiler ↓</span></div>
+</section>
+
+<!-- 2 forces -->
+<section class="s light" aria-label="Ce qui marche déjà">
+  <div class="in">
+    <p class="kick">01 <i>/</i> Ce qui marche déjà</p>
+    <h2 class="rv">Une adresse que <em>les gens aiment.</em></h2>
+    <p class="lead rv">La base est solide. Il manque seulement que ça se voie en ligne.</p>
+    <div class="facts">
+      <div class="fact rv"><b>11 h–2 h</b><span>ouvert tous les jours, quand tout le quartier est fermé</span></div>
+      <div class="fact rv"><b>≈ 4,3 ★</b><span>sur près de 1 000 avis en ligne</span></div>
+      <div class="fact rv"><b>3 min</b><span>à pied de la gare Cornavin, au cœur des Pâquis</span></div>
+      <div class="fact rv"><b>FR · AR</b><span>une carte large et généreuse, assiettes à 22 CHF, TWINT accepté</span></div>
+    </div>
+    <p class="src">Note relevée sur les annuaires en ligne en octobre 2026.</p>
+  </div>
+</section>
+
+<!-- 3 constats -->
+<section class="s" aria-label="Ce qui vous freine">
+  <div class="in">
+    <p class="kick">02 <i>/</i> Ce qui vous freine</p>
+    <h2 class="rv">Vos plats sont généreux. <em>En ligne, ça ne se voit pas.</em></h2>
+    <ul class="issues">
+      <li class="rv"><span class="n">a</span><div><b>alamir.ch affiche une page vide</b><span>L'adresse indiquée sur les annuaires mène à une page d'hébergeur, avec une alerte de sécurité.</span></div></li>
+      <li class="rv"><span class="n">b</span><div><b>Les photos ne viennent pas de votre cuisine</b><span>Cartes et affiches utilisent des images génériques. Sur Uber Eats, c'est la photo qui déclenche la commande.</span></div></li>
+      <li class="rv"><span class="n">c</span><div><b>Chaque commande Uber Eats coûte une commission</b><span>Les clients fidèles pourraient commander chez vous, directement.</span></div></li>
+      <li class="rv"><span class="n">d</span><div><b>Petit détail en vitrine</b><span>L'horaire du vendredi et du samedi a perdu un chiffre.</span></div></li>
+    </ul>
+    <div class="duo rv">
+      <figure><img src="img/carte-vitrine.webp" alt="La carte actuelle affichée en vitrine" loading="lazy" width="825" height="1100"><figcaption>La carte en vitrine aujourd'hui</figcaption></figure>
+      <figure><img src="img/vitrine-desserts.webp" alt="La vitrine des desserts sous lumière violette" loading="lazy" width="1100" height="825"><figcaption>Knafeh et namoura : à photographier en vrai</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 4 uber eats -->
+<section class="s paper" aria-label="Uber Eats">
+  <div class="in">
+    <p class="kick">03 <i>/</i> Uber Eats</p>
+    <h2 class="rv">Une vitrine Uber Eats <em>qui donne faim.</em></h2>
+    <p class="lead rv">On reprend votre page de A à Z pour monter dans les résultats et convertir plus de visites en commandes.</p>
+    <ol class="acts">
+      <li class="rv"><b>Une vraie photo par plat</b><span>Prises chez vous, cadrées au format Uber Eats.</span></li>
+      <li class="rv"><b>Une carte rangée pour commander vite</b><span>Les best-sellers en tête : chawarma Al Amir, mix, chiche taouk.</span></li>
+      <li class="rv"><b>Des menus qui augmentent le panier</b><span>Sandwich + frites + boisson, assiette + dessert maison.</span></li>
+      <li class="rv"><b>Des descriptions qui donnent envie</b><span>Ce qu'il y a dans l'assiette, la sauce, la portion. En français et en anglais.</span></li>
+      <li class="rv"><b>La nuit mise en avant</b><span>Ouvert jusqu'à 2 h : un vrai atout quand les autres ferment.</span></li>
+      <li class="rv"><b>Les avis suivis chaque semaine</b><span>Réponse à chaque avis, Uber Eats et Google.</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 5 photos -->
+<section class="s" aria-label="Photos">
+  <div class="in">
+    <p class="kick">04 <i>/</i> Photos</p>
+    <h2 class="rv">Une demi-journée de shooting, <em>vos vrais plats.</em></h2>
+    <p class="lead rv">Un photographe professionnel avec son matériel, dans votre restaurant. Ces photos servent partout : Uber Eats, Google, Instagram, site, cartes.</p>
+    <div class="shotlist">
+      <div class="shot rv"><b>La broche</b><span>le geste du chawarma, la coupe, la flamme</span></div>
+      <div class="shot rv"><b>Les assiettes</b><span>une photo nette par plat de la carte</span></div>
+      <div class="shot rv"><b>La vitrine du jour</b><span>kebbé, fatayers, houmous, knafeh</span></div>
+      <div class="shot rv"><b>L'équipe et la façade</b><span>de jour et de nuit, rue de Berne</span></div>
+    </div>
+    <p class="rule rv"><b>Notre règle :</b> uniquement vos vrais plats. Jamais d'image générée ni de banque d'images pour la nourriture.</p>
+  </div>
+</section>
+
+<!-- 6 instagram -->
+<section class="s light" aria-label="Réseaux sociaux">
+  <div class="in">
+    <p class="kick">05 <i>/</i> Réseaux sociaux</p>
+    <h2 class="rv">Un Instagram qui <em>remplit la salle.</em></h2>
+    <p class="lead rv">Trois rendez-vous simples, filmés chez vous, avec le vrai son de la cuisine.</p>
+    <div class="feed">
+      <div class="tile t1 rv"><small>Rubrique 1</small>La broche en gros plan</div>
+      <div class="tile t2 rv"><small>Rubrique 2</small>Les Pâquis la nuit</div>
+      <div class="tile t3 rv"><small>Rubrique 3</small>La vitrine du jour</div>
+    </div>
+    <div class="rhythm rv"><span class="chip">4 publications par mois</span><span class="chip">2 vidéos courtes</span><span class="chip">Stories chaque semaine</span><span class="chip">Bilan chiffré mensuel</span></div>
+  </div>
+</section>
+
+<!-- 7 site + click & collect -->
+<section class="s paper" aria-label="Nouveau site et commande à emporter">
+  <div class="in">
+    <p class="kick">06 <i>/</i> Site et commande à emporter</p>
+    <h2 class="rv">Vos clients commandent <em>chez vous.</em></h2>
+    <p class="lead rv">Un site rapide, pensé pour le téléphone. Le client choisit, paie par TWINT et passe récupérer sa commande. Sans commission.</p>
+    <div class="feat rv"><span class="chip">Carte complète avec photos</span><span class="chip">Paiement TWINT</span><span class="chip">Heure de retrait</span><span class="chip">Français · English · العربية</span><span class="chip">Bouton appel et itinéraire</span><span class="chip">Lien depuis Google et Instagram</span></div>
+    <div class="calc rv" role="group" aria-label="Exemple de commission">
+      <div class="row"><span>Assiette chawarma</span><b>22 CHF</b></div>
+      <div class="row"><span>Commission plateforme (exemple 30 %)</span><b>6.60 CHF</b></div>
+      <div class="row big"><span>10 retraits par jour passés en direct</span><b>≈ 2 000 CHF</b></div>
+      <p>gardés chaque mois au lieu d'être payés en commission. Exemple indicatif : le taux dépend de votre contrat Uber Eats.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8 directions -->
+<section class="s" aria-label="Directions de style">
+  <div class="in wide">
+    <p class="kick">07 <i>/</i> Le style du site</p>
+    <h2 class="rv">Trois directions. <em>Vous choisissez.</em></h2>
+    <p class="lead rv">On ne code rien avant d'avoir choisi ensemble le style qui vous ressemble.</p>
+    <div class="dirs">
+      <div class="dir d1 rv"><span class="rec">Notre conseil</span><div><div class="t">A · Nuit des Pâquis</div><div class="h">Ouvert<br>jusqu'à <span>2 h</span></div></div><div><div class="p">Fond noir, jaune lumineux comme une enseigne. On vend la nuit, votre vrai avantage.</div><div class="sw"><i style="background:#0c0d0c"></i><i style="background:#F2B705"></i><i style="background:#f4efe2"></i></div></div></div>
+      <div class="dir d2 rv"><div><div class="t">B · Maison libanaise</div><div class="h">La table<br>du Liban</div></div><div><div class="p">Crème et vert cèdre, typographie élégante. Plus chaleureux, plus familial.</div><div class="sw"><i style="background:#efe6d3"></i><i style="background:#1f3b2c"></i><i style="background:#2E7D57"></i></div></div></div>
+      <div class="dir d3 rv"><div><div class="t">C · Comptoir généreux</div><div class="h">Chawarma.<br>Point.</div></div><div><div class="p">Le jaune Al Amir en grand, des photos plein cadre. Direct et efficace.</div><div class="sw"><i style="background:#F2B705"></i><i style="background:#141414"></i><i style="background:#ffffff"></i></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 objectifs -->
+<section class="s" aria-label="Objectifs" style="background:var(--nuit2)">
+  <div class="in">
+    <p class="kick">08 <i>/</i> Objectifs à 3 mois</p>
+    <h2 class="rv">Des chiffres, <em>pas des promesses.</em></h2>
+    <p class="lead rv">On fixe les objectifs ensemble au départ, puis on fait le point chaque mois : on teste, on apprend, on ajuste.</p>
+    <div class="kpis">
+      <div class="kpi rv"><b>100 %</b><span><strong>des plats en vraie photo</strong>sur Uber Eats, Google et le site</span></div>
+      <div class="kpi rv"><b>4,7</b><span><strong>de note visée sur Uber Eats</strong>avec une réponse à chaque avis</span></div>
+      <div class="kpi rv"><b>20 %</b><span><strong>des commandes à emporter en direct</strong>sur votre site, sans commission</span></div>
+      <div class="kpi rv"><b>+50</b><span><strong>avis Google en plus</strong>grâce au QR code en caisse et sur les tables</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 offres -->
+<section class="s light" aria-label="Offres">
+  <div class="in wide">
+    <p class="kick">09 <i>/</i> Offres</p>
+    <h2 class="rv">Trois façons <em>de démarrer.</em></h2>
+    <p class="lead rv">Paiement unique. Chaque offre reprend tout ce que contient la précédente.</p>
+    <div class="offers">
+      <div class="of rv"><div class="top"><h3>Essentiel</h3><span class="px">1 125 <small>CHF</small></span></div><p>Être trouvé et bien présenté.</p>
+        <ul><li>Fiche Google remise à jour : horaires, carte, liens</li><li>Page Uber Eats réorganisée : carte, menus, descriptions</li><li>Site vitrine pour téléphone : carte, horaires, plan, appel</li><li>Instagram préparé : profil, bio, 3 publications</li></ul></div>
+      <div class="of rec rv"><div class="top"><h3>Signature</h3><span class="px">1 875 <small>CHF</small></span></div><p>Avec de vraies photos de vos plats.</p>
+        <ul><li>Tout l'Essentiel</li><li>Demi-journée de photographe professionnel</li><li>Photos retouchées sur Uber Eats, Google et le site</li><li>Carte refaite, prête pour l'imprimeur</li><li>Affiches avec QR code pour la vitrine et les tables</li><li>1 vidéo courte pour Instagram</li></ul></div>
+      <div class="of rv"><div class="top"><h3>La totale</h3><span class="px">3 750 <small>CHF</small></span></div><p>Tout en place, même la commande.</p>
+        <ul><li>Toute la Signature</li><li>Site complet en 3 langues</li><li>Commande à emporter en ligne, payée par TWINT</li><li>Carte de fidélité numérique</li><li>Film du restaurant + 3 vidéos courtes</li><li>Le 1er mois de gestion Instagram compris</li></ul></div>
+    </div>
+    <p class="monthly rv"><b>Ensuite, chaque mois :</b> Réseaux 490 CHF (4 publications, 2 vidéos, suivi des avis, bilan) ou Réseaux et publicité 990 CHF. Montants hors TVA éventuelle ; budget publicitaire et abonnement de l'outil de commande à part.</p>
+  </div>
+</section>
+
+<!-- 11 fin -->
+<section class="s end" aria-label="On démarre">
+  <div class="in">
+    <p class="kick">10 <i>/</i> On démarre</p>
+    <h2 class="rv">Un café de <em>20 minutes</em> suffit.</h2>
+    <ol class="steps">
+      <li class="rv"><span class="d">1</span><div><b>On se voit au restaurant</b><span>On regarde ensemble votre page Uber Eats et vos chiffres.</span></div></li>
+      <li class="rv"><span class="d">2</span><div><b>Semaine 1 : shooting et Uber Eats</b><span>Les nouvelles photos et la carte en ligne dans les 7 jours.</span></div></li>
+      <li class="rv"><span class="d">3</span><div><b>Semaines 2 à 4 : site et commande</b><span>Votre site en ligne, la commande TWINT testée avec vous.</span></div></li>
+    </ol>
+    <a class="wa rv" href="https://wa.me/41782133868?text=Bonjour%20Malik%2C%20j%27ai%20vu%20la%20pr%C3%A9sentation%20pour%20Al%20Amir.%20On%20peut%20en%20parler%20%3F" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24s8.24 3.7 8.24 8.24c0 4.55-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.98-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+      Écrire à Malik sur WhatsApp
+    </a>
+    <a class="tel" href="tel:+41782133868">ou appeler le <b>078 213 38 68</b></a>
+    <div class="sign"><span>Nouvelle Ardoise · Agence de communication pour la restauration</span><a href="https://nouvelleardoise.ch" style="color:var(--safran)">nouvelleardoise.ch</a></div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var secs=[].slice.call(document.querySelectorAll('.s')),ct=document.getElementById('ct'),pg=document.getElementById('pg');
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if('IntersectionObserver' in window&&!rm){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
+    [].forEach.call(document.querySelectorAll('.rv'),function(el,i){el.style.transitionDelay=(Math.min(i%6,5)*60)+'ms';io.observe(el);});
+  }else{[].forEach.call(document.querySelectorAll('.rv'),function(el){el.classList.add('on');});}
+  function upd(){
+    var y=window.scrollY,h=document.documentElement.scrollHeight-innerHeight;
+    pg.style.width=(h>0?y/h*100:0)+'%';
+    var mid=y+innerHeight*0.45,idx=0;
+    for(var i=0;i<secs.length;i++){if(secs[i].offsetTop<=mid)idx=i;}
+    ct.textContent=(idx+1)+' / '+secs.length;
+  }
+  addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
+})();
+</script>
+</body>
+</html>
