@@ -1,17 +1,31 @@
 ---
 // Gabarit « Cartographe » (29.10.2026) : l'accueil tous métiers et la page /test/.
 // Papier et encre, Instrument Serif pour les titres, Inter Tight pour le texte, IBM Plex Mono pour les repères.
-// L'appel à l'action « Tester ma visibilité » reste toujours à portée : bouton dans l'en-tête, barre fixe sur téléphone.
+// L'appel à l'action « Tester ma visibilité » reste toujours à portée : bouton dans l'en-tête, barre fixe sur téléphone
+// (un seul bouton jaune à la fois : celui de l'en-tête s'efface quand la barre apparaît).
 import '@fontsource/instrument-serif/400.css';
 import '@fontsource/instrument-serif/400-italic.css';
 import '@fontsource-variable/inter-tight';
 import '@fontsource/ibm-plex-mono/400.css';
-import '@fontsource/ibm-plex-mono/500.css';
+import serifUrl from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url';
+import grotesqueUrl from '@fontsource-variable/inter-tight/files/inter-tight-latin-wght-normal.woff2?url';
 import { SITE } from '../config.js';
 
-const { title, description, chemin = '/', jsonLd = null, test = '/#test' } = Astro.props;
+const {
+  title, description, chemin = '/', jsonLd = null, test = '/#test',
+  robots = 'index, follow, max-image-preview:large, max-snippet:-1',
+  cta = 'test', barre = true, image = '/partage.jpg',
+  imageAlt = 'Nouvelle Ardoise, agence de marketing et de communication à Genève et Vaud',
+} = Astro.props;
 const canonical = SITE.url + chemin;
-const image = SITE.url + '/partage.jpg';
+const imageUrl = SITE.url + image;
+const MENU = [
+  { href: '/#voyants', nom: 'Ce qu’on mesure' },
+  { href: '/#metiers', nom: 'Métiers' },
+  { href: '/#carte', nom: 'Zone' },
+  { href: '/restauration/', nom: 'Restauration', page: '/restauration/' },
+  { href: '/realisations/', nom: 'Réalisations', page: '/realisations/' },
+];
 ---
 <!doctype html>
 <html lang="fr-CH">
@@ -19,7 +33,7 @@ const image = SITE.url + '/partage.jpg';
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#F2EDE4" />
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="robots" content={robots} />
   <meta name="geo.region" content="CH-GE" />
   <meta name="geo.placename" content="Genève" />
   <title>{title}</title>
@@ -27,6 +41,8 @@ const image = SITE.url + '/partage.jpg';
   <link rel="canonical" href={canonical} />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preload" as="font" type="font/woff2" href={serifUrl} crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href={grotesqueUrl} crossorigin />
   <link rel="preconnect" href="https://nouvelle-ardoise-app.vercel.app" crossorigin />
   <meta property="og:type" content="website" />
   <meta property="og:title" content={title} />
@@ -34,10 +50,13 @@ const image = SITE.url + '/partage.jpg';
   <meta property="og:url" content={canonical} />
   <meta property="og:site_name" content={SITE.nom} />
   <meta property="og:locale" content="fr_CH" />
-  <meta property="og:image" content={image} />
+  <meta property="og:image" content={imageUrl} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={imageAlt} />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
   {jsonLd && <script type="application/ld+json" is:inline set:html={jsonLd} />}
   <style is:global>
 :root {
@@ -50,9 +69,6 @@ const image = SITE.url + '/partage.jpg';
   --filet: #DCD3C4;
   --filet-nuit: #3B362E;
   --craie: #FFD23F;
-  --bon: #2F7A4A;
-  --moyen: #C98A0B;
-  --faible: #C2410C;
   --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --grotesk: 'Inter Tight Variable', 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
@@ -68,79 +84,99 @@ a { color: inherit; }
 img { display: block; max-width: 100%; height: auto; }
 button, input { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--encre); outline-offset: 3px; }
+.nuit :focus-visible { outline-color: var(--craie); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.evitement { position: absolute; left: 16px; top: -200px; z-index: 50; padding: 10px 14px; background: var(--craie); color: var(--encre); border-radius: 999px; font-weight: 600; text-decoration: none; }
+.evitement:focus-visible { top: 12px; }
 .cadre { max-width: var(--max); margin-inline: auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
 .etiquette { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris); margin: 0; }
 .serif { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; }
 .surligne { background: linear-gradient(transparent 60%, var(--craie) 60% 92%, transparent 92%); padding-inline: .06em; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--encre); color: var(--papier); text-decoration: none; font-weight: 600; font-size: 15px; border: 1px solid var(--encre); cursor: pointer; transition: background-color .2s, color .2s, transform .15s var(--sortie); white-space: nowrap; }
-.btn:hover { background: var(--craie); color: var(--encre); }
 .btn:active { transform: scale(.97); }
 .btn--craie { background: var(--craie); color: var(--encre); }
-.btn--craie:hover { background: var(--encre); color: var(--papier); }
 .btn--creux { background: transparent; color: var(--encre); }
 .btn--petit { min-height: 40px; padding: 0 16px; font-size: 14px; }
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { background: var(--craie); color: var(--encre); }
+  .btn--craie:hover { background: var(--encre); color: var(--papier); }
+}
 
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--papier); }
 .tete { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--papier) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--filet); }
 .tete .cadre { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 66px; }
 .marque { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
-.marque svg { width: 22px; height: 25px; }
+.marque svg { width: 22px; height: 25px; flex: none; }
 .marque svg path { fill: none; stroke: var(--encre); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 .nav { display: flex; gap: 26px; align-items: center; font-size: 15px; }
 .nav a:not(.btn) { text-decoration: none; }
-.nav a:not(.btn):hover { text-decoration: underline; text-underline-offset: 4px; }
+.nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 5px; }
 .nav .tel { font-family: var(--mono); font-size: 13px; }
+.nav .btn { transition: opacity .25s, visibility 0s linear 0s; }
+@media (hover: hover) and (pointer: fine) { .nav a:not(.btn):hover { text-decoration: underline; text-underline-offset: 4px; } }
 @media (max-width: 960px) { .nav a:not(.btn) { display: none; } }
+@media (max-width: 760px) { body.barre-ouverte .nav .btn { opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s linear .25s; } }
+@media (max-width: 380px) { .marque span { display: none; } }
 
 .pied { border-top: 1px solid var(--filet); padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); font-size: 14px; color: var(--gris); }
 .pied .cadre { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; }
 .pied a { text-decoration: none; }
-.pied a:hover { text-decoration: underline; }
+@media (hover: hover) and (pointer: fine) { .pied a:hover { text-decoration: underline; } }
 
-/* Barre fixe sur téléphone : l'appel à l'action toujours sous le pouce */
-.barre { position: fixed; z-index: 30; left: 0; right: 0; bottom: 0; display: none; gap: 8px; padding: 10px max(12px, env(safe-area-inset-left, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)); background: color-mix(in srgb, var(--papier) 94%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid var(--filet); transform: translateY(110%); transition: transform .35s var(--sortie); }
-.barre.visible { transform: none; }
+/* Barre fixe sur téléphone : l'appel à l'action toujours sous le pouce (inerte et invisible tant qu'elle est rangée) */
+.barre { position: fixed; z-index: 30; left: 0; right: 0; bottom: 0; display: none; gap: 8px; padding: 10px max(12px, env(safe-area-inset-left, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)); background: color-mix(in srgb, var(--papier) 94%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid var(--filet); transform: translateY(110%); visibility: hidden; transition: transform .35s var(--sortie), visibility 0s linear .35s; }
+.barre.visible { transform: none; visibility: visible; transition: transform .35s var(--sortie), visibility 0s; }
 .barre .btn { flex: 1; }
 .barre .btn--creux { flex: 0 0 auto; padding: 0 18px; }
-@media (max-width: 760px) { .barre { display: flex; } .pied { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); } }
-@media (prefers-reduced-motion: reduce) { .barre { transition: none; } }
+@media (max-width: 760px) { .barre { display: flex; } body.a-barre .pied { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); } }
+@media (prefers-reduced-motion: reduce) { .barre, .nav .btn { transition: none; } }
   </style>
 </head>
-<body>
+<body class:list={[{ 'a-barre': barre }]}>
+<a class="evitement" href="#contenu">Aller au contenu</a>
 <header class="tete">
   <div class="cadre">
     <a class="marque" href="/" aria-label="Nouvelle Ardoise, accueil"><svg viewBox="0 0 32 36" aria-hidden="true"><path d="M6 30V6l20 24V6"/></svg><span>Nouvelle Ardoise</span></a>
     <nav class="nav" aria-label="Navigation principale">
-      <a href="/#voyants">Le test</a>
-      <a href="/#metiers">Métiers</a>
-      <a href="/#carte">Zone</a>
-      <a href="/restauration/">Restauration</a>
-      <a href="/realisations/">Réalisations</a>
+      {MENU.map((m) => <a href={m.href} aria-current={m.page === chemin ? 'page' : undefined}>{m.nom}</a>)}
       <a class="tel" href="tel:+41782133868">078 213 38 68</a>
-      <a class="btn btn--craie btn--petit" href={test} data-cta>Tester ma visibilité</a>
+      {cta === 'test'
+        ? <a class="btn btn--craie btn--petit" href={test} data-cta>Tester ma visibilité</a>
+        : <a class="btn btn--creux btn--petit" href="tel:+41782133868">Appeler</a>}
     </nav>
   </div>
 </header>
 
-<main id="haut">
+<main id="contenu">
   <slot />
 </main>
 
-<footer class="pied"><div class="cadre"><span>Nouvelle Ardoise · Agence de marketing et de communication · {SITE.adresse}, {SITE.localite} · 078 213 38 68 · Genève, Vaud et Suisse romande</span><span><a href="/restauration/">Restauration</a> · <a href="/artisans/">Artisans</a> · <a href="/questions/">Questions</a> · <a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a></span></div></footer>
+<footer class="pied"><div class="cadre"><span>Nouvelle Ardoise · Agence de marketing et de communication · {SITE.adresse}, {SITE.localite} · 078 213 38 68 · Genève, Vaud et Suisse romande</span><span><a href="/restauration/">Restauration</a> · <a href="/artisans/">Artisans</a> · <a href="/realisations/">Réalisations</a> · <a href="/contact/">Contact</a> · <a href="/questions/">Questions</a> · <a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a></span></div></footer>
 
-<div class="barre" id="barre" aria-label="Actions rapides">
+{barre && <nav class="barre" id="barre" aria-label="Actions rapides" inert>
   <a class="btn btn--craie" href={test} data-cta>Tester ma visibilité</a>
   <a class="btn btn--creux" href="tel:+41782133868" aria-label="Appeler le 078 213 38 68">Appeler</a>
-</div>
+</nav>}
 
 <script is:inline>
-// La barre du bas apparaît une fois l'ouverture dépassée, et se retire quand le test est à l'écran.
 (function () {
+  const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Les boutons « Tester ma visibilité » amènent au test et placent le curseur dans le champ, en un seul geste.
+  document.querySelectorAll('[data-cta]').forEach((a) => a.addEventListener('click', (e) => {
+    const cible = document.getElementById('test'); if (!cible) return;
+    e.preventDefault();
+    cible.scrollIntoView({ block: 'start', behavior: calme ? 'auto' : 'smooth' });
+    const champ = document.getElementById('tv-q'); if (champ) champ.focus({ preventScroll: true });
+  }));
+  // La barre du bas apparaît une fois l'ouverture dépassée, et se range quand le test est à l'écran.
   const barre = document.getElementById('barre'); if (!barre) return;
   const test = document.getElementById('test');
   let testVisible = false;
   if (test && 'IntersectionObserver' in window) new IntersectionObserver((e) => { testVisible = e[0].isIntersecting; maj(); }, { threshold: 0 }).observe(test);
-  function maj() { barre.classList.toggle('visible', scrollY > innerHeight * .6 && !testVisible); }
+  function maj() {
+    const on = scrollY > innerHeight * .6 && !testVisible;
+    barre.classList.toggle('visible', on); barre.inert = !on; document.body.classList.toggle('barre-ouverte', on);
+  }
   addEventListener('scroll', maj, { passive: true }); maj();
 })();
 </script>

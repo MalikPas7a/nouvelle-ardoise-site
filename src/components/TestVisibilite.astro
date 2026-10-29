@@ -1,112 +1,137 @@
 ---
-// « Testez votre visibilité » : le commerçant tape son nom, choisit sa fiche Google, et voit en direct
-// 4 voyants (Google, site, Instagram, vente en ligne) puis ses 3 priorités. Il peut ensuite laisser son contact :
-// la demande arrive dans l'appli de prospection (relance téléphonique le lendemain).
+// « Testez votre visibilité » : la personne tape le nom de son commerce, choisit sa fiche Google, et voit en direct
+// 4 voyants (Google, site, Instagram, vente en ligne) puis ses 3 priorités. Elle peut ensuite laisser son contact :
+// la demande arrive dans l'appli de prospection (retour le jour ouvré suivant).
 // Les routes publiques vivent dans l'appli (nouvelle-ardoise-app, /api/public/*) et n'acceptent que ce site.
-const { api = 'https://nouvelle-ardoise-app.vercel.app/api/public', titre = 'h2' } = Astro.props;
+// Robustesse : délais maximaux, annulation d'un audit quand on relance une recherche (jeton de génération),
+// messages d'erreur toujours en français, contact proposé même quand le test échoue.
+const { api = 'https://nouvelle-ardoise-app.vercel.app/api/public', titre = 'h2', titreTexte = 'Testez votre visibilité.' } = Astro.props;
 const Titre = titre;
 const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagram'], ['vente', 'Vente en ligne']];
 ---
 <section class="tv" id="test" aria-labelledby="tv-titre" data-api={api}>
   <div class="tv__tete">
     <p class="tv__sur"><span class="tv__direct" aria-hidden="true"></span>En direct · 30 secondes · gratuit</p>
-    <Titre class="tv__titre" id="tv-titre">Testez votre visibilité.</Titre>
+    <Titre class="tv__titre" id="tv-titre">{titreTexte}</Titre>
   </div>
 
-  <form class="tv__cherche" id="tv-form" autocomplete="off">
-    <label class="tv__label" for="tv-q">Le nom de votre commerce, et sa ville</label>
+  <form class="tv__cherche" id="tv-form" autocomplete="off" novalidate>
+    <label class="tv__label" for="tv-q">Le nom de votre commerce ou cabinet, et sa ville</label>
     <div class="tv__ligne">
-      <input id="tv-q" name="q" type="search" required minlength="3" maxlength="120" placeholder="Ex. Le Fournil, Carouge" enterkeyhint="search" />
-      <button class="btn btn--craie" type="submit">Lancer</button>
+      <input id="tv-q" name="q" type="search" required minlength="3" maxlength="120" placeholder="Ex. : Le Fournil, Carouge" enterkeyhint="search" />
+      <button class="btn btn--craie" id="tv-lancer" type="submit">Tester</button>
     </div>
+    <p class="tv__aide">Gratuit, sans inscription. Rien n’est publié.</p>
   </form>
 
   <ul class="tv__trouves" id="tv-trouves" hidden></ul>
 
-  <div class="tv__voyants" id="tv-voyants" aria-live="polite">
+  <div class="tv__voyants" id="tv-voyants">
     {VOYANTS.map(([id, nom]) => (
       <div class="tv-v" data-id={id} data-etat="inconnu">
         <span class="tv-v__point" aria-hidden="true"></span>
-        <span class="tv-v__nom">{nom}</span>
+        <span class="tv-v__nom">{nom}<span class="sr tv-v__etat"></span></span>
         <b class="tv-v__valeur tv-v__vide">à tester</b>
         <span class="tv-v__detail"></span>
       </div>
     ))}
   </div>
 
-  <p class="tv__msg" id="tv-msg" role="status"></p>
+  <p class="tv__msg" id="tv-msg" role="status" tabindex="-1"></p>
 
   <div class="tv__axes" id="tv-axes" hidden>
-    <p class="tv__sous">Vos trois priorités</p>
+    <p class="tv__sous" id="tv-axes-titre">Vos trois priorités</p>
     <ol id="tv-liste"></ol>
   </div>
 
-  <form class="tv__contact" id="tv-contact" hidden>
-    <p class="tv__sous">Recevoir le plan détaillé, et en parler 15 minutes</p>
-    <div class="tv__champs">
-      <input name="contact" placeholder="Votre prénom" maxlength="120" autocomplete="given-name" />
-      <input name="joindre" required placeholder="E-mail ou téléphone" maxlength="200" autocomplete="email" />
+  <form class="tv__contact" id="tv-contact" hidden novalidate>
+    <p class="tv__sous" id="tv-contact-titre">Votre plan détaillé, gratuit</p>
+    <div class="tv__champs" id="tv-champs">
+      <div class="tv__champ"><label for="tv-prenom">Prénom</label><input id="tv-prenom" name="contact" maxlength="120" autocomplete="given-name" /></div>
+      <div class="tv__champ"><label for="tv-tel">Téléphone</label><input id="tv-tel" name="telephone" type="tel" inputmode="tel" maxlength="40" autocomplete="tel" placeholder="078 …" /></div>
+      <div class="tv__champ tv__champ--large"><label for="tv-mail">E-mail</label><input id="tv-mail" name="email" type="email" inputmode="email" maxlength="200" autocomplete="email" /></div>
       <input class="tv__piege" name="site_web_confirmation" tabindex="-1" autocomplete="off" aria-hidden="true" />
     </div>
-    <button class="btn btn--craie" type="submit">Recevoir mon plan</button>
-    <p class="tv__note">On vous rappelle le jour ouvré suivant. Pas de newsletter, pas de revente de vos données.</p>
+    <button class="btn btn--craie" id="tv-envoyer" type="submit">Recevoir mon plan</button>
+    <p class="tv__err" id="tv-err" role="alert"></p>
+    <p class="tv__note" id="tv-note">Téléphone ou e-mail, au choix. On revient vers vous le jour ouvré suivant, sans engagement. Vos données ne servent qu’à ce retour (<a href="/confidentialite/">confidentialité</a>).</p>
+    <div class="tv__merci" id="tv-merci" tabindex="-1" hidden><p class="tv__sous">C’est noté.</p><p></p></div>
   </form>
 </section>
 
 <style is:global>
 .tv [hidden] { display: none !important; }
-.tv { --nuit: var(--encre); background: var(--nuit); color: var(--papier); border-radius: 22px; padding: clamp(20px, 3vw, 32px); display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; box-shadow: 0 30px 60px -30px rgb(27 25 21 / .45); }
+.tv .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.tv { --nuit: var(--encre); position: relative; background: var(--nuit); color: var(--papier); border-radius: 22px; padding: clamp(20px, 3vw, 32px); display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; box-shadow: 0 30px 60px -30px rgb(27 25 21 / .45); overflow-wrap: anywhere; }
+.tv :focus-visible { outline: 2px solid var(--craie); outline-offset: 3px; }
 .tv__sur { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris-nuit); margin: 0; }
-.tv__direct { width: 8px; height: 8px; border-radius: 50%; background: var(--craie); box-shadow: 0 0 0 0 rgb(255 210 63 / .6); animation: tv-pouls 2.4s ease-out infinite; }
-@keyframes tv-pouls { 70% { box-shadow: 0 0 0 9px rgb(255 210 63 / 0); } 100% { box-shadow: 0 0 0 0 rgb(255 210 63 / 0); } }
+.tv__direct { position: relative; width: 8px; height: 8px; border-radius: 50%; background: var(--craie); flex: none; }
+.tv__direct::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--craie); animation: tv-pouls 2.4s ease-out 8; }
+@keyframes tv-pouls { from { transform: scale(1); opacity: .6; } 70%, to { transform: scale(2.6); opacity: 0; } }
 .tv__titre { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 3.6vw, 48px); line-height: 1; letter-spacing: -.02em; margin: 8px 0 0; }
 .tv__label { display: block; font-size: 14px; color: var(--gris-nuit); margin-bottom: 8px; }
 .tv__ligne { display: flex; gap: 8px; }
-.tv input { flex: 1; min-width: 0; min-height: 52px; padding: 0 16px; border-radius: 14px; border: 1px solid var(--filet-nuit); background: var(--encre-2); color: var(--papier); font-size: 16px; }
-.tv input::placeholder { color: #7D7568; }
+.tv__aide { margin: 8px 0 0; font-size: 12px; color: var(--gris-nuit); }
+.tv input { flex: 1; min-width: 0; width: 100%; min-height: 52px; padding: 0 16px; border-radius: 14px; border: 1px solid #6E675B; background: var(--encre-2); color: var(--papier); font-size: 16px; transition: border-color .2s; }
+.tv input::placeholder { color: var(--gris-nuit); }
 .tv input:focus { outline: none; border-color: var(--craie); }
-.tv .btn--craie:hover { background: var(--papier); color: var(--encre); }
+.tv input[aria-invalid="true"] { border-color: #FFB38A; }
+.tv .btn { transition: background-color .2s, color .2s, opacity .2s, transform .15s var(--sortie); }
 .tv .btn[disabled] { opacity: .6; cursor: progress; }
 
 .tv__trouves { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-.tv__trouves button { width: 100%; text-align: left; display: grid; gap: 2px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--filet-nuit); background: transparent; cursor: pointer; transition: border-color .2s, background-color .2s; }
-.tv__trouves button:hover, .tv__trouves button:focus-visible { border-color: var(--craie); background: var(--encre-2); }
+.tv__trouves button { width: 100%; min-width: 0; text-align: left; display: grid; gap: 2px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--filet-nuit); background: transparent; cursor: pointer; transition: border-color .2s, background-color .2s; }
+.tv__trouves button:not(.hors):focus-visible { border-color: var(--craie); background: var(--encre-2); }
 .tv__trouves b { font-weight: 600; }
 .tv__trouves small { color: var(--gris-nuit); font-size: 13px; }
-.tv__trouves .hors { opacity: .55; cursor: not-allowed; }
+.tv__trouves .hors { opacity: .55; }
 .tv__autre { font-size: 14px; color: var(--gris-nuit); background: none; border: 0; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; justify-self: start; }
 
-.tv__voyants { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1px; background: var(--filet-nuit); border: 1px solid var(--filet-nuit); border-radius: 14px; overflow: hidden; }
+.tv__voyants { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1px; background: var(--filet-nuit); border: 1px solid var(--filet-nuit); border-radius: 14px; overflow: hidden; scroll-margin-top: 90px; }
 .tv-v { min-width: 0; background: var(--nuit); padding: 14px; display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "p n" "v v" "d d"; column-gap: 8px; align-items: center; min-height: 104px; align-content: start; }
 .tv-v__point { grid-area: p; width: 10px; height: 10px; border-radius: 50%; background: #4A443A; transition: background-color .5s, box-shadow .5s; }
 .tv-v__nom { grid-area: n; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris-nuit); }
 .tv-v__valeur { grid-area: v; font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.1; margin-top: 6px; }
-.tv-v__vide { font-family: var(--grotesk); font-size: 15px; color: #7D7568; margin-top: 14px; }
+.tv-v__vide { font-family: var(--grotesk); font-size: 15px; color: var(--gris-nuit); margin-top: 14px; }
 .tv-v__detail { grid-area: d; font-size: 13px; line-height: 1.35; color: var(--gris-nuit); margin-top: 2px; }
 .tv-v[data-etat="bon"] .tv-v__point { background: #4FBF7A; box-shadow: 0 0 12px #4FBF7A; }
 .tv-v[data-etat="moyen"] .tv-v__point { background: var(--craie); box-shadow: 0 0 12px var(--craie); }
 .tv-v[data-etat="faible"] .tv-v__point { background: #F06A2C; box-shadow: 0 0 12px #F06A2C; }
-.tv-v.revele { animation: tv-revele .5s var(--sortie) both; animation-delay: calc(var(--i) * 140ms); }
+.tv-v[data-etat="inconnu"].revele .tv-v__point { background: transparent; box-shadow: inset 0 0 0 1.5px var(--gris-nuit); }
+.tv-v.revele .tv-v__point { transition-delay: calc(var(--i) * 120ms); }
+.tv-v.revele .tv-v__valeur, .tv-v.revele .tv-v__detail { animation: tv-revele .4s var(--sortie) both; animation-delay: calc(var(--i) * 120ms); }
 @keyframes tv-revele { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes tv-fondu { from { opacity: 0; } to { opacity: 1; } }
 .tv.cherche .tv-v__point { animation: tv-scan 1.2s ease-in-out infinite; animation-delay: calc(var(--i) * 200ms); }
 @keyframes tv-scan { 50% { background: var(--craie); box-shadow: 0 0 10px var(--craie); } }
 
 .tv__msg { margin: 0; font-size: 14px; color: var(--gris-nuit); min-height: 1.4em; }
-.tv__msg:empty { display: none; }
 .tv__msg a { color: var(--craie); }
 .tv__sous { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--craie); margin: 0 0 10px; }
 .tv__axes ol { margin: 0; padding: 0; list-style: none; counter-reset: axe; display: grid; gap: 10px; }
-.tv__axes li { counter-increment: axe; display: grid; grid-template-columns: 30px 1fr; gap: 2px 8px; animation: tv-revele .5s var(--sortie) both; animation-delay: calc(560ms + var(--i) * 140ms); }
+.tv__axes li { counter-increment: axe; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 2px 8px; animation: tv-revele .5s var(--sortie) both; animation-delay: calc(560ms + var(--i) * 140ms); }
 .tv__axes li::before { content: counter(axe, decimal-leading-zero); font-family: var(--mono); font-size: 12px; color: var(--gris-nuit); padding-top: 3px; grid-row: span 2; }
 .tv__axes b { font-weight: 600; }
 .tv__axes span { font-size: 14px; color: var(--gris-nuit); }
 .tv__contact { display: grid; gap: 10px; border-top: 1px solid var(--filet-nuit); padding-top: 18px; }
+.tv__contact.revele { animation: tv-revele .5s var(--sortie) both; animation-delay: var(--d, 300ms); }
 .tv__contact .tv__sous { margin: 0; }
-.tv__champs { display: grid; grid-template-columns: 1fr 1.4fr; gap: 8px; }
+.tv__champs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.tv__champ label { display: block; font-size: 12px; color: var(--gris-nuit); margin-bottom: 4px; }
+.tv__champ--large { grid-column: 1 / -1; }
 .tv__piege { position: absolute; left: -9999px; width: 1px; height: 1px; }
+.tv__err { margin: 0; font-size: 13px; color: #FFB38A; }
+.tv__err a { color: var(--craie); }
 .tv__note { margin: 0; font-size: 12px; color: var(--gris-nuit); }
+.tv__note a { color: var(--gris-nuit); }
+.tv__merci { animation: tv-fondu .3s both; }
+.tv__merci p:last-child { margin: 0; }
+@media (hover: hover) and (pointer: fine) {
+  .tv .btn--craie:not([disabled]):hover { background: var(--papier); color: var(--encre); }
+  .tv__trouves button:not(.hors):hover { border-color: var(--craie); background: var(--encre-2); }
+}
 @media (max-width: 520px) { .tv__champs { grid-template-columns: 1fr; } .tv-v__valeur { font-size: 26px; } .tv-v { min-height: 96px; } }
-@media (prefers-reduced-motion: reduce) { .tv__direct, .tv.cherche .tv-v__point, .tv-v.revele, .tv__axes li { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .tv__direct::after, .tv.cherche .tv-v__point, .tv-v.revele .tv-v__valeur, .tv-v.revele .tv-v__detail, .tv__axes li, .tv__contact.revele, .tv__merci { animation: none; } .tv-v.revele .tv-v__point { transition-delay: 0s; } }
 </style>
 
 <script is:inline>
@@ -114,82 +139,160 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
   const tv = document.getElementById('test'); if (!tv || tv.dataset.pret) return; tv.dataset.pret = '1';
   const API = tv.dataset.api;
   const $ = (id) => document.getElementById(id);
-  const form = $('tv-form'), q = $('tv-q'), trouves = $('tv-trouves'), msg = $('tv-msg');
-  const axesBloc = $('tv-axes'), liste = $('tv-liste'), contact = $('tv-contact');
+  const form = $('tv-form'), q = $('tv-q'), lancer = $('tv-lancer'), trouves = $('tv-trouves'), msg = $('tv-msg'), voyants = $('tv-voyants');
+  const axesBloc = $('tv-axes'), axesTitre = $('tv-axes-titre'), liste = $('tv-liste');
+  const contact = $('tv-contact'), contactTitre = $('tv-contact-titre'), champs = $('tv-champs'), envoyer = $('tv-envoyer'), err = $('tv-err'), note = $('tv-note'), merci = $('tv-merci');
   const cases = [...tv.querySelectorAll('.tv-v')];
-  cases.forEach((c, i) => c.style.setProperty('--i', i));
+  cases.forEach((c, i) => { c.style.setProperty('--i', i); c.dataset.nom = c.querySelector('.tv-v__nom').firstChild.textContent; });
+  const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const TEL = '<a href="tel:+41782133868">078 213 38 68</a>';
-  let choix = null, resultat = null;
+  const ETATS = { bon: 'Bon', moyen: 'À améliorer', faible: 'Faible', inconnu: 'Non mesuré' };
+  const NB = ' ', FINE = ' ';
+  let generation = 0, ctrl = null, minuterie = 0, choix = null, resultat = null;
 
+  class ErreurApi extends Error {}
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const net = (s) => String(s ?? '').trim().replace(/[.\s]+$/, '');
+  const texteErreur = (e) => (e instanceof ErreurApi ? e.message : 'Une erreur est survenue pendant le test.');
+  const avecTel = (m, suite) => (/078/.test(m) ? m : m + ' ' + suite);
   const dire = (html) => { msg.innerHTML = html; };
-  async function appel(route, corps) {
-    const r = await fetch(API + route, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(corps) });
+  const defiler = (el, block) => el.scrollIntoView({ block, behavior: calme ? 'auto' : 'smooth' });
+
+  // Un seul appel à la fois : chaque nouvelle action annule la précédente, et chaque appel a un délai maximal.
+  function nouveauSignal(ms) {
+    if (ctrl) ctrl.abort();
+    ctrl = new AbortController();
+    const delai = AbortSignal.timeout(ms);
+    return typeof AbortSignal.any === 'function' ? AbortSignal.any([ctrl.signal, delai]) : delai;
+  }
+  async function appel(route, corps, signal) {
+    let r;
+    try {
+      r = await fetch(API + route, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(corps), signal });
+    } catch (e) {
+      if (e && e.name === 'AbortError') throw e; // annulé par une nouvelle action : on se tait
+      if (e && e.name === 'TimeoutError') throw new ErreurApi('Le test met trop de temps à répondre.');
+      throw new ErreurApi('Connexion impossible pour le moment. Vérifiez votre réseau et réessayez.');
+    }
     const d = await r.json().catch(() => ({}));
-    if (!r.ok) throw new Error(d.erreur || 'Le test ne répond pas.');
-    return d;
+    if (!r.ok) throw new ErreurApi(typeof d.erreur === 'string' && d.erreur ? d.erreur : 'Le test ne répond pas pour le moment.');
+    return d && typeof d === 'object' ? d : {};
   }
+  function occupe(on, libelle) { lancer.disabled = on; lancer.textContent = on ? libelle : 'Tester'; tv.setAttribute('aria-busy', on ? 'true' : 'false'); }
   function remettre() {
-    cases.forEach((c) => { c.dataset.etat = 'inconnu'; c.classList.remove('revele'); const val = c.querySelector('.tv-v__valeur'); val.textContent = 'à tester'; val.classList.add('tv-v__vide'); c.querySelector('.tv-v__detail').textContent = ''; });
-    axesBloc.hidden = true; contact.hidden = true; liste.innerHTML = '';
+    cases.forEach((c) => {
+      c.dataset.etat = 'inconnu'; c.classList.remove('revele');
+      c.querySelector('.tv-v__nom').firstChild.textContent = c.dataset.nom; c.querySelector('.tv-v__etat').textContent = '';
+      const val = c.querySelector('.tv-v__valeur'); val.textContent = 'à tester'; val.classList.add('tv-v__vide');
+      c.querySelector('.tv-v__detail').textContent = '';
+    });
+    axesBloc.hidden = true; liste.innerHTML = ''; resultat = null;
+    contact.hidden = true; contact.classList.remove('revele'); contact.reset();
+    champs.hidden = false; envoyer.hidden = false; note.hidden = false; merci.hidden = true; err.textContent = '';
+    envoyer.disabled = false; envoyer.textContent = 'Recevoir mon plan';
+    contact.querySelectorAll('[aria-invalid]').forEach((i) => i.removeAttribute('aria-invalid'));
   }
+  function proposerContact(titre) { contactTitre.textContent = titre; contact.style.setProperty('--d', '200ms'); contact.hidden = false; contact.classList.add('revele'); }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const bouton = form.querySelector('button');
-    remettre(); trouves.hidden = true; bouton.disabled = true; dire('On cherche votre fiche sur Google…');
+    const v = q.value.trim();
+    if (v.length < 3) { dire('Tapez au moins 3 lettres, avec la ville si possible.'); q.focus(); return; }
+    const n = ++generation, signal = nouveauSignal(12000);
+    clearInterval(minuterie); tv.classList.remove('cherche'); trouves.hidden = true; remettre(); choix = { nom: v };
+    occupe(true, 'Recherche…'); dire('On cherche votre fiche sur Google…');
     try {
-      const { trouves: t } = await appel('/recherche', { q: q.value.trim() });
-      if (!t.length) { dire('Aucune fiche Google trouvée. Ajoutez la ville, ou appelez-nous au ' + TEL + ' : c’est déjà un premier constat.'); return; }
-      dire('C’est lequel ?');
+      const d = await appel('/recherche', { q: v }, signal);
+      if (n !== generation) return;
+      const t = Array.isArray(d.trouves) ? d.trouves : [];
+      if (!t.length) { dire('Aucune fiche Google trouvée avec ce nom. Ajoutez la ville, ou laissez-nous un numéro' + NB + ': on fait le test avec vous.'); proposerContact('On fait le test avec vous'); return; }
+      dire('Choisissez votre fiche' + NB + ':');
       trouves.innerHTML = t.map((g, i) => `<li><button type="button" data-i="${i}" ${g.accompagne ? '' : 'class="hors" aria-disabled="true"'}><b>${esc(g.nom)}</b><small>${esc(g.adresse)}${g.accompagne ? '' : ' · métier que nous n’accompagnons pas'}</small></button></li>`).join('')
-        + '<li><button type="button" class="tv__autre" data-autre>Il n’est pas dans la liste</button></li>';
+        + '<li><button type="button" class="tv__autre" data-autre>Mon commerce n’est pas dans la liste</button></li>';
       trouves.hidden = false;
-      trouves.querySelectorAll('button[data-i]').forEach((b) => b.addEventListener('click', () => { const g = t[+b.dataset.i]; if (g.accompagne) diagnostiquer(g); }));
-      trouves.querySelector('[data-autre]').addEventListener('click', () => { trouves.hidden = true; dire('Précisez le nom exact et la ville, ou appelez-nous au ' + TEL + '.'); q.focus(); });
+      trouves.querySelectorAll('button[data-i]').forEach((b) => b.addEventListener('click', () => {
+        const g = t[+b.dataset.i];
+        if (g.accompagne) diagnostiquer(g);
+        else { dire(esc(g.nom) + FINE + ': ce métier ne fait pas partie de ceux que nous accompagnons. Si ce n’est pas votre fiche, choisissez-en une autre ou précisez la ville.'); if (!t.some((x) => x.accompagne)) proposerContact('Une question' + FINE + '? Laissez-nous un numéro'); }
+      }));
+      trouves.querySelector('[data-autre]').addEventListener('click', () => { trouves.hidden = true; dire('Précisez le nom exact et la ville, ou laissez-nous un numéro' + NB + ': on fait le test avec vous.'); proposerContact('On fait le test avec vous'); q.focus(); });
+      if (!t.some((x) => x.accompagne)) proposerContact('Une question' + FINE + '? Laissez-nous un numéro');
       trouves.querySelector('button')?.focus();
-    } catch (err) {
-      dire(esc(err.message) + ' Vous pouvez aussi nous appeler au ' + TEL + '.');
-    } finally { bouton.disabled = false; }
+    } catch (e2) {
+      if (e2 && e2.name === 'AbortError') return;
+      if (n !== generation) return;
+      dire(avecTel(esc(texteErreur(e2)), 'Vous pouvez aussi nous appeler au ' + TEL + '.'));
+      proposerContact('On fait le test avec vous');
+    } finally { if (n === generation) occupe(false); }
   });
 
   async function diagnostiquer(g) {
-    choix = g; trouves.hidden = true; remettre();
-    tv.classList.add('cherche');
-    const etapes = ['On lit votre fiche Google…', 'On ouvre votre site sur téléphone…', 'On cherche votre Instagram…', 'On regarde si l’on peut acheter ou réserver en ligne…'];
+    const n = ++generation, signal = nouveauSignal(35000);
+    clearInterval(minuterie); choix = g; trouves.hidden = true; remettre(); tv.classList.add('cherche');
+    const etapes = ['On lit votre fiche Google…', 'On ouvre votre site sur téléphone…', 'On cherche votre Instagram…', 'On regarde si l’on peut acheter ou réserver en ligne…', 'Encore quelques secondes, votre site est un peu lent à s’ouvrir…'];
     let k = 0; dire(etapes[0]);
-    const minuterie = setInterval(() => { k = Math.min(etapes.length - 1, k + 1); dire(etapes[k]); }, 2600);
+    minuterie = setInterval(() => { k = Math.min(etapes.length - 1, k + 1); dire(etapes[k]); }, 2600);
+    msg.focus({ preventScroll: true }); defiler(voyants, 'nearest');
     try {
-      resultat = await appel('/audit', { placeId: g.placeId });
+      const d = await appel('/audit', { placeId: g.placeId }, signal);
+      if (n !== generation) return;
+      clearInterval(minuterie); tv.classList.remove('cherche');
+      resultat = { ...d, voyants: Array.isArray(d.voyants) ? d.voyants : [], axes: Array.isArray(d.axes) ? d.axes : [], secteur: d.secteur && typeof d.secteur === 'object' ? d.secteur : { nom: '' } };
       resultat.voyants.forEach((v) => {
         const c = tv.querySelector(`.tv-v[data-id="${v.id}"]`); if (!c) return;
-        c.dataset.etat = v.etat; c.querySelector('.tv-v__nom').textContent = v.titre;
-        const val = c.querySelector('.tv-v__valeur'); val.textContent = v.valeur; val.classList.remove('tv-v__vide'); c.querySelector('.tv-v__detail').textContent = v.detail;
+        const etat = ETATS[v.etat] ? v.etat : 'inconnu';
+        c.dataset.etat = etat; c.querySelector('.tv-v__nom').firstChild.textContent = v.titre || c.dataset.nom; c.querySelector('.tv-v__etat').textContent = ' ' + ETATS[etat] + '.';
+        const val = c.querySelector('.tv-v__valeur'); val.textContent = v.valeur ?? '?'; val.classList.remove('tv-v__vide'); c.querySelector('.tv-v__detail').textContent = v.detail ?? '';
         c.classList.add('revele');
       });
-      liste.innerHTML = resultat.axes.map((a, i) => `<li style="--i:${i}"><b>${esc(a.titre)}</b><span>Pour ${esc(a.gain)}. ${esc(a.offre)}.</span></li>`).join('');
-      axesBloc.hidden = !resultat.axes.length;
-      dire(resultat.axes.length ? `${esc(g.nom)} · ${esc(resultat.secteur.nom)}` : `${esc(g.nom)} : tous les voyants sont au vert. Bravo, on peut quand même en parler.`);
-      contact.hidden = false;
-    } catch (err) {
-      dire(esc(err.message) + ' Appelez-nous au ' + TEL + ', on le fait avec vous.');
-    } finally { clearInterval(minuterie); tv.classList.remove('cherche'); }
+      cases.forEach((c) => { if (!c.classList.contains('revele')) { c.dataset.etat = 'inconnu'; c.querySelector('.tv-v__etat').textContent = ' Non mesuré.'; const val = c.querySelector('.tv-v__valeur'); val.textContent = 'non mesuré'; c.classList.add('revele'); } });
+      const nb = resultat.axes.length;
+      liste.innerHTML = resultat.axes.map((a, i) => {
+        const gain = net(a.gain), offre = net(a.offre);
+        const txt = [gain && 'Pour ' + gain, offre && 'Ce qu’on fait' + NB + ': ' + offre].filter(Boolean).join('. ');
+        return `<li style="--i:${i}"><b>${esc(net(a.titre))}</b>${txt ? `<span>${esc(txt)}.</span>` : ''}</li>`;
+      }).join('');
+      axesTitre.textContent = nb === 1 ? 'Votre priorité' : nb === 2 ? 'Vos deux priorités' : 'Vos trois priorités';
+      axesBloc.hidden = !nb;
+      const tousVerts = resultat.voyants.length === 4 && resultat.voyants.every((v) => v.etat === 'bon');
+      const resume = resultat.voyants.map((v) => `${v.titre}${NB}: ${ETATS[v.etat] || ETATS.inconnu}`).join(', ');
+      dire(`${esc(g.nom)}${resultat.secteur.nom ? ' · ' + esc(resultat.secteur.nom) : ''}`
+        + (tousVerts ? ' Tous les voyants sont au vert, bravo. On peut quand même en parler.' : !nb ? ' Analyse partielle' + NB + ': on la termine avec vous.' : '')
+        + `<span class="sr"> Résultat${NB}: ${esc(resume)}.${nb ? ` ${nb} priorité${nb > 1 ? 's' : ''} ci-dessous.` : ''}</span>`);
+      contactTitre.textContent = nb ? 'Votre plan détaillé, gratuit' : 'On en parle' + FINE + '? Laissez-nous un numéro';
+      contact.style.setProperty('--d', (nb ? 760 + nb * 140 : 300) + 'ms'); contact.hidden = false; contact.classList.add('revele');
+      if (voyants.getBoundingClientRect().bottom > innerHeight - 120) defiler(voyants, 'start');
+    } catch (e2) {
+      if (e2 && e2.name === 'AbortError') return;
+      if (n !== generation) return;
+      dire(avecTel(esc(texteErreur(e2)), 'Appelez-nous au ' + TEL + ', on le fait avec vous.'));
+      proposerContact('On fait le test avec vous');
+    } finally { if (n === generation) { clearInterval(minuterie); tv.classList.remove('cherche'); } }
   }
 
   contact.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const f = new FormData(contact), joindre = String(f.get('joindre') || '').trim();
-    const estMail = joindre.includes('@');
-    const bouton = contact.querySelector('button'); bouton.disabled = true;
+    const f = new FormData(contact), tel = String(f.get('telephone') || '').trim(), mail = String(f.get('email') || '').trim().toLowerCase();
+    const champTel = $('tv-tel'), champMail = $('tv-mail');
+    const telOk = !!tel && tel.replace(/\D/g, '').length >= 9, mailOk = !!mail && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail);
+    [champTel, champMail].forEach((c) => c.removeAttribute('aria-invalid'));
+    const refus = (champ, texte) => { err.textContent = texte; champ.setAttribute('aria-invalid', 'true'); champ.focus(); };
+    if (tel && !telOk) return refus(champTel, 'Ce numéro semble incomplet (9 chiffres au moins, par exemple 078 213 38 68).');
+    if (mail && !mailOk) return refus(champMail, 'Cette adresse e-mail semble incomplète.');
+    if (!telOk && !mailOk) return refus(champTel, 'Laissez un numéro de téléphone ou une adresse e-mail.');
+    err.textContent = ''; envoyer.disabled = true; envoyer.textContent = 'Envoi…';
     try {
       await appel('/demande', {
-        nom: choix?.nom, contact: f.get('contact'), email: estMail ? joindre : null, telephone: estMail ? null : joindre,
-        site: resultat?.site, categorie: resultat?.secteur?.nom, placeId: choix?.placeId, site_web_confirmation: f.get('site_web_confirmation'),
-        resume: resultat ? resultat.voyants.map((v) => `${v.titre} : ${v.valeur}`).join(' · ') + ' | Axes : ' + resultat.axes.map((a) => a.titre).join(', ') : null,
-      });
-      contact.innerHTML = '<p class="tv__sous">C’est noté.</p><p style="margin:0">Malik vous rappelle le jour ouvré suivant avec votre plan. À très vite.</p>';
-    } catch (err) {
-      dire(esc(err.message)); bouton.disabled = false;
+        nom: choix?.nom, contact: f.get('contact'), email: mailOk ? mail : null, telephone: telOk ? tel : null,
+        site: resultat?.site ?? null, categorie: resultat?.secteur?.nom ?? null, placeId: choix?.placeId ?? null, site_web_confirmation: f.get('site_web_confirmation'),
+        resume: resultat ? resultat.voyants.map((v) => `${v.titre}${NB}: ${v.valeur}`).join(' · ') + ' | Priorités' + NB + ': ' + resultat.axes.map((a) => a.titre).join(', ') : 'Test non abouti, nom tapé' + NB + ': ' + (choix?.nom ?? ''),
+      }, AbortSignal.timeout(15000));
+      champs.hidden = true; envoyer.hidden = true; note.hidden = true;
+      merci.querySelector('p:last-child').textContent = (telOk ? 'Malik vous rappelle' : 'Malik vous écrit') + ' le jour ouvré suivant avec votre plan. À très vite.';
+      merci.hidden = false; merci.focus({ preventScroll: true });
+    } catch (e2) {
+      err.innerHTML = avecTel(esc(texteErreur(e2)), 'Ou appelez-nous au ' + TEL + '.');
+      envoyer.disabled = false; envoyer.textContent = 'Recevoir mon plan'; champTel.focus();
     }
   });
 })();
