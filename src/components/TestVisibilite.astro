@@ -37,6 +37,7 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
         <span class="tv-v__point" aria-hidden="true"></span>
         <span class="tv-v__nom">{nom}<span class="sr tv-v__etat"></span></span>
         <b class="tv-v__valeur tv-v__vide">à tester</b>
+        <span class="tv-v__jauge" aria-hidden="true"><i></i></span>
         <span class="tv-v__detail"></span>
       </div>
     ))}
@@ -99,10 +100,17 @@ html:not(.js) .tv__cherche, html:not(.js) .tv__voyants, html:not(.js) .tv__msg {
 .tv__autre { font-size: 14px; color: var(--gris-nuit); background: none; border: 0; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; justify-self: start; }
 
 .tv__voyants { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1px; background: var(--filet-nuit); border: 1px solid var(--filet-nuit); border-radius: var(--r-s); overflow: hidden; scroll-margin-top: 90px; }
-.tv-v { min-width: 0; background: var(--nuit); padding: 14px; display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "p n" "v v" "d d"; column-gap: 8px; align-items: center; min-height: 104px; align-content: start; }
+.tv-v { min-width: 0; background: var(--nuit); padding: 14px; display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "p n" "v v" "j j" "d d"; column-gap: 8px; align-items: center; min-height: 104px; align-content: start; }
 .tv-v__point { grid-area: p; align-self: start; margin-top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #4A443A; transition: background-color .5s, box-shadow .5s; }
 .tv-v__nom { grid-area: n; font-family: var(--mono); font-size: 12px; line-height: 18px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris-nuit); }
-.tv-v__valeur { grid-area: v; font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.1; margin-top: 6px; overflow-wrap: normal; }
+.tv-v__valeur { grid-area: v; font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.1; margin-top: 6px; overflow-wrap: normal; font-variant-numeric: tabular-nums; }
+/* Instrument : sous la valeur, une jauge se remplit jusqu'à la part mesurée, puis le voyant s'allume */
+.tv-v__jauge { grid-area: j; height: 2px; margin-top: 8px; border-radius: 2px; background: var(--filet-nuit); overflow: hidden; opacity: 0; transition: opacity .3s; }
+.tv-v.mesure .tv-v__jauge { opacity: 1; }
+.tv-v__jauge i { display: block; height: 100%; background: var(--gris-nuit); transform: scaleX(var(--p, 0)); transform-origin: left; transition: transform .7s cubic-bezier(.2, .7, .2, 1); transition-delay: calc(var(--i) * 120ms + 120ms); }
+.tv-v[data-etat="bon"] .tv-v__jauge i { background: #4FBF7A; }
+.tv-v[data-etat="moyen"] .tv-v__jauge i { background: var(--craie); }
+.tv-v[data-etat="faible"] .tv-v__jauge i { background: #F06A2C; }
 .tv-v__vide { font-family: var(--grotesk); font-size: 15px; color: var(--gris-nuit); margin-top: 14px; }
 .tv-v__detail { grid-area: d; font-size: 13px; line-height: 1.35; color: var(--gris-nuit); margin-top: 2px; }
 .tv-v[data-etat="bon"] .tv-v__point { background: #4FBF7A; box-shadow: 0 0 12px #4FBF7A; }
@@ -110,6 +118,7 @@ html:not(.js) .tv__cherche, html:not(.js) .tv__voyants, html:not(.js) .tv__msg {
 .tv-v[data-etat="faible"] .tv-v__point { background: #F06A2C; box-shadow: 0 0 12px #F06A2C; }
 .tv-v[data-etat="inconnu"].revele .tv-v__point { background: transparent; box-shadow: inset 0 0 0 1.5px var(--gris-nuit); }
 .tv-v.revele .tv-v__point { transition-delay: calc(var(--i) * 120ms); }
+.tv-v.revele.mesure .tv-v__point { transition-delay: calc(var(--i) * 120ms + 760ms); }
 .tv-v.revele .tv-v__valeur, .tv-v.revele .tv-v__detail { animation: tv-revele .4s var(--sortie) both; animation-delay: calc(var(--i) * 120ms); }
 @keyframes tv-revele { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes tv-fondu { from { opacity: 0; } to { opacity: 1; } }
@@ -120,7 +129,7 @@ html:not(.js) .tv__cherche, html:not(.js) .tv__voyants, html:not(.js) .tv__msg {
 .tv__msg a { color: var(--craie); }
 .tv__sous { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--craie); margin: 0 0 10px; }
 .tv__axes ol { margin: 0; padding: 0; list-style: none; counter-reset: axe; display: grid; gap: 10px; }
-.tv__axes li { counter-increment: axe; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 2px 8px; animation: tv-revele .5s var(--sortie) both; animation-delay: calc(560ms + var(--i) * 140ms); }
+.tv__axes li { counter-increment: axe; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 2px 8px; animation: tv-revele .5s var(--sortie) both; animation-delay: calc(900ms + var(--i) * 140ms); }
 .tv__axes li::before { content: counter(axe, decimal-leading-zero); font-family: var(--mono); font-size: 12px; color: var(--gris-nuit); padding-top: 3px; grid-row: span 2; }
 .tv__axes b { font-weight: 600; }
 .tv__axes span { font-size: 14px; color: var(--gris-nuit); }
@@ -145,7 +154,7 @@ html:not(.js) .tv__cherche, html:not(.js) .tv__voyants, html:not(.js) .tv__msg {
 @media (max-width: 520px) { .tv__champs { grid-template-columns: 1fr; } .tv-v__valeur { font-size: 26px; } .tv-v { min-height: 96px; } }
 @media (max-width: 400px) { .tv-v__nom { letter-spacing: .04em; } }
 @media (max-width: 360px) { .tv__voyants { grid-template-columns: minmax(0, 1fr); } .tv-v { min-height: 0; padding: 12px 14px; } .tv-v__valeur { font-size: 24px; margin-top: 2px; } }
-@media (prefers-reduced-motion: reduce) { .tv__direct::after, .tv.cherche .tv-v__point, .tv-v.revele .tv-v__valeur, .tv-v.revele .tv-v__detail, .tv__axes li, .tv__contact.revele, .tv__merci { animation: none; } .tv-v.revele .tv-v__point { transition-delay: 0s; } }
+@media (prefers-reduced-motion: reduce) { .tv__direct::after, .tv.cherche .tv-v__point, .tv-v.revele .tv-v__valeur, .tv-v.revele .tv-v__detail, .tv__axes li, .tv__contact.revele, .tv__merci { animation: none; } .tv-v.revele .tv-v__point, .tv-v.revele.mesure .tv-v__point { transition-delay: 0s; } .tv-v__jauge, .tv-v__jauge i { transition: none; } }
 </style>
 
 <script is:inline>
@@ -161,6 +170,28 @@ html:not(.js) .tv__cherche, html:not(.js) .tv__voyants, html:not(.js) .tv__msg {
   const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const TEL = '<a href="tel:+41782133868">078 213 38 68</a>';
   const ETATS = { bon: 'Bon', moyen: 'À améliorer', faible: 'Faible', inconnu: 'Non mesuré' };
+  // Instruments : la part mesurée (0 à 1) derrière une valeur, pour la jauge ; null quand rien n'est mesurable.
+  function proportion(valeur, etat) {
+    const t = String(valeur ?? '');
+    let m = t.match(/(\d+(?:[.,]\d+)?)\s*\/\s*(\d+)/); if (m) return Math.min(1, parseFloat(m[1].replace(',', '.')) / parseFloat(m[2]));
+    m = t.match(/★\s*(\d+(?:[.,]\d+)?)/); if (m) return Math.min(1, parseFloat(m[1].replace(',', '.')) / 5);
+    return etat === 'bon' ? 1 : etat === 'moyen' ? .55 : etat === 'faible' ? .25 : null;
+  }
+  // Le nombre d'une valeur monte depuis zéro en 700 ms, puis le texte exact est posé (direct si mouvement réduit ou sans nombre).
+  function compter(el, texte, delai, encore) {
+    const m = texte.match(/-?\d+(?:[.,]\d+)?/);
+    if (!m || calme) { el.textContent = texte; return; }
+    const cible = parseFloat(m[0].replace(',', '.')), dec = (m[0].split(/[.,]/)[1] || '').length, virgule = m[0].includes(',');
+    const avant = texte.slice(0, m.index), apres = texte.slice(m.index + m[0].length);
+    const fmt = (x) => { const s = x.toFixed(dec); return avant + (virgule ? s.replace('.', ',') : s) + apres; };
+    el.textContent = fmt(0);
+    setTimeout(() => {
+      if (!encore()) return;
+      const t0 = performance.now();
+      const pas = (t) => { if (!encore()) return; const p = Math.min(1, (t - t0) / 700), e = 1 - Math.pow(1 - p, 3); el.textContent = p < 1 ? fmt(cible * e) : texte; if (p < 1) requestAnimationFrame(pas); };
+      requestAnimationFrame(pas);
+    }, delai);
+  }
   const NB = ' ', FINE = ' ';
   let generation = 0, ctrl = null, minuterie = 0, choix = null, resultat = null;
 
@@ -195,7 +226,7 @@ html:not(.js) .tv__cherche, html:not(.js) .tv__voyants, html:not(.js) .tv__msg {
   function occupe(on, libelle) { lancer.disabled = on; lancer.textContent = on ? libelle : 'Tester'; tv.setAttribute('aria-busy', on ? 'true' : 'false'); }
   function remettre() {
     cases.forEach((c) => {
-      c.dataset.etat = 'inconnu'; c.classList.remove('revele');
+      c.dataset.etat = 'inconnu'; c.classList.remove('revele', 'mesure'); c.style.setProperty('--p', 0);
       c.querySelector('.tv-v__nom').firstChild.textContent = c.dataset.nom; c.querySelector('.tv-v__etat').textContent = '';
       const val = c.querySelector('.tv-v__valeur'); val.textContent = 'à tester'; val.classList.add('tv-v__vide');
       c.querySelector('.tv-v__detail').textContent = '';
@@ -256,7 +287,10 @@ html:not(.js) .tv__cherche, html:not(.js) .tv__voyants, html:not(.js) .tv__msg {
         const c = tv.querySelector(`.tv-v[data-id="${v.id}"]`); if (!c) return;
         const etat = ETATS[v.etat] ? v.etat : 'inconnu';
         c.dataset.etat = etat; c.querySelector('.tv-v__nom').firstChild.textContent = v.titre || c.dataset.nom; c.querySelector('.tv-v__etat').textContent = ' ' + ETATS[etat] + '.';
-        const val = c.querySelector('.tv-v__valeur'); val.textContent = v.valeur ?? '?'; val.classList.remove('tv-v__vide'); c.querySelector('.tv-v__detail').textContent = v.detail ?? '';
+        const val = c.querySelector('.tv-v__valeur'); val.classList.remove('tv-v__vide'); c.querySelector('.tv-v__detail').textContent = v.detail ?? '';
+        const part = proportion(v.valeur, etat), rang = cases.indexOf(c);
+        c.classList.toggle('mesure', part != null); c.style.setProperty('--p', part == null ? 0 : part.toFixed(3));
+        compter(val, String(v.valeur ?? '?'), rang * 120 + 120, () => n === generation);
         c.classList.add('revele');
       });
       cases.forEach((c) => { if (!c.classList.contains('revele')) { c.dataset.etat = 'inconnu'; c.querySelector('.tv-v__etat').textContent = ' Non mesuré.'; const val = c.querySelector('.tv-v__valeur'); val.textContent = 'non mesuré'; c.classList.add('revele'); } });
@@ -274,7 +308,7 @@ html:not(.js) .tv__cherche, html:not(.js) .tv__voyants, html:not(.js) .tv__msg {
         + (tousVerts ? ' Tous les voyants sont au vert, bravo. On peut quand même en parler.' : !nb ? ' Analyse partielle' + NB + ': on la termine avec vous.' : '')
         + `<span class="sr"> Résultat${NB}: ${esc(resume)}.${nb ? ` ${nb} priorité${nb > 1 ? 's' : ''} ci-dessous.` : ''}</span>`);
       contactTitre.textContent = nb ? 'Votre plan détaillé, gratuit' : 'On en parle' + FINE + '? Laissez-nous un numéro';
-      contact.style.setProperty('--d', (nb ? 760 + nb * 140 : 300) + 'ms'); contact.hidden = false; contact.classList.add('revele');
+      contact.style.setProperty('--d', (nb ? 1100 + nb * 140 : 300) + 'ms'); contact.hidden = false; contact.classList.add('revele');
       if (voyants.getBoundingClientRect().bottom > innerHeight - 120) defiler(voyants, 'start');
     } catch (e2) {
       if (e2 && e2.name === 'AbortError') return;
