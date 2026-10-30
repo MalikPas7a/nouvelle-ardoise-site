@@ -10,7 +10,7 @@ export const QUESTIONS = [
   { q: 'Les restaurants de démonstration sont-ils de vrais clients ?', r: 'Osteria del Lago, Chez Léonie, Sora et Maison Fève sont des établissements fictifs créés pour les démonstrations. La page Réalisations distingue les exemples des projets réels et précise l’origine des médias.' },
   {
     q: 'Qu’est-ce que Nouvelle Ardoise ?',
-    r: 'Nouvelle Ardoise est une agence de marketing digital pour les restaurants et les boutiques gourmandes de Suisse romande : restaurants, cafés, boulangeries, pâtisseries, chocolateries. Elle crée des sites web, tourne des photos et des réels chez ses clients, et gère leurs réseaux sociaux. L’agence est dirigée par Malik Younes, qui exploite aussi Pasta Mo’, une enseigne de street food italienne à Genève.',
+    r: 'Nouvelle Ardoise est une agence de marketing et de communication à Genève, pour les commerces, restaurants, artisans, cabinets et PME de toute la Suisse romande. Elle a deux branches : la restauration et les métiers de bouche, et Entreprises et IA, qui installe des agents et des outils internes dans les PME. Elle crée des sites web, tourne des photos et des réels chez ses clients, et gère leurs réseaux sociaux. L’agence est dirigée par Malik Younes, qui exploite aussi Pasta Mo’, une enseigne de street food italienne à Genève.',
   },
   {
     q: 'Combien coûte un site web pour un restaurant à Genève ?',

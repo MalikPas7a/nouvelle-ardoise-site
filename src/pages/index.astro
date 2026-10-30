@@ -308,15 +308,25 @@ const jsonLd = JSON.stringify({
     </div>
   </section>
 
-  <section class="sec cadre" id="specialite" aria-labelledby="spe-titre">
-    <a class="spe" href="/restauration/">
-      <div>
-        <p class="etiquette">Notre spécialité</p>
-        <h2 id="spe-titre">La restauration et les métiers de bouche.</h2>
-        <p>Une branche à part, née dans une cuisine&#8239;: carte en ligne, commande à retirer sans commission, paiement par QR code, shootings et réels tournés pendant le service.</p>
-      </div>
-      <span class="spe__fleche" aria-hidden="true">→</span>
-    </a>
+  <section class="sec cadre" id="specialite" aria-label="Nos deux branches">
+    <div class="spe-duo">
+      <a class="spe" href="/restauration/">
+        <div>
+          <p class="etiquette">Notre spécialité</p>
+          <h2 id="spe-titre">La restauration et les métiers de bouche.</h2>
+          <p>Une branche à part, née dans une cuisine&#8239;: carte en ligne, commande à retirer sans commission, paiement par QR code, shootings et réels tournés pendant le service.</p>
+        </div>
+        <span class="spe__fleche" aria-hidden="true">→</span>
+      </a>
+      <a class="spe spe--ia" href="/entreprises-ia/">
+        <div>
+          <p class="etiquette">Entreprises et IA</p>
+          <h2 id="ia-titre">L’IA dans votre entreprise, <em>installée pour vous.</em></h2>
+          <p>Agents et outils internes pour les PME et ETI de Suisse romande. On commence par une seule tâche, celle qui vous coûte le plus de temps. Diagnostic de 30 minutes offert.</p>
+        </div>
+        <span class="spe__fleche" aria-hidden="true">→</span>
+      </a>
+    </div>
   </section>
 
   <section class="sec cadre" id="questions" aria-labelledby="faq-titre">
@@ -588,6 +598,11 @@ html:not(.js) .carte__ville text { opacity: 1; }
 .spe__fleche { font-size: clamp(48px, 6vw, 88px); line-height: 1; transition: transform .3s var(--sortie); }
 @media (hover: hover) and (pointer: fine) { .spe:hover { transform: translateY(-3px); } .spe:hover .spe__fleche { transform: translateX(8px); } }
 #specialite { padding-top: 0; }
+.spe-duo { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 24px); }
+.spe-duo .spe h2 { font-size: clamp(32px, 3.4vw, 52px); }
+.spe--ia { background: var(--encre); color: var(--papier); }
+.spe--ia .etiquette { color: var(--craie); }
+.spe--ia h2 em { color: var(--craie); }
 #specialite::before { content: none; }
 
 /* Questions fréquentes */
@@ -651,6 +666,7 @@ html:not(.js) .carte__ville text { opacity: 1; }
   .metier__badge { margin: 6px 0 0; display: table; }
   .etapes { grid-template-columns: 1fr; gap: 28px; }
   .spe { grid-template-columns: 1fr; }
+  .spe-duo { grid-template-columns: 1fr; }
   .spe__fleche { justify-self: end; }
   .faq__item summary { padding: 16px 0; }
   .fin { text-align: left; }
