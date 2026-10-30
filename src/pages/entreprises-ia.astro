@@ -30,7 +30,6 @@ const briques = [
 ];
 
 const chiffres = [
-  { v: '5', l: 'agents IA qui travaillent chaque jour', d: 'ventes, finance, stratégie, marketing, direction' },
   { v: '500+', l: 'organisations contactées en moins de 6 semaines', d: 'entreprises, festivals, courses, communes, clubs' },
   { v: '2', l: 'applications métier sur mesure', d: 'conçues par nous, construites avec notre développeur' },
 ];
@@ -53,7 +52,7 @@ const etapes = [
   ['Suite', 'Vous décidez d’étendre seulement si la mesure le justifie.'],
 ];
 ---
-<Base page="entreprises-ia" title="Agents IA et automatisation pour les entreprises en Suisse romande | Nouvelle Ardoise" description="Nouvelle Ardoise installe des agents IA et des outils internes dans les PME et ETI de Suisse romande. Diagnostic de 30 minutes offert, première brique à prix fixe.">
+<Base page="entreprises-ia" title="Outils IA et applications sur mesure pour les entreprises en Suisse romande | Nouvelle Ardoise" description="Nouvelle Ardoise crée des outils et des applications sur mesure, avec l’IA, pour les PME et ETI de Suisse romande. Diagnostic de 30 minutes offert, première brique à prix fixe.">
 
 <!-- ============ Ouverture ============ -->
 <section class="bloc bloc--ardoise ia-ouv">
@@ -61,7 +60,7 @@ const etapes = [
     <div class="ia-ouv__texte">
       <p class="ia-sur">Entreprises · Suisse romande</p>
       <h1 class="titre-1">L’IA dans votre entreprise, installée par des gens <em>qui s’en servent tous les jours.</em></h1>
-      <p class="chapo">Agents et outils internes pour les PME et ETI. On commence par une seule tâche, celle qui vous coûte le plus de temps.</p>
+      <p class="chapo">Des outils et des applications sur mesure qui facilitent le travail de vos équipes. Nous sommes entourés d’experts du domaine, et on commence par une seule tâche : celle qui vous coûte le plus de temps.</p>
       <div class="ia-actions">
         <a class="btn btn--jaune" href={diagnostic}>Réserver mon diagnostic offert</a>
         <a class="btn ia-btn-contour" href="#preuve">Voir ce qu’on a fait chez nous</a>
@@ -121,7 +120,7 @@ const etapes = [
     <header class="ia-preuve__tete">
       <p class="ia-sur">Notre propre cas</p>
       <h2 class="titre-2">On l’a d’abord fait chez nous</h2>
-      <p>Pasta Mo’ est notre projet de restauration à Genève, lancé avec une toute petite équipe. Des agents IA y préparent chaque jour la prospection, le suivi et le reporting. Une personne relit et décide.</p>
+      <p>Pasta Mo’ est notre projet de restauration à Genève, lancé avec une toute petite équipe. Nos outils sur mesure y facilitent chaque jour la prospection, le suivi et le reporting. Une personne relit et décide.</p>
     </header>
     <ul class="ia-chiffres">
       {chiffres.map((c) => <li><b>{c.v}</b><span>{c.l}</span><small>{c.d}</small></li>)}
@@ -224,7 +223,7 @@ const etapes = [
   .ia-applis ul li { padding-left: 16px; border-left: 2px solid rgb(255 255 255 / 0.18); color: #C6D0CC; font-size: 0.98rem; line-height: 1.35; }
   @media (min-width: 860px) { .ia-applis { grid-template-columns: repeat(2, 1fr); } }
   .ia-honnete { font-size: 0.92rem; color: #C6D0CC; max-width: 70ch; }
-  @media (min-width: 860px) { .ia-chiffres { grid-template-columns: repeat(3, 1fr); column-gap: 32px; } }
+  @media (min-width: 860px) { .ia-chiffres { grid-template-columns: repeat(2, 1fr); column-gap: 32px; } }
 
   .ia-garde { display: grid; gap: 22px; }
   .ia-garde li { display: grid; gap: 6px; }
