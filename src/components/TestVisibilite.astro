@@ -195,7 +195,13 @@ body:has(.tv) { overflow-anchor: none; }
     }, delai);
   }
   const NB = ' ', FINE = ' ';
-  let generation = 0, ctrl = null, minuterie = 0, choix = null, resultat = null;
+  let generation = 0, ctrl = null, minuterie = 0, choix = null, resultat = null, auto = false;
+  // Même commerce ? Nom tapé (avant la première virgule) et nom Google, sans accents ni ponctuation.
+  const plat = (s) => String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  function proche(nomGoogle, tape) {
+    const a = plat(nomGoogle), b = plat(String(tape).split(',')[0]);
+    return !!a && !!b && (a === b || (Math.min(a.length, b.length) >= 4 && (a.includes(b) || b.includes(a))));
+  }
 
   class ErreurApi extends Error {}
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -253,6 +259,11 @@ body:has(.tv) { overflow-anchor: none; }
       if (n !== generation) return;
       const t = Array.isArray(d.trouves) ? d.trouves : [];
       if (!t.length) { dire('Aucune fiche Google trouvée avec ce nom. Ajoutez la ville, ou laissez-nous un numéro' + NB + ': on fait le test avec vous.'); proposerContact('On fait le test avec vous'); return; }
+      if (auto) {
+        auto = false;
+        const sur = t.find((x) => x.accompagne && proche(x.nom, v)) || (t.length === 1 && t[0].accompagne ? t[0] : null);
+        if (sur) { occupe(false); diagnostiquer(sur); return; }
+      }
       dire('Choisissez votre fiche' + NB + ':');
       trouves.innerHTML = t.map((g, i) => `<li><button type="button" data-i="${i}" ${g.accompagne ? '' : 'class="hors" aria-disabled="true"'}><b>${esc(g.nom)}</b><small>${esc(g.adresse)}${g.accompagne ? '' : ' · métier que nous n’accompagnons pas'}</small></button></li>`).join('')
         + '<li class="tv__source">Fiches trouvées sur Google</li><li><button type="button" class="tv__autre" data-autre>Mon commerce n’est pas dans la liste</button></li>';
@@ -284,6 +295,7 @@ body:has(.tv) { overflow-anchor: none; }
       const d = await appel('/audit', { placeId: g.placeId }, signal);
       if (n !== generation) return;
       clearInterval(minuterie); tv.classList.remove('cherche');
+      if (!g.nom && typeof d.nom === 'string' && d.nom) { g.nom = d.nom; choix = g; if (!q.value) q.value = d.nom; }
       resultat = { ...d, voyants: Array.isArray(d.voyants) ? d.voyants : [], axes: Array.isArray(d.axes) ? d.axes : [], secteur: d.secteur && typeof d.secteur === 'object' ? d.secteur : { nom: '' } };
       resultat.voyants.forEach((v) => {
         const c = tv.querySelector(`.tv-v[data-id="${v.id}"]`); if (!c) return;
@@ -306,7 +318,7 @@ body:has(.tv) { overflow-anchor: none; }
       axesBloc.hidden = !nb;
       const tousVerts = resultat.voyants.length === 4 && resultat.voyants.every((v) => v.etat === 'bon');
       const resume = resultat.voyants.map((v) => `${v.titre}${NB}: ${ETATS[v.etat] || ETATS.inconnu}`).join(', ');
-      dire(`${esc(g.nom)}${resultat.secteur.nom ? ' · ' + esc(resultat.secteur.nom) : ''}`
+      dire(`${esc(g.nom || 'Votre commerce')}${g.lien && typeof d.adresse === 'string' && d.adresse ? ', ' + esc(d.adresse.replace(/,\s*(Suisse|Switzerland|Schweiz)$/i, '')) : ''}${resultat.secteur.nom ? ' · ' + esc(resultat.secteur.nom) : ''}`
         + (tousVerts ? ' Tous les voyants sont au vert, bravo. On peut quand même en parler.' : !nb ? ' Analyse partielle' + NB + ': on la termine avec vous.' : '')
         + `<span class="sr"> Résultat${NB}: ${esc(resume)}.${nb ? ` ${nb} priorité${nb > 1 ? 's' : ''} ci-dessous.` : ''}</span>`);
       contactTitre.textContent = nb ? 'Votre plan détaillé, gratuit' : 'On en parle' + FINE + '? Laissez-nous un numéro';
@@ -345,5 +357,12 @@ body:has(.tv) { overflow-anchor: none; }
       envoyer.disabled = false; envoyer.textContent = 'Recevoir mon plan'; champTel.focus();
     }
   });
+
+  // Lien d'audit en 1 clic (mails de prospection) : ?lieu=<place_id Google> lance le diagnostic tout de suite ;
+  // ?q=<Nom, rue, NPA ville> lance la recherche et choisit seul la fiche quand il n'y a pas de doute, sinon la liste s'affiche.
+  const lien = new URLSearchParams(location.search);
+  const lieu = lien.get('lieu') || '', cherche = (lien.get('q') || '').trim().slice(0, 120), nomLien = (lien.get('n') || '').trim().slice(0, 120);
+  if (/^[\w-]{10,300}$/.test(lieu)) { q.value = nomLien; diagnostiquer({ placeId: lieu, nom: nomLien, accompagne: true, lien: true }); }
+  else if (cherche.length >= 3) { q.value = cherche; auto = true; form.requestSubmit(); }
 })();
 </script>
