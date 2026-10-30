@@ -118,7 +118,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .nav a:not(.btn) { text-decoration: none; }
 .nav__lien[aria-current="page"] { text-decoration: underline; text-underline-offset: 5px; }
 .nav .tel { font-family: var(--mono); font-size: 13px; }
-.nav .btn { transition: opacity .25s, visibility 0s linear 0s; }
 @media (hover: hover) and (pointer: fine) { .nav a:not(.btn):hover { text-decoration: underline; text-underline-offset: 4px; } }
 .cta__court { display: none; }
 /* Menu replié sur tablette et téléphone : les mêmes entrées, sous le pouce */
@@ -136,7 +135,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .menu__liste a[aria-current="page"] { background: var(--papier-2); }
 .menu__tel { font-family: var(--mono); font-size: 14px; color: var(--gris); }
 @media (max-width: 960px) { .nav { gap: 8px; } .nav .nav__lien { display: none; } .menu { display: block; } }
-@media (max-width: 760px) { body.barre-ouverte .nav .btn { opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s linear .25s; } }
+/* Quand la barre fixe est ouverte, le bouton d'en-tête disparaît franchement : un fondu laissait un rectangle à moitié peint sur Safari iOS. */
+@media (max-width: 760px) { body.barre-ouverte .nav .btn { display: none; } }
 @media (max-width: 480px) { .cta__long { display: none; } .cta__court { display: inline; } .btn--petit { padding: 0 14px; } }
 @media (max-width: 380px) { .tete .cadre { gap: 10px; } .marque { font-size: 16px; } }
 
@@ -151,7 +151,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .barre .btn { flex: 1; }
 .barre .btn--creux { flex: 0 0 auto; padding: 0 18px; }
 @media (max-width: 760px) { .barre { display: flex; } body.a-barre .pied { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); } }
-@media (prefers-reduced-motion: reduce) { .barre, .nav .btn, .menu__trait, .menu__trait::before, .menu__trait::after { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .barre, .menu__trait, .menu__trait::before, .menu__trait::after { transition: none; } }
   </style>
 </head>
 <body class:list={[{ 'a-barre': barre }]}>
