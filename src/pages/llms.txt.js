@@ -32,6 +32,7 @@ ${SITE.nom} est une entreprise individuelle de ${SITE.responsable}, ${SITE.adres
 
 - [Accueil](${SITE.url}/) : le test de visibilité en direct, le savoir-faire montré (fiche Google, assistants IA, Google Ads, Meta Ads, développeur, photographe, bilan), Pasta Mo', les 8 métiers, la zone d’intervention, la méthode, l’interlocuteur unique, questions fréquentes
 - [Restauration](${SITE.url}/restauration/) : la branche restaurants et métiers de bouche, l’accompagnement en 5 étapes, l’équipe, les canaux, Pasta Mo', Izgara 35 (démonstration), questions fréquentes
+- [Entreprises et IA](${SITE.url}/entreprises-ia/) : agents IA et outils internes pour les PME et ETI de Suisse romande, diagnostic de 30 minutes offert
 - [Restaurants](${SITE.url}/restaurants/) : démonstrations de sites de restaurants (carte, plat du jour, plat en 3D, réservation)
 - [Artisans](${SITE.url}/artisans/) : sites, photos et réels pour chocolatiers, pâtissiers et boulangers
 - [Réalisations](${SITE.url}/realisations/) : Pasta Mo', animations au défilement, exemple de réel
