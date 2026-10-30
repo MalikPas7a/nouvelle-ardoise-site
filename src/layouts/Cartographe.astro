@@ -23,6 +23,7 @@ const MENU = [
   { href: '/#savoir-faire', nom: 'Savoir-faire' },
   { href: '/#metiers', nom: 'Métiers' },
   { href: '/restauration/', nom: 'Restauration', page: '/restauration/' },
+  { href: '/entreprises-ia/', nom: 'Entreprises & IA', page: '/entreprises-ia/' },
   { href: '/realisations/', nom: 'Réalisations', page: '/realisations/' },
   { href: '/contact/', nom: 'Contact', page: '/contact/' },
 ];
@@ -180,7 +181,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   <slot />
 </main>
 
-<footer class="pied"><div class="cadre"><span>Nouvelle Ardoise · Agence de marketing et de communication · {SITE.adresse}, {SITE.localite} · 078 213 38 68 · Genève et toute la Suisse romande</span><span><a href="/restauration/">Restauration</a> · <a href="/artisans/">Artisans</a> · <a href="/realisations/">Réalisations</a> · <a href="/contact/">Contact</a> · <a href="/questions/">Questions</a> · <a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a></span></div></footer>
+<footer class="pied"><div class="cadre"><span>Nouvelle Ardoise · Agence de marketing et de communication · {SITE.adresse}, {SITE.localite} · 078 213 38 68 · Genève et toute la Suisse romande</span><span><a href="/restauration/">Restauration</a> · <a href="/entreprises-ia/">Entreprises &amp; IA</a> · <a href="/artisans/">Artisans</a> · <a href="/realisations/">Réalisations</a> · <a href="/contact/">Contact</a> · <a href="/questions/">Questions</a> · <a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a></span></div></footer>
 
 {barre && <nav class="barre" id="barre" aria-label="Actions rapides" inert>
   <a class="btn btn--craie" href={test} data-cta>Tester ma visibilité</a>
