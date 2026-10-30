@@ -9,7 +9,7 @@ import { VILLES } from '../data/agence.js';
 export function GET() {
   const texte = `# ${SITE.nom}
 
-> Agence de marketing et de communication à Genève, pour les commerces, artisans, cabinets et PME des cantons de Genève et de Vaud (Suisse romande). Spécialité : la restauration et les métiers de bouche. Devise : « Qu’on vous trouve. Qu’on vous choisisse. » (signature : Place à la mise en place.). Un seul interlocuteur, Malik Younes, qui active un écosystème d’experts : photographe, vidéaste et drone, référencement Google (SEO et GEO), Google Ads, Meta Ads, développeurs.
+> Agence de marketing et de communication à Genève, pour les commerces, artisans, cabinets et PME de toute la Suisse romande (Genève, Vaud, Valais, Fribourg, Neuchâtel, Jura). Spécialité : la restauration et les métiers de bouche. Devise : « Qu’on vous trouve. Qu’on vous choisisse. » (signature : Place à la mise en place.). Un seul interlocuteur, Malik Younes, qui active un écosystème d’experts : photographe, vidéaste et drone, référencement Google (SEO et GEO), Google Ads, Meta Ads, développeurs.
 
 ## Ce que fait ${SITE.nom}
 
@@ -22,7 +22,7 @@ export function GET() {
 
 ## Où
 
-Sur place dans les cantons de Genève et de Vaud : ${VILLES.join(', ')}. Ailleurs en Suisse romande, suivi en visio et déplacements pour les tournages.
+Sur place dans toute la Suisse romande, depuis Genève : ${VILLES.join(', ')}. Entre deux visites, suivi en visio.
 
 ## Qui
 
