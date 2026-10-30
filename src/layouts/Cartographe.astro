@@ -195,7 +195,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   document.querySelectorAll('[data-cta]').forEach((a) => a.addEventListener('click', (e) => {
     const cible = document.getElementById('test'); if (!cible) return;
     e.preventDefault();
-    cible.scrollIntoView({ block: 'start', behavior: calme ? 'auto' : 'smooth' });
+    if (window.lenis) window.lenis.scrollTo(cible, { offset: -84 }); // défilement doux de l'accueil
+    else cible.scrollIntoView({ block: 'start', behavior: calme ? 'auto' : 'smooth' });
     const champ = document.getElementById('tv-q'); if (champ) champ.focus({ preventScroll: true });
   }));
   // Le menu replié : se ferme après un choix, d'un clic à côté ou avec Échap.
