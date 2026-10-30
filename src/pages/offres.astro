@@ -8,7 +8,7 @@ import { SITE } from '../config.js';
 import { catalogueOffres, OFFRES, PROMOTION_ACTIVE, montant, prixActuel } from '../data/offres.js';
 const jsonLd = JSON.stringify({ '@context': 'https://schema.org', ...catalogueOffres(SITE.url) });
 ---
-<Base page="offres" title="Tarifs sites et réseaux sociaux | Nouvelle Ardoise" description={`Sites web dès CHF ${montant(prixActuel('essentiel'))}, réseaux sociaux dès CHF ${montant(prixActuel('reseauxEssentiel'))} par mois. Offres pour restaurants et artisans de Genève et Vaud.`}>
+<Base page="offres" title="Tarifs sites et réseaux sociaux | Nouvelle Ardoise" description={`Sites web dès CHF ${montant(prixActuel('essentiel'))}, réseaux sociaux dès CHF ${montant(prixActuel('reseauxEssentiel'))} par mois. Offres pour restaurants et artisans de Suisse romande.`}>
 <script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
 
 <!-- ============ Offres ============ -->

@@ -1,7 +1,7 @@
 ---
 // Accueil « Cartographe » v2 (30.10.2026) : l'agence s'ouvre à tous les commerces, la restauration reste la spécialité (/restauration/).
 // Le test de visibilité en direct dès l'ouverture, puis le savoir-faire montré plutôt que raconté (fiche Google, assistants IA,
-// publicité Google et Meta, développeur, photographe, bilan mensuel), la preuve Pasta Mo', les 8 métiers, la zone (Genève, Vaud),
+// publicité Google et Meta, développeur, photographe, bilan mensuel), la preuve Pasta Mo', les 8 métiers, la zone (Suisse romande),
 // la méthode, l'interlocuteur unique et les questions fréquentes (balisées FAQPage pour Google et pour les moteurs de réponse).
 // Règles : jamais de chiffres inventés ni de prix, jamais d'image de plat générée par IA, les exemples d'écrans sont étiquetés « exemple fictif ».
 import Cartographe from '../layouts/Cartographe.astro';
@@ -10,10 +10,10 @@ import carte from '../data/carte-romande.json';
 import { SITE } from '../config.js';
 import { FAQ_GENERALE as FAQ } from '../data/questions-generales.js';
 import { EXPERTS } from '../data/savoir-faire.js';
-import { AGENCE, SITE_WEB } from '../data/agence.js';
+import { AGENCE, SITE_WEB, VILLES_ACCUEIL } from '../data/agence.js';
 
-const title = 'Agence marketing Genève et Vaud · Nouvelle Ardoise';
-const description = 'Agence marketing Genève et Vaud : fiche Google, site, Instagram, publicité, un seul interlocuteur pour commerces et cabinets. Test gratuit en 30 secondes.';
+const title = 'Agence marketing Genève et Suisse romande · Nouvelle Ardoise';
+const description = 'Agence marketing Genève et Suisse romande : fiche Google, site, Instagram, publicité, un seul interlocuteur pour commerces et cabinets. Test gratuit en 30 secondes.';
 const TEL = '078 213 38 68';
 
 
@@ -35,18 +35,32 @@ const ETAPES = [
   { titre: 'La mise en place, puis le bilan', texte: 'Photos, vidéos, site, fiche Google, publicité : on produit et on installe. Chaque mois, un bilan simple : on teste, on apprend, on ajuste.' },
 ];
 
-// La route le long du Léman, de Genève à Montreux : chaque ville s'allume quand le trait l'atteint.
-const ROUTE = ['Genève', 'Versoix', 'Nyon', 'Gland', 'Rolle', 'Morges', 'Lausanne', 'Vevey', 'Montreux'];
+// Le réseau part de Genève : le long du Léman jusqu'à Montreux, puis les branches (Valais, pied du Jura, Fribourg, Broye, Chablais, vallée de Moutier).
+// Chaque branche démarre quand le trait de sa branche mère atteint sa première ville ; vitesse constante ; chaque ville s'allume quand le trait l'atteint.
+const ROUTES = [
+  ['Genève', 'Versoix', 'Nyon', 'Gland', 'Rolle', 'Morges', 'Lausanne', 'Vevey', 'Montreux'],
+  ['Montreux', 'Aigle', 'Martigny', 'Sion', 'Sierre', 'Brig-Glis'],
+  ['Lausanne', 'Yverdon-les-Bains', 'Neuchâtel', 'La Chaux-de-Fonds', 'Saignelégier', 'Delémont', 'Porrentruy'],
+  ['Vevey', 'Bulle', 'Fribourg'],
+  ['Yverdon-les-Bains', 'Payerne'],
+  ['Aigle', 'Monthey'],
+  ['Delémont', 'Moutier'],
+];
 const ville = Object.fromEntries(carte.villes.map((v) => [v.nom, v]));
-const route = 'M' + ROUTE.map((n) => `${ville[n].x} ${ville[n].y}`).join(' L');
-const GAUCHE = ['Meyrin', 'Morges'];
 const dist = (a, b) => Math.hypot(ville[a].x - ville[b].x, ville[a].y - ville[b].y);
-const cumul = ROUTE.map((n, i) => (i === 0 ? 0 : dist(ROUTE[i - 1], n)));
-const total = cumul.reduce((s, d) => s + d, 0);
-let acc = 0;
-const fraction = Object.fromEntries(ROUTE.map((n, i) => { acc += cumul[i]; return [n, acc / total]; }));
-// Délai d'allumage en secondes : la part du trait parcourue (2,4 s au total), les villes hors route après la fin.
-const delai = (n) => (n in fraction ? 0.2 + fraction[n] * 2.4 : 2.9).toFixed(2);
+const DEPART = 0.2, DUREE_MAX = 3.4; // secondes : attente après l'allumage, puis durée de la plus longue chaîne
+const arrivee = { [ROUTES[0][0]]: 0 }; // distance parcourue par le trait quand il atteint chaque ville
+const routes = ROUTES.map((noms) => {
+  const debut = arrivee[noms[0]];
+  let d = 0;
+  noms.forEach((n, i) => { if (i) d += dist(noms[i - 1], n); if (!(n in arrivee) || debut + d < arrivee[n]) arrivee[n] = debut + d; });
+  return { d: 'M' + noms.map((n) => `${ville[n].x} ${ville[n].y}`).join(' L'), debut, longueur: d };
+});
+const vitesse = Math.max(...Object.values(arrivee)) / DUREE_MAX; // unités par seconde
+const sec = (u) => (DEPART + u / vitesse).toFixed(2);
+// Délai d'allumage en secondes ; les villes hors réseau (autour de Genève) après la fin.
+const delai = (n) => (n in arrivee ? sec(arrivee[n]) : (DEPART + DUREE_MAX + 0.1).toFixed(2));
+const leman = carte.lacs.find((l) => l.nom === 'Léman');
 
 const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
@@ -58,13 +72,13 @@ const jsonLd = JSON.stringify({
   ],
 });
 ---
-<Cartographe title={title} description={description} jsonLd={jsonLd} image="/partage-commerces.jpg" imageAlt="Qu’on vous trouve. Qu’on vous choisisse. Nouvelle Ardoise, agence de marketing à Genève et Vaud">
+<Cartographe title={title} description={description} jsonLd={jsonLd} image="/partage-commerces.jpg" imageAlt="Qu’on vous trouve. Qu’on vous choisisse. Nouvelle Ardoise, agence de marketing à Genève et en Suisse romande">
   <section class="ouv cadre" aria-labelledby="titre">
     <div class="ouv__texte">
-      <h1 id="titre"><span class="etiquette h1__sur">Agence de marketing<span class="ouv__long"> et de communication</span> · Genève &amp; Vaud</span>Qu’on vous trouve.<br /><em>Qu’on vous choisisse.</em></h1>
+      <h1 id="titre"><span class="etiquette h1__sur">Agence de marketing<span class="ouv__long"> et de communication</span> · Genève &amp; Suisse romande</span>Qu’on vous trouve.<br /><em>Qu’on vous choisisse.</em></h1>
       <p class="ouv__chapo">Google, site, Instagram, vente en ligne&#8239;: on mesure où vous perdez des clients, on règle ce qui rapporte le plus, et on le prouve chaque mois.</p>
       <ul class="ouv__preuves" aria-label="Nos engagements">
-        <li><b>Sur place</b><span>de Genève à Montreux</span></li>
+        <li><b>Sur place</b><span>dans toute la Suisse romande</span></li>
         <li><b>Un objectif chiffré</b><span>fixé dès le départ</span></li>
         <li><b>Un bilan</b><span>chaque mois</span></li>
       </ul>
@@ -240,29 +254,30 @@ const jsonLd = JSON.stringify({
     <div class="cadre nuit__grille">
       <div class="nuit__texte">
         <p class="etiquette">Zone d’intervention</p>
-        <h2 id="carte-titre">De Genève à Montreux,<br /><em>on vient chez vous.</em></h2>
-        <p>Étude du quartier, shooting, tournage, rendez-vous&#8239;: on se déplace dans tout le canton de Genève et dans le canton de Vaud. Ailleurs en Suisse romande, on travaille en visio et on vient pour les tournages.</p>
+        <h2 id="carte-titre">Dans toute la Suisse romande,<br /><em>on vient chez vous.</em></h2>
+        <p>Étude du quartier, shooting, tournage, rendez-vous&#8239;: on se déplace dans les six cantons romands, Genève, Vaud, Valais, Fribourg, Neuchâtel et Jura. La base est à Genève&#8239;; entre deux visites, on avance en visio.</p>
         <ul class="villes" aria-label="Villes où nous intervenons">
-          {['Genève', 'Carouge', 'Onex', 'Meyrin', 'Lancy', 'Versoix', 'Nyon', 'Gland', 'Rolle', 'Morges', 'Lausanne', 'Vevey', 'Montreux', 'Yverdon-les-Bains'].map((n) => <li>{n}</li>)}
+          {VILLES_ACCUEIL.map((n) => <li>{n}</li>)}
         </ul>
         <a class="btn btn--craie" href="#test" data-cta>Tester ma visibilité</a>
       </div>
-      <figure class="carte" aria-label="Carte du canton de Genève, du Léman et du canton de Vaud avec les villes où nous intervenons">
+      <figure class="carte" aria-label="Carte de la Suisse romande, du Léman au Jura et au Valais, avec les villes où nous intervenons">
         <svg viewBox={`0 0 ${carte.w} ${carte.h}`} role="img" aria-hidden="true">
-          <path class="carte__vd" d={carte.vd} />
-          <path class="carte__ge" d={carte.ge} />
-          <path class="carte__lac" d={carte.lac} />
-          <path class="carte__route" d={route} pathLength="1" />
+          {carte.cantons.filter((c) => c.id !== 'ge').map((c) => <path class="carte__canton" d={c.d} />)}
+          <path class="carte__ge" d={carte.cantons.find((c) => c.id === 'ge').d} />
+          {carte.lacs.map((l) => <path class="carte__lac" d={l.d} />)}
+          {routes.map((r) => <path class="carte__route" d={r.d} pathLength="1" style={`--debut:${sec(r.debut)}s;--duree:${(r.longueur / vitesse).toFixed(2)}s`} />)}
           {carte.villes.map((v) => (
             <g class:list={['carte__ville', { 'carte__ville--siege': v.nom === 'Genève', 'carte__ville--petit': v.petit }]} style={`--d:${delai(v.nom)}s`} transform={`translate(${v.x} ${v.y})`}>
               {v.nom === 'Genève' && <circle class="carte__onde" r="10" />}
               <circle class="carte__point" r={v.petit ? 5 : 8} />
-              {!v.petit && <text x={GAUCHE.includes(v.nom) ? -14 : 14} y={v.nom === 'Morges' ? -8 : 8} text-anchor={GAUCHE.includes(v.nom) ? 'end' : 'start'}>{v.nom}</text>}
+              {!v.petit && <text x={v.cote === 'g' ? -14 : 14} y={v.dy} text-anchor={v.cote === 'g' ? 'end' : 'start'}>{v.label}</text>}
             </g>
           ))}
-          <text class="carte__lac-nom" x="430" y="610">Léman</text>
+          {/* Le nom du lac au large, sous l’axe Lausanne–Vevey, pour ne gêner aucune étiquette de ville */}
+          {leman && <text class="carte__lac-nom" x={leman.cx - 30} y={leman.cy + 46} text-anchor="middle">Léman</text>}
         </svg>
-        <figcaption><span class="carte__item"><span class="carte__cle carte__cle--ge"></span>Canton de Genève, notre base</span><span class="carte__item"><span class="carte__cle"></span>Canton de Vaud</span></figcaption>
+        <figcaption><span class="carte__item"><span class="carte__cle carte__cle--ge"></span>Canton de Genève, notre base</span><span class="carte__item"><span class="carte__cle"></span>Vaud, Valais, Fribourg, Neuchâtel, Jura</span></figcaption>
       </figure>
     </div>
   </section>
@@ -525,12 +540,12 @@ html:not(.js) .ecran:has(.ecran__loupe) { padding-bottom: clamp(18px, 2.4vw, 32p
 .villes li { font-family: var(--mono); font-size: 12px; border: 1px solid var(--filet-nuit); border-radius: 999px; padding: 4px 10px; color: #CFC7B8; }
 .carte { margin: 0; }
 .carte svg { width: 100%; height: auto; display: block; overflow: visible; }
-.carte__vd { fill: #24211C; stroke: #5A5347; stroke-width: 1.4; stroke-linejoin: round; }
+.carte__canton { fill: #24211C; stroke: #5A5347; stroke-width: 1.4; stroke-linejoin: round; }
 .carte__ge { fill: rgb(255 210 63 / .16); stroke: var(--craie); stroke-width: 1.6; stroke-linejoin: round; }
 .carte__lac { fill: #34434A; }
-.carte__lac-nom { fill: #7F939B; font-family: var(--serif); font-style: italic; font-size: 34px; letter-spacing: .04em; }
+.carte__lac-nom { fill: #7F939B; font-family: var(--serif); font-style: italic; font-size: 30px; letter-spacing: .04em; }
 .carte__route { fill: none; stroke: var(--craie); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: .9; }
-.carte.allume .carte__route { stroke-dashoffset: 0; transition: stroke-dashoffset 2.4s linear .2s; }
+.carte.allume .carte__route { stroke-dashoffset: 0; transition: stroke-dashoffset var(--duree, 2.4s) linear var(--debut, .2s); }
 .carte__ville text { fill: var(--papier); font-family: var(--grotesk); font-size: 30px; font-weight: 550; paint-order: stroke; stroke: var(--encre); stroke-width: 5px; stroke-linejoin: round; opacity: .35; transition: opacity .5s; transition-delay: var(--d); }
 .carte__point { fill: #6E675B; transform-box: fill-box; transform-origin: center; transform: scale(.55); transition: fill .5s, transform .5s var(--sortie); transition-delay: var(--d); }
 .carte.allume .carte__point { fill: var(--craie); transform: none; }
