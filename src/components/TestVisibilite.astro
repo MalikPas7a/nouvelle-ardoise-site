@@ -85,6 +85,7 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
 .tv__trouves b { font-weight: 600; }
 .tv__trouves small { color: var(--gris-nuit); font-size: 13px; }
 .tv__trouves .hors { opacity: .55; }
+.tv__source { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris-nuit); padding: 6px 2px 0; }
 .tv__autre { font-size: 14px; color: var(--gris-nuit); background: none; border: 0; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; justify-self: start; }
 
 .tv__voyants { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1px; background: var(--filet-nuit); border: 1px solid var(--filet-nuit); border-radius: 14px; overflow: hidden; scroll-margin-top: 90px; }
@@ -208,7 +209,7 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
       if (!t.length) { dire('Aucune fiche Google trouvée avec ce nom. Ajoutez la ville, ou laissez-nous un numéro' + NB + ': on fait le test avec vous.'); proposerContact('On fait le test avec vous'); return; }
       dire('Choisissez votre fiche' + NB + ':');
       trouves.innerHTML = t.map((g, i) => `<li><button type="button" data-i="${i}" ${g.accompagne ? '' : 'class="hors" aria-disabled="true"'}><b>${esc(g.nom)}</b><small>${esc(g.adresse)}${g.accompagne ? '' : ' · métier que nous n’accompagnons pas'}</small></button></li>`).join('')
-        + '<li><button type="button" class="tv__autre" data-autre>Mon commerce n’est pas dans la liste</button></li>';
+        + '<li class="tv__source">Fiches trouvées sur Google</li><li><button type="button" class="tv__autre" data-autre>Mon commerce n’est pas dans la liste</button></li>';
       trouves.hidden = false;
       trouves.querySelectorAll('button[data-i]').forEach((b) => b.addEventListener('click', () => {
         const g = t[+b.dataset.i];
