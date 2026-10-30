@@ -1,0 +1,214 @@
+---
+// Entreprises et IA : agents et outils internes pour les PME et ETI de Suisse romande.
+// La preuve vient de notre propre usage (Pasta Mo'). Tous les chiffres sont réels : à mettre à jour, jamais à arrondir vers le haut.
+import Base from '../layouts/Base.astro';
+import Appel from '../components/Appel.astro';
+
+const lien = (offre) => '/contact/?offre=' + encodeURIComponent(offre);
+const diagnostic = lien('IA entreprise : diagnostic offert');
+
+const journal = [
+  { h: '07:30', qui: 'Ventes', quoi: '14 relances préparées', etat: 'À valider' },
+  { h: '08:00', qui: 'Finance', quoi: 'Dépenses de la veille classées', etat: 'Fait' },
+  { h: '08:15', qui: 'Marketing', quoi: 'Résultats de la semaine résumés', etat: 'Fait' },
+  { h: '08:30', qui: 'Direction', quoi: '3 décisions à prendre aujourd’hui', etat: 'À valider' },
+];
+
+const taches = [
+  ['Devis et relances', 'Le devis part le jour même. La relance aussi, sans que personne n’y pense.'],
+  ['Documents', 'Factures, contrats, dossiers : lus, triés et classés au bon endroit.'],
+  ['Reporting', 'Le chiffre du lundi matin est prêt, sans fichier à recopier.'],
+  ['Prospection', 'Les bonnes cibles, un fichier à jour, des messages prêts à relire.'],
+  ['Candidatures', 'Chaque dossier reçu, résumé et trié selon vos critères.'],
+  ['Suivi interne', 'Qui fait quoi, ce qui bloque, ce qu’il faut décider cette semaine.'],
+];
+
+const briques = [
+  { n: '1', nom: 'Agents de prospection', pour: 'Pour les équipes qui vendent.', fait: 'Ils cherchent les cibles, tiennent le CRM à jour et préparent les messages. Votre équipe relit et décide.' },
+  { n: '2', nom: 'Agents de pilotage', pour: 'Pour la direction.', fait: 'Chaque matin, un point clair : les chiffres, les retards, les décisions à prendre. Dans vos outils.' },
+  { n: '3', nom: 'Outils internes', pour: 'Quand aucun logiciel ne convient.', fait: 'Un tableau de bord, un portail ou une petite application, faits pour votre façon de travailler.' },
+];
+
+const chiffres = [
+  { v: '5', l: 'agents IA qui travaillent chaque jour', d: 'ventes, finance, stratégie, marketing, direction' },
+  { v: '500+', l: 'organisations contactées en moins de 6 semaines', d: 'entreprises, festivals, courses, communes, clubs' },
+  { v: '1', l: 'outil de travail sur mesure', d: 'construit avec notre développeur, utilisé au quotidien' },
+];
+
+const garde = [
+  ['Un humain valide', 'Rien de sensible ne part sans accord : ni email, ni prix, ni publication.'],
+  ['Des accès limités', 'L’agent ne voit que ce dont il a besoin. Les règles sont écrites avec vous.'],
+  ['Vos outils d’abord', 'On part de ce que vous utilisez déjà. On ne remplace que ce qui doit l’être.'],
+];
+
+const etapes = [
+  ['Diagnostic offert', '30 minutes pour trouver la tâche qui vous coûte le plus de temps.'],
+  ['Première brique', 'Un périmètre court, un prix fixe annoncé avant de commencer.'],
+  ['Mesure', 'Le temps gagné, en chiffres, sur votre propre travail.'],
+  ['Suite', 'Vous décidez d’étendre seulement si la mesure le justifie.'],
+];
+---
+<Base page="entreprises-ia" title="Agents IA et automatisation pour les entreprises en Suisse romande | Nouvelle Ardoise" description="Nouvelle Ardoise installe des agents IA et des outils internes dans les PME et ETI de Suisse romande. Diagnostic de 30 minutes offert, première brique à prix fixe.">
+
+<!-- ============ Ouverture ============ -->
+<section class="bloc bloc--ardoise ia-ouv">
+  <div class="cadre ia-ouv__in">
+    <div class="ia-ouv__texte">
+      <p class="ia-sur">Entreprises · Suisse romande</p>
+      <h1 class="titre-1">L’IA dans votre entreprise, installée par des gens <em>qui s’en servent tous les jours.</em></h1>
+      <p class="chapo">Agents et outils internes pour les PME et ETI. On commence par une seule tâche, celle qui vous coûte le plus de temps.</p>
+      <div class="ia-actions">
+        <a class="btn btn--jaune" href={diagnostic}>Réserver mon diagnostic offert</a>
+        <a class="btn ia-btn-contour" href="#preuve">Voir ce qu’on a fait chez nous</a>
+      </div>
+    </div>
+    <figure class="ia-journal" aria-label="Exemple de journal du matin rempli par des agents IA">
+      <figcaption>Exemple : le journal du matin</figcaption>
+      <ol>
+        {journal.map((l) => (
+          <li>
+            <time>{l.h}</time>
+            <span><b>{l.qui}</b>{l.quoi}</span>
+            <i class:list={[{ 'ia-valider': l.etat === 'À valider' }]}>{l.etat}</i>
+          </li>
+        ))}
+      </ol>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ Où ça coince ============ -->
+<section class="bloc" id="taches">
+  <div class="cadre">
+    <header class="bloc__tete">
+      <h2 class="titre-2">Le travail répétitif, celui que personne n’a choisi</h2>
+      <p>Si une tâche revient chaque semaine et suit des règles claires, elle peut très souvent être confiée à un agent.</p>
+    </header>
+    <ul class="ia-taches">
+      {taches.map(([t, d]) => <li><h3>{t}</h3><p>{d}</p></li>)}
+    </ul>
+  </div>
+</section>
+
+<!-- ============ Trois briques ============ -->
+<section class="bloc bloc--nappe" id="briques">
+  <div class="cadre">
+    <header class="bloc__tete">
+      <h2 class="titre-2">Trois briques, une à la fois</h2>
+      <p>Pas de grand projet de transformation. Une brique utile, puis la suivante si elle vous fait gagner du temps.</p>
+    </header>
+    <ol class="ia-briques">
+      {briques.map((b) => (
+        <li>
+          <span class="ia-num">{b.n}</span>
+          <h3>{b.nom}</h3>
+          <p class="ia-pour">{b.pour}</p>
+          <p>{b.fait}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<!-- ============ Preuve ============ -->
+<section class="bloc bloc--ardoise" id="preuve">
+  <div class="cadre ia-preuve">
+    <header class="ia-preuve__tete">
+      <p class="ia-sur">Notre propre cas</p>
+      <h2 class="titre-2">On l’a d’abord fait chez nous</h2>
+      <p>Pasta Mo’ est notre projet de restauration à Genève, lancé avec une toute petite équipe. Des agents IA y préparent chaque jour la prospection, le suivi et le reporting. Une personne relit et décide.</p>
+    </header>
+    <ul class="ia-chiffres">
+      {chiffres.map((c) => <li><b>{c.v}</b><span>{c.l}</span><small>{c.d}</small></li>)}
+    </ul>
+    <p class="ia-honnete">Chiffres d’octobre 2026, sur notre propre activité. Ce sont des mesures d’usage, pas une promesse de résultat chez vous : c’est pour cela qu’on mesure dès la première brique.</p>
+  </div>
+</section>
+
+<!-- ============ Garde-fous ============ -->
+<section class="bloc" id="controle">
+  <div class="cadre">
+    <header class="bloc__tete">
+      <h2 class="titre-2">Vous gardez le contrôle</h2>
+    </header>
+    <ul class="ia-garde">
+      {garde.map(([t, d]) => <li><h3>{t}</h3><p>{d}</p></li>)}
+    </ul>
+  </div>
+</section>
+
+<!-- ============ Déroulé ============ -->
+<section class="bloc bloc--nappe" id="deroule">
+  <div class="cadre">
+    <header class="bloc__tete">
+      <h2 class="titre-2">Comment ça se passe</h2>
+      <p>Vous parlez à une seule personne. Notre développeur construit derrière.</p>
+    </header>
+    <ol class="ia-etapes">
+      {etapes.map(([t, d], i) => <li><span class="ia-num">{i + 1}</span><h3>{t}</h3><p>{d}</p></li>)}
+    </ol>
+  </div>
+</section>
+
+<Appel titre="Quelle tâche vous coûte le plus de temps ?" texte="Dites-la-nous en une phrase. On en parle 30 minutes, c’est offert et sans engagement." />
+
+</Base>
+
+<style>
+  .ia-sur { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--jaune) !important; }
+  .ia-ouv__in { display: grid; gap: clamp(36px, 5vw, 64px); align-items: center; }
+  .ia-ouv__texte { display: grid; gap: 20px; min-width: 0; }
+  .ia-ouv h1 em { font-style: italic; color: var(--jaune); }
+  .ia-ouv .chapo { color: #C6D0CC; max-width: 56ch; }
+  .ia-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  .ia-btn-contour { background: transparent; color: #F1EEE6; box-shadow: inset 0 0 0 1.5px #F1EEE6; }
+  @media (min-width: 1000px) { .ia-ouv__in { grid-template-columns: 1.15fr 1fr; } }
+
+  /* Le journal du matin : une ardoise, ligne après ligne */
+  .ia-journal { margin: 0; display: grid; gap: 12px; min-width: 0; padding: 20px; border-radius: 20px; background: #26241F; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1); }
+  .ia-journal figcaption { font-size: 0.85rem; color: #C6D0CC; }
+  .ia-journal ol { display: grid; }
+  .ia-journal li { display: grid; grid-template-columns: auto 1fr; gap: 2px 14px; padding-block: 13px; border-top: 1px solid rgb(255 255 255 / 0.12); color: #F1EEE6; opacity: 0; animation: ia-ligne 0.5s ease-out forwards; }
+  .ia-journal li:nth-child(2) { animation-delay: 0.5s; }
+  .ia-journal li:nth-child(3) { animation-delay: 1s; }
+  .ia-journal li:nth-child(4) { animation-delay: 1.5s; }
+  .ia-journal time { grid-row: span 2; font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #C6D0CC; padding-top: 2px; }
+  .ia-journal span { font-size: 0.98rem; line-height: 1.35; }
+  .ia-journal span b { display: block; font-weight: 600; }
+  .ia-journal i { grid-column: 2; font-style: normal; font-size: 0.82rem; color: #C6D0CC; }
+  .ia-journal i.ia-valider { color: var(--jaune); font-weight: 600; }
+  @keyframes ia-ligne { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .ia-journal li { opacity: 1; animation: none; } }
+
+  .ia-taches { display: grid; gap: 0; border-top: 1px solid var(--trait); }
+  .ia-taches li { display: grid; gap: 4px; padding-block: 18px; border-bottom: 1px solid var(--trait); }
+  .ia-taches h3, .ia-garde h3, .ia-etapes h3, .ia-briques h3 { font-family: var(--titre); font-weight: 400; font-size: 1.55rem; line-height: 1.1; letter-spacing: -0.01em; }
+  .ia-taches p, .ia-garde p, .ia-etapes p { color: var(--gris); }
+  @media (min-width: 760px) { .ia-taches { grid-template-columns: repeat(2, 1fr); column-gap: 48px; } }
+
+  .ia-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; color: var(--gris); }
+  .ia-briques { display: grid; gap: 16px; }
+  .ia-briques li { display: grid; gap: 8px; align-content: start; padding: 24px; border-radius: 20px; background: var(--blanc); }
+  .ia-pour { font-weight: 600; }
+  @media (min-width: 900px) { .ia-briques { grid-template-columns: repeat(3, 1fr); } }
+
+  .ia-preuve { display: grid; gap: 32px; }
+  .ia-preuve__tete { display: grid; gap: 14px; max-width: 720px; }
+  .ia-preuve__tete p:last-child { color: #C6D0CC; }
+  .ia-chiffres { display: grid; gap: 0; border-top: 1px solid rgb(255 255 255 / 0.18); }
+  .ia-chiffres li { display: grid; gap: 4px; padding-block: 20px; border-bottom: 1px solid rgb(255 255 255 / 0.18); }
+  .ia-chiffres b { font-family: var(--titre); font-weight: 400; font-size: clamp(2.6rem, 6vw, 3.6rem); line-height: 1; color: var(--jaune); font-variant-numeric: tabular-nums; }
+  .ia-chiffres span { color: #F1EEE6; }
+  .ia-chiffres small { font-size: 0.9rem; color: #C6D0CC; }
+  .ia-honnete { font-size: 0.92rem; color: #C6D0CC; max-width: 70ch; }
+  @media (min-width: 860px) { .ia-chiffres { grid-template-columns: repeat(3, 1fr); column-gap: 32px; } }
+
+  .ia-garde { display: grid; gap: 22px; }
+  .ia-garde li { display: grid; gap: 6px; }
+  @media (min-width: 860px) { .ia-garde { grid-template-columns: repeat(3, 1fr); gap: 32px; } }
+
+  .ia-etapes { display: grid; gap: 14px; }
+  .ia-etapes li { display: grid; gap: 6px; align-content: start; padding: 20px; border-radius: 20px; background: var(--blanc); }
+  @media (min-width: 720px) { .ia-etapes { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1040px) { .ia-etapes { grid-template-columns: repeat(4, 1fr); } }
+</style>
