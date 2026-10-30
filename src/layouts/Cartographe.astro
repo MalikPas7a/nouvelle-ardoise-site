@@ -15,7 +15,7 @@ const {
   title, description, chemin = '/', jsonLd = null, test = '/#test',
   robots = 'index, follow, max-image-preview:large, max-snippet:-1',
   cta = 'test', barre = true, image = '/partage.jpg',
-  imageAlt = 'Nouvelle Ardoise, agence de marketing et de communication à Genève et Vaud',
+  imageAlt = 'Nouvelle Ardoise, agence de marketing et de communication à Genève et en Suisse romande',
 } = Astro.props;
 const canonical = SITE.url + chemin;
 const imageUrl = SITE.url + image;
@@ -180,7 +180,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   <slot />
 </main>
 
-<footer class="pied"><div class="cadre"><span>Nouvelle Ardoise · Agence de marketing et de communication · {SITE.adresse}, {SITE.localite} · 078 213 38 68 · Genève, Vaud et Suisse romande</span><span><a href="/restauration/">Restauration</a> · <a href="/artisans/">Artisans</a> · <a href="/realisations/">Réalisations</a> · <a href="/contact/">Contact</a> · <a href="/questions/">Questions</a> · <a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a></span></div></footer>
+<footer class="pied"><div class="cadre"><span>Nouvelle Ardoise · Agence de marketing et de communication · {SITE.adresse}, {SITE.localite} · 078 213 38 68 · Genève et toute la Suisse romande</span><span><a href="/restauration/">Restauration</a> · <a href="/artisans/">Artisans</a> · <a href="/realisations/">Réalisations</a> · <a href="/contact/">Contact</a> · <a href="/questions/">Questions</a> · <a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a></span></div></footer>
 
 {barre && <nav class="barre" id="barre" aria-label="Actions rapides" inert>
   <a class="btn btn--craie" href={test} data-cta>Tester ma visibilité</a>
