@@ -79,8 +79,8 @@ const jsonLd = JSON.stringify({
       <p class="chapo">Google, les assistants IA, Instagram, la publicité&#8239;: chaque canal a son expert dans l’équipe. Vous, vous n’avez qu’un interlocuteur.</p>
     </div>
     <ol class="exps">
-      {EXPERTS.map((e, i) => (
-        <li class="exp" id={'sf-' + e.id} style={`--i:${i}`}>
+      {EXPERTS.map((e) => (
+        <li class="exp" id={'sf-' + e.id}>
           <div class="exp__texte">
             <p class="etiquette">{e.expert}</p>
             <h3>{e.titre}</h3>
@@ -104,13 +104,13 @@ const jsonLd = JSON.stringify({
           )}
 
           {e.id === 'ia' && (
-            <figure class="ecran" aria-label="Exemple fictif de réponse d’un assistant IA qui recommande le commerce accompagné">
+            <figure class="ecran" aria-label="Exemple fictif de réponse d’un assistant IA qui recommande le cabinet accompagné">
               <span class="ecran__chip" aria-hidden="true">Exemple fictif</span>
               <div class="ia">
-                <p class="ia__q">Une bonne boulangerie à Carouge, ouverte le dimanche matin&#8239;?</p>
+                <p class="ia__q">Un physiothérapeute à Lausanne, ouvert le samedi matin&#8239;?</p>
                 <div class="ia__r">
-                  <p><b>Maison Fève</b>, à Carouge, est souvent citée pour son pain au levain et ses tartes de saison. Ouverte le dimanche de 7&nbsp;h à 13&nbsp;h, elle propose la précommande en ligne pour le retrait.</p>
-                  <p class="ia__src"><span>Sources</span><span class="ia__chip">maisonfeve.ch</span><span class="ia__chip">Fiche Google</span><span class="ia__chip">Avis clients</span></p>
+                  <p><b>Cabinet Aubépine</b>, à Lausanne, reçoit le samedi de 8&nbsp;h à 12&nbsp;h et permet de prendre rendez-vous en ligne depuis sa fiche Google. Les avis mentionnent l’accueil et la ponctualité.</p>
+                  <p class="ia__src"><span>Sources</span><span class="ia__chip">cabinet-aubepine.ch</span><span class="ia__chip">Fiche Google</span><span class="ia__chip">Avis patients</span></p>
                 </div>
               </div>
             </figure>
@@ -131,26 +131,32 @@ const jsonLd = JSON.stringify({
           )}
 
           {e.id === 'meta' && (
-            <figure class="ecran" aria-label="Exemple fictif de publication Instagram sponsorisée avec un réel tourné sur place">
-              <span class="ecran__chip" aria-hidden="true">Exemple fictif</span>
+            <figure class="ecran" aria-label="Exemple de publication Instagram sponsorisée, avec une vraie photo Pasta Mo’, la marque de pâtes fraîches de la famille">
+              <span class="ecran__chip" aria-hidden="true">Exemple · photo Pasta Mo’</span>
               <div class="ig">
-                <div class="ig__tete"><span class="ig__avatar" aria-hidden="true">MF</span><span class="ig__qui"><b>maisonfeve</b><small>Sponsorisé · Carouge, 3&nbsp;km</small></span></div>
-                <div class="ig__media"><span class="ig__play" aria-hidden="true"></span><span class="ig__legende">Réel tourné dans l’atelier · 15&nbsp;s · sans musique</span></div>
-                <p class="ig__texte"><b>maisonfeve</b> Le levain, à 5&nbsp;h du matin. Précommandez votre pain pour demain, retrait dès 7&nbsp;h.</p>
+                <div class="ig__tete"><span class="ig__avatar" aria-hidden="true">PM</span><span class="ig__qui"><b>pastamo</b><small>Sponsorisé · Genève, 3&nbsp;km</small></span></div>
+                <div class="ig__media">
+                  <img src="/accueil/pm/052.webp" alt="" width="960" height="540" loading="lazy" decoding="async" />
+                  <span class="ig__duree" aria-hidden="true">0:15</span>
+                  <span class="ig__play" aria-hidden="true"></span>
+                  <span class="ig__legende">Réel tourné en cuisine · sans musique</span>
+                  <span class="ig__barre" aria-hidden="true"></span>
+                </div>
+                <p class="ig__texte"><b>pastamo</b> Le pesto du matin, pignons et basilic frais. Pâtes fraîches pour vos événements et vos équipes, commande en ligne.</p>
                 <p class="ig__cta">Commander</p>
               </div>
             </figure>
           )}
 
           {e.id === 'dev' && (
-            <figure class="ecran ecran--centre" aria-label="Exemple fictif d’une commande à retirer sur le site du commerce, sans commission">
+            <figure class="ecran ecran--centre" aria-label="Exemple fictif d’une prise de rendez-vous en ligne sur le site d’un cabinet de physiothérapie">
               <span class="ecran__chip" aria-hidden="true">Exemple fictif</span>
               <div class="ph">
-                <div class="ph__tete"><b>Maison Fève</b><span>Retrait</span></div>
-                <ul class="ph__liste"><li><span>Pain au levain</span><span>×&nbsp;2</span></li><li><span>Tarte aux pommes</span><span>×&nbsp;1</span></li><li><span>Croissants</span><span>×&nbsp;4</span></li></ul>
-                <div class="ph__quand"><span>Retrait</span><b>Demain · 7&nbsp;h&nbsp;30</b></div>
-                <p class="ph__btn">Payer</p>
-                <p class="ph__note">Sans commission. Relié à la fiche Google, au site et à la caisse.</p>
+                <div class="ph__tete"><b>Cabinet Aubépine</b><span>Rendez-vous</span></div>
+                <ul class="ph__liste"><li><span>Physiothérapie</span><span>30&nbsp;min</span></li><li><span>Première séance</span><span>Bilan inclus</span></li><li><span>Rappel</span><span>SMS la veille</span></li></ul>
+                <div class="ph__quand"><span>Créneau</span><b>Jeudi · 8&nbsp;h&nbsp;30</b></div>
+                <p class="ph__btn">Confirmer</p>
+                <p class="ph__note">Agenda relié à la fiche Google et au site. Même socle pour une commande à retirer ou un devis.</p>
               </div>
             </figure>
           )}
@@ -242,7 +248,7 @@ const jsonLd = JSON.stringify({
           ))}
           <text class="carte__lac-nom" x="430" y="610">Léman</text>
         </svg>
-        <figcaption><span class="carte__cle carte__cle--ge"></span>Canton de Genève, notre base · <span class="carte__cle"></span>Canton de Vaud</figcaption>
+        <figcaption><span class="carte__item"><span class="carte__cle carte__cle--ge"></span>Canton de Genève, notre base</span><span class="carte__item"><span class="carte__cle"></span>Canton de Vaud</span></figcaption>
       </figure>
     </div>
   </section>
@@ -315,7 +321,7 @@ const jsonLd = JSON.stringify({
 /* Ouverture : titre et test côte à côte ; sur téléphone le test arrive juste sous le titre, les engagements après */
 .ouv { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: start; padding-block: clamp(32px, 6vw, 88px) clamp(56px, 8vw, 112px); }
 .ouv__texte { padding-top: clamp(0px, 2vw, 24px); }
-h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(46px, 7.6vw, 112px); line-height: .92; letter-spacing: -.035em; margin: 0; text-wrap: balance; }
+h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(46px, 7.2vw, 88px); line-height: .94; letter-spacing: -.035em; margin: 0; text-wrap: balance; }
 .h1__sur { display: block; line-height: 1.4; font-style: normal; margin-bottom: 22px; text-wrap: initial; }
 h1 em, h2 em { font-style: italic; }
 .ouv__chapo { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.4; max-width: 34ch; margin: 28px 0 0; }
@@ -326,7 +332,8 @@ h1 em, h2 em { font-style: italic; }
 .ouv__preuves span { color: var(--gris); }
 .ouv__test { position: relative; }
 
-.sec { padding-block: clamp(72px, 10vw, 136px); border-top: 1px solid var(--filet); }
+.sec { position: relative; padding-block: clamp(72px, 10vw, 136px); }
+.sec::before, .fin::before { content: ""; position: absolute; top: 0; left: max(20px, env(safe-area-inset-left, 0px)); right: max(20px, env(safe-area-inset-right, 0px)); border-top: 1px solid var(--filet); }
 .sec__tete { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; margin-bottom: clamp(36px, 5vw, 64px); }
 .sec__tete .etiquette { grid-column: 1 / span 3; padding-top: 14px; }
 .sec__tete h2 { grid-column: 4 / span 9; }
@@ -342,15 +349,16 @@ h3 { margin: 0; }
 .exp__texte p { margin: 0; }
 .exp__texte > p:not(.etiquette):not(.exp__objectif) { color: var(--gris); max-width: 46ch; }
 .exp__objectif { display: grid; gap: 4px; padding-top: 12px; border-top: 1px solid var(--filet); max-width: 44ch; font-weight: 500; }
-.ecran { position: relative; margin: 0; background: #FBF8F2; border: 1px solid var(--filet); border-radius: 20px; padding: clamp(18px, 2.4vw, 32px); padding-top: 54px; min-height: 100%; box-shadow: 0 24px 48px -36px rgb(27 25 21 / .35); font-size: 15px; line-height: 1.4; }
+.ecran { position: relative; margin: 0; background: #FBF8F2; border: 1px solid var(--filet); border-radius: var(--r-l); padding: clamp(18px, 2.4vw, 32px); padding-top: 54px; min-height: 100%; box-shadow: 0 24px 48px -36px rgb(27 25 21 / .35); font-size: 15px; line-height: 1.4; }
 .ecran--centre { display: grid; place-items: center; }
+.ecran:not(.ecran--photo):not(.ecran--centre) { display: grid; align-content: center; }
 .ecran__chip { position: absolute; top: 14px; right: 14px; z-index: 1; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--gris); background: var(--papier); border: 1px solid var(--filet); border-radius: 999px; padding: 4px 9px; }
 .ecran--photo { padding: 0; overflow: hidden; }
 .ecran--centre { padding-top: 54px; }
 .ecran--photo img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3 / 2; }
 .ecran--photo figcaption { position: absolute; left: 14px; bottom: 14px; }
 .ecran__chip--photo { position: static; display: inline-block; color: var(--encre); background: var(--craie); border-color: var(--craie); }
-.js .exp .ecran { opacity: 0; transform: translateY(26px); transition: opacity .75s var(--sortie), transform .75s var(--sortie); }
+.js .exp .ecran { opacity: 0; transform: translateY(12px); transition: opacity .45s var(--sortie), transform .45s var(--sortie); }
 .js .exp.allume .ecran { opacity: 1; transform: none; }
 
 /* Google : le pack local, le commerce accompagné en premier */
@@ -358,16 +366,16 @@ h3 { margin: 0; }
 .g__barre { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--filet); background: #fff; color: var(--encre); font-size: 15px; }
 .g__loupe { width: 14px; height: 14px; border: 2px solid var(--gris); border-radius: 50%; position: relative; flex: none; }
 .g__loupe::after { content: ""; position: absolute; width: 2px; height: 7px; background: var(--gris); right: -4px; bottom: -6px; transform: rotate(-45deg); }
-.g__carte { position: relative; height: 92px; border-radius: 12px; background: linear-gradient(135deg, #E6E8E0, #D9DFD4 55%, #CFD9CF), repeating-linear-gradient(90deg, transparent 0 38px, rgb(255 255 255 / .55) 38px 40px); background-blend-mode: multiply; overflow: hidden; }
+.g__carte { position: relative; height: 92px; border-radius: var(--r-s); background: linear-gradient(135deg, #E6E8E0, #D9DFD4 55%, #CFD9CF), repeating-linear-gradient(90deg, transparent 0 38px, rgb(255 255 255 / .55) 38px 40px); background-blend-mode: multiply; overflow: hidden; }
 .g__carte::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0 30px, rgb(255 255 255 / .5) 30px 32px); }
 .g__pin { position: absolute; width: 14px; height: 14px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: #8E877A; border: 2px solid #fff; }
-.g__pin--vous { background: var(--encre); width: 20px; height: 20px; left: 44%; top: 32%; box-shadow: 0 0 0 0 rgb(255 210 63 / .9); }
+.g__pin--vous { background: var(--encre); width: 20px; height: 20px; left: 44%; top: 32%; box-shadow: 0 0 0 5px rgb(255 210 63 / .35); }
 .allume .g__pin--vous { animation: pin 1.6s ease-out .6s 2; }
 @keyframes pin { 0% { box-shadow: 0 0 0 0 rgb(255 210 63 / .9); } 100% { box-shadow: 0 0 0 16px rgb(255 210 63 / 0); } }
 .g__pin--2 { left: 18%; top: 58%; } .g__pin--3 { left: 72%; top: 22%; }
 .g__liste { list-style: none; margin: 0; padding: 0; display: grid; }
 .g__item { position: relative; display: grid; gap: 3px; padding: 12px 12px 12px 14px; border-top: 1px solid var(--filet); border-left: 3px solid transparent; }
-.g__item--vous { background: #fff; border-left-color: var(--craie); border-radius: 0 10px 10px 0; transition: background-color .6s, border-color .6s; transition-delay: .5s; }
+.g__item--vous { background: #fff; border-left-color: var(--craie); border-radius: 0 var(--r-s) var(--r-s) 0; transition: background-color .6s, border-color .6s; transition-delay: .5s; }
 .js .exp:not(.allume) .g__item--vous { background: transparent; border-left-color: transparent; }
 .g__nom { font-weight: 600; font-size: 16px; }
 .g__note { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gris); }
@@ -380,8 +388,8 @@ h3 { margin: 0; }
 
 /* Assistant IA : la question, la réponse qui cite le commerce, les sources */
 .ia { display: grid; gap: 14px; max-width: 520px; }
-.ia__q { margin: 0; justify-self: end; max-width: 80%; background: var(--encre); color: var(--papier); border-radius: 18px 18px 4px 18px; padding: 10px 14px; }
-.ia__r { display: grid; gap: 10px; background: #fff; border: 1px solid var(--filet); border-radius: 4px 18px 18px 18px; padding: 14px 16px; }
+.ia__q { margin: 0; justify-self: end; max-width: 80%; background: var(--encre); color: var(--papier); border-radius: var(--r-m) var(--r-m) 4px var(--r-m); padding: 10px 14px; }
+.ia__r { display: grid; gap: 10px; background: #fff; border: 1px solid var(--filet); border-radius: 4px var(--r-m) var(--r-m) var(--r-m); padding: 14px 16px; }
 .ia__r p { margin: 0; }
 .ia__r b { background: linear-gradient(transparent 60%, var(--craie) 60% 92%, transparent 92%); font-weight: 600; }
 .ia__src { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12px; color: var(--gris); }
@@ -401,14 +409,19 @@ h3 { margin: 0; }
 .ad__suivi li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--craie); border: 1px solid var(--encre); }
 
 /* Instagram : publication sponsorisée avec un réel tourné sur place */
-.ig { max-width: 360px; margin-inline: auto; background: #fff; border: 1px solid var(--filet); border-radius: 16px; overflow: hidden; }
+.ig { max-width: 360px; margin-inline: auto; background: #fff; border: 1px solid var(--filet); border-radius: var(--r-m); overflow: hidden; }
 .ig__tete { display: flex; align-items: center; gap: 10px; padding: 12px 14px; }
 .ig__avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--craie); display: grid; place-items: center; font-family: var(--serif); font-size: 15px; }
 .ig__qui { display: grid; line-height: 1.2; } .ig__qui small { color: var(--gris); font-size: 12px; }
-.ig__media { position: relative; aspect-ratio: 4 / 5; background: linear-gradient(160deg, #2A2620, #1B1915 60%, #3B362E); display: grid; place-items: center; color: var(--papier); }
-.ig__play { width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--papier); display: grid; place-items: center; }
+.ig__media { position: relative; aspect-ratio: 1 / 1; background: var(--encre); display: grid; place-items: center; color: var(--papier); overflow: hidden; }
+.ig__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 23% 50%; }
+.ig__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(27 25 21 / .28), transparent 28% 62%, rgb(27 25 21 / .6)); }
+.ig__play { position: relative; z-index: 1; width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--papier); background: rgb(27 25 21 / .35); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: grid; place-items: center; }
 .ig__play::after { content: ""; border-left: 16px solid var(--papier); border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px; }
-.ig__legende { position: absolute; left: 12px; bottom: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--gris-nuit); }
+.ig__duree { position: absolute; z-index: 1; top: 12px; right: 12px; font-family: var(--mono); font-size: 12px; color: var(--papier); background: rgb(27 25 21 / .55); padding: 3px 8px; border-radius: 999px; }
+.ig__legende { position: absolute; z-index: 1; left: 14px; right: 14px; bottom: 16px; font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--papier); text-shadow: 0 1px 2px rgb(0 0 0 / .5); }
+.ig__barre { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 3px; background: rgb(255 255 255 / .3); }
+.ig__barre::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 34%; background: var(--papier); }
 .ig__texte { margin: 0; padding: 12px 14px 4px; font-size: 14px; }
 .ig__cta { margin: 0; padding: 10px 14px 14px; color: #0A66C2; font-weight: 600; font-size: 14px; }
 
@@ -418,7 +431,7 @@ h3 { margin: 0; }
 .ph__tete span { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--gris); }
 .ph__liste { list-style: none; margin: 0; padding: 0; display: grid; }
 .ph__liste li { display: flex; justify-content: space-between; padding: 10px 4px; border-top: 1px solid var(--filet); font-size: 14px; }
-.ph__quand { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: var(--papier); border-radius: 12px; font-size: 14px; }
+.ph__quand { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: var(--papier); border-radius: var(--r-s); font-size: 14px; }
 .ph__quand span { color: var(--gris); }
 .ph__btn { margin: 0; text-align: center; background: var(--encre); color: var(--papier); border-radius: 999px; padding: 12px; font-weight: 600; }
 .ph__note { margin: 0; font-size: 12px; color: var(--gris); text-align: center; padding: 0 4px 4px; }
@@ -428,11 +441,12 @@ h3 { margin: 0; }
 .bi__tete { display: flex; justify-content: space-between; align-items: baseline; }
 .bi__tete span { font-family: var(--mono); font-size: 12px; color: var(--gris); }
 .bi__voyants { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.bi__voyants li { display: grid; gap: 2px; padding: 12px 12px 12px 30px; background: #fff; border: 1px solid var(--filet); border-radius: 12px; font-size: 14px; position: relative; }
+.bi__voyants li { display: grid; gap: 2px; padding: 12px 12px 12px 30px; background: #fff; border: 1px solid var(--filet); border-radius: var(--r-s); font-size: 14px; position: relative; }
 .bi__voyants li::before { content: ""; position: absolute; left: 12px; top: 18px; width: 10px; height: 10px; border-radius: 50%; background: var(--filet); transition: background-color .5s, box-shadow .5s; transition-delay: calc(.4s + var(--v, 0) * 150ms); }
 .bi__voyants li:nth-child(2) { --v: 1 } .bi__voyants li:nth-child(3) { --v: 2 } .bi__voyants li:nth-child(4) { --v: 3 }
-.allume .bi__voyants li[data-etat="bon"]::before { background: var(--craie); box-shadow: 0 0 0 3px rgb(255 210 63 / .25); }
-.allume .bi__voyants li[data-etat="moyen"]::before { background: #fff; box-shadow: inset 0 0 0 2px var(--craie); }
+.bi__voyants li[data-etat="bon"]::before { background: var(--craie); box-shadow: 0 0 0 3px rgb(255 210 63 / .25); }
+.bi__voyants li[data-etat="moyen"]::before { background: #fff; box-shadow: inset 0 0 0 2px var(--craie); }
+.js .exp:not(.allume) .bi__voyants li::before { background: var(--filet); box-shadow: none; }
 .bi__voyants span { color: var(--gris); }
 .bi__suite { margin: 0; display: grid; gap: 4px; }
 .bi__qui { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid var(--filet); }
@@ -441,7 +455,7 @@ h3 { margin: 0; }
 
 /* Preuve : Pasta Mo' */
 .preuve { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
-.preuve__image { margin: 0; border-radius: 20px; overflow: hidden; }
+.preuve__image { margin: 0; border-radius: var(--r-l); overflow: hidden; }
 .preuve__image img { width: 100%; height: auto; }
 .preuve__texte { display: grid; gap: 18px; justify-items: start; }
 .preuve__texte h2 { margin-top: 0; }
@@ -450,14 +464,15 @@ h3 { margin: 0; }
 
 /* Métiers */
 .metiers { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--encre); }
-.metier { position: relative; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 4fr) minmax(0, 3.6fr) 60px; gap: 20px; align-items: baseline; padding-block: 24px; border-bottom: 1px solid var(--filet); transition: background-color .25s; }
+.metier { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 4fr) minmax(0, 3.6fr) 60px; gap: 20px; align-items: baseline; padding-block: 24px; border-bottom: 1px solid var(--filet); }
+.metier::before { content: ""; position: absolute; z-index: -1; inset: 0 -16px; border-radius: var(--r-s); background: var(--papier-2); opacity: 0; transition: opacity .25s; }
 .metier h3 { font-size: clamp(22px, 2.2vw, 28px); font-weight: 650; letter-spacing: -.025em; line-height: 1.1; }
 .metier__badge { display: inline-block; vertical-align: middle; margin-left: 10px; font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; background: var(--craie); padding: 3px 8px; border-radius: 999px; }
 .metier__besoin { margin: 0; color: var(--gris); }
 .metier__plus { margin: 0; display: grid; gap: 2px; font-size: 15px; }
 .metier__lien { justify-self: end; font-weight: 600; text-decoration: none; }
 .metier__lien::after { content: ""; position: absolute; inset: 0; }
-@media (hover: hover) and (pointer: fine) { .metier:has(.metier__lien):hover { background: var(--papier-2); } }
+@media (hover: hover) and (pointer: fine) { .metier:has(.metier__lien):hover::before { opacity: 1; } }
 .metier--phare h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 2.8vw, 36px); letter-spacing: -.02em; }
 
 /* Carte */
@@ -486,7 +501,8 @@ h3 { margin: 0; }
 html:not(.js) .carte__route { stroke-dashoffset: 0; }
 html:not(.js) .carte__point { fill: var(--craie); }
 html:not(.js) .carte__ville text { opacity: 1; }
-.carte figcaption { font-family: var(--mono); font-size: 12px; color: var(--gris-nuit); margin-top: 12px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.carte figcaption { font-family: var(--mono); font-size: 12px; color: var(--gris-nuit); margin-top: 12px; display: flex; align-items: center; gap: 8px 18px; flex-wrap: wrap; }
+.carte__item { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
 .carte__cle { width: 12px; height: 12px; border: 1px solid #5A5347; background: #24211C; display: inline-block; }
 .carte__cle--ge { border-color: var(--craie); background: rgb(255 210 63 / .16); }
 
@@ -499,7 +515,7 @@ html:not(.js) .carte__ville text { opacity: 1; }
 
 /* Interlocuteur */
 .qui { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
-.qui__portrait { aspect-ratio: 4 / 5; border-radius: 20px; background: var(--craie); display: grid; place-items: center; overflow: hidden; }
+.qui__portrait { aspect-ratio: 4 / 5; border-radius: var(--r-l); background: var(--craie); display: grid; place-items: center; overflow: hidden; }
 .qui__portrait span { font-family: var(--serif); font-size: clamp(120px, 14vw, 220px); line-height: 1; color: var(--encre); }
 .qui__texte { display: grid; gap: 18px; }
 .qui__texte h2 { margin-top: 0; }
@@ -510,13 +526,14 @@ html:not(.js) .carte__ville text { opacity: 1; }
 @media (hover: hover) and (pointer: fine) { .qui__contact a:hover { text-decoration: underline; } }
 
 /* Spécialité */
-.spe { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; text-decoration: none; background: var(--craie); border-radius: 22px; padding: clamp(28px, 5vw, 64px); transition: transform .3s var(--sortie); }
+.spe { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; text-decoration: none; background: var(--craie); border-radius: var(--r-l); padding: clamp(28px, 5vw, 64px); transition: transform .3s var(--sortie); }
 .spe h2 { font-size: clamp(36px, 4.6vw, 68px); margin: 14px 0 0; max-width: 16ch; }
 .spe .etiquette { color: var(--encre); }
 .spe p:not(.etiquette) { margin: 18px 0 0; max-width: 52ch; }
 .spe__fleche { font-size: clamp(48px, 6vw, 88px); line-height: 1; transition: transform .3s var(--sortie); }
 @media (hover: hover) and (pointer: fine) { .spe:hover { transform: translateY(-3px); } .spe:hover .spe__fleche { transform: translateX(8px); } }
-#specialite { border-top: 0; padding-top: 0; }
+#specialite { padding-top: 0; }
+#specialite::before { content: none; }
 
 /* Questions fréquentes */
 .faq { border-top: 1px solid var(--encre); max-width: 860px; }
@@ -532,16 +549,16 @@ html:not(.js) .carte__ville text { opacity: 1; }
 @media (hover: hover) and (pointer: fine) { .faq__item summary:hover .faq__plus { background: var(--craie); } }
 
 /* Fin */
-.fin { padding-block: clamp(72px, 10vw, 136px); border-top: 1px solid var(--filet); text-align: center; }
+.fin { position: relative; padding-block: clamp(72px, 10vw, 136px); text-align: center; }
 .fin h2 { margin-top: 18px; }
 .fin__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 36px; }
 
 @media (max-width: 1080px) {
   .ouv { grid-template-columns: minmax(0, 1fr); }
   .ouv__texte { display: contents; }
-  h1 { order: 2; } .ouv__chapo { order: 3; } .ouv__test { order: 4; max-width: 640px; } .ouv__preuves { order: 5; }
-  .ouv__chapo { margin-top: 18px; }
-  .ouv__preuves { margin-top: 8px; }
+  h1 { order: 2; } .ouv__test { order: 3; max-width: 640px; } .ouv__chapo { order: 4; } .ouv__preuves { order: 5; }
+  .ouv__chapo { margin-top: 0; }
+  .ouv__preuves { margin-top: 0; }
   .exp { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .exp__texte { position: static; }
   .ecran { min-height: 0; }
@@ -567,7 +584,8 @@ html:not(.js) .carte__ville text { opacity: 1; }
   .ouv__preuves li { padding-right: 10px; margin-right: 10px; font-size: 13px; min-width: 0; }
   h2 { font-size: clamp(38px, 10vw, 56px); }
   .exp__texte h3 { font-size: clamp(26px, 7.5vw, 34px); }
-  .ecran { padding: 16px; padding-top: 48px; border-radius: 16px; }
+  .ecran { padding: 16px; padding-top: 48px; border-radius: var(--r-m); }
+  .metier::before { inset: 0 -12px; }
   .ecran--photo { padding: 0; }
   .ecran__chip { top: 10px; right: 10px; }
   .g__carte { height: 72px; }
@@ -588,7 +606,7 @@ html:not(.js) .carte__ville text { opacity: 1; }
   .carte__route { stroke-dashoffset: 0; }
   .carte__point { fill: var(--craie); }
   .carte__ville text { opacity: 1; }
-  .carte *, .bi__voyants li::before, .g__item--vous, .faq__plus::before, .faq__plus::after, .spe, .spe__fleche { transition: none !important; animation: none !important; }
+  .carte *, .bi__voyants li::before, .g__item--vous, .g__pin--vous, .faq__plus::before, .faq__plus::after, .spe, .spe__fleche { transition: none !important; animation: none !important; }
   .js .exp .ecran { opacity: 1; transform: none; transition: none; }
 }
 </style>

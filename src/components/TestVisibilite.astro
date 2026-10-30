@@ -5,6 +5,7 @@
 // Les routes publiques vivent dans l'appli (nouvelle-ardoise-app, /api/public/*) et n'acceptent que ce site.
 // Robustesse : délais maximaux, annulation d'un audit quand on relance une recherche (jeton de génération),
 // messages d'erreur toujours en français, contact proposé même quand le test échoue.
+import { SITE } from '../config.js';
 const { api = 'https://nouvelle-ardoise-app.vercel.app/api/public', titre = 'h2', titreTexte = 'Testez votre visibilité.' } = Astro.props;
 const Titre = titre;
 const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagram'], ['vente', 'Vente en ligne']];
@@ -15,6 +16,8 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
     <Titre class="tv__titre" id="tv-titre">{titreTexte}</Titre>
   </div>
 
+  <p class="tv__sansjs">Le test en direct a besoin de JavaScript. Appelez-nous au <a href="tel:+41782133868">078 213 38 68</a> ou écrivez à <a href={'mailto:' + SITE.email}>{SITE.email}</a>&#8239;: on le fait avec vous.</p>
+
   <form class="tv__cherche" id="tv-form" autocomplete="off" novalidate>
     <label class="tv__label" for="tv-q">Le nom de votre commerce ou cabinet, et sa ville</label>
     <div class="tv__ligne">
@@ -23,6 +26,8 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
     </div>
     <p class="tv__aide">Gratuit, sans inscription. Rien n’est publié.</p>
   </form>
+
+  <p class="tv__msg" id="tv-msg" role="status" tabindex="-1"></p>
 
   <ul class="tv__trouves" id="tv-trouves" hidden></ul>
 
@@ -37,8 +42,6 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
     ))}
   </div>
 
-  <p class="tv__msg" id="tv-msg" role="status" tabindex="-1"></p>
-
   <div class="tv__axes" id="tv-axes" hidden>
     <p class="tv__sous" id="tv-axes-titre">Vos trois priorités</p>
     <ol id="tv-liste"></ol>
@@ -46,15 +49,16 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
 
   <form class="tv__contact" id="tv-contact" hidden novalidate>
     <p class="tv__sous" id="tv-contact-titre">Votre plan détaillé, gratuit</p>
+    <p class="tv__aide tv__aide--contact">Votre prénom, puis un téléphone ou un e-mail, au choix.</p>
     <div class="tv__champs" id="tv-champs">
       <div class="tv__champ"><label for="tv-prenom">Prénom</label><input id="tv-prenom" name="contact" maxlength="120" autocomplete="given-name" /></div>
       <div class="tv__champ"><label for="tv-tel">Téléphone</label><input id="tv-tel" name="telephone" type="tel" inputmode="tel" maxlength="40" autocomplete="tel" placeholder="078 …" /></div>
       <div class="tv__champ tv__champ--large"><label for="tv-mail">E-mail</label><input id="tv-mail" name="email" type="email" inputmode="email" maxlength="200" autocomplete="email" /></div>
       <input class="tv__piege" name="site_web_confirmation" tabindex="-1" autocomplete="off" aria-hidden="true" />
     </div>
-    <button class="btn btn--craie" id="tv-envoyer" type="submit">Recevoir mon plan</button>
     <p class="tv__err" id="tv-err" role="alert"></p>
-    <p class="tv__note" id="tv-note">Téléphone ou e-mail, au choix. On revient vers vous le jour ouvré suivant, sans engagement. Vos données ne servent qu’à ce retour (<a href="/confidentialite/">confidentialité</a>).</p>
+    <button class="btn btn--craie" id="tv-envoyer" type="submit">Recevoir mon plan</button>
+    <p class="tv__note" id="tv-note">On revient vers vous le jour ouvré suivant, sans engagement. Vos données ne servent qu’à ce retour (<a href="/confidentialite/">confidentialité</a>).</p>
     <div class="tv__merci" id="tv-merci" tabindex="-1" hidden><p class="tv__sous">C’est noté.</p><p></p></div>
   </form>
 </section>
@@ -62,7 +66,7 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
 <style is:global>
 .tv [hidden] { display: none !important; }
 .tv .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.tv { --nuit: var(--encre); position: relative; background: var(--nuit); color: var(--papier); border-radius: 22px; padding: clamp(20px, 3vw, 32px); display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; box-shadow: 0 30px 60px -30px rgb(27 25 21 / .45); overflow-wrap: anywhere; }
+.tv { --nuit: var(--encre); position: relative; background: var(--nuit); color: var(--papier); border-radius: var(--r-l); padding: clamp(20px, 3vw, 32px); display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; box-shadow: 0 30px 60px -30px rgb(27 25 21 / .45); overflow-wrap: anywhere; }
 .tv :focus-visible { outline: 2px solid var(--craie); outline-offset: 3px; }
 .tv__sur { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris-nuit); margin: 0; }
 .tv__direct { position: relative; width: 8px; height: 8px; border-radius: 50%; background: var(--craie); flex: none; }
@@ -71,8 +75,14 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
 .tv__titre { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 3.6vw, 48px); line-height: 1; letter-spacing: -.02em; margin: 8px 0 0; }
 .tv__label { display: block; font-size: 14px; color: var(--gris-nuit); margin-bottom: 8px; }
 .tv__ligne { display: flex; gap: 8px; }
-.tv__aide { margin: 8px 0 0; font-size: 12px; color: var(--gris-nuit); }
-.tv input { flex: 1; min-width: 0; width: 100%; min-height: 52px; padding: 0 16px; border-radius: 14px; border: 1px solid #6E675B; background: var(--encre-2); color: var(--papier); font-size: 16px; transition: border-color .2s; }
+.tv__aide { margin: 8px 0 0; font-size: 13px; color: var(--gris-nuit); }
+.tv__aide--contact { margin: 0; }
+.tv__sansjs { display: none; margin: 0; font-size: 15px; line-height: 1.5; }
+.tv__sansjs a { color: var(--craie); }
+html:not(.js) .tv__sansjs { display: block; }
+html:not(.js) .tv__cherche, html:not(.js) .tv__voyants, html:not(.js) .tv__msg { display: none; }
+.tv input { flex: 1; min-width: 0; width: 100%; min-height: 52px; padding: 0 16px; border-radius: var(--r-s); border: 1px solid #6E675B; background: var(--encre-2); color: var(--papier); font-size: 16px; transition: border-color .2s; -webkit-appearance: none; appearance: none; }
+.tv input::-webkit-search-decoration, .tv input::-webkit-search-cancel-button, .tv input::-webkit-search-results-button { -webkit-appearance: none; display: none; }
 .tv input::placeholder { color: var(--gris-nuit); }
 .tv input:focus { outline: none; border-color: var(--craie); }
 .tv input[aria-invalid="true"] { border-color: #FFB38A; }
@@ -80,7 +90,7 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
 .tv .btn[disabled] { opacity: .6; cursor: progress; }
 
 .tv__trouves { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-.tv__trouves button { width: 100%; min-width: 0; text-align: left; display: grid; gap: 2px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--filet-nuit); background: transparent; cursor: pointer; transition: border-color .2s, background-color .2s; }
+.tv__trouves button { width: 100%; min-width: 0; text-align: left; display: grid; gap: 2px; padding: 12px 14px; border-radius: var(--r-s); border: 1px solid var(--filet-nuit); background: transparent; cursor: pointer; transition: border-color .2s, background-color .2s; }
 .tv__trouves button:not(.hors):focus-visible { border-color: var(--craie); background: var(--encre-2); }
 .tv__trouves b { font-weight: 600; }
 .tv__trouves small { color: var(--gris-nuit); font-size: 13px; }
@@ -88,11 +98,11 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
 .tv__source { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris-nuit); padding: 6px 2px 0; }
 .tv__autre { font-size: 14px; color: var(--gris-nuit); background: none; border: 0; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; justify-self: start; }
 
-.tv__voyants { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1px; background: var(--filet-nuit); border: 1px solid var(--filet-nuit); border-radius: 14px; overflow: hidden; scroll-margin-top: 90px; }
+.tv__voyants { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1px; background: var(--filet-nuit); border: 1px solid var(--filet-nuit); border-radius: var(--r-s); overflow: hidden; scroll-margin-top: 90px; }
 .tv-v { min-width: 0; background: var(--nuit); padding: 14px; display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "p n" "v v" "d d"; column-gap: 8px; align-items: center; min-height: 104px; align-content: start; }
 .tv-v__point { grid-area: p; width: 10px; height: 10px; border-radius: 50%; background: #4A443A; transition: background-color .5s, box-shadow .5s; }
-.tv-v__nom { grid-area: n; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris-nuit); }
-.tv-v__valeur { grid-area: v; font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.1; margin-top: 6px; }
+.tv-v__nom { grid-area: n; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris-nuit); }
+.tv-v__valeur { grid-area: v; font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.1; margin-top: 6px; overflow-wrap: normal; }
 .tv-v__vide { font-family: var(--grotesk); font-size: 15px; color: var(--gris-nuit); margin-top: 14px; }
 .tv-v__detail { grid-area: d; font-size: 13px; line-height: 1.35; color: var(--gris-nuit); margin-top: 2px; }
 .tv-v[data-etat="bon"] .tv-v__point { background: #4FBF7A; box-shadow: 0 0 12px #4FBF7A; }
@@ -118,12 +128,13 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
 .tv__contact.revele { animation: tv-revele .5s var(--sortie) both; animation-delay: var(--d, 300ms); }
 .tv__contact .tv__sous { margin: 0; }
 .tv__champs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.tv__champ label { display: block; font-size: 12px; color: var(--gris-nuit); margin-bottom: 4px; }
+.tv__champ label { display: block; font-size: 13px; color: var(--gris-nuit); margin-bottom: 4px; }
 .tv__champ--large { grid-column: 1 / -1; }
 .tv__piege { position: absolute; left: -9999px; width: 1px; height: 1px; }
 .tv__err { margin: 0; font-size: 13px; color: #FFB38A; }
+.tv__err:empty { display: none; }
 .tv__err a { color: var(--craie); }
-.tv__note { margin: 0; font-size: 12px; color: var(--gris-nuit); }
+.tv__note { margin: 0; font-size: 13px; color: var(--gris-nuit); }
 .tv__note a { color: var(--gris-nuit); }
 .tv__merci { animation: tv-fondu .3s both; }
 .tv__merci p:last-child { margin: 0; }
@@ -132,6 +143,7 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
   .tv__trouves button:not(.hors):hover { border-color: var(--craie); background: var(--encre-2); }
 }
 @media (max-width: 520px) { .tv__champs { grid-template-columns: 1fr; } .tv-v__valeur { font-size: 26px; } .tv-v { min-height: 96px; } }
+@media (max-width: 360px) { .tv__voyants { grid-template-columns: minmax(0, 1fr); } .tv-v { min-height: 0; padding: 12px 14px; } .tv-v__valeur { font-size: 24px; margin-top: 2px; } }
 @media (prefers-reduced-motion: reduce) { .tv__direct::after, .tv.cherche .tv-v__point, .tv-v.revele .tv-v__valeur, .tv-v.revele .tv-v__detail, .tv__axes li, .tv__contact.revele, .tv__merci { animation: none; } .tv-v.revele .tv-v__point { transition-delay: 0s; } }
 </style>
 
@@ -191,7 +203,7 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
     contact.hidden = true; contact.classList.remove('revele'); contact.reset();
     champs.hidden = false; envoyer.hidden = false; note.hidden = false; merci.hidden = true; err.textContent = '';
     envoyer.disabled = false; envoyer.textContent = 'Recevoir mon plan';
-    contact.querySelectorAll('[aria-invalid]').forEach((i) => i.removeAttribute('aria-invalid'));
+    contact.querySelectorAll('[aria-invalid]').forEach((i) => { i.removeAttribute('aria-invalid'); i.removeAttribute('aria-describedby'); });
   }
   function proposerContact(titre) { contactTitre.textContent = titre; contact.style.setProperty('--d', '200ms'); contact.hidden = false; contact.classList.add('revele'); }
 
@@ -276,8 +288,8 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
     const f = new FormData(contact), tel = String(f.get('telephone') || '').trim(), mail = String(f.get('email') || '').trim().toLowerCase();
     const champTel = $('tv-tel'), champMail = $('tv-mail');
     const telOk = !!tel && tel.replace(/\D/g, '').length >= 9, mailOk = !!mail && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail);
-    [champTel, champMail].forEach((c) => c.removeAttribute('aria-invalid'));
-    const refus = (champ, texte) => { err.textContent = texte; champ.setAttribute('aria-invalid', 'true'); champ.focus(); };
+    [champTel, champMail].forEach((c) => { c.removeAttribute('aria-invalid'); c.removeAttribute('aria-describedby'); });
+    const refus = (champ, texte) => { err.textContent = texte; champ.setAttribute('aria-invalid', 'true'); champ.setAttribute('aria-describedby', 'tv-err'); champ.focus({ preventScroll: true }); champ.scrollIntoView({ block: 'center', behavior: calme ? 'auto' : 'smooth' }); };
     if (tel && !telOk) return refus(champTel, 'Ce numéro semble incomplet (9 chiffres au moins, par exemple 078 213 38 68).');
     if (mail && !mailOk) return refus(champMail, 'Cette adresse e-mail semble incomplète.');
     if (!telOk && !mailOk) return refus(champTel, 'Laissez un numéro de téléphone ou une adresse e-mail.');
