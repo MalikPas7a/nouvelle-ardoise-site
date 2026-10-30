@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#4A1019">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Manrope:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Manrope:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="assets/apb.css">
 </head>
 <body data-page="maison">
@@ -27,7 +27,7 @@
         <div class="adr-menu" id="adr-menu" hidden>
           <a class="adr-maison" href="./"><span>La maison</span><small>Accueil de la marque</small></a>
           <a href="./geneve-eaux-vives/"><span>Genève Eaux-Vives</span><small>Ouverture novembre 2026</small></a>
-          <a href="./geneve-versoix/"><span>Genève Versoix</span><small>[Statut à confirmer]</small></a>
+          <a href="./geneve-versoix/"><span>Genève Versoix</span><small><span class="ac-pres">Bientôt</span><span class="ac-note">[Statut à confirmer]</span></small></a>
           <a href="./madrid/"><span>Madrid</span><small>Ouvert</small></a>
           <a href="./ibiza/"><span>Ibiza</span><small>Ouvert</small></a>
         </div>
@@ -35,7 +35,7 @@
     </nav>
     <div class="langues" aria-label="Langue"><a href="#" aria-current="true">FR</a><span aria-hidden="true">·</span><a href="#">EN</a><span aria-hidden="true">·</span><a href="#">ES</a></div>
     <div class="actions sur-sombre">
-      <a class="btn btn-plein" href="#adresses">Nos adresses</a>
+      <a class="btn btn-plein" href="geneve-eaux-vives/#liste">Liste d'ouverture</a>
     </div>
     <button class="burger-nav" id="ouvrir" aria-expanded="false" aria-controls="menu">Menu</button>
   </div>
@@ -48,93 +48,74 @@
     <a href="#carte">La carte</a>
     <div class="menu-adr"><span class="lab">Nos adresses</span>
       <a href="./geneve-eaux-vives/"><span>Genève Eaux-Vives</span><small>Ouverture novembre 2026</small></a>
-      <a href="./geneve-versoix/"><span>Genève Versoix</span><small>[Statut à confirmer]</small></a>
+      <a href="./geneve-versoix/"><span>Genève Versoix</span><small><span class="ac-pres">Bientôt</span><span class="ac-note">[Statut à confirmer]</span></small></a>
       <a href="./madrid/"><span>Madrid</span><small>Ouvert</small></a>
       <a href="./ibiza/"><span>Ibiza</span><small>Ouvert</small></a>
     </div>
   </nav>
   <div class="langues"><a href="#" aria-current="true">FR</a><span>·</span><a href="#">EN</a><span>·</span><a href="#">ES</a></div>
   <div class="actions sur-sombre">
-    <a class="btn btn-plein" href="#adresses">Nos adresses</a>
+    <a class="btn btn-plein" href="geneve-eaux-vives/#liste">Liste d'ouverture</a>
   </div>
 </div>
 
 <main id="contenu">
-<section class="ix-scene" id="scene" aria-label="Ouverture">
-    <div class="ix-titre" id="titre"><h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Paris · Madrid · Ibiza · Genève</p><nav class="ix-villes" aria-label="Choisir une adresse"><a href="geneve-eaux-vives/"><span>Genève Eaux-Vives</span><small>Ouverture novembre 2026</small></a><a href="geneve-versoix/"><span>Genève Versoix</span><small>[Statut à confirmer]</small></a><a href="madrid/"><span>Madrid</span><small>Ouvert</small></a><a href="ibiza/"><span>Ibiza</span><small>Ouvert</small></a></nav></div>
-    <div class="ix-indice" id="indice"><span class="lab">Faites défiler</span><i></i></div>
+<section class="ov-hero-s" aria-label="Accueil">
+    <div class="ov-hero" id="titre"><div class="ov-hero-in"><h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Née à Paris. Servie à Madrid, Ibiza et Genève.</p><nav class="ix-villes" aria-label="Choisir une adresse"><a href="geneve-eaux-vives/"><span>Genève Eaux-Vives</span><small>Ouverture novembre 2026</small></a><a href="geneve-versoix/"><span>Genève Versoix</span><small><span class="ac-pres">Bientôt</span><span class="ac-note">[Statut à confirmer]</span></small></a><a href="madrid/"><span>Madrid</span><small>Ouvert</small></a><a href="ibiza/"><span>Ibiza</span><small>Ouvert</small></a></nav></div><div class="ov-indice" aria-hidden="true"><span class="lab">Faites défiler</span><i></i></div><figure class="ov-hero-img"><img src="assets/simulation/hero-trempe.webp" alt="Le burger trempé dans la sauce Café de Paris" width="1536" height="2752" fetchpriority="high" decoding="async"><figcaption class="ov-credit">Visuel d'intention, remplacé au shooting</figcaption></figure></div>
+</section>
+<section class="ov" id="ouverture" aria-label="Le burger, étape par étape">
+  <h2 class="sr-only">Le burger, étape par étape</h2>
+  <div class="ov-piste" id="piste">
+    <figure class="ov-p ov-v ov-assemblage" id="v-assemble" aria-label="Assembler"><div class="ov-pile" aria-hidden="true"><div class="ov-couche" id="ov-pbas"><img class="" src="assets/simulation/couche-pain-bas.webp" alt="" width="1080" height="1935" decoding="async"><span class="ov-etq d" style="top:82%">Pain brioché toasté</span></div><div class="ov-couche" id="ov-oignons"><img class="" src="assets/simulation/couche-oignons.webp" alt="" width="1080" height="1935" decoding="async"><span class="ov-etq d" style="top:71.5%">Oignons</span></div><div class="ov-couche" id="ov-steaks"><img class="" src="assets/simulation/couche-steaks.webp" alt="" width="1080" height="1935" decoding="async"><span class="ov-etq d" style="top:50%">Double smash, cheddar</span></div><div class="ov-couche" id="ov-phaut"><img class="" src="assets/simulation/couche-pain-haut.webp" alt="" width="1080" height="1935" decoding="async"><span class="ov-etq d" style="top:17.6%">Pain brioché</span></div></div><div class="ov-ombre"></div><figcaption class="ov-mot">Assembler.<small>Pain brioché, double steak, cheddar et oignons. La sauce, elle, attend à côté.</small></figcaption></figure>
+    <figure class="ov-p ov-v" aria-label="Smasher"><img class="ov-img" src="assets/simulation/plancha.webp" alt="Le bœuf écrasé sur la plancha, jusqu'à la croûte" width="1080" height="1935" decoding="async" style="object-position:50% 45%"><div class="ov-ombre"></div><figcaption class="ov-mot">Smasher.<small>Le bœuf écrasé sur la plancha, jusqu'à la croûte.</small></figcaption></figure>
+    <figure class="ov-p ov-v" aria-label="Couper"><img class="ov-img" src="assets/simulation/coupe.webp" alt="Net, en deux, le cheddar qui file" width="1080" height="1935" decoding="async" style="object-position:50% 47%"><div class="ov-ombre"></div><figcaption class="ov-mot">Couper.<small>Net, en deux, le cheddar qui file.</small></figcaption></figure>
+    <figure class="ov-p ov-v" aria-label="Tremper"><img class="ov-img" src="assets/simulation/trempe.webp" alt="La sauce, à part. Chaque bouchée y plonge" width="1080" height="1935" decoding="async" style="object-position:50% 78%"><div class="ov-ombre"></div><figcaption class="ov-mot">Tremper.<small>La sauce, à part. Chaque bouchée y plonge.</small></figcaption></figure>
+  </div>
+</section>
+<section class="hist" id="histoire" aria-labelledby="hist-titre">
+  <div class="wrap">
+    <h2 id="hist-titre">Quarante ans dans une <em>saucière</em>.</h2>
+    <ol class="hist-liste">
+      <li class="hist-ch"><span class="hist-mot">Paris</span><h3>Fin des années 1970.</h3><p>Dans une cuisine parisienne, une sauce au beurre et aux herbes trouve sa recette. Elle ne la quittera plus.</p></li>
+      <li class="hist-ch"><span class="hist-mot">40 ans</span><h3>La recette ne s'écrit pas. Elle se transmet.</h3><p>Pendant plus de quarante ans, elle a été servie dans des brasseries de Paris. Peu de gens savent ce qu'elle contient. Nous en faisons partie.</p></li>
+      <li class="hist-ch"><span class="hist-mot">Atelier</span><h3>La sauce n'a pas changé. On lui a fait un burger.</h3><p>Pain brioché, double smash, cheddar, oignons. Rien dedans ne couvre son goût : elle est servie à côté, et c'est vous qui trempez.</p></li>
+      <li class="hist-ch"><span class="hist-mot">Aujourd'hui</span><h3>Madrid, Ibiza, et bientôt Genève.</h3><p>La même recette, la même saucière, sur chaque table. Genève ouvre en novembre, face au Jet d'eau.</p></li>
+    </ol>
+  </div>
+</section>
 
-    <div class="ix-burger" id="burger" aria-hidden="true">
-      <div class="ix-calque c-haut" data-o="0"><span><b>Calque 6 · Pain du dessus</b>Brioché, photo détourée</span></div>
-      <div class="ix-calque c-sauce" data-o="1"><span><b>Calque 5 · Sauce Café de Paris</b></span></div>
-      <div class="ix-calque c-oignons" data-o="2"><span><b>Calque 4 · Oignons confits</b></span></div>
-      <div class="ix-calque c-cheddar" data-o="3"><span><b>Calque 3 · Cheddar affiné</b></span></div>
-      <div class="ix-calque c-steak" data-o="4"><span><b>Calque 2 · Steak</b>Saisi, croûte visible</span></div>
-      <div class="ix-calque c-bas" data-o="5"><span><b>Calque 1 · Pain du dessous</b></span></div>
-    </div>
-    <div class="ix-mot" id="mot0">Smasher.</div>
-    <div class="ix-mot" id="mot1">Assembler.</div>
-    <div class="ix-mot" id="mot2">Couper.</div>
-    <div class="ix-mot" id="mot3">Tremper.</div>
-    <div class="ix-coupe" id="coupe"></div>
-    <div class="ix-bassin" id="bassin"></div>
-    <div class="ix-plongee" id="plongee"></div>
-    <div class="ix-dedans" id="dedans"><div><span class="lab">Vous êtes dans la sauce</span><h2>Paris, fin<br>des années 70.</h2><p>Tout commence ici.</p></div></div>
-    <p class="ix-legende lab" id="legende"><b>Prototype de mouvement.</b> Les cadres dorés seront la séquence filmée : smash, assemblage, coupe, trempage.</p>
-  </section>
-
-<section class="ix-histoire" id="histoire" aria-label="L'histoire de la sauce">
-    <div class="ix-entete" data-r><span class="lab">L'histoire</span><h2>Une maison née d'une histoire construite dans le temps.</h2></div>
-    <div class="ix-chap"><div class="ix-an" data-r>Paris</div><div class="ix-txt" data-r><span class="lab">Chapitre 1 · Fin des années 1970</span><h3>Une sauce naît à Paris.</h3><p>Au cœur de la maison, notre sauce Café de Paris, travaillée à Paris dès la fin des années 1970 et le début des années 1980.</p><div class="ix-ph"><span><b>Photo archive ou reconstitution</b>Cuisine parisienne · 3:2</span></div></div></div>
-    <div class="ix-chap"><div class="ix-an" data-r>40 ans</div><div class="ix-txt" data-r><span class="lab">Chapitre 2 · Transmise</span><h3>Transmise, affinée, perfectionnée.</h3><p>Plus de quarante ans de savoir-faire, servie pendant des décennies dans des restaurants parisiens emblématiques. Elle est aujourd'hui notre signature.</p><div class="ix-ph"><span><b>Photo · La sauce</b>Très gros plan, cuillère, texture · 3:2</span></div></div></div>
-    <div class="ix-chap"><div class="ix-an" data-r>Atelier</div><div class="ix-txt" data-r><span class="lab">Chapitre 3 · Le geste</span><h3>Faire évoluer l'héritage, pas le copier.</h3><p>Le burger premium et la baguette portent un savoir-faire précis, exigeant et constant. Fidèle à l'esprit d'origine, avec sa propre identité.</p><div class="ix-ph"><span><b>Photo · Burger et baguette</b>Côte à côte, même lumière · 3:2</span></div></div></div>
-    <div class="ix-chap"><div class="ix-an" data-r>Europe</div><div class="ix-txt" data-r><span class="lab">Chapitre 4 · Aujourd'hui</span><h3>De Genève à l'Europe.</h3><p>Un restaurant phare à Genève, l'Espagne pour première étape avec Madrid, Barcelone et Ibiza, et des cuisines dédiées à la livraison à travers l'Europe.</p><div class="ix-ph"><span><b>Photo · Les adresses</b>Montage de façades, même cadrage · 3:2</span></div></div></div>
-  </section>
-
-<section class="geste" aria-labelledby="geste-titre">
-    <div class="wrap">
-      <div class="entete">
-        <div><p class="lab" data-reveal>Le geste</p><h2 id="geste-titre" data-split>Couper. Tremper. <em>Croquer.</em></h2></div>
-      </div>
-      <div class="temps3">
-        <figure data-reveal><div class="ph r-45" data-clip><figcaption><b>Photo 3a · Couper</b>Mains, couteau, burger coupé net · même angle sur les 3 · 4:5</figcaption></div><div class="etape"><b>01</b><span>Couper</span></div></figure>
-        <figure data-reveal><div class="ph r-45" data-clip><figcaption><b>Photo 3b · Tremper</b>La moitié plongée dans la sauce · même angle · 4:5</figcaption></div><div class="etape"><b>02</b><span>Tremper</span></div></figure>
-        <figure data-reveal><div class="ph r-45" data-clip><figcaption><b>Photo 3c · Croquer</b>Première bouchée, la sauce visible · même angle · 4:5</figcaption></div><div class="etape"><b>03</b><span>Croquer</span></div></figure>
-      </div>
-    </div>
-  </section>
 
 <section class="carte carte-maison" id="carte">
     <div class="wrap grid">
       <div class="tete">
         <p class="lab" data-reveal>La carte</p>
-        <h2 data-split>Peu de choses, <em>très</em> bien faites.</h2>
-        <p data-reveal>La carte signature, la même dans toutes nos adresses. Prix et disponibilités selon l'adresse. Touchez un plat pour le voir en 3D.</p>
-        <figure class="apercu ph r-11" data-clip><figcaption><b>Photos 4 · Plats de la carte</b>Même fond, même lumière, même hauteur · 1:1 · s'affiche au survol</figcaption></figure>
+        <h2 data-split>Six plats. Une <em>sauce</em>.</h2>
+        <p data-reveal>La carte signature, la même dans toutes nos adresses. Prix et disponibilités selon l'adresse. Touchez un plat pour le découvrir.</p>
+        <figure class="apercu ph r-11" data-clip><img class="ph-img" src="assets/photos/carte.webp" alt="Le burger signature de la maison" loading="lazy" decoding="async"><figcaption><b>Photos 4 · Plats de la carte</b>Même fond, même lumière, même hauteur · 1:1 · s'affiche au survol</figcaption></figure>
       </div>
       <div class="listes">
         <div class="cat" data-reveal>
-          <h3>Burgers <small>Pain brioché, bœuf [origine]</small></h3>
-          <div class="plat"><div class="vignette"><div class="ph"></div></div><p class="nom">Le Café de Paris <span class="pastille">Sauce Café de Paris</span></p><p class="prix">[19.–]</p><p class="desc">Bœuf, cheddar affiné, oignons confits, sauce Café de Paris <span class="exemple">exemple</span></p></div>
-          <div class="plat"><div class="vignette"><div class="ph"></div></div><p class="nom">Le Double Maison <span class="pastille">Sauce Café de Paris</span></p><p class="prix">[24.–]</p><p class="desc">Deux steaks, double cheddar, pickles maison <span class="exemple">exemple</span></p></div>
-          <div class="plat"><div class="vignette"><div class="ph"></div></div><p class="nom">Le Poulet</p><p class="prix">[18.–]</p><p class="desc">Poulet croustillant, salade, sauce blanche aux herbes <span class="exemple">exemple</span></p></div>
-          <div class="plat"><div class="vignette"><div class="ph"></div></div><p class="nom">Le Végétal</p><p class="prix">[18.–]</p><p class="desc">Galette de légumes grillés, chèvre, roquette <span class="exemple">exemple</span></p></div>
+          <h3>Burgers <small>Pain brioché, steak smashé</small></h3>
+          <div class="plat"><div class="vignette"><div class="ph"></div></div><p class="nom">Le Signature <span class="pastille">Sauce Café de Paris</span></p><p class="prix"><span class="ac-pres">19.–</span><span class="ac-note">[19.–]</span></p><p class="desc">Bœuf, cheddar affiné, oignons confits. Sauce Café de Paris à part, pour tremper <span class="exemple">exemple</span></p></div>
+          <div class="plat"><div class="vignette"><div class="ph"></div></div><p class="nom">Le Double <span class="pastille">Sauce Café de Paris</span></p><p class="prix"><span class="ac-pres">24.–</span><span class="ac-note">[24.–]</span></p><p class="desc">Deux steaks, double cheddar, pickles maison <span class="exemple">exemple</span></p></div>
+          <div class="plat"><div class="vignette"><div class="ph"></div></div><p class="nom">Le Marais</p><p class="prix"><span class="ac-pres">18.–</span><span class="ac-note">[18.–]</span></p><p class="desc">Poulet croustillant, salade, sauce blanche aux herbes <span class="exemple">exemple</span></p></div>
+          <div class="plat"><div class="vignette"><div class="ph"></div></div><p class="nom">Le Jardin</p><p class="prix"><span class="ac-pres">18.–</span><span class="ac-note">[18.–]</span></p><p class="desc">Galette de légumes grillés, chèvre, roquette <span class="exemple">exemple</span></p></div>
         </div>
         <div class="cat" data-reveal>
           <h3>Baguettes <small>Baguette tradition</small></h3>
-          <div class="plat"><div class="vignette"><div class="ph"></div></div><p class="nom">La Parisienne <span class="pastille">Sauce Café de Paris</span></p><p class="prix">[17.–]</p><p class="desc">Bœuf tranché fin, sauce Café de Paris, oignons <span class="exemple">exemple</span></p></div>
-          <div class="plat"><div class="vignette"><div class="ph"></div></div><p class="nom">La Volaille</p><p class="prix">[16.–]</p><p class="desc">Poulet rôti, crudités, mayonnaise maison <span class="exemple">exemple</span></p></div>
+          <div class="plat"><div class="vignette"><div class="ph"></div></div><p class="nom">La Parisienne <span class="pastille">Sauce Café de Paris</span></p><p class="prix"><span class="ac-pres">17.–</span><span class="ac-note">[17.–]</span></p><p class="desc">Bœuf tranché fin, sauce Café de Paris, oignons <span class="exemple">exemple</span></p></div>
+          <div class="plat"><div class="vignette"><div class="ph"></div></div><p class="nom">La Rive Gauche</p><p class="prix"><span class="ac-pres">16.–</span><span class="ac-note">[16.–]</span></p><p class="desc">Poulet rôti, crudités, mayonnaise maison <span class="exemple">exemple</span></p></div>
         </div>
         <div class="cat" data-reveal>
           <h3>Accompagnements</h3>
-          <div class="plat"><p class="nom">Frites maison</p><p class="prix">[6.–]</p><p class="desc">Fleur de sel <span class="exemple">exemple</span></p></div>
-          <div class="plat"><p class="nom">Frites trempées <span class="pastille">Sauce Café de Paris</span></p><p class="prix">[8.–]</p><p class="desc">Nappées de sauce Café de Paris <span class="exemple">exemple</span></p></div>
+          <div class="plat"><p class="nom">Frites maison</p><p class="prix"><span class="ac-pres">6.–</span><span class="ac-note">[6.–]</span></p><p class="desc">Fleur de sel <span class="exemple">exemple</span></p></div>
+          <div class="plat"><p class="nom">Frites trempées <span class="pastille">Sauce Café de Paris</span></p><p class="prix"><span class="ac-pres">8.–</span><span class="ac-note">[8.–]</span></p><p class="desc">Avec leur saucière, pour tremper <span class="exemple">exemple</span></p></div>
         </div>
         <div class="cat" data-reveal>
           <h3>Desserts et boissons <small>Faits maison</small></h3>
-          <div class="plat"><p class="nom">Mousse au chocolat</p><p class="prix">[7.–]</p><p class="desc">Comme à Paris <span class="exemple">exemple</span></p></div>
-          <div class="plat"><p class="nom">Citronnade maison</p><p class="prix">[5.–]</p><p class="desc">Citron pressé, menthe fraîche <span class="exemple">exemple</span></p></div>
-          <div class="plat"><p class="nom">Thé glacé maison</p><p class="prix">[5.–]</p><p class="desc">Infusé chaque matin <span class="exemple">exemple</span></p></div>
+          <div class="plat"><p class="nom">Mousse au chocolat</p><p class="prix"><span class="ac-pres">7.–</span><span class="ac-note">[7.–]</span></p><p class="desc">Comme à Paris <span class="exemple">exemple</span></p></div>
+          <div class="plat"><p class="nom">Citronnade maison</p><p class="prix"><span class="ac-pres">5.–</span><span class="ac-note">[5.–]</span></p><p class="desc">Citron pressé, menthe fraîche <span class="exemple">exemple</span></p></div>
+          <div class="plat"><p class="nom">Thé glacé maison</p><p class="prix"><span class="ac-pres">5.–</span><span class="ac-note">[5.–]</span></p><p class="desc">Infusé chaque matin <span class="exemple">exemple</span></p></div>
         </div>
       </div>
     </div>
@@ -145,27 +126,27 @@
       <div class="entete"><div><span class="lab" data-reveal>Une maison, plusieurs villes</span><h2 data-split>Nos <em>adresses</em>.</h2></div></div>
       <div class="liste-a">
       <a class="adresse" href="geneve-eaux-vives/" data-reveal>
-        <div class="ph" data-clip><figcaption><b>Photo · Façade, lac et Jet d'eau</b>4:5</figcaption></div>
+        <div class="ph" data-clip><img class="ph-img" src="assets/photos/insta-6.webp" alt="Le burger de la maison face au Jet d&#x27;eau" loading="lazy" decoding="async"><figcaption><b>Photo · Façade, lac et Jet d'eau</b>4:5</figcaption></div>
         <span class="statut bientot">Ouverture novembre 2026</span>
         <h3>Genève Eaux-Vives<small>Quai Gustave-Ador 24, face au Jet d'eau</small></h3>
         <span class="aller">Voir l'adresse →</span>
       </a>
       <a class="adresse" href="geneve-versoix/" data-reveal>
-        <div class="ph" data-clip><figcaption><b>Photo · Façade de Versoix</b>4:5</figcaption></div>
-        <span class="statut ">[Statut à confirmer]</span>
+        <div class="ph" data-clip><img class="ph-img" src="assets/photos/versoix.webp" alt="Le Léman vu de la rive" loading="lazy" decoding="async"><figcaption><b>Photo · Façade de Versoix</b>4:5</figcaption></div>
+        <span class="statut "><span class="ac-pres">Bientôt</span><span class="ac-note">[Statut à confirmer]</span></span>
         <h3>Genève Versoix<small>Quai de Versoix 1, au bord du lac</small></h3>
         <span class="aller">Voir l'adresse →</span>
       </a>
       <a class="adresse" href="madrid/" data-reveal>
-        <div class="ph" data-clip><figcaption><b>Photo · Façade de Madrid</b>4:5</figcaption></div>
+        <div class="ph" data-clip><img class="ph-img" src="assets/photos/madrid.webp" alt="Façades de la Gran Vía, Madrid" loading="lazy" decoding="async"><figcaption><b>Photo · Façade de Madrid</b>4:5</figcaption></div>
         <span class="statut ouvert">Ouvert</span>
-        <h3>Madrid<small>[Adresse à compléter]</small></h3>
+        <h3>Madrid<small>Madrid, Espagne</small></h3>
         <span class="aller">Voir l'adresse →</span>
       </a>
       <a class="adresse" href="ibiza/" data-reveal>
-        <div class="ph" data-clip><figcaption><b>Photo · Façade d'Ibiza</b>4:5</figcaption></div>
+        <div class="ph" data-clip><img class="ph-img" src="assets/photos/ibiza.webp" alt="Ruelle de la vieille ville d&#x27;Ibiza" loading="lazy" decoding="async"><figcaption><b>Photo · Façade d'Ibiza</b>4:5</figcaption></div>
         <span class="statut ouvert">Ouvert</span>
-        <h3>Ibiza<small>[Adresse à compléter]</small></h3>
+        <h3>Ibiza<small>Ibiza, Baléares</small></h3>
         <span class="aller">Voir l'adresse →</span>
       </a>
       </div>
@@ -174,14 +155,14 @@
 
 <section class="insta">
     <div class="wrap">
-      <div class="entete"><div><p class="lab" data-reveal>Instagram</p><h2 data-split>Sur <em>Instagram</em></h2></div><a class="btn btn-contour" href="#">[@compte à compléter]</a></div>
+      <div class="entete"><div><p class="lab" data-reveal>Instagram</p><h2 data-split>Sur <em>Instagram</em></h2></div><a class="btn btn-contour" href="#"><span class="ac-pres">Suivre la maison</span><span class="ac-note">[@compte à compléter]</span></a></div>
       <div class="g6">
-        <figure class="ph r-45" data-clip><figcaption><b>Photo 7a</b>4:5</figcaption></figure>
-        <figure class="ph r-45" data-clip><figcaption><b>Photo 7b</b>4:5</figcaption></figure>
-        <figure class="ph r-45" data-clip><figcaption><b>Photo 7c</b>4:5</figcaption></figure>
-        <figure class="ph r-45" data-clip><figcaption><b>Photo 7d</b>4:5</figcaption></figure>
-        <figure class="ph r-45" data-clip><figcaption><b>Photo 7e</b>4:5</figcaption></figure>
-        <figure class="ph r-45" data-clip><figcaption><b>Photo 7f</b>4:5</figcaption></figure>
+        <figure class="ph r-45" data-clip><img class="ph-img" src="assets/photos/insta-1.webp" alt="La plancha" loading="lazy" decoding="async"><figcaption><b>Photo 7a</b>4:5</figcaption></figure>
+        <figure class="ph r-45" data-clip><img class="ph-img" src="assets/photos/insta-2.webp" alt="Le burger assemblé" loading="lazy" decoding="async"><figcaption><b>Photo 7b</b>4:5</figcaption></figure>
+        <figure class="ph r-45" data-clip><img class="ph-img" src="assets/photos/insta-3.webp" alt="Le burger coupé" loading="lazy" decoding="async"><figcaption><b>Photo 7c</b>4:5</figcaption></figure>
+        <figure class="ph r-45" data-clip><img class="ph-img" src="assets/photos/insta-4.webp" alt="Le trempage" loading="lazy" decoding="async"><figcaption><b>Photo 7d</b>4:5</figcaption></figure>
+        <figure class="ph r-45" data-clip><img class="ph-img" src="assets/photos/insta-5.webp" alt="Le burger en couches" loading="lazy" decoding="async"><figcaption><b>Photo 7e</b>4:5</figcaption></figure>
+        <figure class="ph r-45" data-clip><img class="ph-img" src="assets/photos/insta-6.webp" alt="Face au Jet d&#x27;eau" loading="lazy" decoding="async"><figcaption><b>Photo 7f</b>4:5</figcaption></figure>
       </div>
     </div>
   </section>
@@ -192,9 +173,9 @@
     <div class="logo"><svg aria-hidden="true"><use href="#apb-logo"/></svg><p>Atelier Paris Burger</p></div>
     <div class="col"><span class="lab">Nos adresses</span><a href="geneve-eaux-vives/">Genève · Eaux-Vives</a><a href="geneve-versoix/">Genève · Versoix</a><a href="madrid/">Madrid</a><a href="ibiza/">Ibiza</a></div>
     <div class="col"><span class="lab">La maison</span><a href="#histoire">L'histoire</a><a href="#carte">La carte</a></div>
-    <div class="col"><span class="lab">Contact</span><a href="mailto:info@atelier-paris-burger.com">info@atelier-paris-burger.com</a><a href="tel:+41000000000">[+41 00 000 00 00]</a><a href="#">[Instagram]</a></div>
+    <div class="col"><span class="lab">Contact</span><a href="mailto:info@atelier-paris-burger.com">info@atelier-paris-burger.com</a><a href="tel:+41000000000"><span class="ac-pres"></span><span class="ac-note">[+41 00 000 00 00]</span></a><a href="#"><span class="ac-pres">Instagram</span><span class="ac-note">[Instagram]</span></a></div>
     <div class="col"><span class="lab">Langue</span><p>Français · English · Español</p></div>
-    <div class="bas"><span>© 2026 Atelier Paris Burger</span><span>Mentions légales · Confidentialité</span><span>Maquette Nouvelle Ardoise · photos à venir</span></div>
+    <div class="bas"><span>© 2026 Atelier Paris Burger</span><span>Mentions légales · Confidentialité</span><span>Maquette Nouvelle Ardoise · photos d'essai (villes libres de droits, plats en visuels d'intention), remplacées au shooting</span></div>
   </div>
 </footer>
 
@@ -221,63 +202,5 @@
 <script src="/demos/vendor/ScrollTrigger.min.js"></script>
 <script src="/demos/vendor/lenis.min.js"></script>
 <script src="assets/apb.js"></script>
-<script>
-// Ouverture au scroll : smasher, assembler, couper, tremper, plonger dans la sauce
-(function(){
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce || !window.gsap || !window.ScrollTrigger){ document.documentElement.classList.add('statique'); return; }
-  gsap.registerPlugin(ScrollTrigger);
-  var calques = gsap.utils.toArray('.ix-calque');
-  // Empilement : chaque calque posé sur le suivant (du bas vers le haut)
-  function empile(){
-    var y = 0, pos = [];
-    for(var i = calques.length - 1; i >= 0; i--){ y -= calques[i].offsetHeight; pos[i] = y; }
-    var h = -y; return pos.map(function(p){ return p + h / 2; });
-  }
-  var final = empile();
-  var ecart = window.innerHeight * 0.13;
-  calques.forEach(function(c, i){ gsap.set(c, {y: final[i] + (i - 2.5) * ecart - 40, opacity:0, rotation: (i % 2 ? 4 : -4)}); });
-
-
-  // 0. Smasher : la boule de viande arrive seule, puis s'écrase sur la plaque
-  var steak = document.querySelector('.c-steak');
-  var tl = gsap.timeline({defaults:{ease:'none'}, scrollTrigger:{trigger:'#scene', start:'top top', end:'+=700%', scrub:1, pin:true, anticipatePin:1}});
-  // 1. Le titre s'efface
-  tl.to('#titre', {opacity:0, y:-60, duration:0.6}, 0).to('#indice', {opacity:0, duration:0.3}, 0)
-  // 1 bis. Smasher
-    .fromTo(steak, {opacity:0, scaleX:0.42, scaleY:2.1, y:final[4] - 40}, {opacity:1, duration:0.4}, 0.3)
-    .to('#mot0', {opacity:1, duration:0.3}, 0.4)
-    .to(steak, {scaleX:1.12, scaleY:0.82, duration:0.35, ease:'power4.in'}, 0.8)
-    .to(steak, {scaleX:1, scaleY:1, duration:0.25}, 1.15)
-    .to('#mot0', {opacity:0, duration:0.3}, 1.3)
-  // 2. Les autres ingrédients arrivent, éclatés
-    .to(calques.filter(function(c){ return c !== steak; }), {opacity:1, duration:0.5, stagger:{each:0.12, from:'end'}}, 1.4)
-    .to('#mot1', {opacity:1, duration:0.3}, 1.5)
-  // 3. Ils s'assemblent
-    .to(calques, {y:function(i){ return final[i]; }, rotation:0, duration:1.4, ease:'power2.inOut', stagger:{each:0.06, from:'end'}}, 2.4)
-    .to('.ix-calque span', {opacity:0, duration:0.4}, 3.4)
-    .to('#mot1', {opacity:0, duration:0.3}, 3.5)
-  // 4. On coupe
-    .to('#mot2', {opacity:1, duration:0.3}, 3.9)
-    .to('#coupe', {opacity:1, height:'62vh', duration:0.6, ease:'power3.out'}, 4)
-    .to('#coupe', {opacity:0, duration:0.3}, 4.6)
-    .to('#mot2', {opacity:0, duration:0.3}, 4.8)
-  // 5. On trempe : le burger plonge, la sauce monte
-    .to('#mot3', {opacity:1, duration:0.3}, 5)
-    .to('#bassin', {bottom:'-24vh', duration:1, ease:'power2.out'}, 4.9)
-    .to('#burger', {rotation:-14, y:'26vh', duration:1.2, ease:'power2.in'}, 5.1)
-    .to('#mot3', {opacity:0, duration:0.3}, 6.1)
-  // 6. Le visiteur plonge à son tour
-    .to('#plongee', {clipPath:'circle(150% at 50% 88%)', duration:1.4, ease:'power2.in'}, 6.2)
-    .to('#legende', {opacity:0, duration:0.3}, 6.2)
-    .to('#dedans', {opacity:1, duration:0.6}, 7.3)
-    .to('#dedans h2', {scale:1.04, duration:0.8}, 7.5);
-
-  gsap.utils.toArray('[data-r]').forEach(function(el){
-    gsap.fromTo(el, {y:40, opacity:0}, {y:0, opacity:1, duration:0.7, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 85%', once:true}});
-  });
-  window.addEventListener('resize', function(){ final = empile(); ScrollTrigger.refresh(); });
-})();
-</script>
 </body>
 </html>

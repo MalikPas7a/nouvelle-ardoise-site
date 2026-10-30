@@ -1,33 +1,49 @@
 // /llms.txt : un résumé en texte simple de l'agence, pour les moteurs de réponse (ChatGPT, Perplexity,
-// Gemini, Claude). Format proposé sur llmstxt.org : titre, résumé, puis liens commentés.
+// Gemini, Claude). Format proposé sur llmstxt.org : titre, résumé, puis liens commentés. Aucun prix : ils se discutent de vive voix.
 import { SITE } from '../config.js';
-import { PROMOTION_ACTIVE, montant, prixActuel } from '../data/offres.js';
 import { QUESTIONS } from '../data/questions.js';
+import { FAQ_GENERALE } from '../data/questions-generales.js';
+import { EXPERTS } from '../data/savoir-faire.js';
+import { VILLES } from '../data/agence.js';
 
 export function GET() {
   const texte = `# ${SITE.nom}
 
-> Agence de marketing et de communication pour la restauration et les métiers de bouche (restaurants, cafés, traiteurs, street food, boulangeries, pâtisseries, chocolateries) à Genève, Lausanne et dans le canton de Vaud, en Suisse romande. Devise : « Place à la mise en place. »
+> Agence de marketing et de communication à Genève, pour les commerces, artisans, cabinets et PME des cantons de Genève et de Vaud (Suisse romande). Spécialité : la restauration et les métiers de bouche. Devise : « Qu’on vous trouve. Qu’on vous choisisse. » (signature : Place à la mise en place.). Un seul interlocuteur, Malik Younes, qui active un écosystème d’experts : photographe, vidéaste et drone, référencement Google (SEO et GEO), Google Ads, Meta Ads, développeurs.
 
-${SITE.nom} accompagne les restaurateurs en 5 étapes : 1. étudier le marché (visite sur place, quartier, concurrence, fiche Google) ; 2. construire la stratégie (deux ou trois leviers pour le chiffre d’affaires, objectifs chiffrés) ; 3. créer l’identité (logo, carte, emballages, site ou application, Instagram) ; 4. mettre en place les outils (Click & Collect sans commission, paiement par QR code, fidélité) ; 5. suivre et ajuster (shootings, réels, publications, tableau de bord des ventes, point mensuel).
+## Ce que fait ${SITE.nom}
 
-Canaux travaillés : référencement local Google (fiche Google, SEO), Instagram et réels, publicité Meta et Google, optimisation Uber Eats avec photos professionnelles des plats, prospection d’entreprises et d’événements. Équipe : Malik Younes avec un réseau de photographes, vidéastes (dont drone) et développeurs.
+- Diagnostic de visibilité en direct et gratuit sur ${SITE.url}/ : on tape le nom du commerce, l’agence lit la fiche Google, le site, Instagram et la vente en ligne (4 voyants) et donne les 3 priorités du métier.
+- Sept savoir-faire, un expert par canal (${EXPERTS.map((e) => e.service).join(' ; ')}) : référencement local et fiche Google (être mieux placé quand on cherche le métier à côté de chez soi), GEO (être cité par ChatGPT, Gemini, Perplexity et Google quand on leur demande conseil : pages claires, données structurées, horaires et avis à jour), Google Ads (annonces sur les recherches exactes, dans le rayon, aux heures d’ouverture, appels et itinéraires mesurés), Meta Ads (réels tournés sur place diffusés au quartier sur Instagram et Facebook), développeur (commande à retirer sans commission, prise de rendez-vous, devis en ligne, paiement par QR code, tableau de bord), photographe, vidéaste et drone (jamais d’images générées par IA pour les produits), stratégie et bilan mensuel avec un seul interlocuteur.
+- Socle commun à tous les métiers : fiche Google soignée (référencement local), site rapide pensé pour le téléphone, Instagram et réels tournés sur place, photo et vidéo professionnelles, publicité locale Google et Meta, bilan mensuel chiffré.
+- Un outil par métier : commande à retirer et paiement par QR code (restauration), précommande en ligne (artisans de bouche), prise de rendez-vous en ligne (santé et bien-être, services), boutique en ligne (mode et boutiques), réservation directe sans commission (hébergement et loisirs), demandes de devis et portfolio de chantiers (artisans et bâtiment), LinkedIn et site institutionnel (entreprises et bureaux).
+- Méthode en trois temps : le diagnostic (sur place et en ligne), les trois priorités avec un objectif chiffré, la mise en place, puis un bilan chaque mois : on teste, on apprend, on ajuste.
+- Métiers accompagnés : restauration et cafés, artisans de bouche et épiceries, santé et bien-être, mode et boutiques, services de quartier, hébergement et loisirs, artisans et bâtiment, entreprises et bureaux.
 
-Cas réel : Pasta Mo’, street food italienne à Genève (identité, site pour les commandes d’entreprises, Instagram, prospection d’organisateurs de courses). Izgara 35, grill d’Izmir à Onex, est un exemple FICTIF de démonstration.
+## Où
 
-${SITE.nom} est une entreprise individuelle de ${SITE.responsable}, ${SITE.adresse}, ${SITE.localite}, ${SITE.pays}. Téléphone : 078 213 38 68. Contact : ${SITE.email}. Instagram : @${SITE.instagram}. Zones : Genève, Carouge, Onex, Meyrin, Lancy, Nyon, Morges, Lausanne, La Côte.
+Sur place dans les cantons de Genève et de Vaud : ${VILLES.join(', ')}. Ailleurs en Suisse romande, suivi en visio et déplacements pour les tournages.
+
+## Qui
+
+${SITE.nom} est une entreprise individuelle de ${SITE.responsable}, ${SITE.adresse}, ${SITE.localite}, ${SITE.pays}. Téléphone : 078 213 38 68. Contact : ${SITE.email}. Instagram : @${SITE.instagram}. Cas réel : Pasta Mo’, marque familiale de pâtes fraîches et street food italienne à Genève (identité, site pour les commandes d’entreprises, Instagram, prospection d’organisateurs de courses). Izgara 35 (grill d’Izmir à Onex) est un exemple FICTIF de démonstration.
 
 ## Pages
 
-- [Accueil](${SITE.url}/) : l’accompagnement en 5 étapes, l’équipe, les canaux, Pasta Mo’, Izgara 35 (démonstration), questions fréquentes, contact
-- [Restaurants](${SITE.url}/restaurants/) : démonstrations de sites de restaurants (carte, plat du jour, plat en 3D, réservation)
-- [Artisans](${SITE.url}/artisans/) : sites, photos et réels pour chocolatiers, pâtissiers et boulangers
-- [Offres et prix](${SITE.url}/offres/) : sites dès CHF ${montant(prixActuel('essentiel'))}, réseaux sociaux dès CHF ${montant(prixActuel('reseauxEssentiel'))} par mois${PROMOTION_ACTIVE ? ' : remise de lancement jusqu’au 31 octobre 2026, mensualités réduites pendant les trois premiers mois uniquement' : ''}
-- [Réalisations](${SITE.url}/realisations/) : Pasta Mo', animations au défilement, exemple de réel
-- [Questions fréquentes](${SITE.url}/questions/) : prix, délais, shooting, options
-- [Contact](${SITE.url}/contact/) : demande de devis, réponse sous 24 heures
+- [Accueil](${SITE.url}/) : le test de visibilité en direct, le savoir-faire montré (fiche Google, assistants IA, Google Ads, Meta Ads, développeur, photographe, bilan), Pasta Mo', les 8 métiers, la zone d’intervention, la méthode, l’interlocuteur unique, questions fréquentes
+- [Restauration](${SITE.url}/restauration/) : la branche restaurants et métiers de bouche, l’accompagnement en 5 étapes, l’équipe, les canaux, Pasta Mo', Izgara 35 (démonstration), questions fréquentes
+- [Restaurants](${SITE.url}/restaurants/) : démonstrations de sites de restaurants (carte, plat du jour, plat en 3D, réservation)
+- [Artisans](${SITE.url}/artisans/) : sites, photos et réels pour chocolatiers, pâtissiers et boulangers
+- [Réalisations](${SITE.url}/realisations/) : Pasta Mo', animations au défilement, exemple de réel
+- [Offres](${SITE.url}/offres/) : les formules, discutées de vive voix
+- [Questions fréquentes](${SITE.url}/questions/) : délais, shooting, options
+- [Contact](${SITE.url}/contact/) : demande de devis, réponse le jour ouvré suivant (sous 24 heures en semaine)
 
 ## Questions fréquentes
+
+${FAQ_GENERALE.map(({ q, r }) => `### ${q}\n\n${r}`).join('\n\n')}
+
+## Questions fréquentes (restauration)
 
 ${QUESTIONS.map(({ q, r }) => `### ${q}\n\n${r}`).join('\n\n')}
 `;

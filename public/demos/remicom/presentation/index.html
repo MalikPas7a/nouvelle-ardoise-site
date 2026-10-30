@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B0B0B">
+<title>Remicom × Nouvelle Ardoise · Proposition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{--k:#0B0B0B;--p:#F5F3EF;--w:#FFFFFF;--r:#C0272D;--gk:#9A968F;--gp:#5E5A54;--l:#2A2826;--pad:max(20px,4vw)}
+*{box-sizing:border-box}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;background:var(--k)}
+body{margin:0;background:var(--k);color:var(--p);font-family:'Archivo',system-ui,sans-serif;font-stretch:100%;-webkit-font-smoothing:antialiased}
+p{margin:0}
+img,video{max-width:100%;display:block}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;text-transform:uppercase;letter-spacing:.08em;font-weight:500;line-height:1.5}
+.T{font-stretch:125%;font-weight:900;text-transform:uppercase;line-height:.9;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.red{color:var(--r)}
+.tab{font-variant-numeric:tabular-nums}
+
+/* écran */
+.s{min-height:100vh;min-height:100svh;scroll-snap-align:start;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:clamp(18px,3vh,40px);padding:clamp(20px,3.4vh,40px) var(--pad);padding-left:max(var(--pad),env(safe-area-inset-left,0px));padding-right:max(var(--pad),env(safe-area-inset-right,0px))}
+.s.k{background:var(--k);color:var(--p)}
+.s.pp{background:var(--p);color:var(--k)}
+.s.w{background:var(--w);color:var(--k)}
+.s .top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;position:relative;z-index:2}
+.k .mono{color:var(--gk)} .pp .mono,.w .mono{color:var(--gp)}
+.s .mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,3.2vh,40px);position:relative;z-index:2;max-width:1440px;width:100%;margin:0 auto}
+.h{font-size:clamp(40px,7.4vw,124px)}
+
+/* question de pause */
+.q{position:relative;z-index:2;border-top:2px solid currentColor;padding:14px 0 22px;display:flex;gap:18px;align-items:baseline;flex-wrap:wrap;transition:opacity .45s,transform .45s}
+.q .mono{color:var(--r)!important;font-weight:700}
+.q p{font-size:clamp(20px,2.4vw,34px);font-weight:600;line-height:1.15;letter-spacing:-.01em}
+.kb .q:not(.on){opacity:0;transform:translateY(10px)}
+
+/* barre de progression */
+.nav{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:20;display:flex;gap:6px;align-items:center;mix-blend-mode:difference}
+.nav a{width:22px;height:4px;background:#fff;opacity:.35;display:block}
+.nav a.on{opacity:1}
+.kb .aide{display:none}
+.aide{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:max(10px,env(safe-area-inset-bottom,0px));z-index:20;color:#fff;mix-blend-mode:difference;opacity:.55;font-size:11px}
+@media (hover:none){.aide{display:none}}
+
+/* 0 couverture */
+.cover .bg{position:absolute;inset:0;background:url(../p-salle.jpg) center/cover;opacity:.32;filter:grayscale(.4)}
+.cover .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,11,.2),rgba(11,11,11,.9))}
+.cover .T{font-size:clamp(30px,6.2vw,108px)}
+.cover .sous{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.cover .sous p{font-size:clamp(18px,2vw,26px);font-weight:500;max-width:34ch}
+.cover .mid{align-items:center;text-align:center}
+.biglogo{display:block;width:clamp(240px,42vw,620px);height:auto;margin:0 auto clamp(4px,1vh,12px)}
+.cover .sous{justify-content:center}
+.cover .sous p{margin:0 auto}
+.plan{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;background:var(--l);border:2px solid var(--l)}
+.plan span{background:var(--k);padding:10px 12px;color:var(--p)!important;font-size:12px}
+.plan b{display:block;color:var(--r);font-weight:700}
+
+/* 1 constat */
+.chif{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;background:var(--k);border:2px solid var(--k)}
+.chif div{background:var(--p);padding:clamp(16px,2.4vw,32px)}
+.chif b{display:block;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(36px,5.6vw,92px);line-height:1;letter-spacing:-.03em}
+.chif div:nth-child(2) b{color:var(--r)}
+.lede{font-size:clamp(20px,2.3vw,32px);font-weight:500;line-height:1.2;max-width:40ch}
+
+/* 2 idée */
+.idee{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center}
+.idee .T{font-size:clamp(28px,4.1vw,70px)}
+.idee .ph{position:relative;aspect-ratio:4/5;max-height:62vh;overflow:hidden;justify-self:end;width:100%}
+.idee .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2) brightness(.8)}
+.stp{position:absolute;font-stretch:125%;font-weight:900;text-transform:uppercase;color:var(--r);border:4px double var(--r);padding:.3em .55em;font-size:clamp(16px,2.4vw,38px);transform:rotate(-8deg);letter-spacing:.02em;background:rgba(11,11,11,.35)}
+.idee .ph .stp{left:8%;top:10%}
+.idee .num{position:absolute;right:6%;bottom:6%;text-align:right}
+.idee .num .n{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(40px,6vw,96px);line-height:1;color:var(--p)}
+.jam{display:flex;flex-direction:column;gap:6px;margin-top:clamp(18px,3vh,32px)}
+.jam p{font-stretch:125%;font-weight:900;text-transform:uppercase;font-size:clamp(22px,3vw,48px);line-height:1}
+.jam s{color:#6E6A64;text-decoration-color:var(--r);text-decoration-thickness:.14em}
+
+/* 3 preuve */
+.reels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,28px);max-width:1100px;width:100%;margin:0 auto}
+.reel{min-width:0}
+.reel video{width:100%;aspect-ratio:9/16;max-height:52vh;object-fit:contain;background:#000;margin:0 auto}
+.reel p{margin-top:10px;font-weight:600;font-size:clamp(16px,1.5vw,22px);line-height:1.25}
+.reel .mono{display:block;color:var(--r)!important;font-weight:700;font-size:12px}
+.res{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(24px,5vw,80px);align-items:center}
+.res .simu video{width:100%;aspect-ratio:4/5;max-height:72vh;object-fit:cover;background:var(--k);justify-self:center}
+.res ul{list-style:none;margin:0;padding:0;display:grid;gap:2px;background:var(--k);border:2px solid var(--k);margin-top:clamp(18px,3vh,32px)}
+.res li{background:var(--p);padding:14px 18px;display:flex;justify-content:space-between;gap:12px;font-weight:600;font-size:clamp(16px,1.5vw,21px)}
+.res li b{font-family:'JetBrains Mono',monospace;color:var(--r)}
+
+/* 3c sujets */
+.th7{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.6vw,22px)}
+.th7 li{border-top:3px solid var(--r);padding-top:12px;display:grid;align-content:start;gap:6px;min-width:0}
+.th7 .mono{font-size:11px;color:var(--r)!important;font-weight:700}
+.th7 b{font-stretch:115%;font-weight:800;text-transform:uppercase;font-size:clamp(17px,1.5vw,23px);line-height:1.05}
+.th7 small{color:var(--gp);font-size:clamp(13px,1.05vw,15px);line-height:1.35}
+.thmore summary{cursor:pointer;display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;padding:12px 18px;border:2px solid var(--k);list-style:none;min-height:44px}
+.thmore summary::-webkit-details-marker{display:none}
+.thmore summary::after{content:"+";font-size:18px;line-height:1;transition:transform .2s ease}
+.thmore[open] summary::after{transform:rotate(45deg)}
+.thmore .th{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(12px,1.4vw,20px);margin-top:clamp(14px,2vh,24px)}
+.thmore h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;color:var(--r)}
+.thmore ol{margin:0;padding-left:20px;display:grid;gap:7px;font-size:14px;line-height:1.3}
+.thmore li b{display:block}.thmore li small{color:var(--gp)}
+@media (max-width:1100px){.th7{grid-template-columns:repeat(2,minmax(0,1fr))}.thmore .th{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:820px){.th7,.thmore .th{grid-template-columns:minmax(0,1fr)}}
+
+.sujets .th7 small{display:none}
+.thmore .o2,.thmore[open] .o1{display:none}.thmore[open] .o2{display:inline}
+.sujets:has(.thmore[open]) .th7{display:none}
+.sujets h2 .o2,.sujets:has(.thmore[open]) h2 .o1{display:none}.sujets:has(.thmore[open]) h2 .o2{display:inline}
+.res .simu{position:relative}
+.res .simu::after{content:"Simulation · chiffres fictifs";position:absolute;top:14px;right:14px;background:var(--r);color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px}
+@media (min-width:821px){.q{padding-right:300px}}
+@media (min-width:821px) and (max-height:820px){.kpi th,.kpi td{padding-block:5px}.pubnote{margin:4px 0}.boucle span{padding:8px 14px}.boucle small{display:none}.s{gap:14px}.met small{font-size:13px}}
+@media (min-width:821px) and (max-height:740px){.boucle{display:none}}
+/* 3d qui je suis */
+.frise{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;background:var(--l);border:2px solid var(--l)}
+.frise li{background:var(--k);padding:clamp(14px,1.6vw,22px);display:grid;align-content:start;gap:8px;min-width:0}
+.frise .mono{color:var(--r)!important;font-weight:700;font-size:12px}
+.frise b{font-stretch:115%;font-weight:800;text-transform:uppercase;font-size:clamp(16px,1.4vw,21px);line-height:1.05}
+.frise small{color:var(--gk);font-size:clamp(13px,1.05vw,15px);line-height:1.35}
+.frise li:last-child{background:var(--r)}.frise li:last-child .mono,.frise li:last-child small{color:#fff!important}
+@media (max-width:1100px){.frise{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:820px){.frise{grid-template-columns:minmax(0,1fr)}}
+.regle{max-width:1100px;width:100%;margin:0 auto;color:var(--gk)!important;font-size:12px}
+.regle b{color:var(--p);font-weight:700}
+/* 4 écosystème */
+.eco{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(14px,2vw,28px);align-items:center}
+.eco .col{display:grid;gap:clamp(14px,2vw,28px)}
+.met{border:2px solid var(--l);padding:clamp(16px,2vw,26px);position:relative;min-width:0}
+.met .mono{display:block;color:var(--r)!important;font-weight:700;margin-bottom:6px}
+.met b{display:block;font-stretch:115%;font-weight:800;font-size:clamp(20px,2vw,30px);line-height:1.05;text-transform:uppercase}
+.met small{display:block;color:var(--gk);font-size:clamp(14px,1.2vw,17px);margin-top:8px;line-height:1.3}
+.moi{width:clamp(150px,17vw,250px);aspect-ratio:1;border-radius:50%;background:var(--r);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px;position:relative}
+.moi b{font-stretch:125%;font-weight:900;font-size:clamp(22px,2.4vw,36px);text-transform:uppercase;line-height:1}
+.moi span{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.moi::before,.moi::after{content:"";position:absolute;top:50%;width:clamp(14px,2vw,28px);height:2px;background:var(--r)}
+.moi::before{right:100%} .moi::after{left:100%}
+
+/* 5 KPI */
+.kpi{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.kpi th,.kpi td{text-align:left;padding:clamp(6px,1.1vh,14px) clamp(8px,1vw,16px);border-bottom:2px solid var(--k)}
+.kpi th{font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--gp);font-weight:500;border-bottom-width:4px}
+.kpi td:first-child{font-weight:700;font-size:clamp(17px,1.8vw,26px)}
+.kpi td:first-child small{display:block;font-weight:500;color:var(--gp);font-size:clamp(13px,1.1vw,15px);margin-top:2px}
+.kpi td.v{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(22px,3vw,48px);white-space:nowrap}
+.kpi td.v.red{color:var(--r)}
+.boucle{display:flex;flex-wrap:wrap;gap:2px;background:var(--k);border:2px solid var(--k)}
+.boucle span{flex:1 1 160px;background:var(--k);color:var(--p);padding:14px 18px;font-stretch:125%;font-weight:900;text-transform:uppercase;font-size:clamp(18px,2vw,28px)}
+.boucle span:last-child{background:var(--r);color:#fff}
+.boucle em{font-style:normal;display:block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.08em;color:var(--gk);font-stretch:100%}
+.boucle span:last-child em{color:#fff}
+.boucle small{display:block;font-family:'Archivo',sans-serif;font-stretch:100%;text-transform:none;font-weight:500;font-size:clamp(12px,1vw,15px);letter-spacing:0;margin-top:6px;opacity:.85}
+
+/* 6 propositions */
+.tri{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;background:var(--k);border:2px solid var(--k)}
+.tri div{background:var(--p);padding:clamp(18px,2.4vw,34px);display:flex;flex-direction:column;gap:14px;min-width:0}
+.tri .n{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--r);font-size:clamp(34px,4vw,64px);line-height:1}
+.tri b{font-stretch:125%;font-weight:900;text-transform:uppercase;font-size:clamp(22px,2.4vw,38px);line-height:.95}
+.tri p{font-size:clamp(15px,1.3vw,19px);line-height:1.3;color:var(--gp);flex:1}
+.tri .tag{align-self:flex-start;background:var(--k);color:var(--p);font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:7px 10px}
+
+.tri.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:820px){.tri.two{grid-template-columns:minmax(0,1fr)}}
+.k .lede{margin-top:clamp(16px,2vw,28px)}
+/* 7 prochaine étape */
+.fin .T{font-size:clamp(44px,8.6vw,150px)}
+.etapes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;background:var(--l);border:2px solid var(--l)}
+.etapes div{background:var(--k);padding:clamp(14px,1.8vw,24px)}
+.etapes .mono{display:block;color:var(--r)!important;font-weight:700;margin-bottom:6px}
+.etapes b{font-weight:700;font-size:clamp(16px,1.5vw,22px);line-height:1.2;display:block}
+.sig{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline;font-size:clamp(16px,1.6vw,22px);font-weight:500}
+.sig a{color:inherit}
+
+@media (max-width:820px){
+  html{scroll-snap-type:none}
+  .s{min-height:auto;padding-block:56px}
+  .cover{min-height:100svh}
+  .plan{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .chif,.tri,.reels,.etapes{grid-template-columns:minmax(0,1fr)}
+  .idee,.res{grid-template-columns:minmax(0,1fr)}
+  .idee .ph{justify-self:stretch;max-height:none}
+  .reel video{max-height:none;width:min(100%,360px)}
+  .eco{grid-template-columns:minmax(0,1fr)}
+  .moi{order:-1;justify-self:center}
+  .moi::before,.moi::after{display:none}
+  .kpi td.v{font-size:clamp(20px,6vw,30px)}
+  .nav,.aide{display:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.q{transition:none}}
+.kpi td.d{font-size:clamp(15px,1.4vw,20px);font-weight:500;color:var(--k)}.kpi td.d.red{color:var(--r)}
+.pubnote{font-size:clamp(14px,1.2vw,17px);color:var(--gp);margin:clamp(10px,1.4vh,18px) 0}
+
+/* finitions audit 27.10 */
+.T{line-height:.95}
+@media (min-width:821px) and (max-height:900px){.boucle small{display:none}.boucle span{padding:8px 14px}.kpi th,.kpi td{padding-block:5px}.pubnote{margin:4px 0}}
+@media (min-width:821px) and (max-height:760px){.boucle{display:none}}
+</style>
+</head>
+<body>
+
+<!-- 0 · Couverture -->
+<section class="s k cover" id="t0" aria-label="Couverture">
+  <div class="bg"></div>
+  <div class="top"><span class="mono">Proposition · Remicom</span><span class="mono">Nouvelle Ardoise</span></div>
+  <div class="mid">
+    <img class="biglogo" src="../remicom-blanc.png" alt="Remicom" width="972" height="271">
+    <h1 class="T">Confidentiel.<br>Mais <span class="red">visible.</span></h1>
+    <div class="sous"><p>Comment vos affaires deviennent un média, dans le respect total de la confidentialité.</p></div>
+  </div>
+  <div class="plan mono">
+    <span><b>01</b>Le constat</span><span><b>02</b>La preuve</span><span><b>03</b>Qui exécute</span><span><b>04</b>Le suivi</span><span><b>05</b>L'offre</span><span><b>06</b>La suite</span>
+  </div>
+</section>
+
+<!-- 1 · Le constat -->
+<section class="s pp" id="t1" aria-label="Le constat">
+  <div class="top"><span class="mono">01 / 06 · Le constat</span><span class="mono">Votre post du 20 octobre</span></div>
+  <div class="mid">
+    <h2 class="T h" style="font-size:clamp(36px,5.6vw,96px)">L'audience est là.<br><span class="red">Il manque le format.</span></h2>
+    <div class="chif tab">
+      <div><b>31'000</b><span class="mono">abonnés</span></div>
+      <div><b>3 à 17</b><span class="mono">réactions par post</span></div>
+      <div><b>~1</b><span class="mono">post par jour</span></div>
+    </div>
+  </div>
+  <div class="q"><span class="mono">Pause</span><p>C'est aussi ce que vous ressentez ?</p></div>
+</section>
+
+<!-- 3a · La preuve : les réels -->
+<section class="s k" id="t3" aria-label="La preuve, les réels">
+  <div class="top"><span class="mono">02 / 06 · La preuve</span><span class="mono">Un conseil, une affaire, un parcours</span></div>
+  <div class="mid">
+    <h2 class="T" style="font-size:clamp(30px,3.6vw,60px);max-width:1100px;width:100%;margin:0 auto">Voilà à quoi <span class="red">ça ressemble.</span></h2>
+    <div class="reels">
+      <div class="reel"><video src="../remicom-emplacement-38s.mp4" poster="../remicom-emplacement-38s.jpg" controls playsinline preload="none"></video><p><span class="mono">Conseil · 38 s · voix off</span>«&nbsp;Qu'est-ce qui fait marcher un restaurant&nbsp;?&nbsp;»</p></div>
+      <div class="reel"><video src="../remicom-reel4-votre-prochain-resto-19s.mp4" poster="../remicom-reel4-votre-prochain-resto-19s.jpg" controls playsinline preload="none"></video><p><span class="mono">Eaux-Vives · 19 s · voix off</span>«&nbsp;Et si c'était votre prochain resto&nbsp;?&nbsp;»</p></div>
+      <div class="reel"><video src="../remicom-parcours-frontalier-56s.mp4" poster="../remicom-parcours-frontalier-56s.jpg" controls playsinline preload="none"></video><p><span class="mono">Frontaliers · 56 s · voix off</span>«&nbsp;Reprendre à Genève quand on vit en France.&nbsp;»</p></div>
+    </div>
+    <p class="mono regle"><b>Règle n° 1 :</b> accord écrit du vendeur · il valide avant publication · jamais l'enseigne, la rue ni le personnel.</p>
+  </div>
+</section>
+
+<!-- 3b · La preuve : sur les réseaux -->
+<section class="s pp" id="t3b" aria-label="La preuve, sur les réseaux">
+  <div class="top"><span class="mono">02 / 06 · La preuve</span><span class="mono">Maquette · aucun chiffre promis</span></div>
+  <div class="mid">
+    <div class="res">
+      <div class="simu"><video autoplay muted loop playsinline preload="metadata" poster="../remicom-motion-reseaux-poster.jpg" aria-label="Animation : le fil Instagram Remicom, les vues et les messages de repreneurs qui montent.">
+        <source src="../remicom-motion-reseaux-14s-4x5-muet.webm" type="video/webm">
+        <source src="../remicom-motion-reseaux-14s-4x5-muet.mp4" type="video/mp4">
+      </video></div>
+      <div>
+        <h2 class="T h" style="font-size:clamp(36px,4.6vw,80px)">Une affaire.<br><span class="red">Trois formats.</span></h2>
+        <ul>
+          <li>Le lundi<b>l'affaire</b></li>
+          <li>Le mercredi<b>« Imaginez ici »</b></li>
+          <li>Le vendredi<b>Le portrait du repreneur</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="q"><span class="mono">Pause</span><p>Lequel de ces formats vous parle le plus ?</p></div>
+</section>
+
+<!-- 3c · Les sujets -->
+<section class="s pp sujets" id="t3c" aria-label="Les sujets">
+  <div class="top"><span class="mono">02 / 06 · La preuve</span><span class="mono">Les sujets · toutes vos branches</span></div>
+  <div class="mid">
+    <h2 class="T h" style="font-size:clamp(32px,4.6vw,80px)"><span class="o1">7 sujets<br><span class="red">pour commencer.</span></span><span class="o2">13 autres<br><span class="red">sujets.</span></span></h2>
+    <ol class="th7">
+    <li><span class="mono">01 · Restauration</span><b>Le portrait du repreneur</b><small>En interview : son parcours, sa reprise, son premier service. Le format qui fait de Remicom une adresse qu'on suit.</small></li>
+    <li><span class="mono">02 · Restauration</span><b>L'affaire confidentielle</b><small>Un dossier, son quartier, ses vrais chiffres. Jamais la rue ni l'enseigne.</small></li>
+    <li><span class="mono">03 · Repreneurs</span><b>Reprendre à Genève depuis la France</b><small>Le parcours complet avec Remifid, épisode par épisode.</small></li>
+    <li><span class="mono">04 · Investisseurs</span><b>Ils cherchent un associé</b><small>Un vrai projet par mois : le besoin et le rôle de l'associé.</small></li>
+    <li><span class="mono">05 · Investisseurs</span><b>Investir dans un commerce suisse</b><small>Ce qu'un investisseur regarde : équipe, emplacement, chiffres. Expliqué par un courtier.</small></li>
+    <li><span class="mono">06 · Franchise</span><b>Devenir franchisé en Suisse</b><small>Avec Chloé Lavie (Remidev), en podcast face caméra.</small></li>
+    <li><span class="mono">07 · Le groupe</span><b>Olivier répond</b><small>Les questions de la communauté, en format court et franc.</small></li>
+  </ol>
+    <details class="thmore"><summary><span class="o1">Voir les 13 autres sujets</span><span class="o2">Revenir aux 7 sujets</span></summary>
+  <div class="th">
+    <div><h3>Restauration</h3><ol start="8">
+      <li><b>Imaginez ici</b><small>Un local vide, trois concepts possibles.</small></li>
+      <li><b>Six mois après</b><small>Le repreneur fait le bilan.</small></li>
+      <li><b>Un quartier, un marché</b><small>Pâquis, Eaux-Vives, Carouge : ce qui s'y vend.</small></li>
+    </ol></div>
+    <div><h3>Repreneurs</h3><ol start="11">
+      <li><b>Les 5 questions avant de reprendre</b><small>Celles que posent les bons repreneurs.</small></li>
+      <li><b>Fonds de commerce ou loyer ?</b><small>Ce qu'on achète vraiment.</small></li>
+    </ol></div>
+    <div><h3>Investisseurs</h3><ol start="13">
+      <li><b>Associé actif ou associé dormant</b><small>Les deux modèles, expliqués.</small></li>
+    </ol></div>
+    <div><h3>Vendeurs</h3><ol start="14">
+      <li><b>Vendre sans que personne ne le sache</b><small>Votre méthode, expliquée.</small></li>
+      <li><b>Combien vaut mon commerce ?</b><small>Les critères qui font le prix.</small></li>
+      <li><b>Ils ont vendu</b><small>Témoignage anonyme, en voix seule.</small></li>
+    </ol></div>
+    <div><h3>Franchise et PME</h3><ol start="17">
+      <li><b>Une enseigne étrangère s'installe</b><small>De l'emplacement à l'ouverture.</small></li>
+      <li><b>Transmettre son entreprise</b><small>La retraite du patron, la relève.</small></li>
+    </ol></div>
+    <div><h3>Le groupe</h3><ol start="19">
+      <li><b>Sous un même toit</b><small>Remicom, Remifid, Remirisk, Remidev en 30 secondes.</small></li>
+      <li><b>Un courtier, une journée</b><small>Visites, appels, dossiers.</small></li>
+    </ol></div>
+  </div></details>
+  </div>
+</section>
+
+<!-- 3d · Qui je suis -->
+<section class="s k moi-s" id="t4a" aria-label="Qui je suis">
+  <div class="top"><span class="mono">03 / 06 · Qui exécute</span><span class="mono">Malik Younes · Nouvelle Ardoise</span></div>
+  <div class="mid">
+    <h2 class="T h" style="font-size:clamp(32px,4.6vw,80px)">J'ai vendu mes premiers logos<br><span class="red">à 13 ans.</span></h2>
+    <ol class="frise">
+      <li><span class="mono">13 ans</span><b>Mes premiers logos</b><small>Vendus sur YouTube. Le graphisme ne m'a plus quitté.</small></li>
+      <li><span class="mono">Decathlon</span><b>Meilleur vendeur digital de Suisse</b><small>Depuis 2 ans. Ce qui fait vendre, sur le terrain.</small></li>
+      <li><span class="mono">Projets</span><b>Chef de projet événementiel</b><small>Coordonner, tenir les délais le jour J.</small></li>
+      <li><span class="mono">Aujourd'hui</span><b>Nouvelle Ardoise</b><small>Je visite des restaurants chaque semaine, à Genève.</small></li>
+      <li><span class="mono">Pasta Mo'</span><b>Mon laboratoire</b><small>La marque de ma femme : je teste tout là avant un client.</small></li>
+      <li><span class="mono">Demain</span><b>Repreneur, moi aussi</b><small>Je connais la question des deux côtés.</small></li>
+    </ol>
+    <p class="lede">Ma raison d'être : être utile aux restaurateurs, avec des résultats mesurés chaque mois.</p>
+  </div>
+</section>
+
+<!-- 4 · Qui exécute -->
+<section class="s k" id="t4" aria-label="Qui exécute">
+  <div class="top"><span class="mono">03 / 06 · Qui exécute</span><span class="mono">Des experts, un seul interlocuteur</span></div>
+  <div class="mid">
+    <h2 class="T h" style="font-size:clamp(32px,4.6vw,80px)">Des experts,<br><span class="red">un seul interlocuteur.</span></h2>
+    <div class="eco">
+      <div class="col">
+        <div class="met"><span class="mono">Mon frère, mon associé</span><b>Terrain</b><small>Les restaurants visités chaque semaine, chaque repreneur suivi après la signature.</small></div>
+        <div class="met"><span class="mono">Image</span><b>Photographes pro</b><small>Photo, vidéo, drone et montage, avec du matériel professionnel.</small></div>
+      </div>
+      <div class="moi"><span>Nouvelle Ardoise</span><b>Malik</b><span>Chef d'orchestre</span></div>
+      <div class="col">
+        <div class="met"><span class="mono">Visibilité</span><b>Experts réseaux</b><small>Publicité Instagram, Facebook, Google : le bon public, ajusté chaque semaine.</small></div>
+        <div class="met"><span class="mono">Outils</span><b>Experts développement</b><small>Formulaires, suivi des demandes, outils sur mesure : vos courtiers gagnent du temps.</small></div>
+      </div>
+    </div>
+  </div>
+  <div class="q"><span class="mono">Pause</span><p>Chez vous, qui serait mon interlocuteur ?</p></div>
+</section>
+
+<!-- 5 · Le suivi -->
+<section class="s w" id="t5" aria-label="Le suivi">
+  <div class="top"><span class="mono">04 / 06 · Le suivi</span><span class="mono">Ce qu'on regarde ensemble, chaque mois</span></div>
+  <div class="mid">
+    <h2 class="T h" style="font-size:clamp(34px,5.2vw,88px)">On suit les chiffres.<br><span class="red">On ajuste.</span></h2>
+    <div style="overflow-x:auto">
+      <table class="kpi">
+        <thead><tr><th>Ce qu'on suit</th><th>Pourquoi</th></tr></thead>
+        <tbody>
+          <tr><td>Vues<small>Instagram, Facebook, LinkedIn, TikTok</small></td><td class="d">Vos affaires sont-elles vues ?</td></tr>
+          <tr><td>Contacts<small>Messages et demandes de dossier</small></td><td class="d">Donnent-elles envie d'écrire ?</td></tr>
+          <tr><td>Dossiers envoyés<small>Engagement de confidentialité signé</small></td><td class="d">Les bons profils vont-ils jusqu'au dossier ?</td></tr>
+          <tr><td>Affaires conclues<small>Source notée par le courtier</small></td><td class="d red">Les réseaux font-ils vendre ?</td></tr>
+          <tr><td>Repreneurs lancés<small>Pack de lancement pris à l'ouverture</small></td><td class="d">Réussissent-ils, et recommandent-ils Remicom ?</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="pubnote">Chaque affaire a son lien suivi, chaque courtier note la source du contact. Publicité Meta : budget payé et plafonné par Remicom, arrêt possible à tout moment. Un rapport chiffré chaque mois. Rien ne sort sans votre validation.</p>
+    <div class="boucle opt"><span><em>Deux accroches par affaire</em>On teste<small>On garde celle qui fait écrire.</small></span><span><em>Pub sans messages</em>On coupe<small>Le budget ne dort jamais.</small></span><span><em>Ce qui marche</em>On renforce<small>Plus de budget, plus de formats.</small></span><span><em>Le ciblage</em>On affine<small>Des repreneurs, pas des curieux.</small></span></div>
+  </div>
+  <div class="q"><span class="mono">Pause</span><p>Quel chiffre compte le plus pour vous ?</p></div>
+</section>
+
+<!-- 6b · La vision -->
+<section class="s k" id="t6b" aria-label="La vision">
+  <div class="top"><span class="mono">04 / 06 · La vision</span><span class="mono">À 12 mois</span></div>
+  <div class="mid">
+    <h2 class="T h" style="font-size:clamp(34px,5.2vw,88px)">Remicom, le média<br><span class="red">des restaurants de Genève.</span></h2>
+    <div class="etapes">
+      <div><span class="mono">Mois 1 à 3</span><b>Lancer : 3 formats par semaine, publicité, créateurs food.</b></div>
+      <div><span class="mono">Mois 3 à 6</span><b>Raconter : le portrait de chaque repreneur.</b></div>
+      <div><span class="mono">Mois 6 à 12</span><b>Devenir la référence : qui reprend, qui ouvre.</b></div>
+      <div><span class="mono">Le but</span><b>Plus de contacts qualifiés, des affaires vendues plus vite.</b></div>
+    </div>
+  </div>
+  <div class="q"><span class="mono">Pause</span><p>Vous voyez Remicom aller jusque-là ?</p></div>
+</section>
+
+<!-- 6 · L'offre -->
+<section class="s pp" id="t6" aria-label="L'offre">
+  <div class="top"><span class="mono">05 / 06 · L'offre</span><span class="mono">Pendant · après la vente</span></div>
+  <div class="mid">
+    <h2 class="T h" style="font-size:clamp(36px,5.6vw,96px)">Deux choses.<br><span class="red">Simplement.</span></h2>
+    <div class="tri two">
+      <div><span class="n">01</span><b>Je gère vos réseaux</b><p>Réels, visuels, publicités et créateurs food sur Instagram, Facebook et LinkedIn, au format confidentiel. Votre LinkedIn reste le vôtre : on vous prépare les posts.</p><span class="tag">Test de 3 mois</span></div>
+      <div><span class="n">02</span><b>Je lance vos repreneurs</b><p>Fiche Google, Instagram, photos, vidéo d'ouverture : le repreneur démarre fort et recommande Remicom.</p><span class="tag">Réservé à vos repreneurs</span></div>
+    </div>
+  </div>
+  <div class="q"><span class="mono">Pause</span><p>Par laquelle on commence ?</p></div>
+</section>
+
+<!-- 7 · La prochaine étape -->
+<section class="s k fin" id="t7" aria-label="La prochaine étape">
+  <div class="top"><span class="mono">06 / 06 · La suite</span><span class="mono">Remicom × Nouvelle Ardoise</span></div>
+  <div class="mid">
+    <h2 class="T">On fait un test<br><span class="red">de 3 mois ?</span></h2>
+    <div class="etapes">
+      <div><span class="mono">Semaine 1</span><b>On fixe les objectifs et qui valide chaque post.</b></div>
+      <div><span class="mono">Semaine 2</span><b>Premier dossier filmé.</b></div>
+      <div><span class="mono">Fin du mois 1</span><b>Premier bilan chiffré.</b></div>
+      <div><span class="mono">Mois 3</span><b>Vous décidez.</b></div>
+    </div>
+    <div class="sig"><span>Malik Younes · Nouvelle Ardoise</span><span class="tab">078 213 38 68 · @nouvelleardoise.ch</span></div>
+  </div>
+  <div class="q"><span class="mono">Pause</span><p>Quelle semaine pour le premier tournage ?</p></div>
+</section>
+
+<nav class="nav" aria-label="Écrans"></nav>
+<span class="aide mono">→ avancer · ← reculer · F plein écran</span>
+
+<script>
+(function(){
+  var S=[].slice.call(document.querySelectorAll('.s')),nav=document.querySelector('.nav'),cur=0,tm;
+  S.forEach(function(s,i){var a=document.createElement('a');a.href='#'+s.id;a.setAttribute('aria-label',s.getAttribute('aria-label'));nav.appendChild(a);});
+  var dots=[].slice.call(nav.children);
+  function mark(i){cur=i;dots.forEach(function(d,j){d.classList.toggle('on',j===i)});
+    S.forEach(function(s,j){if(j!==i)s.querySelectorAll('video[controls]').forEach(function(v){v.pause()})});}
+  function nearest(){var y=scrollY+innerHeight/2,i=0;S.forEach(function(s,j){if(s.offsetTop<=y)i=j});return i;}
+  addEventListener('scroll',function(){clearTimeout(tm);tm=setTimeout(function(){mark(nearest())},150)},{passive:true});
+  function go(i){i=Math.max(0,Math.min(S.length-1,i));if(i>cur){var q=S[i].querySelector('.q');if(q)q.classList.remove('on');}mark(i);
+    var f=document.activeElement;if(f&&f!==document.body&&f.blur)f.blur();
+    S[i].scrollIntoView({behavior:'smooth',block:'start'});}
+  function showQ(q){q.classList.add('on');var over=q.offsetTop+q.offsetHeight-innerHeight;
+    if(over>0)scrollTo({top:S[cur].offsetTop+over+8,behavior:'smooth'});}
+  document.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    var t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'))return;
+    var k=e.key;
+    if(k==='ArrowRight'||k==='ArrowDown'||k==='PageDown'||k===' '){
+      e.preventDefault();document.body.classList.add('kb');
+      var q=S[cur].querySelector('.q');
+      if(q&&!q.classList.contains('on')){showQ(q);return;}
+      go(cur+1);
+    }else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'){
+      e.preventDefault();document.body.classList.add('kb');go(cur-1);
+    }else if(k==='Home'){e.preventDefault();go(0);}
+    else if(k==='End'){e.preventDefault();go(S.length-1);}
+    else if(k==='f'||k==='F'){
+      if(document.fullscreenElement){document.exitFullscreen&&document.exitFullscreen();}
+      else if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen().catch(function(){});}
+    }
+  });
+  mark(nearest());
+})();
+</script>
+</body>
+</html>

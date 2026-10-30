@@ -1,0 +1,4 @@
+Photos d'exemple : banque d'images Pexels (licence Pexels, usage commercial libre, sans attribution obligatoire).
+Elles illustrent le niveau visé et seront remplacées par les photos réelles du restaurant.
+IDs Pexels : 17952748, 13915043, 20067063, 37101626, 40376129, 32668760, 18852547, 37648017, 6210449, 34481088, 40262791, 37860993, 20863887.
+Logo et emblème : redessinés en vectoriel par Nouvelle Ardoise d'après les cartes de visite du restaurant (Playfair Display, OFL ; contour de l'Afrique : Natural Earth, domaine public).

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Identité Izgara 35</title>
+<title>Offre de lancement Izgara 35</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -56,6 +56,46 @@ ul{padding-left:20px;margin:6px 0}
 .stamps span.on{background:var(--braise);border-style:solid;border-color:var(--braise)}
 @media (max-width:520px){.grid3{grid-template-columns:repeat(2,1fr)}h1{font-size:44px}.pal{grid-template-columns:repeat(3,1fr)}}
 
+/* offre */
+.o-hero{background:radial-gradient(circle at 50% 0,#3a302a,#1a1715 70%);color:var(--creme);padding:34px 16px 40px;text-align:center}
+.o-hero img.lg{width:120px;border-radius:16px}
+.o-hero h1{font-size:58px;margin:14px 0 8px}
+.o-hero p{color:#d8cbb8;max-width:520px;margin:0 auto}
+.o-deal{display:inline-flex;gap:10px;align-items:center;margin-top:18px;background:var(--braise);color:#fff;border-radius:99px;padding:9px 18px;font-weight:700;font-size:14px}
+.o-deal b{font-family:"Bebas Neue";font-size:22px;font-weight:400;letter-spacing:.02em}
+.o-vid{width:min(340px,100%);margin:26px auto 0;border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5);background:#000;aspect-ratio:9/16}
+.o-vid video{display:block;width:100%;height:100%}
+.o-cards{display:grid;gap:14px;margin-top:22px}
+.o-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 18px 18px;position:relative}
+.o-card.rec{border:2px solid var(--braise)}
+.o-card.top{background:#262321;color:#f5ecdf;border-color:#262321}
+.o-card .badge{position:absolute;top:-12px;left:18px;background:var(--braise);color:#fff;font:700 11px "DM Sans";letter-spacing:.12em;text-transform:uppercase;padding:5px 11px;border-radius:99px}
+.o-card h3{font-size:34px;margin:0}
+.o-card .sb{color:var(--muted);font-size:14px;margin:2px 0 10px}
+.o-card.top .sb{color:#b5aa9c}
+.o-card .px{font-family:"Bebas Neue";font-size:52px;line-height:1;display:flex;align-items:baseline;gap:10px}
+.o-card .px s{font-size:24px;color:var(--muted);text-decoration-color:var(--braise)}
+.o-card .px small{font-size:20px}
+.o-card .plus{font:700 11px "DM Sans";letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px}
+.o-card.top .plus{color:#b5aa9c}
+.o-card ul{list-style:none;padding:0;margin:8px 0 16px}
+.o-card li{padding:6px 0 6px 22px;position:relative;font-size:15px;border-bottom:1px dashed var(--line)}
+.o-card.top li{border-color:#3a3530}
+.o-card li::before{content:"";position:absolute;left:2px;top:13px;width:9px;height:9px;border-radius:50%;background:var(--braise)}
+.o-btn{display:block;text-align:center;text-decoration:none;font:700 15px "DM Sans";padding:14px 16px;border-radius:99px;background:var(--fg);color:var(--bg)}
+.o-card.rec .o-btn,.o-card.top .o-btn{background:var(--braise);color:#fff}
+.o-month{display:grid;gap:10px;margin-top:12px}
+.o-month div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.o-month b{display:block}.o-month span{font-size:13px;color:var(--muted)}
+.o-month .pr{font-family:"Bebas Neue";font-size:30px;color:var(--braise);white-space:nowrap;text-align:right}
+.o-month .pr s{font-size:18px;color:var(--muted)}
+.o-steps{counter-reset:s;list-style:none;padding:0;display:grid;gap:10px}
+.o-steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px 14px 58px;position:relative}
+.o-steps li::before{content:counter(s);position:absolute;left:16px;top:12px;width:30px;height:30px;border-radius:50%;background:var(--braise);color:#fff;font:400 20px/31px "Bebas Neue";text-align:center}
+.o-pdf{display:flex;gap:12px;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:14px;text-decoration:none;color:inherit}
+.o-pdf b{display:block}.o-pdf span{font-size:13px;color:var(--muted)}
+.o-pdf em{font-style:normal;font-weight:700;color:var(--braise);white-space:nowrap}
+@media (min-width:760px){.o-cards{grid-template-columns:repeat(3,1fr);align-items:start}}
 /* onglets */
 .tabs{position:sticky;top:0;z-index:20;display:flex;gap:6px;justify-content:center;padding:10px 16px;background:rgba(38,35,33,.94);backdrop-filter:blur(8px)}
 .tabs button{font:700 14px "DM Sans",sans-serif;letter-spacing:.04em;color:#d8cbb8;background:transparent;border:1px solid #4a433d;border-radius:99px;padding:9px 18px;cursor:pointer}
@@ -137,8 +177,50 @@ ul{padding-left:20px;margin:6px 0}
 </style>
 </head>
 <body>
-<nav class="tabs" role="tablist"><button role="tab" data-t="dossier" aria-selected="true">Dossier</button><button role="tab" data-t="site" aria-selected="false">Site</button><button role="tab" data-t="carte" aria-selected="false">Carte</button></nav>
-<section class="panel" id="p-dossier">
+<nav class="tabs" role="tablist"><button role="tab" data-t="offre" aria-selected="true">Offre</button><button role="tab" data-t="dossier" aria-selected="false">Dossier</button><button role="tab" data-t="site" aria-selected="false">Site</button><button role="tab" data-t="carte" aria-selected="false">Carte</button></nav>
+<section class="panel" id="p-offre">
+<div class="o-hero">
+<img class="lg" src="logo.svg" alt="Izgara 35">
+<h1>Votre lancement</h1>
+<p>Identité, site, Instagram et Google : tout est prêt pour faire connaître le grill d'Izmir à Onex. En ligne avant le 10 novembre.</p>
+<div class="o-deal"><b>−20 %</b><span id="o-left">si vous signez avant le 31 octobre</span></div>
+<div class="o-vid"><video controls playsinline preload="metadata" poster="presentation-poster.jpg"><source src="presentation.mp4" type="video/mp4"></video></div>
+</div>
+<div class="wrap">
+<h2><small>Trois offres · paiement unique</small>Choisissez votre offre</h2>
+<p style="font-size:14px;color:var(--muted)">Prix de lancement −20 % jusqu'au 31 octobre 2026. Chaque offre reprend tout ce que contient la précédente.</p>
+<div class="o-cards">
+<div class="o-card"><h3>Essentiel</h3><div class="sb">Être visible et trouvé, vite.</div><div class="px"><s>1 125</s>900 <small>CHF</small></div>
+<ul><li>Identité Izgara 35 : logo, couleurs, fichiers pour l'imprimeur</li><li>Site pour téléphone : carte et prix, horaires, plan, appel et WhatsApp</li><li>Compte Instagram créé : profil, bio, liens, 3 premières publications</li><li>Avec vos photos actuelles</li><li>Nom de domaine relié, en ligne avant le 10.11</li></ul>
+<a class="o-btn" href="https://wa.me/41782133868?text=Bonjour%20Malik%2C%20je%20choisis%20l%27offre%20Essentiel%20%28900%20CHF%29%20du%20devis%20N%C2%B0%202026-10-IZGARA-01%20pour%20Izgara%2035." target="_blank" rel="noopener">Je choisis Essentiel</a></div>
+<div class="o-card rec"><span class="badge">Recommandée</span><h3>Signature</h3><div class="sb">Avec de vraies photos de vos plats.</div><div class="px"><s>1 875</s>1 500 <small>CHF</small></div>
+<div class="plus">Tout l'Essentiel, plus :</div>
+<ul><li>Une demi-journée de photographe professionnel : plats, chef, salle, façade</li><li>Les photos retouchées, sur le site et Instagram</li><li>Carte refaite, prête pour l'imprimeur</li><li>4 affiches avec QR code (vitrine, comptoir, tables)</li><li>1 réel d'ouverture monté et sous-titré</li></ul>
+<a class="o-btn" href="https://wa.me/41782133868?text=Bonjour%20Malik%2C%20je%20choisis%20l%27offre%20Signature%20%281%20500%20CHF%29%20du%20devis%20N%C2%B0%202026-10-IZGARA-01%20pour%20Izgara%2035." target="_blank" rel="noopener">Je choisis Signature</a></div>
+<div class="o-card top"><h3>La totale</h3><div class="sb">Tout est en place, même la commande.</div><div class="px"><s>3 750</s>3 000 <small>CHF</small></div>
+<div class="plus">Toute la Signature, plus :</div>
+<ul><li>Site immersif, carte en onglets</li><li>Facebook, Instagram et Google créés et reliés</li><li>Fiche Google optimisée : photos, carte, horaires, avis</li><li>Commande à emporter en ligne, payée par TWINT</li><li>Carte de fidélité numérique « Carte 35 »</li><li>Film de lancement avec drone + 3 réels</li><li>1re campagne Facebook et Instagram réglée</li><li>Présentoir avis Google avec QR code</li><li>Le 1er mois de gestion Réseaux compris</li></ul>
+<a class="o-btn" href="https://wa.me/41782133868?text=Bonjour%20Malik%2C%20je%20choisis%20l%27offre%20La%20totale%20%283%20000%20CHF%29%20du%20devis%20N%C2%B0%202026-10-IZGARA-01%20pour%20Izgara%2035." target="_blank" rel="noopener">Je choisis La totale</a></div>
+</div>
+
+<h2><small>Ensuite · vivement conseillé</small>Remplir la salle chaque mois</h2>
+<div class="o-month">
+<div><span><b>Réseaux</b>4 publications et 2 réels par mois, bilan chiffré</span><span class="pr"><s>490</s> 392 CHF<br><small style="font:500 12px 'DM Sans';color:var(--muted)">par mois</small></span></div>
+<div><span><b>Réseaux et publicité</b>8 publications et 4 réels, pub Facebook, Instagram et Google pilotée</span><span class="pr"><s>990</s> 792 CHF<br><small style="font:500 12px 'DM Sans';color:var(--muted)">par mois</small></span></div>
+</div>
+<p class="note" style="margin-top:12px"><b>Publicité : au moins 10 CHF par jour</b> (environ 300 CHF par mois, payés directement à Meta ou Google). Pour tester les messages et viser les bonnes personnes : le quartier d'Onex, les bureaux à midi, les familles le soir. Prix −20 % sur les 3 premiers mois si signé avant le 31.10.</p>
+
+<h2><small>Comment ça se passe</small>Trois étapes</h2>
+<ol class="o-steps">
+<li><b>Vous choisissez</b> votre offre avec le bouton : le message part sur WhatsApp.</li>
+<li><b>Acompte de 50 %</b> et date du shooting photo (offres Signature et La totale).</li>
+<li><b>Tout est en ligne avant le 10 novembre</b>, le solde à la mise en ligne.</li>
+</ol>
+<a class="o-pdf" href="devis-izgara-35.pdf" download><span><b>Devis complet (PDF, 2 pages)</b><span>N° 2026-10-IZGARA-01 · conditions et bon pour accord</span></span><em>Télécharger</em></a>
+<p style="font-size:13px;color:var(--muted);margin-top:18px">Montants en CHF, hors TVA éventuelle. Budget publicitaire, impressions et abonnement de l'outil de commande payés à part. Voir aussi le <a href="#dossier" data-go="dossier" style="color:var(--braise);font-weight:700">dossier</a>, l'<a href="#site" data-go="site" style="color:var(--braise);font-weight:700">aperçu du site</a> et la <a href="#carte" data-go="carte" style="color:var(--braise);font-weight:700">carte</a>.</p>
+</div>
+</section>
+<section class="panel" id="p-dossier" hidden>
 <header>
 <img src="logo.svg" alt="Logo Izgara 35">
 <h1>Izgara 35</h1>
@@ -178,8 +260,6 @@ ul{padding-left:20px;margin:6px 0}
 <figure style="margin-bottom:10px"><img src="img/facade.jpg" alt="Façade" loading="lazy"><figcaption>Façade et enseigne lumineuse</figcaption></figure>
 <div class="grid">
 <figure><img src="img/sac.jpg" alt="Sac et box" loading="lazy"><figcaption>Sac kraft et box à emporter</figcaption></figure>
-<figure><img src="img/box.jpg" alt="Box de midi" loading="lazy"><figcaption>Box de midi avec sticker</figcaption></figure>
-<figure><img src="img/chef.jpg" alt="Chef au grill" loading="lazy"><figcaption>Tablier du chef</figcaption></figure>
 <figure><img src="img/fidelite.jpg" alt="Carte de fidélité" loading="lazy"><figcaption>Carte 35, papier et téléphone</figcaption></figure>
 </div>
 
@@ -233,13 +313,8 @@ ul{padding-left:20px;margin:6px 0}
 <li>Contenu vrai : shooting photo des plats phares, tournage avec son Insta 360 (visite du lieu, le chef au grill), et rendus 3D des plats phares à partir de vraies photos. Pas de plats inventés par IA.</li>
 </ul>
 
-<h2><small>08 · Tarifs</small>Un partenariat dans la durée</h2>
-<div class="price">
-<div class="offer hl"><span class="tag">Lancement</span><div class="p">900 CHF</div><p>Identité complète (logo et déclinaisons, couleurs, brandboard), site internet, cartes et menus refaits, visuels, ouverture et mise en place d'Instagram, carte de fidélité numérique et affiches QR.</p></div>
-<div class="offer"><span class="tag alt">Puis, chaque mois</span><h3>Réseaux</h3><div class="p">390 CHF / mois</div><p>4 publications et 2 réels par mois.</p></div>
-<div class="offer"><span class="tag alt">Option</span><h3>Premium</h3><div class="p"><s>990</s> 792 CHF</div><p>8 publications et 4 réels par mois, gestion des publicités Instagram et Facebook. Prix de lancement les 3 premiers mois si signé avant le 31.10.</p></div>
-</div>
-<p style="font-size:14px;color:var(--muted)">Engagement de 3 mois au départ, sans engagement ensuite. L'application viendra dans un second temps, avec notre partenaire, quand la base de clients fidèles sera là.</p>
+<h2><small>08 · Tarifs</small>Trois offres de lancement</h2>
+<p>Essentiel 900 CHF, Signature 1 490 CHF (recommandée, avec le photographe) ou La totale 2 990 CHF. Le détail, le devis et la vidéo sont dans l'onglet <a href="#offre" data-go="offre" style="color:var(--braise);font-weight:700">Offre</a>.</p>
 
 <h2><small>09 · Et maintenant</small>Prochaines étapes</h2>
 <ol>
@@ -259,10 +334,10 @@ ul{padding-left:20px;margin:6px 0}
 <div class="txt"><span class="eb">Grill d'Izmir · Onex</span><h3>Le vrai grill d'Izmir, à deux pas de chez vous</h3><p>Un chef d'Izmir, des brochettes grillées minute, des plateaux à partager.</p>
 <div class="btns"><a class="b1" href="#p-carte" data-go="carte">Voir la carte</a><a class="b2" href="#p-site">Réserver</a></div></div></div>
 <div class="s-sec"><span class="eb">À midi seulement</span><h4>Les Box 35</h4><p>Riz pilaf, viande grillée, sauce maison. Prêtes en quelques minutes, à emporter ou sur place.</p>
-<div class="s-img"><img src="img/box.jpg" alt="Box 35 au riz et adana" loading="lazy"></div>
+<div class="s-img"><img src="img/reel-comptoir.jpg" alt="Le comptoir du restaurant, salades et garnitures du jour" loading="lazy"></div>
 <ul class="s-list"><li><span><b>Box 35 kebap</b><i>Agneau, poulet ou mix, riz, frites</i></span><span class="pr">12.90</span></li><li><span><b>Box 35 mix</b><i>Kebap, falafel, nuggets, cordon bleu</i></span><span class="pr">14.90</span></li><li><span><b>Box 35 croustillante</b><i>Nuggets, tenders ou cordon bleu</i></span><span class="pr">12.50</span></li></ul></div>
 <div class="s-sec s-dark"><span class="eb">Le soir</span><h4>Le grill d'Izmir</h4><p>Iskender, adana, brochettes d'agneau : les recettes du chef, comme à Izmir.</p>
-<div class="s-img"><img src="img/chef.jpg" alt="Le chef au grill" loading="lazy"></div>
+<div class="s-img"><img src="img/reel-chef.jpg" alt="Le chef en cuisine" loading="lazy"></div>
 <div class="s-chips"><span class="on">Grill</span><span>Plateaux</span><span>Pides</span><span>Salades</span></div>
 <ul class="s-list"><li><span><b>Iskender du chef</b><i>Kebap, pain, sauce tomate, beurre, yaourt</i></span><span class="pr">23.–</span></li><li><span><b>Adana</b><i>Brochette d'agneau épicée, grillée minute</i></span><span class="pr">23.–</span></li><li><span><b>Brochette d'agneau</b></span><span class="pr">25.–</span></li><li><span><b>Plateau grill pour 2 / pour 4</b><i>Nouveau : assortiment du grill à partager</i></span><span class="pr" style="font:700 11px 'DM Sans';color:#D9A55B">Nouveau</span></li></ul></div>
 <div class="s-sec"><div class="s-loy"><img src="img/fidelite.jpg" alt="Carte 35"><div><b>La Carte 35</b>Scannez en caisse : 7 passages, la box est pour nous.</div></div></div>
@@ -316,7 +391,8 @@ ul{padding-left:20px;margin:6px 0}
 (function(){var b=document.querySelectorAll('.tabs button');function show(t){b.forEach(function(x){x.setAttribute('aria-selected',x.dataset.t===t)});document.querySelectorAll('.panel').forEach(function(p){p.hidden=p.id!=='p-'+t});window.scrollTo(0,0);try{history.replaceState(null,'','#'+t)}catch(e){}}
 b.forEach(function(x){x.addEventListener('click',function(){show(x.dataset.t)})});
 document.querySelectorAll('[data-go]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();show(a.dataset.go)})});
-var h=location.hash.replace('#','');if(h==='site'||h==='carte')show(h);})();
+var h=location.hash.replace('#','');if(h==='dossier'||h==='site'||h==='carte'||h==='offre')show(h);
+var el=document.getElementById('o-left');if(el){var d=Math.ceil((new Date('2026-10-31T23:59:59+01:00')-new Date())/864e5);if(d<0)el.textContent='offre de lancement terminée le 31 octobre';else if(d<=1)el.textContent='dernier jour : signez avant le 31 octobre à minuit';else el.textContent='plus que '+d+' jours, jusqu\'au 31 octobre';}})();
 </script>
 </body>
 </html>

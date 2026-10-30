@@ -16,7 +16,56 @@ def entre(texte, debut, fin):
 def section(nom):
     return entre(src, '<section class="%s"' % nom, '</section>')
 
+# Photos d'essai libres de droits (CC0, rawpixel via Openverse), posées dans les cadres en attendant le shooting
+PHOTOS = {
+    # Villes : photos libres de droits (CC0). Plats : visuels d'intention du lancement, sauce en beurre doré.
+    'Photo archive ou reconstitution': ('paris', 'Avenue des Champs-Élysées, Paris, photo d\'archive'),
+    'Photo · Les adresses': ('ibiza-ville', 'Ibiza, la vieille ville vue du port'),
+    'Photo · Façade, lac et Jet d\'eau': ('insta-6', 'Le burger de la maison face au Jet d\'eau'),
+    'Photo 6 · Façade, lac et Jet d\'eau': ('insta-6', 'Le burger de la maison face au Jet d\'eau'),
+    'Photo · Façade de Versoix': ('versoix', 'Le Léman vu de la rive'),
+    'Photo 6 · Façade et terrasse de Versoix': ('versoix', 'Le Léman vu de la rive'),
+    'Photo · Façade de Madrid': ('madrid', 'Façades de la Gran Vía, Madrid'),
+    'Photo · Façade d\'Ibiza': ('ibiza', 'Ruelle de la vieille ville d\'Ibiza'),
+    'Photo · Burger et baguette': ('coupe-large', 'Le burger de la maison coupé en deux'),
+    'Photo · La sauce': ('sauce', 'La sauce de la maison qui coule dans le pot'),
+    'Photo 3a · Couper': ('geste-couper', 'Le burger coupé net en deux'),
+    'Photo 3b · Tremper': ('geste-tremper', 'La moitié trempée dans la sauce'),
+    'Photo 3c · Croquer': ('geste-croquer', 'La moitié nappée de sauce, prête à croquer'),
+    'Photos 4 · Plats de la carte': ('carte', 'Le burger signature de la maison'),
+    'Photo 5 · Salle et comptoir': ('plancha-large', 'La viande écrasée sur la plancha'),
+    'Photo 7a': ('insta-1', 'La plancha'),
+    'Photo 7b': ('insta-2', 'Le burger assemblé'),
+    'Photo 7c': ('insta-3', 'Le burger coupé'),
+    'Photo 7d': ('insta-4', 'Le trempage'),
+    'Photo 7e': ('insta-5', 'Le burger en couches'),
+    'Photo 7f': ('insta-6', 'Face au Jet d\'eau'),
+}
+def poser_photos(contenu, racine):
+    for lab, (f, alt) in PHOTOS.items():
+        motif = re.compile(r'(<(?:div|figure) class="[^"]*\b(?:ix-ph|ph)\b[^"]*"[^>]*>)(\s*<(?:figcaption|span)><b>' + re.escape(lab) + '</b>)')
+        img = '<img class="ph-img" src="%sassets/photos/%s.webp" alt="%s" loading="lazy" decoding="async">' % (racine, f, html.escape(alt))
+        contenu = motif.sub(lambda m: m.group(1) + img + m.group(2), contenu)
+    return contenu.replace('Maquette Nouvelle Ardoise · photos à venir', 'Maquette Nouvelle Ardoise · photos d\'essai (villes libres de droits, plats en visuels d\'intention), remplacées au shooting')
+
+# Mentions entre crochets (à confirmer par le client) : version propre en présentation, crochets en mode notes
+A_CONFIRMER = {'Statut à confirmer': 'Bientôt', 'date à confirmer': 'en novembre', 'Adresse à compléter': 'Adresse à venir',
+               '@compte à compléter': 'Suivre la maison', 'origine': '', '+41 00 000 00 00': '', 'Instagram': 'Instagram'}
+def mentions(contenu):
+    def remplace(m):
+        brut = m.group(1)
+        pres = A_CONFIRMER.get(brut, brut)
+        return '<span class="ac-pres">%s</span><span class="ac-note">[%s]</span>' % (pres, brut)
+    morceaux = re.split(r'(<script\b.*?</script>|<style\b.*?</style>|<[^>]+>)', contenu, flags=re.S)
+    for k in range(0, len(morceaux), 2):
+        morceaux[k] = re.sub(r'\[([^\]\[<>]{1,40})\]', remplace, morceaux[k])
+    return ''.join(morceaux)
+
 def ecrire(chemin, contenu):
+    if chemin.endswith('.html'):
+        # Date non confirmée : « Ouverture en novembre » en présentation, compte à rebours réservé au mode notes
+        contenu = contenu.replace('Ouverture le [date à confirmer]', 'Ouverture [date à confirmer]').replace('</span> · Ouverture', '</span><span class="j-sep"> · </span>Ouverture')
+        contenu = mentions(poser_photos(contenu, '../' * chemin.count('/')))
     chemin = os.path.join(SORTIE, chemin)
     os.makedirs(os.path.dirname(chemin), exist_ok=True)
     contenu = contenu.replace('<span class="lab">Contact</span>', '<span class="lab">Contact</span><a href="mailto:info@atelier-paris-burger.com">info@atelier-paris-burger.com</a>')
@@ -42,7 +91,7 @@ js = js.replace("  document.getElementById('agenda').href", "  if(document.getEl
 js = js.replace("  var form = document.getElementById('form-liste');\n", "  var form = document.getElementById('form-liste');\n  if(!form) return;\n")
 # Sur l'accueil, pas de prix ni de panier : la commande se fait dans une adresse
 js = js.replace("    $('fiche-prix').textContent = chf(p.prix) + ' · exemple';",
-                "    $('fiche-prix').textContent = maison ? 'Prix selon l\\'adresse' : chf(p.prix) + ' · exemple';")
+                "    $('fiche-prix').textContent = maison ? 'Prix selon l\\'adresse' : chf(p.prix) + (document.documentElement.classList.contains('notes') ? ' · exemple' : '');")
 js = js.replace("    q = 1; total();\n  }", "    q = 1; if(!maison) total();\n  }")
 js = js.replace("  $('ajouter').addEventListener('click', function(){",
                 "  if(maison){ $('ajouter').innerHTML = 'Commander dans une adresse'; }\n  $('ajouter').addEventListener('click', function(){\n    if(maison){ fermer(); location.hash = '#adresses'; return; }")
@@ -59,8 +108,8 @@ for avant, apres in [("duration:0.8, ease:'power3.out'", "duration:0.6, ease:'po
     assert avant in js, avant
     js = js.replace(avant, apres)
 ICI = os.path.dirname(os.path.abspath(__file__))
-immersif_js = open(os.path.join(ICI, 'immersif.js'), encoding='utf-8').read()
-immersif_css = open(os.path.join(ICI, 'immersif.css'), encoding='utf-8').read()
+immersif_js = open(os.path.join(ICI, 'immersif.js'), encoding='utf-8').read() + open(os.path.join(ICI, 'sauce.js'), encoding='utf-8').read() + open(os.path.join(ICI, 'ouverture.js'), encoding='utf-8').read() + open(os.path.join(ICI, 'fiche-visuel.js'), encoding='utf-8').read()
+immersif_css = open(os.path.join(ICI, 'immersif.css'), encoding='utf-8').read() + open(os.path.join(ICI, 'sauce.css'), encoding='utf-8').read() + open(os.path.join(ICI, 'photos.css'), encoding='utf-8').read() + open(os.path.join(ICI, 'ouverture.css'), encoding='utf-8').read()
 ecrire('assets/apb.js', '// Atelier Paris Burger · scripts partagés (maquette Nouvelle Ardoise)\n' + js + immersif_js)
 
 # Intro au scroll : classes préfixées « ix- » pour ne pas croiser celles du site
@@ -121,7 +170,21 @@ css_maison = r'''
 .fil a{color:var(--or);text-decoration:none}
 .fil a:hover{text-decoration:underline}
 '''
-ecrire('assets/apb.css', '/* Atelier Paris Burger · styles partagés (maquette Nouvelle Ardoise) */\n' + css + css_maison + immersif_css)
+# Décor allégé (choix de Malik, 25.10) : la police machine à écrire en petites capitales faisait « site généré ».
+# Les étiquettes passent en Manrope, en minuscules, à 13 px minimum. Seuls la signature de la marque et le sceau gardent les capitales.
+GARDER_CAPITALES = ('.marque span', '.pied .logo p', '.sceau text')
+def alleger(feuille):
+    def regle(m):
+        sel, corps = m.group(1), m.group(2)
+        if 'var(--f-mono)' not in corps or sel.strip().endswith(GARDER_CAPITALES):
+            return m.group(0)
+        corps = corps.replace(';text-transform:uppercase', '').replace('text-transform:uppercase;', '').replace('text-transform:uppercase', '')
+        corps = re.sub(r'letter-spacing:\.\d+em', 'letter-spacing:.005em', corps)
+        corps = re.sub(r'(font:\s*\d{3}\s+)(\d+(?:\.\d+)?)px', lambda f: f.group(1) + ('13' if float(f.group(2)) < 13 else f.group(2)) + 'px', corps)
+        return sel + '{' + corps + '}'
+    feuille = re.sub(r'([^{}]+)\{([^{}]*)\}', regle, feuille)
+    return feuille.replace('--f-mono:"DM Mono",ui-monospace,Menlo,monospace', '--f-mono:"Manrope","Helvetica Neue",Arial,sans-serif')
+ecrire('assets/apb.css', alleger('/* Atelier Paris Burger · styles partagés (maquette Nouvelle Ardoise) */\n' + css + css_maison + immersif_css))
 
 # ---------- Adresses ----------
 def maps(a):
@@ -133,9 +196,9 @@ ADRESSES = [
     {'slug': 'geneve-versoix', 'ville': 'Genève', 'quartier': 'Versoix', 'pays': 'CH', 'devise': 'CHF', 'etat': 'ouvert',
      'statut': '[Statut à confirmer]', 'sous': 'Quai de Versoix 1, au bord du lac', 'adresse': 'Quai de Versoix 1<br>1290 Versoix', 'photo': 'Façade de Versoix'},
     {'slug': 'madrid', 'ville': 'Madrid', 'quartier': '[Quartier]', 'pays': 'ES', 'devise': '€', 'etat': 'prepa',
-     'statut': 'Ouvert', 'sous': '[Adresse à compléter]', 'photo': 'Façade de Madrid'},
+     'statut': 'Ouvert', 'sous': 'Madrid, Espagne', 'photo': 'Façade de Madrid'},
     {'slug': 'ibiza', 'ville': 'Ibiza', 'quartier': '[Quartier]', 'pays': 'ES', 'devise': '€', 'etat': 'prepa',
-     'statut': 'Ouvert', 'sous': '[Adresse à compléter]', 'photo': "Façade d'Ibiza"},
+     'statut': 'Ouvert', 'sous': 'Ibiza, Baléares', 'photo': "Façade d'Ibiza"},
 ]
 
 def nom_complet(a):
@@ -153,7 +216,7 @@ def tete(titre, description, prefixe_assets, extra_css=''):
 <meta name="theme-color" content="#4A1019">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Manrope:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Manrope:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="%sassets/apb.css">%s
 </head>
 ''' % (html.escape(titre), html.escape(description), prefixe_assets, extra_css)
@@ -242,7 +305,7 @@ def carte_adresses(racine, actuelle=None):
 def pied(racine, a=None):
     adr = ''.join('<a href="%s%s/">%s</a>' % (racine, x['slug'], nom_complet(x)) for x in ADRESSES)
     if a:
-        col1 = '<div class="col"><span class="lab">%s</span><p>%s</p><a href="#atelier">Plan d\'accès</a></div>' % (html.escape(nom_complet(a)), a.get('adresse', '[Adresse à compléter]<br>' + a['ville']))
+        col1 = '<div class="col"><span class="lab">%s</span><p>%s</p><a href="#atelier">Plan d\'accès</a></div>' % (html.escape(nom_complet(a)), a.get('adresse', a['sous']))
         col2 = '<div class="col"><span class="lab">Horaires</span><p>[Lun – Jeu 11h30 – 22h]<br>[Ven – Dim 11h30 – 23h]</p></div>'
     else:
         col1 = '<div class="col"><span class="lab">Nos adresses</span>%s</div>' % adr
@@ -267,13 +330,14 @@ def scripts_fin(racine):
 ''' % racine
 
 def carte_devise(sec, devise):
+    sec = re.sub(r"Noms et prix d'exemple[^<]*", "La carte signature, la même dans toutes nos adresses. Touchez un plat pour le découvrir.", sec)
     if devise == '€':
-        sec = re.sub(r'\[(\d+)\.–\]', lambda m: '[%d,50 €]' % max(1, int(m.group(1)) - 6), sec)
-        sec = sec.replace('Noms et prix d\'exemple', 'Noms et prix d\'exemple en euros')
+        sec = re.sub(r'\[(\d+)\.–\]', lambda m: '[%d,50 €]' % max(1, int(m.group(1)) - 1), sec)
+        sec = re.sub(r"Noms et prix d'exemple[^<]*", "La carte signature, la même dans toutes nos adresses. Touchez un plat pour le découvrir.", sec)
     return sec
 
 # Sections reprises de la page Genève
-s_carte = section('carte'); s_atelier = section('atelier'); s_appli = section('appli')
+s_carte = section('carte').replace('Pain brioché, bœuf [origine]', 'Pain brioché, steak smashé'); s_atelier = section('atelier'); s_appli = section('appli')
 s_liste = section('liste'); s_insta = section('insta'); s_geste = section('geste')
 s_ouverture = section('ouverture')
 
@@ -284,6 +348,8 @@ def page_adresse(a):
     liens = [(r, 'La maison'), ('#carte', 'La carte'), ('#atelier', "L'adresse")]
     if a['etat'] == 'ouverture':
         cta, href = "Liste d'ouverture", '#liste'
+    elif a['etat'] == 'prepa':
+        cta, href = 'La carte', '#carte'
     else:
         cta, href = 'Commander', '#appli'
     o = s_ouverture
@@ -294,13 +360,15 @@ def page_adresse(a):
     if a['etat'] == 'ouverture':
         o = o.replace("Ouverture le [date à confirmer] · Face au Jet d'eau", "Ouverture le [date à confirmer] · Eaux-Vives, face au Jet d'eau")
         o = o.replace("<p data-reveal>Burger, baguette et sauce Café de Paris. Genève, face au Jet d'eau.</p>",
-                      "<p data-reveal>Burger, baguette et la sauce de la maison. Aux Eaux-Vives, face au Jet d'eau.</p>")
+                      "<p data-reveal>La sauce de Paris a trouvé son quai.</p>")
     else:
         o = o.replace('<span class="lab"><span class="j-moins" data-jours>J-21</span> · Ouverture le [date à confirmer] · Face au Jet d\'eau</span>',
                       '<span class="lab">%s · %s</span>' % (a['statut'], a['sous']))
         o = o.replace("<p data-reveal>Burger, baguette et sauce Café de Paris. Genève, face au Jet d'eau.</p>",
                       '<p data-reveal>Burger, baguette et la sauce de la maison. %s.</p>' % lieu)
-        o = o.replace('<a class="btn btn-plein" href="#liste">Rejoindre la liste d\'ouverture</a>', '<a class="btn btn-plein" href="#appli">Commander</a>')
+        o = o.replace('<a class="btn btn-plein" href="#liste">Rejoindre la liste d\'ouverture</a>', '<a class="btn btn-plein" href="%s">%s</a>' % (href, 'Voir la carte' if a['etat'] == 'prepa' else 'Commander'))
+    if a['etat'] == 'prepa':
+        o = o.replace('<a class="btn btn-contour" href="#carte">Voir la carte</a>', '<a class="btn btn-contour" href="#adresses">Nos adresses</a>')
     corps = [o]
     if a['etat'] == 'prepa':
         corps.append('''  <section class="prepa" id="atelier">
@@ -372,6 +440,9 @@ partie = re.sub(r"(\}, )(\d+(?:\.\d+)?)\)", decale, partie)
 ijs2 = ijs2[:ijs2.index('  // 3. Ils s')] + partie
 ijs2 = ijs2.replace("gsap.from(el, {y:60, opacity:0, duration:1, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 82%', once:true}});",
                     "gsap.fromTo(el, {y:40, opacity:0}, {y:0, opacity:1, duration:0.7, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 85%', once:true}});")
+ijs2 = ijs2.replace("    .to('#plongee', {clipPath:'circle(150% at 50% 88%)', duration:1.4, ease:'power2.in'}, 6.2)\n", "")
+ijs2 = ijs2.replace("    .to('#dedans h2', {scale:1.04, duration:0.8}, 7.5);", "    .to('#dedans h2', {scale:1.04, duration:0.8}, 7.5);\n  if(window.apbSauce) window.apbSauce(tl, 5.75, 6.2);")
+assert 'apbSauce' in ijs2 and "clipPath:'circle" not in ijs2
 ijs2 = ijs2.replace("end:'+=600%'", "end:'+=700%'").replace(",\n    onUpdate:function(s){ gsap.set('#progres', {scaleX:s.progress}); }", "")
 assert '#mot0' in ijs2 and "end:'+=700%'" in ijs2
 
@@ -380,7 +451,7 @@ def barre_villes():
 
 ihtml2 = ihtml.replace('<div class="ix-mot" id="mot1">Assembler.</div>', '<div class="ix-mot" id="mot0">Smasher.</div>\n    <div class="ix-mot" id="mot1">Assembler.</div>')
 ihtml2 = ihtml2.replace('<h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Genève, face au Jet d\'eau · novembre 2026</p>',
-                        '<h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Paris · Madrid · Ibiza · Genève</p>' + barre_villes())
+                        '<h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Née à Paris. Servie à Madrid, Ibiza et Genève.</p>' + barre_villes())
 ihtml2 = ihtml2.replace('<b>Prototype de mouvement.</b> Les cadres dorés seront les vraies photos détourées de chaque ingrédient, prises au shooting.',
                         '<b>Prototype de mouvement.</b> Les cadres dorés seront la séquence filmée : smash, assemblage, coupe, trempage.')
 assert 'mot0' in ihtml2
@@ -396,23 +467,73 @@ def chapitre(an, lab, titre, texte, photo, cadre):
 CHAPITRES = (
     '    <div class="ix-entete" data-r><span class="lab">L\'histoire</span><h2>Une maison née d\'une histoire construite dans le temps.</h2></div>\n' +
     chapitre('Paris', 'Chapitre 1 · Fin des années 1970',
-             'Une sauce naît à Paris.',
-             'Au cœur de la maison, notre sauce Café de Paris, travaillée à Paris dès la fin des années 1970 et le début des années 1980.',
+             'Fin des années 1970.',
+             'Dans une cuisine parisienne, une sauce au beurre et aux herbes trouve sa recette. Elle ne la quittera plus.',
              'Photo archive ou reconstitution', 'Cuisine parisienne · 3:2') +
     chapitre('40 ans', 'Chapitre 2 · Transmise',
-             'Transmise, affinée, perfectionnée.',
-             'Plus de quarante ans de savoir-faire, servie pendant des décennies dans des restaurants parisiens emblématiques. Elle est aujourd\'hui notre signature.',
+             'La recette ne s\'écrit pas. Elle se transmet.',
+             'Pendant plus de quarante ans, elle a été servie dans des brasseries de Paris. Peu de gens savent ce qu\'elle contient. Nous en faisons partie.',
              'Photo · La sauce', 'Très gros plan, cuillère, texture · 3:2') +
     chapitre('Atelier', 'Chapitre 3 · Le geste',
-             'Faire évoluer l\'héritage, pas le copier.',
-             'Le burger premium et la baguette portent un savoir-faire précis, exigeant et constant. Fidèle à l\'esprit d\'origine, avec sa propre identité.',
+             'La sauce n\'a pas changé. On lui a fait un burger.',
+             'Pain brioché, double smash, cheddar, oignons. Rien dedans ne couvre son goût : elle est servie à côté, et c\'est vous qui trempez.',
              'Photo · Burger et baguette', 'Côte à côte, même lumière · 3:2') +
     chapitre('Europe', 'Chapitre 4 · Aujourd\'hui',
-             'De Genève à l\'Europe.',
-             'Un restaurant phare à Genève, l\'Espagne pour première étape avec Madrid, Barcelone et Ibiza, et des cuisines dédiées à la livraison à travers l\'Europe.',
+             'Madrid, Ibiza, et bientôt Genève.',
+             'La même recette, la même saucière, sur chaque table. Genève ouvre en novembre, face au Jet d\'eau.',
              'Photo · Les adresses', 'Montage de façades, même cadrage · 3:2'))
 debut = ihist2.index('    <div class="ix-chap">'); fin = ihist2.index('  </section>', debut)
 ihist2 = ihist2[:debut] + CHAPITRES + ihist2[fin:]
+
+# ---------- Ouverture : le burger et l'histoire en alternance (accueil et page de simulation) ----------
+# Visuels d'intention générés pour le lancement, sauce recolorée en beurre doré ; remplacés au shooting.
+# Ordre voulu par Malik : assembler, smasher, couper, tremper. Les chapitres de l'histoire s'intercalent.
+OV_COUCHES = [('ov-pbas', 'couche-pain-bas', 'd', 82, 'Pain brioché toasté'),
+              ('ov-oignons', 'couche-oignons', 'd', 71.5, 'Oignons'),
+              ('ov-steaks', 'couche-steaks', 'd', 50, 'Double smash, cheddar'),
+              ('ov-phaut', 'couche-pain-haut', 'd', 17.6, 'Pain brioché')]
+OV_CHAPITRES = [
+    ('Paris', 'Chapitre 1 · Fin des années 1970', 'Fin des années 1970.',
+     'Dans une cuisine parisienne, une sauce au beurre et aux herbes trouve sa recette. Elle ne la quittera plus.',
+     None),
+    ('40 ans', 'Chapitre 2 · Transmise', 'La recette ne s\'écrit pas. Elle se transmet.',
+     'Pendant plus de quarante ans, elle a été servie dans des brasseries de Paris. Peu de gens savent ce qu\'elle contient. Nous en faisons partie.', None),
+    ('Atelier', 'Chapitre 3 · Le geste', 'La sauce n\'a pas changé. On lui a fait un burger.',
+     'Pain brioché, double smash, cheddar, oignons. Rien dedans ne couvre son goût : elle est servie à côté, et c\'est vous qui trempez.', None),
+    ('Aujourd\'hui', 'Chapitre 4 · Aujourd\'hui', 'Madrid, Ibiza, et bientôt Genève.',
+     'La même recette, la même saucière, sur chaque table. Genève ouvre en novembre, face au Jet d\'eau.',
+     None)]
+OV_ETAPES = [('plancha', 'Smasher.', 'Le bœuf écrasé sur la plancha, jusqu\'à la croûte.', '50% 45%'),
+             ('coupe', 'Couper.', 'Net, en deux, le cheddar qui file.', '50% 47%'),
+             ('trempe', 'Tremper.', 'La sauce, à part. Chaque bouchée y plonge.', '50% 78%')]
+
+def ouverture_html(racine):
+    S = racine + 'assets/simulation/'
+    img = lambda f, cls, pos='': '<img class="%s" src="%s%s.webp" alt="" width="1080" height="1935" decoding="async"%s>' % (cls, S, f, ' style="object-position:%s"' % pos if pos else '')
+    villes = barre_villes().replace('<a href="', '<a href="' + racine)
+    hero = ('    <div class="ov-p ov-hero" id="titre"><div class="ov-hero-in"><h1>Une maison.<br>Une <em>sauce</em>.</h1><p>Née à Paris. Servie à Madrid, Ibiza et Genève.</p>' + villes + '</div>'
+            '<div class="ov-indice" aria-hidden="true"><span class="lab">Faites défiler</span><i></i></div>'
+            '<figure class="ov-hero-img"><img src="%shero-trempe.webp" alt="Le burger trempé dans la sauce Café de Paris" width="1536" height="2752" fetchpriority="high" decoding="async">'
+            '<figcaption class="ov-credit">Visuel d\'intention, remplacé au shooting</figcaption></figure></div>\n' % S)
+    couches = ''.join('<div class="ov-couche" id="%s">%s<span class="ov-etq %s%s" style="top:%s%%">%s</span></div>' % (i, img(f, ''), cote, ' ov-etq-sauce' if i == 'ov-sauce' else '', top, txt) for i, f, cote, top, txt in OV_COUCHES)
+    assemble = ('    <figure class="ov-p ov-v ov-assemblage" id="v-assemble" aria-label="Assembler"><div class="ov-pile" aria-hidden="true">' + couches + '</div><div class="ov-ombre"></div>'
+                '<figcaption class="ov-mot">Assembler.<small>Pain brioché, double steak, cheddar et oignons. La sauce, elle, attend à côté.</small></figcaption></figure>\n')
+    def chap(c):
+        an, lab, titre, texte, ph = c
+        photo = '<div class="ix-ph"><span><b>%s</b>%s</span></div>' % ph if ph else ''
+        return '    <article class="ov-p ov-t"><div class="ix-an" data-r>%s</div><div data-r><h3>%s</h3><p>%s</p></div>%s</article>\n' % (an, titre, texte, photo)
+    def etape(e):
+        f, mot, sous, pos = e
+        return ('    <figure class="ov-p ov-v" aria-label="%s">%s<div class="ov-ombre"></div><figcaption class="ov-mot">%s<small>%s</small></figcaption></figure>\n'
+                % (mot.rstrip('.'), img(f, 'ov-img', pos).replace('alt=""', 'alt="%s"' % sous.rstrip('.')), mot, sous))
+    # Le burger d'abord, seul, à l'horizontale ; l'histoire ensuite, dans sa propre section (retour Malik 25.10 : mélangés, on ne comprenait rien)
+    hist = ''.join('      <li class="hist-ch"><span class="hist-mot">%s</span><h3>%s</h3><p>%s</p></li>\n' % (an, titre, texte) for an, lab, titre, texte, ph in OV_CHAPITRES)
+    histoire = ('<section class="hist" id="histoire" aria-labelledby="hist-titre">\n  <div class="wrap">\n'
+                '    <h2 id="hist-titre">Quarante ans dans une <em>saucière</em>.</h2>\n'
+                '    <ol class="hist-liste">\n' + hist + '    </ol>\n  </div>\n</section>\n')
+    return ('<section class="ov-hero-s" aria-label="Accueil">\n' + hero.replace('class="ov-p ov-hero"', 'class="ov-hero"') + '</section>\n'
+            '<section class="ov" id="ouverture" aria-label="Le burger, étape par étape">\n  <h2 class="sr-only">Le burger, étape par étape</h2>\n  <div class="ov-piste" id="piste">\n'
+            + assemble + ''.join(etape(e) for e in OV_ETAPES) + '  </div>\n</section>\n' + histoire)
 
 js_maison = '''<script>
 // Ouverture au scroll : smasher, assembler, couper, tremper, plonger dans la sauce
@@ -426,11 +547,32 @@ js_maison = '''<script>
 '''
 carte_m = s_carte.replace('<section class="carte" id="carte">', '<section class="carte carte-maison" id="carte">')
 carte_m = carte_m.replace("Noms et prix d'exemple, à remplacer par la carte définitive. Les signatures sont servies avec la sauce Café de Paris.",
-                          "La carte signature, la même dans toutes nos adresses. Prix et disponibilités selon l'adresse. Touchez un plat pour le voir en 3D.")
+                          "La carte signature, la même dans toutes nos adresses. Prix et disponibilités selon l'adresse. Touchez un plat pour le découvrir.")
 accueil = tete('Atelier Paris Burger · La maison', 'Une maison, une sauce. Burger, baguette et la sauce de la maison, à Madrid, Ibiza et Genève.', '') + \
     '<body data-page="maison">\n' + logo + '\n' + \
-    entete('./', [('#histoire', "L'histoire"), ('#carte', 'La carte')], 'Nos adresses', '#adresses') + \
-    '\n<main id="contenu">\n' + ihtml2 + '\n\n' + ihist2 + '\n\n' + s_geste + '\n\n' + carte_m + '\n\n' + carte_adresses('') + '\n' + s_insta + '\n</main>\n\n' + \
-    pied('') + '\n' + fiche + '\n' + scripts_fin('') + js_maison + '</body>\n</html>\n'
+    entete('./', [('#histoire', "L'histoire"), ('#carte', 'La carte')], 'Liste d\'ouverture', 'geneve-eaux-vives/#liste') + \
+    '\n<main id="contenu">\n' + ouverture_html('') + '\n\n' + carte_m + '\n\n' + carte_adresses('') + '\n' + s_insta + '\n</main>\n\n' + \
+    pied('') + '\n' + fiche + '\n' + scripts_fin('') + '</body>\n</html>\n'
 ecrire('index.html', accueil)
+
+# ---------- Page de simulation : la même ouverture, seule, pour la présenter ----------
+fin_sim = '''<section class="sim-fin">
+  <span class="lab">Simulation · avant le tournage</span>
+  <h2>Le mouvement est là.<br>Il manque la vraie lumière.</h2>
+  <p>Cette page teste l'ouverture avec des visuels d'intention. Au shooting, on filme le vrai geste : l'assemblage couche par couche, la viande écrasée sur la plaque, la coupe, le burger trempé dans la sauce.</p>
+  <div class="actions"><a class="btn" href="../">Revenir à la maison</a></div>
+</section>'''
+css_sim = '''.sim-fin{background:var(--bordeaux);color:var(--creme);text-align:center;padding:120px var(--gutter)}
+.sim-fin .lab{color:var(--or)}
+.sim-fin h2{font-size:clamp(36px,5vw,80px);margin-top:16px}
+.sim-fin p{margin:20px auto 0;max-width:54ch;color:#C9AE97}
+.sim-fin .actions{margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.sim-fin .btn{background:var(--creme);color:var(--bordeaux);border-color:var(--creme)}
+'''
+simulation = tete('Atelier Paris Burger · Simulation de l\'ouverture', 'Essai de l\'ouverture au scroll avant le tournage.', '../', '\n<style>\n' + css_sim + '</style>') + \
+    '<body data-page="maison" class="sim">\n' + logo + '\n' + \
+    entete('../', [('../#ouverture', "L'histoire"), ('../#carte', 'La carte')], 'Liste d\'ouverture', '../geneve-eaux-vives/#liste') + \
+    '\n<main id="contenu">\n' + ouverture_html('../') + '\n\n' + fin_sim + '\n</main>\n\n' + \
+    pied('../') + '\n' + scripts_fin('../') + '</body>\n</html>\n'
+ecrire('simulation/index.html', simulation)
 print('ok')
