@@ -213,10 +213,12 @@ const jsonLd = JSON.stringify({
     <ul class="metiers">
       {METIERS.map((m) => (
         <li class:list={['metier', { 'metier--phare': m.specialite }]}>
-          <h3>{m.nom}{m.specialite && <span class="metier__badge">Notre spécialité</span>}</h3>
+          <div class="metier__nom">
+            <h3>{m.nom}{m.specialite && <span class="metier__badge">Notre spécialité</span>}</h3>
+            {m.lien && <a class="metier__lien" href={m.lien}>{m.ancre} <span aria-hidden="true">→</span></a>}
+          </div>
           <p class="metier__besoin">{m.besoin}</p>
           <p class="metier__plus"><span class="etiquette">En plus pour vous</span>{m.plus}</p>
-          {m.lien && <a class="metier__lien" href={m.lien}>{m.ancre} <span aria-hidden="true">→</span></a>}
         </li>
       ))}
     </ul>
@@ -464,15 +466,16 @@ h3 { margin: 0; }
 
 /* Métiers */
 .metiers { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--encre); }
-.metier { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 4fr) minmax(0, 3.6fr) 60px; gap: 20px; align-items: baseline; padding-block: 24px; border-bottom: 1px solid var(--filet); }
+.metier { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 4fr) minmax(0, 3.6fr); gap: 20px 28px; align-items: baseline; padding-block: 24px; border-bottom: 1px solid var(--filet); }
+.metier__nom { display: grid; gap: 10px; justify-items: start; }
 .metier::before { content: ""; position: absolute; z-index: -1; inset: 0 -16px; border-radius: var(--r-s); background: var(--papier-2); opacity: 0; transition: opacity .25s; }
 .metier h3 { font-size: clamp(22px, 2.2vw, 28px); font-weight: 650; letter-spacing: -.025em; line-height: 1.1; }
 .metier__badge { display: inline-block; vertical-align: middle; margin-left: 10px; font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; background: var(--craie); padding: 3px 8px; border-radius: 999px; }
 .metier__besoin { margin: 0; color: var(--gris); }
 .metier__plus { margin: 0; display: grid; gap: 2px; font-size: 15px; }
-.metier__lien { justify-self: end; font-weight: 600; text-decoration: none; }
+.metier__lien { font-size: 15px; font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; text-decoration-color: color-mix(in srgb, var(--encre) 30%, transparent); transition: text-decoration-color .2s; }
 .metier__lien::after { content: ""; position: absolute; inset: 0; }
-@media (hover: hover) and (pointer: fine) { .metier:has(.metier__lien):hover::before { opacity: 1; } }
+@media (hover: hover) and (pointer: fine) { .metier:has(.metier__lien):hover::before { opacity: 1; } .metier:has(.metier__lien):hover .metier__lien { text-decoration-color: currentColor; } }
 .metier--phare h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 2.8vw, 36px); letter-spacing: -.02em; }
 
 /* Carte */
@@ -566,11 +569,10 @@ html:not(.js) .carte__ville text { opacity: 1; }
   .preuve { grid-template-columns: minmax(0, 1fr); }
   .qui { grid-template-columns: minmax(0, 1fr); }
   .qui__portrait { max-width: 260px; }
-  .metier { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 40px; }
-  .metier h3 { grid-column: 1; grid-row: 1 / span 2; }
+  .metier { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .metier__nom { grid-column: 1; grid-row: 1 / span 2; align-self: start; }
   .metier__besoin { grid-column: 2; grid-row: 1; }
   .metier__plus { grid-column: 2; grid-row: 2; }
-  .metier__lien { grid-column: 3; grid-row: 1; }
 }
 @media (max-width: 760px) {
   .ouv { padding-top: 20px; }
@@ -590,9 +592,10 @@ html:not(.js) .carte__ville text { opacity: 1; }
   .ecran__chip { top: 10px; right: 10px; }
   .g__carte { height: 72px; }
   .bi__voyants { grid-template-columns: 1fr; }
-  .metier { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 10px; }
-  .metier h3, .metier__besoin, .metier__plus { grid-column: 1; grid-row: auto; }
-  .metier__lien { grid-column: 2; grid-row: 1; }
+  .metier { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .metier__nom { display: contents; }
+  .metier h3, .metier__besoin, .metier__plus, .metier__lien { grid-column: 1; grid-row: auto; }
+  .metier__lien { order: 9; margin-top: 6px; justify-self: start; }
   .metier__badge { margin: 6px 0 0; display: table; }
   .etapes { grid-template-columns: 1fr; gap: 28px; }
   .spe { grid-template-columns: 1fr; }

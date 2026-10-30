@@ -100,8 +100,8 @@ html:not(.js) .tv__cherche, html:not(.js) .tv__voyants, html:not(.js) .tv__msg {
 
 .tv__voyants { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1px; background: var(--filet-nuit); border: 1px solid var(--filet-nuit); border-radius: var(--r-s); overflow: hidden; scroll-margin-top: 90px; }
 .tv-v { min-width: 0; background: var(--nuit); padding: 14px; display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "p n" "v v" "d d"; column-gap: 8px; align-items: center; min-height: 104px; align-content: start; }
-.tv-v__point { grid-area: p; width: 10px; height: 10px; border-radius: 50%; background: #4A443A; transition: background-color .5s, box-shadow .5s; }
-.tv-v__nom { grid-area: n; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris-nuit); }
+.tv-v__point { grid-area: p; align-self: start; margin-top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #4A443A; transition: background-color .5s, box-shadow .5s; }
+.tv-v__nom { grid-area: n; font-family: var(--mono); font-size: 12px; line-height: 18px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris-nuit); }
 .tv-v__valeur { grid-area: v; font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.1; margin-top: 6px; overflow-wrap: normal; }
 .tv-v__vide { font-family: var(--grotesk); font-size: 15px; color: var(--gris-nuit); margin-top: 14px; }
 .tv-v__detail { grid-area: d; font-size: 13px; line-height: 1.35; color: var(--gris-nuit); margin-top: 2px; }
@@ -143,6 +143,7 @@ html:not(.js) .tv__cherche, html:not(.js) .tv__voyants, html:not(.js) .tv__msg {
   .tv__trouves button:not(.hors):hover { border-color: var(--craie); background: var(--encre-2); }
 }
 @media (max-width: 520px) { .tv__champs { grid-template-columns: 1fr; } .tv-v__valeur { font-size: 26px; } .tv-v { min-height: 96px; } }
+@media (max-width: 400px) { .tv-v__nom { letter-spacing: .04em; } }
 @media (max-width: 360px) { .tv__voyants { grid-template-columns: minmax(0, 1fr); } .tv-v { min-height: 0; padding: 12px 14px; } .tv-v__valeur { font-size: 24px; margin-top: 2px; } }
 @media (prefers-reduced-motion: reduce) { .tv__direct::after, .tv.cherche .tv-v__point, .tv-v.revele .tv-v__valeur, .tv-v.revele .tv-v__detail, .tv__axes li, .tv__contact.revele, .tv__merci { animation: none; } .tv-v.revele .tv-v__point { transition-delay: 0s; } }
 </style>
