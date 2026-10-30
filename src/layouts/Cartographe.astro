@@ -57,6 +57,8 @@ const MENU = [
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={imageUrl} />
+  <meta name="twitter:image:alt" content={imageAlt} />
   {jsonLd && <script type="application/ld+json" is:inline set:html={jsonLd} />}
   <style is:global>
 :root {
@@ -139,7 +141,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <a class="marque" href="/" aria-label="Nouvelle Ardoise, accueil"><svg viewBox="0 0 32 36" aria-hidden="true"><path d="M6 30V6l20 24V6"/></svg><span>Nouvelle Ardoise</span></a>
     <nav class="nav" aria-label="Navigation principale">
       {MENU.map((m) => <a href={m.href} aria-current={m.page === chemin ? 'page' : undefined}>{m.nom}</a>)}
-      <a class="tel" href="tel:+41782133868">078 213 38 68</a>
+      <a class="tel" href="tel:+41782133868">078 213 38 68</a>
       {cta === 'test'
         ? <a class="btn btn--craie btn--petit" href={test} data-cta>Tester ma visibilité</a>
         : <a class="btn btn--creux btn--petit" href="tel:+41782133868">Appeler</a>}
@@ -151,11 +153,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   <slot />
 </main>
 
-<footer class="pied"><div class="cadre"><span>Nouvelle Ardoise · Agence de marketing et de communication · {SITE.adresse}, {SITE.localite} · 078 213 38 68 · Genève, Vaud et Suisse romande</span><span><a href="/restauration/">Restauration</a> · <a href="/artisans/">Artisans</a> · <a href="/realisations/">Réalisations</a> · <a href="/contact/">Contact</a> · <a href="/questions/">Questions</a> · <a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a></span></div></footer>
+<footer class="pied"><div class="cadre"><span>Nouvelle Ardoise · Agence de marketing et de communication · {SITE.adresse}, {SITE.localite} · 078 213 38 68 · Genève, Vaud et Suisse romande</span><span><a href="/restauration/">Restauration</a> · <a href="/artisans/">Artisans</a> · <a href="/realisations/">Réalisations</a> · <a href="/contact/">Contact</a> · <a href="/questions/">Questions</a> · <a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a></span></div></footer>
 
 {barre && <nav class="barre" id="barre" aria-label="Actions rapides" inert>
   <a class="btn btn--craie" href={test} data-cta>Tester ma visibilité</a>
-  <a class="btn btn--creux" href="tel:+41782133868" aria-label="Appeler le 078 213 38 68">Appeler</a>
+  <a class="btn btn--creux" href="tel:+41782133868" aria-label="Appeler le 078 213 38 68">Appeler</a>
 </nav>}
 
 <script is:inline>

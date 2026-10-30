@@ -11,14 +11,14 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
 ---
 <section class="tv" id="test" aria-labelledby="tv-titre" data-api={api}>
   <div class="tv__tete">
-    <p class="tv__sur"><span class="tv__direct" aria-hidden="true"></span>En direct · 30 secondes · gratuit</p>
+    <p class="tv__sur"><span class="tv__direct" aria-hidden="true"></span>En direct · 30 secondes · gratuit</p>
     <Titre class="tv__titre" id="tv-titre">{titreTexte}</Titre>
   </div>
 
   <form class="tv__cherche" id="tv-form" autocomplete="off" novalidate>
     <label class="tv__label" for="tv-q">Le nom de votre commerce ou cabinet, et sa ville</label>
     <div class="tv__ligne">
-      <input id="tv-q" name="q" type="search" required minlength="3" maxlength="120" placeholder="Ex. : Le Fournil, Carouge" enterkeyhint="search" />
+      <input id="tv-q" name="q" type="search" required minlength="3" maxlength="120" placeholder="Ex. : Le Fournil, Carouge" enterkeyhint="search" />
       <button class="btn btn--craie" id="tv-lancer" type="submit">Tester</button>
     </div>
     <p class="tv__aide">Gratuit, sans inscription. Rien n’est publié.</p>
@@ -146,7 +146,7 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
   const cases = [...tv.querySelectorAll('.tv-v')];
   cases.forEach((c, i) => { c.style.setProperty('--i', i); c.dataset.nom = c.querySelector('.tv-v__nom').firstChild.textContent; });
   const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const TEL = '<a href="tel:+41782133868">078 213 38 68</a>';
+  const TEL = '<a href="tel:+41782133868">078 213 38 68</a>';
   const ETATS = { bon: 'Bon', moyen: 'À améliorer', faible: 'Faible', inconnu: 'Non mesuré' };
   const NB = ' ', FINE = ' ';
   let generation = 0, ctrl = null, minuterie = 0, choix = null, resultat = null;
@@ -198,7 +198,7 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const v = q.value.trim();
-    if (v.length < 3) { dire('Tapez au moins 3 lettres, avec la ville si possible.'); q.focus(); return; }
+    if (v.length < 3) { dire('Tapez au moins 3 lettres, avec la ville si possible.'); q.focus(); return; }
     const n = ++generation, signal = nouveauSignal(12000);
     clearInterval(minuterie); tv.classList.remove('cherche'); trouves.hidden = true; remettre(); choix = { nom: v };
     occupe(true, 'Recherche…'); dire('On cherche votre fiche sur Google…');
@@ -278,7 +278,7 @@ const VOYANTS = [['google', 'Google'], ['site', 'Site'], ['instagram', 'Instagra
     const telOk = !!tel && tel.replace(/\D/g, '').length >= 9, mailOk = !!mail && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail);
     [champTel, champMail].forEach((c) => c.removeAttribute('aria-invalid'));
     const refus = (champ, texte) => { err.textContent = texte; champ.setAttribute('aria-invalid', 'true'); champ.focus(); };
-    if (tel && !telOk) return refus(champTel, 'Ce numéro semble incomplet (9 chiffres au moins, par exemple 078 213 38 68).');
+    if (tel && !telOk) return refus(champTel, 'Ce numéro semble incomplet (9 chiffres au moins, par exemple 078 213 38 68).');
     if (mail && !mailOk) return refus(champMail, 'Cette adresse e-mail semble incomplète.');
     if (!telOk && !mailOk) return refus(champTel, 'Laissez un numéro de téléphone ou une adresse e-mail.');
     err.textContent = ''; envoyer.disabled = true; envoyer.textContent = 'Envoi…';

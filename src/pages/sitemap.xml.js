@@ -6,7 +6,7 @@ const PAGES = ['/', '/restauration/', '/restaurants/', '/artisans/', '/realisati
   ...ANIMATIONS.map((a) => `/animations/${a.id}/`), '/mentions-legales/', '/confidentialite/'];
 
 export function GET() {
-  const dates = { '/': '2026-10-29', '/restauration/': '2026-10-29', '/offres/': '2026-10-13', '/questions/': '2026-10-13', '/restaurants/': '2026-10-13', '/artisans/': '2026-10-13', '/realisations/': '2026-10-13', '/contact/': '2026-10-13' };
+  const dates = { '/': '2026-10-30', '/restauration/': '2026-10-30', '/offres/': '2026-10-13', '/questions/': '2026-10-13', '/restaurants/': '2026-10-13', '/artisans/': '2026-10-13', '/realisations/': '2026-10-13', '/contact/': '2026-10-13' };
   const jour = '2026-10-11';
   const urls = PAGES.map((p) => `  <url><loc>${SITE.url}${p}</loc><lastmod>${dates[p] || jour}</lastmod></url>`).join('\n');
   return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
