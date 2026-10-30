@@ -1,799 +1,623 @@
 ---
-// Accueil « Éditorial » (refonte du 21.10.2026) : titres en Instrument Serif, texte en Inter Tight, crème et terracotta,
-// l'accompagnement en 5 étapes, l'équipe, les canaux, Pasta Mo' (cas réel) et Izgara 35 (démonstration fictive).
-import '@fontsource/instrument-serif/400.css';
-import '@fontsource/instrument-serif/400-italic.css';
-import '@fontsource-variable/inter-tight';
-import '@fontsource/ibm-plex-mono/400.css';
-import '@fontsource/ibm-plex-mono/500.css';
-import '@fontsource/playfair-display/700.css';
-import '@fontsource/playfair-display/800.css';
+// Accueil « Cartographe » v2 (30.10.2026) : l'agence s'ouvre à tous les commerces, la restauration reste la spécialité (/restauration/).
+// Le test de visibilité en direct dès l'ouverture, puis le savoir-faire montré plutôt que raconté (fiche Google, assistants IA,
+// publicité Google et Meta, développeur, photographe, bilan mensuel), la preuve Pasta Mo', les 8 métiers, la zone (Genève, Vaud),
+// la méthode, l'interlocuteur unique et les questions fréquentes (balisées FAQPage pour Google et pour les moteurs de réponse).
+// Règles : jamais de chiffres inventés ni de prix, jamais d'image de plat générée par IA, les exemples d'écrans sont étiquetés « exemple fictif ».
+import Cartographe from '../layouts/Cartographe.astro';
+import TestVisibilite from '../components/TestVisibilite.astro';
+import carte from '../data/carte-romande.json';
 import { SITE } from '../config.js';
-import { PROMOTION_ACTIVE } from '../data/offres.js';
-const title = 'Agence marketing restaurant Genève & Vaud | Nouvelle Ardoise';
-const description = 'Agence de marketing et de communication pour restaurants, cafés et artisans de bouche à Genève, Lausanne et dans tout le canton de Vaud : stratégie, identité visuelle, site, Instagram, publicité, Uber Eats et Click & Collect.';
-const canonical = SITE.url + '/';
-const image = SITE.url + '/partage.jpg';
-const faq = [["Qu’est-ce qu’une agence marketing pour restaurants ?", "Une agence qui ne travaille qu’avec la restauration et les métiers de bouche. Nouvelle Ardoise étudie votre marché, construit votre stratégie, crée votre identité (logo, carte, site, Instagram) et installe les outils qui vendent : commande en ligne, paiement par QR code, fiche Google et Uber Eats."], ["Dans quelles villes intervenez-vous ?", "À Genève et dans le canton de Vaud : Genève, Carouge, Onex, Meyrin, Lancy, Nyon, Morges, Lausanne et La Côte. On vient sur place pour l’étude du quartier et pour les shootings."], ["Comment attirer plus de clients dans mon restaurant ?", "On choisit deux ou trois leviers selon votre quartier : une fiche Google soignée, des réels Instagram tournés chez vous, de la publicité locale ciblée, une fiche Uber Eats avec des photos pro, et la fidélité. Chaque mois, on mesure ce qui rapporte et on ajuste."], ["Pouvez-vous optimiser notre fiche Uber Eats ?", "Oui. Photos pro de chaque plat, carte réécrite, catégories et options rangées, offres au bon moment. On suit les vues de la fiche, le taux de commande et le panier moyen."], ["Proposez-vous la commande en ligne sans commission ?", "Oui. On installe le Click & Collect sur votre propre site et le paiement par QR code à table : les commandes arrivent sans commission de plateforme et sans décrocher le téléphone."], ["Travaillez-vous aussi avec les boulangers, pâtissiers et chocolatiers ?", "Oui. Les artisans de bouche ont leur page : site, photos, réels et fiche Google pensés pour la boutique et les commandes."]];
-const film = SITE.url + '/accueil/film/comment-on-travaille.mp4';
+import { FAQ_GENERALE as FAQ } from '../data/questions-generales.js';
+import { EXPERTS } from '../data/savoir-faire.js';
+import { AGENCE, SITE_WEB } from '../data/agence.js';
+
+const title = 'Agence marketing Genève et Vaud · Nouvelle Ardoise';
+const description = 'Agence marketing Genève et Vaud : fiche Google, site, Instagram, publicité, un seul interlocuteur pour commerces et cabinets. Test gratuit en 30 secondes.';
+const TEL = '078 213 38 68';
+
+
+// Les 8 métiers accompagnés (même liste que l'appli de prospection). Jamais : bars et alcool, esthétique, onglerie, coiffure, fiduciaires, jeux, crédit.
+const METIERS = [
+  { nom: 'Restauration et cafés', besoin: 'Être trouvé à midi et recevoir des commandes sans commission.', plus: 'Commande à retirer, paiement par QR code à table, carte en ligne', lien: '/restauration/', ancre: 'Agence marketing restaurant', specialite: true },
+  { nom: 'Artisans de bouche et épiceries', besoin: 'Montrer le savoir-faire et prendre les commandes à l’avance.', plus: 'Précommande en ligne, courtes vidéos du geste', lien: '/artisans/', ancre: 'Boulangers, pâtissiers, chocolatiers, traiteurs' },
+  { nom: 'Santé et bien-être', besoin: 'Être trouvé par les patients du quartier et prendre les rendez-vous en ligne.', plus: 'Agenda en ligne relié au site et à la fiche Google, dans le respect des règles de la profession' },
+  { nom: 'Mode et boutiques', besoin: 'Vendre aussi en ligne, pas seulement en vitrine.', plus: 'Boutique en ligne ou retrait en magasin, catalogue Instagram' },
+  { nom: 'Services de quartier', besoin: 'Être trouvé au moment où l’on a besoin de vous.', plus: 'Fiche Google, avis, site avec demande de devis' },
+  { nom: 'Hébergement et loisirs', besoin: 'Plus de réservations en direct, moins de commissions.', plus: 'Réservation directe, photos et vidéo drone' },
+  { nom: 'Bâtiment et second œuvre', besoin: 'Recevoir des demandes de devis sérieuses.', plus: 'Google Ads local, chantiers en photos avant et après' },
+  { nom: 'Entreprises et bureaux', besoin: 'Inspirer confiance et recruter.', plus: 'LinkedIn, site institutionnel, contenu régulier' },
+];
+
+const ETAPES = [
+  { titre: 'Le diagnostic', texte: 'Quatre voyants en direct (Google, site, Instagram, vente en ligne), puis sur place : votre quartier, vos concurrents, ce que vos clients tapent.' },
+  { titre: 'Trois priorités', texte: 'On ne fait pas tout. On choisit les trois actions qui rapportent le plus chez vous, avec un objectif chiffré fixé dès le départ.' },
+  { titre: 'La mise en place, puis le bilan', texte: 'Photos, vidéos, site, fiche Google, publicité : on produit et on installe. Chaque mois, un bilan simple : on teste, on apprend, on ajuste.' },
+];
+
+// La route le long du Léman, de Genève à Montreux : chaque ville s'allume quand le trait l'atteint.
+const ROUTE = ['Genève', 'Versoix', 'Nyon', 'Gland', 'Rolle', 'Morges', 'Lausanne', 'Vevey', 'Montreux'];
+const ville = Object.fromEntries(carte.villes.map((v) => [v.nom, v]));
+const route = 'M' + ROUTE.map((n) => `${ville[n].x} ${ville[n].y}`).join(' L');
+const GAUCHE = ['Meyrin', 'Morges'];
+const dist = (a, b) => Math.hypot(ville[a].x - ville[b].x, ville[a].y - ville[b].y);
+const cumul = ROUTE.map((n, i) => (i === 0 ? 0 : dist(ROUTE[i - 1], n)));
+const total = cumul.reduce((s, d) => s + d, 0);
+let acc = 0;
+const fraction = Object.fromEntries(ROUTE.map((n, i) => { acc += cumul[i]; return [n, acc / total]; }));
+// Délai d'allumage en secondes : la part du trait parcourue (2,4 s au total), les villes hors route après la fin.
+const delai = (n) => (n in fraction ? 0.2 + fraction[n] * 2.4 : 2.9).toFixed(2);
+
 const jsonLd = JSON.stringify({
-  '@context':'https://schema.org',
-  '@graph':[
-    {'@type':['ProfessionalService','LocalBusiness'], '@id':SITE.url+'/#agence',
-      name:SITE.nom, url:canonical, description, slogan:'Place à la mise en place.',
-      email:SITE.email, telephone:'+41782133868', image, logo:SITE.url+'/apple-touch-icon.png',
-      founder:{'@type':'Person',name:SITE.responsable},
-      address:{'@type':'PostalAddress',streetAddress:SITE.adresse,postalCode:SITE.localite.split(' ')[0],addressLocality:'Genève',addressRegion:'GE',addressCountry:'CH'},
-      areaServed:['Genève','Carouge','Onex','Meyrin','Lancy','Nyon','Morges','Lausanne','Canton de Vaud','Suisse romande'].map((n)=>({'@type':'Place',name:n})),
-      knowsAbout:['Marketing de restaurant','Communication pour la restauration','Identité visuelle','Création de logo','Site web de restaurant','Instagram et réels','Publicité Meta et Google','Référencement local Google','Optimisation Uber Eats','Click & Collect','Paiement par QR code','Fidélisation','Shooting photo culinaire'],
-      makesOffer:['Étude de marché','Stratégie marketing','Identité visuelle','Site web ou application','Réseaux sociaux et réels','Publicité locale','Optimisation Uber Eats','Click & Collect et paiement QR','Tableau de bord des ventes'].map((n)=>({'@type':'Offer',itemOffered:{'@type':'Service',name:n,areaServed:'Genève et Vaud'}})),
-      sameAs:['https://www.instagram.com/'+SITE.instagram+'/'],
-      inLanguage:'fr-CH'},
-    {'@type':'WebSite','@id':SITE.url+'/#site',url:SITE.url+'/',name:SITE.nom,inLanguage:'fr-CH',publisher:{'@id':SITE.url+'/#agence'}},
-    {'@type':'WebPage','@id':canonical+'#page',url:canonical,name:title,description,isPartOf:{'@id':SITE.url+'/#site'},about:{'@id':SITE.url+'/#agence'},primaryImageOfPage:image,inLanguage:'fr-CH'},
-    {'@type':'VideoObject',name:'Comment on travaille, en 5 étapes',description:'Le film de Nouvelle Ardoise : étudier le marché, construire la stratégie, créer l’identité, installer les outils, suivre et ajuster.',thumbnailUrl:SITE.url+'/accueil/film/affiche.webp',contentUrl:film,uploadDate:'2026-10-21',duration:'PT32S',inLanguage:'fr-CH',publisher:{'@id':SITE.url+'/#agence'}},
-    {'@type':'FAQPage','@id':canonical+'#questions',mainEntity:faq.map(([q,r])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:r}}))},
+  '@context': 'https://schema.org',
+  '@graph': [
+    AGENCE,
+    SITE_WEB,
+    { '@type': 'WebPage', '@id': SITE.url + '/#page', url: SITE.url + '/', name: title, description, isPartOf: { '@id': SITE.url + '/#site' }, about: { '@id': SITE.url + '/#agence' }, inLanguage: 'fr-CH' },
+    { '@type': 'FAQPage', '@id': SITE.url + '/#faq', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.r } })) },
   ],
 });
 ---
-<!doctype html>
-<html lang="fr-CH">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#F2EDE4" />
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <meta name="geo.region" content="CH-GE" />
-  <meta name="geo.placename" content="Genève" />
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <link rel="canonical" href={canonical} />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:url" content={canonical} />
-  <meta property="og:site_name" content={SITE.nom} />
-  <meta property="og:locale" content="fr_CH" />
-  <meta property="og:image" content={image} />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Nouvelle Ardoise, agence de marketing pour restaurants à Genève et Vaud" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
-  <style is:global>
-/* Grille suisse 12 colonnes, papier et encre ; le jaune craie ne sert qu'à surligner. Un seul thème, voulu (papier).
-   Les couleurs vert/or ne servent qu'à l'identité fictive du client (Izgara 35). */
-:root {
-  --papier: #F2EDE4;
-  --encre: #1B1915;
-  --gris: #6A6359;
-  --filet: #DCD3C4;
-  --craie: #FFD23F;
-  --craie-clair: #FFE88F;
-  --blanc: #FAF7F1;
-  --iz-vert: #1E3A5F;
-  --iz-or: #BF5734;
-  --iz-creme: #EFE6D2;
-  --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
-  --grotesk: 'Inter Tight Variable', 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
-  --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
-  --iz-serif: 'Playfair Display', Georgia, serif;
-  --max: 1240px;
-  color-scheme: light;
-}
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--papier); color: var(--encre); font-family: var(--grotesk); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
-a { color: inherit; }
-img { display: block; max-width: 100%; height: auto; }
-:focus-visible { outline: 2px solid var(--encre); outline-offset: 3px; }
-.cadre { max-width: var(--max); margin-inline: auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
-.etiquette { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris); margin: 0; }
-.surligne { font-style: italic; color: var(--encre); background: linear-gradient(transparent 58%, var(--craie) 58% 92%, transparent 92%); padding-inline: .06em; }
+<Cartographe title={title} description={description} jsonLd={jsonLd} image="/partage-commerces.jpg" imageAlt="Qu’on vous trouve. Qu’on vous choisisse. Nouvelle Ardoise, agence de marketing à Genève et Vaud">
+  <section class="ouv cadre" aria-labelledby="titre">
+    <div class="ouv__texte">
+      <h1 id="titre"><span class="etiquette h1__sur">Agence de marketing<span class="ouv__long"> et de communication</span> · Genève &amp; Vaud</span>Qu’on vous trouve.<br /><em>Qu’on vous choisisse.</em></h1>
+      <p class="ouv__chapo">Google, site, Instagram, vente en ligne&#8239;: on mesure où vous perdez des clients, on règle ce qui rapporte le plus, et on le prouve chaque mois.</p>
+      <ul class="ouv__preuves" aria-label="Nos engagements">
+        <li><b>Sur place</b><span>de Genève à Montreux</span></li>
+        <li><b>Un objectif chiffré</b><span>fixé dès le départ</span></li>
+        <li><b>Un bilan</b><span>chaque mois</span></li>
+      </ul>
+    </div>
+    <div class="ouv__test"><TestVisibilite /></div>
+  </section>
 
-.maquette { background: var(--encre); color: var(--papier); font-family: var(--mono); font-size: 12px; text-align: center; padding-block: 6px; padding-inline: 16px; }
-.lance { display: block; overflow: hidden; background: var(--craie); color: var(--encre); text-decoration: none; border-block: 1px solid var(--encre); padding-block: clamp(18px, 3vw, 34px); margin-top: clamp(64px, 10vw, 140px); }
-.lance__piste { display: flex; width: max-content; animation: lance 28s linear infinite; }
-.lance:hover .lance__piste { animation-play-state: paused; }
-.lance__bloc { display: flex; align-items: baseline; gap: clamp(18px, 2.4vw, 36px); padding-right: clamp(18px, 2.4vw, 36px); white-space: nowrap; font-size: clamp(34px, 6vw, 84px); letter-spacing: -.045em; line-height: 1; }
-.lance__bloc b { font-weight: 800; }
-.lance__bloc span { font-weight: 400; }
-.lance__bloc i { font-style: normal; font-size: .6em; }
-.lance--360 { margin-top: 0; padding-block: 11px; background: var(--craie); }
-.lance--360 .lance__bloc { font-size: clamp(13px, 1.3vw, 16px); text-transform: uppercase; letter-spacing: .08em; gap: 16px; padding-right: 16px; font-family: var(--mono); }
-.lance--360 .lance__piste { animation-duration: 60s; animation-direction: reverse; }
-@keyframes lance { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .lance__piste { animation-duration: 90s; } }
-.promo { display: block; background: var(--craie); color: var(--encre); text-align: center; font-size: 14px; padding-block: 9px; padding-inline: 16px; text-decoration: none; }
-.promo b { font-weight: 700; }
+  <section class="sec cadre" id="savoir-faire" aria-labelledby="sf-titre">
+    <div class="sec__tete">
+      <p class="etiquette">Le savoir-faire, montré</p>
+      <h2 id="sf-titre">Visible partout où l’on vous cherche.</h2>
+      <p class="chapo">Google, les assistants IA, Instagram, la publicité&#8239;: chaque canal a son expert dans l’équipe. Vous, vous n’avez qu’un interlocuteur.</p>
+    </div>
+    <ol class="exps">
+      {EXPERTS.map((e) => (
+        <li class="exp" id={'sf-' + e.id}>
+          <div class="exp__texte">
+            <p class="etiquette">{e.expert}</p>
+            <h3>{e.titre}</h3>
+            <p>{e.texte}</p>
+            <p class="exp__objectif"><span class="etiquette">Objectif</span>{e.objectif}</p>
+          </div>
 
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--papier); }
-.tete { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--papier); border-bottom: 1px solid var(--filet); }
-.tete .cadre { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
-.marque { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
-.marque svg { width: 22px; height: 25px; }
-.marque svg path { fill: none; stroke: var(--encre); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-.nav { display: flex; gap: 28px; align-items: center; font-size: 15px; }
-.nav a { text-decoration: none; }
-.nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.nav .tel { font-family: var(--mono); font-size: 13px; padding: 8px 12px; border: 1px solid var(--encre); border-radius: 999px; white-space: nowrap; }
-.nav .tel:hover { background: var(--encre); color: var(--papier); text-decoration: none; }
+          {e.id === 'google' && (
+            <figure class="ecran" aria-label="Exemple fictif de résultats Google locaux où le commerce accompagné apparaît en premier">
+              <span class="ecran__chip" aria-hidden="true">Exemple fictif</span>
+              <div class="g">
+                <div class="g__barre"><span class="g__loupe" aria-hidden="true"></span>boulangerie carouge</div>
+                <div class="g__carte" aria-hidden="true"><span class="g__pin g__pin--vous"></span><span class="g__pin g__pin--2"></span><span class="g__pin g__pin--3"></span></div>
+                <ol class="g__liste">
+                  <li class="g__item g__item--vous"><span class="g__nom">Maison Fève</span><span class="g__note"><span class="g__etoiles" aria-hidden="true">★★★★★</span>4,8 · 212 avis</span><span class="g__meta">Boulangerie · Carouge · Ouvert · Précommande en ligne</span><span class="g__vous">Vous</span></li>
+                  <li class="g__item"><span class="g__trait g__trait--nom"></span><span class="g__note"><span class="g__etoiles" aria-hidden="true">★★★★☆</span>4,3 · 58 avis</span><span class="g__trait"></span></li>
+                  <li class="g__item"><span class="g__trait g__trait--nom"></span><span class="g__note"><span class="g__etoiles" aria-hidden="true">★★★★☆</span>4,1 · 24 avis</span><span class="g__trait g__trait--court"></span></li>
+                </ol>
+              </div>
+            </figure>
+          )}
 
-/* Ouverture */
-.ouv { padding-block: clamp(44px, 8vw, 110px) clamp(40px, 6vw, 72px); }
-.ouv h1 { font-size: clamp(52px, 11.5vw, 168px); line-height: .9; letter-spacing: -.055em; font-weight: 800; margin: 18px 0 0; text-wrap: balance; }
-.trait { position: relative; display: inline-block; }
-.trait svg { position: absolute; left: -2%; bottom: -.08em; width: 104%; height: .32em; overflow: visible; }
-.trait path { fill: none; stroke: var(--craie); stroke-width: 14; stroke-linecap: round; stroke-dasharray: 1000; animation: craie 1.1s cubic-bezier(.6,0,.2,1) .25s both; }
-.trait > span { position: relative; }
-@keyframes craie { from { stroke-dashoffset: 1000; } to { stroke-dashoffset: 0; } }
-.ouv__bas { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; margin-top: clamp(28px, 4vw, 56px); align-items: end; }
-.ouv__bas p { grid-column: 1 / span 6; margin: 0; font-size: clamp(18px, 1.7vw, 22px); line-height: 1.35; max-width: 36ch; }
-.ouv__bas .actions { grid-column: 8 / span 5; display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap; }
-.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--encre); color: var(--papier); text-decoration: none; font-weight: 600; font-size: 15px; border: 1px solid var(--encre); }
-.btn:hover { background: var(--craie); border-color: var(--encre); color: var(--encre); }
-.btn--creux { background: transparent; color: var(--encre); }
+          {e.id === 'ia' && (
+            <figure class="ecran" aria-label="Exemple fictif de réponse d’un assistant IA qui recommande le cabinet accompagné">
+              <span class="ecran__chip" aria-hidden="true">Exemple fictif</span>
+              <div class="ia">
+                <p class="ia__q">Un physiothérapeute à Lausanne, ouvert le samedi matin&#8239;?</p>
+                <div class="ia__r">
+                  <p><b>Cabinet Aubépine</b>, à Lausanne, reçoit le samedi de 8&nbsp;h à 12&nbsp;h et permet de prendre rendez-vous en ligne depuis sa fiche Google. Les avis mentionnent l’accueil et la ponctualité.</p>
+                  <p class="ia__src"><span>Sources</span><span class="ia__chip">cabinet-aubepine.ch</span><span class="ia__chip">Fiche Google</span><span class="ia__chip">Avis patients</span></p>
+                </div>
+              </div>
+            </figure>
+          )}
 
-/* Mur animé (en attendant la vidéo) */
-.mur { margin-top: clamp(32px, 5vw, 56px); display: grid; grid-template-columns: 1.4fr 1fr 1fr; grid-template-rows: 210px 210px; gap: 8px; }
-.tuile { position: relative; overflow: hidden; background: var(--encre); min-width: 0; }
-.tuile > img { width: 100%; height: 100%; object-fit: cover; animation: lent 18s ease-in-out infinite alternate; }
-@keyframes lent { from { transform: scale(1); } to { transform: scale(1.12); } }
-.tuile__nom { position: absolute; left: 12px; bottom: 12px; background: var(--papier); color: var(--encre); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 5px 9px; }
-.t-photo { grid-row: span 2; }
-.t-logo { background: var(--iz-or); display: grid; place-items: center; }
-.t-logo .iz-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; animation: none; }
-.iz-img { display: block; }
-.t-site { background: #D9D4C7; display: grid; place-items: center; grid-row: span 2; }
-.t-cmd { background: var(--blanc); border: 1px solid var(--encre); padding: 14px; display: flex; flex-direction: column; gap: 8px; justify-content: flex-end; }
-.t-cmd .tuile__nom { position: static; align-self: flex-start; border: 1px solid var(--filet); }
+          {e.id === 'ads' && (
+            <figure class="ecran" aria-label="Exemple fictif d’annonce Google Ads en tête des résultats, avec les actions mesurées">
+              <span class="ecran__chip" aria-hidden="true">Exemple fictif</span>
+              <div class="ad">
+                <p class="ad__tag">Sponsorisé</p>
+                <p class="ad__url"><span class="ad__fav" aria-hidden="true">M</span>maisonfeve.ch</p>
+                <p class="ad__titre">Maison Fève · Pain au levain à Carouge · Précommande pour demain</p>
+                <p class="ad__texte">Retrait dès 7&nbsp;h. Boulangerie artisanale, pains, viennoiseries et tartes. Ouvert 7&nbsp;jours sur&nbsp;7.</p>
+                <p class="ad__liens"><span>Précommander</span><span>Itinéraire</span><span>Appeler</span></p>
+                <ul class="ad__suivi" aria-label="Actions mesurées"><li>Appels</li><li>Itinéraires</li><li>Commandes</li><li>Rendez-vous</li></ul>
+              </div>
+            </figure>
+          )}
 
-/* Logo Izgara (fictif) : traits qui se dessinent */
-.iz-trait { fill: none; stroke: var(--iz-or); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 220; animation: dessin 2.4s ease .4s both; }
-.iz-flamme { fill: var(--iz-or); animation: flamme 2.6s ease-in-out infinite; transform-origin: 100px 34px; }
-.iz-txt { fill: var(--iz-creme); font-family: var(--iz-serif); font-weight: 800; }
-.iz-or-txt { fill: var(--iz-or); font-family: var(--iz-serif); font-weight: 700; }
-.iz-petit { fill: var(--iz-or); font-family: var(--grotesk); font-size: 9px; letter-spacing: 3px; font-weight: 600; }
-@keyframes dessin { from { stroke-dashoffset: 220; } to { stroke-dashoffset: 0; } }
-@keyframes flamme { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08, 1.14); } }
+          {e.id === 'meta' && (
+            <figure class="ecran" aria-label="Exemple de publication Instagram sponsorisée, avec une vraie photo Pasta Mo’, la marque de pâtes fraîches de la famille">
+              <span class="ecran__chip" aria-hidden="true">Exemple · photo Pasta Mo’</span>
+              <div class="ig">
+                <div class="ig__tete"><span class="ig__avatar" aria-hidden="true">PM</span><span class="ig__qui"><b>pastamo</b><small>Sponsorisé · Genève, 3&nbsp;km</small></span></div>
+                <div class="ig__media">
+                  <img src="/accueil/pm/052.webp" alt="" width="960" height="540" loading="lazy" decoding="async" />
+                  <span class="ig__duree" aria-hidden="true">0:15</span>
+                  <span class="ig__play" aria-hidden="true"></span>
+                  <span class="ig__legende">Réel tourné en cuisine · sans musique</span>
+                  <span class="ig__barre" aria-hidden="true"></span>
+                </div>
+                <p class="ig__texte"><b>pastamo</b> Le pesto du matin, pignons et basilic frais. Pâtes fraîches pour vos événements et vos équipes, commande en ligne.</p>
+                <p class="ig__cta">Commander</p>
+              </div>
+            </figure>
+          )}
 
-/* Téléphone (site du client) */
-.tel-cadre { width: min(220px, 78%); aspect-ratio: 9 / 18.5; background: var(--iz-vert); border: 6px solid var(--encre); border-radius: 30px; overflow: hidden; position: relative; }
-.tel-defile { animation: defile 14s ease-in-out infinite; padding: 16px 14px; display: grid; gap: 12px; color: var(--iz-creme); }
-@keyframes defile { 0%, 12% { transform: translateY(0); } 45%, 60% { transform: translateY(-46%); } 92%, 100% { transform: translateY(0); } }
-.tel-defile .iz-img { width: 70%; border-radius: 8px; margin: 6px auto 0; display: block; }
-.tel-defile h4 { margin: 0; font-family: var(--iz-serif); font-size: 20px; line-height: 1.05; text-align: center; }
-.tel-defile .bouton { background: var(--iz-or); color: var(--iz-creme); text-align: center; border-radius: 999px; padding: 8px; font-size: 12px; font-weight: 700; }
-.tel-defile .plat { display: flex; justify-content: space-between; border-top: 1px solid rgb(239 230 210 / .2); padding-top: 8px; font-size: 12px; gap: 8px; }
-.tel-defile .plat small { display: block; opacity: .6; font-size: 10px; }
+          {e.id === 'dev' && (
+            <figure class="ecran ecran--centre" aria-label="Exemple fictif d’une prise de rendez-vous en ligne sur le site d’un cabinet de physiothérapie">
+              <span class="ecran__chip" aria-hidden="true">Exemple fictif</span>
+              <div class="ph">
+                <div class="ph__tete"><b>Cabinet Aubépine</b><span>Rendez-vous</span></div>
+                <ul class="ph__liste"><li><span>Physiothérapie</span><span>30&nbsp;min</span></li><li><span>Première séance</span><span>Bilan inclus</span></li><li><span>Rappel</span><span>SMS la veille</span></li></ul>
+                <div class="ph__quand"><span>Créneau</span><b>Jeudi · 8&nbsp;h&nbsp;30</b></div>
+                <p class="ph__btn">Confirmer</p>
+                <p class="ph__note">Agenda relié à la fiche Google et au site. Même socle pour une commande à retirer ou un devis.</p>
+              </div>
+            </figure>
+          )}
 
-/* Notifications */
-.notif { display: flex; gap: 10px; align-items: center; background: var(--papier); border: 1px solid var(--filet); padding: 9px 10px; font-size: 13px; line-height: 1.25; animation: entre .5s cubic-bezier(.2,.8,.2,1) both; }
-.notif i { width: 8px; height: 8px; border-radius: 50%; background: var(--craie); box-shadow: 0 0 0 1px var(--encre); flex: none; }
-.notif small { display: block; color: var(--gris); font-size: 11px; }
-.notif b { margin-left: auto; font-variant-numeric: tabular-nums; white-space: nowrap; }
-@keyframes entre { from { transform: translateY(14px); opacity: .2; } to { transform: none; opacity: 1; } }
+          {e.id === 'photo' && (
+            <figure class="ecran ecran--photo">
+              <img src="/accueil/shooting.webp" alt="Une photographe cadre une composition de légumes et de fruits en studio, boîtier professionnel en main." width="1600" height="1067" loading="lazy" decoding="async" />
+              <figcaption><span class="ecran__chip ecran__chip--photo">Photo de produits</span></figcaption>
+            </figure>
+          )}
 
-/* Sections */
-.sec { padding-block: clamp(64px, 10vw, 140px); border-top: 1px solid var(--filet); }
+          {e.id === 'bilan' && (
+            <figure class="ecran" aria-label="Exemple fictif de bilan mensuel : les quatre voyants, la prochaine action et l’interlocuteur unique">
+              <span class="ecran__chip" aria-hidden="true">Exemple fictif</span>
+              <div class="bi">
+                <div class="bi__tete"><b>Bilan mensuel</b><span>Octobre</span></div>
+                <ul class="bi__voyants">
+                  <li data-etat="bon"><span>Google</span><b>Bon</b></li>
+                  <li data-etat="bon"><span>Site</span><b>Bon</b></li>
+                  <li data-etat="moyen"><span>Instagram</span><b>À améliorer</b></li>
+                  <li data-etat="bon"><span>Vente en ligne</span><b>En place</b></li>
+                </ul>
+                <p class="bi__suite"><span class="etiquette">Prochaine action</span>Tournage de deux réels dans l’atelier, mardi 8&nbsp;h.</p>
+                <div class="bi__qui"><span class="bi__init" aria-hidden="true">M</span><span><b>Malik Younes</b><small>Votre interlocuteur · {TEL}</small></span></div>
+              </div>
+            </figure>
+          )}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="sec cadre" id="preuve" aria-labelledby="pr-titre">
+    <div class="preuve">
+      <figure class="preuve__image">
+        <img src="/accueil/pm/001.webp" alt="Bol Pasta Mo’ : le parmesan tombe sur la sauce bolognaise, à côté d’un bol au pesto." width="960" height="540" loading="lazy" decoding="async" />
+      </figure>
+      <div class="preuve__texte">
+        <p class="etiquette">Déjà en place</p>
+        <h2 id="pr-titre">Pasta Mo’, <em>notre laboratoire.</em></h2>
+        <p>Une marque familiale de pâtes fraîches et de street food italienne. Tout ce qu’on propose, on l’a d’abord fait tourner chez nous&#8239;: identité et emballages, site et commande en ligne, réels sans musique, appli de pilotage pour la production, les événements et les clients.</p>
+        <p class="preuve__note">Les autres restaurants de nos maquettes sont des exemples fictifs, et nous le disons sur chaque page.</p>
+        <a class="btn btn--creux" href="/realisations/">Voir les réalisations <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec cadre" id="metiers" aria-labelledby="met-titre">
+    <div class="sec__tete">
+      <p class="etiquette">Huit métiers</p>
+      <h2 id="met-titre">Le même socle pour tous, <em>l’outil qui fait vendre pour chacun.</em></h2>
+      <p class="chapo">Tout commerce doit être trouvé, inspirer confiance et vendre. Fiche Google, site, Instagram, photo et vidéo, bilan mensuel&#8239;: c’est le socle. Ce qui change d’un métier à l’autre, c’est l’outil qu’on ajoute.</p>
+    </div>
+    <ul class="metiers">
+      {METIERS.map((m) => (
+        <li class:list={['metier', { 'metier--phare': m.specialite }]}>
+          <h3>{m.nom}{m.specialite && <span class="metier__badge">Notre spécialité</span>}</h3>
+          <p class="metier__besoin">{m.besoin}</p>
+          <p class="metier__plus"><span class="etiquette">En plus pour vous</span>{m.plus}</p>
+          {m.lien && <a class="metier__lien" href={m.lien}>{m.ancre} <span aria-hidden="true">→</span></a>}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="nuit" id="carte" aria-labelledby="carte-titre">
+    <div class="cadre nuit__grille">
+      <div class="nuit__texte">
+        <p class="etiquette">Zone d’intervention</p>
+        <h2 id="carte-titre">De Genève à Montreux,<br /><em>on vient chez vous.</em></h2>
+        <p>Étude du quartier, shooting, tournage, rendez-vous&#8239;: on se déplace dans tout le canton de Genève et dans le canton de Vaud. Ailleurs en Suisse romande, on travaille en visio et on vient pour les tournages.</p>
+        <ul class="villes" aria-label="Villes où nous intervenons">
+          {['Genève', 'Carouge', 'Onex', 'Meyrin', 'Lancy', 'Versoix', 'Nyon', 'Gland', 'Rolle', 'Morges', 'Lausanne', 'Vevey', 'Montreux', 'Yverdon-les-Bains'].map((n) => <li>{n}</li>)}
+        </ul>
+        <a class="btn btn--craie" href="#test" data-cta>Tester ma visibilité</a>
+      </div>
+      <figure class="carte" aria-label="Carte du canton de Genève, du Léman et du canton de Vaud avec les villes où nous intervenons">
+        <svg viewBox={`0 0 ${carte.w} ${carte.h}`} role="img" aria-hidden="true">
+          <path class="carte__vd" d={carte.vd} />
+          <path class="carte__ge" d={carte.ge} />
+          <path class="carte__lac" d={carte.lac} />
+          <path class="carte__route" d={route} pathLength="1" />
+          {carte.villes.map((v) => (
+            <g class:list={['carte__ville', { 'carte__ville--siege': v.nom === 'Genève', 'carte__ville--petit': v.petit }]} style={`--d:${delai(v.nom)}s`} transform={`translate(${v.x} ${v.y})`}>
+              {v.nom === 'Genève' && <circle class="carte__onde" r="10" />}
+              <circle class="carte__point" r={v.petit ? 5 : 8} />
+              {!v.petit && <text x={GAUCHE.includes(v.nom) ? -14 : 14} y={v.nom === 'Morges' ? -8 : 8} text-anchor={GAUCHE.includes(v.nom) ? 'end' : 'start'}>{v.nom}</text>}
+            </g>
+          ))}
+          <text class="carte__lac-nom" x="430" y="610">Léman</text>
+        </svg>
+        <figcaption><span class="carte__item"><span class="carte__cle carte__cle--ge"></span>Canton de Genève, notre base</span><span class="carte__item"><span class="carte__cle"></span>Canton de Vaud</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec cadre" id="methode" aria-labelledby="meth-titre">
+    <div class="sec__tete">
+      <p class="etiquette">La méthode</p>
+      <h2 id="meth-titre">Peu de choses, bien faites, mesurées.</h2>
+      <p class="chapo">Pas de forfait fourre-tout. Trois temps, toujours dans cet ordre, et un objectif qu’on peut vérifier.</p>
+    </div>
+    <ol class="etapes">
+      {ETAPES.map((e, i) => (
+        <li class="etape"><span class="etape__n" aria-hidden="true">{i + 1}</span><h3>{e.titre}</h3><p>{e.texte}</p></li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="sec cadre" id="interlocuteur" aria-labelledby="qui-titre">
+    <div class="qui">
+      <div class="qui__portrait" aria-hidden="true"><span>M</span></div>
+      <div class="qui__texte">
+        <p class="etiquette">Un seul interlocuteur</p>
+        <h2 id="qui-titre">Malik Younes, <em>fondateur.</em></h2>
+        <p>Graphiste de formation, passé par la vente et le commerce de détail, Malik a monté Nouvelle Ardoise à Genève pour les commerçants qu’il croise tous les jours. Il mène le diagnostic, fixe les priorités avec vous et coordonne les experts. Pasta Mo’, la marque de pâtes fraîches de sa famille, lui sert de laboratoire.</p>
+        <p>Autour de lui, des indépendants qui excellent chacun dans leur domaine&#8239;: photographe et vidéaste avec drone, experts du référencement et de la publicité Google et Meta, développeurs.</p>
+        <p class="qui__contact"><a href="tel:+41782133868">{TEL}</a><span aria-hidden="true"> · </span><a href={'mailto:' + SITE.email}>{SITE.email}</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec cadre" id="specialite" aria-labelledby="spe-titre">
+    <a class="spe" href="/restauration/">
+      <div>
+        <p class="etiquette">Notre spécialité</p>
+        <h2 id="spe-titre">La restauration et les métiers de bouche.</h2>
+        <p>Une branche à part, née dans une cuisine&#8239;: carte en ligne, commande à retirer sans commission, paiement par QR code, shootings et réels tournés pendant le service.</p>
+      </div>
+      <span class="spe__fleche" aria-hidden="true">→</span>
+    </a>
+  </section>
+
+  <section class="sec cadre" id="questions" aria-labelledby="faq-titre">
+    <div class="sec__tete">
+      <p class="etiquette">Questions fréquentes</p>
+      <h2 id="faq-titre">Ce qu’on nous demande d’abord.</h2>
+    </div>
+    <div class="faq">
+      {FAQ.map((f) => (
+        <details class="faq__item" name="faq">
+          <summary><span>{f.q}</span><span class="faq__plus" aria-hidden="true"></span></summary>
+          <p>{f.r}</p>
+        </details>
+      ))}
+    </div>
+    <p class="faq__suite"><a href="/questions/">Toutes les questions fréquentes <span aria-hidden="true">→</span></a></p>
+  </section>
+
+  <section class="fin cadre" id="contact" aria-labelledby="fin-titre">
+    <p class="etiquette">On en parle</p>
+    <h2 id="fin-titre">Trente secondes de test,<br /><em>un café pour le reste.</em></h2>
+    <div class="fin__actions">
+      <a class="btn btn--craie" href="#test" data-cta>Tester ma visibilité</a>
+      <a class="btn btn--creux" href="tel:+41782133868">{TEL}</a>
+      <a class="btn btn--creux" href={'mailto:' + SITE.email}>{SITE.email}</a>
+    </div>
+  </section>
+</Cartographe>
+
+<style>
+/* Ouverture : titre et test côte à côte ; sur téléphone le test arrive juste sous le titre, les engagements après */
+.ouv { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: start; padding-block: clamp(32px, 6vw, 88px) clamp(56px, 8vw, 112px); }
+.ouv__texte { padding-top: clamp(0px, 2vw, 24px); }
+h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(46px, 7.2vw, 88px); line-height: .94; letter-spacing: -.035em; margin: 0; text-wrap: balance; }
+.h1__sur { display: block; line-height: 1.4; font-style: normal; margin-bottom: 22px; text-wrap: initial; }
+h1 em, h2 em { font-style: italic; }
+.ouv__chapo { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.4; max-width: 34ch; margin: 28px 0 0; }
+.ouv__preuves { list-style: none; padding: 0; margin: 36px 0 0; display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0; border-top: 1px solid var(--encre); }
+.ouv__preuves li { padding: 14px 28px 0 0; margin-right: 28px; border-right: 1px solid var(--filet); display: grid; font-size: 14px; }
+.ouv__preuves li:last-child { border-right: 0; margin-right: 0; }
+.ouv__preuves b { font-weight: 600; }
+.ouv__preuves span { color: var(--gris); }
+.ouv__test { position: relative; }
+
+.sec { position: relative; padding-block: clamp(72px, 10vw, 136px); }
+.sec::before, .fin::before { content: ""; position: absolute; top: 0; left: max(20px, env(safe-area-inset-left, 0px)); right: max(20px, env(safe-area-inset-right, 0px)); border-top: 1px solid var(--filet); }
 .sec__tete { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; margin-bottom: clamp(36px, 5vw, 64px); }
-.sec__tete .etiquette { grid-column: 1 / span 3; padding-top: 12px; }
-.sec__tete h2 { grid-column: 4 / span 9; margin: 0; font-size: clamp(36px, 5.6vw, 80px); line-height: .98; letter-spacing: -.045em; font-weight: 750; text-wrap: balance; }
-.sec__tete p.chapo { grid-column: 4 / span 6; margin: 0; font-size: 19px; color: var(--gris); max-width: 46ch; }
+.sec__tete .etiquette { grid-column: 1 / span 3; padding-top: 14px; }
+.sec__tete h2 { grid-column: 4 / span 9; }
+.sec__tete .chapo { grid-column: 4 / span 6; margin: 0; font-size: 19px; color: var(--gris); max-width: 46ch; }
+h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(42px, 5.6vw, 84px); line-height: .96; letter-spacing: -.03em; margin: 0; text-wrap: balance; }
+h3 { margin: 0; }
 
-/* Accompagnement */
-.etapes { border-top: 1px solid var(--encre); }
-.etape { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; padding-block: 28px; border-bottom: 1px solid var(--filet); align-items: center; }
-.etape .n { grid-column: 1 / span 1; font-family: var(--mono); font-size: 13px; align-self: start; padding-top: 10px; }
-.etape h3 { grid-column: 2 / span 4; margin: 0; font-size: clamp(26px, 2.8vw, 38px); letter-spacing: -.035em; line-height: 1.02; font-weight: 750; }
-.etape .detail { grid-column: 6 / span 5; min-width: 0; }
-.etape .detail p { margin: 0 0 12px; color: var(--gris); }
-.puces { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; list-style: none; }
-.puces li { font-family: var(--mono); font-size: 12px; border: 1px solid var(--encre); border-radius: 999px; padding: 4px 10px; }
-.etape figure { grid-column: 11 / span 2; margin: 0; aspect-ratio: 3 / 2; overflow: hidden; background: var(--encre); }
-.etape figure img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.8,.2,1); }
-.etape:hover figure img { transform: scale(1.06); }
+/* Le savoir-faire : texte à gauche (collé pendant qu'on fait défiler l'écran), écran d'exemple à droite */
+.exps { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--encre); }
+.exp { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 80px); align-items: start; padding-block: clamp(36px, 5vw, 64px); border-bottom: 1px solid var(--filet); }
+.exp__texte { position: sticky; top: 96px; display: grid; gap: 16px; align-content: start; }
+.exp__texte h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 3.2vw, 44px); line-height: 1.02; letter-spacing: -.025em; text-wrap: balance; max-width: 18ch; }
+.exp__texte p { margin: 0; }
+.exp__texte > p:not(.etiquette):not(.exp__objectif) { color: var(--gris); max-width: 46ch; }
+.exp__objectif { display: grid; gap: 4px; padding-top: 12px; border-top: 1px solid var(--filet); max-width: 44ch; font-weight: 500; }
+.ecran { position: relative; margin: 0; background: #FBF8F2; border: 1px solid var(--filet); border-radius: var(--r-l); padding: clamp(18px, 2.4vw, 32px); padding-top: 54px; min-height: 100%; box-shadow: 0 24px 48px -36px rgb(27 25 21 / .35); font-size: 15px; line-height: 1.4; }
+.ecran--centre { display: grid; place-items: center; }
+.ecran:not(.ecran--photo):not(.ecran--centre) { display: grid; align-content: center; }
+.ecran__chip { position: absolute; top: 14px; right: 14px; z-index: 1; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--gris); background: var(--papier); border: 1px solid var(--filet); border-radius: 999px; padding: 4px 9px; }
+.ecran--photo { padding: 0; overflow: hidden; }
+.ecran--centre { padding-top: 54px; }
+.ecran--photo img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3 / 2; }
+.ecran--photo figcaption { position: absolute; left: 14px; bottom: 14px; }
+.ecran__chip--photo { position: static; display: inline-block; color: var(--encre); background: var(--craie); border-color: var(--craie); }
+.js .exp .ecran { opacity: 0; transform: translateY(12px); transition: opacity .45s var(--sortie), transform .45s var(--sortie); }
+.js .exp.allume .ecran { opacity: 1; transform: none; }
 
+/* Google : le pack local, le commerce accompagné en premier */
+.g { display: grid; gap: 12px; }
+.g__barre { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--filet); background: #fff; color: var(--encre); font-size: 15px; }
+.g__loupe { width: 14px; height: 14px; border: 2px solid var(--gris); border-radius: 50%; position: relative; flex: none; }
+.g__loupe::after { content: ""; position: absolute; width: 2px; height: 7px; background: var(--gris); right: -4px; bottom: -6px; transform: rotate(-45deg); }
+.g__carte { position: relative; height: 92px; border-radius: var(--r-s); background: linear-gradient(135deg, #E6E8E0, #D9DFD4 55%, #CFD9CF), repeating-linear-gradient(90deg, transparent 0 38px, rgb(255 255 255 / .55) 38px 40px); background-blend-mode: multiply; overflow: hidden; }
+.g__carte::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0 30px, rgb(255 255 255 / .5) 30px 32px); }
+.g__pin { position: absolute; width: 14px; height: 14px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: #8E877A; border: 2px solid #fff; }
+.g__pin--vous { background: var(--encre); width: 20px; height: 20px; left: 44%; top: 32%; box-shadow: 0 0 0 5px rgb(255 210 63 / .35); }
+.allume .g__pin--vous { animation: pin 1.6s ease-out .6s 2; }
+@keyframes pin { 0% { box-shadow: 0 0 0 0 rgb(255 210 63 / .9); } 100% { box-shadow: 0 0 0 16px rgb(255 210 63 / 0); } }
+.g__pin--2 { left: 18%; top: 58%; } .g__pin--3 { left: 72%; top: 22%; }
+.g__liste { list-style: none; margin: 0; padding: 0; display: grid; }
+.g__item { position: relative; display: grid; gap: 3px; padding: 12px 12px 12px 14px; border-top: 1px solid var(--filet); border-left: 3px solid transparent; }
+.g__item--vous { background: #fff; border-left-color: var(--craie); border-radius: 0 var(--r-s) var(--r-s) 0; transition: background-color .6s, border-color .6s; transition-delay: .5s; }
+.js .exp:not(.allume) .g__item--vous { background: transparent; border-left-color: transparent; }
+.g__nom { font-weight: 600; font-size: 16px; }
+.g__note { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gris); }
+.g__etoiles { color: #E0A400; letter-spacing: 1px; font-size: 12px; }
+.g__meta { font-size: 13px; color: var(--gris); }
+.g__vous { position: absolute; right: 12px; top: 12px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; background: var(--craie); border-radius: 999px; padding: 3px 8px; }
+.g__trait { height: 10px; width: 70%; border-radius: 999px; background: var(--filet); }
+.g__trait--nom { width: 42%; height: 12px; background: #CFC6B5; }
+.g__trait--court { width: 52%; }
 
-/* Récit des 5 étapes */
-.recit { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; border-top: 1px solid var(--encre); }
-.recit__textes { grid-column: 1 / span 5; grid-row: 1; }
-.recit__scene { grid-column: 6 / span 7; grid-row: 1; position: sticky; top: 76px; height: calc(100svh - 96px); padding-top: 20px; }
-.recit__cadre { position: relative; height: 100%; overflow: hidden; background: var(--encre); }
-.recit__cadre figure { position: absolute; inset: 0; margin: 0; opacity: 0; transform: scale(1.08); clip-path: inset(0 0 100% 0); transition: opacity .7s ease, transform 1.4s cubic-bezier(.2,.8,.2,1), clip-path .9s cubic-bezier(.7,0,.2,1); }
-.recit__cadre figure[data-on] { opacity: 1; transform: scale(1); clip-path: inset(0 0 0 0); z-index: 1; }
-.recit__cadre figure.parti { opacity: 1; clip-path: inset(0); transform: scale(1.02); }
-.recit__cadre img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.recit__cadre figure.logo { background: var(--iz-or); }
-.recit__cadre figure.logo img { object-fit: contain; padding: 8%; }
-.recit__cadre figcaption { position: absolute; left: 16px; bottom: 16px; background: var(--papier); color: var(--encre); font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; padding: 6px 10px; }
-.recit__num { position: absolute; right: 14px; bottom: -.12em; z-index: 3; font-size: clamp(110px, 16vw, 230px); font-weight: 800; letter-spacing: -.07em; line-height: 1; color: var(--papier); opacity: .95; text-shadow: 0 2px 30px rgb(0 0 0 / .35); pointer-events: none; font-variant-numeric: tabular-nums; }
-.recit__segs { position: absolute; top: 14px; left: 14px; right: 14px; z-index: 3; display: flex; gap: 6px; }
-.recit__segs i { flex: 1; height: 3px; background: rgb(255 255 255 / .35); overflow: hidden; }
-.recit__segs b { display: block; height: 100%; width: 100%; background: var(--craie); transform: scaleX(var(--p, 0)); transform-origin: 0 50%; }
-.chap { min-height: calc(100svh - 76px); display: grid; align-content: center; gap: 18px; padding-block: 48px; border-bottom: 1px solid var(--filet); opacity: .28; transition: opacity .5s ease; }
-.chap:last-child { border-bottom: 0; }
-.chap.actif { opacity: 1; }
-.chap__n { font-family: var(--mono); font-size: 13px; }
-.chap__n i { font-style: normal; color: var(--gris); }
-.chap h3 { margin: 0; font-size: clamp(40px, 5vw, 76px); line-height: .95; letter-spacing: -.05em; font-weight: 780; text-wrap: balance; }
-.chap > p { margin: 0; font-size: 19px; color: var(--gris); max-width: 40ch; }
-.chap__iz { margin: 6px 0 0; padding: 14px 16px; border-left: 3px solid var(--encre); background: var(--blanc); font-size: 16px; max-width: 44ch; }
-.chap__iz b { display: block; font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris); margin-bottom: 4px; }
-@media (max-width: 900px) {
-  .recit { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .recit__scene { grid-column: 1; grid-row: 1; top: 66px; height: 58svh; padding-top: 12px; z-index: 2; background: var(--papier); }
-  .recit__textes { grid-column: 1; grid-row: 2; }
-  .chap { min-height: 62svh; align-content: start; padding-block: 28px 56px; }
-  .chap h3 { font-size: clamp(34px, 9vw, 48px); }
-  .chap > p { font-size: 17px; }
-  .recit__num { font-size: 96px; }
+/* Assistant IA : la question, la réponse qui cite le commerce, les sources */
+.ia { display: grid; gap: 14px; max-width: 520px; }
+.ia__q { margin: 0; justify-self: end; max-width: 80%; background: var(--encre); color: var(--papier); border-radius: var(--r-m) var(--r-m) 4px var(--r-m); padding: 10px 14px; }
+.ia__r { display: grid; gap: 10px; background: #fff; border: 1px solid var(--filet); border-radius: 4px var(--r-m) var(--r-m) var(--r-m); padding: 14px 16px; }
+.ia__r p { margin: 0; }
+.ia__r b { background: linear-gradient(transparent 60%, var(--craie) 60% 92%, transparent 92%); font-weight: 600; }
+.ia__src { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12px; color: var(--gris); }
+.ia__src > span:first-child { font-family: var(--mono); letter-spacing: .06em; text-transform: uppercase; font-size: 11px; margin-right: 4px; }
+.ia__chip { border: 1px solid var(--filet); border-radius: 999px; padding: 2px 8px; }
+
+/* Google Ads : l'annonce en tête, les actions mesurées */
+.ad { display: grid; gap: 6px; max-width: 560px; }
+.ad__tag { margin: 0 0 4px; font-weight: 700; font-size: 13px; }
+.ad__url { margin: 0; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gris); }
+.ad__fav { width: 22px; height: 22px; border-radius: 50%; background: var(--craie); display: inline-grid; place-items: center; font-family: var(--serif); font-size: 14px; color: var(--encre); }
+.ad__titre { margin: 0; font-size: 18px; font-weight: 500; color: #1A0DAB; line-height: 1.25; }
+.ad__texte { margin: 0; color: var(--encre-2); }
+.ad__liens { margin: 2px 0 0; display: flex; flex-wrap: wrap; gap: 14px; color: #1A0DAB; font-size: 14px; }
+.ad__suivi { list-style: none; margin: 14px 0 0; padding: 12px 0 0; border-top: 1px dashed var(--filet); display: flex; flex-wrap: wrap; gap: 8px; }
+.ad__suivi li { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 12px; border: 1px solid var(--filet); border-radius: 999px; padding: 4px 10px; color: var(--gris); }
+.ad__suivi li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--craie); border: 1px solid var(--encre); }
+
+/* Instagram : publication sponsorisée avec un réel tourné sur place */
+.ig { max-width: 360px; margin-inline: auto; background: #fff; border: 1px solid var(--filet); border-radius: var(--r-m); overflow: hidden; }
+.ig__tete { display: flex; align-items: center; gap: 10px; padding: 12px 14px; }
+.ig__avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--craie); display: grid; place-items: center; font-family: var(--serif); font-size: 15px; }
+.ig__qui { display: grid; line-height: 1.2; } .ig__qui small { color: var(--gris); font-size: 12px; }
+.ig__media { position: relative; aspect-ratio: 1 / 1; background: var(--encre); display: grid; place-items: center; color: var(--papier); overflow: hidden; }
+.ig__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 23% 50%; }
+.ig__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(27 25 21 / .28), transparent 28% 62%, rgb(27 25 21 / .6)); }
+.ig__play { position: relative; z-index: 1; width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--papier); background: rgb(27 25 21 / .35); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: grid; place-items: center; }
+.ig__play::after { content: ""; border-left: 16px solid var(--papier); border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px; }
+.ig__duree { position: absolute; z-index: 1; top: 12px; right: 12px; font-family: var(--mono); font-size: 12px; color: var(--papier); background: rgb(27 25 21 / .55); padding: 3px 8px; border-radius: 999px; }
+.ig__legende { position: absolute; z-index: 1; left: 14px; right: 14px; bottom: 16px; font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--papier); text-shadow: 0 1px 2px rgb(0 0 0 / .5); }
+.ig__barre { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 3px; background: rgb(255 255 255 / .3); }
+.ig__barre::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 34%; background: var(--papier); }
+.ig__texte { margin: 0; padding: 12px 14px 4px; font-size: 14px; }
+.ig__cta { margin: 0; padding: 10px 14px 14px; color: #0A66C2; font-weight: 600; font-size: 14px; }
+
+/* Développeur : la commande à retirer, sur téléphone */
+.ph { width: min(100%, 300px); background: #fff; border: 1px solid var(--filet); border-radius: 28px; padding: 18px; display: grid; gap: 12px; box-shadow: inset 0 0 0 6px #F2EDE4; }
+.ph__tete { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 4px 0; }
+.ph__tete span { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--gris); }
+.ph__liste { list-style: none; margin: 0; padding: 0; display: grid; }
+.ph__liste li { display: flex; justify-content: space-between; padding: 10px 4px; border-top: 1px solid var(--filet); font-size: 14px; }
+.ph__quand { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: var(--papier); border-radius: var(--r-s); font-size: 14px; }
+.ph__quand span { color: var(--gris); }
+.ph__btn { margin: 0; text-align: center; background: var(--encre); color: var(--papier); border-radius: 999px; padding: 12px; font-weight: 600; }
+.ph__note { margin: 0; font-size: 12px; color: var(--gris); text-align: center; padding: 0 4px 4px; }
+
+/* Bilan mensuel : voyants, prochaine action, interlocuteur */
+.bi { display: grid; gap: 16px; max-width: 520px; }
+.bi__tete { display: flex; justify-content: space-between; align-items: baseline; }
+.bi__tete span { font-family: var(--mono); font-size: 12px; color: var(--gris); }
+.bi__voyants { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.bi__voyants li { display: grid; gap: 2px; padding: 12px 12px 12px 30px; background: #fff; border: 1px solid var(--filet); border-radius: var(--r-s); font-size: 14px; position: relative; }
+.bi__voyants li::before { content: ""; position: absolute; left: 12px; top: 18px; width: 10px; height: 10px; border-radius: 50%; background: var(--filet); transition: background-color .5s, box-shadow .5s; transition-delay: calc(.4s + var(--v, 0) * 150ms); }
+.bi__voyants li:nth-child(2) { --v: 1 } .bi__voyants li:nth-child(3) { --v: 2 } .bi__voyants li:nth-child(4) { --v: 3 }
+.bi__voyants li[data-etat="bon"]::before { background: var(--craie); box-shadow: 0 0 0 3px rgb(255 210 63 / .25); }
+.bi__voyants li[data-etat="moyen"]::before { background: #fff; box-shadow: inset 0 0 0 2px var(--craie); }
+.js .exp:not(.allume) .bi__voyants li::before { background: var(--filet); box-shadow: none; }
+.bi__voyants span { color: var(--gris); }
+.bi__suite { margin: 0; display: grid; gap: 4px; }
+.bi__qui { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid var(--filet); }
+.bi__qui span:last-child { display: grid; line-height: 1.25; } .bi__qui small { color: var(--gris); font-size: 13px; }
+.bi__init { width: 40px; height: 40px; border-radius: 50%; background: var(--encre); color: var(--craie); display: grid; place-items: center; font-family: var(--serif); font-size: 20px; flex: none; }
+
+/* Preuve : Pasta Mo' */
+.preuve { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.preuve__image { margin: 0; border-radius: var(--r-l); overflow: hidden; }
+.preuve__image img { width: 100%; height: auto; }
+.preuve__texte { display: grid; gap: 18px; justify-items: start; }
+.preuve__texte h2 { margin-top: 0; }
+.preuve__texte p { margin: 0; max-width: 48ch; }
+.preuve__note { font-size: 14px; color: var(--gris); }
+
+/* Métiers */
+.metiers { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--encre); }
+.metier { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 4fr) minmax(0, 3.6fr) 60px; gap: 20px; align-items: baseline; padding-block: 24px; border-bottom: 1px solid var(--filet); }
+.metier::before { content: ""; position: absolute; z-index: -1; inset: 0 -16px; border-radius: var(--r-s); background: var(--papier-2); opacity: 0; transition: opacity .25s; }
+.metier h3 { font-size: clamp(22px, 2.2vw, 28px); font-weight: 650; letter-spacing: -.025em; line-height: 1.1; }
+.metier__badge { display: inline-block; vertical-align: middle; margin-left: 10px; font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; background: var(--craie); padding: 3px 8px; border-radius: 999px; }
+.metier__besoin { margin: 0; color: var(--gris); }
+.metier__plus { margin: 0; display: grid; gap: 2px; font-size: 15px; }
+.metier__lien { justify-self: end; font-weight: 600; text-decoration: none; }
+.metier__lien::after { content: ""; position: absolute; inset: 0; }
+@media (hover: hover) and (pointer: fine) { .metier:has(.metier__lien):hover::before { opacity: 1; } }
+.metier--phare h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 2.8vw, 36px); letter-spacing: -.02em; }
+
+/* Carte */
+.nuit { background: var(--encre); color: var(--papier); padding-block: clamp(72px, 10vw, 136px); overflow: hidden; }
+.nuit .etiquette { color: var(--gris-nuit); }
+.nuit__grille { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.nuit__texte p:not(.etiquette) { color: #CFC7B8; max-width: 44ch; margin: 24px 0 0; }
+.nuit h2 { margin-top: 18px; }
+.villes { list-style: none; padding: 0; margin: 28px 0 32px; display: flex; flex-wrap: wrap; gap: 6px; }
+.villes li { font-family: var(--mono); font-size: 12px; border: 1px solid var(--filet-nuit); border-radius: 999px; padding: 4px 10px; color: #CFC7B8; }
+.carte { margin: 0; }
+.carte svg { width: 100%; height: auto; display: block; overflow: visible; }
+.carte__vd { fill: #24211C; stroke: #5A5347; stroke-width: 1.4; stroke-linejoin: round; }
+.carte__ge { fill: rgb(255 210 63 / .16); stroke: var(--craie); stroke-width: 1.6; stroke-linejoin: round; }
+.carte__lac { fill: #34434A; }
+.carte__lac-nom { fill: #7F939B; font-family: var(--serif); font-style: italic; font-size: 34px; letter-spacing: .04em; }
+.carte__route { fill: none; stroke: var(--craie); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: .9; }
+.carte.allume .carte__route { stroke-dashoffset: 0; transition: stroke-dashoffset 2.4s linear .2s; }
+.carte__ville text { fill: var(--papier); font-family: var(--grotesk); font-size: 30px; font-weight: 550; paint-order: stroke; stroke: var(--encre); stroke-width: 5px; stroke-linejoin: round; opacity: .35; transition: opacity .5s; transition-delay: var(--d); }
+.carte__point { fill: #6E675B; transition: fill .5s; transition-delay: var(--d); }
+.carte.allume .carte__point { fill: var(--craie); }
+.carte.allume .carte__ville text { opacity: 1; }
+.carte__onde { fill: none; stroke: var(--craie); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.carte.allume .carte__onde { animation: onde 2.6s ease-out .4s 3; }
+@keyframes onde { 0% { opacity: .9; transform: scale(.6); } 100% { opacity: 0; transform: scale(3.2); } }
+html:not(.js) .carte__route { stroke-dashoffset: 0; }
+html:not(.js) .carte__point { fill: var(--craie); }
+html:not(.js) .carte__ville text { opacity: 1; }
+.carte figcaption { font-family: var(--mono); font-size: 12px; color: var(--gris-nuit); margin-top: 12px; display: flex; align-items: center; gap: 8px 18px; flex-wrap: wrap; }
+.carte__item { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.carte__cle { width: 12px; height: 12px; border: 1px solid #5A5347; background: #24211C; display: inline-block; }
+.carte__cle--ge { border-color: var(--craie); background: rgb(255 210 63 / .16); }
+
+/* Méthode */
+.etapes { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.etape { border-top: 1px solid var(--encre); padding-top: 18px; display: grid; gap: 12px; align-content: start; }
+.etape__n { font-family: var(--serif); font-size: 64px; line-height: 1; color: var(--encre); }
+.etape h3 { font-size: 26px; font-weight: 650; letter-spacing: -.025em; }
+.etape p { margin: 0; color: var(--gris); max-width: 36ch; }
+
+/* Interlocuteur */
+.qui { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.qui__portrait { aspect-ratio: 4 / 5; border-radius: var(--r-l); background: var(--craie); display: grid; place-items: center; overflow: hidden; }
+.qui__portrait span { font-family: var(--serif); font-size: clamp(120px, 14vw, 220px); line-height: 1; color: var(--encre); }
+.qui__texte { display: grid; gap: 18px; }
+.qui__texte h2 { margin-top: 0; }
+.qui__texte p { margin: 0; max-width: 56ch; }
+.qui__texte p:not(.etiquette):not(.qui__contact) { color: var(--encre-2); }
+.qui__contact { font-family: var(--mono); font-size: 14px; }
+.qui__contact a { text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .qui__contact a:hover { text-decoration: underline; } }
+
+/* Spécialité */
+.spe { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; text-decoration: none; background: var(--craie); border-radius: var(--r-l); padding: clamp(28px, 5vw, 64px); transition: transform .3s var(--sortie); }
+.spe h2 { font-size: clamp(36px, 4.6vw, 68px); margin: 14px 0 0; max-width: 16ch; }
+.spe .etiquette { color: var(--encre); }
+.spe p:not(.etiquette) { margin: 18px 0 0; max-width: 52ch; }
+.spe__fleche { font-size: clamp(48px, 6vw, 88px); line-height: 1; transition: transform .3s var(--sortie); }
+@media (hover: hover) and (pointer: fine) { .spe:hover { transform: translateY(-3px); } .spe:hover .spe__fleche { transform: translateX(8px); } }
+#specialite { padding-top: 0; }
+#specialite::before { content: none; }
+
+/* Questions fréquentes */
+.faq { border-top: 1px solid var(--encre); max-width: 860px; }
+.faq__item { border-bottom: 1px solid var(--filet); }
+.faq__item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 20px 0; font-size: clamp(18px, 1.8vw, 22px); font-weight: 550; letter-spacing: -.015em; }
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__suite { margin: 28px 0 0; font-weight: 600; } .faq__suite a { text-decoration: none; }
+.faq__plus { position: relative; width: 26px; height: 26px; flex: none; border: 1px solid var(--encre); border-radius: 50%; }
+.faq__plus::before, .faq__plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 11px; height: 1.5px; background: var(--encre); transform: translate(-50%, -50%); transition: transform .3s var(--sortie); }
+.faq__plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+.faq__item[open] .faq__plus::after { transform: translate(-50%, -50%) rotate(0deg); }
+.faq__item p { margin: 0 0 22px; color: var(--encre-2); max-width: 62ch; }
+@media (hover: hover) and (pointer: fine) { .faq__item summary:hover .faq__plus { background: var(--craie); } }
+
+/* Fin */
+.fin { position: relative; padding-block: clamp(72px, 10vw, 136px); text-align: center; }
+.fin h2 { margin-top: 18px; }
+.fin__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 36px; }
+
+@media (max-width: 1080px) {
+  .ouv { grid-template-columns: minmax(0, 1fr); }
+  .ouv__texte { display: contents; }
+  h1 { order: 2; } .ouv__test { order: 3; max-width: 640px; } .ouv__chapo { order: 4; } .ouv__preuves { order: 5; }
+  .ouv__chapo { margin-top: 0; }
+  .ouv__preuves { margin-top: 0; }
+  .exp { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .exp__texte { position: static; }
+  .ecran { min-height: 0; }
+  .nuit__grille { grid-template-columns: minmax(0, 1fr); }
+  .preuve { grid-template-columns: minmax(0, 1fr); }
+  .qui { grid-template-columns: minmax(0, 1fr); }
+  .qui__portrait { max-width: 260px; }
+  .metier { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 40px; }
+  .metier h3 { grid-column: 1; grid-row: 1 / span 2; }
+  .metier__besoin { grid-column: 2; grid-row: 1; }
+  .metier__plus { grid-column: 2; grid-row: 2; }
+  .metier__lien { grid-column: 3; grid-row: 1; }
 }
-@media (prefers-reduced-motion: reduce) { .recit__cadre figure { transition: opacity .3s ease; transform: none; clip-path: none; } .chap { transition: none; } }
-
-/* Moment tableau de bord */
-.soir { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; align-items: center; }
-.soir__chiffre { grid-column: 1 / span 6; min-width: 0; }
-.soir__chiffre .grand { font-size: clamp(120px, 20vw, 280px); line-height: .8; letter-spacing: -.07em; font-weight: 800; font-variant-numeric: tabular-nums; display: block; margin-top: 16px; }
-.soir__chiffre p.phrase { font-size: clamp(22px, 2.4vw, 32px); letter-spacing: -.025em; line-height: 1.1; font-weight: 650; margin: 20px 0 0; max-width: 18ch; }
-.soir__flux { grid-column: 8 / span 5; display: grid; gap: 8px; min-width: 0; }
-.soir__flux .liste { display: grid; gap: 8px; min-height: 236px; align-content: end; }
-.courbe { border-top: 1px solid var(--encre); padding-top: 12px; }
-.courbe svg { width: 100%; height: 100px; display: block; overflow: visible; }
-.courbe .ligne { fill: none; stroke: var(--encre); stroke-width: 2.5; stroke-dasharray: 600; stroke-dashoffset: 0; }
-.courbe .aire { fill: var(--craie); opacity: .55; }
-.courbe .pt { fill: var(--encre); }
-.courbe .lbl { font-family: var(--mono); font-size: 11px; fill: var(--gris); }
-.courbe.anime .ligne { animation: trace 2s ease both; }
-@keyframes trace { from { stroke-dashoffset: 600; } to { stroke-dashoffset: 0; } }
-.exemple { font-family: var(--mono); font-size: 11px; color: var(--gris); margin: 0; }
-
-/* Cas Izgara */
-.cas { background: var(--encre); color: var(--papier); }
-.cas .sec__tete .etiquette, .cas .sec__tete .chapo { color: #A7A79F; }
-.identite { display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: 240px 240px; gap: 8px; }
-.identite > div { overflow: hidden; position: relative; min-width: 0; }
-.i-logo { grid-row: span 2; background: var(--iz-or); display: grid; place-items: center; }
-.i-logo .iz-img { width: 100%; height: 100%; object-fit: contain; }
-.i-carte { background: var(--iz-creme); color: var(--iz-vert); padding: 22px; display: grid; align-content: start; gap: 8px; }
-.i-carte h5 { margin: 0 0 4px; font-family: var(--iz-serif); font-size: 22px; }
-.i-carte .l { display: flex; justify-content: space-between; border-bottom: 1px dotted rgb(42 49 34 / .35); padding-bottom: 5px; font-size: 13px; gap: 8px; }
-.i-carte .l span:last-child { font-variant-numeric: tabular-nums; }
-.i-box { background: #B88B5A; display: grid; place-items: center; }
-.i-box .eti { width: min(62%, 170px); aspect-ratio: 1; border-radius: 50%; background: var(--iz-vert); display: grid; place-items: center; box-shadow: 0 10px 26px -10px rgb(0 0 0 / .45); }
-.i-box .eti .iz-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-.i-fid { background: #3A3F33; display: grid; place-items: center; }
-.i-fid .c { width: 78%; aspect-ratio: 1.6; border-radius: 12px; background: var(--iz-vert); border: 1px solid var(--iz-or); padding: 14px; display: grid; gap: 8px; align-content: space-between; color: var(--iz-creme); }
-.i-fid .c b { font-family: var(--iz-serif); font-size: 16px; }
-.tampons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-.tampons span { aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--iz-or); }
-.tampons span.ok { background: var(--iz-or); }
-.i-insta { background: var(--iz-creme); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; padding: 3px; }
-.i-insta span { background: var(--iz-vert); display: grid; place-items: center; color: var(--iz-creme); font-family: var(--iz-serif); font-size: 13px; text-align: center; padding: 4px; }
-.i-insta span:nth-child(2n) { background: var(--iz-or); color: var(--iz-creme); }
-.cas__etapes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; }
-.cas__etapes div { border-top: 1px solid var(--papier); padding-top: 12px; min-width: 0; }
-.cas__etapes .n { font-family: var(--mono); font-size: 12px; color: var(--encre); background: var(--craie); padding: 0 4px; }
-.cas__etapes b { display: block; font-size: 20px; letter-spacing: -.02em; margin-top: 10px; }
-.cas__etapes span { color: #A7A79F; font-size: 15px; }
-.fictif { margin-top: 28px; color: #A7A79F; }
-
-
-/* Équipe en onglets */
-.onglets { display: flex; gap: 0; border-bottom: 1px solid var(--encre); overflow-x: auto; scrollbar-width: none; }
-.onglets button { font: inherit; font-weight: 650; font-size: clamp(17px, 1.6vw, 21px); letter-spacing: -.015em; background: none; border: 0; padding: 14px 20px 12px; cursor: pointer; color: var(--gris); border-bottom: 3px solid transparent; margin-bottom: -1px; white-space: nowrap; }
-.onglets button[aria-selected="true"] { color: var(--encre); border-bottom-color: var(--craie); }
-.onglets button:hover { color: var(--encre); }
-.panneau { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; padding-top: 28px; align-items: end; }
-.panneau__media { grid-column: 1 / span 8; aspect-ratio: 16 / 9; overflow: hidden; background: var(--encre); min-width: 0; position: relative; }
-.panneau__media img, .panneau__media video { width: 100%; height: 100%; object-fit: cover; animation: apparait .6s ease both; }
-.panneau__media.vertical video { object-fit: contain; background: var(--encre); }
-@keyframes apparait { from { opacity: .3; transform: scale(1.03); } to { opacity: 1; transform: none; } }
-.panneau__texte { grid-column: 9 / span 4; min-width: 0; }
-.panneau__texte h3 { font-size: clamp(26px, 2.6vw, 36px); letter-spacing: -.035em; line-height: 1.02; margin: 10px 0 12px; }
-.panneau__texte p { color: var(--gris); margin: 0 0 14px; }
-
-/* Cas Pasta Mo' */
-.pm { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; align-items: start; }
-.pm__film { grid-column: 1 / span 6; margin: 0; position: sticky; top: 90px; min-width: 0; }
-.pm__film img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #1d1a17; }
-.pm__film figcaption { margin-top: 10px; }
-.pm__canaux { grid-column: 8 / span 5; display: grid; min-width: 0; border-top: 1px solid var(--encre); }
-.canal { padding-block: 20px; border-bottom: 1px solid var(--filet); }
-.canal h3 { font-size: 22px; letter-spacing: -.02em; margin: 8px 0 6px; }
-.canal p { margin: 0; color: var(--gris); }
-.canal .chiffre { font-weight: 800; color: var(--encre); font-variant-numeric: tabular-nums; }
-
-/* Canaux */
-.canaux { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--encre); border-left: 1px solid var(--filet); }
-.canaux article { border-right: 1px solid var(--filet); border-bottom: 1px solid var(--filet); padding: 24px 22px; display: grid; gap: 10px; align-content: start; min-width: 0; transition: background .2s; }
-.canaux article:hover { background: var(--blanc); }
-.canaux h3 { margin: 0; font-size: clamp(22px, 2.2vw, 30px); letter-spacing: -.03em; line-height: 1.05; }
-.canaux p { margin: 0; color: var(--gris); }
-.canaux .mesure { font-family: var(--mono); font-size: 12px; color: var(--encre); border-top: 1px dashed var(--filet); padding-top: 10px; margin-top: 6px; }
-.canaux .mesure b { background: var(--craie-clair); font-weight: 500; padding: 1px 5px; }
-.canaux article.large { grid-column: 1 / -1; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 40px; align-items: center; }
-.canaux article.large figure { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; }
-.canaux article.large img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.canaux article.large > div { display: grid; gap: 10px; max-width: 62ch; }
-@media (max-width: 560px) { .canaux article.large { grid-template-columns: minmax(0, 110px) minmax(0, 1fr); gap: 16px; } }
-@media (max-width: 900px) { .canaux { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 560px) { .canaux { grid-template-columns: 1fr; } }
-
-
-/* Identité Izgara : défilement horizontal de mises en situation (épinglé sur ordinateur, au doigt sur téléphone) */
-.mes { position: relative; margin-top: 8px; }
-.mes__colle { position: relative; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-.mes__colle::-webkit-scrollbar { display: none; }
-.mes__piste { display: flex; gap: 12px; width: max-content; padding-bottom: 4px; }
-.mes__piste > figure { scroll-snap-align: start; margin: 0; width: min(80vw, 520px); height: min(72vh, 650px); position: relative; overflow: hidden; flex: none; display: grid; place-items: center; }
-.mes__piste figcaption { position: absolute; left: 12px; bottom: 12px; background: var(--papier); color: var(--encre); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 5px 9px; }
-.mes__piste > figure.ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.mes__piste > figure.ph { background: #1b1a18; }
-.mes__barre { height: 2px; background: #3A3A37; margin-top: 16px; }
-.mes__barre i { display: block; height: 100%; width: 0; background: var(--craie); }
-.mes.epingle { height: var(--h, 300vh); }
-.mes.epingle .mes__colle { position: sticky; top: 90px; overflow: hidden; }
-.mes.epingle .mes__piste { will-change: transform; }
-.m-logo { background: var(--iz-or); }
-.m-logo .iz-img { width: 92%; height: 92%; object-fit: contain; }
-.m-ens { background: linear-gradient(#262a30, #15181c); }
-.m-ens .mur-ens { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgb(255 255 255 / .03) 0 2px, transparent 2px 64px); }
-.m-ens .caisson { position: relative; width: 78%; aspect-ratio: 2.4; background: var(--iz-or); border-radius: 6px; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 16px; padding: 12px 20px; box-shadow: 0 0 60px 10px rgb(191 87 52 / .45), 0 30px 40px -20px rgb(0 0 0 / .8); }
-.m-ens .caisson .iz-img { height: 100%; width: auto; aspect-ratio: 1; object-fit: cover; border-radius: 4px; }
-.m-ens .caisson b { font-family: var(--grotesk); color: var(--iz-creme); font-size: clamp(16px, 2.4vw, 26px); letter-spacing: .18em; font-weight: 800; }
-.m-ens .vitre { position: absolute; left: 11%; right: 11%; bottom: 0; height: 30%; background: linear-gradient(rgb(255 196 120 / .25), rgb(255 160 90 / .08)); border: 3px solid #0d0f12; border-bottom: 0; }
-.m-sac { background: #D8D1C4; }
-.m-sac .sac { position: relative; width: 46%; aspect-ratio: .78; background: linear-gradient(100deg, #b98c5c, #cfa474 45%, #b5895a); border-radius: 3px 3px 6px 6px; box-shadow: 18px 24px 30px -18px rgb(0 0 0 / .45); display: grid; place-items: center; margin-top: 14%; }
-.m-sac .sac::before { content: ""; position: absolute; top: -26%; left: 30%; width: 40%; height: 34%; border: 7px solid #a77c4f; border-bottom: 0; border-radius: 60px 60px 0 0; }
-.m-sac .sac::after { content: ""; position: absolute; inset: 0 0 auto; height: 9%; background: rgb(0 0 0 / .08); }
-.m-sac .sac .iz-img { width: 60%; aspect-ratio: 1; object-fit: cover; border-radius: 50%; mix-blend-mode: multiply; }
-.m-box { background: #2B2B2B; }
-.m-box .boite { width: 58%; aspect-ratio: 1.35; background: linear-gradient(160deg, #c99a68, #a97b4c); border-radius: 4px; position: relative; display: grid; place-items: center; box-shadow: 0 40px 40px -24px rgb(0 0 0 / .8); transform: perspective(700px) rotateX(28deg); }
-.m-box .boite .iz-img { width: 46%; aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 4px solid var(--iz-creme); }
-.m-carte { background: #3b2f27; }
-.m-carte .feuille { width: 56%; aspect-ratio: .7; background: var(--iz-creme); color: var(--iz-vert); padding: 7% 7%; display: grid; align-content: start; gap: 8px; box-shadow: 0 30px 40px -20px rgb(0 0 0 / .7); transform: rotate(-3deg); }
-.m-carte .feuille .iz-img { width: 34%; aspect-ratio: 1; object-fit: cover; margin: 0 auto 6px; }
-.m-carte .feuille h5 { margin: 4px 0 2px; font-family: var(--grotesk); font-size: 13px; letter-spacing: .2em; color: var(--iz-or); }
-.m-carte .feuille .l { display: flex; justify-content: space-between; font-size: 12px; border-bottom: 1px dotted rgb(30 58 95 / .35); padding-bottom: 3px; gap: 8px; }
-.m-tel { background: #CFC8BA; }
-.m-tel .tel-cadre { width: min(230px, 54%); }
-.m-insta { background: var(--iz-creme); }
-.m-insta .grille { width: 74%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
-.m-insta .grille span { aspect-ratio: 1; background: var(--iz-vert); color: var(--iz-creme); display: grid; place-items: center; text-align: center; font-weight: 750; font-size: clamp(11px, 1.2vw, 14px); padding: 6px; letter-spacing: -.01em; }
-.m-insta .grille span:nth-child(2n) { background: var(--iz-or); }
-.m-insta .grille span.l { background: var(--iz-or); padding: 0; }
-.m-insta .grille span.l .iz-img { width: 100%; height: 100%; object-fit: cover; }
-.m-fid { background: #1a2233; }
-.m-fid .c { width: 62%; aspect-ratio: 1.6; border-radius: 14px; background: var(--iz-or); padding: 18px; display: grid; align-content: space-between; color: var(--iz-creme); box-shadow: 0 30px 40px -20px rgb(0 0 0 / .8); transform: rotate(4deg); }
-.m-fid .c b { font-size: 18px; letter-spacing: .1em; }
-.m-fid .tampons span { border-color: var(--iz-creme); }
-.m-fid .tampons span.ok { background: var(--iz-creme); }
-
-
-/* Outils en situation (même défilement que l'identité, en clair) */
-.mes--clair .mes__barre { background: var(--filet); }
-.mes--clair .mes__barre i { background: var(--encre); }
-.mes--outils { margin-top: clamp(40px, 6vw, 72px); }
-.mes--outils .mes__piste > figure { width: min(66vw, 330px); height: 400px; border: 1px solid var(--filet); }
-.mes--outils figcaption { border: 1px solid var(--filet); }
-.o-tel { width: 190px; height: 330px; border: 6px solid var(--encre); border-radius: 28px; background: var(--blanc); padding: 18px 14px; display: flex; flex-direction: column; gap: 9px; font-size: 13px; box-shadow: 0 24px 30px -22px rgb(0 0 0 / .5); }
-.o-tel .h { font-weight: 800; font-size: 15px; letter-spacing: -.01em; }
-.o-tel .r { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--filet); padding-bottom: 6px; }
-.o-tel .go { margin-top: auto; background: var(--encre); color: var(--papier); text-align: center; padding: 10px; border-radius: 10px; font-weight: 700; }
-.o-tel .ok { margin: auto 0; text-align: center; display: grid; gap: 6px; justify-items: center; }
-.o-tel .ok i { width: 54px; height: 54px; border-radius: 50%; background: var(--craie); border: 2px solid var(--encre); display: grid; place-items: center; font-style: normal; font-size: 26px; font-weight: 800; }
-.o-tel .ok b { font-size: 28px; letter-spacing: -.03em; }
-.f-cc { background: #E6E3DA; }
-.f-qr { background: linear-gradient(#cfb38f, #b8966d); }
-.chevalet { background: var(--blanc); width: 170px; padding: 18px 16px; display: grid; justify-items: center; gap: 10px; text-align: center; box-shadow: 0 30px 30px -20px rgb(0 0 0 / .55); transform: perspective(600px) rotateX(8deg); }
-.chevalet canvas { width: 120px; height: 120px; image-rendering: pixelated; }
-.chevalet b { font-size: 15px; }
-.chevalet span { font-size: 12px; color: var(--gris); }
-.f-paye { background: #D9DEE4; }
-.f-cuisine { background: #2A2A28; }
-.ticket { width: 180px; background: #FAFAF6; padding: 16px 14px 22px; font-family: var(--mono); font-size: 12px; display: grid; gap: 6px; box-shadow: 0 20px 30px -16px rgb(0 0 0 / .7); clip-path: polygon(0 0, 100% 0, 100% 96%, 90% 100%, 80% 96%, 70% 100%, 60% 96%, 50% 100%, 40% 96%, 30% 100%, 20% 96%, 10% 100%, 0 96%); }
-.ticket b { font-size: 14px; }
-.ticket .t { border-top: 1px dashed #999; padding-top: 6px; }
-.f-tdb { background: var(--papier); }
-.ecran { width: 86%; background: var(--blanc); border: 1px solid var(--encre); padding: 14px; display: grid; gap: 10px; }
-.ecran b { font-size: 30px; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
-.ecran .barres { height: 110px; }
-.f-fid { background: #1E1E1C; }
-.f-fid .o-tel { background: #121211; color: var(--papier); border-color: #3a3a37; }
-.f-fid .carte-w { margin-top: 10px; border-radius: 12px; background: var(--craie); color: var(--encre); padding: 12px; display: grid; gap: 8px; }
-.f-fid .carte-w .tampons span { border-color: var(--encre); }
-.f-fid .carte-w .tampons span.ok { background: var(--encre); }
-.f-msg { background: #EAE7E0; }
-.bulle { max-width: 82%; background: var(--blanc); border: 1px solid var(--filet); border-radius: 16px 16px 16px 4px; padding: 12px 14px; font-size: 14px; line-height: 1.35; box-shadow: 0 12px 20px -14px rgb(0 0 0 / .35); }
-.bulle small { display: block; color: var(--gris); font-size: 11px; margin-bottom: 4px; font-family: var(--mono); }
-.barres { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; align-items: end; border-bottom: 1px solid var(--encre); }
-.barres i { display: block; background: var(--encre); }
-.barres i.cc { background: var(--craie); box-shadow: inset 0 0 0 1px var(--encre); }
-.legende { display: flex; gap: 16px; font-size: 12px; color: var(--gris); flex-wrap: wrap; }
-.legende span::before { content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; background: var(--encre); }
-.legende span.cc::before { background: var(--craie); box-shadow: inset 0 0 0 1px var(--encre); }
-
-/* Prix */
-
-/* Contact */
-.contact { padding-block: clamp(72px, 11vw, 160px); border-top: 1px solid var(--filet); }
-.contact h2 { font-size: clamp(46px, 9vw, 132px); line-height: .9; letter-spacing: -.055em; margin: 18px 0 40px; font-weight: 800; text-wrap: balance; }
-.contact__liens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.contact__liens div { border-top: 1px solid var(--encre); padding-top: 12px; min-width: 0; }
-.contact__liens b { display: block; font-size: clamp(20px, 2.2vw, 28px); letter-spacing: -.02em; margin-top: 8px; user-select: all; overflow-wrap: anywhere; }
-.pied { border-top: 1px solid var(--filet); padding-block: 24px; font-size: 13px; color: var(--gris); }
-.pied .cadre { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-
-@media (max-width: 900px) {
-  .nav a:not(.tel) { display: none; }
-  .ouv__bas, .sec__tete, .etape, .soir { grid-template-columns: minmax(0, 1fr); }
-  .ouv__bas > *, .sec__tete > *, .etape > *, .soir > * { grid-column: 1 / -1 !important; min-width: 0; }
-  .ouv__bas .actions { justify-content: flex-start; }
-  .sec__tete .etiquette { padding-top: 0; }
-  .etape { grid-template-columns: minmax(0, 1fr) 92px; gap: 6px 16px; }
-  .etape > * { grid-column: 1 !important; }
-  .etape figure { grid-column: 2 !important; grid-row: 1 / span 3; align-self: start; aspect-ratio: 1; width: 92px; }
-  .etape .n { padding-top: 0; }
-  .mur { grid-template-columns: 1fr 1fr; grid-template-rows: 300px 220px 220px; }
-  .t-photo { grid-row: auto; grid-column: 1 / -1; }
-  .t-site { grid-row: span 2; }
-  .identite { grid-template-columns: 1fr 1fr; grid-template-rows: 300px 220px 220px; }
-  .i-logo { grid-row: auto; grid-column: 1 / -1; }
-  .cas__etapes { grid-template-columns: 1fr 1fr; }
-  .contact__liens { grid-template-columns: 1fr; }
-  .panneau, .pm { grid-template-columns: minmax(0, 1fr); }
-  .panneau > *, .pm > * { grid-column: 1 / -1 !important; }
-  .pm__film { position: static; }
-}
-@media (max-width: 520px) {
-  .marque span { display: none; }
-  .cas__etapes { grid-template-columns: 1fr; }
+@media (max-width: 760px) {
+  .ouv { padding-top: 20px; }
+  .ouv__long { display: none; }
+  h1 { margin-top: 14px; font-size: clamp(42px, 11.6vw, 56px); }
+  .ouv__chapo { font-size: 17px; max-width: 40ch; }
+  .sec__tete { display: block; }
+  .sec__tete h2 { margin-top: 14px; }
+  .sec__tete .chapo { margin-top: 18px; font-size: 17px; }
+  .ouv__preuves { grid-template-columns: 1fr 1fr 1fr; }
+  .ouv__preuves li { padding-right: 10px; margin-right: 10px; font-size: 13px; min-width: 0; }
+  h2 { font-size: clamp(38px, 10vw, 56px); }
+  .exp__texte h3 { font-size: clamp(26px, 7.5vw, 34px); }
+  .ecran { padding: 16px; padding-top: 48px; border-radius: var(--r-m); }
+  .metier::before { inset: 0 -12px; }
+  .ecran--photo { padding: 0; }
+  .ecran__chip { top: 10px; right: 10px; }
+  .g__carte { height: 72px; }
+  .bi__voyants { grid-template-columns: 1fr; }
+  .metier { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 10px; }
+  .metier h3, .metier__besoin, .metier__plus { grid-column: 1; grid-row: auto; }
+  .metier__lien { grid-column: 2; grid-row: 1; }
+  .metier__badge { margin: 6px 0 0; display: table; }
+  .etapes { grid-template-columns: 1fr; gap: 28px; }
+  .spe { grid-template-columns: 1fr; }
+  .spe__fleche { justify-self: end; }
+  .faq__item summary { padding: 16px 0; }
+  .fin { text-align: left; }
+  .fin__actions { justify-content: flex-start; }
+  .fin__actions .btn { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  html { scroll-behavior: auto; }
+  .carte__route { stroke-dashoffset: 0; }
+  .carte__point { fill: var(--craie); }
+  .carte__ville text { opacity: 1; }
+  .carte *, .bi__voyants li::before, .g__item--vous, .g__pin--vous, .faq__plus::before, .faq__plus::after, .spe, .spe__fleche { transition: none !important; animation: none !important; }
+  .js .exp .ecran { opacity: 1; transform: none; transition: none; }
 }
-
-/* Éditorial : tous les titres et grands chiffres en Instrument Serif, sans graisse ni serrage de grotesque */
-:is(h1, h2, h3, .grand, .recit__num, .lance__bloc b, .phrase) { font-family: var(--serif) !important; font-weight: 400 !important; letter-spacing: -.02em !important; }
-.lance--360 .lance__bloc b { font-family: var(--mono) !important; letter-spacing: .08em !important; font-weight: 500 !important; }
-h1 em, h2 em, h3 em, .trait > span { font-style: italic; color: var(--encre); background: linear-gradient(transparent 60%, var(--craie) 60% 90%, transparent 90%); padding-inline: .05em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-.trait svg { display: none; }
-.ouv h1 { line-height: .92; }
-.chap h3 { line-height: .98; }
-.film { margin: clamp(48px, 7vw, 96px) 0 0; display: grid; gap: 12px; }
-.film video { width: 100%; max-width: 100%; height: auto; aspect-ratio: 16 / 9; display: block; background: var(--encre); border: 1px solid var(--encre); }
-.film figcaption { font-size: 15px; color: var(--gris); }
-.film figcaption span { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--encre); background: var(--craie); padding: 2px 6px; margin-right: 8px; }
-.ouv__sur { display: block; font-family: var(--mono) !important; font-size: 12px !important; letter-spacing: .08em !important; font-weight: 400 !important; line-height: 1.5; margin-bottom: clamp(14px, 2vw, 24px); }
-.faq__liste { display: grid; border-top: 1px solid var(--encre); max-width: 860px; margin-left: auto; }
-.faq details { border-bottom: 1px solid var(--filet); padding-block: 18px; }
-.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; font-size: clamp(17px, 1.6vw, 20px); font-weight: 500; }
-.faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: '+'; font-family: var(--mono); flex: none; }
-.faq details[open] summary::after { content: '−'; }
-.faq details p { margin: 12px 0 0; color: var(--gris); max-width: 62ch; line-height: 1.55; }
 </style>
-  <script type="application/ld+json" is:inline set:html={jsonLd} />
-</head>
-<body>
-
-
-<header class="tete">
-  <div class="cadre">
-    <a class="marque" href="#haut" aria-label="Nouvelle Ardoise, accueil"><svg viewBox="0 0 32 36" aria-hidden="true"><path d="M6 30V6l20 24V6"/></svg><span>Nouvelle Ardoise</span></a>
-    <nav class="nav" aria-label="Navigation principale">
-      <a href="#accompagnement">Accompagnement</a>
-      <a href="#equipe">Équipe</a>
-      <a href="#pastamo">Réalisations</a>
-      <a href="/artisans/">Artisans</a>
-      <a href="#contact">Contact</a>
-      <a class="tel" href="#contact">078 213 38 68</a>
-    </nav>
-  </div>
-</header>
-
-<main id="haut">
-  <section class="ouv cadre" aria-labelledby="titre">
-    <h1 id="titre"><span class="etiquette ouv__sur">Agence de marketing et de communication pour restaurants · Restauration et métiers de bouche · Genève &amp; Vaud</span>Place à la <span class="trait"><svg viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true"><path d="M6 26 C 140 12, 300 30, 594 14"/></svg><span>mise en place.</span></span></h1>
-    <div class="ouv__bas">
-      <p>On étudie votre marché, on construit votre stratégie, on crée votre image et vos outils. Puis on suit les résultats avec vous, chaque mois.</p>
-      <div class="actions"><a class="btn" href="#contact">Parler de votre maison <span aria-hidden="true">→</span></a><a class="btn btn--creux" href="#accompagnement">Voir comment</a></div>
-    </div>
-
-    <div class="mur" aria-label="Aperçu de notre travail">
-      <div class="tuile t-photo"><img src="/accueil/shooting.webp" alt="Un photographe cadre une composition culinaire en studio." width="1600" height="1067"><span class="tuile__nom">Shooting</span></div>
-      <div class="tuile t-logo"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="Logo Izgara 35, Grill d’Izmir" width="900" height="900"><span class="tuile__nom">Identité</span></div>
-      <div class="tuile t-site">
-        <div class="tel-cadre" aria-hidden="true"><div class="tel-defile">
-          <img class="iz-img" src="/accueil/izgara-logo.webp" alt="Logo Izgara 35, Grill d’Izmir" width="900" height="900">
-          <h4>Le grill d’Izmir, à Onex.</h4>
-          <span class="bouton">Commander à emporter</span>
-          <div class="plat"><span>Adana kebab<small>Riz pilaf, salade</small></span><span>22.–</span></div>
-          <div class="plat"><span>Brochettes de poulet<small>Marinade yaourt</small></span><span>21.–</span></div>
-          <div class="plat"><span>Plateau grill pour 2<small>Le soir seulement</small></span><span>48.–</span></div>
-          <div class="plat"><span>Iskender<small>Pain, sauce tomate</small></span><span>23.–</span></div>
-          <div class="plat"><span>Box du midi<small>Riz, grill du jour</small></span><span>14.90</span></div>
-          <span class="bouton">Réserver une table</span>
-        </div></div>
-        <span class="tuile__nom">Site</span>
-      </div>
-      <div class="tuile t-cmd" id="mur-cmd"><span class="tuile__nom">Commandes</span></div>
-    </div>
-  </section>
-
-  <div class="lance lance--360" role="img" aria-label="Communication à 360° : Logo, Site, Appli, Instagram, Shooting photo, Vidéo, Drone, Fiche Google, Publicité, Uber Eats, Click & Collect, QR code, Fidélité, Emballages, Prospection."><span class="lance__piste" aria-hidden="true"><span class="lance__bloc"><b>Communication à 360°</b><i aria-hidden="true">✳</i><span>Logo</span><i aria-hidden="true">✳</i><span>Site</span><i aria-hidden="true">✳</i><span>Appli</span><i aria-hidden="true">✳</i><span>Instagram</span><i aria-hidden="true">✳</i><span>Shooting photo</span><i aria-hidden="true">✳</i><span>Vidéo</span><i aria-hidden="true">✳</i><span>Drone</span><i aria-hidden="true">✳</i><span>Fiche Google</span><i aria-hidden="true">✳</i><span>Publicité</span><i aria-hidden="true">✳</i><span>Uber Eats</span><i aria-hidden="true">✳</i><span>Click &amp; Collect</span><i aria-hidden="true">✳</i><span>QR code</span><i aria-hidden="true">✳</i><span>Fidélité</span><i aria-hidden="true">✳</i><span>Emballages</span><i aria-hidden="true">✳</i><span>Prospection</span><i aria-hidden="true">✳</i></span><span class="lance__bloc"><b>Communication à 360°</b><i aria-hidden="true">✳</i><span>Logo</span><i aria-hidden="true">✳</i><span>Site</span><i aria-hidden="true">✳</i><span>Appli</span><i aria-hidden="true">✳</i><span>Instagram</span><i aria-hidden="true">✳</i><span>Shooting photo</span><i aria-hidden="true">✳</i><span>Vidéo</span><i aria-hidden="true">✳</i><span>Drone</span><i aria-hidden="true">✳</i><span>Fiche Google</span><i aria-hidden="true">✳</i><span>Publicité</span><i aria-hidden="true">✳</i><span>Uber Eats</span><i aria-hidden="true">✳</i><span>Click &amp; Collect</span><i aria-hidden="true">✳</i><span>QR code</span><i aria-hidden="true">✳</i><span>Fidélité</span><i aria-hidden="true">✳</i><span>Emballages</span><i aria-hidden="true">✳</i><span>Prospection</span><i aria-hidden="true">✳</i></span></span></div>
-
-  <section class="sec cadre" id="accompagnement" aria-labelledby="acc-titre">
-    <div class="sec__tete">
-      <p class="etiquette">Accompagnement</p>
-      <h2 id="acc-titre">On s’occupe de tout. Avec vous.</h2>
-      <p class="chapo">Un seul interlocuteur, de la première visite au suivi des ventes.</p>
-    </div>
-    <div class="recit"><div class="recit__scene"><div class="recit__cadre"><figure data-c="0" data-s="0" data-on><img src="/accueil/etapes/salle.webp" alt="Une salle de restaurant pleine au déjeuner." style="object-position: 50% 50%"><figcaption>Le service de midi</figcaption></figure><figure data-c="0" data-s="1"><img src="/accueil/etapes/tablee.webp" alt="Un serveur apporte les plats à une tablée." loading="lazy" style="object-position: 45% 50%"><figcaption>Qui sont vos clients</figcaption></figure><figure data-c="1" data-s="0"><img src="/accueil/etapes/strategie.webp" alt="Deux restaurateurs font leurs comptes avec une tablette et une calculatrice." loading="lazy" style="object-position: 40% 50%"><figcaption>Les chiffres, avec vous</figcaption></figure><figure data-c="1" data-s="1"><img src="/accueil/etapes/compta.webp" alt="Une restauratrice prépare son plan avant le service." loading="lazy" style="object-position: 45% 50%"><figcaption>Un plan simple</figcaption></figure><figure data-c="2" data-s="0"><img src="/accueil/etapes/carte.webp" alt="Une carte de restaurant élégante, avec les photos des plats, posée sur l’assiette." loading="lazy" style="object-position: 72% 45%"><figcaption>La carte</figcaption></figure><figure data-c="2" data-s="1"><img src="/accueil/etapes/design.webp" alt="Nuanciers de couleurs, crayon et feuille blanche sur un bureau de graphiste." loading="lazy" style="object-position: 78% 45%"><figcaption>Couleurs et typographies</figcaption></figure><figure data-c="3" data-s="0"><img src="/accueil/etapes/emporter.webp" alt="Une serveuse tend une commande à emporter dans un sac kraft." loading="lazy" style="object-position: 60% 70%"><figcaption>Click &amp; Collect</figcaption></figure><figure data-c="3" data-s="1"><img src="/accueil/etapes/qrpay.webp" alt="Un client scanne le QR code de la table pour payer." loading="lazy" style="object-position: 35% 50%"><figcaption>Paiement par QR code</figcaption></figure><figure data-c="3" data-s="2"><img src="/accueil/etapes/qrmenu.webp" alt="Un client commande depuis sa table avec son téléphone." loading="lazy" style="object-position: 55% 50%"><figcaption>La carte au QR code</figcaption></figure><figure data-c="4" data-s="0"><img src="/accueil/etapes/tablette.webp" alt="Deux chefs consultent les ventes sur une tablette en cuisine." loading="lazy" style="object-position: 45% 50%"><figcaption>Le point du mois</figcaption></figure><figure data-c="4" data-s="1"><img src="/accueil/etapes/shooting.webp" alt="Une photographe photographie un plat au boîtier pro." loading="lazy" style="object-position: 40% 50%"><figcaption>Le shooting</figcaption></figure><figure data-c="4" data-s="2"><img src="/accueil/etapes/reels.webp" alt="Un plat photographié au téléphone pour les réseaux." loading="lazy" style="object-position: 50% 50%"><figcaption>Le contenu de la semaine</figcaption></figure><span class="recit__num" aria-hidden="true">01</span><div class="recit__segs" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div></div></div><div class="recit__textes"><article class="chap" data-i="0" data-n="2"><span class="chap__n">01<i>/05</i></span><h3>Étudier votre marché</h3><p>On vient sur place. Votre quartier, vos concurrents, vos prix, ce que les gens cherchent sur Google à midi et le soir.</p><ul class="puces"><li>Visite sur place</li><li>Concurrence</li><li>Fiche Google</li></ul><p class="chap__iz"><b>Ce que vous obtenez</b>Un état des lieux clair : où vous gagnez, où vous perdez des clients.</p></article><article class="chap" data-i="1" data-n="2"><span class="chap__n">02<i>/05</i></span><h3>Construire la stratégie</h3><p>Deux ou trois leviers choisis pour votre chiffre d’affaires, pas dix. Avec des objectifs chiffrés.</p><ul class="puces"><li>Midi</li><li>Soir</li><li>Fidélité</li><li>Objectifs</li></ul><p class="chap__iz"><b>Ce que vous obtenez</b>Un plan d’action sur une page, avec les chiffres à atteindre.</p></article><article class="chap" data-i="2" data-n="2"><span class="chap__n">03<i>/05</i></span><h3>Créer votre identité</h3><p>Logo, carte, emballages, site ou appli, réseaux. Tout parle la même langue, du trottoir au téléphone.</p><ul class="puces"><li>Logo</li><li>Carte</li><li>Emballages</li><li>Site ou appli</li><li>Instagram</li></ul><p class="chap__iz"><b>Ce que vous obtenez</b>Une marque reconnaissable partout, de l’enseigne à l’écran.</p></article><article class="chap" data-i="3" data-n="3"><span class="chap__n">04<i>/05</i></span><h3>Mettre en place les outils</h3><p>De nouveaux canaux qui vendent pendant le service, sans commission de plateforme.</p><ul class="puces"><li>Click &amp; Collect</li><li>Paiement par QR code</li><li>Fidélité</li></ul><p class="chap__iz"><b>Ce que vous obtenez</b>Des commandes et des paiements qui arrivent sans décrocher le téléphone.</p></article><article class="chap" data-i="4" data-n="3"><span class="chap__n">05<i>/05</i></span><h3>Suivre et ajuster</h3><p>Shootings, publications, et un point chaque mois sur ce qui rapporte. On garde ce qui marche, on coupe le reste.</p><ul class="puces"><li>Réels</li><li>Publications</li><li>Tableau de bord</li></ul><p class="chap__iz"><b>Ce que vous obtenez</b>Un point mensuel : ce qui rapporte, ce qu’on arrête, ce qu’on pousse.</p></article></div></div>
-  <figure class="film"><video controls preload="none" playsinline poster="/accueil/film/affiche.webp?v=2" width="1920" height="1080" aria-label="Film de 32 secondes : comment on travaille, en 5 étapes."><source src="/accueil/film/comment-on-travaille.mp4?v=2" type="video/mp4"></video><figcaption><span>Le film</span> Comment on travaille, en 32 secondes. Avec le son.</figcaption></figure>
-  </section>
-
-
-  <section class="sec cadre" id="equipe" aria-labelledby="eq-titre">
-    <div class="sec__tete">
-      <p class="etiquette">L’équipe</p>
-      <h2 id="eq-titre">Les bons métiers, au bon moment.</h2>
-      <p class="chapo">Autour de Malik, un réseau de spécialistes qu’on fait entrer quand votre projet en a besoin.</p>
-    </div>
-    <div class="onglets" role="tablist" aria-label="Nos métiers">
-      <button role="tab" id="o-strat" aria-controls="p-equipe" aria-selected="true" data-media="/accueil/tablee.webp" data-type="img" data-alt="Un serveur apporte les plats à une tablée." data-titre="Stratégie et terrain" data-texte="On vient chez vous, on écoute, on regarde le quartier. Puis on prospecte avec vous : entreprises, événements, voisins.">Stratégie</button>
-      <button role="tab" id="o-dev" aria-controls="p-equipe" aria-selected="false" tabindex="-1" data-media="/accueil/dev.webp" data-type="img" data-alt="Un client consulte une carte sur son téléphone." data-titre="Développeurs" data-texte="Sites, commande en ligne, applications sur mesure et tableaux de bord pour les projets les plus ambitieux.">Développement</button>
-      <button role="tab" id="o-photo" aria-controls="p-equipe" aria-selected="false" tabindex="-1" data-media="/artisans/tarte-framboise.webp" data-type="img" data-alt="Tartelette chocolat et framboises photographiée en studio." data-titre="Photographes" data-texte="Des photos qui subliment vos plats. Lumière, cadrage, dressage : le plat donne faim avant d’être goûté.">Photo</button>
-      <button role="tab" id="o-video" aria-controls="p-equipe" aria-selected="false" tabindex="-1" data-media="/media/exemple-sora.mp4" data-type="video" data-poster="/media/exemple-sora.jpg" data-alt="Vidéo d’exemple pour les réseaux d’un restaurant de ramen." data-titre="Vidéastes et drone" data-texte="Des réels qui racontent votre savoir-faire, et des plans au drone qui changent la donne pour une ouverture ou un événement.">Vidéo et drone</button>
-    </div>
-    <div class="panneau" id="p-equipe" role="tabpanel" aria-labelledby="o-strat">
-      <div class="panneau__media" id="eq-media"><img src="/accueil/tablee.webp" alt="Un serveur apporte les plats à une tablée." width="1200" height="800" loading="lazy"></div>
-      <div class="panneau__texte"><p class="etiquette">Métier</p><h3 id="eq-titre-p">Stratégie et terrain</h3><p id="eq-texte">On vient chez vous, on écoute, on regarde le quartier. Puis on prospecte avec vous : entreprises, événements, voisins.</p></div>
-    </div>
-  </section>
-
-  <section class="sec cadre" id="canaux" aria-labelledby="canaux-titre">
-    <div class="sec__tete">
-      <p class="etiquette">Acquisition</p>
-      <h2 id="canaux-titre">Les canaux qui ramènent du chiffre.</h2>
-      <p class="chapo">On choisit les canaux selon votre clientèle, et on mesure ce que chacun rapporte. Pas de likes pour faire joli.</p>
-    </div>
-    <div class="canaux">
-      <article><p class="etiquette">SEO local</p><h3>Être trouvé sur Google</h3><p>Fiche Google soignée, avis, site rapide et bien référencé sur « restaurant + quartier ».</p><p class="mesure">On mesure : <b>appels</b> <b>itinéraires</b> <b>visites</b></p></article>
-      <article><p class="etiquette">Publicité Instagram</p><h3>Toucher le quartier</h3><p>Des campagnes ciblées à quelques kilomètres, avec un budget que vous fixez.</p><p class="mesure">On mesure : <b>coût par commande</b></p></article>
-      <article><p class="etiquette">Contenu</p><h3>Donner faim chaque semaine</h3><p>Réels, plat du jour, coulisses. Le contenu qui fait venir, pas celui qui fait joli.</p><p class="mesure">On mesure : <b>réservations</b> <b>messages</b></p></article>
-      <article><p class="etiquette">Commande en ligne</p><h3>Vendre sans décrocher</h3><p>Click &amp; Collect et paiement par QR code, sans commission de plateforme.</p><p class="mesure">On mesure : <b>panier moyen</b> <b>commandes</b></p></article>
-      <article><p class="etiquette">Fidélité</p><h3>Faire revenir</h3><p>Carte de fidélité sur téléphone et messages aux habitués au bon moment.</p><p class="mesure">On mesure : <b>clients qui reviennent</b></p></article>
-      <article><p class="etiquette">Prospection</p><h3>Aller chercher les gros volumes</h3><p>Entreprises, traiteur, événements : on prépare les listes et les relances avec vous.</p><p class="mesure">On mesure : <b>rendez-vous</b> <b>contrats</b></p></article><article class="large"><figure><img src="/accueil/mes/box.webp" alt="Box Izgara 35 photographiée pour une fiche de livraison." width="800" height="1000" loading="lazy"></figure><div><p class="etiquette">Livraison</p><h3>Sortir du lot sur Uber Eats</h3><p>Sur Uber Eats, on choisit avec les yeux. Photos pro de chaque plat, carte réécrite, catégories et options bien rangées, offres au bon moment : votre fiche passe devant celles du quartier.</p><p class="mesure">On mesure : <b>vues de la fiche</b> <b>taux de commande</b> <b>panier moyen</b></p></div></article>
-    </div>
-  </section>
-
-  <section class="sec cadre" id="ventes" aria-labelledby="ventes-titre">
-    <div class="soir">
-      <div class="soir__chiffre">
-        <p class="etiquette">Un vendredi soir</p>
-        <span class="grand" id="compteur" aria-hidden="true">23</span>
-        <p class="phrase" id="ventes-titre">commandes arrivées sans <span class="surligne">décrocher le téléphone.</span></p>
-      </div>
-      <div class="soir__flux">
-        <div class="liste" id="flux" aria-label="Exemples de commandes reçues"></div>
-        <div class="courbe" id="courbe">
-          <svg viewBox="0 0 300 100" role="img" aria-label="Commandes à emporter par mois, en hausse de janvier à juin (exemple)">
-            <path class="aire" d="M0 78 L60 70 L120 62 L180 48 L240 34 L300 16 L300 80 L0 80 Z"/>
-            <path class="ligne" d="M0 78 L60 70 L120 62 L180 48 L240 34 L300 16"/>
-            <circle class="pt" cx="300" cy="16" r="4"/>
-            <text class="lbl" x="0" y="96">jan</text><text class="lbl" x="300" y="96" text-anchor="end">juin</text>
-          </svg>
-        </div>
-        <p class="exemple">Exemple · votre tableau de bord vous montre ça chaque jour</p>
-      </div>
-    </div>
-  </section>
-
-
-  <section class="sec cadre" id="pastamo" aria-labelledby="pm-titre">
-    <div class="sec__tete">
-      <p class="etiquette">Cas réel · Genève</p>
-      <h2 id="pm-titre">Pasta Mo’, street food italienne.</h2>
-      <p class="chapo">Notre premier cas concret. Une marque, et une communication différente pour chaque public.</p>
-    </div>
-    <div class="pm">
-      <figure class="pm__film"><img id="pm-film" src="/accueil/pm/001.webp" alt="Bol Pasta Mo’ : le parmesan tombe sur la bolognese, puis l’huile d’olive coule sur le pesto." width="960" height="540"><figcaption class="etiquette">Le site de Pasta Mo’ : un geste, un plan</figcaption></figure>
-      <div class="pm__canaux">
-        <div class="canal"><p class="etiquette">Branding</p><h3>Fait maison. Là pour rassembler.</h3><p>Logo, bols, couleurs, ton de voix. Une marque qu’on reconnaît au premier coup d’œil.</p></div>
-        <div class="canal"><p class="etiquette">Site web · entreprises</p><h3>Un site pro pour les commandes d’équipe</h3><p>Repas livrés aux entreprises, commande en ligne à <span class="chiffre">18.–</span> par personne.</p></div>
-        <div class="canal"><p class="etiquette">Instagram · plus jeune</p><h3>Le ton des courses à pied</h3><p>Des réels pour attirer les organisateurs de courses. Prochain rendez-vous : Meyrin Run, <span class="chiffre">300</span> box.</p></div>
-        <div class="canal"><p class="etiquette">Prospection</p><h3>Une machine à rendez-vous</h3><p>Fichier de près de <span class="chiffre">700</span> contacts, relances suivies dans une application maison.</p></div>
-        <div class="canal"><a class="btn btn--creux" href="https://pastamo.ch">Voir pastamo.ch <span aria-hidden="true">→</span></a></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec cas" id="cas" aria-labelledby="cas-titre">
-    <div class="cadre">
-      <div class="sec__tete">
-        <p class="etiquette">Démonstration · Onex</p>
-        <h2 id="cas-titre">Izgara 35, grill d’Izmir à Onex.</h2>
-        <p class="chapo">Le même restaurant, du marché à la caisse : une identité complète, du logo au tableau de bord. Faites défiler.</p>
-      </div>
-      <div class="mes" id="mes">
-        <div class="mes__colle">
-          <div class="mes__piste">
-            <figure class="m-logo"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="Logo typographique Izgara 35, Grill d’Izmir" width="900" height="900"><figcaption>Le logo</figcaption></figure>
-            <figure class="ph m-ens"><img src="/accueil/mes/facade.webp" alt="La façade d’Izgara 35 de nuit, enseigne lumineuse orange." width="800" height="1000" loading="lazy" style="object-position: 50% 30%"><figcaption>L’enseigne</figcaption></figure>
-            <figure class="ph m-sac"><img src="/accueil/mes/sac.webp" alt="Sac et box en kraft imprimés au logo Izgara 35." width="800" height="1000" loading="lazy" style="object-position: 50% 50%"><figcaption>Le sac à emporter</figcaption></figure>
-            <figure class="ph m-box"><img src="/accueil/mes/box.webp" alt="Box du midi ouverte : deux adana kebab, riz pilaf, légumes grillés." width="800" height="1000" loading="lazy" style="object-position: 50% 50%"><figcaption>La box du midi</figcaption></figure>
-            <figure class="ph m-carte"><img src="/accueil/mes/carte.webp" alt="La carte Izgara 35 posée sur une table en bois." width="800" height="1000" loading="lazy" style="object-position: 50% 8%"><figcaption>La carte</figcaption></figure>
-            <figure class="m-tel"><div class="tel-cadre" aria-hidden="true"><div class="tel-defile"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="" width="900" height="900"><h4>Le grill d’Izmir, à Onex.</h4><span class="bouton">Commander à emporter</span><div class="plat"><span>Adana kebab<small>Riz pilaf, salade</small></span><span>22.–</span></div><div class="plat"><span>Brochettes de poulet<small>Marinade yaourt</small></span><span>21.–</span></div><div class="plat"><span>Plateau grill pour 2<small>Le soir seulement</small></span><span>48.–</span></div><div class="plat"><span>Iskender<small>Pain, sauce tomate</small></span><span>23.–</span></div><span class="bouton">Réserver une table</span></div></div><figcaption>Site ou appli</figcaption></figure>
-            <figure class="m-insta"><div class="grille"><span class="l"><img class="iz-img" src="/accueil/izgara-logo.webp" alt="" width="900" height="900"></span><span>Le plat du jour</span><span>Ouvert ce soir</span><span>Adana</span><span>Box du midi</span><span>Plateau pour 2</span></div><figcaption>Instagram</figcaption></figure>
-            <figure class="ph"><img src="/accueil/mes/tel.webp" alt="Commande à emporter Izgara 35 sur un téléphone, prix en CHF." width="800" height="1000" loading="lazy" style="object-position: 50% 45%"><figcaption>Click &amp; Collect</figcaption></figure><figure class="ph"><img src="/accueil/mes/qr.webp" alt="Chevalet avec QR code de paiement sur une table." width="800" height="1000" loading="lazy" style="object-position: 50% 55%"><figcaption>QR code à table</figcaption></figure><figure class="ph"><img src="/accueil/mes/tdb.webp" alt="Tableau de bord des ventes Izgara 35 sur une tablette." width="800" height="1000" loading="lazy" style="object-position: 50% 50%"><figcaption>Tableau de bord</figcaption></figure><figure class="m-fid"><div class="c"><b>CARTE 35</b><div class="tampons"><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span></span><span></span><span></span><span></span></div><small>Le 10<sup>e</sup> plat est offert</small></div><figcaption>La fidélité</figcaption></figure>
-          </div>
-        </div>
-        <div class="mes__barre" aria-hidden="true"><i></i></div>
-      </div>
-      <div class="cas__etapes">
-        <div><span class="n">1</span><b>Le marché</b><span>Onex, midi actif, peu de grill le soir.</span></div>
-        <div><span class="n">2</span><b>La stratégie</b><span>Box le midi, plateaux à partager le soir.</span></div>
-        <div><span class="n">3</span><b>L’identité</b><span>Le 35 d’Izmir, l’orange et le bleu du carreau.</span></div>
-        <div><span class="n">4</span><b>Les outils</b><span>Commande en ligne, carte de fidélité.</span></div>
-      </div>
-      <p class="etiquette fictif">Projet de démonstration</p>
-    </div>
-  </section>
-
-  {PROMOTION_ACTIVE && <a class="lance" href="/offres/" aria-label="Offre de lancement : −20 % sur toutes nos offres jusqu’au 31 octobre"><span class="lance__piste" aria-hidden="true"><span class="lance__bloc"><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i></span><span class="lance__bloc"><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i><b>Offre de lancement</b><span>−20&nbsp;% sur toutes nos offres jusqu’au 31 octobre</span><i aria-hidden="true">✳</i></span></span></a>}
-
-
-  <section class="sec cadre faq" id="questions" aria-labelledby="faq-titre">
-    <div class="sec__tete"><p class="etiquette">Questions</p><h2 id="faq-titre">Ce qu’on nous demande <span class="surligne">souvent.</span></h2></div>
-    <div class="faq__liste"><details><summary>Qu’est-ce qu’une agence marketing pour restaurants ?</summary><p>Une agence qui ne travaille qu’avec la restauration et les métiers de bouche. Nouvelle Ardoise étudie votre marché, construit votre stratégie, crée votre identité (logo, carte, site, Instagram) et installe les outils qui vendent : commande en ligne, paiement par QR code, fiche Google et Uber Eats.</p></details><details><summary>Dans quelles villes intervenez-vous ?</summary><p>À Genève et dans le canton de Vaud : Genève, Carouge, Onex, Meyrin, Lancy, Nyon, Morges, Lausanne et La Côte. On vient sur place pour l’étude du quartier et pour les shootings.</p></details><details><summary>Comment attirer plus de clients dans mon restaurant ?</summary><p>On choisit deux ou trois leviers selon votre quartier : une fiche Google soignée, des réels Instagram tournés chez vous, de la publicité locale ciblée, une fiche Uber Eats avec des photos pro, et la fidélité. Chaque mois, on mesure ce qui rapporte et on ajuste.</p></details><details><summary>Pouvez-vous optimiser notre fiche Uber Eats ?</summary><p>Oui. Photos pro de chaque plat, carte réécrite, catégories et options rangées, offres au bon moment. On suit les vues de la fiche, le taux de commande et le panier moyen.</p></details><details><summary>Proposez-vous la commande en ligne sans commission ?</summary><p>Oui. On installe le Click & Collect sur votre propre site et le paiement par QR code à table : les commandes arrivent sans commission de plateforme et sans décrocher le téléphone.</p></details><details><summary>Travaillez-vous aussi avec les boulangers, pâtissiers et chocolatiers ?</summary><p>Oui. Les artisans de bouche ont leur page : site, photos, réels et fiche Google pensés pour la boutique et les commandes.</p></details></div>
-  </section>
-
-  <section class="contact cadre" id="contact" aria-labelledby="contact-titre">
-    <p class="etiquette">Contact</p>
-    <h2 id="contact-titre">Un café chez vous, <span class="surligne">hors service&nbsp;?</span></h2>
-    <div class="contact__liens">
-      <div><p class="etiquette">Téléphone</p><b>078 213 38 68</b></div>
-      <div><p class="etiquette">Instagram</p><b><a href="https://www.instagram.com/nouvelleardoise.ch/">@nouvelleardoise.ch</a></b></div>
-      <div><p class="etiquette">E-mail</p><b><a href={"mailto:" + SITE.email}>{SITE.email}</a></b></div>
-    </div>
-  </section>
-</main>
-
-<footer class="pied"><div class="cadre"><span>Nouvelle Ardoise · Agence marketing pour restaurants · Chemin des Sports 16, 1203 Genève · 078 213 38 68 · Genève, Lausanne et Vaud</span><span><a href="/offres/">Offres</a> · <a href="/questions/">Questions</a> · <a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a></span></div></footer>
 
 <script is:inline>
+// Les écrans d'exemple, la carte et le bilan s'allument quand on arrive dessus (état final direct si mouvement réduit ou sans observateur).
 (function () {
-  const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const CMD = [
-    ['Click & Collect', 'Retrait 19 h 15', '60.–'],
-    ['Payé à table', 'Table 6, par QR code', '84.–'],
-    ['Click & Collect', 'Plateau pour 2', '48.–'],
-    ['Fidélité', '10e plat offert', '0.–'],
-    ['Click & Collect', 'Retrait 19 h 40', '36.–'],
-    ['Payé à table', 'Table 2, par QR code', '57.–'],
-  ];
-  const notif = ([t, s, m]) => `<div class="notif"><i></i><span>${t}<small>${s}</small></span><b>${m}</b></div>`;
-  function flux(el, n, delai) {
-    if (!el) return;
-    let i = 0;
-    const garde = el.querySelector('.tuile__nom');
-    const rendre = () => { el.innerHTML = ''; if (garde) el.appendChild(garde); for (let k = 0; k < n; k++) el.insertAdjacentHTML('beforeend', notif(CMD[(i + k) % CMD.length])); };
-    rendre();
-    if (!calme) setInterval(() => { i = (i + 1) % CMD.length; rendre(); }, delai);
-  }
-  flux(document.getElementById('mur-cmd'), 3, 2600);
-  flux(document.getElementById('flux'), 4, 2200);
-
-  // Compteur et courbe : valeur finale visible au repos, on rejoue quand la section arrive
-  const c = document.getElementById('compteur'), courbe = document.getElementById('courbe');
-  if (!calme && 'IntersectionObserver' in window && c) {
-    let fait = false;
-    new IntersectionObserver((e) => {
-      if (fait || !e[0].isIntersecting) return; fait = true;
-      courbe.classList.add('anime');
-      const t0 = performance.now(), fin = 23;
-      const pas = (t) => { const p = Math.min(1, (t - t0) / 1600); c.textContent = Math.round(fin * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(pas); };
-      requestAnimationFrame(pas);
-    }, { threshold: .4 }).observe(c);
-  }
-
-  // Onglets de l'équipe
-  const tabs = [...document.querySelectorAll('.onglets [role="tab"]')], media = document.getElementById('eq-media'), panneau = document.getElementById('p-equipe');
-  function choisir(b) {
-    tabs.forEach((t) => { const ok = t === b; t.setAttribute('aria-selected', ok); t.tabIndex = ok ? 0 : -1; });
-    panneau.setAttribute('aria-labelledby', b.id);
-    const d = b.dataset;
-    media.classList.toggle('vertical', d.type === 'video');
-    media.innerHTML = d.type === 'video'
-      ? `<video src="${d.media}" poster="${d.poster}" autoplay muted loop playsinline aria-label="${d.alt}"></video>`
-      : `<img src="${d.media}" alt="${d.alt}">`;
-    document.getElementById('eq-titre-p').textContent = d.titre;
-    document.getElementById('eq-texte').textContent = d.texte;
-  }
-  tabs.forEach((b, i) => {
-    b.addEventListener('click', () => choisir(b));
-    b.addEventListener('keydown', (e) => {
-      const k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!k) return;
-      const n = tabs[(i + k + tabs.length) % tabs.length]; n.focus(); choisir(n);
-    });
-  });
-
-  // Pasta Mo' : petit film image par image (parmesan puis huile d'olive)
-  const film = document.getElementById('pm-film');
-  if (film && !calme) {
-    const imgs = []; for (let k = 1; k <= 72; k += 3) imgs.push('/accueil/pm/' + String(k).padStart(3, '0') + '.webp');
-    imgs.forEach((u) => { const im = new Image(); im.src = u; });
-    let f = 0; setInterval(() => { f = (f + 1) % imgs.length; film.src = imgs[f]; }, f === 0 ? 160 : 160);
-  }
-
-  // Défilements horizontaux (identité, outils) : pilotés par le défilement vertical sur ordinateur, au doigt ailleurs
-  const grand = matchMedia('(min-width: 901px)');
-  // Récit des 5 étapes : la scène suit la lecture
-  (() => {
-    const recit = document.querySelector('.recit'); if (!recit) return;
-    const chaps = [...recit.querySelectorAll('.chap')], figs = [...recit.querySelectorAll('.recit__cadre figure')];
-    const num = recit.querySelector('.recit__num'), segs = [...recit.querySelectorAll('.recit__segs b')];
-    let cle = '0-0', tic = false;
-    const maj = () => {
-      tic = false;
-      const mi = innerHeight * .55; let c = 0, prog = 0;
-      chaps.forEach((ch, i) => { const r = ch.getBoundingClientRect(); if (r.top < mi) { c = i; prog = Math.min(1, Math.max(0, (mi - r.top) / r.height)); } });
-      const n = +chaps[c].dataset.n, s = Math.min(n - 1, Math.floor(prog * n));
-      segs.forEach((b, i) => b.style.setProperty('--p', i < c ? 1 : i > c ? 0 : prog.toFixed(3)));
-      if (cle === c + '-' + s) return;
-      cle = c + '-' + s;
-      chaps.forEach((ch, i) => ch.classList.toggle('actif', i === c));
-      figs.forEach((f) => { const on = +f.dataset.c === c && +f.dataset.s === s; if (f.hasAttribute('data-on') && !on) { f.classList.add('parti'); setTimeout(() => f.classList.remove('parti'), 900); } f.toggleAttribute('data-on', on); });
-      num.textContent = String(c + 1).padStart(2, '0');
-    };
-    addEventListener('scroll', () => { if (!tic) { tic = true; requestAnimationFrame(maj); } }, { passive: true });
-    addEventListener('resize', maj); maj();
-  })();
-  document.querySelectorAll('.mes').forEach((mes) => {
-    const colle = mes.querySelector('.mes__colle'), piste = mes.querySelector('.mes__piste'), barre = mes.querySelector('.mes__barre i');
-    let dist = 0;
-    const bouge = () => {
-      if (mes.classList.contains('epingle')) {
-        const r = mes.getBoundingClientRect(), p = Math.min(1, Math.max(0, (90 - r.top) / Math.max(1, dist)));
-        piste.style.transform = `translate3d(${-p * dist}px,0,0)`; barre.style.width = (p * 100) + '%';
-      } else {
-        barre.style.width = (colle.scrollLeft / Math.max(1, colle.scrollWidth - colle.clientWidth) * 100) + '%';
-      }
-    };
-    const mesure = () => {
-      if (calme || !grand.matches) { mes.classList.remove('epingle'); piste.style.transform = ''; bouge(); return; }
-      mes.classList.add('epingle');
-      dist = Math.max(0, piste.scrollWidth - colle.clientWidth);
-      mes.style.setProperty('--h', (colle.offsetHeight + dist) + 'px');
-      bouge();
-    };
-    addEventListener('scroll', bouge, { passive: true }); colle.addEventListener('scroll', bouge, { passive: true });
-    addEventListener('resize', mesure); grand.addEventListener('change', mesure);
-    addEventListener('load', mesure); mesure();
-  });
-
-  // QR décoratifs (motif fixe, ne pointe nulle part)
-  document.querySelectorAll('canvas.qr').forEach((cv) => {
-    const x = cv.getContext('2d'), n = 25; let s = 35;
-    const r = () => (s = (s * 9301 + 49297) % 233280) / 233280;
-    x.fillStyle = '#fff'; x.fillRect(0, 0, n, n); x.fillStyle = '#121211';
-    for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) if (r() > .52) x.fillRect(i, j, 1, 1);
-    const oeil = (a, b) => { x.fillStyle = '#fff'; x.fillRect(a - 1, b - 1, 9, 9); x.fillStyle = '#121211'; x.fillRect(a, b, 7, 7); x.fillStyle = '#fff'; x.fillRect(a + 1, b + 1, 5, 5); x.fillStyle = '#121211'; x.fillRect(a + 2, b + 2, 3, 3); };
-    oeil(0, 0); oeil(n - 7, 0); oeil(0, n - 7);
-  });
-  // Barres du tableau de bord (exemple)
-  document.querySelectorAll('.barres-auto').forEach((b) => {
-    const salle = [52, 60, 58, 70, 88, 96, 64], cc = [14, 18, 20, 26, 36, 40, 22], max = 140;
-    b.innerHTML = salle.map((v, i) => `<div style="display:flex;flex-direction:column;justify-content:flex-end;height:100%"><i class="cc" style="height:${cc[i] / max * 100}%"></i><i style="height:${v / max * 100}%"></i></div>`).join('');
-  });
+  document.documentElement.classList.add('js');
+  const els = document.querySelectorAll('.exp, .carte');
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) { els.forEach((e) => e.classList.add('allume')); return; }
+  const io = new IntersectionObserver((entrees) => entrees.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('allume'); io.unobserve(e.target); } }), { threshold: .2, rootMargin: '0px 0px -8% 0px' });
+  els.forEach((e) => io.observe(e));
 })();
 </script>
-
-</body>
-</html>
