@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Offre · Athletic Kitchen</title>
+<meta name="description" content="Offre de lancement Athletic Kitchen : photos du shooting, carte de fidélité numérique et gestion des réseaux sociaux.">
+<meta name="theme-color" content="#1C2A63">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=DM+Mono:wght@500&display=swap">
+<style>
+/* Charte Athletic Kitchen : bleu marine, rouge, blanc. Titres Archivo extra-large, étiquettes mono. */
+:root{
+  --navy:#1C2A63; --rouge:#E3342B; --blanc:#FFFFFF; --casse:#F4F4F2; --encre:#0E1430; --gris:#5A6080; --filet:#D9DCE6;
+  --f-titre:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"DM Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--casse);color:var(--encre)}
+body{font:400 17px/1.6 var(--f-titre);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.lab{font:500 12px/1.4 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gris)}
+h1,h2,h3{font-family:var(--f-titre);font-weight:900;font-stretch:125%;text-transform:uppercase;margin:0;line-height:.92;letter-spacing:-.02em;text-wrap:balance}
+h1{font-size:clamp(40px,7vw,96px)}
+h2{font-size:clamp(28px,4vw,52px)}
+h3{font-size:20px;line-height:1.05}
+em{font-style:normal;color:var(--rouge)}
+p{margin:0;max-width:60ch}
+.top{background:var(--navy);color:var(--blanc)}
+.top .wrap{padding-block:22px;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.top .lab{color:#C9D0EA}
+.marque{font:900 18px/1 var(--f-titre);font-stretch:125%;text-transform:uppercase;letter-spacing:-.01em}
+.marque em{color:var(--rouge)}
+header.hero{background:var(--navy);color:var(--blanc);padding-bottom:0}
+header.hero .wrap{padding-block:48px 40px;display:grid;gap:20px}
+header.hero p{font-size:19px;color:#DDE2F3}
+.plein{background:var(--navy)}
+.plein img{width:100%;max-width:1800px;margin:0 auto}
+section.wrap{padding-block:72px;display:grid;gap:28px}
+.cap{font:500 12px/1.4 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gris);padding-top:12px}
+/* avant / après */
+.compare{position:relative;overflow:hidden;background:#ddd;aspect-ratio:3/2;user-select:none;touch-action:pan-y}
+.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.compare .apres{clip-path:inset(0 0 0 var(--x,50%))}
+.compare .ligne{position:absolute;top:0;bottom:0;left:var(--x,50%);width:3px;margin-left:-1.5px;background:var(--blanc);pointer-events:none}
+.compare .poignee{position:absolute;top:50%;left:var(--x,50%);width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;background:var(--blanc);display:grid;place-items:center;pointer-events:none;box-shadow:0 4px 18px rgba(0,0,0,.25);font:900 18px/1 var(--f-titre);color:var(--navy)}
+.compare input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.tag{position:absolute;top:14px;padding:8px 12px;font:500 11px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;pointer-events:none}
+.tag.g{left:14px;background:var(--blanc);color:var(--navy)}
+.tag.d{right:14px;background:var(--navy);color:var(--blanc)}
+.compare:has(input:focus-visible){outline:3px solid var(--navy);outline-offset:4px}
+/* liste */
+.grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;background:var(--filet);border:2px solid var(--filet)}
+.grille div{background:var(--blanc);padding:24px;display:grid;gap:10px;align-content:start}
+.grille .n{font:500 12px/1 var(--f-mono);letter-spacing:.14em;color:var(--rouge)}
+.grille p{color:var(--gris);font-size:16px}
+.niveaux{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.niveaux div{padding:28px;display:grid;gap:12px;align-content:start;border-top:8px solid var(--navy);background:var(--blanc)}
+.niveaux div:nth-child(2){border-top-color:var(--rouge)}
+.niveaux div:nth-child(3){background:var(--navy);color:var(--blanc);border-top-color:var(--rouge)}
+.niveaux div:nth-child(3) p{color:#DDE2F3}
+.niveaux p{color:var(--gris);font-size:16px}
+.etapes{counter-reset:e;display:grid;gap:0;margin:0;padding:0;list-style:none;border-top:2px solid var(--navy)}
+.etapes li{counter-increment:e;display:grid;grid-template-columns:64px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--filet);font-size:18px}
+.etapes li::before{content:counter(e,decimal-leading-zero);font:900 28px/1 var(--f-titre);font-stretch:125%;color:var(--rouge)}
+footer{background:var(--navy);color:#C9D0EA}
+footer .wrap{padding-block:40px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;align-items:center}
+footer a{color:var(--blanc);text-decoration:none;border-bottom:2px solid var(--rouge)}
+.note{font-size:14px;color:var(--gris)}
+@media (prefers-reduced-motion:no-preference){.compare .apres,.compare .ligne,.compare .poignee{transition:none}}
+
+/* offre */
+section a{color:var(--navy);text-decoration-color:var(--rouge);text-underline-offset:3px}
+.hero-offre .wrap{padding-block:56px 64px}
+.chiffres{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:8px}
+.chiffres div{font:500 12px/1.4 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:#C9D0EA}
+.chiffres b{display:block;font:900 34px/1 var(--f-titre);font-stretch:125%;color:var(--blanc);letter-spacing:-.02em;margin-bottom:6px}
+.lance{display:grid;grid-template-columns:1.1fr .9fr;gap:2px;background:var(--filet);border:2px solid var(--filet)}
+.lance>div{background:var(--blanc);padding:28px;display:grid;gap:16px;align-content:start}
+.prix{font:900 clamp(44px,6vw,72px)/.9 var(--f-titre);font-stretch:125%;letter-spacing:-.03em;color:var(--navy)}
+.prix small{display:block;margin:10px 0 0;font:500 13px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin-left:8px}
+ul.coche{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.coche li{padding-left:28px;position:relative;font-size:16px}
+ul.coche li::before{content:"";position:absolute;left:0;top:.5em;width:14px;height:6px;border-left:3px solid var(--rouge);border-bottom:3px solid var(--rouge);transform:translateY(-50%) rotate(-45deg)}
+/* carte fidélité */
+.fid{display:grid;grid-template-columns:minmax(0,380px) 1fr;gap:40px;align-items:center}
+.carte{background:var(--navy);color:var(--blanc);border-radius:18px;padding:22px;display:grid;gap:18px;box-shadow:0 18px 40px rgba(28,42,99,.28);max-width:380px}
+.carte .h{display:flex;justify-content:space-between;align-items:center}
+.carte .ak{width:40px;height:40px;border-radius:50%;background:var(--rouge);display:grid;place-items:center;font:900 15px/1 var(--f-titre);font-stretch:125%}
+.carte .lab{color:#C9D0EA}
+.tampons{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.tampons span{aspect-ratio:1;border-radius:50%;border:2px solid #5A6AA8;display:grid;place-items:center;font:900 13px/1 var(--f-titre)}
+.tampons .ok{background:var(--blanc);border-color:var(--blanc);color:var(--navy)}
+.tampons .ok::after{content:"AK"}
+.tampons .cadeau{border-color:var(--rouge);color:var(--rouge);font-size:11px}
+.carte .pied{display:flex;justify-content:space-between;font:500 11px/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:#C9D0EA}
+.tdb{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--filet);border:2px solid var(--filet);margin-top:8px}
+.tdb div{background:var(--blanc);padding:16px}
+.tdb b{display:block;font:900 30px/1 var(--f-titre);font-stretch:125%;color:var(--navy);margin-bottom:6px}
+.tdb span{font:500 11px/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+/* formules */
+.formules{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.formules .f{padding:28px;display:grid;gap:16px;align-content:start;border-top:8px solid var(--navy);background:var(--blanc);position:relative}
+.formules .f.rec{background:var(--navy);color:var(--blanc);border-top-color:var(--rouge)}
+.formules .f.rec .prix{color:var(--blanc)}
+.formules .f.rec .lab,.formules .f.rec .prix small{display:block;margin:10px 0 0;color:#C9D0EA}
+.badge{justify-self:start;background:var(--rouge);color:var(--blanc);font:500 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;padding:7px 10px}
+.btn{display:inline-flex;justify-content:center;align-items:center;min-height:52px;padding:0 22px;background:var(--rouge);color:var(--blanc);text-decoration:none;font:800 15px/1 var(--f-titre);font-stretch:112%;text-transform:uppercase;letter-spacing:.02em;margin-top:6px}
+.btn.cl{background:transparent;color:var(--navy);border:2px solid var(--navy)}
+.f.rec .btn{background:var(--blanc);color:var(--navy)}
+.btn:focus-visible{outline:3px solid var(--rouge);outline-offset:3px}
+@media (hover:hover){.btn{transition:transform .16s ease}.btn:hover{transform:translateY(-2px)}}
+.pas{display:grid;gap:10px;font-size:16px;color:var(--gris)}
+.pas b{color:var(--encre)}
+.dl{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+@media (max-width:820px){.lance,.fid,.formules{grid-template-columns:1fr}.fid{gap:28px}.tdb{grid-template-columns:1fr 1fr 1fr}.tdb b{font-size:24px}section.wrap{padding-block:56px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><span class="marque">Athletic <em>Kitchen</em></span><span class="lab">Offre · Devis N° 2026-10-AK-01</span></div></div>
+
+<header class="hero hero-offre">
+  <div class="wrap">
+    <span class="lab" style="color:#C9D0EA">Genève · Eaux-Vives</span>
+    <h1>Vos clients reviennent.<br><em>On le mesure.</em></h1>
+    <p>Les photos du shooting sont faites. On les met au travail : une carte de fidélité dans le téléphone de vos clients, et des réseaux qui publient chaque semaine.</p>
+    <div class="chiffres">
+      <div><b>690 CHF</b>Lancement, une fois</div>
+      <div><b>dès 490 CHF</b>Par mois, réseaux</div>
+      <div><b>0 appli</b>À télécharger pour vos clients</div>
+    </div>
+  </div>
+</header>
+
+<section class="wrap" aria-labelledby="t-lance">
+  <span class="lab">01 · Le lancement</span>
+  <h2 id="t-lance">Une fois,<br><em>et tout est en place.</em></h2>
+  <div class="lance">
+    <div>
+      <div class="prix">690<small>CHF · paiement unique</small></div>
+      <ul class="coche">
+        <li>Tri et retouche des photos du shooting, livrées pour Instagram, Google et votre site</li>
+        <li>Instagram remis à neuf : photo de profil, bio, liens, stories à la une</li>
+        <li>Fiche Google à jour : photos, horaires, carte</li>
+        <li>Carte de fidélité Athletic Kitchen créée à vos couleurs, avec votre règle</li>
+        <li>Affichette QR pour le comptoir et chevalet de table, prêts pour l'imprimeur</li>
+        <li>Équipe formée en 15 minutes pour tamponner</li>
+        <li>4 publications et 2 réels pour annoncer la carte</li>
+      </ul>
+    </div>
+    <div>
+      <span class="lab">Ce qui est déjà fait</span>
+      <ul class="coche">
+        <li>Le shooting photo chez vous</li>
+        <li>La <a href="../">maquette de commande en ligne</a></li>
+        <li>Les <a href="../emballages/">emballages à vos couleurs</a></li>
+      </ul>
+      <p class="note">C'est pour ça que le lancement coûte 690 CHF : il n'y a plus de photographe à payer ni d'appli à coder.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="t-fid">
+  <span class="lab">02 · La fidélité</span>
+  <h2 id="t-fid">Le dixième bowl offert.<br><em>Dans leur téléphone.</em></h2>
+  <div class="fid">
+    <div class="carte" role="img" aria-label="Exemple de carte de fidélité Athletic Kitchen avec 7 tampons sur 10">
+      <div class="h"><span class="marque">Athletic <em style="color:#fff">Kitchen</em></span><span class="ak">AK</span></div>
+      <span class="lab">Carte fidélité · 7 / 10</span>
+      <div class="tampons"><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span></span><span></span><span class="cadeau">Offert</span></div>
+      <div class="pied"><span>Apple Wallet</span><span>Google Wallet</span></div>
+    </div>
+    <div class="pas">
+      <p><b>1. Le client scanne le QR au comptoir.</b> La carte s'ajoute à son téléphone, sans appli ni compte à créer.</p>
+      <p><b>2. Votre équipe tamponne</b> en scannant sa carte avec le téléphone du comptoir. Deux secondes.</p>
+      <p><b>3. Au 10<sup>e</sup> passage, le bowl est offert.</b> La règle est à vous : bowl, smoothie, ou autre.</p>
+      <p><b>4. Vous suivez tout sur votre téléphone</b> et vous pouvez envoyer une notification à tous vos clients (nouveau plat, semaine spéciale).</p>
+      <div class="tdb" aria-label="Exemple de tableau de bord">
+        <div><b>214</b><span>Cartes actives</span></div>
+        <div><b>38 %</b><span>Clients revenus</span></div>
+        <div><b>19</b><span>Bowls offerts</span></div>
+      </div>
+      <p class="note">Chiffres d'exemple. Outil de carte à tampons Loopy Loyalty : abonnement d'environ 25 USD par mois, à votre nom, payé par le restaurant. Vous gardez vos clients et vos données.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="t-mois">
+  <span class="lab">03 · Chaque mois</span>
+  <h2 id="t-mois">Des réseaux qui publient.<br><em>Un bilan chiffré.</em></h2>
+  <div class="formules">
+    <div class="f">
+      <span class="lab">Essentiel</span>
+      <div class="prix">490<small>CHF / mois</small></div>
+      <ul class="coche">
+        <li>8 publications ou stories par mois</li>
+        <li>2 réels montés et sous-titrés</li>
+        <li>Textes, visuels et programmation</li>
+        <li>Bilan chaque mois : abonnés, vues, cartes fidélité, clients revenus</li>
+      </ul>
+      <a class="btn cl" href="https://wa.me/41782133868?text=Bonjour%20Malik%2C%20je%20choisis%20le%20lancement%20%28690%20CHF%29%20%2B%20la%20formule%20Essentiel%20%28490%20CHF/mois%29%20du%20devis%20N%C2%B0%202026-10-AK-01%20pour%20Athletic%20Kitchen." target="_blank" rel="noopener">Je choisis Essentiel</a>
+    </div>
+    <div class="f rec">
+      <span class="badge">Recommandé</span>
+      <span class="lab">Plus</span>
+      <div class="prix">790<small>CHF / mois</small></div>
+      <ul class="coche">
+        <li>Tout l'Essentiel, avec 4 réels par mois</li>
+        <li>Fiche Google tenue à jour, réponses aux avis</li>
+        <li>Publicité Instagram et Facebook pilotée chaque semaine, autour des Eaux-Vives</li>
+        <li>Notifications fidélité préparées pour vous</li>
+      </ul>
+      <a class="btn" href="https://wa.me/41782133868?text=Bonjour%20Malik%2C%20je%20choisis%20le%20lancement%20%28690%20CHF%29%20%2B%20la%20formule%20Plus%20%28790%20CHF/mois%29%20du%20devis%20N%C2%B0%202026-10-AK-01%20pour%20Athletic%20Kitchen." target="_blank" rel="noopener">Je choisis Plus</a>
+    </div>
+  </div>
+  <p class="note">3 mois pour tester, puis au mois avec un mois de préavis. Budget publicitaire de la formule Plus : au moins 10 CHF par jour, payé directement par le restaurant à Meta, avec un plafond que vous fixez.</p>
+</section>
+
+<section class="wrap" aria-labelledby="t-next">
+  <span class="lab">04 · Pour démarrer</span>
+  <h2 id="t-next">Un message,<br><em>et on lance.</em></h2>
+  <ol class="etapes">
+    <li>Vous choisissez la formule (bouton ci-dessus ou devis signé).</li>
+    <li>On fixe ensemble la règle de fidélité et les objectifs des 3 mois.</li>
+    <li>Carte, QR et premières publications en place en une semaine.</li>
+  </ol>
+  <div class="dl">
+    <a class="btn" href="devis-athletic-kitchen.pdf" download>Télécharger le devis PDF</a>
+    <a class="btn cl" href="https://wa.me/41782133868?text=Bonjour%20Malik%2C%20j%27ai%20une%20question%20sur%20le%20devis%20N%C2%B0%202026-10-AK-01%20pour%20Athletic%20Kitchen%20%3A%20" target="_blank" rel="noopener">Poser une question</a>
+  </div>
+  <p class="note">Montants en francs suisses, hors TVA éventuelle. 50 % à la signature, 50 % à la mise en place. Les photos, les comptes et les fichiers appartiennent au restaurant.</p>
+</section>
+
+<footer><div class="wrap"><span class="marque">Athletic <em>Kitchen</em></span><span>Préparé par <a href="https://nouvelleardoise.ch">Nouvelle Ardoise</a> · <a href="tel:+41782133868">078 213 38 68</a></span></div></footer>
+</body>
+</html>
