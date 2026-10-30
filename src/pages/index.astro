@@ -9,25 +9,17 @@ import TestVisibilite from '../components/TestVisibilite.astro';
 import carte from '../data/carte-romande.json';
 import { SITE } from '../config.js';
 import { FAQ_GENERALE as FAQ } from '../data/questions-generales.js';
+import { EXPERTS } from '../data/savoir-faire.js';
+import { AGENCE, SITE_WEB } from '../data/agence.js';
 
 const title = 'Agence marketing Genève et Vaud · Nouvelle Ardoise';
-const description = 'Fiche Google, site, Instagram, publicité et vente en ligne : on rend visibles commerces, restaurants, cabinets et PME de Genève et Vaud, avec un seul interlocuteur. Test gratuit en 30 secondes.';
+const description = 'Agence marketing Genève et Vaud : fiche Google, site, Instagram, publicité, un seul interlocuteur pour commerces et cabinets. Test gratuit en 30 secondes.';
 const TEL = '078 213 38 68';
 
-// Le savoir-faire, montré : un expert par canal, un écran d'exemple par expert. « Maison Fève » est un commerce fictif.
-const EXPERTS = [
-  { id: 'google', expert: 'Référencement local · Fiche Google', titre: 'Premier quand on cherche votre métier à côté de chez vous.', texte: 'Un expert du référencement local travaille votre fiche Google (catégories, photos, horaires, avis, publications) et votre site pour les recherches qui comptent : « boulangerie Carouge », « physio Lausanne ouvert samedi ».', objectif: 'Plus d’appels, d’itinéraires et de visites depuis Google et Google Maps.' },
-  { id: 'ia', expert: 'GEO · Assistants IA', titre: 'Cité par ChatGPT, Gemini et Perplexity quand on leur demande conseil.', texte: 'De plus en plus de clients demandent à un assistant IA « où aller ». On structure vos pages et vos données (horaires, services, questions fréquentes) pour que les moteurs de réponse vous comprennent et vous recommandent.', objectif: 'Exister aussi dans les réponses des IA, pas seulement dans Google.' },
-  { id: 'ads', expert: 'Google Ads', titre: 'En tête des résultats les jours où vous en avez besoin.', texte: 'Un spécialiste Google Ads cible les recherches exactes de vos clients, dans votre rayon, aux heures où vous êtes ouvert. Chaque franc est suivi : appels, itinéraires, commandes, rendez-vous.', objectif: 'Des demandes mesurées, avec un budget maîtrisé et arrêtable à tout moment.' },
-  { id: 'meta', expert: 'Meta Ads · Instagram et Facebook', titre: 'Vu par le quartier, avant même qu’il vous cherche.', texte: 'Des réels tournés chez vous, diffusés aux bonnes personnes à quelques kilomètres : nouveaux arrivants, familles, bureaux voisins. On teste deux visuels, on garde le meilleur.', objectif: 'Une notoriété locale qui remplit les créneaux calmes.' },
-  { id: 'dev', expert: 'Développeur · Outils sur mesure', titre: 'L’outil qui fait vendre, construit pour vous.', texte: 'Commande à retirer sans commission, prise de rendez-vous, devis en ligne, paiement par QR code, tableau de bord : un développeur de l’équipe construit l’outil qui manque, relié à votre site et à votre fiche Google.', objectif: 'Qu’on puisse acheter ou réserver chez vous sans vous appeler.' },
-  { id: 'photo', expert: 'Photographe · Vidéaste · Drone', titre: 'Vos produits et votre savoir-faire, sublimés.', texte: 'Un photographe et un vidéaste équipés en matériel professionnel viennent chez vous : produits, gestes, équipe, façade, vue drone. Jamais d’images générées par IA : ce que l’on montre existe vraiment.', objectif: 'Des visuels à la hauteur de ce que vous faites, pour le site, Google et Instagram.' },
-  { id: 'bilan', expert: 'Stratégie · Un seul interlocuteur', titre: 'Un numéro, un plan, un bilan chaque mois.', texte: 'Malik coordonne les experts et reste votre seul interlocuteur. Un objectif chiffré fixé au départ, trois priorités, puis chaque mois un bilan simple : ce qui a marché, ce qu’on ajuste.', objectif: 'Savoir toujours où vous en êtes, sans courir après cinq prestataires.' },
-];
 
 // Les 8 métiers accompagnés (même liste que l'appli de prospection). Jamais : bars et alcool, esthétique, onglerie, coiffure, fiduciaires, jeux, crédit.
 const METIERS = [
-  { nom: 'Restauration et cafés', besoin: 'Être trouvé à midi et recevoir des commandes sans commission.', plus: 'Commande à retirer, paiement par QR code à table, carte en ligne', lien: '/restauration/', ancre: 'Agence marketing restaurant à Genève et Vaud', specialite: true },
+  { nom: 'Restauration et cafés', besoin: 'Être trouvé à midi et recevoir des commandes sans commission.', plus: 'Commande à retirer, paiement par QR code à table, carte en ligne', lien: '/restauration/', ancre: 'Agence marketing restaurant', specialite: true },
   { nom: 'Artisans de bouche et épiceries', besoin: 'Montrer le savoir-faire et prendre les commandes à l’avance.', plus: 'Précommande en ligne, courtes vidéos du geste', lien: '/artisans/', ancre: 'Boulangers, pâtissiers, chocolatiers, traiteurs' },
   { nom: 'Santé et bien-être', besoin: 'Être trouvé par les patients du quartier et prendre les rendez-vous en ligne.', plus: 'Agenda en ligne relié au site et à la fiche Google, dans le respect des règles de la profession' },
   { nom: 'Mode et boutiques', besoin: 'Vendre aussi en ligne, pas seulement en vitrine.', plus: 'Boutique en ligne ou retrait en magasin, catalogue Instagram' },
@@ -59,16 +51,8 @@ const delai = (n) => (n in fraction ? 0.2 + fraction[n] * 2.4 : 2.9).toFixed(2);
 const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': ['ProfessionalService', 'LocalBusiness'], '@id': SITE.url + '/#agence', name: SITE.nom, url: SITE.url + '/', description,
-      slogan: 'Qu’on vous trouve. Qu’on vous choisisse.',
-      email: SITE.email, telephone: '+41782133868', image: SITE.url + '/partage-commerces.jpg', logo: SITE.url + '/apple-touch-icon.png',
-      founder: { '@type': 'Person', name: SITE.responsable, jobTitle: 'Fondateur' },
-      address: { '@type': 'PostalAddress', streetAddress: SITE.adresse, postalCode: SITE.localite.split(' ')[0], addressLocality: 'Genève', addressRegion: 'GE', addressCountry: 'CH' },
-      areaServed: ['Genève', 'Carouge', 'Onex', 'Meyrin', 'Lancy', 'Versoix', 'Nyon', 'Gland', 'Rolle', 'Morges', 'Lausanne', 'Vevey', 'Montreux', 'Yverdon-les-Bains', 'Canton de Vaud', 'Suisse romande'].map((n) => ({ '@type': 'Place', name: n })),
-      knowsAbout: ['Marketing local', 'Référencement local Google', 'Fiche Google', 'Référencement dans les assistants IA (GEO)', 'Site web', 'Instagram et réels', 'Publicité Google Ads', 'Publicité Meta Ads', 'Vente en ligne', 'Prise de rendez-vous en ligne', 'Identité visuelle', 'Photo et vidéo', 'Marketing de restaurant'],
-      makesOffer: EXPERTS.map((e) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: e.expert.replace(' · ', ', '), description: e.titre } })),
-      sameAs: ['https://www.instagram.com/' + SITE.instagram + '/'], inLanguage: 'fr-CH' },
-    { '@type': 'WebSite', '@id': SITE.url + '/#site', url: SITE.url + '/', name: SITE.nom, inLanguage: 'fr-CH', publisher: { '@id': SITE.url + '/#agence' } },
+    AGENCE,
+    SITE_WEB,
     { '@type': 'WebPage', '@id': SITE.url + '/#page', url: SITE.url + '/', name: title, description, isPartOf: { '@id': SITE.url + '/#site' }, about: { '@id': SITE.url + '/#agence' }, inLanguage: 'fr-CH' },
     { '@type': 'FAQPage', '@id': SITE.url + '/#faq', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.r } })) },
   ],
@@ -77,9 +61,8 @@ const jsonLd = JSON.stringify({
 <Cartographe title={title} description={description} jsonLd={jsonLd} image="/partage-commerces.jpg" imageAlt="Qu’on vous trouve. Qu’on vous choisisse. Nouvelle Ardoise, agence de marketing à Genève et Vaud">
   <section class="ouv cadre" aria-labelledby="titre">
     <div class="ouv__texte">
-      <p class="etiquette"><span class="ouv__long">Agence de marketing et de communication</span><span class="ouv__court">Agence de marketing</span> · Genève &amp; Vaud</p>
-      <h1 id="titre">Qu’on vous trouve.<br /><em>Qu’on vous choisisse.</em></h1>
-      <p class="ouv__chapo">Google, site, Instagram, vente en ligne&#8239;: on mesure où vos clients vous perdent, on règle ce qui rapporte le plus, et on le prouve chaque mois.</p>
+      <h1 id="titre"><span class="etiquette h1__sur">Agence de marketing<span class="ouv__long"> et de communication</span> · Genève &amp; Vaud</span>Qu’on vous trouve.<br /><em>Qu’on vous choisisse.</em></h1>
+      <p class="ouv__chapo">Google, site, Instagram, vente en ligne&#8239;: on mesure où vous perdez des clients, on règle ce qui rapporte le plus, et on le prouve chaque mois.</p>
       <ul class="ouv__preuves" aria-label="Nos engagements">
         <li><b>Sur place</b><span>de Genève à Montreux</span></li>
         <li><b>Un objectif chiffré</b><span>fixé dès le départ</span></li>
@@ -175,7 +158,7 @@ const jsonLd = JSON.stringify({
           {e.id === 'photo' && (
             <figure class="ecran ecran--photo">
               <img src="/accueil/shooting.webp" alt="Une photographe cadre une composition de légumes et de fruits en studio, boîtier professionnel en main." width="1600" height="1067" loading="lazy" decoding="async" />
-              <figcaption><span class="ecran__chip ecran__chip--photo">Shooting chez vous</span></figcaption>
+              <figcaption><span class="ecran__chip ecran__chip--photo">Photo de produits</span></figcaption>
             </figure>
           )}
 
@@ -203,12 +186,12 @@ const jsonLd = JSON.stringify({
   <section class="sec cadre" id="preuve" aria-labelledby="pr-titre">
     <div class="preuve">
       <figure class="preuve__image">
-        <img src="/accueil/pm/001.webp" alt="Bol Pasta Mo’ : le parmesan tombe sur la bolognese, à côté d’un bol au pesto." width="960" height="540" loading="lazy" decoding="async" />
+        <img src="/accueil/pm/001.webp" alt="Bol Pasta Mo’ : le parmesan tombe sur la sauce bolognaise, à côté d’un bol au pesto." width="960" height="540" loading="lazy" decoding="async" />
       </figure>
       <div class="preuve__texte">
         <p class="etiquette">Déjà en place</p>
         <h2 id="pr-titre">Pasta Mo’, <em>notre laboratoire.</em></h2>
-        <p>Une marque de pâtes fraîches née dans la famille. Tout ce qu’on propose, on l’a d’abord fait tourner chez nous&#8239;: identité et emballages, site et commande en ligne, réels sans musique, appli de pilotage pour la production, les événements et les clients.</p>
+        <p>Une marque familiale de pâtes fraîches et de street food italienne. Tout ce qu’on propose, on l’a d’abord fait tourner chez nous&#8239;: identité et emballages, site et commande en ligne, réels sans musique, appli de pilotage pour la production, les événements et les clients.</p>
         <p class="preuve__note">Les autres restaurants de nos maquettes sont des exemples fictifs, et nous le disons sur chaque page.</p>
         <a class="btn btn--creux" href="/realisations/">Voir les réalisations <span aria-hidden="true">→</span></a>
       </div>
@@ -227,7 +210,7 @@ const jsonLd = JSON.stringify({
           <h3>{m.nom}{m.specialite && <span class="metier__badge">Notre spécialité</span>}</h3>
           <p class="metier__besoin">{m.besoin}</p>
           <p class="metier__plus"><span class="etiquette">En plus pour vous</span>{m.plus}</p>
-          {m.lien && <a class="metier__lien" href={m.lien}><span class="sr">{m.ancre}</span><span aria-hidden="true">Voir →</span></a>}
+          {m.lien && <a class="metier__lien" href={m.lien}>{m.ancre} <span aria-hidden="true">→</span></a>}
         </li>
       ))}
     </ul>
@@ -240,7 +223,7 @@ const jsonLd = JSON.stringify({
         <h2 id="carte-titre">De Genève à Montreux,<br /><em>on vient chez vous.</em></h2>
         <p>Étude du quartier, shooting, tournage, rendez-vous&#8239;: on se déplace dans tout le canton de Genève et dans le canton de Vaud. Ailleurs en Suisse romande, on travaille en visio et on vient pour les tournages.</p>
         <ul class="villes" aria-label="Villes où nous intervenons">
-          {['Genève', 'Carouge', 'Onex', 'Meyrin', 'Lancy', 'Versoix', 'Nyon', 'Gland', 'Rolle', 'Morges', 'Lausanne', 'Vevey', 'Montreux', 'Yverdon'].map((n) => <li>{n}</li>)}
+          {['Genève', 'Carouge', 'Onex', 'Meyrin', 'Lancy', 'Versoix', 'Nyon', 'Gland', 'Rolle', 'Morges', 'Lausanne', 'Vevey', 'Montreux', 'Yverdon-les-Bains'].map((n) => <li>{n}</li>)}
         </ul>
         <a class="btn btn--craie" href="#test" data-cta>Tester ma visibilité</a>
       </div>
@@ -314,6 +297,7 @@ const jsonLd = JSON.stringify({
         </details>
       ))}
     </div>
+    <p class="faq__suite"><a href="/questions/">Toutes les questions fréquentes <span aria-hidden="true">→</span></a></p>
   </section>
 
   <section class="fin cadre" id="contact" aria-labelledby="fin-titre">
@@ -331,7 +315,8 @@ const jsonLd = JSON.stringify({
 /* Ouverture : titre et test côte à côte ; sur téléphone le test arrive juste sous le titre, les engagements après */
 .ouv { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: start; padding-block: clamp(32px, 6vw, 88px) clamp(56px, 8vw, 112px); }
 .ouv__texte { padding-top: clamp(0px, 2vw, 24px); }
-h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(46px, 7.6vw, 112px); line-height: .92; letter-spacing: -.035em; margin: 22px 0 0; text-wrap: balance; }
+h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(46px, 7.6vw, 112px); line-height: .92; letter-spacing: -.035em; margin: 0; text-wrap: balance; }
+.h1__sur { display: block; line-height: 1.4; font-style: normal; margin-bottom: 22px; text-wrap: initial; }
 h1 em, h2 em { font-style: italic; }
 .ouv__chapo { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.4; max-width: 34ch; margin: 28px 0 0; }
 .ouv__preuves { list-style: none; padding: 0; margin: 36px 0 0; display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0; border-top: 1px solid var(--encre); }
@@ -340,7 +325,6 @@ h1 em, h2 em { font-style: italic; }
 .ouv__preuves b { font-weight: 600; }
 .ouv__preuves span { color: var(--gris); }
 .ouv__test { position: relative; }
-.ouv__court { display: none; }
 
 .sec { padding-block: clamp(72px, 10vw, 136px); border-top: 1px solid var(--filet); }
 .sec__tete { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; margin-bottom: clamp(36px, 5vw, 64px); }
@@ -539,6 +523,7 @@ html:not(.js) .carte__ville text { opacity: 1; }
 .faq__item { border-bottom: 1px solid var(--filet); }
 .faq__item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 20px 0; font-size: clamp(18px, 1.8vw, 22px); font-weight: 550; letter-spacing: -.015em; }
 .faq__item summary::-webkit-details-marker { display: none; }
+.faq__suite { margin: 28px 0 0; font-weight: 600; } .faq__suite a { text-decoration: none; }
 .faq__plus { position: relative; width: 26px; height: 26px; flex: none; border: 1px solid var(--encre); border-radius: 50%; }
 .faq__plus::before, .faq__plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 11px; height: 1.5px; background: var(--encre); transform: translate(-50%, -50%); transition: transform .3s var(--sortie); }
 .faq__plus::after { transform: translate(-50%, -50%) rotate(90deg); }
@@ -554,7 +539,7 @@ html:not(.js) .carte__ville text { opacity: 1; }
 @media (max-width: 1080px) {
   .ouv { grid-template-columns: minmax(0, 1fr); }
   .ouv__texte { display: contents; }
-  .ouv__texte > .etiquette { order: 1; } h1 { order: 2; } .ouv__chapo { order: 3; } .ouv__test { order: 4; max-width: 640px; } .ouv__preuves { order: 5; }
+  h1 { order: 2; } .ouv__chapo { order: 3; } .ouv__test { order: 4; max-width: 640px; } .ouv__preuves { order: 5; }
   .ouv__chapo { margin-top: 18px; }
   .ouv__preuves { margin-top: 8px; }
   .exp { grid-template-columns: minmax(0, 1fr); gap: 24px; }
@@ -572,7 +557,7 @@ html:not(.js) .carte__ville text { opacity: 1; }
 }
 @media (max-width: 760px) {
   .ouv { padding-top: 20px; }
-  .ouv__long { display: none; } .ouv__court { display: inline; }
+  .ouv__long { display: none; }
   h1 { margin-top: 14px; font-size: clamp(42px, 11.6vw, 56px); }
   .ouv__chapo { font-size: 17px; max-width: 40ch; }
   .sec__tete { display: block; }
