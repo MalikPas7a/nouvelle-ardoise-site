@@ -95,11 +95,13 @@ const jsonLd = JSON.stringify({
                 <div class="g__barre"><span class="g__loupe" aria-hidden="true"></span>boulangerie carouge</div>
                 <div class="g__carte" aria-hidden="true"><span class="g__pin g__pin--vous"></span><span class="g__pin g__pin--2"></span><span class="g__pin g__pin--3"></span></div>
                 <ol class="g__liste">
-                  <li class="g__item g__item--vous"><span class="g__nom">Maison Fève</span><span class="g__note"><span class="g__etoiles" aria-hidden="true">★★★★★</span>4,8 · 212 avis</span><span class="g__meta">Boulangerie · Carouge · Ouvert · Précommande en ligne</span><span class="g__vous">Vous</span></li>
-                  <li class="g__item"><span class="g__trait g__trait--nom"></span><span class="g__note"><span class="g__etoiles" aria-hidden="true">★★★★☆</span>4,3 · 58 avis</span><span class="g__trait"></span></li>
-                  <li class="g__item"><span class="g__trait g__trait--nom"></span><span class="g__note"><span class="g__etoiles" aria-hidden="true">★★★★☆</span>4,1 · 24 avis</span><span class="g__trait g__trait--court"></span></li>
+                  <li class="g__item g__item--vous"><span class="g__nom">Maison Fève</span><span class="g__note"><span class="g__etoiles" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span>4,8 · 212 avis</span><span class="g__meta">Boulangerie · Carouge · Ouvert · Précommande en ligne</span><span class="g__vous">Vous</span></li>
+                  <li class="g__item"><span class="g__trait g__trait--nom"></span><span class="g__note"><span class="g__etoiles" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i class="g__etoile--vide">☆</i></span>4,3 · 58 avis</span><span class="g__trait"></span></li>
+                  <li class="g__item"><span class="g__trait g__trait--nom"></span><span class="g__note"><span class="g__etoiles" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i class="g__etoile--vide">☆</i></span>4,1 · 24 avis</span><span class="g__trait g__trait--court"></span></li>
                 </ol>
               </div>
+              <button type="button" class="ecran__loupe" aria-expanded="false" aria-controls="mesure-google">Ce qu’on mesure</button>
+              <p class="ecran__mesure" id="mesure-google">Ce qu’on mesure ici : fiche à jour, horaires, photos, avis et réponses, bouton de précommande.</p>
             </figure>
           )}
 
@@ -113,6 +115,8 @@ const jsonLd = JSON.stringify({
                   <p class="ia__src"><span>Sources</span><span class="ia__chip">cabinet-aubepine.ch</span><span class="ia__chip">Fiche Google</span><span class="ia__chip">Avis patients</span></p>
                 </div>
               </div>
+              <button type="button" class="ecran__loupe" aria-expanded="false" aria-controls="mesure-ia">Ce qu’on mesure</button>
+              <p class="ecran__mesure" id="mesure-ia">Ce qu’on mesure ici : si les assistants citent votre cabinet, avec quelles sources, et si elles sont à jour.</p>
             </figure>
           )}
 
@@ -127,6 +131,8 @@ const jsonLd = JSON.stringify({
                 <p class="ad__liens"><span>Précommander</span><span>Itinéraire</span><span>Appeler</span></p>
                 <ul class="ad__suivi" aria-label="Actions mesurées"><li>Appels</li><li>Itinéraires</li><li>Commandes</li><li>Rendez-vous</li></ul>
               </div>
+              <button type="button" class="ecran__loupe" aria-expanded="false" aria-controls="mesure-ads">Ce qu’on mesure</button>
+              <p class="ecran__mesure" id="mesure-ads">Ce qu’on mesure ici : appels, itinéraires, commandes et rendez-vous venus de l’annonce, et leur coût.</p>
             </figure>
           )}
 
@@ -145,6 +151,8 @@ const jsonLd = JSON.stringify({
                 <p class="ig__texte"><b>pastamo</b> Le pesto du matin, pignons et basilic frais. Pâtes fraîches pour vos événements et vos équipes, commande en ligne.</p>
                 <p class="ig__cta">Commander</p>
               </div>
+              <button type="button" class="ecran__loupe" aria-expanded="false" aria-controls="mesure-meta">Ce qu’on mesure</button>
+              <p class="ecran__mesure" id="mesure-meta">Ce qu’on mesure ici : vues, enregistrements et clics vers la commande ; réels tournés chez vous, sans musique.</p>
             </figure>
           )}
 
@@ -158,6 +166,8 @@ const jsonLd = JSON.stringify({
                 <p class="ph__btn">Confirmer</p>
                 <p class="ph__note">Agenda relié à la fiche Google et au site. Même socle pour une commande à retirer ou un devis.</p>
               </div>
+              <button type="button" class="ecran__loupe" aria-expanded="false" aria-controls="mesure-dev">Ce qu’on mesure</button>
+              <p class="ecran__mesure" id="mesure-dev">Ce qu’on mesure ici : rendez-vous et commandes pris en ligne, rappels envoyés, vitesse du site sur téléphone.</p>
             </figure>
           )}
 
@@ -182,6 +192,8 @@ const jsonLd = JSON.stringify({
                 <p class="bi__suite"><span class="etiquette">Prochaine action</span>Tournage de deux réels dans l’atelier, mardi 8&nbsp;h.</p>
                 <div class="bi__qui"><span class="bi__init" aria-hidden="true">M</span><span><b>Malik Younes</b><small>Votre interlocuteur · {TEL}</small></span></div>
               </div>
+              <button type="button" class="ecran__loupe" aria-expanded="false" aria-controls="mesure-bilan">Ce qu’on mesure</button>
+              <p class="ecran__mesure" id="mesure-bilan">Ce qu’on mesure ici : les quatre voyants chaque mois, l’écart avec l’objectif fixé, la prochaine action.</p>
             </figure>
           )}
         </li>
@@ -360,8 +372,28 @@ h3 { margin: 0; }
 .ecran--photo img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3 / 2; }
 .ecran--photo figcaption { position: absolute; left: 14px; bottom: 14px; }
 .ecran__chip--photo { position: static; display: inline-block; color: var(--encre); background: var(--craie); border-color: var(--craie); }
-.js .exp .ecran { opacity: 0; transform: translateY(12px); transition: opacity .45s var(--sortie), transform .45s var(--sortie); }
-.js .exp.allume .ecran { opacity: 1; transform: none; }
+/* Relevé : l'écran apparaît, puis ses lignes se posent dans l'ordre de lecture (rang --l posé par le script) ; la loupe dit ce qu'on y mesure */
+:global(.js) .exp .ecran { opacity: 0; transition: opacity .35s var(--sortie); }
+:global(.js) .exp.allume .ecran { opacity: 1; }
+:global(.js) .exp .rl { opacity: 0; transform: translateY(6px); }
+:global(.js) .exp.allume .rl { opacity: 1; transform: none; transition: opacity .4s var(--sortie), transform .4s var(--sortie); transition-delay: calc(160ms + var(--l, 0) * 60ms); }
+/* Le bouton « Ce qu'on mesure » arrive en dernier, juste après la dernière ligne (--n lignes, posé par le script) */
+:global(.js) .exp .ecran__loupe { opacity: 0; }
+:global(.js) .exp.allume .ecran__loupe { opacity: 1; transition: opacity .4s var(--sortie), border-color .2s, background-color .2s, color .2s; transition-delay: calc(260ms + var(--n, 0) * 60ms), 0s, 0s, 0s; }
+/* Le commerce accompagné se pose comme les autres, puis se marque « Vous » un demi-temps plus tard */
+:global(.js) .exp.allume .g__item--vous { transition: opacity .4s var(--sortie), transform .4s var(--sortie), background-color .6s, border-color .6s; transition-delay: calc(160ms + var(--l, 0) * 60ms), calc(160ms + var(--l, 0) * 60ms), calc(620ms + var(--l, 0) * 60ms), calc(620ms + var(--l, 0) * 60ms); }
+.ecran:has(.ecran__loupe) { padding-bottom: 62px; }
+.ecran__loupe { position: absolute; left: 14px; bottom: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 8px; min-height: 32px; margin: 0; padding: 0 12px 0 10px; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--encre); background: var(--papier); border: 1px solid var(--filet); border-radius: 999px; cursor: pointer; transition: border-color .2s, background-color .2s, color .2s; }
+.ecran__loupe::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--craie); box-shadow: inset 0 0 0 1px var(--encre); }
+.ecran__loupe::after { content: ""; position: absolute; inset: -6px; } /* zone de 44 px sous le pouce */
+.ecran--ouvert .ecran__loupe { background: var(--encre); color: var(--papier); border-color: var(--encre); }
+.ecran--ouvert .ecran__loupe::before { box-shadow: none; }
+.ecran__mesure { position: absolute; left: 14px; right: 14px; bottom: 56px; z-index: 2; margin: 0; display: none; padding: 10px 12px; font-family: var(--mono); font-size: 12px; line-height: 1.45; letter-spacing: .02em; color: var(--papier); background: var(--encre); border-radius: var(--r-s); box-shadow: 0 16px 28px -16px rgb(27 25 21 / .55); }
+.ecran--ouvert .ecran__mesure { display: block; animation: mesure .22s var(--sortie); }
+@keyframes mesure { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (hover: hover) and (pointer: fine) { .ecran__loupe:hover { border-color: var(--encre); } }
+html:not(.js) .ecran__loupe, html:not(.js) .ecran__mesure { display: none; }
+html:not(.js) .ecran:has(.ecran__loupe) { padding-bottom: clamp(18px, 2.4vw, 32px); }
 
 /* Google : le pack local, le commerce accompagné en premier */
 .g { display: grid; gap: 12px; }
@@ -372,16 +404,21 @@ h3 { margin: 0; }
 .g__carte::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0 30px, rgb(255 255 255 / .5) 30px 32px); }
 .g__pin { position: absolute; width: 14px; height: 14px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: #8E877A; border: 2px solid #fff; }
 .g__pin--vous { background: var(--encre); width: 20px; height: 20px; left: 44%; top: 32%; box-shadow: 0 0 0 5px rgb(255 210 63 / .35); }
-.allume .g__pin--vous { animation: pin 1.6s ease-out .6s 2; }
+.allume .g__pin--vous { animation: pin 1.6s ease-out .8s 1; }
 @keyframes pin { 0% { box-shadow: 0 0 0 0 rgb(255 210 63 / .9); } 100% { box-shadow: 0 0 0 16px rgb(255 210 63 / 0); } }
 .g__pin--2 { left: 18%; top: 58%; } .g__pin--3 { left: 72%; top: 22%; }
 .g__liste { list-style: none; margin: 0; padding: 0; display: grid; }
 .g__item { position: relative; display: grid; gap: 3px; padding: 12px 12px 12px 14px; border-top: 1px solid var(--filet); border-left: 3px solid transparent; }
 .g__item--vous { background: #fff; border-left-color: var(--craie); border-radius: 0 var(--r-s) var(--r-s) 0; transition: background-color .6s, border-color .6s; transition-delay: .5s; }
-.js .exp:not(.allume) .g__item--vous { background: transparent; border-left-color: transparent; }
+:global(.js) .exp:not(.allume) .g__item--vous { background: transparent; border-left-color: transparent; }
 .g__nom { font-weight: 600; font-size: 16px; }
 .g__note { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gris); }
 .g__etoiles { color: #E0A400; letter-spacing: 1px; font-size: 12px; }
+.g__etoiles i { display: inline-block; font-style: normal; }
+.g__etoile--vide { color: #CFC6B5; }
+.g__etoiles i:nth-child(2) { --e: 1 } .g__etoiles i:nth-child(3) { --e: 2 } .g__etoiles i:nth-child(4) { --e: 3 } .g__etoiles i:nth-child(5) { --e: 4 }
+:global(.js) .exp .g__etoiles i { opacity: .25; transform: scale(.7); }
+:global(.js) .exp.allume .g__etoiles i { opacity: 1; transform: none; transition: opacity .3s var(--sortie), transform .3s var(--sortie); transition-delay: calc(460ms + var(--l, 0) * 60ms + var(--e, 0) * 80ms); }
 .g__meta { font-size: 13px; color: var(--gris); }
 .g__vous { position: absolute; right: 12px; top: 12px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; background: var(--craie); border-radius: 999px; padding: 3px 8px; }
 .g__trait { height: 10px; width: 70%; border-radius: 999px; background: var(--filet); }
@@ -448,7 +485,7 @@ h3 { margin: 0; }
 .bi__voyants li:nth-child(2) { --v: 1 } .bi__voyants li:nth-child(3) { --v: 2 } .bi__voyants li:nth-child(4) { --v: 3 }
 .bi__voyants li[data-etat="bon"]::before { background: var(--craie); box-shadow: 0 0 0 3px rgb(255 210 63 / .25); }
 .bi__voyants li[data-etat="moyen"]::before { background: #fff; box-shadow: inset 0 0 0 2px var(--craie); }
-.js .exp:not(.allume) .bi__voyants li::before { background: var(--filet); box-shadow: none; }
+:global(.js) .exp:not(.allume) .bi__voyants li::before { background: var(--filet); box-shadow: none; }
 .bi__voyants span { color: var(--gris); }
 .bi__suite { margin: 0; display: grid; gap: 4px; }
 .bi__qui { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid var(--filet); }
@@ -495,14 +532,14 @@ h3 { margin: 0; }
 .carte__route { fill: none; stroke: var(--craie); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: .9; }
 .carte.allume .carte__route { stroke-dashoffset: 0; transition: stroke-dashoffset 2.4s linear .2s; }
 .carte__ville text { fill: var(--papier); font-family: var(--grotesk); font-size: 30px; font-weight: 550; paint-order: stroke; stroke: var(--encre); stroke-width: 5px; stroke-linejoin: round; opacity: .35; transition: opacity .5s; transition-delay: var(--d); }
-.carte__point { fill: #6E675B; transition: fill .5s; transition-delay: var(--d); }
-.carte.allume .carte__point { fill: var(--craie); }
+.carte__point { fill: #6E675B; transform-box: fill-box; transform-origin: center; transform: scale(.55); transition: fill .5s, transform .5s var(--sortie); transition-delay: var(--d); }
+.carte.allume .carte__point { fill: var(--craie); transform: none; }
 .carte.allume .carte__ville text { opacity: 1; }
 .carte__onde { fill: none; stroke: var(--craie); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
-.carte.allume .carte__onde { animation: onde 2.6s ease-out .4s 3; }
+.carte.allume .carte__onde { animation: onde 2.6s ease-out .4s 1; }
 @keyframes onde { 0% { opacity: .9; transform: scale(.6); } 100% { opacity: 0; transform: scale(3.2); } }
 html:not(.js) .carte__route { stroke-dashoffset: 0; }
-html:not(.js) .carte__point { fill: var(--craie); }
+html:not(.js) .carte__point { fill: var(--craie); transform: none; }
 html:not(.js) .carte__ville text { opacity: 1; }
 .carte figcaption { font-family: var(--mono); font-size: 12px; color: var(--gris-nuit); margin-top: 12px; display: flex; align-items: center; gap: 8px 18px; flex-wrap: wrap; }
 .carte__item { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
@@ -605,12 +642,15 @@ html:not(.js) .carte__ville text { opacity: 1; }
   .fin__actions { justify-content: flex-start; }
   .fin__actions .btn { width: 100%; }
 }
+@media print { :global(.js) .exp .ecran, :global(.js) .exp .rl, :global(.js) .exp .g__etoiles i { opacity: 1 !important; transform: none !important; } .ecran__loupe { display: none !important; } }
 @media (prefers-reduced-motion: reduce) {
   .carte__route { stroke-dashoffset: 0; }
-  .carte__point { fill: var(--craie); }
+  .carte__point { fill: var(--craie); transform: none; }
   .carte__ville text { opacity: 1; }
+  :global(.js) .exp .rl, :global(.js) .exp .g__etoiles i, :global(.js) .exp .ecran__loupe { opacity: 1; transform: none; transition: none; }
+  .ecran--ouvert .ecran__mesure { animation: none; }
   .carte *, .bi__voyants li::before, .g__item--vous, .g__pin--vous, .faq__plus::before, .faq__plus::after, .spe, .spe__fleche { transition: none !important; animation: none !important; }
-  .js .exp .ecran { opacity: 1; transform: none; transition: none; }
+  :global(.js) .exp .ecran { opacity: 1; transform: none; transition: none; }
 }
 </style>
 
@@ -618,9 +658,23 @@ html:not(.js) .carte__ville text { opacity: 1; }
 // Les écrans d'exemple, la carte et le bilan s'allument quand on arrive dessus (état final direct si mouvement réduit ou sans observateur).
 (function () {
   document.documentElement.classList.add('js');
-  const els = document.querySelectorAll('.exp, .carte');
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) { els.forEach((e) => e.classList.add('allume')); return; }
-  const io = new IntersectionObserver((entrees) => entrees.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('allume'); io.unobserve(e.target); } }), { threshold: .2, rootMargin: '0px 0px -8% 0px' });
-  els.forEach((e) => io.observe(e));
+  // Relevé : chaque ligne d'un écran d'exemple reçoit son rang, pour se poser dans l'ordre de lecture quand l'écran s'allume.
+  const LIGNES = '.ecran__chip, .g__barre, .g__carte, .g__item, .ia__q, .ia__r, .ia__chip, .ad__tag, .ad__url, .ad__titre, .ad__texte, .ad__liens, .ad__suivi li, .ig__tete, .ig__media, .ig__texte, .ig__cta, .ph__tete, .ph__liste li, .ph__quand, .ph__btn, .ph__note, .bi__tete, .bi__voyants li, .bi__suite, .bi__qui';
+  document.querySelectorAll('.exp .ecran').forEach((ecran) => { const lignes = ecran.querySelectorAll(LIGNES); lignes.forEach((el, i) => { el.classList.add('rl'); el.style.setProperty('--l', i); }); ecran.style.setProperty('--n', lignes.length); });
+  // La loupe « Ce qu'on mesure » : un seul écran ouvert à la fois ; Échap ou un tap ailleurs referme.
+  const fermer = () => document.querySelectorAll('.ecran--ouvert').forEach((f) => { f.classList.remove('ecran--ouvert'); f.querySelector('.ecran__loupe').setAttribute('aria-expanded', 'false'); });
+  document.querySelectorAll('.ecran__loupe').forEach((b) => b.addEventListener('click', () => { const f = b.closest('.ecran'), on = !f.classList.contains('ecran--ouvert'); fermer(); if (on) { f.classList.add('ecran--ouvert'); b.setAttribute('aria-expanded', 'true'); } }));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') fermer(); });
+  document.addEventListener('pointerdown', (e) => { if (!e.target.closest('.ecran--ouvert')) fermer(); });
+  // On observe les écrans eux-mêmes (sur téléphone, l'écran vient après le texte) ; la section s'allume quand un cinquième de l'écran est visible,
+  // ou dès que son haut dépasse la moitié de la fenêtre (écrans très hauts), ou s'il est déjà passé (arrivée par une ancre, retour arrière).
+  const cibles = document.querySelectorAll('.exp .ecran, .carte');
+  const allumer = (el) => (el.closest('.exp') || el).classList.add('allume');
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) { cibles.forEach(allumer); return; }
+  const io = new IntersectionObserver((entrees) => entrees.forEach((e) => {
+    const r = e.boundingClientRect;
+    if (e.intersectionRatio >= .2 || (e.isIntersecting && r.top < innerHeight * .5) || r.bottom < 0) { allumer(e.target); io.unobserve(e.target); }
+  }), { threshold: [0, .1, .2], rootMargin: '0px 0px -8% 0px' });
+  cibles.forEach((el) => io.observe(el));
 })();
 </script>
