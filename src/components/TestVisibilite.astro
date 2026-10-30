@@ -155,6 +155,8 @@ html:not(.js) .tv__cherche, html:not(.js) .tv__voyants, html:not(.js) .tv__msg {
 @media (max-width: 400px) { .tv-v__nom { letter-spacing: .04em; } }
 @media (max-width: 360px) { .tv__voyants { grid-template-columns: minmax(0, 1fr); } .tv-v { min-height: 0; padding: 12px 14px; } .tv-v__valeur { font-size: 24px; margin-top: 2px; } }
 @media (prefers-reduced-motion: reduce) { .tv__direct::after, .tv.cherche .tv-v__point, .tv-v.revele .tv-v__valeur, .tv-v.revele .tv-v__detail, .tv__axes li, .tv__contact.revele, .tv__merci { animation: none; } .tv-v.revele .tv-v__point, .tv-v.revele.mesure .tv-v__point { transition-delay: 0s; } .tv-v__jauge, .tv-v__jauge i { transition: none; } }
+/* Quand le résultat arrive, la carte grandit vers le bas : sans ceci, Chrome garde en place le texte sous la carte et la page saute de 900 px (ancrage de défilement) */
+body:has(.tv) { overflow-anchor: none; }
 </style>
 
 <script is:inline>
