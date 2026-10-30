@@ -82,12 +82,12 @@
 (function(){
   // Données d'exemple, à remplacer par la carte définitive. glb : chemin du scan 3D du vrai plat.
   var D = {
-    'Le Café de Paris':{c:['Pain brioché toasté','Bœuf haché minute, 150 g','Cheddar affiné','Oignons confits','Sauce Café de Paris'],a:['À valider par la cuisine']},
-    'Le Double Maison':{c:['Pain brioché toasté','Deux steaks de bœuf, 2 × 110 g','Double cheddar','Pickles maison','Sauce Café de Paris'],a:['À valider par la cuisine']},
-    'Le Poulet':{c:['Pain brioché toasté','Poulet croustillant','Salade','Sauce blanche aux herbes'],a:['À valider par la cuisine']},
-    'Le Végétal':{c:['Pain brioché toasté','Galette de légumes grillés','Chèvre','Roquette'],a:['À valider par la cuisine']},
+    'Le Signature':{c:['Pain brioché toasté','Bœuf haché minute, 150 g','Cheddar affiné','Oignons confits','Sauce Café de Paris servie à part'],a:['À valider par la cuisine']},
+    'Le Double':{c:['Pain brioché toasté','Deux steaks de bœuf, 2 × 110 g','Double cheddar','Pickles maison','Sauce Café de Paris servie à part'],a:['À valider par la cuisine']},
+    'Le Marais':{c:['Pain brioché toasté','Poulet croustillant','Salade','Sauce blanche aux herbes'],a:['À valider par la cuisine']},
+    'Le Jardin':{c:['Pain brioché toasté','Galette de légumes grillés','Chèvre','Roquette'],a:['À valider par la cuisine']},
     'La Parisienne':{c:['Baguette tradition','Bœuf tranché fin','Oignons','Sauce Café de Paris'],a:['À valider par la cuisine']},
-    'La Volaille':{c:['Baguette tradition','Poulet rôti','Crudités','Mayonnaise maison'],a:['À valider par la cuisine']},
+    'La Rive Gauche':{c:['Baguette tradition','Poulet rôti','Crudités','Mayonnaise maison'],a:['À valider par la cuisine']},
     'Frites maison':{c:['Pommes de terre fraîches','Fleur de sel'],a:['À valider par la cuisine']},
     'Frites trempées':{c:['Frites maison','Sauce Café de Paris'],a:['À valider par la cuisine']},
     'Mousse au chocolat':{c:['Chocolat noir','Œufs','Crème'],a:['À valider par la cuisine']},
@@ -113,7 +113,7 @@
   function remplir(){
     var p = info(plats[i]);
     $('fiche-cat').textContent = p.cat; $('fiche-nom').textContent = p.nom; $('fiche-desc').textContent = p.desc;
-    $('fiche-prix').textContent = maison ? 'Prix selon l\'adresse' : chf(p.prix) + ' · exemple';
+    $('fiche-prix').textContent = maison ? 'Prix selon l\'adresse' : chf(p.prix) + (document.documentElement.classList.contains('notes') ? ' · exemple' : '');
     $('fiche-pastille').innerHTML = p.sauce ? '<span class="pastille">Sauce Café de Paris</span>' : '';
     $('fiche-compo').innerHTML = p.x.c.map(function(t){ return '<li>' + t + '</li>'; }).join('');
     $('fiche-allerg').innerHTML = p.x.a.map(function(t){ return '<span>' + t + '</span>'; }).join('') + '<span>Liste complète au comptoir</span>';
@@ -261,15 +261,26 @@
       '<circle cx="60" cy="60" r="58" fill="none" stroke="currentColor" stroke-opacity=".35"/>' +
       '<text><textPath href="#sceau-c" textLength="298" lengthAdjust="spacing">Sauce de la maison · Paris · plus de 40 ans ·</textPath></text></svg><div class="ab">' + logo + '</div>';
     hote.appendChild(sc);
+    // Dans l'ouverture au scroll, le sceau s'efface avec le titre pour laisser place aux mots
+    if(!reduit && window.gsap && window.ScrollTrigger && hote.classList.contains('ix-scene')){
+      gsap.to(sc, {opacity:0, ease:'none', scrollTrigger:{trigger:hote, start:'top top', end:function(){ return '+=' + window.innerHeight * 0.4; }, scrub:true}});
+    }
     if(!reduit){
       var tour = sc.querySelector('svg'), angle = 0, vitesse = 0, dernier = window.scrollY;
-      (function boucle(){
+      function boucle(){
         var y = window.scrollY, v = Math.abs(y - dernier); dernier = y;
         vitesse += (Math.min(v, 60) * .25 - vitesse) * .08;
         angle = (angle + .12 + vitesse) % 360;
         tour.style.transform = 'rotate(' + angle + 'deg)';
-        requestAnimationFrame(boucle);
-      })();
+        if(visible) requestAnimationFrame(boucle); else enCours = false;
+      }
+      // La boucle ne tourne que lorsque le sceau est à l'écran
+      var visible = true, enCours = true;
+      new IntersectionObserver(function(e){
+        visible = e[0].isIntersecting;
+        if(visible && !enCours){ enCours = true; dernier = window.scrollY; requestAnimationFrame(boucle); }
+      }).observe(sc);
+      boucle();
     }
   }
 
@@ -347,7 +358,7 @@
       try { sessionStorage.removeItem('apb-rideau'); } catch(e){}
       rideau.classList.add('couvre');
       requestAnimationFrame(function(){ requestAnimationFrame(function(){ rideau.classList.add('part'); }); });
-      setTimeout(function(){ rideau.className = 'rideau'; }, 650);
+      setTimeout(function(){ rideau.className = 'rideau'; }, 360);
     }
     document.addEventListener('click', function(e){
       var l = e.target.closest && e.target.closest('a[href]');
@@ -358,8 +369,112 @@
       e.preventDefault();
       try { sessionStorage.setItem('apb-rideau', '1'); } catch(err){}
       rideau.className = 'rideau entre';
-      setTimeout(function(){ location.href = u.href; }, 300);
+      setTimeout(function(){ location.href = u.href; }, 240);
     });
     window.addEventListener('pageshow', function(e){ if(e.persisted) rideau.className = 'rideau'; });
   }
+})();
+// ---------- Plongée dans la sauce : la nappe monte, sans gouttes ni effets ajoutés ----------
+(function(){
+  var scene = document.querySelector('.ix-scene'); if(!scene) return;
+  var plongee = scene.querySelector('.ix-plongee');
+  // Appelé par la timeline de l'ouverture : t = instant du contact (gardé pour compatibilité), debutPlongee = la nappe monte
+  window.apbSauce = function(tl, t, debutPlongee){
+    if(plongee) tl.fromTo(plongee, {yPercent:110}, {yPercent:0, duration:1.4, ease:'power2.inOut'}, debutPlongee);
+  };
+})();
+
+// ---------- Ouverture : le burger étape par étape, puis l'histoire à part ----------
+// Une bande horizontale épinglée (ordinateur et téléphone) : assembler, smasher, couper, tremper.
+(function(){
+  var ov = document.getElementById('ouverture'); if(!ov) return;
+  var racine = document.documentElement;
+  var reduit = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduit || !window.gsap || !window.ScrollTrigger){ racine.classList.add('statique'); return; }
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ignoreMobileResize:true});   // la barre d'adresse de l'iPhone ne relance pas les calculs
+  var piste = document.getElementById('piste'), assemblage = document.getElementById('v-assemble');
+  // Décalage de chaque couche entre la vue éclatée et le burger assemblé (en % de la hauteur de l'image)
+  // La sauce Café de Paris n'est pas dans le burger : elle est servie à part, pour tremper
+  var couches = [['#ov-pbas', -7.3], ['#ov-oignons', -3.9], ['#ov-steaks', 0], ['#ov-phaut', 12.4]];
+  var GLISSE = 0.5;   // px de scroll par px de bande : la bande va plus vite que la molette
+
+  // Les couches tombent et les étiquettes s'affichent (durée 1)
+  function chute(){
+    var tl = gsap.timeline({defaults:{ease:'none'}});
+    couches.forEach(function(c, i){
+      tl.fromTo(c[0], {yPercent:-50, opacity:0}, {yPercent:0, opacity:1, duration:0.5, ease:'power3.out'}, i * 0.1);
+    });
+    return tl.fromTo('.ov-etq', {opacity:0}, {opacity:1, duration:0.2, stagger:0.05}, 0.7);
+  }
+  // Les couches se serrent : le burger est monté (durée 1)
+  function serre(){
+    var tl = gsap.timeline({defaults:{ease:'none'}});
+    tl.to('.ov-etq', {opacity:0, duration:0.15}, 0.25);
+    couches.forEach(function(c){ tl.to(c[0], {yPercent:c[1], duration:0.4, ease:'power2.inOut'}, 0.3); });
+    return tl.to('#v-assemble .ov-mot small', {opacity:1, duration:0.2}, 0.65)
+      .to({}, {duration:0.14});
+  }
+
+  var mm;
+  function installer(){
+  mm = gsap.matchMedia();
+  // Ordinateur et téléphone : la même bande horizontale, épinglée. Les couches tombent à l'approche,
+  // la bande reste immobile le temps que le burger se serre, puis glisse jusqu'à « Tremper ».
+  mm.add({bureau:'(min-width: 901px)', tel:'(max-width: 900px)'}, function(ctx){
+    racine.classList.add('ov-h');
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var course = piste.scrollWidth - vw;
+    var arret = vh * 0.7;
+    var glisse = ctx.conditions.bureau ? 0.5 : 0.85;   // px de scroll par px de bande
+    gsap.timeline({scrollTrigger:{trigger:ov, start:'top 85%', end:'top top', scrub:true}}).add(chute());
+    var tl = gsap.timeline({defaults:{ease:'none'}, scrollTrigger:{trigger:ov, start:'top top', end:'+=' + (arret + course * glisse), pin:true, scrub:true, anticipatePin:1}});
+    tl.add(serre().duration(arret), 0)
+      .to(piste, {x:-course, duration:course * glisse}, arret);
+    gsap.utils.toArray('.ov-v .ov-img').forEach(function(img){
+      var g = img.parentNode.offsetLeft, debut = Math.max(0, g - vw);
+      tl.fromTo(img, {scale:1.1}, {scale:1, duration:(g - debut) * glisse || 1}, arret + debut * glisse);
+    });
+    gsap.utils.toArray('.ov-v .ov-mot').forEach(function(el){
+      if(el.closest('#v-assemble')) return;
+      var g = el.closest('.ov-p').offsetLeft;
+      tl.fromTo(el, {y:34, opacity:0}, {y:0, opacity:1, duration:vw * 0.35 * glisse}, arret + Math.max(0, g - vw * 0.9) * glisse);
+    });
+    // Toute la géométrie est mesurée à la construction : on reconstruit quand la largeur change
+    var largeur = vw, attente, refait = function(){
+      if(window.innerWidth === largeur) return;      // la barre d'adresse de l'iPhone ne change que la hauteur
+      clearTimeout(attente); attente = setTimeout(function(){ mm.revert(); installer(); ScrollTrigger.refresh(); }, 250);
+    };
+    window.addEventListener('resize', refait);
+    return function(){ window.removeEventListener('resize', refait); racine.classList.remove('ov-h'); };
+  });
+  // L'histoire : chaque chapitre apparaît une fois, sans effet de plus
+  gsap.utils.toArray('.hist h2, .hist-ch').forEach(function(el){
+    gsap.fromTo(el, {y:28, opacity:0}, {y:0, opacity:1, duration:0.7, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 88%', once:true}});
+  });
+  }
+  installer();
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+})();
+
+// ---------- Fiche plat en présentation : une image quand on l'a, sinon le nom du plat en grand ----------
+// Le placeholder « Vue 3D » reste visible en mode notes de maquette (consigne pour le scan au shooting).
+(function(){
+  var fiche = document.getElementById('fiche'); if(!fiche) return;
+  var vide = document.getElementById('fiche-vide'), nom = document.getElementById('fiche-nom');
+  var src = (document.querySelector('script[src$="assets/apb.js"]') || {}).src || '';
+  var IMAGES = {'Le Signature':'carte', 'Le Double':'carte'};
+  new MutationObserver(function(){
+    if(fiche.hidden || document.documentElement.classList.contains('notes')) return;
+    var n = nom.textContent.trim();
+    var ancien = vide.querySelector('.fiche-visuel'); if(ancien) ancien.remove();
+    vide.classList.remove('avec-img', 'typo');
+    if(IMAGES[n]){
+      vide.classList.add('avec-img');
+      vide.insertAdjacentHTML('afterbegin', '<img class="fiche-visuel" src="' + src.replace('apb.js', 'photos/' + IMAGES[n] + '.webp') + '" alt="' + n + '">');
+    } else {
+      vide.classList.add('typo');
+      var s = document.createElement('span'); s.className = 'fiche-visuel'; s.textContent = n; vide.insertBefore(s, vide.firstChild);
+    }
+  }).observe(fiche, {attributes:true, attributeFilter:['hidden']});
 })();
