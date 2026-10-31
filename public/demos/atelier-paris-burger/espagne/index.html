@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Atelier Paris Burger · España</title>
+<link rel="icon" href="logo-apb-monogramme-or.svg" type="image/svg+xml">
+</head>
+<body style="margin:0">
+
+
+<style>
+@font-face{font-family:'Gloock';src:url(gloock.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Manrope';src:url(mr400.woff2) format('woff2');font-weight:400}@font-face{font-family:'Manrope';src:url(mr600.woff2) format('woff2');font-weight:500 600}@font-face{font-family:'Manrope';src:url(mr700.woff2) format('woff2');font-weight:700}
+@page{size:297mm 210mm;margin:0}
+:root{--bx:#4A1019;--bx2:#6B0F1F;--cr:#F2EBDD;--cr2:#E8DECB;--or:#D99125;--ink:#1A1412;--mut:#6a5a50}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#2a2422}
+body{font-family:'Manrope',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.p{width:297mm;height:210mm;position:relative;overflow:hidden;page-break-after:always;padding:17mm 19mm 15mm}
+.p:last-child{page-break-after:auto}
+.dark{background:var(--bx);color:var(--cr)}
+.cream{background:var(--cr);color:var(--ink)}
+.black{background:#140F0E;color:var(--cr)}
+h1,h2,h3,.g{font-family:'Gloock',serif;font-weight:400;letter-spacing:-.01em;line-height:1.02}
+h2{font-size:44px;max-width:760px}
+h3{font-size:22px;line-height:1.12}
+.dark b,.black b,.dark .em,.black .em{color:var(--or);font-weight:inherit}
+.cream .em{color:var(--bx2)}
+.kick{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--or);margin-bottom:14px}
+.cream .kick{color:var(--bx2)}
+p{font-size:13.5px;line-height:1.55}
+.lead{font-size:16px;line-height:1.5;max-width:640px}
+.mut{color:var(--mut)}
+.dark .mut,.black .mut{color:#cdb9a6}
+.foot{position:absolute;left:19mm;right:19mm;bottom:9mm;display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.08em;opacity:.55}
+.foot img{height:16px}
+.rule{height:1px;background:currentColor;opacity:.18}
+.grid{display:grid;gap:22px}
+.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:repeat(3,1fr)}.c4{grid-template-columns:repeat(4,1fr)}
+.num{font-family:'Gloock',serif;font-size:56px;line-height:.9;color:var(--or)}
+.cream .num{color:var(--bx2)}
+.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:1px solid currentColor;border-radius:99px;padding:4px 10px;opacity:.8}
+.es{font-family:'Gloock',serif;color:var(--or)}
+.cream .es{color:var(--bx2)}
+ul.l{list-style:none}
+ul.l li{font-size:13.5px;line-height:1.5;padding:7px 0;border-top:1px solid rgba(26,20,18,.14)}
+.dark ul.l li,.black ul.l li{border-top-color:rgba(242,235,221,.16)}
+ul.l li strong{font-weight:700}
+/* cover */
+.cover{display:flex;flex-direction:column;justify-content:space-between;padding:20mm 22mm}
+.cover .logo{width:118px}
+.cover h1{font-size:150px;line-height:.88;color:var(--cr)}
+.cover h1 span{color:var(--or)}
+.cover .sub{font-size:19px;line-height:1.4;max-width:560px;margin-top:22px;color:var(--cr)}
+.cover .meta{display:flex;justify-content:space-between;align-items:flex-end;font-size:11.5px;letter-spacing:.06em;color:#cdb9a6}
+.bigmono{position:absolute;right:-90px;top:50%;transform:translateY(-50%);width:560px;opacity:.09}
+/* cases */
+.case{border-top:1px solid rgba(242,235,221,.2);padding-top:12px}
+.case .who{display:flex;justify-content:space-between;align-items:baseline}
+.case .who h3{font-size:24px}
+.case .where{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#cdb9a6}
+.case p{font-size:12.5px;margin-top:6px;color:#e9dccb}
+.case .take{margin-top:8px;font-size:12.5px;color:var(--or);font-weight:600}
+.case .take:before{content:"→ ";}
+/* city cards */
+.city{padding:22px 24px;border-radius:4px}
+.city.m{background:var(--bx);color:var(--cr)}
+.city.i{background:#fff8ec;border:1px solid rgba(74,16,25,.15)}
+.city h3{font-size:40px;margin:8px 0 12px}
+.goal{margin-top:20px;background:#140F0E;color:var(--cr);padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-radius:4px}
+.goal .g{font-size:26px}
+.goal .g b{color:var(--or);font-weight:400}
+/* levers */
+.lever{border-top:2px solid var(--or);padding-top:16px}
+.lever h3{font-size:30px;margin:12px 0 10px}
+/* phone mock */
+.phone{width:210px;height:430px;border-radius:30px;background:#140F0E;padding:10px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.screen{width:100%;height:100%;border-radius:22px;background:var(--cr);overflow:hidden;font-size:9px;color:var(--ink)}
+.ig-top{padding:16px 12px 8px;display:flex;gap:10px;align-items:center}
+.avatar{width:52px;height:52px;border-radius:50%;background:var(--bx);display:grid;place-items:center;flex:none}
+.avatar img{width:38px}
+.ig-stats{display:flex;gap:12px;font-size:8px;text-align:center}
+.ig-stats b{display:block;font-size:11px}
+.ig-bio{padding:0 12px;line-height:1.45}
+.ig-bio .h{font-weight:700;font-size:10px}
+.ig-btn{margin:8px 12px;background:var(--bx);color:var(--cr);text-align:center;padding:6px;border-radius:6px;font-weight:700;font-size:9px}
+.hl{display:flex;gap:9px;padding:6px 12px 10px}
+.hl div{text-align:center;font-size:7.5px}
+.hl i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--or);background:var(--bx);color:var(--or);font-style:normal;font-family:'Gloock';font-size:13px;margin-bottom:3px}
+.feed{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.feed div{aspect-ratio:4/5;display:flex;align-items:flex-end;padding:5px;font-family:'Gloock';font-size:10px;line-height:1}
+.f1{background:var(--bx);color:var(--or)}.f2{background:#140F0E;color:var(--cr)}.f3{background:var(--or);color:var(--bx)}
+.f4{background:#2b1a16;color:var(--or)}.f5{background:var(--bx2);color:var(--cr)}.f6{background:#E8DECB;color:var(--bx)}
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:22px}
+.wk{padding:0 16px 0 0;position:relative}
+.wk:before{content:"";position:absolute;top:7px;left:0;right:0;height:1px;background:rgba(26,20,18,.25)}
+.wk .dot{width:15px;height:15px;border-radius:50%;background:var(--bx2);position:relative}
+.wk .w{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--bx2);margin:12px 0 4px}
+.wk h3{font-size:19px;margin-bottom:8px}
+.wk p{font-size:12px}
+.kpi{background:var(--bx);color:var(--cr);padding:16px 18px;border-radius:4px}
+.kpi .g{font-size:30px;color:var(--or)}
+.kpi p{font-size:11.5px;margin-top:6px;color:#e9dccb}
+.idea{padding:16px 0;border-top:1px solid rgba(242,235,221,.18)}
+.idea h3{font-size:23px;margin:6px 0 6px}
+.idea p{font-size:12.5px;color:#e9dccb}
+.quote{font-family:'Gloock';font-size:64px;line-height:.95}
+
+/* v2 : échelle plus généreuse */
+p{font-size:15.5px}
+h2{font-size:54px;max-width:900px}
+.lead{font-size:19px;max-width:760px}
+.case .who h3{font-size:28px}.case p,.case .take{font-size:14.5px}
+.city h3{font-size:50px}.city p{font-size:16px}.city{padding:28px 30px}
+.lever h3{font-size:30px}.lever p{font-size:16px}
+ul.l li{font-size:15.5px;padding:10px 0}
+.idea h3{font-size:27px}.idea p{font-size:14.5px}
+.wk h3{font-size:24px}.wk p{font-size:14px}
+.kpi .g{font-size:34px}.kpi p{font-size:13px}
+.band{position:absolute;left:19mm;right:19mm;bottom:20mm;padding:18px 24px;border-radius:4px;display:flex;gap:24px;align-items:center}
+.band .g{font-size:24px;line-height:1.15}
+.ig-stats b{color:var(--ink)!important}
+.ig-stats{gap:8px;font-size:7.5px}
+.phone{width:250px;height:510px}
+.pos3 .num{font-size:80px}.pos3 p{font-size:15px}
+.tl{margin-top:40px}.kpi{padding:22px 22px}
+.kpis{display:grid;gap:0}
+.kpis div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 0;border-top:1px solid rgba(26,20,18,.14)}
+.kpis span{font-size:14.5px}
+.kpis b{font-family:'Gloock',serif;font-weight:400;font-size:30px;color:var(--bx2);white-space:nowrap}
+.kpis small{font-family:'Manrope',sans-serif;font-size:12px;color:var(--mut)}
+.gm ul.l li{padding:14px 0;font-size:16px}.kpis span{font-size:15.5px}
+
+html,body{background:#2a2422;color:#F2EBDD;color-scheme:dark}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:#140F0E;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:#140F0E}
+.bar .t{font-family:'Gloock',serif;font-size:18px;color:#F2EBDD}
+.bar a{background:#D99125;color:#2a0a10;font-weight:700;font-size:14px;text-decoration:none;padding:10px 16px;border-radius:6px}
+.bar a:focus-visible{outline:2px solid #F2EBDD;outline-offset:2px}
+.deck{display:flex;flex-direction:column;align-items:center;gap:20px;padding-block:20px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow:hidden}
+.holder{position:relative;width:100%;max-width:1123px}
+.holder .p{position:absolute;top:0;left:0;transform-origin:0 0;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+
+@media (max-width:760px){
+.holder{height:auto!important}
+.holder .p{position:relative;transform:none!important;width:100%;height:auto;min-height:0;padding:30px 20px 56px}
+.p h2,.p h2[style]{font-size:31px!important;max-width:none}
+.cover{min-height:0;gap:28px}
+.cover h1{font-size:76px}.cover .sub{font-size:16px}
+.cover .meta{flex-direction:column;align-items:flex-start;gap:4px}
+.bigmono{width:300px;right:-120px;top:60%}
+.grid.c2,.grid.c3,.grid.c4{grid-template-columns:1fr!important;gap:18px!important}
+.p .grid[style]{margin-top:20px!important;max-width:none!important}
+.quote,.quote[style]{font-size:44px!important}
+.pos3 .num{font-size:52px}
+.band,.band[style]{position:static!important;flex-direction:column;align-items:flex-start;gap:8px;margin-top:22px!important}
+.band .g{font-size:20px}
+.band span[style*="margin-left:auto"]{margin-left:0!important}
+.goal{flex-direction:column;align-items:flex-start;gap:8px}.goal .g{font-size:21px}
+.city h3{font-size:40px}
+.lever h3{font-size:26px}
+.p > div[style*="grid-template-columns:1fr 230px"]{display:block!important;height:auto!important}
+.phone{margin:26px auto 0}
+.tl{grid-template-columns:1fr 1fr;row-gap:24px}
+.p .grid[style*="grid-template-columns"]{grid-template-columns:1fr!important}
+.p > div[style*="display:flex;gap:26px"]{flex-direction:column;gap:6px!important}
+.p img[style*="position:absolute;right:19mm"]{display:none}
+.foot{left:20px;right:20px;bottom:18px;gap:12px}
+.case .who{flex-wrap:wrap;gap:4px 10px}
+p{font-size:15px}
+}
+</style>
+<div class="bar"><span class="t">Atelier Paris Burger · Stratégie Espagne</span><a href="strategie-espagne-atelier-paris-burger.pdf" download>Télécharger le PDF</a></div>
+<main class="deck">
+<div class="holder"><section class="p dark cover">
+  <img class="bigmono" src="logo-apb-monogramme-or.svg" alt="">
+  <img class="logo" src="logo-apb-monogramme-or.svg" alt="Atelier Paris Burger">
+  <div>
+    <div class="kick">Stratégie de lancement · Espagne</div>
+    <h1>Madrid<br><span>&amp;</span> Ibiza.</h1>
+    <p class="sub">Faire d'Atelier Paris Burger la maison parisienne que l'Espagne commande : un Instagram pour l'Espagne, un créateur madrilène, la pub Meta et une carte Glovo qui fait monter le panier.</p>
+  </div>
+  <div class="meta">
+    <span>Préparé pour Tony · Atelier Paris Burger</span>
+    <span>Nouvelle Ardoise · Novembre 2026</span>
+  </div>
+</section></div>
+<div class="holder"><section class="p black">
+  <div class="kick">L'audit · ce qui a marché aux États-Unis et en Europe</div>
+  <h2 style="font-size:44px;max-width:1000px">Six marques de burger, <b>six leçons</b> qu'on applique.</h2>
+  <div class="grid c3" style="margin-top:22px;row-gap:18px">
+    <div class="case">
+      <div class="who"><h3>Vicio</h3><span class="where">Espagne</span></div>
+      <p>Née en 2020 comme cuisine de livraison sur Glovo à Barcelone. Créateurs suivis dans la durée, même ton partout, de la boîte au message privé. 40 adresses, la livraison fait encore 75 % des ventes.</p>
+      <div class="take">Une dark kitchen peut devenir une marque culte.</div>
+    </div>
+    <div class="case">
+      <div class="who"><h3>In-N-Out</h3><span class="where">États-Unis</span></div>
+      <p>Carte très courte, menu « secret », zéro franchise. Les restaurants les plus rentables du pays : 6 millions de dollars par adresse en 2025.</p>
+      <div class="take">Peu de choix, un produit culte, une rareté assumée.</div>
+    </div>
+    <div class="case">
+      <div class="who"><h3>Shake Shack</h3><span class="where">New York</span></div>
+      <p>Parti d'un stand dans un parc. Éditions limitées lancées ville par ville, reposts des clients, des vidéos qui montrent le grésillement et le geste.</p>
+      <div class="take">Le geste filmé vend mieux que la photo du plat.</div>
+    </div>
+    <div class="case">
+      <div class="who"><h3>Popeyes</h3><span class="where">États-Unis</span></div>
+      <p>Un seul sandwich lancé comme un « drop » : files d'attente, fréquentation doublée, l'équivalent de 23 millions de dollars de publicité gratuite.</p>
+      <div class="take">Un produit, une date, une quantité limitée.</div>
+    </div>
+    <div class="case">
+      <div class="who"><h3>Hundred Burgers</h3><span class="where">Espagne</span></div>
+      <p>Une petite marque élue meilleure burger du monde par « The World's Best Burgers » en 2024 puis en 2025. Toute la presse espagnole en a parlé.</p>
+      <div class="take">Un concours donne une crédibilité qu'aucune pub n'achète.</div>
+    </div>
+    <div class="case">
+      <div class="who"><h3>MrBeast Burger</h3><span class="where">Contre-exemple</span></div>
+      <p>Une star, des centaines de cuisines de livraison, mais un burger inégal à l'arrivée. Avis catastrophiques, la marque s'est retournée contre le projet.</p>
+      <div class="take">En livraison, la qualité à l'ouverture de la boîte décide de tout.</div>
+    </div>
+  </div>
+  <div class="band" style="background:var(--bx);position:static;margin-top:24px"><span class="kick" style="margin:0;white-space:nowrap">Ce qu'on retient</span><span class="g">Un produit culte, un geste filmé, des créateurs fidèles <b>et une qualité parfaite à l'ouverture de la boîte.</b></span></div>
+  <div class="foot"><span>Sources : Expansión 04.2026, Glovo, La Razón 04.2025, Placer.ai, Modern Retail, Business Model Analyst</span><span>02</span></div>
+</section></div>
+<div class="holder"><section class="p dark">
+  <img class="bigmono" src="logo-apb-monogramme-or.svg" alt="" style="opacity:.06">
+  <div class="kick">Notre position</div>
+  <p class="quote" style="max-width:1000px;font-size:84px;margin-top:20px">Madrid a des smash burgers.<br>Elle n'a pas <b>notre sauce.</b></p>
+  <p class="lead" style="margin-top:26px;color:#e9dccb">Une sauce Café de Paris travaillée à Paris depuis plus de 40 ans, servie à part, pour tremper. C'est notre seul vrai avantage : on construit toute la communication autour d'elle et d'un geste que tout le monde peut refaire.</p>
+  <div class="grid c3 pos3" style="margin-top:60px;max-width:960px">
+    <div><div class="num">Abre.</div><p class="mut" style="margin-top:8px">On ouvre la box. Le burger est déjà coupé en deux.</p></div>
+    <div><div class="num">Vierte.</div><p class="mut" style="margin-top:8px">On verse la sauce Café de Paris dans le pot.</p></div>
+    <div><div class="num">Moja.</div><p class="mut" style="margin-top:8px">On trempe. C'est le plan que chaque vidéo doit montrer.</p></div>
+  </div>
+  <div class="foot"><span>« Ouvrir. Verser. Tremper. » en espagnol, la signature des vidéos et des créateurs</span><span>03</span></div>
+</section></div>
+<div class="holder"><section class="p cream">
+  <div class="kick">La situation</div>
+  <h2>Deux villes, deux réalités, <span class="em">un seul objectif.</span></h2>
+  <div class="grid c2" style="margin-top:28px">
+    <div class="city m">
+      <span class="tag">Dark kitchen · 100 % Glovo</span>
+      <h3>Madrid</h3>
+      <p>Personne ne voit la cuisine. Le client décide sur deux écrans : notre Instagram et notre fiche Glovo. Ce sont nos seules vitrines, elles doivent être aussi soignées qu'un restaurant.</p>
+      <p style="margin-top:10px;color:var(--or);font-weight:600">On mise tout sur la commande : se faire choisir, puis faire ajouter.</p>
+    </div>
+    <div class="city i">
+      <span class="tag" style="color:var(--bx2)">Boutique · basse saison</span>
+      <h3 class="em">Ibiza</h3>
+      <p>Un vrai lieu, mais peu de monde jusqu'au printemps. Pas de grosse dépense maintenant : on gagne les habitants à l'année et on prépare la saison avec le même contenu.</p>
+      <p style="margin-top:10px;color:var(--bx2);font-weight:600">L'hiver sert à fidéliser. Avril sert à remplir.</p>
+    </div>
+  </div>
+  <div class="goal">
+    <span class="g">Plus de commandes Glovo, <b>un panier moyen plus haut.</b></span>
+    <span style="font-size:12px;opacity:.75">Mesuré chaque semaine</span>
+  </div>
+  <div class="foot"><span>Atelier Paris Burger · España</span><span>04</span></div>
+</section></div>
+<div class="holder"><section class="p cream">
+  <div class="kick">Le plan</div>
+  <h2>Quatre leviers, <span class="em">dans cet ordre.</span></h2>
+  <div class="grid c4" style="margin-top:38px;gap:28px">
+    <div class="lever">
+      <div class="num">01</div>
+      <h3>Un Instagram pour l'Espagne</h3>
+      <p>Un compte en espagnol qui sert de vitrine aux deux villes. Il reprend les vidéos tournées aux Eaux-Vives et les adapte : sous-titres, voix, lien Glovo.</p>
+    </div>
+    <div class="lever">
+      <div class="num">02</div>
+      <h3>Un créateur madrilène</h3>
+      <p>Un seul créateur food de Madrid, suivi dans la durée. Il reçoit le menu, il le montre, il partage nos vidéos et il parle des deux adresses.</p>
+    </div>
+    <div class="lever">
+      <div class="num">03</div>
+      <h3>Une carte Glovo qui vend plus</h3>
+      <p>Les vraies photos, des menus pensés pour monter le ticket, la sauce en supplément et une seule promotion bien réglée.</p>
+    </div>
+    <div class="lever">
+      <div class="num">04</div>
+      <h3>La publicité Meta</h3>
+      <p>Instagram et Facebook payants, uniquement dans la zone de livraison de Madrid et aux heures des repas. On amplifie ce qui marche déjà.</p>
+    </div>
+  </div>
+  <div class="band" style="background:#140F0E;color:var(--cr)"><span class="g">Le compte attire, le créateur prouve, la pub amplifie, <b style="color:var(--or);font-weight:400">Glovo encaisse.</b></span><span style="font-size:13px;opacity:.75;max-width:300px">Sans une fiche Glovo soignée, le reste fait des vues mais pas de commandes.</span></div>
+  <div class="foot"><span>Atelier Paris Burger · España</span><span>05</span></div>
+</section></div>
+<div class="holder"><section class="p dark">
+  <div style="display:grid;grid-template-columns:1fr 230px;gap:44px;align-items:center;height:100%">
+    <div>
+      <div class="kick">Levier 01 · Instagram España</div>
+      <h2 style="font-size:40px">Un compte, <b>deux villes</b>, des vidéos qui donnent faim.</h2>
+      <ul class="l" style="margin-top:22px">
+        <li><strong>Le nom.</strong> @atelierparisburger.es (à vérifier), en espagnol, avec quelques légendes en anglais pour Ibiza.</li>
+        <li><strong>La matière.</strong> Les vidéos tournées en Suisse avec Roméo, aux Eaux-Vives : le smash, la coupe, la sauce. Remontées pour l'Espagne, avec voix et sous-titres.</li>
+        <li><strong>Le rythme.</strong> 3 réels par semaine et des stories tous les jours. Chaque story « commande » renvoie à Glovo.</li>
+        <li><strong>Le son.</strong> Le vrai grésillement de la plancha et une voix. Pas de musique : on entend le produit.</li>
+        <li><strong>Le site.</strong> Une page Madrid (bouton Glovo) et une page Ibiza (adresse, horaires, carte), reliées au site vitrine. Le lien en bio y mène.</li>
+        <li><strong>La box.</strong> Une carte glissée dans chaque commande : « Síguenos » avec un QR vers le compte.</li>
+      </ul>
+    </div>
+    <div class="phone"><div class="screen">
+      <div class="ig-top">
+        <div class="avatar"><img src="logo-apb-monogramme-or.svg" alt=""></div>
+        <div class="ig-stats"><div><b>9</b>posts</div><div><b>0</b>seguidores</div><div><b>1</b>seguidos</div></div>
+      </div>
+      <div class="ig-bio">
+        <div class="h">Atelier Paris Burger · España</div>
+        La salsa Café de París, desde París.<br>Madrid a domicilio · Ibiza en tienda
+      </div>
+      <div class="ig-btn">Pedir en Glovo</div>
+      <div class="hl"><div><i>P</i>Pedir</div><div><i>C</i>Carta</div><div><i>S</i>Salsa</div><div><i>I</i>Ibiza</div></div>
+      <div class="feed">
+        <div class="f1">Abre.</div><div class="f2">Vierte.</div><div class="f3">Moja.</div>
+        <div class="f4">Desde París</div><div class="f5">Madrid</div><div class="f6">Ibiza</div>
+      </div>
+    </div></div>
+  </div>
+  <div class="foot"><span>Maquette de principe · les cases du profil seront les vraies vidéos de Roméo</span><span>06</span></div>
+</section></div>
+<div class="holder"><section class="p cream">
+  <div class="kick">Levier 02 · Le créateur madrilène</div>
+  <h2>Un seul créateur, <span class="em">trois prises de parole.</span></h2>
+  <div class="grid c3" style="margin-top:30px;gap:30px">
+    <div class="lever">
+      <span class="tag" style="color:var(--bx2)">Jour 0</span>
+      <h3>Il reçoit le menu</h3>
+      <p>Réel « unboxing » chez lui, à Madrid : il ouvre, verse, trempe. Il cite les deux adresses : « en Madrid por Glovo, en Ibiza en la tienda ».</p>
+    </div>
+    <div class="lever">
+      <span class="tag" style="color:var(--bx2)">Jour 7</span>
+      <h3>Il partage nos vidéos</h3>
+      <p>Une vidéo des Eaux-Vives publiée en « collab » : elle apparaît sur son compte et sur le nôtre en même temps. Ses abonnés découvrent la maison de Genève.</p>
+    </div>
+    <div class="lever">
+      <span class="tag" style="color:var(--bx2)">Jour 14</span>
+      <h3>Il relance</h3>
+      <p>Stories avec lien Glovo et une offre réservée à sa communauté pendant 48 h. On compte les commandes reçues dans les 72 h.</p>
+    </div>
+  </div>
+  <div class="grid c2" style="margin-top:34px;gap:30px">
+    <div>
+      <div class="kick" style="margin-bottom:6px">Le bon profil</div>
+      <p>Créateur food de Madrid, audience majoritairement madrilène, de 20 000 à 150 000 abonnés, des commentaires vrais plutôt que des gros chiffres. On présente 5 profils à Tony, il choisit.</p>
+    </div>
+    <div>
+      <div class="kick" style="margin-bottom:6px">Le brief</div>
+      <p>Avis sincère, le geste « Abre. Vierte. Moja. » à l'image, la sauce toujours à part, le son réel sans musique, aucun alcool à l'écran, mention et lien Glovo. Relation suivie sur plusieurs mois, comme Vicio.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Atelier Paris Burger · España</span><span>07</span></div>
+</section></div>
+<div class="holder"><section class="p dark">
+  <div class="kick">Levier 03 · Glovo et panier moyen</div>
+  <h2>Faire choisir, <b>puis faire ajouter.</b></h2>
+  <div class="grid c3" style="margin-top:26px;row-gap:6px;column-gap:34px">
+    <div class="idea"><span class="num" style="font-size:30px">1</span><h3>Le menu en tête</h3><p>Le menu signature (burger, frites, sauce, boisson) en premier, avec la plus belle photo. C'est lui qui fixe le panier de départ.</p></div>
+    <div class="idea"><span class="num" style="font-size:30px">2</span><h3>La sauce en plus</h3><p>« Doble salsa Café de París » proposé à chaque burger, et le pot vendu seul. Petit prix, marge forte, c'est notre produit culte.</p></div>
+    <div class="idea"><span class="num" style="font-size:30px">3</span><h3>Le menu à deux</h3><p>Deux burgers, deux frites, deux sauces. Le format qui fait le plus monter le ticket, poussé le soir et le week-end.</p></div>
+    <div class="idea"><span class="num" style="font-size:30px">4</span><h3>Les vraies photos</h3><p>Une photo de Roméo sur chaque plat, prise au même angle. Une fiche sans photo se fait sauter dans la liste.</p></div>
+    <div class="idea"><span class="num" style="font-size:30px">5</span><h3>Une seule promo</h3><p>Livraison offerte au-dessus d'un seuil juste supérieur au panier actuel. On ne casse pas les prix, on fait ajouter un article.</p></div>
+    <div class="idea"><span class="num" style="font-size:30px">6</span><h3>Des mots courts</h3><p>Noms et descriptions en espagnol, deux lignes maximum. On répond à chaque avis, la note décide du classement.</p></div>
+  </div>
+  <div class="band" style="background:#140F0E"><span class="kick" style="margin:0;white-space:nowrap">Objectif</span><span class="g">Panier moyen <b>+15 % en 8 semaines.</b></span><span style="font-size:13px;opacity:.75;margin-left:auto;max-width:330px">Chiffre à confirmer avec les données Glovo d'octobre.</span></div>
+  <div class="foot"><span>Seuil et prix réglés avec les chiffres Glovo d'octobre</span><span>08</span></div>
+</section></div>
+<div class="holder"><section class="p cream">
+  <div class="kick">Levier 04 · Publicité Instagram et Facebook</div>
+  <h2>La pub ne remplace rien. <span class="em">Elle accélère ce qui marche.</span></h2>
+  <div class="grid c2" style="margin-top:26px;column-gap:44px">
+    <ul class="l">
+      <li><strong>Madrid, zone de livraison seulement.</strong> On ne paie que pour les gens que Glovo peut livrer, autour de la cuisine, de 12 h à 15 h et de 19 h à minuit.</li>
+      <li><strong>Les vidéos qui ont déjà marché.</strong> On ne pousse que les réels qui ont le mieux tourné sans pub. Bouton « Pedir » vers Glovo.</li>
+      <li><strong>La vidéo du créateur en pub.</strong> Diffusée depuis son compte (publicité partenaire) : plus crédible qu'une pub de marque.</li>
+      <li><strong>Une relance.</strong> Ceux qui ont regardé une vidéo voient ensuite le menu à deux.</li>
+    </ul>
+    <ul class="l">
+      <li><strong>Ibiza, une autre cible.</strong> Des campagnes séparées de Madrid : les habitants l'hiver avec un petit budget, puis les touristes dès avril, avant la saison, en espagnol et en anglais.</li>
+      <li><strong>La mesure.</strong> Glovo ne renvoie pas les ventes à Meta : on compare chaque semaine les commandes avec et sans pub, et l'offre de la pub est propre à la pub.</li>
+      <li><strong>La gestion.</strong> Campagnes réglées chaque semaine, on coupe ce qui ne rapporte pas, bilan chaque mois avec Tony.</li>
+      <li><strong>Ensuite.</strong> Tester la mise en avant payante dans l'appli Glovo, une fois la fiche au point.</li>
+    </ul>
+  </div>
+  <div class="band" style="background:var(--bx);color:var(--cr)"><span class="kick" style="margin:0;white-space:nowrap;color:var(--or)">Budget de départ</span><span class="g">Madrid : <b style="color:var(--or);font-weight:400">15 € par jour</b>, environ 450 € par mois.</span><span style="font-size:13px;opacity:.75;margin-left:auto;max-width:330px">Payé directement à Meta par Atelier Paris Burger, avec un plafond fixé par Tony.</span></div>
+  <div class="foot"><span>Atelier Paris Burger · España</span><span>09</span></div>
+</section></div>
+<div class="holder"><section class="p black">
+  <div class="kick">Pour devenir une marque · idées signature</div>
+  <h2>Ce qui fera parler <b>d'Atelier Paris Burger</b> en Espagne.</h2>
+  <div class="grid c2" style="margin-top:22px;column-gap:44px;row-gap:2px">
+    <div class="idea"><h3>Le burger du mois, 72 heures</h3><p>Une édition limitée, uniquement à Madrid sur Glovo, annoncée par le créateur. Quand c'est fini, c'est fini. La rareté d'In-N-Out, le « drop » de Popeyes.</p></div>
+    <div class="idea"><h3>La cuisine qu'on ne voit pas, filmée</h3><p>La dark kitchen devient une scène : chaque semaine, un plan de la plancha de Madrid. Et une photo de chaque commande avant le départ, pour la qualité et pour le contenu.</p></div>
+    <div class="idea"><h3>Le championnat d'Espagne</h3><p>Inscrire le burger signature au « Best Burger Spain », le championnat d'Espagne (450 burgers en 2025). Une place de finaliste suffit pour ouvrir Time Out et la presse madrilène.</p></div>
+    <div class="idea"><h3>La sauce à emporter</h3><p>Le pot de sauce Café de Paris vendu seul, à Madrid sur Glovo et à Ibiza au comptoir. On ne vend plus seulement un burger, on vend « la » sauce.</p></div>
+    <div class="idea"><h3>La table des habitants, à Ibiza</h3><p>En hiver, une carte fidélité réservée aux résidents et aux saisonniers. Ce sont eux qui recommanderont l'adresse aux touristes en mai.</p></div>
+    <div class="idea"><h3>Un week-end à Madrid, en vrai</h3><p>Dans un second temps, une boutique éphémère de deux jours pour les abonnés, comme Vicio avant ses restaurants. La file d'attente devient le contenu.</p></div>
+  </div>
+  <div class="foot"><span>Atelier Paris Burger · España</span><span>10</span></div>
+</section></div>
+<div class="holder"><section class="p dark">
+  <div class="kick">Qui fait quoi</div>
+  <h2>Ce que Nouvelle Ardoise <b>prend en charge.</b></h2>
+  <p class="lead" style="margin-top:12px;color:#e9dccb">Un seul interlocuteur pour Madrid et Ibiza. Tony valide, nous faisons.</p>
+  <div class="grid c3" style="margin-top:22px;column-gap:34px;row-gap:4px">
+    <div class="idea"><h3>La page web Madrid</h3><p>Reliée au site vitrine Atelier Paris Burger et au compte Instagram Espagne, en espagnol et en anglais : carte, horaires, bouton de commande Glovo.</p></div>
+    <div class="idea"><h3>La page web Ibiza</h3><p>Reliée au site vitrine et à Instagram : adresse, horaires d'hiver et d'été, carte, itinéraire. Fiche Google de la boutique à jour.</p></div>
+    <div class="idea"><h3>Le compte Instagram Espagne</h3><p>Un seul compte pour les deux villes : création, réels, stories, messages. Les contenus tournés en Suisse servent aussi en Espagne, remontés en espagnol.</p></div>
+    <div class="idea"><h3>Le créateur madrilène</h3><p>Sélection de 5 profils, brief, envoi du menu, suivi de ses publications et de leur effet sur les commandes.</p></div>
+    <div class="idea"><h3>La fiche Glovo</h3><p>Photos, menus, sauce en supplément, promotion, réponses aux avis. Ajustée chaque mois selon les chiffres.</p></div>
+    <div class="idea"><h3>La publicité Meta</h3><p>Deux réglages selon la cible : Madrid pour la commande en livraison, Ibiza pour les habitants l'hiver puis les touristes dès avril. Suivie chaque semaine.</p></div>
+  </div>
+  <div class="band" style="background:var(--bx2)"><span class="kick" style="margin:0;white-space:nowrap">Chaque mois</span><span class="g">Un bilan chiffré et un point avec Tony : <b>ce qui a rapporté, ce qu'on coupe, ce qu'on lance.</b></span></div>
+  <div class="foot"><span>Atelier Paris Burger · España</span><span>11</span></div>
+</section></div>
+<div class="holder"><section class="p cream">
+  <div class="kick">Ce que vous gagnez · ce qu'on mesure</div>
+  <h2>Des résultats <span class="em">qu'on peut compter.</span></h2>
+  <div class="grid gm" style="grid-template-columns:.9fr 1.1fr;margin-top:30px;column-gap:44px">
+    <div>
+      <div class="kick" style="margin-bottom:4px">Ce que vous gagnez</div>
+      <ul class="l">
+        <li><strong>Plus de commandes à Madrid</strong>, sans ouvrir de salle.</li>
+        <li><strong>Un ticket plus haut</strong> sur chaque commande : menu à deux, sauce en plus.</li>
+        <li><strong>Une marque connue en Espagne</strong>, pas une fiche Glovo parmi d'autres.</li>
+        <li><strong>Des habitants fidèles à Ibiza</strong> avant l'arrivée des touristes.</li>
+        <li><strong>Tout vous appartient</strong> : comptes, pages, vidéos et fichiers.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="kick" style="margin-bottom:4px">Ce qu'on mesure · objectif proposé</div>
+      <div class="kpis">
+        <div><span>Commandes Glovo à Madrid, par semaine</span><b>+25 % <small>en 3 mois</small></b></div>
+        <div><span>Panier moyen Glovo</span><b>+15 % <small>en 8 semaines</small></b></div>
+        <div><span>Note Glovo</span><b>4,7 <small>ou plus</small></b></div>
+        <div><span>Abonnés Instagram Espagne</span><b>2 000 <small>en 3 mois</small></b></div>
+        <div><span>Avis Google à Ibiza</span><b>+30 <small>avant avril</small></b></div>
+        <div><span>Coût de la pub par commande</span><b>suivi <small>chaque semaine</small></b></div>
+      </div>
+      <p class="mut" style="font-size:12.5px;margin-top:10px">Point de départ : vos chiffres Glovo d'octobre. Les objectifs sont fixés avec vous au démarrage.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Atelier Paris Burger · España</span><span>12</span></div>
+</section></div>
+<div class="holder"><section class="p cream">
+  <div class="kick">Les 8 premières semaines</div>
+  <h2 style="font-size:38px">De l'ouverture du compte <span class="em">au premier bilan.</span></h2>
+  <div class="tl">
+    <div class="wk"><div class="dot"></div><div class="w">Semaine 1</div><h3>On installe</h3><p>Compte créé, 9 premières publications, fiche Glovo refaite, chiffres de départ relevés.</p></div>
+    <div class="wk"><div class="dot"></div><div class="w">Semaine 2</div><h3>On choisit</h3><p>5 créateurs proposés, Tony valide, brief envoyé, menu livré chez lui.</p></div>
+    <div class="wk"><div class="dot"></div><div class="w">Semaines 3 à 4</div><h3>On lance</h3><p>Réel unboxing, vidéo en collab, offre de 48 h, première pub Meta. Burger du mois.</p></div>
+    <div class="wk"><div class="dot"></div><div class="w">Semaines 5 à 8</div><h3>On installe le rythme</h3><p>3 réels par semaine, menu à deux pour les fêtes, bilan fin novembre et fin décembre.</p></div>
+  </div>
+  <div style="margin-top:34px;display:flex;gap:26px;align-items:baseline">
+    <div class="kick" style="margin:0;white-space:nowrap">Pour démarrer, il nous faut</div>
+    <p style="font-size:12.5px">les chiffres Glovo d'octobre (commandes, panier, note), un accès à la carte Glovo, la carte et les prix en euros, l'adresse et les horaires d'hiver d'Ibiza, et le feu vert sur le créateur.</p>
+  </div>
+  <div class="band" style="background:var(--bx);color:var(--cr);right:calc(19mm + 96px)"><span class="kick" style="margin:0;white-space:nowrap;color:var(--or)">Prochaine étape</span><span class="g">Un appel de 20 minutes pour caler <b style="color:var(--or);font-weight:400">les chiffres de départ</b> et lancer la semaine 1.</span></div>
+  <img src="logo-apb-monogramme-or.svg" alt="" style="position:absolute;right:19mm;bottom:20mm;width:72px">
+  <div class="foot"><span>Nouvelle Ardoise · contact@nouvelleardoise.ch · 078 213 38 68</span><span>13</span></div>
+</section></div>
+</main>
+<script>
+(function(){var hs=[].slice.call(document.querySelectorAll('.holder'));
+function fit(){if(window.matchMedia('(max-width:760px)').matches){hs.forEach(function(h){h.firstElementChild.style.transform='';h.style.height='';});return;}hs.forEach(function(h){var p=h.firstElementChild;var w=p.offsetWidth,ht=p.offsetHeight;var k=h.clientWidth/w;p.style.transform='scale('+k+')';h.style.height=(ht*k)+'px';});}
+window.addEventListener('resize',fit);if(document.fonts)document.fonts.ready.then(fit);fit();})();
+</script>
+
+</body>
+</html>
