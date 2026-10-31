@@ -4,6 +4,9 @@
 // publicité Google et Meta, développeur, photographe, bilan mensuel), la preuve Pasta Mo', les 8 métiers, la zone (Suisse romande),
 // la méthode, l'interlocuteur unique et les questions fréquentes (balisées FAQPage pour Google et pour les moteurs de réponse).
 // Règles : jamais de chiffres inventés ni de prix, jamais d'image de plat générée par IA, les exemples d'écrans sont étiquetés « exemple fictif ».
+// Mouvement (30.10 soir, « un site plus animé, sans images ») : titres dévoilés mot à mot, savoir-faire en récit (un écran épinglé qui change
+// à chaque expertise, à l'ordinateur), bandes jaune et encre qui se déplient au défilement, défilement doux (Lenis, à la souris seulement).
+// Tout est visible sans JavaScript et sans animation si « mouvement réduit ».
 import Cartographe from '../layouts/Cartographe.astro';
 import TestVisibilite from '../components/TestVisibilite.astro';
 import carte from '../data/carte-romande.json';
@@ -73,32 +76,34 @@ const jsonLd = JSON.stringify({
 });
 ---
 <Cartographe title={title} description={description} jsonLd={jsonLd} image="/partage-commerces.jpg" imageAlt="Qu’on vous trouve. Qu’on vous choisisse. Nouvelle Ardoise, agence de marketing à Genève et en Suisse romande">
+  <script is:inline>(function () { var d = document.documentElement; d.classList.add('js'); if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; d.classList.add('anime'); setTimeout(function () { if (!window.__anime) d.classList.remove('anime'); }, 3000); })();</script>
   <section class="ouv cadre" aria-labelledby="titre">
     <div class="ouv__texte">
-      <h1 id="titre"><span class="etiquette h1__sur">Agence de marketing<span class="ouv__long"> et de communication</span> · Genève &amp; Suisse romande</span>Qu’on vous trouve.<br /><em>Qu’on vous choisisse.</em></h1>
-      <p class="ouv__chapo">Google, site, Instagram, vente en ligne&#8239;: on mesure où vous perdez des clients, on règle ce qui rapporte le plus, et on le prouve chaque mois.</p>
+      <h1 id="titre" data-mots><span class="etiquette h1__sur" data-monte>Agence de marketing<span class="ouv__long"> et de communication</span> · Genève &amp; Suisse romande</span>Qu’on vous trouve.<br /><em>Qu’on vous choisisse.</em></h1>
+      <p class="ouv__chapo" data-monte style="--d:520ms">Google, site, Instagram, vente en ligne&#8239;: on mesure où vous perdez des clients, on règle ce qui rapporte le plus, et on le prouve chaque mois.</p>
       <ul class="ouv__preuves" aria-label="Nos engagements">
-        <li><b>Sur place</b><span>dans toute la Suisse romande</span></li>
-        <li><b>Un objectif chiffré</b><span>fixé dès le départ</span></li>
-        <li><b>Un bilan</b><span>chaque mois</span></li>
+        <li data-monte style="--d:640ms"><b>Sur place</b><span>dans toute la Suisse romande</span></li>
+        <li data-monte style="--d:720ms"><b>Un objectif chiffré</b><span>fixé dès le départ</span></li>
+        <li data-monte style="--d:800ms"><b>Un bilan</b><span>chaque mois</span></li>
       </ul>
     </div>
-    <div class="ouv__test"><TestVisibilite /></div>
+    <div class="ouv__test" data-monte style="--d:300ms"><TestVisibilite /></div>
   </section>
 
   <section class="sec cadre" id="savoir-faire" aria-labelledby="sf-titre">
     <div class="sec__tete">
-      <p class="etiquette">Le savoir-faire, montré</p>
-      <h2 id="sf-titre">Visible partout où l’on vous cherche.</h2>
-      <p class="chapo">Google, les assistants IA, Instagram, la publicité&#8239;: chaque canal a son expert dans l’équipe. Vous, vous n’avez qu’un interlocuteur.</p>
+      <p class="etiquette" data-monte>Le savoir-faire, montré</p>
+      <h2 id="sf-titre" data-mots>Visible partout où l’on vous cherche.</h2>
+      <p class="chapo" data-monte style="--d:200ms">Chaque canal a son expert dans l’équipe. Vous, un seul interlocuteur.</p>
     </div>
     <ol class="exps">
-      {EXPERTS.map((e) => (
-        <li class="exp" id={'sf-' + e.id}>
-          <div class="exp__texte">
+      {EXPERTS.map((e, i) => (
+        <li class="exp" data-nom={e.expert}>
+          <div class="exp__texte" id={'sf-' + e.id}>
+            <p class="exp__n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</p>
             <p class="etiquette">{e.expert}</p>
             <h3>{e.titre}</h3>
-            <p>{e.texte}</p>
+            <p>{e.court}</p>
             <p class="exp__objectif"><span class="etiquette">Objectif</span>{e.objectif}</p>
           </div>
 
@@ -212,33 +217,34 @@ const jsonLd = JSON.stringify({
           )}
         </li>
       ))}
+      <li class="recit__rail" aria-hidden="true"><span class="recit__compte"><b>01</b> / {String(EXPERTS.length).padStart(2, '0')}</span><span class="recit__barre">{EXPERTS.map(() => <i />)}</span><span class="recit__nom">{EXPERTS[0].expert}</span></li>
     </ol>
   </section>
 
   <section class="sec cadre" id="preuve" aria-labelledby="pr-titre">
     <div class="preuve">
-      <figure class="preuve__image">
+      <figure class="preuve__image" data-devoile>
         <img src="/accueil/pm/001.webp" alt="Bol Pasta Mo’ : le parmesan tombe sur la sauce bolognaise, à côté d’un bol au pesto." width="960" height="540" loading="lazy" decoding="async" />
       </figure>
       <div class="preuve__texte">
-        <p class="etiquette">Déjà en place</p>
-        <h2 id="pr-titre">Pasta Mo’, <em>notre laboratoire.</em></h2>
-        <p>Une marque familiale de pâtes fraîches et de street food italienne. Tout ce qu’on propose, on l’a d’abord fait tourner chez nous&#8239;: identité et emballages, site et commande en ligne, réels sans musique, appli de pilotage pour la production, les événements et les clients.</p>
-        <p class="preuve__note">Les autres restaurants de nos maquettes sont des exemples fictifs, et nous le disons sur chaque page.</p>
-        <a class="btn btn--creux" href="/realisations/">Voir les réalisations <span aria-hidden="true">→</span></a>
+        <p class="etiquette" data-monte>Déjà en place</p>
+        <h2 id="pr-titre" data-mots>Pasta Mo’, <em>notre laboratoire.</em></h2>
+        <p data-monte style="--d:200ms">La marque de pâtes fraîches de la famille. Tout ce qu’on propose, on l’a d’abord fait tourner chez nous&#8239;: identité, site et commande en ligne, réels, appli de pilotage.</p>
+        <p class="preuve__note" data-monte style="--d:280ms">Les autres restaurants de nos maquettes sont des exemples fictifs, et nous le disons sur chaque page.</p>
+        <a class="btn btn--creux" data-monte style="--d:360ms" href="/realisations/">Voir les réalisations <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 
-  <section class="sec cadre" id="metiers" aria-labelledby="met-titre">
+  <section class="bande bande--craie" id="metiers" aria-labelledby="met-titre"><div class="sec cadre">
     <div class="sec__tete">
-      <p class="etiquette">Huit métiers</p>
-      <h2 id="met-titre">Le même socle pour tous, <em>l’outil qui fait vendre pour chacun.</em></h2>
-      <p class="chapo">Tout commerce doit être trouvé, inspirer confiance et vendre. Fiche Google, site, Instagram, photo et vidéo, bilan mensuel&#8239;: c’est le socle. Ce qui change d’un métier à l’autre, c’est l’outil qu’on ajoute.</p>
+      <p class="etiquette" data-monte>Huit métiers</p>
+      <h2 id="met-titre" data-mots>Le même socle pour tous, <em>l’outil qui fait vendre pour chacun.</em></h2>
+      <p class="chapo" data-monte style="--d:200ms">Fiche Google, site, Instagram, photo et vidéo, bilan mensuel&#8239;: c’est le socle. D’un métier à l’autre, change l’outil qu’on ajoute.</p>
     </div>
     <ul class="metiers">
-      {METIERS.map((m) => (
-        <li class:list={['metier', { 'metier--phare': m.specialite }]}>
+      {METIERS.map((m, i) => (
+        <li class:list={['metier', { 'metier--phare': m.specialite }]} data-monte style={`--d:${i * 60}ms`}>
           <div class="metier__nom">
             <h3>{m.nom}{m.specialite && <span class="metier__badge">Notre spécialité</span>}</h3>
             {m.lien && <a class="metier__lien" href={m.lien}>{m.ancre} <span aria-hidden="true">→</span></a>}
@@ -248,14 +254,14 @@ const jsonLd = JSON.stringify({
         </li>
       ))}
     </ul>
-  </section>
+  </div></section>
 
-  <section class="nuit" id="carte" aria-labelledby="carte-titre">
+  <section class="nuit bande" id="carte" aria-labelledby="carte-titre">
     <div class="cadre nuit__grille">
       <div class="nuit__texte">
-        <p class="etiquette">Zone d’intervention</p>
-        <h2 id="carte-titre">Dans toute la Suisse romande,<br /><em>on vient chez vous.</em></h2>
-        <p>Étude du quartier, shooting, tournage, rendez-vous&#8239;: on se déplace dans les six cantons romands, Genève, Vaud, Valais, Fribourg, Neuchâtel et Jura. La base est à Genève&#8239;; entre deux visites, on avance en visio.</p>
+        <p class="etiquette" data-monte>Zone d’intervention</p>
+        <h2 id="carte-titre" data-mots>Dans toute la Suisse romande,<br /><em>on vient chez vous.</em></h2>
+        <p data-monte style="--d:200ms">Étude du quartier, shooting, tournage, rendez-vous&#8239;: on se déplace dans les six cantons romands. La base est à Genève&#8239;; entre deux visites, on avance en visio.</p>
         <ul class="villes" aria-label="Villes où nous intervenons">
           {VILLES_ACCUEIL.map((n) => <li>{n}</li>)}
         </ul>
@@ -284,33 +290,36 @@ const jsonLd = JSON.stringify({
 
   <section class="sec cadre" id="methode" aria-labelledby="meth-titre">
     <div class="sec__tete">
-      <p class="etiquette">La méthode</p>
-      <h2 id="meth-titre">Peu de choses, bien faites, mesurées.</h2>
-      <p class="chapo">Pas de forfait fourre-tout. Trois temps, toujours dans cet ordre, et un objectif qu’on peut vérifier.</p>
+      <p class="etiquette" data-monte>La méthode</p>
+      <h2 id="meth-titre" data-mots>Peu de choses, bien faites, mesurées.</h2>
+      <p class="chapo" data-monte style="--d:200ms">Trois temps, toujours dans cet ordre, et un objectif qu’on peut vérifier.</p>
     </div>
-    <ol class="etapes">
+    <ol class="etapes" data-trace>
       {ETAPES.map((e, i) => (
-        <li class="etape"><span class="etape__n" aria-hidden="true">{i + 1}</span><h3>{e.titre}</h3><p>{e.texte}</p></li>
+        <li class="etape" style={`--i:${i}`}><span class="etape__n" aria-hidden="true">{i + 1}</span><h3>{e.titre}</h3><p>{e.texte}</p></li>
       ))}
     </ol>
   </section>
 
   <section class="sec cadre" id="interlocuteur" aria-labelledby="qui-titre">
     <div class="qui">
-      <div class="qui__portrait" aria-hidden="true"><span>M</span></div>
+      <div class="qui__carte" data-trace>
+        <p class="etiquette">Votre interlocuteur</p>
+        <p class="qui__nom">Malik<br />Younes</p>
+        <svg class="qui__trait" viewBox="0 0 320 36" preserveAspectRatio="none" aria-hidden="true"><path d="M4 24 C 70 8, 150 30, 316 10" pathLength="1" /></svg>
+        <p class="qui__contact"><a href="tel:+41782133868">{TEL}</a><a href={'mailto:' + SITE.email}>{SITE.email}</a></p>
+      </div>
       <div class="qui__texte">
-        <p class="etiquette">Un seul interlocuteur</p>
-        <h2 id="qui-titre">Malik Younes, <em>fondateur.</em></h2>
-        <p>Graphiste de formation, passé par la vente et le commerce de détail, Malik a monté Nouvelle Ardoise à Genève pour les commerçants qu’il croise tous les jours. Il mène le diagnostic, fixe les priorités avec vous et coordonne les experts. Pasta Mo’, la marque de pâtes fraîches de sa famille, lui sert de laboratoire.</p>
-        <p>Autour de lui, des indépendants qui excellent chacun dans leur domaine&#8239;: photographe et vidéaste avec drone, experts du référencement et de la publicité Google et Meta, développeurs.</p>
-        <p class="qui__contact"><a href="tel:+41782133868">{TEL}</a><span aria-hidden="true"> · </span><a href={'mailto:' + SITE.email}>{SITE.email}</a></p>
+        <p class="etiquette" data-monte>Un seul interlocuteur</p>
+        <h2 id="qui-titre" data-mots>Un seul numéro, <em>du diagnostic au bilan.</em></h2>
+        <p data-monte style="--d:200ms">Graphiste de formation passé par la vente, Malik Younes a fondé Nouvelle Ardoise à Genève. Il mène le diagnostic, fixe les priorités avec vous et coordonne les experts&#8239;: photographe et vidéaste, référencement, publicité Google et Meta, développeurs.</p>
       </div>
     </div>
   </section>
 
   <section class="sec cadre" id="specialite" aria-label="Nos deux branches">
     <div class="spe-duo">
-      <a class="spe" href="/restauration/">
+      <a class="spe" href="/restauration/" data-monte>
         <div>
           <p class="etiquette">Notre spécialité</p>
           <h2 id="spe-titre">La restauration et les métiers de bouche.</h2>
@@ -318,7 +327,7 @@ const jsonLd = JSON.stringify({
         </div>
         <span class="spe__fleche" aria-hidden="true">→</span>
       </a>
-      <a class="spe spe--ia" href="/entreprises-ia/">
+      <a class="spe spe--ia" href="/entreprises-ia/" data-monte style="--d:120ms">
         <div>
           <p class="etiquette">Entreprises et IA</p>
           <h2 id="ia-titre">L’IA dans votre entreprise, <em>installée pour vous.</em></h2>
@@ -331,8 +340,8 @@ const jsonLd = JSON.stringify({
 
   <section class="sec cadre" id="questions" aria-labelledby="faq-titre">
     <div class="sec__tete">
-      <p class="etiquette">Questions fréquentes</p>
-      <h2 id="faq-titre">Ce qu’on nous demande d’abord.</h2>
+      <p class="etiquette" data-monte>Questions fréquentes</p>
+      <h2 id="faq-titre" data-mots>Ce qu’on nous demande d’abord.</h2>
     </div>
     <div class="faq">
       {FAQ.map((f) => (
@@ -345,15 +354,15 @@ const jsonLd = JSON.stringify({
     <p class="faq__suite"><a href="/questions/">Toutes les questions fréquentes <span aria-hidden="true">→</span></a></p>
   </section>
 
-  <section class="fin cadre" id="contact" aria-labelledby="fin-titre">
-    <p class="etiquette">On en parle</p>
-    <h2 id="fin-titre">Trente secondes de test,<br /><em>un café pour le reste.</em></h2>
-    <div class="fin__actions">
+  <section class="bande bande--encre" id="contact" aria-labelledby="fin-titre"><div class="fin cadre">
+    <p class="etiquette" data-monte>On en parle</p>
+    <h2 id="fin-titre" data-mots>Trente secondes de test,<br /><em>un café pour le reste.</em></h2>
+    <div class="fin__actions" data-monte style="--d:300ms">
       <a class="btn btn--craie" href="#test" data-cta>Tester ma visibilité</a>
       <a class="btn btn--creux" href="tel:+41782133868">{TEL}</a>
       <a class="btn btn--creux" href={'mailto:' + SITE.email}>{SITE.email}</a>
     </div>
-  </section>
+  </div></section>
 </Cartographe>
 
 <style>
@@ -363,6 +372,7 @@ const jsonLd = JSON.stringify({
 h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(46px, 7.2vw, 88px); line-height: .94; letter-spacing: -.035em; margin: 0; text-wrap: balance; }
 .h1__sur { display: block; line-height: 1.4; font-style: normal; margin-bottom: 22px; text-wrap: initial; }
 h1 em, h2 em { font-style: italic; }
+h1 em { background: linear-gradient(var(--craie), var(--craie)) no-repeat 0 88% / 100% .2em; }
 .ouv__chapo { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.4; max-width: 34ch; margin: 28px 0 0; }
 .ouv__preuves { list-style: none; padding: 0; margin: 36px 0 0; display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0; border-top: 1px solid var(--encre); }
 .ouv__preuves li { padding: 14px 28px 0 0; margin-right: 28px; border-right: 1px solid var(--filet); display: grid; font-size: 14px; }
@@ -388,6 +398,8 @@ h3 { margin: 0; }
 .exp__texte p { margin: 0; }
 .exp__texte > p:not(.etiquette):not(.exp__objectif) { color: var(--gris); max-width: 46ch; }
 .exp__objectif { display: grid; gap: 4px; padding-top: 12px; border-top: 1px solid var(--filet); max-width: 44ch; font-weight: 500; }
+.exp__n { font-family: var(--serif); font-size: clamp(56px, 6vw, 88px); line-height: .8; letter-spacing: -.04em; color: var(--encre); }
+.recit__rail { display: none; }
 .ecran { position: relative; margin: 0; background: #FBF8F2; border: 1px solid var(--filet); border-radius: var(--r-l); padding: clamp(18px, 2.4vw, 32px); padding-top: 54px; min-height: 100%; box-shadow: 0 24px 48px -36px rgb(27 25 21 / .35); font-size: 15px; line-height: 1.4; }
 .ecran--centre { display: grid; place-items: center; }
 .ecran:not(.ecran--photo):not(.ecran--centre) { display: grid; align-content: center; }
@@ -419,6 +431,28 @@ h3 { margin: 0; }
 @media (hover: hover) and (pointer: fine) { .ecran__loupe:hover { border-color: var(--encre); } }
 html:not(.js) .ecran__loupe, html:not(.js) .ecran__mesure { display: none; }
 html:not(.js) .ecran:has(.ecran__loupe) { padding-bottom: clamp(18px, 2.4vw, 32px); }
+
+/* Récit (à l'ordinateur, posé par le script) : les textes défilent à gauche, l'écran de l'expertise au centre de la fenêtre reste épinglé à droite
+   et change ; tous les écrans partagent la même case de grille (7 lignes), collée pendant tout le récit. Le rail dit où l'on en est. */
+@media (min-width: 1081px) {
+  :global(html.recit) .exps { --scene-h: min(600px, calc(100svh - 200px)); --scene-top: calc(66px + (100svh - 66px - var(--scene-h) - 44px) / 2); --pas: 78svh; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(40px, 6vw, 96px); }
+  :global(html.recit) .exp { display: contents; }
+  :global(html.recit) .exp__texte { grid-column: 1; position: static; min-height: var(--pas); align-content: center; padding-block: 32px; opacity: .2; transition: opacity .5s var(--sortie); }
+  :global(html.recit) .exp.actif .exp__texte { opacity: 1; }
+  :global(html.recit) .exp .ecran { grid-column: 2; grid-row: 1 / span 7; align-self: start; position: sticky; top: var(--scene-top); height: var(--scene-h); min-height: 0; margin: calc((var(--pas) - var(--scene-h)) / 2) 0 44px; overflow: hidden; transform: translateY(18px) scale(.985); transition: opacity .4s var(--sortie), transform .6s cubic-bezier(.16, 1, .3, 1); }
+  :global(html.recit) .exp:not(.actif):not(.sortie) .ecran { opacity: 0; visibility: hidden; pointer-events: none; }
+  :global(html.recit) .exp.actif .ecran { opacity: 1; transform: none; }
+  :global(html.recit) .exp.sortie .ecran { opacity: 0; transform: translateY(-14px) scale(.985); transition: opacity .2s cubic-bezier(.2, .8, .2, 1), transform .24s cubic-bezier(.2, .8, .2, 1); pointer-events: none; }
+  :global(html.recit) .ig { max-width: min(360px, calc(var(--scene-h) - 330px)); }
+  :global(html.recit) .ecran--photo img { height: 100%; aspect-ratio: auto; }
+  :global(html.recit) .recit__rail { display: flex; align-items: center; gap: 16px; grid-column: 2; grid-row: 1 / span 7; align-self: start; position: sticky; top: calc(var(--scene-top) + var(--scene-h) + 14px); height: 30px; margin-top: calc((var(--pas) - var(--scene-h)) / 2 + var(--scene-h) + 14px); font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--gris); }
+  .recit__compte b { color: var(--encre); font-weight: 500; }
+  .recit__barre { display: flex; gap: 4px; }
+  .recit__barre i { width: 26px; height: 3px; border-radius: 2px; background: var(--filet); position: relative; overflow: hidden; }
+  .recit__barre i::after { content: ""; position: absolute; inset: 0; background: var(--encre); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--sortie); }
+  .recit__barre i.fait::after { transform: none; }
+  .recit__nom { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
 
 /* Google : le pack local, le commerce accompagné en premier */
 .g { display: grid; gap: 12px; }
@@ -540,8 +574,20 @@ html:not(.js) .ecran:has(.ecran__loupe) { padding-bottom: clamp(18px, 2.4vw, 32p
 @media (hover: hover) and (pointer: fine) { .metier:has(.metier__lien):hover::before { opacity: 1; } .metier:has(.metier__lien):hover .metier__lien { text-decoration-color: currentColor; } }
 .metier--phare h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 2.8vw, 36px); letter-spacing: -.02em; }
 
+/* Bandes pleine largeur : jaune pour les métiers, encre pour la carte et la fin (le rythme de la page) */
+.bande { position: relative; }
+.bande .sec::before, .bande .fin::before { content: none; }
+.bande--craie { --fond: var(--craie); background: var(--craie); --gris: #4A443B; --filet: rgb(27 25 21 / .16); --papier-2: rgb(255 255 255 / .45); }
+.bande--craie .metier__badge { background: var(--encre); color: var(--craie); }
+.bande--encre { --fond: var(--encre); background: var(--encre); color: var(--papier); }
+.bande--encre .etiquette { color: var(--gris-nuit); }
+.bande--encre h2 em { color: var(--craie); }
+.bande--encre .btn--creux { color: var(--papier); border-color: var(--filet-nuit); }
+@media (hover: hover) and (pointer: fine) { .bande--encre .btn--creux:hover { background: var(--papier); color: var(--encre); border-color: var(--papier); } }
+
 /* Carte */
-.nuit { background: var(--encre); color: var(--papier); padding-block: clamp(72px, 10vw, 136px); overflow: hidden; }
+.nuit { --fond: var(--encre); background: var(--encre); color: var(--papier); padding-block: clamp(72px, 10vw, 136px); overflow: hidden; }
+.nuit h2 em { color: var(--craie); }
 .nuit .etiquette { color: var(--gris-nuit); }
 .nuit__grille { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
 .nuit__texte p:not(.etiquette) { color: #CFC7B8; max-width: 44ch; margin: 24px 0 0; }
@@ -573,22 +619,27 @@ html:not(.js) .carte__ville text { opacity: 1; }
 
 /* Méthode */
 .etapes { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.etape { border-top: 1px solid var(--encre); padding-top: 18px; display: grid; gap: 12px; align-content: start; }
+.etape { position: relative; padding-top: 18px; display: grid; gap: 12px; align-content: start; }
+.etape::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--encre); transform-origin: left; }
 .etape__n { font-family: var(--serif); font-size: 64px; line-height: 1; color: var(--encre); }
 .etape h3 { font-size: 26px; font-weight: 650; letter-spacing: -.025em; }
 .etape p { margin: 0; color: var(--gris); max-width: 36ch; }
 
-/* Interlocuteur */
-.qui { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
-.qui__portrait { aspect-ratio: 4 / 5; border-radius: var(--r-l); background: var(--craie); display: grid; place-items: center; overflow: hidden; }
-.qui__portrait span { font-family: var(--serif); font-size: clamp(120px, 14vw, 220px); line-height: 1; color: var(--encre); }
+/* Interlocuteur : une carte de visite typographique (pas de portrait tant qu'il n'y a pas de vraie photo) ; le trait jaune se dessine à l'arrivée */
+.qui { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.qui__carte { display: grid; align-content: space-between; gap: 28px; min-height: clamp(300px, 30vw, 400px); padding: clamp(24px, 3vw, 40px); border-radius: var(--r-l); background: var(--encre); color: var(--papier); box-shadow: 0 30px 60px -40px rgb(27 25 21 / .6); }
+.qui__carte .etiquette { color: var(--gris-nuit); }
+.qui__nom { margin: 0; font-family: var(--serif); font-size: clamp(56px, 6.4vw, 96px); line-height: .9; letter-spacing: -.035em; }
+.qui__trait { display: block; width: min(100%, 320px); height: 28px; margin-top: -18px; overflow: visible; }
+.qui__trait path { fill: none; stroke: var(--craie); stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.qui__contact { margin: 0; display: grid; gap: 6px; justify-items: start; font-family: var(--mono); font-size: 15px; }
+.qui__contact a { color: var(--papier); text-decoration: none; }
+.qui__contact a:first-child { font-size: clamp(20px, 2vw, 26px); color: var(--craie); }
+@media (hover: hover) and (pointer: fine) { .qui__contact a:hover { text-decoration: underline; text-underline-offset: 4px; } }
 .qui__texte { display: grid; gap: 18px; }
 .qui__texte h2 { margin-top: 0; }
-.qui__texte p { margin: 0; max-width: 56ch; }
-.qui__texte p:not(.etiquette):not(.qui__contact) { color: var(--encre-2); }
-.qui__contact { font-family: var(--mono); font-size: 14px; }
-.qui__contact a { text-decoration: none; }
-@media (hover: hover) and (pointer: fine) { .qui__contact a:hover { text-decoration: underline; } }
+.qui__texte p { margin: 0; max-width: 52ch; }
+.qui__texte p:not(.etiquette) { color: var(--encre-2); }
 
 /* Spécialité */
 .spe { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; text-decoration: none; background: var(--craie); border-radius: var(--r-l); padding: clamp(28px, 5vw, 64px); transition: transform .3s var(--sortie); }
@@ -635,7 +686,7 @@ html:not(.js) .carte__ville text { opacity: 1; }
   .nuit__grille { grid-template-columns: minmax(0, 1fr); }
   .preuve { grid-template-columns: minmax(0, 1fr); }
   .qui { grid-template-columns: minmax(0, 1fr); }
-  .qui__portrait { max-width: 260px; }
+  .qui__carte { min-height: 0; max-width: 460px; }
   .metier { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .metier__nom { grid-column: 1; grid-row: 1 / span 2; align-self: start; }
   .metier__besoin { grid-column: 2; grid-row: 1; }
@@ -653,6 +704,7 @@ html:not(.js) .carte__ville text { opacity: 1; }
   .ouv__preuves li { padding-right: 10px; margin-right: 10px; font-size: 13px; min-width: 0; }
   h2 { font-size: clamp(38px, 10vw, 56px); }
   .exp__texte h3 { font-size: clamp(26px, 7.5vw, 34px); }
+  .exp__n { font-size: 52px; }
   .ecran { padding: 16px; padding-top: 48px; border-radius: var(--r-m); }
   .metier::before { inset: 0 -12px; }
   .ecran--photo { padding: 0; }
@@ -682,30 +734,166 @@ html:not(.js) .carte__ville text { opacity: 1; }
   .ecran--ouvert .ecran__mesure { animation: none; }
   .carte *, .bi__voyants li::before, .g__item--vous, .g__pin--vous, .faq__plus::before, .faq__plus::after, .spe, .spe__fleche { transition: none !important; animation: none !important; }
   :global(.js) .exp .ecran { opacity: 1; transform: none; transition: none; }
+  :global(html.recit) .exp .ecran, :global(html.recit) .exp__texte { transition: none !important; transform: none !important; }
+  .recit__barre i::after { transition: none; }
 }
 </style>
 
-<script is:inline>
-// Les écrans d'exemple, la carte et le bilan s'allument quand on arrive dessus (état final direct si mouvement réduit ou sans observateur).
-(function () {
-  document.documentElement.classList.add('js');
-  // Relevé : chaque ligne d'un écran d'exemple reçoit son rang, pour se poser dans l'ordre de lecture quand l'écran s'allume.
-  const LIGNES = '.ecran__chip, .g__barre, .g__carte, .g__item, .ia__q, .ia__r, .ia__chip, .ad__tag, .ad__url, .ad__titre, .ad__texte, .ad__liens, .ad__suivi li, .ig__tete, .ig__media, .ig__texte, .ig__cta, .ph__tete, .ph__liste li, .ph__quand, .ph__btn, .ph__note, .bi__tete, .bi__voyants li, .bi__suite, .bi__qui';
-  document.querySelectorAll('.exp .ecran').forEach((ecran) => { const lignes = ecran.querySelectorAll(LIGNES); lignes.forEach((el, i) => { el.classList.add('rl'); el.style.setProperty('--l', i); }); ecran.style.setProperty('--n', lignes.length); });
-  // La loupe « Ce qu'on mesure » : un seul écran ouvert à la fois ; Échap ou un tap ailleurs referme.
-  const fermer = () => document.querySelectorAll('.ecran--ouvert').forEach((f) => { f.classList.remove('ecran--ouvert'); f.querySelector('.ecran__loupe').setAttribute('aria-expanded', 'false'); });
-  document.querySelectorAll('.ecran__loupe').forEach((b) => b.addEventListener('click', () => { const f = b.closest('.ecran'), on = !f.classList.contains('ecran--ouvert'); fermer(); if (on) { f.classList.add('ecran--ouvert'); b.setAttribute('aria-expanded', 'true'); } }));
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') fermer(); });
-  document.addEventListener('pointerdown', (e) => { if (!e.target.closest('.ecran--ouvert')) fermer(); });
-  // On observe les écrans eux-mêmes (sur téléphone, l'écran vient après le texte) ; la section s'allume quand un cinquième de l'écran est visible,
-  // ou dès que son haut dépasse la moitié de la fenêtre (écrans très hauts), ou s'il est déjà passé (arrivée par une ancre, retour arrière).
-  const cibles = document.querySelectorAll('.exp .ecran, .carte');
-  const allumer = (el) => (el.closest('.exp') || el).classList.add('allume');
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) { cibles.forEach(allumer); return; }
-  const io = new IntersectionObserver((entrees) => entrees.forEach((e) => {
-    const r = e.boundingClientRect;
-    if (e.intersectionRatio >= .2 || (e.isIntersecting && r.top < innerHeight * .5) || r.bottom < 0) { allumer(e.target); io.unobserve(e.target); }
-  }), { threshold: [0, .1, .2], rootMargin: '0px 0px -8% 0px' });
-  cibles.forEach((el) => io.observe(el));
-})();
+<style is:global>
+/* Couche de mouvement de l'accueil (classe « anime » posée avant la première peinture, jamais si « mouvement réduit ») */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+/* Titres : les mots montent un à un derrière un masque (marges intérieures pour ne couper ni accents ni jambages en italique) */
+html.anime [data-mots]:not(.decoupe) { opacity: 0; }
+html.anime .mot { display: inline-block; vertical-align: top; overflow: hidden; padding: .1em .06em .2em; margin: -.1em -.06em -.2em; }
+html.anime .mot > span { display: inline-block; transform: translateY(118%); transition: transform .95s cubic-bezier(.16, 1, .3, 1); transition-delay: calc(var(--d, 0ms) + var(--k, 0) * 42ms); }
+html.anime .vu .mot > span { transform: none; }
+/* Blocs : montent et apparaissent, dans l'ordre de lecture (--d) */
+html.anime [data-monte] { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.2, .8, .2, 1), transform .95s cubic-bezier(.16, 1, .3, 1); transition-delay: var(--d, 0ms); }
+html.anime [data-monte].vu { opacity: 1; transform: none; }
+/* Image Pasta Mo' : dévoilée de bas en haut, en se posant */
+html.anime [data-devoile] { clip-path: inset(100% 0 0 0); transition: clip-path 1.1s cubic-bezier(.16, 1, .3, 1); }
+html.anime [data-devoile] img { transform: scale(1.12); transition: transform 1.5s cubic-bezier(.16, 1, .3, 1); }
+html.anime [data-devoile].vu { clip-path: inset(0 0 0 0); }
+html.anime [data-devoile].vu img { transform: none; }
+/* Méthode : le trait de chaque étape se dessine, puis son numéro monte ; carte de visite : le trait jaune se dessine sous le nom */
+html.anime [data-trace] .etape::before { transform: scaleX(0); transition: transform .8s cubic-bezier(.65, 0, .35, 1) calc(var(--i, 0) * 240ms); }
+html.anime [data-trace] .etape__n { opacity: 0; transform: translateY(26px); transition: opacity .6s cubic-bezier(.2, .8, .2, 1), transform .9s cubic-bezier(.16, 1, .3, 1); transition-delay: calc(var(--i, 0) * 240ms + 180ms); }
+html.anime [data-trace].vu .etape::before, html.anime [data-trace].vu .etape__n { transform: none; opacity: 1; }
+html.anime .qui__trait path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.2s cubic-bezier(.65, 0, .35, 1) .35s; }
+html.anime [data-trace].vu .qui__trait path { stroke-dashoffset: 0; }
+/* Bandes jaune et encre : elles arrivent en carte arrondie et se déplient jusqu'aux bords pendant qu'on défile (navigateurs récents) */
+@supports (animation-timeline: view()) {
+  html.anime .bande { background: none; isolation: isolate; }
+  html.anime .bande::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--fond); animation: deplie linear both; animation-timeline: view(); animation-range: entry 0% entry 75%; }
+}
+@keyframes deplie { from { transform: scaleX(.94); border-radius: 28px; } to { transform: none; border-radius: 0; } }
+/* Le surligné jaune passe sous « Qu'on vous choisisse. » une fois les mots posés */
+html.anime #titre em { background-size: 0% .2em; transition: background-size .8s cubic-bezier(.65, 0, .35, 1) 1.05s; }
+html.anime #titre.vu em { background-size: 100% .2em; }
+@media print { html.anime [data-mots], html.anime [data-monte], html.anime .mot > span, html.anime [data-devoile], html.anime [data-devoile] img { opacity: 1 !important; transform: none !important; clip-path: none !important; } }
+</style>
+
+<script>
+// Mouvement de l'accueil : écrans d'exemple, titres mot à mot, récit du savoir-faire, défilement doux. Sans JavaScript, tout est visible tel quel.
+import Lenis from 'lenis';
+
+window.__anime = true;
+const html = document.documentElement;
+const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const souris = matchMedia('(hover: hover) and (pointer: fine)').matches;
+const large = matchMedia('(min-width: 1081px)');
+const vu = (el, f, options) => {
+  if (!('IntersectionObserver' in window)) return f(el);
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting || e.boundingClientRect.bottom < 0) { f(e.target); io.unobserve(e.target); } }), options);
+  io.observe(el);
+};
+
+// Relevé : chaque ligne d'un écran d'exemple reçoit son rang, pour se poser dans l'ordre de lecture quand l'écran s'allume.
+const LIGNES = '.ecran__chip, .g__barre, .g__carte, .g__item, .ia__q, .ia__r, .ia__chip, .ad__tag, .ad__url, .ad__titre, .ad__texte, .ad__liens, .ad__suivi li, .ig__tete, .ig__media, .ig__texte, .ig__cta, .ph__tete, .ph__liste li, .ph__quand, .ph__btn, .ph__note, .bi__tete, .bi__voyants li, .bi__suite, .bi__qui';
+document.querySelectorAll('.exp .ecran').forEach((ecran) => { const lignes = ecran.querySelectorAll(LIGNES); lignes.forEach((el, i) => { el.classList.add('rl'); el.style.setProperty('--l', String(i)); }); ecran.style.setProperty('--n', String(lignes.length)); });
+
+// La loupe « Ce qu'on mesure » : un seul écran ouvert à la fois ; Échap ou un tap ailleurs referme.
+const fermer = () => document.querySelectorAll('.ecran--ouvert').forEach((f) => { f.classList.remove('ecran--ouvert'); f.querySelector('.ecran__loupe')?.setAttribute('aria-expanded', 'false'); });
+document.querySelectorAll('.ecran__loupe').forEach((b) => b.addEventListener('click', () => { const f = b.closest('.ecran'), on = !f.classList.contains('ecran--ouvert'); fermer(); if (on) { f.classList.add('ecran--ouvert'); b.setAttribute('aria-expanded', 'true'); } }));
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') fermer(); });
+document.addEventListener('pointerdown', (e) => { if (!e.target.closest('.ecran--ouvert')) fermer(); });
+
+// Titres découpés en mots (les <em> et <br> restent ; l'étiquette au-dessus du h1 garde son propre mouvement).
+function decouper(el) {
+  el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
+  let k = 0;
+  const parcourir = (noeud) => [...noeud.childNodes].forEach((n) => {
+    if (n.nodeType === 1) { if (!n.matches('.etiquette')) parcourir(n); return; }
+    if (n.nodeType !== 3 || !n.textContent.trim()) return;
+    const frag = document.createDocumentFragment();
+    n.textContent.split(/([ \t\n\r]+)/).forEach((morceau) => {
+      if (!morceau) return;
+      if (/^[ \t\n\r]+$/.test(morceau)) return frag.append(morceau);
+      const mot = document.createElement('span'), dedans = document.createElement('span');
+      mot.className = 'mot'; dedans.textContent = morceau; dedans.style.setProperty('--k', String(k++));
+      mot.append(dedans); frag.append(mot);
+    });
+    n.replaceWith(frag);
+  });
+  parcourir(el);
+  el.classList.add('decoupe');
+}
+if (!calme) {
+  document.querySelectorAll('[data-mots]').forEach(decouper);
+  const marge = { rootMargin: '0px 0px -12% 0px' };
+  document.querySelectorAll('[data-mots], [data-devoile], [data-trace]').forEach((el) => vu(el, (x) => x.classList.add('vu'), marge));
+  // Une fois arrivés, les blocs rendent la main à leurs propres transitions (survol des cartes, test qui s'agrandit).
+  document.querySelectorAll('[data-monte]').forEach((el) => vu(el, (x) => {
+    x.classList.add('vu');
+    setTimeout(() => { x.removeAttribute('data-monte'); x.classList.remove('vu'); }, (parseInt(x.style.getPropertyValue('--d'), 10) || 0) + 1000);
+  }, marge));
+}
+
+// Écrans d'exemple et carte : ils s'allument quand on arrive dessus (un cinquième visible, ou haut passé au milieu de la fenêtre).
+const allumer = (el) => (el.closest('.exp') || el).classList.add('allume');
+const ioAllume = 'IntersectionObserver' in window && !calme ? new IntersectionObserver((entrees) => entrees.forEach((e) => {
+  const r = e.boundingClientRect;
+  if (e.intersectionRatio >= .2 || (e.isIntersecting && r.top < innerHeight * .5) || r.bottom < 0) { allumer(e.target); ioAllume.unobserve(e.target); }
+}), { threshold: [0, .1, .2], rootMargin: '0px 0px -8% 0px' }) : null;
+const observerAllume = (el) => (ioAllume ? ioAllume.observe(el) : allumer(el));
+document.querySelectorAll('.carte').forEach(observerAllume);
+
+// Récit du savoir-faire, à l'ordinateur : l'expertise au milieu de la fenêtre allume son écran, l'écran précédent s'efface.
+const exps = [...document.querySelectorAll('.exp')];
+const rail = document.querySelector('.recit__rail');
+let actif = null, ioRecit = null, minuteries = new Map();
+function activer(li) {
+  if (li === actif) return;
+  const avant = actif; actif = li;
+  exps.forEach((e) => e.classList.toggle('actif', e === li));
+  if (avant) {
+    avant.classList.add('sortie'); avant.querySelector('.ecran').inert = true;
+    clearTimeout(minuteries.get(avant));
+    minuteries.set(avant, setTimeout(() => { avant.classList.remove('sortie'); if (avant !== actif) avant.classList.remove('allume'); }, calme ? 0 : 280));
+  }
+  clearTimeout(minuteries.get(li));
+  li.classList.remove('sortie', 'allume'); li.querySelector('.ecran').inert = false;
+  void li.querySelector('.ecran').offsetWidth; // repart de zéro : les lignes se reposent à chaque passage
+  li.classList.add('allume');
+  if (rail) {
+    const n = exps.indexOf(li);
+    rail.querySelector('.recit__compte b').textContent = String(n + 1).padStart(2, '0');
+    rail.querySelectorAll('.recit__barre i').forEach((b, i) => b.classList.toggle('fait', i <= n));
+    rail.querySelector('.recit__nom').textContent = li.dataset.nom || '';
+  }
+}
+function recit(on) {
+  ioRecit?.disconnect(); ioRecit = null; actif = null;
+  exps.forEach((e) => { e.classList.remove('actif', 'sortie'); e.querySelector('.ecran').inert = false; });
+  if (on && 'IntersectionObserver' in window) {
+    html.classList.add('recit');
+    exps.forEach((e) => { e.classList.remove('allume'); e.querySelector('.ecran').inert = true; ioAllume?.unobserve(e.querySelector('.ecran')); });
+    activer(exps[0]);
+    ioRecit = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) activer(e.target.closest('.exp')); }), { rootMargin: '-48% 0px -51% 0px' });
+    exps.forEach((e) => ioRecit.observe(e.querySelector('.exp__texte')));
+  } else {
+    html.classList.remove('recit');
+    exps.forEach((e) => observerAllume(e.querySelector('.ecran')));
+  }
+}
+recit(large.matches);
+large.addEventListener('change', (e) => recit(e.matches));
+
+// Défilement doux à la souris seulement (le défilement natif reste le meilleur au doigt), jamais si « mouvement réduit ».
+if (!calme && souris) {
+  const lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 0.9 });
+  window.lenis = lenis;
+  const tourner = (t) => { lenis.raf(t); requestAnimationFrame(tourner); };
+  requestAnimationFrame(tourner);
+  // Les liens vers une section de la page glissent jusqu'à elle (le bouton du test a son propre geste).
+  document.addEventListener('click', (e) => {
+    if (e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    const a = e.target.closest('a[href*="#"]'); if (!a) return;
+    const url = new URL(a.href, location.href);
+    if (url.pathname !== location.pathname || !url.hash) return;
+    const cible = document.getElementById(decodeURIComponent(url.hash.slice(1))); if (!cible) return;
+    e.preventDefault(); lenis.scrollTo(cible, { offset: -84 }); history.pushState(null, '', url.hash);
+  });
+}
 </script>
