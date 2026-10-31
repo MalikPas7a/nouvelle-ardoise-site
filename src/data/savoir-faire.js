@@ -1,4 +1,4 @@
-// Le savoir-faire de l'agence, montré sur l'accueil : un expert par canal, un écran d'exemple par expert.
+// Le savoir-faire de l'agence (domaines d'expertise, jamais « un expert par canal ») : repris par llms.txt et les pages métiers.
 // « Maison Fève » (dans les écrans) est un commerce fictif. `service` nomme la prestation pour le JSON-LD et llms.txt ;
 // `court` est le texte affiché sur l'accueil, `texte` la description complète (JSON-LD).
 export const EXPERTS = [

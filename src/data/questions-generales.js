@@ -6,6 +6,6 @@ export const FAQ_GENERALE = [
   { q: 'Quels métiers accompagnez-vous ?', r: 'Restaurants et cafés (notre spécialité), artisans de bouche et épiceries, cabinets de santé et de bien-être, boutiques, services de quartier, hébergement et loisirs, bâtiment, entreprises et bureaux.' },
   { q: 'Garantissez-vous une position sur Google ou un nombre de clients ?', r: 'Non, personne ne peut le garantir sérieusement. Nous fixons avec vous un objectif chiffré au départ (appels, itinéraires, commandes, rendez-vous) et nous le mesurons chaque mois, en toute transparence.' },
   { q: 'Qu’est-ce que le référencement dans les assistants IA (GEO) ?', r: 'C’est le travail qui permet à ChatGPT, Gemini, Perplexity ou Google de comprendre votre commerce et de le citer quand quelqu’un leur demande une recommandation. Il passe par des pages claires, des données structurées, des horaires et des avis à jour.' },
-  { q: 'Qui est mon interlocuteur ?', r: 'Malik Younes, le fondateur. Il coordonne les experts (référencement, publicité, photo et vidéo, développement) et reste votre seul contact, au 078 213 38 68.' },
+  { q: 'Qui est mon interlocuteur ?', r: 'Malik Younes, le fondateur. Il pilote chaque chantier avec des indépendants spécialisés (référencement, publicité, photo et vidéo, développement) et reste votre seul contact, au 078 213 38 68.' },
   { q: 'Utilisez-vous des images générées par IA ?', r: 'Jamais pour vos produits ou vos plats : nous photographions et filmons chez vous. L’IA ne sert qu’à animer ou agrandir une vraie photo.' },
 ];
