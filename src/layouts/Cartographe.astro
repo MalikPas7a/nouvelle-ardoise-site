@@ -3,6 +3,8 @@
 // Papier et encre, Instrument Serif pour les titres, Inter Tight pour le texte, IBM Plex Mono pour les repères.
 // L'appel à l'action « Tester ma visibilité » reste toujours à portée : bouton dans l'en-tête, barre fixe sur téléphone
 // (un seul bouton jaune à la fois : celui de l'en-tête s'efface quand la barre apparaît).
+// entete="flottant" (accueil « Ardoise vivante », 31.10.2026) : en-tête en pastilles posées sur les grands aplats de couleur,
+// menu replié à toutes les tailles, barre du bas toujours là sur téléphone (sauf quand le test est à l'écran).
 import '@fontsource/instrument-serif/400.css';
 import '@fontsource/instrument-serif/400-italic.css';
 import '@fontsource-variable/inter-tight';
@@ -14,9 +16,10 @@ import { SITE } from '../config.js';
 const {
   title, description, chemin = '/', jsonLd = null, test = '/#test',
   robots = 'index, follow, max-image-preview:large, max-snippet:-1',
-  cta = 'test', barre = true, image = '/partage.jpg',
+  cta = 'test', barre = true, image = '/partage.jpg', entete = 'classique', teinte = '#F2EDE4',
   imageAlt = 'Nouvelle Ardoise, agence de marketing et de communication à Genève et en Suisse romande',
 } = Astro.props;
+const flottant = entete === 'flottant';
 const canonical = SITE.url + chemin;
 const imageUrl = SITE.url + image;
 const MENU = [
@@ -34,7 +37,7 @@ const MENU = [
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <script is:inline>document.documentElement.classList.add('js');</script>
-  <meta name="theme-color" content="#F2EDE4" />
+  <meta name="theme-color" content={teinte} />
   <meta name="robots" content={robots} />
   <meta name="geo.region" content="CH-GE" />
   <meta name="geo.placename" content="Genève" />
@@ -153,17 +156,48 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .barre .btn--creux { flex: 0 0 auto; padding: 0 18px; }
 @media (max-width: 760px) { .barre { display: flex; } body.a-barre .pied { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); } }
 @media (prefers-reduced-motion: reduce) { .barre, .menu__trait, .menu__trait::before, .menu__trait::after { transition: none; } }
+
+/* En-tête flottant : marque, bouton du test et menu en pastilles ardoise, sans bandeau ; le contenu passe dessous */
+body.flottant::before { background: #1E2427; }
+.tete--flottante { position: fixed; top: 0; left: 0; right: 0; padding-top: calc(env(safe-area-inset-top, 0px) + 14px); background: none; border: 0; -webkit-backdrop-filter: none; backdrop-filter: none; pointer-events: none; }
+.tete--flottante .cadre { max-width: none; min-height: 0; padding-left: max(clamp(20px, 5vw, 72px), env(safe-area-inset-left, 0px)); padding-right: max(clamp(20px, 5vw, 72px), env(safe-area-inset-right, 0px)); }
+.tete--flottante .marque, .tete--flottante .nav { pointer-events: auto; }
+.tete--flottante .marque { min-height: 44px; padding: 0 16px 0 12px; border-radius: 999px; background: #1E2427; color: var(--papier); border: 1px solid rgb(242 237 228 / .16); font-weight: 600; font-size: 15px; }
+.tete--flottante .marque svg path { stroke: var(--papier); }
+.tete--flottante .nav { gap: 8px; }
+.tete--flottante .menu { display: block; }
+.tete--flottante .menu summary { width: 44px; height: 44px; background: #1E2427; border-color: rgb(242 237 228 / .3); }
+.tete--flottante .menu__trait, .tete--flottante .menu__trait::before, .tete--flottante .menu__trait::after { background: var(--papier); }
+.tete--flottante .menu[open] .menu__trait { background: transparent; }
+.cta__duree { font-family: var(--mono); font-size: 12px; font-weight: 400; padding: 3px 7px; border-radius: 999px; background: #1E2427; color: var(--craie); transition: inherit; }
+.tete__cta { min-height: 44px; padding: 0 18px; font-size: 16px; }
+body.flottant .barre { background: none; border: 0; -webkit-backdrop-filter: none; backdrop-filter: none; padding: 10px max(clamp(20px, 5vw, 72px), env(safe-area-inset-left, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)); }
+body.flottant .barre .btn { font-size: 16px; }
+body.flottant .barre .btn--creux { background: #1E2427; color: var(--papier); border: 1.5px solid rgb(242 237 228 / .3); }
+body.flottant .pied { background: #1F3D33; color: rgb(242 237 228 / .74); border-top-color: rgb(242 237 228 / .16); }
+@media (max-width: 899px) {
+  .tete--flottante .tete__cta { display: none; }
+  body.flottant .barre { display: flex; }
+  body.flottant.a-barre .pied { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+}
+/* Téléphone à l'horizontale : le bouton du test remonte dans l'en-tête, la barre du bas laisse la place */
+@media (max-height: 520px) {
+  .tete--flottante .tete__cta, body.flottant.barre-ouverte .nav .tete__cta { display: inline-flex; }
+  body.flottant .barre { display: none; }
+  body.flottant.a-barre .pied { padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (max-width: 370px) { body.flottant .barre { gap: 6px; } body.flottant .barre .btn { padding: 0 14px; font-size: 15px; } .barre .cta__duree { display: none; } }
   </style>
 </head>
-<body class:list={[{ 'a-barre': barre }]}>
+<body class:list={[{ 'a-barre': barre, flottant }]}>
 <a class="evitement" href="#contenu">Aller au contenu</a>
-<header class="tete">
+<header class:list={['tete', { 'tete--flottante': flottant }]}>
   <div class="cadre">
     <a class="marque" href="/" aria-label="Nouvelle Ardoise, accueil"><svg viewBox="0 0 32 36" aria-hidden="true"><path d="M6 30V6l20 24V6"/></svg><span>Nouvelle Ardoise</span></a>
     <nav class="nav" aria-label="Navigation principale">
-      {MENU.map((m) => <a class="nav__lien" href={m.href} aria-current={m.page === chemin ? 'page' : undefined}>{m.nom}</a>)}
-      <a class="tel nav__lien" href="tel:+41782133868">078 213 38 68</a>
-      {cta === 'test'
+      {!flottant && MENU.map((m) => <a class="nav__lien" href={m.href} aria-current={m.page === chemin ? 'page' : undefined}>{m.nom}</a>)}
+      {!flottant && <a class="tel nav__lien" href="tel:+41782133868">078 213 38 68</a>}
+      {flottant ? <a class="btn btn--craie tete__cta" href={test} data-cta>Tester ma visibilité <small class="cta__duree">30&nbsp;s</small></a> : cta === 'test'
         ? <a class="btn btn--craie btn--petit" href={test} data-cta><span class="cta__long">Tester ma visibilité</span><span class="cta__court">Tester</span></a>
         : <a class="btn btn--creux btn--petit" href="tel:+41782133868">Appeler</a>}
       <details class="menu" id="menu">
@@ -183,8 +217,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
 <footer class="pied"><div class="cadre"><span>Nouvelle Ardoise · Agence de marketing et de communication · {SITE.adresse}, {SITE.localite} · 078 213 38 68 · Genève et toute la Suisse romande</span><span><a href="/restauration/">Restauration</a> · <a href="/entreprises-ia/">Entreprises &amp; IA</a> · <a href="/artisans/">Artisans</a> · <a href="/realisations/">Réalisations</a> · <a href="/contact/">Contact</a> · <a href="/questions/">Questions</a> · <a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a></span></div></footer>
 
-{barre && <nav class="barre" id="barre" aria-label="Actions rapides" inert>
-  <a class="btn btn--craie" href={test} data-cta>Tester ma visibilité</a>
+{barre && <nav class="barre" id="barre" aria-label="Actions rapides" data-toujours={flottant ? '' : undefined} inert>
+  <a class="btn btn--craie" href={test} data-cta>Tester ma visibilité{flottant && <small class="cta__duree">30&nbsp;s</small>}</a>
   <a class="btn btn--creux" href="tel:+41782133868" aria-label="Appeler le 078 213 38 68">Appeler</a>
 </nav>}
 
@@ -208,13 +242,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   }
   // La barre du bas apparaît une fois l'ouverture dépassée, et se range quand le test ou la section finale (mêmes boutons) est à l'écran.
   const barre = document.getElementById('barre'); if (!barre) return;
+  const toujours = barre.hasAttribute('data-toujours'); // accueil : le bouton du test reste sous le pouce dès l'ouverture
   const vus = new Set();
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((es) => { es.forEach((e) => (e.isIntersecting ? vus.add(e.target) : vus.delete(e.target))); maj(); }, { threshold: 0, rootMargin: '0px 0px -25% 0px' });
-    ['test', 'contact'].map((id) => document.getElementById(id)).filter(Boolean).forEach((el) => io.observe(el));
+    (toujours ? ['test'] : ['test', 'contact']).map((id) => document.getElementById(id)).filter(Boolean).forEach((el) => io.observe(el));
   }
   function maj() {
-    const on = scrollY > innerHeight * .6 && !vus.size;
+    const on = (toujours || scrollY > innerHeight * .6) && !vus.size;
     barre.classList.toggle('visible', on); barre.inert = !on; document.body.classList.toggle('barre-ouverte', on);
   }
   addEventListener('scroll', maj, { passive: true }); maj();
