@@ -300,8 +300,8 @@ const jsonLd = JSON.stringify({
   --voile: rgb(242 237 228 / .74);
   --affiche: var(--serif);
   --corps: var(--grotesk);
-  --gout: max(clamp(20px, 5vw, 72px), env(safe-area-inset-left, 0px));
-  --goutd: max(clamp(20px, 5vw, 72px), env(safe-area-inset-right, 0px));
+  --gout: max(clamp(20px, 7vw, 120px), calc((100vw - 1320px) / 2), env(safe-area-inset-left, 0px));
+  --goutd: max(clamp(20px, 7vw, 120px), calc((100vw - 1320px) / 2), env(safe-area-inset-right, 0px));
   --barre-bas: 0px;
 }
 html:has(> body.flottant), body.flottant { overflow-x: clip; }

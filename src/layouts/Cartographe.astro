@@ -162,7 +162,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 /* En-tête flottant : marque, bouton du test et menu en pastilles ardoise, sans bandeau ; le contenu passe dessous */
 body.flottant::before { background: #1E2427; }
 .tete--flottante { position: fixed; top: 0; left: 0; right: 0; padding-top: calc(env(safe-area-inset-top, 0px) + 14px); background: none; border: 0; -webkit-backdrop-filter: none; backdrop-filter: none; pointer-events: none; }
-.tete--flottante .cadre { max-width: none; min-height: 0; padding-left: max(clamp(20px, 5vw, 72px), env(safe-area-inset-left, 0px)); padding-right: max(clamp(20px, 5vw, 72px), env(safe-area-inset-right, 0px)); }
+.tete--flottante .cadre { max-width: none; min-height: 0; padding-left: max(clamp(20px, 7vw, 120px), calc((100vw - 1320px) / 2), env(safe-area-inset-left, 0px)); padding-right: max(clamp(20px, 7vw, 120px), calc((100vw - 1320px) / 2), env(safe-area-inset-right, 0px)); }
 .tete--flottante .marque, .tete--flottante .nav { pointer-events: auto; }
 .tete--flottante .marque { min-height: 44px; padding: 0 16px 0 12px; border-radius: 999px; background: #1E2427; color: var(--papier); border: 1px solid rgb(242 237 228 / .16); font-weight: 600; font-size: 15px; }
 .tete--flottante .marque svg path { stroke: var(--papier); }
