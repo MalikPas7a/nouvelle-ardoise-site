@@ -14,15 +14,15 @@ const qr = (await QRCode.toString(SITE.url, { type: 'svg', margin: 0, errorCorre
 const bandeau = ['Burger signature · 18.90', 'Dessert du jour +4.–', 'Scannez et commandez', 'Menu du midi · 21.–', 'Laissez-nous un avis ★'];
 
 const produits = [
-  { id: 'tapmenu', nom: 'TapMenu', prix: 'CHF 149', unite: 'les 10 supports', pour: 'Sur chaque table : le client approche son téléphone et ouvre votre carte, commande, laisse un avis ou se connecte au Wi-Fi.', inclus: 'Logo gravé, liens réglés, carte en ligne' },
-  { id: 'menubar', nom: 'MenuBar', prix: 'dès CHF 690', unite: 'posé', pour: 'Un écran très large et fin, au-dessus du comptoir ou sous une étagère. L’offre du moment défile à hauteur des yeux.', inclus: 'Animation de votre offre, pose, mise à jour à distance' },
-  { id: 'menuscreen', nom: 'MenuScreen', prix: 'dès CHF 890', unite: 'posé', pour: 'Votre carte animée sur un écran de 32 pouces : le menu du midi à midi, les apéritifs à 18 h, tout seul.', inclus: 'Carte animée, programmation horaire, pose' },
-  { id: 'reviewtap', nom: 'Review Tap', prix: 'CHF 79', unite: 'le support', pour: 'Près de la caisse : un geste du téléphone et le client arrive directement sur la page pour laisser un avis.', inclus: 'Support à vos couleurs, lien vers votre fiche' },
-  { id: 'tablescreen', nom: 'TableScreen', prix: 'dès CHF 449', unite: 'la tablette', pour: 'Une tablette sur la table : photos des plats, options, panier, commande envoyée en cuisine.', inclus: 'Avec un logiciel de commande suisse, sur devis' },
-  { id: 'streetscreen', nom: 'StreetScreen', prix: 'dès CHF 1’490', unite: 'livré', pour: 'Un écran sur roulettes et sur batterie, devant la porte ou en terrasse. Le menu du jour attire les passants.', inclus: 'Vidéo de votre plat, menu du jour, QR à emporter' },
+  { id: 'tapmenu', nom: 'TapMenu', pour: 'Sur chaque table : le client approche son téléphone et ouvre votre carte, commande, laisse un avis ou se connecte au Wi-Fi.', inclus: 'Logo gravé, liens réglés, carte en ligne' },
+  { id: 'menubar', nom: 'MenuBar', pour: 'Un écran très large et fin, au-dessus du comptoir ou sous une étagère. L’offre du moment défile à hauteur des yeux.', inclus: 'Animation de votre offre, pose, mise à jour à distance' },
+  { id: 'menuscreen', nom: 'MenuScreen', pour: 'Votre carte animée sur un écran de 32 pouces : le menu du midi à midi, les apéritifs à 18 h, tout seul.', inclus: 'Carte animée, programmation horaire, pose' },
+  { id: 'reviewtap', nom: 'Review Tap', pour: 'Près de la caisse : un geste du téléphone et le client arrive directement sur la page pour laisser un avis.', inclus: 'Support à vos couleurs, lien vers votre fiche' },
+  { id: 'tablescreen', nom: 'TableScreen', pour: 'Une tablette sur la table : photos des plats, options, panier, commande envoyée en cuisine.', inclus: 'Avec un logiciel de commande suisse, sur devis' },
+  { id: 'streetscreen', nom: 'StreetScreen', pour: 'Un écran sur roulettes et sur batterie, devant la porte ou en terrasse. Le menu du jour attire les passants.', inclus: 'Vidéo de votre plat, menu du jour, QR à emporter' },
 ];
 ---
-<Base page="restaurant-tech" title="Restaurant Tech : écrans de menu et supports NFC installés | Nouvelle Ardoise" description="Écrans de menu, bandeaux d’affichage et supports NFC pour restaurants en Suisse romande : installés, configurés et animés par Nouvelle Ardoise.">
+<Base page="restaurant-tech" title="Écrans de menu et supports NFC pour restaurants | Nouvelle Ardoise" description="Écrans de menu, bandeaux d’affichage et supports NFC pour restaurants en Suisse romande : installés, configurés et animés par Nouvelle Ardoise.">
 
 <!-- ============ Ouverture ============ -->
 <section class="bloc bloc--ardoise rt-ouverture">
@@ -84,7 +84,6 @@ const produits = [
             {p.id === 'streetscreen' && <div class="rt-street"><div class="rt-street__ecran"><span class="rt-craie rt-craie--titre">Aujourd’hui</span><span class="rt-craie">Ramen tonkotsu</span></div><div class="rt-street__roues"><i /><i /></div></div>}
           </div>
           <h3>{p.nom}</h3>
-          <p class="rt-produit__prix">{p.prix} <small>{p.unite}</small></p>
           <p class="rt-produit__pour">{p.pour}</p>
           <p class="rt-produit__inclus">{p.inclus}</p>
         </article>
@@ -104,7 +103,7 @@ const produits = [
     <div class="offres">
       <article class="offre">
         <h3>Table connectée</h3>
-        <p class="offre__prix">CHF 690 <small>puis CHF 39 par mois</small></p>
+        <p class="offre__prix">Sur devis <small>Matériel, pose et abonnement chiffrés ensemble</small></p>
         <p class="offre__pour">Pour que chaque table ouvre votre carte.</p>
         <ul>
           <li>10 supports TapMenu à votre logo</li>
@@ -117,7 +116,7 @@ const produits = [
       </article>
       <article class="offre offre--phare">
         <h3>Restaurant digital</h3>
-        <p class="offre__prix">CHF 1’990 <small>puis CHF 89 par mois</small></p>
+        <p class="offre__prix">Sur devis <small>Matériel, pose et abonnement chiffrés ensemble</small></p>
         <p class="offre__pour">Pour vendre plus au comptoir, sans rien dire.</p>
         <ul>
           <li>1 MenuScreen 32 pouces ou 1 MenuBar</li>
@@ -130,7 +129,7 @@ const produits = [
       </article>
       <article class="offre">
         <h3>À emporter</h3>
-        <p class="offre__prix">CHF 3’490 <small>puis CHF 129 par mois</small></p>
+        <p class="offre__prix">Sur devis <small>Matériel, pose et abonnement chiffrés ensemble</small></p>
         <p class="offre__pour">Pour les comptoirs qui vivent du take-away.</p>
         <ul>
           <li>1 StreetScreen devant la porte</li>

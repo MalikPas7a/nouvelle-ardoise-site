@@ -5,6 +5,7 @@ import { QUESTIONS } from '../data/questions.js';
 import { FAQ_GENERALE } from '../data/questions-generales.js';
 import { EXPERTS } from '../data/savoir-faire.js';
 import { VILLES } from '../data/agence.js';
+import { VILLES_SEO } from '../data/villes-seo.js';
 
 export function GET() {
   const texte = `# ${SITE.nom}
@@ -39,6 +40,7 @@ ${SITE.nom} est une entreprise individuelle de ${SITE.responsable}, ${SITE.adres
 - [Offres](${SITE.url}/offres/) : les formules, discutées de vive voix
 - [Questions fréquentes](${SITE.url}/questions/) : délais, shooting, options
 - [Contact](${SITE.url}/contact/) : demande de devis, réponse le jour ouvré suivant (sous 24 heures en semaine)
+${VILLES_SEO.map((v) => `- [Agence marketing ${v.ville}](${SITE.url}/agence-marketing/${v.id}/) : ${v.description}`).join('\n')}
 
 ## Questions fréquentes
 

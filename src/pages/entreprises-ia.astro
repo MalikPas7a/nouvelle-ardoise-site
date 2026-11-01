@@ -6,6 +6,13 @@ import Appel from '../components/Appel.astro';
 
 const lien = (offre) => '/contact/?offre=' + encodeURIComponent(offre);
 const diagnostic = lien('IA entreprise : diagnostic offert');
+import { SITE } from '../config.js';
+import { AGENCE } from '../data/agence.js';
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': [
+  { '@type': 'Service', '@id': SITE.url + '/entreprises-ia/#service', name: 'Outils IA, agents et automatisation pour PME', serviceType: 'Intégration de l’intelligence artificielle en entreprise',
+    description: 'Agents IA de prospection et de pilotage, automatisation des tâches répétitives (devis, relances, documents, reporting) et applications internes sur mesure pour les PME et ETI de Suisse romande.',
+    provider: { '@id': AGENCE['@id'] }, areaServed: [{ '@type': 'City', name: 'Genève' }, { '@type': 'AdministrativeArea', name: 'Suisse romande' }], url: SITE.url + '/entreprises-ia/' },
+] });
 
 const journal = [
   { h: '07:30', qui: 'Ventes', quoi: '14 relances préparées', etat: 'À valider' },
@@ -52,15 +59,16 @@ const etapes = [
   ['Suite', 'Vous décidez d’étendre seulement si la mesure le justifie.'],
 ];
 ---
-<Base page="entreprises-ia" title="Outils IA et applications sur mesure pour les entreprises en Suisse romande | Nouvelle Ardoise" description="Nouvelle Ardoise crée des outils et des applications sur mesure, avec l’IA, pour les PME et ETI de Suisse romande. Diagnostic de 30 minutes offert, première brique à prix fixe.">
+<Base page="entreprises-ia" title="Outils IA et automatisation pour PME, Genève | Nouvelle Ardoise" description="Agence IA à Genève : agents IA, automatisation et applications sur mesure pour les PME de Suisse romande. On commence par une tâche. Diagnostic de 30 minutes offert.">
+<script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
 
 <!-- ============ Ouverture ============ -->
 <section class="bloc bloc--ardoise ia-ouv">
   <div class="cadre ia-ouv__in">
     <div class="ia-ouv__texte">
-      <p class="ia-sur">Entreprises · Suisse romande</p>
+      <p class="ia-sur">Outils IA pour PME · Genève et Suisse romande</p>
       <h1 class="titre-1">L’IA dans votre entreprise, installée par des gens <em>qui s’en servent tous les jours.</em></h1>
-      <p class="chapo">Des outils et des applications sur mesure qui facilitent le travail de vos équipes. Nous sommes entourés d’experts du domaine, et on commence par une seule tâche : celle qui vous coûte le plus de temps.</p>
+      <p class="chapo">Des outils et des applications sur mesure qui facilitent le travail de vos équipes. Nous travaillons avec des indépendants spécialisés, et on commence par une seule tâche : celle qui vous coûte le plus de temps.</p>
       <div class="ia-actions">
         <a class="btn btn--jaune" href={diagnostic}>Réserver mon diagnostic offert</a>
         <a class="btn ia-btn-contour" href="#preuve">Voir ce qu’on a fait chez nous</a>

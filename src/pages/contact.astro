@@ -1,44 +1,52 @@
 ---
 import Base from '../layouts/Base.astro';
+import { SITE } from '../config.js';
+import { AGENCE } from '../data/agence.js';
+// La demande part directement dans l'appli de prospection de Malik (même route que le test de visibilité).
+// Si l'envoi échoue, la messagerie du visiteur s'ouvre avec le message prêt : aucune demande perdue.
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': [
+  { '@type': 'ContactPage', '@id': SITE.url + '/contact/#page', url: SITE.url + '/contact/', name: 'Contact et devis', inLanguage: 'fr-CH', about: { '@id': AGENCE['@id'] } }
+] });
+const BESOINS = ['Être mieux trouvé sur Google', 'Site web', 'Réseaux sociaux et vidéo', 'Publicité Google ou Meta', 'Outil IA ou application sur mesure', 'Identité visuelle et design', 'Restaurant Tech : écrans, NFC', 'Je ne sais pas encore'];
 ---
-<Base page="contact" title="Devis restaurant Suisse romande | Nouvelle Ardoise" description="Présentez votre restaurant ou votre boutique et vos besoins : site, carte, réseaux sociaux, photos ou vidéos. Contactez Nouvelle Ardoise.">
+<Base page="contact" title="Contact et devis · Agence marketing Genève | Nouvelle Ardoise" description="Parlez-nous de votre commerce, restaurant, cabinet ou PME en Suisse romande. Réponse le jour ouvré suivant, devis fixe, premier rendez-vous offert. 078 213 38 68.">
+<script slot="head" type="application/ld+json" is:inline set:html={jsonLd}></script>
 
 <!-- ============ Contact ============ -->
 <section class="bloc bloc--ardoise" id="contact">
   <div class="cadre contact">
     <div>
-      <h1 class="titre-2">Parlons de votre restaurant ou de votre boutique</h1>
-      <p>Réponse sous 24 heures avec un devis clair. Le premier rendez-vous est offert, chez vous.</p>
+      <h1 class="titre-2">Parlons de votre projet</h1>
+      <p>Commerce, restaurant, cabinet ou PME, partout en Suisse romande. Réponse le jour ouvré suivant, avec un devis fixe. Le premier rendez-vous est offert, chez vous ou en visio.</p>
+      <ul class="contact__direct">
+        <li><a class="btn btn--jaune" href="tel:+41782133868" data-mesure="Appel">Appeler le 078 213 38 68</a></li>
+        <li><a class="lien" href={'mailto:' + SITE.email} data-mesure="E-mail">{SITE.email}</a></li>
+      </ul>
     </div>
-    <form class="formulaire" data-contact>
-      <label>Votre nom<input name="nom" autocomplete="name" required></label>
-      <label>Nom de votre établissement<input name="resto" autocomplete="organization" required></label>
-      <label>Téléphone<input name="tel" type="tel" autocomplete="tel"></label>
-      <label>Email<input name="email" type="email" autocomplete="email" required></label>
-      <label class="formulaire__large">Offre qui vous intéresse
-        <select name="offre" data-offre-choix>
-          <option value="">Je ne sais pas encore</option>
-          <option>Essentiel</option>
-          <option>Signature</option>
-          <option>Maison</option>
-          <option>Réseaux Essentiel</option>
-          <option>Réseaux Premium</option>
-          <option>Pack lancement</option>
-          <option>Design sur devis</option>
-          <option>Restaurant Tech : démo</option>
-          <option>Pack Table connectée</option>
-          <option>Pack Restaurant digital</option>
-          <option>Pack À emporter</option>
-          <option>Restaurant Tech : pilote</option>
+    <form class="formulaire" data-contact novalidate>
+      <label>Votre nom<input name="contact" autocomplete="name" required maxlength="120"></label>
+      <label>Votre établissement ou entreprise<input name="nom" autocomplete="organization" required maxlength="120"></label>
+      <label>Téléphone<input name="tel" type="tel" autocomplete="tel" inputmode="tel" maxlength="40"></label>
+      <label>E-mail<input name="email" type="email" autocomplete="email" maxlength="200"></label>
+      <label class="formulaire__large">Ce qui vous intéresse
+        <select name="besoin" data-offre-choix>
+          {BESOINS.map((b) => <option>{b}</option>)}
         </select>
       </label>
-      <label class="formulaire__large">Votre projet<textarea name="msg" rows="3"></textarea></label>
+      <label class="formulaire__large">Votre projet, en deux mots<textarea name="msg" rows="3" maxlength="1200"></textarea></label>
+      <label class="piege" aria-hidden="true">Ne pas remplir<input name="site_web_confirmation" tabindex="-1" autocomplete="off"></label>
       <button class="btn btn--jaune" type="submit">Envoyer ma demande</button>
       <p class="formulaire__msg" role="status" aria-live="polite" data-contact-msg></p>
-      <p class="formulaire__note">Vos coordonnées servent uniquement à vous répondre. <a href="/confidentialite/">Confidentialité et cookies</a></p>
+      <p class="formulaire__note">Un téléphone ou un e-mail suffit. Vos coordonnées servent uniquement à vous répondre. <a href="/confidentialite/">Confidentialité</a></p>
     </form>
   </div>
 </section>
+
+<style>
+  .contact__direct { display: grid; gap: 12px; margin: 8px 0 0; padding: 0; list-style: none; justify-items: start; }
+  .contact__direct .lien { color: #fff; }
+  .piege { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+</style>
 
 <script>
   import '../scripts/contact.js';

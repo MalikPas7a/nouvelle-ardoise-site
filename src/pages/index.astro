@@ -14,6 +14,8 @@ import carte from '../data/carte-romande.json';
 import { SITE } from '../config.js';
 import { FAQ_GENERALE as FAQ } from '../data/questions-generales.js';
 import { AGENCE, SITE_WEB, VILLES_ACCUEIL } from '../data/agence.js';
+import { VILLES_SEO } from '../data/villes-seo.js';
+const PAGE_VILLE = Object.fromEntries(VILLES_SEO.map((v) => [v.ville, `/agence-marketing/${v.id}/`]));
 
 const title = 'Agence marketing Genève et Suisse romande · Nouvelle Ardoise';
 const description = 'Agence marketing Genève et Suisse romande : fiche Google, site, Instagram, publicité, un seul interlocuteur pour commerces et cabinets. Test gratuit en 30 secondes.';
@@ -204,7 +206,7 @@ const jsonLd = JSON.stringify({
       <h2 class="v-titre" id="carte-titre">Toute la Suisse romande. <em>On vient chez vous.</em></h2>
       <p class="zone__txt">Étude du quartier, shooting, tournage, rendez-vous&#8239;: on se déplace dans les six cantons romands. La base est à Genève&#8239;; entre deux visites, on avance en visio.</p>
       <ul class="villes" aria-label="Villes où nous intervenons">
-        {VILLES_ACCUEIL.map((v) => <li>{v}</li>)}
+        {VILLES_ACCUEIL.map((v) => <li>{PAGE_VILLE[v] ? <a href={PAGE_VILLE[v]}>{v}</a> : v}</li>)}
       </ul>
     </div>
       <figure class="carte" aria-label="Carte de la Suisse romande, du Léman au Jura et au Valais, avec les villes où nous intervenons">
@@ -475,6 +477,7 @@ html.attente:not(.mvt) .titre .l > span, html.attente:not(.mvt) .ouv__sur, html.
 .zone__txt { margin: 4vh 0 0; max-width: 40ch; font-size: clamp(17px, 1.4vw, 20px); }
 .villes { list-style: none; padding: 0; margin: 28px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .villes li { font-family: var(--mono); font-size: 12px; border: 1.5px solid rgb(30 36 39 / .25); border-radius: 999px; padding: 4px 10px; }
+.villes a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .carte { margin: 0; }
 .carte svg { width: 100%; height: auto; display: block; overflow: visible; }
 .carte__canton { fill: #EAE3D6; stroke: rgb(30 36 39 / .3); stroke-width: 1.4; stroke-linejoin: round; }
