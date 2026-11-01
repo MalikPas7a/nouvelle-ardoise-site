@@ -14,7 +14,7 @@ export const SITE = {
   localite: '1203 Genève',
   pays: 'Suisse',
   // Mesure d'audience Umami Cloud (sans cookie) : coller ici le « Website ID » donné par cloud.umami.is
-  umami: '',
+  umami: 'efd74dcf-e23d-4950-9312-996faa3b1e58',
   // Numéro d'entreprise (IDE, CHE-…), s'il existe
   ide: '',
   // Hébergeur du site, repris dans les mentions légales et la page confidentialité
