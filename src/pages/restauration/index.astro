@@ -32,6 +32,7 @@ const jsonLd = JSON.stringify({
     {'@type':'FAQPage','@id':canonical+'#questions',mainEntity:faq.map(([q,r])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:r}}))},
   ],
 });
+import Analytique from '../../components/Analytique.astro';
 ---
 <!doctype html>
 <html lang="fr-CH">
@@ -478,6 +479,7 @@ h1 em, h2 em, h3 em, .trait > span { font-style: italic; color: var(--encre); ba
 .faq details p { margin: 12px 0 0; color: var(--gris); max-width: 62ch; line-height: 1.55; }
 </style>
   <script type="application/ld+json" is:inline set:html={jsonLd} />
+  <Analytique />
 </head>
 <body>
 
@@ -799,5 +801,8 @@ h1 em, h2 em, h3 em, .trait > span { font-style: italic; color: var(--encre); ba
 })();
 </script>
 
+<script>
+  import '../../scripts/mesure.js';
+</script>
 </body>
 </html>

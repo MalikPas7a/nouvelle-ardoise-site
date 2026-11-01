@@ -1,0 +1,104 @@
+---
+// Pages locales « Agence marketing à … » : une par grande ville romande (données dans src/data/villes-seo.js).
+// Gabarit Cartographe (papier et encre), test de visibilité intégré, FAQ balisée, liens vers les autres villes.
+import Cartographe from '../../layouts/Cartographe.astro';
+import TestVisibilite from '../../components/TestVisibilite.astro';
+import { SITE } from '../../config.js';
+import { AGENCE } from '../../data/agence.js';
+import { EXPERTS } from '../../data/savoir-faire.js';
+import { VILLES_SEO } from '../../data/villes-seo.js';
+
+export function getStaticPaths() {
+  return VILLES_SEO.map((v) => ({ params: { ville: v.id }, props: { v } }));
+}
+const { v } = Astro.props;
+const chemin = `/agence-marketing/${v.id}/`;
+const url = SITE.url + chemin;
+const autres = VILLES_SEO.filter((x) => x.id !== v.id);
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': [
+  AGENCE,
+  { '@type': 'WebPage', '@id': url + '#page', url, name: v.titre, description: v.description, inLanguage: 'fr-CH', isPartOf: { '@id': SITE.url + '/#site' }, about: { '@id': AGENCE['@id'] } },
+  { '@type': 'Service', '@id': url + '#service', name: `Marketing et communication à ${v.ville}`, serviceType: 'Agence de marketing et de communication', provider: { '@id': AGENCE['@id'] },
+    areaServed: [{ '@type': 'City', name: v.ville }, ...v.villes.filter((n) => n !== v.ville).map((n) => ({ '@type': 'City', name: n })), { '@type': 'AdministrativeArea', name: `Canton ${v.canton === 'Valais' ? 'du Valais' : v.canton === 'Jura' ? 'du Jura' : 'de ' + v.canton}` }],
+    hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Savoir-faire', itemListElement: EXPERTS.map((e) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: e.service } })) } },
+  { '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE.url + '/' },
+    { '@type': 'ListItem', position: 2, name: `Agence marketing ${v.ville}`, item: url } ] },
+  { '@type': 'FAQPage', mainEntity: v.faq.map(([q, r]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: r } })) },
+] });
+---
+<Cartographe title={`${v.seo} · Nouvelle Ardoise`} description={v.description} chemin={chemin} jsonLd={jsonLd} test="#test">
+  <section class="loc-ouv cadre">
+    <p class="etiquette">Nouvelle Ardoise · {v.canton} · Suisse romande</p>
+    <h1 class="serif loc-titre">{v.titre}</h1>
+    <p class="loc-chapo">{v.chapo}</p>
+    <div class="loc-actions">
+      <a class="btn btn--craie" href="#test" data-cta>Tester ma visibilité</a>
+      <a class="btn btn--creux" href="/contact/">Demander un devis</a>
+    </div>
+  </section>
+
+  <section class="loc-bloc cadre" aria-labelledby="loc-contexte">
+    <h2 id="loc-contexte" class="serif loc-h2">Le marketing local à {v.ville}</h2>
+    <div class="loc-colonnes">{v.contexte.map((p) => <p>{p}</p>)}</div>
+  </section>
+
+  <section class="loc-bloc cadre" aria-labelledby="loc-sf">
+    <h2 id="loc-sf" class="serif loc-h2">Ce que nous faisons pour vous</h2>
+    <ul class="loc-sf">
+      {EXPERTS.map((e) => <li><b>{e.service}</b><span>{e.court}</span></li>)}
+    </ul>
+    <p class="loc-note">Un seul interlocuteur, Malik Younes, qui coordonne des indépendants spécialisés. Pas de formule toute faite : deux ou trois priorités choisies avec vous, puis un bilan chiffré chaque mois. Les entreprises qui veulent gagner du temps avec l’IA trouvent nos outils sur mesure sur la page <a href="/entreprises-ia/">Entreprises et IA</a>.</p>
+  </section>
+
+  <section class="loc-bloc cadre" aria-labelledby="loc-zone">
+    <h2 id="loc-zone" class="serif loc-h2">Où nous intervenons</h2>
+    <p>{v.trajet}</p>
+    <ul class="loc-villes">{v.villes.map((n) => <li>{n}</li>)}</ul>
+  </section>
+
+  <section class="loc-test cadre" id="test">
+    <TestVisibilite titreTexte={`Votre commerce à ${v.ville} est-il bien visible ?`} />
+  </section>
+
+  <section class="loc-bloc cadre" aria-labelledby="loc-faq">
+    <h2 id="loc-faq" class="serif loc-h2">Questions fréquentes</h2>
+    <div class="loc-faq">{v.faq.map(([q, r]) => <details><summary>{q}</summary><p>{r}</p></details>)}</div>
+  </section>
+
+  <section class="loc-bloc cadre loc-fin" id="contact">
+    <h2 class="serif loc-h2">Parlons de votre commerce à {v.ville}</h2>
+    <p>Premier rendez-vous offert, chez vous ou en visio. Réponse le jour ouvré suivant.</p>
+    <div class="loc-actions">
+      <a class="btn" href="tel:+41782133868">Appeler le 078 213 38 68</a>
+      <a class="btn btn--creux" href="/contact/">Écrire</a>
+    </div>
+    <p class="loc-autres">Aussi : <a href="/">Genève</a>{autres.map((x) => <> · <a href={`/agence-marketing/${x.id}/`}>{x.ville}</a></>)}</p>
+  </section>
+</Cartographe>
+<style>
+.loc-ouv { padding-block: clamp(36px, 8vw, 104px) clamp(24px, 4vw, 48px); display: grid; gap: 18px; }
+.loc-titre { font-size: clamp(2.5rem, 7vw, 5.2rem); line-height: .98; margin: 0; max-width: 16ch; text-wrap: balance; }
+.loc-chapo { font-size: clamp(1.1rem, 1.6vw, 1.3rem); max-width: 58ch; margin: 0; color: var(--encre-2); }
+.loc-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.loc-bloc { padding-block: clamp(28px, 5vw, 64px); border-top: 1px solid var(--filet); }
+.loc-h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.05; margin: 0 0 18px; }
+.loc-colonnes { display: grid; gap: 16px; max-width: 980px; }
+@media (min-width: 860px) { .loc-colonnes { grid-template-columns: 1fr 1fr; gap: 40px; } }
+.loc-colonnes p { margin: 0; }
+.loc-sf { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+@media (min-width: 760px) { .loc-sf { grid-template-columns: 1fr 1fr; } }
+.loc-sf li { display: grid; gap: 4px; padding: 16px 18px; background: var(--papier-2); border-radius: var(--r-m); }
+.loc-sf b { font-weight: 650; }
+.loc-sf span { color: var(--gris); font-size: .97rem; }
+.loc-note { max-width: 70ch; margin: 18px 0 0; }
+.loc-villes { list-style: none; padding: 0; margin: 14px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.loc-villes li { font-family: var(--mono); font-size: 13px; padding: 6px 12px; border: 1px solid var(--filet); border-radius: 999px; }
+.loc-test { padding-block: clamp(28px, 5vw, 64px); max-width: 760px; }
+.loc-faq { display: grid; gap: 8px; max-width: 820px; }
+.loc-faq details { border-bottom: 1px solid var(--filet); padding: 12px 0; }
+.loc-faq summary { cursor: pointer; font-weight: 600; }
+.loc-faq p { margin: 10px 0 0; color: var(--encre-2); }
+.loc-fin p { max-width: 60ch; }
+.loc-autres { margin-top: 26px; font-size: .95rem; color: var(--gris); }
+</style>

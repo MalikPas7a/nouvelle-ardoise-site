@@ -295,6 +295,7 @@ body:has(.tv) { overflow-anchor: none; }
       const d = await appel('/audit', { placeId: g.placeId }, signal);
       if (n !== generation) return;
       clearInterval(minuterie); tv.classList.remove('cherche');
+      try { window.umami?.track('Test réalisé', { page: location.pathname }); } catch {}
       if (!g.nom && typeof d.nom === 'string' && d.nom) { g.nom = d.nom; choix = g; if (!q.value) q.value = d.nom; }
       resultat = { ...d, voyants: Array.isArray(d.voyants) ? d.voyants : [], axes: Array.isArray(d.axes) ? d.axes : [], secteur: d.secteur && typeof d.secteur === 'object' ? d.secteur : { nom: '' } };
       resultat.voyants.forEach((v) => {
@@ -349,6 +350,7 @@ body:has(.tv) { overflow-anchor: none; }
         site: resultat?.site ?? null, categorie: resultat?.secteur?.nom ?? null, placeId: choix?.placeId ?? null, site_web_confirmation: f.get('site_web_confirmation'),
         resume: resultat ? resultat.voyants.map((v) => `${v.titre}${NB}: ${v.valeur}`).join(' · ') + ' | Priorités' + NB + ': ' + resultat.axes.map((a) => a.titre).join(', ') : 'Test non abouti, nom tapé' + NB + ': ' + (choix?.nom ?? ''),
       }, AbortSignal.timeout(15000));
+      try { window.umami?.track('Plan demandé (test)', { page: location.pathname }); } catch {}
       champs.hidden = true; envoyer.hidden = true; note.hidden = true;
       merci.querySelector('p:last-child').textContent = (telOk ? 'Malik vous rappelle' : 'Malik vous écrit') + ' le jour ouvré suivant avec votre plan. À très vite.';
       merci.hidden = false; merci.focus({ preventScroll: true });
