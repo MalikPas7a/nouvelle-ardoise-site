@@ -2,10 +2,10 @@
 import Base from '../layouts/Base.astro';
 import { SITE } from '../config.js';
 ---
-<Base page="legal" title="Confidentialité et cookies | Nouvelle Ardoise" description="Quelles données nous traitons, pourquoi, combien de temps, et vos droits. Ce site n’utilise aucun cookie.">
+<Base page="legal" title="Confidentialité et cookies | Nouvelle Ardoise" description="Quelles données nous traitons, pourquoi, combien de temps, et vos droits. Ce site n’utilise aucun cookie : la mesure d’audience est anonyme.">
 <article class="legal cadre">
   <h1 class="titre-2">Confidentialité et cookies</h1>
-  <p class="chapo">En bref : ce site ne dépose aucun cookie et ne vous suit pas. Nous ne traitons que les informations que vous nous envoyez pour demander un devis.</p>
+  <p class="chapo">En bref : ce site ne dépose aucun cookie et ne vous suit pas d’un site à l’autre. Nous comptons les visites de façon anonyme, et nous ne traitons que les informations que vous nous envoyez pour demander un devis ou votre plan.</p>
 
   <h2>Responsable du traitement</h2>
   <address>
@@ -16,7 +16,8 @@ import { SITE } from '../config.js';
 
   <h2>Les données que nous traitons</h2>
   <ul>
-    <li><strong>Votre demande de devis.</strong> Le formulaire de contact prépare un email dans votre propre messagerie : rien n’est enregistré sur ce site. Quand vous envoyez cet email, nous recevons votre nom, le nom de votre établissement, votre adresse email, votre téléphone si vous l’indiquez, et votre message.</li>
+    <li><strong>Votre demande de devis ou de plan.</strong> Le formulaire de contact et le test de visibilité nous transmettent votre nom, le nom de votre établissement, votre téléphone ou votre adresse e-mail, et votre message ou le résultat du test. Ces informations sont enregistrées dans notre outil de suivi des demandes (hébergé par Vercel, base de données Supabase à Zurich), pour vous rappeler.</li>
+    <li><strong>La mesure d’audience.</strong> Nous utilisons Umami, un outil de mesure sans cookie : il compte les pages vues, la provenance des visites (par exemple Google ou Instagram), le type d’appareil et les clics sur nos boutons (appeler, demander un devis). Il n’enregistre ni votre adresse IP complète ni aucun identifiant qui permettrait de vous reconnaître ou de vous suivre sur d’autres sites.</li>
     <li><strong>Les données techniques.</strong> Comme tout site, l’hébergeur enregistre dans ses journaux l’adresse IP, la date, la page demandée et le type de navigateur, pour assurer le fonctionnement et la sécurité du site.</li>
   </ul>
 
@@ -24,14 +25,14 @@ import { SITE } from '../config.js';
   <p>Pour vous répondre, établir un devis et, si vous devenez client, réaliser la prestation et tenir notre comptabilité. Nous n’envoyons pas de publicité et nous ne vendons ni ne cédons vos données.</p>
 
   <h2 id="cookies">Cookies et traceurs</h2>
-  <p>Ce site n’utilise aucun cookie, aucun outil de mesure d’audience et aucun traceur publicitaire. Les polices, les animations et le lecteur 3D sont servis par le site lui-même, sans appel à un service tiers. C’est pourquoi aucun bandeau de consentement ne s’affiche.</p>
+  <p>Ce site n’utilise aucun cookie et aucun traceur publicitaire. La mesure d’audience (Umami) est anonyme et fonctionne sans cookie. Les polices, les animations et le lecteur 3D sont servis par le site lui-même. C’est pourquoi aucun bandeau de consentement ne s’affiche.</p>
   <p>Si nous ajoutons un jour un outil qui dépose des cookies non indispensables, cette page sera mise à jour et votre accord sera demandé avant tout dépôt.</p>
 
   <h2>Réalité augmentée</h2>
   <p>Le bouton « Voir sur ma table » utilise la caméra de votre téléphone pour afficher le plat chez vous. L’image reste sur votre appareil : nous ne la recevons pas et ne l’enregistrons pas.</p>
 
   <h2>Qui y a accès</h2>
-  <p>{SITE.responsable}, ainsi que nos prestataires techniques dans la limite de leur mission : l’hébergeur du site ({SITE.hebergeurCourt}) et notre fournisseur de messagerie ({SITE.messagerie}). Si l’un d’eux traite des données hors de Suisse, nous veillons à ce que le pays concerné offre une protection adéquate ou que des garanties contractuelles soient en place.</p>
+  <p>{SITE.responsable}, ainsi que nos prestataires techniques dans la limite de leur mission : l’hébergeur du site ({SITE.hebergeurCourt}), notre fournisseur de messagerie ({SITE.messagerie}), l’outil de suivi des demandes (Vercel et Supabase) et l’outil de mesure d’audience (Umami). Si l’un d’eux traite des données hors de Suisse, nous veillons à ce que le pays concerné offre une protection adéquate ou que des garanties contractuelles soient en place.</p>
 
   <h2>Combien de temps</h2>
   <ul>

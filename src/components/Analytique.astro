@@ -1,0 +1,6 @@
+---
+// Mesure d'audience Umami Cloud (gratuit, sans cookie, aucune donnée personnelle) : pas de bandeau cookies nécessaire.
+// L'identifiant se règle dans src/config.js (SITE.umami). Vide = rien n'est chargé.
+import { SITE } from '../config.js';
+---
+{SITE.umami && <script is:inline defer src="https://cloud.umami.is/script.js" data-website-id={SITE.umami} data-domains="nouvelleardoise.ch,www.nouvelleardoise.ch"></script>}

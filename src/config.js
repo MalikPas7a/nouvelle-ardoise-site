@@ -13,6 +13,8 @@ export const SITE = {
   adresse: 'Chemin des Sports 16',
   localite: '1203 Genève',
   pays: 'Suisse',
+  // Mesure d'audience Umami Cloud (sans cookie) : coller ici le « Website ID » donné par cloud.umami.is
+  umami: 'efd74dcf-e23d-4950-9312-996faa3b1e58',
   // Numéro d'entreprise (IDE, CHE-…), s'il existe
   ide: '',
   // Hébergeur du site, repris dans les mentions légales et la page confidentialité
@@ -20,5 +22,5 @@ export const SITE = {
   hebergeurCourt: 'GitHub, aux États-Unis',
   messagerie: 'Google Workspace',
   // Date de dernière mise à jour des pages légales
-  majLegal: '5 octobre 2026',
+  majLegal: '1er novembre 2026',
 };

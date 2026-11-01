@@ -5,9 +5,12 @@ import '@fontsource-variable/inter-tight';
 import '@fontsource/ibm-plex-mono/400.css';
 import '../styles/global.css';
 import Logo from '../components/Logo.astro';
+import Analytique from '../components/Analytique.astro';
 import QRCode from 'qrcode';
 import { SITE } from '../config.js';
 import { PROMOTION_ACTIVE } from '../data/offres.js';
+import { AGENCE, SITE_WEB } from '../data/agence.js';
+import { VILLES_SEO } from '../data/villes-seo.js';
 
 const { title, description, page } = Astro.props;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
@@ -20,6 +23,15 @@ const MENU = [
   { href: '/realisations/', nom: 'Réalisations', page: 'realisations' },
   { href: '/contact/', nom: 'Contact', page: 'contact' },
 ];
+// Données structurées communes : l'agence, le site, la page et son fil d'Ariane (Accueil › page).
+const nomPage = title.split(/ [|·] /)[0];
+const ldBase = JSON.stringify({ '@context': 'https://schema.org', '@graph': [
+  AGENCE, SITE_WEB,
+  { '@type': 'WebPage', '@id': canonical + '#page', url: canonical, name: title, description, inLanguage: 'fr-CH', isPartOf: { '@id': SITE_WEB['@id'] }, about: { '@id': AGENCE['@id'] } },
+  ...(Astro.url.pathname === '/' ? [] : [{ '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE.url + '/' },
+    { '@type': 'ListItem', position: 2, name: nomPage, item: canonical }] }]),
+] });
 const actuel = (p) => (p === page ? 'page' : undefined);
 // Le rappel de l'offre de lancement, en haut de chaque page (sauf les animations plein écran)
 const lancement = PROMOTION_ACTIVE && page !== 'animation';
@@ -48,6 +60,8 @@ const qrInstagram = (await QRCode.toString(instagram, { type: 'svg', margin: 0, 
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Nouvelle Ardoise, agence de marketing et de communication à Genève et en Suisse romande">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<script type="application/ld+json" is:inline set:html={ldBase}></script>
 <meta name="theme-color" content="#F2EDE4">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -55,6 +69,7 @@ const qrInstagram = (await QRCode.toString(instagram, { type: 'svg', margin: 0, 
 <script type="speculationrules" is:inline>
 {"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/demos/*"}}]},"eagerness":"moderate"}]}
 </script>
+<Analytique />
 <slot name="head" />
 </head>
 <body>
@@ -100,12 +115,14 @@ const qrInstagram = (await QRCode.toString(instagram, { type: 'svg', margin: 0, 
       </div>
     </div>
     <p>Osteria del Lago, Chez Léonie, Sora et Maison Fève sont des adresses inventées pour ces démonstrations.</p>
-    <p><a href="/restauration/">Restauration</a><br><a href="/entreprises-ia/">Entreprises &amp; IA</a><br><a href="/artisans/">Artisans</a><br><a href="/realisations/">Réalisations</a><br><a href="/offres/">Offres et prix</a><br><a href="/questions/">Questions fréquentes</a><br><a href="/contact/">Contact</a></p>
+    <p><a href="/restauration/">Restauration</a><br><a href="/entreprises-ia/">Entreprises &amp; IA</a><br><a href="/artisans/">Artisans</a><br><a href="/realisations/">Réalisations</a><br><a href="/offres/">Offres</a><br><a href="/questions/">Questions fréquentes</a><br><a href="/contact/">Contact</a></p>
     <p>{SITE.adresse}, {SITE.localite}<br>078 213 38 68<br><a href={'mailto:' + SITE.email}>{SITE.email}</a><br><a href="/mentions-legales/">Mentions légales</a><br><a href="/confidentialite/">Confidentialité et cookies</a></p>
+    <p class="pied__villes">Agence marketing : <a href="/">Genève</a>{VILLES_SEO.map((v) => <> · <a href={`/agence-marketing/${v.id}/`}>{v.ville}</a></>)}</p>
   </div>
 </footer>
 <script>
   import '../scripts/boutons.js';
+  import '../scripts/mesure.js';
 </script>
 </body>
 </html>
