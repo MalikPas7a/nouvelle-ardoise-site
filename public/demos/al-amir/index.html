@@ -139,6 +139,9 @@ h2 em,h1 em{font-style:italic;font-weight:400;color:var(--safran)}
 .of.rec{border:2px solid var(--cedre);position:relative}
 .of.rec::after{content:"Conseillée";position:absolute;top:-11px;left:16px;background:var(--cedre);color:#fff;font:700 11px/1 "Inter Tight";letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;border-radius:999px}
 .vid{display:block;width:100%;max-width:400px;aspect-ratio:9/16;margin:24px auto 0;border-radius:22px;background:#000;box-shadow:0 20px 60px #0006}
+.vidnote{text-align:center;font-size:14px;opacity:.75;margin:12px 0 0}
+.dl{display:flex;align-items:center;justify-content:center;gap:10px;max-width:400px;margin:18px auto 26px;padding:16px 20px;border-radius:14px;background:var(--safran);color:var(--encre);font:700 16px/1.2 "Inter Tight",sans-serif;text-decoration:none}
+.dl::before{content:"↓";font-size:18px}
 .of .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
 .of h3{font:600 24px/1 Fraunces,serif;margin:0}
 .of .px{font:600 22px/1 Fraunces,serif;white-space:nowrap}
@@ -273,6 +276,9 @@ h2 em,h1 em{font-style:italic;font-weight:400;color:var(--safran)}
   <div class="in">
     <svg class="rv" viewBox="0 0 200 200" style="width:96px;height:96px;margin-bottom:22px" aria-hidden="true"><use href="#badge"/></svg>
     <h1 class="rv">Al Amir,<br><em>ce qu'on peut faire ensemble.</em></h1>
+    <video class="vid rv" src="video/devis-al-amir.mp4" poster="video/poster.jpg" controls autoplay muted playsinline preload="auto"></video>
+    <p class="vidnote rv">Mettez le son : la vidéo résume le devis en 85 secondes.</p>
+    <a class="dl rv" href="devis-al-amir.pdf" download>Télécharger le devis (PDF)</a>
     <p class="lead rv">Votre logo redessiné, Uber Eats et Google optimisés, un Instagram qui cible le quartier, et votre propre site pour commander sans commission. Tout est déjà maquetté pour vous.</p>
     <div class="meta rv"><span class="chip">Rue de Berne 37 · Pâquis</span><span class="chip">Uber Eats</span><span class="chip">Photos</span><span class="chip">Instagram</span><span class="chip">Site et commande</span></div>
     <p class="from rv">Proposition préparée par <b>Malik Younes</b>, Nouvelle Ardoise, Genève.</p>
@@ -500,19 +506,11 @@ h2 em,h1 em{font-style:italic;font-weight:400;color:var(--safran)}
 </section>
 
 <!-- 10 bis vidéo -->
-<section class="s" aria-label="La vidéo">
-  <div class="in">
-    <p class="kick">12 <i>/</i> En 85 secondes</p>
-    <h2 class="rv">Ce qu'on fait <em>ensemble.</em></h2>
-    <p class="lead rv">Mettez le son : la vidéo résume le devis, semaine par semaine.</p>
-    <video class="vid rv" src="video/devis-al-amir.mp4" poster="video/poster.jpg" controls playsinline preload="metadata"></video>
-  </div>
-</section>
 
 <!-- 10 offres -->
 <section class="s light" aria-label="Offres">
   <div class="in wide">
-    <p class="kick">13 <i>/</i> Offres</p>
+    <p class="kick">12 <i>/</i> Offres</p>
     <h2 class="rv">Trois façons <em>de démarrer.</em></h2>
     <p class="lead rv">Paiement unique. Chaque offre reprend tout ce que contient la précédente.</p>
     <div class="offers">
@@ -530,7 +528,7 @@ h2 em,h1 em{font-style:italic;font-weight:400;color:var(--safran)}
 <!-- 11 fin -->
 <section class="s end" aria-label="On démarre">
   <div class="in">
-    <p class="kick">14 <i>/</i> On démarre</p>
+    <p class="kick">13 <i>/</i> On démarre</p>
     <h2 class="rv">Si on signe, <em>voilà la suite.</em></h2>
     <ol class="steps">
       <li class="rv"><span class="d">1</span><div><b>Semaine 1 : le photographe chez vous</b><span>Vos vrais plats, prêts pour Uber Eats, Just Eat, Google et le site.</span></div></li>
