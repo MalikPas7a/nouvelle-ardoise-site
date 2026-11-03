@@ -47,27 +47,27 @@ textarea{width:100%;background:var(--panel);color:var(--fg);border:1px solid var
 <body>
 <div class="wrap">
   <header>
-    <h1>Atelier Paris Burger<br>Photos Glovo · version 2</h1>
+    <h1>Atelier Paris Burger<br>Photos Glovo · version 3</h1>
     <div class="by">Proposé par <b>Nouvelle Ardoise</b></div>
   </header>
-  <p class="lead">Cette fois, ce sont <b>tes vraies photos</b> : le burger, le cheddar et la sauce n'ont pas été retouchés par l'IA, seule la lumière a été légèrement corrigée. Seul le fond a été refait, en <b>rouge lie-de-vin foncé</b>, avec le logo doré.</p>
+  <p class="lead">Cette fois, ce sont <b>tes vraies photos</b> : le burger, le cheddar et la sauce n'ont pas été retouchés par l'IA, seule la lumière a été légèrement corrigée. Seul le fond a été refait, avec <b>le même rouge et la même texture que ton site</b>, et le logo doré.</p>
 
   <div class="item">
-    <img src="img/v2-burger-coupe-sauce.jpg" alt="Burger coupé dans la sauce Café de Paris, fond lie-de-vin foncé">
+    <img src="img/v2-burger-coupe-sauce.jpg?v=3" alt="Burger coupé dans la sauce Café de Paris, fond lie-de-vin foncé">
     <div class="side">
       <h2>Coupé, dans la sauce</h2>
       <p>Format Glovo 2484 × 1380.</p>
-      <div class="tile"><div><b>Burger classique</b><small>2 steaks, cheddar, sauce Café de Paris</small></div><img src="img/v2-burger-coupe-sauce-sq.jpg" alt=""></div>
+      <div class="tile"><div><b>Burger classique</b><small>2 steaks, cheddar, sauce Café de Paris</small></div><img src="img/v2-burger-coupe-sauce-sq.jpg?v=3" alt=""></div>
       <span class="cap">Vignette dans la liste de l'appli</span>
     </div>
   </div>
 
   <div class="item">
-    <img src="img/v2-smash-entier.jpg" alt="Smash double entier, fond lie-de-vin foncé">
+    <img src="img/v2-smash-entier.jpg?v=3" alt="Smash double entier, fond lie-de-vin foncé">
     <div class="side">
       <h2>Smash entier</h2>
       <p>Format Glovo 2484 × 1380.</p>
-      <div class="tile"><div><b>Smash classique</b><small>2 steaks smashés, cheddar</small></div><img src="img/v2-smash-entier-sq.jpg" alt=""></div>
+      <div class="tile"><div><b>Smash classique</b><small>2 steaks smashés, cheddar</small></div><img src="img/v2-smash-entier-sq.jpg?v=3" alt=""></div>
       <span class="cap">Vignette dans la liste de l'appli</span>
     </div>
   </div>
@@ -91,8 +91,8 @@ textarea{width:100%;background:var(--panel);color:var(--fg);border:1px solid var
 <script>
 let avis="Je valide ce style";
 const msg=document.getElementById("msg");
-function text(){const m=msg.value.trim();return `Atelier Paris Burger – photos Glovo version 2 :\n• ${avis}`+(m?`\n• ${m}`:"");}
-function upd(){const t=text();document.getElementById("wa").href="https://wa.me/?text="+encodeURIComponent(t);document.getElementById("mail").href="mailto:malik@pastamo.ch?subject="+encodeURIComponent("Atelier Paris Burger – photos Glovo v2")+"&body="+encodeURIComponent(t);}
+function text(){const m=msg.value.trim();return `Atelier Paris Burger – photos Glovo version 3 :\n• ${avis}`+(m?`\n• ${m}`:"");}
+function upd(){const t=text();document.getElementById("wa").href="https://wa.me/?text="+encodeURIComponent(t);document.getElementById("mail").href="mailto:malik@pastamo.ch?subject="+encodeURIComponent("Atelier Paris Burger – photos Glovo v3")+"&body="+encodeURIComponent(t);}
 document.querySelectorAll(".choice").forEach(b=>b.addEventListener("click",()=>{avis=b.dataset.v;document.querySelectorAll(".choice").forEach(x=>x.setAttribute("aria-checked",x===b?"true":"false"));upd();}));
 msg.addEventListener("input",upd);
 document.getElementById("copy").addEventListener("click",async()=>{const o=document.getElementById("copied");try{await navigator.clipboard.writeText(text());o.textContent="Copié : colle-le dans ton message à Malik.";}catch(e){o.textContent=text();}});
