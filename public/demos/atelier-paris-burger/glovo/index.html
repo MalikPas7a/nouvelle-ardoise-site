@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="logo-apb-monogramme-or.svg" type="image/svg+xml">
-<title>Atelier Paris Burger · Photos Glovo</title>
+<title>Atelier Paris Burger · Photos Glovo · menu complet</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;500;600&display=swap">
 <style>
 /* Layout : en-tête, deux visuels (format Glovo + vignette), puis retour à Malik */
@@ -42,44 +42,199 @@ textarea{width:100%;background:var(--panel);color:var(--fg);border:1px solid var
 .btn.primary{background:var(--or);color:#2B0A14}
 .choice:focus-visible,.btn:focus-visible,textarea:focus-visible{outline:2px solid var(--or);outline-offset:2px}
 .note{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+.grid{display:grid;gap:28px}
+.covs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:12px}
+.cov{margin:0}.cov img{width:100%;height:auto;display:block;border-radius:8px}
+.cov figcaption{font-size:13px;color:var(--muted);margin-top:6px}.cov b{color:var(--fg)}
+.cat{font-family:var(--display);color:var(--or);font-size:clamp(26px,3.5vw,34px);margin:18px 0 -14px;border-top:1px solid var(--line);padding-top:22px}
+.catd{margin:0 0 -8px;color:var(--muted);font-size:14px}
+.fb{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px}
+.fb .choice{padding:7px 12px;font-size:13px}
+.fb input{flex:1 1 100%;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:13px var(--ui)}
+.fb input:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+.tag{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--or)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <h1>Atelier Paris Burger<br>Photos Glovo · version 7</h1>
+    <h1>Atelier Paris Burger<br>Photos Glovo · menu complet</h1>
     <div class="by">Proposé par <b>Nouvelle Ardoise</b></div>
   </header>
-  <p class="lead">Cette fois, ce sont <b>tes vraies photos</b> : le burger, le cheddar et la sauce n'ont pas été retouchés par l'IA, seule la lumière a été légèrement corrigée. Le décor a été refait autour : <b>boiseries en bois teinté lie-de-vin, liseré doré</b> et ton logo gravé et doré dans le bois.</p>
-
-  <div class="item">
-    <img src="img/v2-burger-coupe-sauce.jpg?v=7" alt="Burger coupé dans la sauce Café de Paris, boiseries lie-de-vin foncé">
+  <p class="lead">Voici <b>les 10 photos du menu</b>, toutes dans le même décor : assiette noire, <b>fond lie-de-vin, liseré doré</b>, table en bois sombre. Les burgers partent de ton shooting et sont servis comme chez toi : <b>coupés, une moitié trempée dans la sauce Café de Paris</b>. Les frites seules et les desserts ont été créés en attendant de les photographier. Pas de logo sur les photos : Glovo les refuse.</p>
+  <p class="lead">Dis-nous plat par plat ce que tu aimes et ce que tu veux changer, puis envoie ton retour en bas de la page.</p>
+  <div class="grid">
+  <h2 class="cat">Les smash</h2><p class="catd">Steaks fins écrasés sur la plaque, bords croustillants, cuits à cœur.</p>
+  <article class="item" data-plat="Smash 80 g">
+    <img src="img/v10/01_smash-80g.jpg?v=10" alt="Smash 80 g sur assiette noire, fond lie-de-vin" loading="eager" width="1600" height="889">
     <div class="side">
-      <h2>Coupé, dans la sauce</h2>
-      <p>Format Glovo 2484 × 1380.</p>
-      <div class="tile"><div><b>Burger classique</b><small>2 steaks, cheddar, sauce Café de Paris</small></div><img src="img/v2-burger-coupe-sauce-sq.jpg?v=7" alt=""></div>
+      <span class="tag">01 / 10</span>
+      <h2>Smash 80 g</h2>
+      <div class="tile"><div><b>Smash 80 g</b><small>1 steak smashé, cheddar, sauce Café de Paris, frites</small></div><img src="img/v10/01_smash-80g-sq.jpg?v=10" alt="" loading="lazy" width="76" height="76"></div>
       <span class="cap">Vignette dans la liste de l'appli</span>
+      <div class="fb" role="radiogroup" aria-label="Ton avis sur Smash 80 g">
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="J'aime">J'aime</button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="À corriger">À corriger</button>
+        <input type="text" aria-label="Ce qu'il faut changer sur Smash 80 g" placeholder="Ce qu'il faut changer (optionnel)">
+      </div>
     </div>
+  </article>
+  <article class="item" data-plat="Smash 160 g">
+    <img src="img/v10/02_smash-160g.jpg?v=10" alt="Smash 160 g sur assiette noire, fond lie-de-vin" loading="eager" width="1600" height="889">
+    <div class="side">
+      <span class="tag">02 / 10</span>
+      <h2>Smash 160 g</h2>
+      <div class="tile"><div><b>Smash 160 g</b><small>2 steaks smashés, cheddar, sauce Café de Paris, frites</small></div><img src="img/v10/02_smash-160g-sq.jpg?v=10" alt="" loading="lazy" width="76" height="76"></div>
+      <span class="cap">Vignette dans la liste de l'appli</span>
+      <div class="fb" role="radiogroup" aria-label="Ton avis sur Smash 160 g">
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="J'aime">J'aime</button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="À corriger">À corriger</button>
+        <input type="text" aria-label="Ce qu'il faut changer sur Smash 160 g" placeholder="Ce qu'il faut changer (optionnel)">
+      </div>
+    </div>
+  </article>
+  <article class="item" data-plat="Smash 240 g">
+    <img src="img/v10/03_smash-240g.jpg?v=10" alt="Smash 240 g sur assiette noire, fond lie-de-vin" loading="lazy" width="1600" height="889">
+    <div class="side">
+      <span class="tag">03 / 10</span>
+      <h2>Smash 240 g</h2>
+      <div class="tile"><div><b>Smash 240 g</b><small>3 steaks smashés, cheddar, sauce Café de Paris, frites</small></div><img src="img/v10/03_smash-240g-sq.jpg?v=10" alt="" loading="lazy" width="76" height="76"></div>
+      <span class="cap">Vignette dans la liste de l'appli</span>
+      <div class="fb" role="radiogroup" aria-label="Ton avis sur Smash 240 g">
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="J'aime">J'aime</button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="À corriger">À corriger</button>
+        <input type="text" aria-label="Ce qu'il faut changer sur Smash 240 g" placeholder="Ce qu'il faut changer (optionnel)">
+      </div>
+    </div>
+  </article>
+  <h2 class="cat">Les burgers</h2><p class="catd">Steaks épais, saisis et rosés à cœur.</p>
+  <article class="item" data-plat="Burger 80 g">
+    <img src="img/v10/04_burger-80g.jpg?v=10" alt="Burger 80 g sur assiette noire, fond lie-de-vin" loading="lazy" width="1600" height="889">
+    <div class="side">
+      <span class="tag">04 / 10</span>
+      <h2>Burger 80 g</h2>
+      <div class="tile"><div><b>Burger 80 g</b><small>1 steak épais, cheddar, sauce Café de Paris, frites</small></div><img src="img/v10/04_burger-80g-sq.jpg?v=10" alt="" loading="lazy" width="76" height="76"></div>
+      <span class="cap">Vignette dans la liste de l'appli</span>
+      <div class="fb" role="radiogroup" aria-label="Ton avis sur Burger 80 g">
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="J'aime">J'aime</button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="À corriger">À corriger</button>
+        <input type="text" aria-label="Ce qu'il faut changer sur Burger 80 g" placeholder="Ce qu'il faut changer (optionnel)">
+      </div>
+    </div>
+  </article>
+  <article class="item" data-plat="Burger 160 g">
+    <img src="img/v10/05_burger-160g.jpg?v=10" alt="Burger 160 g sur assiette noire, fond lie-de-vin" loading="lazy" width="1600" height="889">
+    <div class="side">
+      <span class="tag">05 / 10</span>
+      <h2>Burger 160 g</h2>
+      <div class="tile"><div><b>Burger 160 g</b><small>2 steaks épais, cheddar, sauce Café de Paris, frites</small></div><img src="img/v10/05_burger-160g-sq.jpg?v=10" alt="" loading="lazy" width="76" height="76"></div>
+      <span class="cap">Vignette dans la liste de l'appli</span>
+      <div class="fb" role="radiogroup" aria-label="Ton avis sur Burger 160 g">
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="J'aime">J'aime</button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="À corriger">À corriger</button>
+        <input type="text" aria-label="Ce qu'il faut changer sur Burger 160 g" placeholder="Ce qu'il faut changer (optionnel)">
+      </div>
+    </div>
+  </article>
+  <article class="item" data-plat="Burger 240 g">
+    <img src="img/v10/06_burger-240g.jpg?v=10" alt="Burger 240 g sur assiette noire, fond lie-de-vin" loading="lazy" width="1600" height="889">
+    <div class="side">
+      <span class="tag">06 / 10</span>
+      <h2>Burger 240 g</h2>
+      <div class="tile"><div><b>Burger 240 g</b><small>3 steaks épais, cheddar, sauce Café de Paris, frites</small></div><img src="img/v10/06_burger-240g-sq.jpg?v=10" alt="" loading="lazy" width="76" height="76"></div>
+      <span class="cap">Vignette dans la liste de l'appli</span>
+      <div class="fb" role="radiogroup" aria-label="Ton avis sur Burger 240 g">
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="J'aime">J'aime</button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="À corriger">À corriger</button>
+        <input type="text" aria-label="Ce qu'il faut changer sur Burger 240 g" placeholder="Ce qu'il faut changer (optionnel)">
+      </div>
+    </div>
+  </article>
+  <h2 class="cat">La baguette</h2>
+  <article class="item" data-plat="Baguette + frites">
+    <img src="img/v10/07_baguette-frites.jpg?v=10" alt="Baguette + frites sur assiette noire, fond lie-de-vin" loading="lazy" width="1600" height="889">
+    <div class="side">
+      <span class="tag">07 / 10</span>
+      <h2>Baguette + frites</h2>
+      <div class="tile"><div><b>Baguette + frites</b><small>Bœuf, frites dans le pain, sauce Café de Paris</small></div><img src="img/v10/07_baguette-frites-sq.jpg?v=10" alt="" loading="lazy" width="76" height="76"></div>
+      <span class="cap">Vignette dans la liste de l'appli</span>
+      <div class="fb" role="radiogroup" aria-label="Ton avis sur Baguette + frites">
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="J'aime">J'aime</button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="À corriger">À corriger</button>
+        <input type="text" aria-label="Ce qu'il faut changer sur Baguette + frites" placeholder="Ce qu'il faut changer (optionnel)">
+      </div>
+    </div>
+  </article>
+  <h2 class="cat">À côté</h2>
+  <article class="item" data-plat="Frites seules">
+    <img src="img/v10/08_frites-seules.jpg?v=10" alt="Frites seules sur assiette noire, fond lie-de-vin" loading="lazy" width="1600" height="889">
+    <div class="side">
+      <span class="tag">08 / 10</span>
+      <h2>Frites seules</h2>
+      <div class="tile"><div><b>Frites seules</b><small>Frites maison, sauce Café de Paris</small></div><img src="img/v10/08_frites-seules-sq.jpg?v=10" alt="" loading="lazy" width="76" height="76"></div>
+      <span class="cap">Vignette dans la liste de l'appli</span>
+      <div class="fb" role="radiogroup" aria-label="Ton avis sur Frites seules">
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="J'aime">J'aime</button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="À corriger">À corriger</button>
+        <input type="text" aria-label="Ce qu'il faut changer sur Frites seules" placeholder="Ce qu'il faut changer (optionnel)">
+      </div>
+    </div>
+  </article>
+  <h2 class="cat">Desserts</h2>
+  <article class="item" data-plat="Fondant au chocolat">
+    <img src="img/v10/09_fondant-chocolat.jpg?v=10" alt="Fondant au chocolat sur assiette noire, fond lie-de-vin" loading="lazy" width="1600" height="889">
+    <div class="side">
+      <span class="tag">09 / 10</span>
+      <h2>Fondant au chocolat</h2>
+      <div class="tile"><div><b>Fondant au chocolat</b><small>Cœur coulant</small></div><img src="img/v10/09_fondant-chocolat-sq.jpg?v=10" alt="" loading="lazy" width="76" height="76"></div>
+      <span class="cap">Vignette dans la liste de l'appli</span>
+      <div class="fb" role="radiogroup" aria-label="Ton avis sur Fondant au chocolat">
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="J'aime">J'aime</button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="À corriger">À corriger</button>
+        <input type="text" aria-label="Ce qu'il faut changer sur Fondant au chocolat" placeholder="Ce qu'il faut changer (optionnel)">
+      </div>
+    </div>
+  </article>
+  <article class="item" data-plat="Tarte aux pommes">
+    <img src="img/v10/10_tarte-aux-pommes.jpg?v=10" alt="Tarte aux pommes sur assiette noire, fond lie-de-vin" loading="lazy" width="1600" height="889">
+    <div class="side">
+      <span class="tag">10 / 10</span>
+      <h2>Tarte aux pommes</h2>
+      <div class="tile"><div><b>Tarte aux pommes</b><small>Pâte feuilletée, pommes caramélisées</small></div><img src="img/v10/10_tarte-aux-pommes-sq.jpg?v=10" alt="" loading="lazy" width="76" height="76"></div>
+      <span class="cap">Vignette dans la liste de l'appli</span>
+      <div class="fb" role="radiogroup" aria-label="Ton avis sur Tarte aux pommes">
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="J'aime">J'aime</button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="À corriger">À corriger</button>
+        <input type="text" aria-label="Ce qu'il faut changer sur Tarte aux pommes" placeholder="Ce qu'il faut changer (optionnel)">
+      </div>
+    </div>
+  </article>
   </div>
 
-  <div class="item">
-    <img src="img/v2-smash-entier.jpg?v=7" alt="Smash triple entier, boiseries lie-de-vin foncé">
-    <div class="side">
-      <h2>Smash entier</h2>
-      <p>Format Glovo 2484 × 1380.</p>
-      <div class="tile"><div><b>Smash triple</b><small>3 steaks smashés, cheddar</small></div><img src="img/v2-smash-entier-sq.jpg?v=7" alt=""></div>
-      <span class="cap">Vignette dans la liste de l'appli</span>
+  <section class="send" id="cover" style="max-width:none">
+    <h2>Image de couverture de ta page Glovo</h2>
+    <p class="lead" style="margin-bottom:14px">C'est la grande image en haut de ta page ; ton logo est déjà affiché à côté, dans le rond. Trois propositions, toutes tirées des <b>vraies photos du shooting</b>, sans retouche IA.</p>
+    <div class="covs">
+    <figure class="cov">
+      <img src="img/v10/couverture-1.jpg?v=10" alt="Couverture 1 : Le trempage" loading="lazy" width="1600" height="889">
+      <figcaption><b>1 · Le trempage</b> Ta vraie photo : la coupe du burger posée dans la sauce Café de Paris. Le geste signature, en très gros plan.</figcaption>
+    </figure>
+    <figure class="cov">
+      <img src="img/v10/couverture-2.jpg?v=10" alt="Couverture 2 : Le smash sur la plaque" loading="lazy" width="1600" height="889">
+      <figcaption><b>2 · Le smash sur la plaque</b> Ta vraie photo : le smash qui sort de la plaque, cheddar fondu. Ça montre que tout est fait minute.</figcaption>
+    </figure>
+    <figure class="cov">
+      <img src="img/v10/couverture-3.jpg?v=10" alt="Couverture 3 : L’ouverture" loading="lazy" width="1600" height="889">
+      <figcaption><b>3 · L’ouverture</b> Ta vraie photo : les mains du chef qui ouvrent le burger coupé. Artisanal et généreux.</figcaption>
+    </figure>
     </div>
-  </div>
+    <div class="fb" role="radiogroup" aria-label="Image de couverture"><button type="button" class="choice" role="radio" aria-checked="false" data-v="1 · Le trempage">1 · Le trempage</button><button type="button" class="choice" role="radio" aria-checked="false" data-v="2 · Le smash sur la plaque">2 · Le smash sur la plaque</button><button type="button" class="choice" role="radio" aria-checked="false" data-v="3 · L’ouverture">3 · L’ouverture</button></div>
+  </section>
 
   <section class="send">
-    <h2>Ton avis à Malik</h2>
-    <div class="choices" role="radiogroup" aria-label="Ton avis">
-      <button type="button" class="choice" role="radio" aria-checked="true" data-v="Je valide ce style">Je valide ce style</button>
-      <button type="button" class="choice" role="radio" aria-checked="false" data-v="À corriger">À corriger</button>
-    </div>
-    <label for="msg">Ce que tu veux changer (couleur, cadrage, logo…)</label>
-    <textarea id="msg" rows="3" placeholder="Ex. : fond encore un peu plus foncé, logo plus petit"></textarea>
+    <h2>Ton retour à Malik</h2>
+    <label for="msg">Remarque générale (décor, couleurs, cadrage…)</label>
+    <textarea id="msg" rows="3" placeholder="Ex. : fond un peu plus clair, assiette plus grande"></textarea>
     <div class="btns">
       <a id="wa" class="btn primary" href="#" target="_blank" rel="noopener">Envoyer par WhatsApp</a>
       <a id="mail" class="btn" href="#">Envoyer par e-mail</a>
@@ -89,11 +244,23 @@ textarea{width:100%;background:var(--panel);color:var(--fg);border:1px solid var
   </section>
 </div>
 <script>
-let avis="Je valide ce style";
 const msg=document.getElementById("msg");
-function text(){const m=msg.value.trim();return `Atelier Paris Burger – photos Glovo version 7 :\n• ${avis}`+(m?`\n• ${m}`:"");}
-function upd(){const t=text();document.getElementById("wa").href="https://wa.me/?text="+encodeURIComponent(t);document.getElementById("mail").href="mailto:malik@pastamo.ch?subject="+encodeURIComponent("Atelier Paris Burger – photos Glovo v7")+"&body="+encodeURIComponent(t);}
-document.querySelectorAll(".choice").forEach(b=>b.addEventListener("click",()=>{avis=b.dataset.v;document.querySelectorAll(".choice").forEach(x=>x.setAttribute("aria-checked",x===b?"true":"false"));upd();}));
+function text(){
+  const lines=[];
+  document.querySelectorAll(".item").forEach(it=>{
+    const sel=it.querySelector('.choice[aria-checked="true"]');const note=it.querySelector("input").value.trim();
+    if(sel||note) lines.push("• "+it.dataset.plat+" : "+(sel?sel.dataset.v:"")+(note?(sel?" – ":"")+note:""));
+  });
+  const cv=document.querySelector('#cover .choice[aria-checked="true"]');
+  if(cv) lines.push("• Couverture : "+cv.dataset.v);
+  const m=msg.value.trim();
+  return "Atelier Paris Burger – photos Glovo, menu complet :\n"+(lines.length?lines.join("\n"):"• (aucun avis par plat)")+(m?"\n• Général : "+m:"");
+}
+function upd(){const t=text();document.getElementById("wa").href="https://wa.me/?text="+encodeURIComponent(t);document.getElementById("mail").href="mailto:malik@pastamo.ch?subject="+encodeURIComponent("Atelier Paris Burger – photos Glovo")+"&body="+encodeURIComponent(t);}
+document.querySelectorAll(".fb").forEach(g=>g.querySelectorAll(".choice").forEach(b=>b.addEventListener("click",()=>{
+  const on=b.getAttribute("aria-checked")!=="true";
+  g.querySelectorAll(".choice").forEach(x=>x.setAttribute("aria-checked",x===b&&on?"true":"false"));upd();})));
+document.querySelectorAll(".fb input").forEach(i=>i.addEventListener("input",upd));
 msg.addEventListener("input",upd);
 document.getElementById("copy").addEventListener("click",async()=>{const o=document.getElementById("copied");try{await navigator.clipboard.writeText(text());o.textContent="Copié : colle-le dans ton message à Malik.";}catch(e){o.textContent=text();}});
 upd();
