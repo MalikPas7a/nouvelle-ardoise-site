@@ -208,6 +208,17 @@ textarea{width:100%;background:var(--panel);color:var(--fg);border:1px solid var
   </article>
   </div>
 
+  <section class="send" id="cover">
+    <h2>Image de couverture de ta page Glovo</h2>
+    <p class="lead" style="margin-bottom:14px">C'est la grande image en haut de ta page. Ton logo est déjà affiché à côté, dans le rond. Deux idées, choisis celle que tu préfères :</p>
+    <div class="fb" role="radiogroup" aria-label="Image de couverture">
+      <button type="button" class="choice" role="radio" aria-checked="false" data-v="A · Le trempage">A · Le trempage</button>
+      <button type="button" class="choice" role="radio" aria-checked="false" data-v="B · Toute la gamme">B · Toute la gamme</button>
+    </div>
+    <p class="note"><b>A · Le trempage</b> : très gros plan d'une moitié de burger plongée dans la sauce Café de Paris, au centre de l'image, sur le fond lie-de-vin. C'est ton geste signature, lisible même en petit.</p>
+    <p class="note"><b>B · Toute la gamme</b> : smash, burger et baguette côte à côte sur la même table, avec la sauce au milieu. On voit tout le menu d'un coup.</p>
+  </section>
+
   <section class="send">
     <h2>Ton retour à Malik</h2>
     <label for="msg">Remarque générale (décor, couleurs, cadrage…)</label>
@@ -228,6 +239,8 @@ function text(){
     const sel=it.querySelector('.choice[aria-checked="true"]');const note=it.querySelector("input").value.trim();
     if(sel||note) lines.push("• "+it.dataset.plat+" : "+(sel?sel.dataset.v:"")+(note?(sel?" – ":"")+note:""));
   });
+  const cv=document.querySelector('#cover .choice[aria-checked="true"]');
+  if(cv) lines.push("• Couverture : "+cv.dataset.v);
   const m=msg.value.trim();
   return "Atelier Paris Burger – photos Glovo, menu complet :\n"+(lines.length?lines.join("\n"):"• (aucun avis par plat)")+(m?"\n• Général : "+m:"");
 }
