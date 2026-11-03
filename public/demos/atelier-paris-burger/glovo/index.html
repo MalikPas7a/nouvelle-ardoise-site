@@ -43,6 +43,9 @@ textarea{width:100%;background:var(--panel);color:var(--fg);border:1px solid var
 .choice:focus-visible,.btn:focus-visible,textarea:focus-visible{outline:2px solid var(--or);outline-offset:2px}
 .note{font-size:12.5px;color:var(--muted);margin:8px 0 0}
 .grid{display:grid;gap:28px}
+.covs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:12px}
+.cov{margin:0}.cov img{width:100%;height:auto;display:block;border-radius:8px}
+.cov figcaption{font-size:13px;color:var(--muted);margin-top:6px}.cov b{color:var(--fg)}
 .cat{font-family:var(--display);color:var(--or);font-size:clamp(26px,3.5vw,34px);margin:18px 0 -14px;border-top:1px solid var(--line);padding-top:22px}
 .catd{margin:0 0 -8px;color:var(--muted);font-size:14px}
 .fb{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px}
@@ -208,15 +211,24 @@ textarea{width:100%;background:var(--panel);color:var(--fg);border:1px solid var
   </article>
   </div>
 
-  <section class="send" id="cover">
+  <section class="send" id="cover" style="max-width:none">
     <h2>Image de couverture de ta page Glovo</h2>
-    <p class="lead" style="margin-bottom:14px">C'est la grande image en haut de ta page. Ton logo est déjà affiché à côté, dans le rond. Deux idées, choisis celle que tu préfères :</p>
-    <div class="fb" role="radiogroup" aria-label="Image de couverture">
-      <button type="button" class="choice" role="radio" aria-checked="false" data-v="A · Le trempage">A · Le trempage</button>
-      <button type="button" class="choice" role="radio" aria-checked="false" data-v="B · Toute la gamme">B · Toute la gamme</button>
+    <p class="lead" style="margin-bottom:14px">C'est la grande image en haut de ta page ; ton logo est déjà affiché à côté, dans le rond. Trois propositions, toutes tirées des <b>vraies photos du shooting</b>, sans retouche IA.</p>
+    <div class="covs">
+    <figure class="cov">
+      <img src="img/v10/couverture-1.jpg?v=10" alt="Couverture 1 : Le trempage" loading="lazy" width="1600" height="889">
+      <figcaption><b>1 · Le trempage</b> Ta vraie photo : la coupe du burger posée dans la sauce Café de Paris. Le geste signature, en très gros plan.</figcaption>
+    </figure>
+    <figure class="cov">
+      <img src="img/v10/couverture-2.jpg?v=10" alt="Couverture 2 : Le smash sur la plaque" loading="lazy" width="1600" height="889">
+      <figcaption><b>2 · Le smash sur la plaque</b> Ta vraie photo : le smash qui sort de la plaque, cheddar fondu. Ça montre que tout est fait minute.</figcaption>
+    </figure>
+    <figure class="cov">
+      <img src="img/v10/couverture-3.jpg?v=10" alt="Couverture 3 : L’ouverture" loading="lazy" width="1600" height="889">
+      <figcaption><b>3 · L’ouverture</b> Ta vraie photo : les mains du chef qui ouvrent le burger coupé. Artisanal et généreux.</figcaption>
+    </figure>
     </div>
-    <p class="note"><b>A · Le trempage</b> : très gros plan d'une moitié de burger plongée dans la sauce Café de Paris, au centre de l'image, sur le fond lie-de-vin. C'est ton geste signature, lisible même en petit.</p>
-    <p class="note"><b>B · Toute la gamme</b> : smash, burger et baguette côte à côte sur la même table, avec la sauce au milieu. On voit tout le menu d'un coup.</p>
+    <div class="fb" role="radiogroup" aria-label="Image de couverture"><button type="button" class="choice" role="radio" aria-checked="false" data-v="1 · Le trempage">1 · Le trempage</button><button type="button" class="choice" role="radio" aria-checked="false" data-v="2 · Le smash sur la plaque">2 · Le smash sur la plaque</button><button type="button" class="choice" role="radio" aria-checked="false" data-v="3 · L’ouverture">3 · L’ouverture</button></div>
   </section>
 
   <section class="send">
