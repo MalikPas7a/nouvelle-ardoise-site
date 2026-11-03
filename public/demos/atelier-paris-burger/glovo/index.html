@@ -5,171 +5,98 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="logo-apb-monogramme-or.svg" type="image/svg+xml">
-<title>Configurateur Glovo Atelier Paris Burger</title>
-</head>
-<body style="margin:0">
-
+<title>Atelier Paris Burger · Photos Glovo</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;500;600&display=swap">
 <style>
-/* Layout: 3 étapes à gauche (choix), aperçu du visuel + vignette appli à droite ; une colonne sur mobile */
-:root{--bg:#24050D;--panel:#33091A;--fg:#F4EADF;--muted:#C9B4A2;--or:#D99125;--or-soft:rgba(217,145,37,.18);--line:rgba(217,145,37,.28);--display:"Cormorant Garamond",Georgia,serif;--ui:"Inter",system-ui,-apple-system,sans-serif;color-scheme:dark}
+/* Layout : en-tête, deux visuels (format Glovo + vignette), puis retour à Malik */
+:root{--bg:#2B0A14;--panel:#3A1220;--fg:#F4EADF;--muted:#CBB5A6;--or:#D99125;--line:rgba(217,145,37,.28);--display:"Cormorant Garamond",Georgia,serif;--ui:"Inter",system-ui,-apple-system,sans-serif;color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font-family:var(--ui);line-height:1.5}
-.wrap{max-width:1180px;margin:0 auto;padding-block:32px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px 24px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:24px}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--ui);line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding-block:32px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:24px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px 24px}
 h1{font-family:var(--display);color:var(--or);font-size:clamp(28px,4.5vw,42px);line-height:1.05;margin:0;text-wrap:balance}
 .by{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.by b{color:var(--fg);font-weight:600}
-.grid{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:28px;align-items:start}
-@media (max-width:860px){.grid{grid-template-columns:1fr}}
-.steps{display:grid;gap:22px}
-.step h2{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--or);margin:0 0 4px;font-weight:600}
-.step p.q{margin:0 0 10px;font-family:var(--display);font-size:22px;font-weight:600}
-.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.opts.two{grid-template-columns:repeat(2,1fr)}
-.opt{display:grid;gap:6px;padding:6px;background:var(--panel);border:1px solid transparent;border-radius:10px;color:var(--fg);font:500 13px var(--ui);cursor:pointer;text-align:left}
-.opt img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block}
-.opt span{padding:0 4px 4px}
-.opt[aria-checked="true"]{border-color:var(--or);background:var(--or-soft)}
-.opt:focus-visible{outline:2px solid var(--or);outline-offset:2px}
-.opt:disabled{opacity:.35;cursor:not-allowed}
-.note{font-size:12.5px;color:var(--muted);margin:8px 0 0}
-.preview{display:grid;gap:14px;min-width:0}
-.main{position:relative;border-radius:10px;overflow:hidden;background:var(--panel)}
-.main img{width:100%;aspect-ratio:2484/1380;object-fit:cover;display:block}
-.tag{position:absolute;left:12px;top:12px;background:rgba(36,5,13,.78);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px}
-.row{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:14px;align-items:start}
-@media (max-width:560px){.row{grid-template-columns:1fr}}
-.recap{background:var(--panel);border-radius:10px;padding:16px 18px;display:grid;gap:8px}
-.recap h3{margin:0;font-family:var(--display);font-size:22px}
-.recap .sel{font-weight:600;color:var(--or)}
-.recap .advice{font-size:13px;color:var(--muted);margin:0}
-.recap .advice.warn{color:#F0C07A}
-.tile{background:#fff;color:#1C1416;border-radius:16px;padding:12px;display:grid;grid-template-columns:1fr 84px;gap:10px;align-items:center}
-.tile b{display:block;font-size:14px}
-.tile small{display:block;font-size:11.5px;color:#6E6266;line-height:1.35;margin-top:2px}
-.tile img{width:84px;height:84px;object-fit:cover;border-radius:10px;display:block}
-.tilecap{font-size:11.5px;color:var(--muted);margin:6px 2px 0}
-.send{border-top:1px solid var(--line);padding-top:18px}
-.lbl{display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.by b{color:var(--fg)}
+.lead{max-width:65ch;color:var(--muted);margin:0 0 28px;font-size:15px}
+.lead b{color:var(--fg);font-weight:600}
+.item{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:14px;align-items:start;margin-bottom:28px}
+@media (max-width:640px){.item{grid-template-columns:1fr}}
+.item img{width:100%;height:auto;display:block;border-radius:8px}
+.side{display:grid;gap:8px}
+.side h2{margin:0;font-family:var(--display);font-size:24px}
+.side p{margin:0;font-size:13px;color:var(--muted)}
+.tile{background:#fff;color:#1C1416;border-radius:14px;padding:10px;display:grid;grid-template-columns:1fr 76px;gap:8px;align-items:center}
+.tile b{font-size:13px;display:block}
+.tile small{font-size:11px;color:#6E6266}
+.tile img{width:76px;height:76px;border-radius:9px;object-fit:cover}
+.cap{font-size:11.5px;color:var(--muted)}
+.send{border-top:1px solid var(--line);padding-top:22px;margin-top:8px;max-width:640px}
+.send h2{font-family:var(--display);font-size:26px;margin:0 0 10px}
+.choices{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.choice{padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--fg);font:500 14px var(--ui);cursor:pointer}
+.choice[aria-checked="true"]{border-color:var(--or);background:rgba(217,145,37,.18)}
+label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px}
 textarea{width:100%;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:10px;font:14px var(--ui);resize:vertical}
-textarea:focus-visible{outline:2px solid var(--or);outline-offset:1px}
-.sendbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .btn{display:inline-block;padding:11px 16px;border-radius:999px;border:1px solid var(--or);color:var(--fg);background:transparent;font:600 14px var(--ui);text-decoration:none;cursor:pointer}
-.btn.primary{background:var(--or);color:#24050D}
-.btn:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
-footer{margin-top:32px;border-top:1px solid var(--line);padding-top:14px;font-size:12px;color:var(--muted)}
+.btn.primary{background:var(--or);color:#2B0A14}
+.choice:focus-visible,.btn:focus-visible,textarea:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+.note{font-size:12.5px;color:var(--muted);margin:8px 0 0}
 </style>
-
+</head>
+<body>
 <div class="wrap">
   <header>
-    <h1>Atelier Paris Burger<br>Tes photos Glovo</h1>
+    <h1>Atelier Paris Burger<br>Photos Glovo · version 2</h1>
     <div class="by">Proposé par <b>Nouvelle Ardoise</b></div>
   </header>
+  <p class="lead">Cette fois, ce sont <b>tes vraies photos</b> : le burger, le cheddar et la sauce n'ont pas été retouchés par l'IA, seule la lumière a été légèrement corrigée. Seul le fond a été refait, en <b>rouge lie-de-vin foncé</b>, avec le logo doré.</p>
 
-  <div class="grid">
-    <div class="steps">
-      <section class="step">
-        <h2>Étape 1</h2>
-        <p class="q">Quel fond ?</p>
-        <div class="opts" role="radiogroup" aria-label="Fond" id="s-fond"></div>
-      </section>
-      <section class="step">
-        <h2>Étape 2</h2>
-        <p class="q">Coupé ou entier ?</p>
-        <div class="opts two" role="radiogroup" aria-label="Présentation" id="s-cut"></div>
-      </section>
-      <section class="step">
-        <h2>Étape 3</h2>
-        <p class="q">Quelle sauce ?</p>
-        <div class="opts two" role="radiogroup" aria-label="Sauce" id="s-sauce"></div>
-        <p class="note" id="sauce-note"></p>
-      </section>
-      <section class="step send">
-        <h2>Étape 4</h2>
-        <p class="q">Envoie ton choix à Malik</p>
-        <label for="msg" class="lbl">Un mot à ajouter (facultatif)</label>
-        <textarea id="msg" rows="2" placeholder="Ex. : on part là-dessus, mais plus de sauce"></textarea>
-        <div class="sendbtns">
-          <a id="wa" class="btn primary" href="#" target="_blank" rel="noopener">Envoyer par WhatsApp</a>
-          <a id="mail" class="btn" href="#">Envoyer par e-mail</a>
-          <button id="copy" type="button" class="btn">Copier mon choix</button>
-        </div>
-        <p class="note" id="copied" aria-live="polite"></p>
-      </section>
-    </div>
-
-    <div class="preview">
-      <div class="main"><img id="big" alt=""><span class="tag">Format Glovo 2484 × 1380</span></div>
-      <div class="row">
-        <div class="recap">
-          <h3>Ton choix</h3>
-          <div class="sel" id="sel"></div>
-          <p class="advice" id="advice"></p>
-        </div>
-        <div>
-          <div class="tile"><div><b>Smash classique</b><small>2 steaks smashés de 80 g, cheddar, sauce Café de Paris</small></div><img id="thumb" alt="Vignette dans l'appli"></div>
-          <p class="tilecap">Comme dans la liste de l'appli</p>
-        </div>
-      </div>
+  <div class="item">
+    <img src="img/v2-burger-coupe-sauce.jpg" alt="Burger coupé dans la sauce Café de Paris, fond lie-de-vin foncé">
+    <div class="side">
+      <h2>Coupé, dans la sauce</h2>
+      <p>Format Glovo 2484 × 1380.</p>
+      <div class="tile"><div><b>Burger classique</b><small>2 steaks, cheddar, sauce Café de Paris</small></div><img src="img/v2-burger-coupe-sauce-sq.jpg" alt=""></div>
+      <span class="cap">Vignette dans la liste de l'appli</span>
     </div>
   </div>
 
-  <footer>Exemple sur le smash classique. Le style choisi sera appliqué à tout le menu : burgers, smash, frites, baguette et desserts.</footer>
+  <div class="item">
+    <img src="img/v2-smash-entier.jpg" alt="Smash double entier, fond lie-de-vin foncé">
+    <div class="side">
+      <h2>Smash entier</h2>
+      <p>Format Glovo 2484 × 1380.</p>
+      <div class="tile"><div><b>Smash classique</b><small>2 steaks smashés, cheddar</small></div><img src="img/v2-smash-entier-sq.jpg" alt=""></div>
+      <span class="cap">Vignette dans la liste de l'appli</span>
+    </div>
+  </div>
+
+  <section class="send">
+    <h2>Ton avis à Malik</h2>
+    <div class="choices" role="radiogroup" aria-label="Ton avis">
+      <button type="button" class="choice" role="radio" aria-checked="true" data-v="Je valide ce style">Je valide ce style</button>
+      <button type="button" class="choice" role="radio" aria-checked="false" data-v="À corriger">À corriger</button>
+    </div>
+    <label for="msg">Ce que tu veux changer (couleur, cadrage, logo…)</label>
+    <textarea id="msg" rows="3" placeholder="Ex. : fond encore un peu plus foncé, logo plus petit"></textarea>
+    <div class="btns">
+      <a id="wa" class="btn primary" href="#" target="_blank" rel="noopener">Envoyer par WhatsApp</a>
+      <a id="mail" class="btn" href="#">Envoyer par e-mail</a>
+      <button id="copy" type="button" class="btn">Copier</button>
+    </div>
+    <p class="note" id="copied" aria-live="polite"></p>
+  </section>
 </div>
-
 <script>
-const S={fond:"marbre",cut:"coupe",sauce:"classique"};
-const FONDS=[["marbre","Marbre et velours"],["carrelage","Carrelage"],["boiseries","Boiseries dorées"]];
-const CUTS=[["coupe","Coupé, trempé dans la sauce"],["entier","Entier"]];
-const SAUCES=[["classique","Dans l'assiette"],["coulee","Coulée versée dessus"]];
-function file(){ if(S.cut==="coupe") return `${S.fond}-coupe`; return S.sauce==="coulee"?`${S.fond}-coulee`:`${S.fond}-entier`; }
-function opt(group,val,label,img,disabled){
-  const b=document.createElement("button");b.type="button";b.className="opt";b.setAttribute("role","radio");
-  b.setAttribute("aria-checked",S[group]===val?"true":"false");b.disabled=!!disabled;
-  b.innerHTML=`<img src="img/${img}-sq.jpg" alt=""><span>${label}</span>`;
-  b.onclick=()=>{S[group]=val;if(group==="cut"&&val==="coupe")S.sauce="classique";render();};
-  return b;
-}
-function render(){
-  const f=document.getElementById("s-fond");f.innerHTML="";
-  FONDS.forEach(([v,l])=>f.appendChild(opt("fond",v,l,`${v}-${S.cut==="coupe"?"coupe":"entier"}`)));
-  const c=document.getElementById("s-cut");c.innerHTML="";
-  CUTS.forEach(([v,l])=>c.appendChild(opt("cut",v,l,`${S.fond}-${v}`)));
-  const s=document.getElementById("s-sauce");s.innerHTML="";
-  SAUCES.forEach(([v,l])=>s.appendChild(opt("sauce",v,l,v==="coulee"?`${S.fond}-coulee`:`${S.fond}-${S.cut}`,S.cut==="coupe"&&v==="coulee")));
-  document.getElementById("sauce-note").textContent=S.cut==="coupe"?"La coulée se montre sur le burger entier. Avec le coupé, la sauce est déjà dans l'assiette.":"";
-  const n=file();
-  document.getElementById("big").src=`img/${n}.jpg`;
-  document.getElementById("big").alt=`Smash classique, ${n.replace(/-/g," ")}`;
-  document.getElementById("thumb").src=`img/${n}-sq.jpg`;
-  const lf=FONDS.find(x=>x[0]===S.fond)[1],lc=S.cut==="coupe"?"Coupé":"Entier",ls=S.cut==="coupe"?"Sauce dans l'assiette":(S.sauce==="coulee"?"Coulée de sauce":"Sauce dans l'assiette");
-  document.getElementById("sel").textContent=`${lf} · ${lc} · ${ls}`;
-  const a=document.getElementById("advice");
-  if(S.sauce==="coulee"&&S.cut==="entier"){a.className="advice warn";a.textContent="Très visuel, mais moins lisible en petite vignette Glovo. À garder plutôt pour la bannière et les réseaux.";}
-  else if(S.cut==="coupe"){a.className="advice";a.textContent="On voit l'intérieur, les steaks et le cheddar : c'est ce qui donne le plus envie dans l'appli.";}
-  else {a.className="advice";a.textContent="Net et lisible même en petit. Le classique de l'appli.";}
-  updateLinks();
-}
-function summary(){
-  const lf=FONDS.find(x=>x[0]===S.fond)[1],lc=S.cut==="coupe"?"Coupé, trempé dans la sauce":"Entier",ls=S.cut==="entier"&&S.sauce==="coulee"?"Coulée de sauce":"Sauce dans l'assiette";
-  const m=document.getElementById("msg").value.trim();
-  return `Atelier Paris Burger – mon choix pour les photos Glovo :\n• Fond : ${lf}\n• Burger : ${lc}\n• Sauce : ${ls}`+(m?`\n• Note : ${m}`:"");
-}
-function updateLinks(){
-  const t=summary();
-  document.getElementById("wa").href="https://wa.me/?text="+encodeURIComponent(t);
-  document.getElementById("mail").href="mailto:malik@pastamo.ch?subject="+encodeURIComponent("Atelier Paris Burger – mon choix photos Glovo")+"&body="+encodeURIComponent(t);
-}
-document.getElementById("msg").addEventListener("input",updateLinks);
-document.getElementById("copy").addEventListener("click",async()=>{
-  const out=document.getElementById("copied"),t=summary();
-  try{await navigator.clipboard.writeText(t);out.textContent="Choix copié : colle-le dans ton message à Malik (malik@pastamo.ch).";}
-  catch(e){out.textContent=t;}
-});
-render();
-["marbre","carrelage","boiseries"].forEach(f=>["coupe","entier","coulee"].forEach(v=>{[`${f}-${v}.jpg`,`${f}-${v}-sq.jpg`].forEach(n=>{const i=new Image();i.src=`img/${n}`;});}));
+let avis="Je valide ce style";
+const msg=document.getElementById("msg");
+function text(){const m=msg.value.trim();return `Atelier Paris Burger – photos Glovo version 2 :\n• ${avis}`+(m?`\n• ${m}`:"");}
+function upd(){const t=text();document.getElementById("wa").href="https://wa.me/?text="+encodeURIComponent(t);document.getElementById("mail").href="mailto:malik@pastamo.ch?subject="+encodeURIComponent("Atelier Paris Burger – photos Glovo v2")+"&body="+encodeURIComponent(t);}
+document.querySelectorAll(".choice").forEach(b=>b.addEventListener("click",()=>{avis=b.dataset.v;document.querySelectorAll(".choice").forEach(x=>x.setAttribute("aria-checked",x===b?"true":"false"));upd();}));
+msg.addEventListener("input",upd);
+document.getElementById("copy").addEventListener("click",async()=>{const o=document.getElementById("copied");try{await navigator.clipboard.writeText(text());o.textContent="Copié : colle-le dans ton message à Malik.";}catch(e){o.textContent=text();}});
+upd();
 </script>
-
 </body>
 </html>
