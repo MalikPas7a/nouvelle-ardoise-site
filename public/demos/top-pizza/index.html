@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#3e7a22">
+<title>Top Pizza × Nouvelle Ardoise · Audit et propositions</title>
+<meta name="description" content="Audit en ligne de Top Pizza (bd du Pont-d'Arve 51, Genève) et propositions : site, click and collect, carte de fidélité, fiche Google.">
+<link rel="icon" href="img/logo-top-pizza-180.png" type="image/png">
+<link rel="preload" href="fonts/lilita-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Lilita One";src:url(fonts/lilita-latin.woff2) format("woff2");font-display:swap}
+@font-face{font-family:Rubik;src:url(fonts/rubik-latin.woff2) format("woff2");font-weight:400 900;font-display:swap}
+:root{--creme:#fff7e8;--creme2:#fbeccc;--vert:#3e7a22;--vert2:#2c5a17;--rouge:#da3a2c;--rouge2:#b02a1e;--jaune:#f2c85a;--brun:#5a380e;--encre:#2a1a08;--gris:#6e5a40;--ligne:#ead8b4;--pad:clamp(18px,4.5vw,56px);--max:1120px;--ease:cubic-bezier(.2,.7,.2,1)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--creme);color:var(--encre);font:16px/1.55 Rubik,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}a{color:inherit}
+:focus-visible{outline:3px solid var(--vert);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+h1,h2,h3,.disp{font-family:"Lilita One",Rubik,sans-serif;font-weight:400;line-height:1.03;margin:0;text-wrap:balance}
+p{margin:0}
+.damier{height:14px;background:repeating-conic-gradient(var(--rouge) 0 25%,#fff 0 50%) 0 0/14px 14px}
+.kick{font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--rouge2)}
+h2{font-size:clamp(2.2rem,1.4rem + 3.4vw,3.8rem);color:var(--vert);margin-top:10px}
+.lead{color:var(--gris);font-size:1.06rem;max-width:40em;margin-top:14px}
+section{padding-block:clamp(56px,8vw,104px)}
+.src{font-size:12.5px;color:var(--gris);margin-top:10px}
+.src a{color:var(--gris)}
+/* entête */
+.top{background:var(--creme);border-bottom:2px solid var(--ligne)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px;font-size:14px}
+.top b{font-weight:700}.top span{color:var(--gris)}
+.top a.btn{min-height:44px;font-size:14px;padding:0 16px}
+/* héro */
+.hero{padding:34px 0 56px;text-align:center}
+.hero img.logo{width:min(220px,52vw);margin:0 auto}
+.hero h1{font-size:clamp(2.6rem,1.5rem + 5vw,5rem);color:var(--vert);margin:18px auto 0;max-width:13ch}
+.hero h1 em{font-style:normal;color:var(--rouge)}
+.hero .lead{margin:16px auto 0}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:34px}
+@media(min-width:820px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:#fff;border:3px solid var(--brun);border-radius:22px;padding:18px 14px;box-shadow:5px 5px 0 var(--vert)}
+.stat.bad{box-shadow:5px 5px 0 var(--rouge)}
+.stat b{display:block;font:400 clamp(44px,8vw,60px)/1 "Lilita One",sans-serif;color:var(--vert)}
+.stat.bad b{color:var(--rouge)}
+.stat span{display:block;font-size:14px;font-weight:600;margin-top:6px}
+.stat small{display:block;font-size:12px;color:var(--gris);margin-top:4px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:0 22px;border-radius:999px;font-weight:700;font-size:16px;text-decoration:none}
+.btn.r{background:var(--rouge);color:#fff;box-shadow:0 4px 0 var(--rouge2)}
+.btn.v{background:var(--vert);color:#fff;box-shadow:0 4px 0 var(--vert2)}
+.btn.o{border:2px solid var(--brun);background:#fff}
+.btn.y{background:var(--jaune);color:var(--encre);box-shadow:0 4px 0 var(--brun)}
+.btn:active{transform:translateY(3px)}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.hero .ctas{justify-content:center}
+/* forces */
+.forces{background:var(--vert);color:#fff}
+.forces h2{color:#fff}.forces .kick{color:var(--jaune)}.forces .lead{color:#dcefcf}
+.fgrid{display:grid;gap:12px;margin-top:30px}
+@media(min-width:760px){.fgrid{grid-template-columns:1fr 1fr}}
+.f{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.22);border-radius:20px;padding:18px}
+.f i{font-style:normal;flex:none;width:38px;height:38px;border-radius:50%;background:var(--jaune);color:var(--brun);display:grid;place-items:center;font-weight:800}
+.f b{display:block;font-size:17px}.f p{color:#dcefcf;font-size:14.5px;margin-top:3px}
+/* constats */
+.issues{display:grid;gap:14px;margin-top:30px}
+@media(min-width:860px){.issues{grid-template-columns:1fr 1fr}}
+.is{background:#fff;border:2px solid var(--ligne);border-radius:22px;padding:20px 20px 18px;border-top:8px solid var(--rouge)}
+.is .n{font:400 15px/1 "Lilita One",sans-serif;color:var(--rouge);letter-spacing:.02em}
+.is h3{font-size:clamp(1.5rem,1.2rem + 1vw,1.9rem);color:var(--encre);margin-top:8px}
+.is p{color:var(--gris);font-size:15px;margin-top:8px}
+.is .fix{display:block;margin-top:12px;font-weight:600;color:var(--vert2);font-size:14.5px}
+.is .fix::before{content:"→ "}
+/* concurrents */
+.comp{background:#fff;border-block:2px solid var(--ligne)}
+.tbl{margin-top:28px;border:2px solid var(--brun);border-radius:20px;overflow:hidden;background:var(--creme)}
+.row{display:grid;grid-template-columns:1.3fr .8fr 1.4fr;gap:10px;padding:14px 16px;border-top:2px dotted var(--ligne);align-items:center;font-size:14.5px}
+.row:first-child{border-top:0}
+.row.h{background:var(--brun);color:var(--creme);font-weight:700;font-size:13px;letter-spacing:.04em}
+.row.me{background:#eaf4e0}
+.row b{font-weight:700}.row small{display:block;color:var(--gris);font-size:12.5px}
+.row .g{font-weight:700;color:var(--vert2);white-space:nowrap}
+@media(max-width:560px){.row{grid-template-columns:1fr auto;}.row>:nth-child(3){grid-column:1/-1;color:var(--gris);font-size:13.5px}.row.h>:nth-child(3){display:none}}
+.verdict{margin-top:22px;font:400 clamp(1.5rem,1.2rem + 1.2vw,2.1rem)/1.15 "Lilita One",sans-serif;color:var(--rouge)}
+/* solutions */
+.sol{display:grid;gap:18px;margin-top:32px}
+@media(min-width:900px){.sol{grid-template-columns:1fr 1fr}}
+.s{background:#fff;border:3px solid var(--brun);border-radius:26px;padding:22px;box-shadow:6px 6px 0 var(--jaune);display:flex;flex-direction:column}
+.s .ic{font:400 40px/1 "Lilita One",sans-serif;color:var(--rouge)}
+.s h3{font-size:clamp(1.7rem,1.3rem + 1.4vw,2.3rem);color:var(--vert);margin-top:6px}
+.s p{color:var(--gris);margin-top:8px;font-size:15.5px}
+.s ul{margin:12px 0 0;padding-left:20px;color:var(--encre);font-size:15px}
+.s ul li{margin-top:5px}
+.s .btn{margin-top:auto;align-self:flex-start}
+.s .sp{flex:1;min-height:16px}
+/* maquette Google */
+.gwrap{display:grid;gap:28px;margin-top:32px;align-items:start}
+@media(min-width:900px){.gwrap{grid-template-columns:.9fr 1.1fr;gap:56px}}
+.gm{background:#fff;border-radius:22px;box-shadow:0 20px 50px -20px rgba(42,26,8,.35);overflow:hidden;font-family:Rubik,Arial,sans-serif;max-width:420px;width:100%;margin-inline:auto;border:1px solid #e5e0d6}
+.gm .ph{display:grid;grid-template-columns:2fr 1fr;gap:2px;height:170px;overflow:hidden}.gm .ph>img{height:170px}.gwrap>*{min-width:0}
+.gm .ph img{width:100%;height:100%;object-fit:cover}
+.gm .ph div{display:grid;grid-template-rows:1fr 1fr;gap:2px;min-width:0;height:170px}.gm .ph div img{height:100%;width:100%;min-height:0}
+.gm .bd{padding:16px}
+.gm h4{margin:0;font-size:22px;font-weight:500;color:#202124}
+.gm .r{font-size:14px;color:#5f6368;margin-top:4px}.gm .r b{color:#202124;font-weight:500}.gm .r .st{color:#f5a623}
+.gm .chips{display:flex;gap:8px;overflow:auto;margin:14px -16px 0;padding:0 16px 4px;scrollbar-width:none}
+.gm .chip{flex:none;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:12px;color:#1a73e8;min-width:62px}
+.gm .chip i{width:40px;height:40px;border-radius:50%;background:#e8f0fe;display:grid;place-items:center;font-style:normal;font-size:17px}
+.gm .chip.new i{background:#1a73e8;color:#fff}
+.gm .chip.new{font-weight:600}
+.gm .li{display:flex;gap:12px;padding:10px 0;border-top:1px solid #eee;font-size:14px;color:#3c4043;align-items:center}
+.gm .li i{font-style:normal;width:22px;text-align:center;color:#1a73e8}
+.gm .li .nw{margin-left:auto;font-size:11px;font-weight:700;background:#e6f4ea;color:#137333;border-radius:4px;padding:2px 6px}
+.gm .post{margin-top:12px;border:1px solid #eee;border-radius:12px;display:grid;grid-template-columns:76px 1fr;gap:10px;padding:8px;font-size:13px;color:#3c4043}
+.gm .post img{width:76px;height:76px;border-radius:8px;object-fit:cover}
+.gm .post b{display:block;color:#202124}
+.gcap{font-size:12.5px;color:var(--gris);text-align:center;margin-top:10px}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.checks li{display:flex;gap:12px;align-items:flex-start;font-size:15.5px}
+.checks li::before{content:"";flex:none;width:24px;height:24px;margin-top:1px;border-radius:50%;background:var(--vert) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/14px no-repeat}
+.checks li b{display:block}
+.checks li span{color:var(--gris);font-size:14px}
+/* plan */
+.plan{background:var(--rouge);color:#fff}
+.plan h2{color:#fff}.plan .kick{color:var(--jaune)}.plan .lead{color:#ffe3de}
+.weeks{display:grid;gap:12px;margin-top:30px}
+@media(min-width:860px){.weeks{grid-template-columns:repeat(4,1fr)}}
+.wk{background:#fff;color:var(--encre);border:3px solid var(--brun);border-radius:22px;padding:18px;box-shadow:5px 5px 0 var(--rouge2)}
+.wk b{font:400 16px/1 "Lilita One",sans-serif;color:var(--rouge)}
+.wk h3{font-size:22px;color:var(--vert);margin:8px 0 6px}
+.wk p{color:var(--gris);font-size:14.5px}
+/* offres */
+.offers{display:grid;gap:16px;margin-top:32px;align-items:stretch}
+@media(min-width:900px){.offers{grid-template-columns:repeat(3,1fr)}}
+.of{background:#fff;border:2px solid var(--ligne);border-radius:26px;padding:22px;display:flex;flex-direction:column;position:relative}
+.of.reco{border:3px solid var(--brun);box-shadow:7px 7px 0 var(--vert)}
+.of .badge{position:absolute;top:-14px;left:20px;background:var(--vert);color:#fff;font-weight:700;font-size:12.5px;border-radius:999px;padding:5px 12px;border:2px solid var(--brun)}
+.of h3{font-size:28px;color:var(--encre)}
+.of .pr{font:400 52px/1 "Lilita One",sans-serif;color:var(--rouge);margin-top:10px}
+.of .pr small{font:600 14px/1 Rubik,sans-serif;color:var(--gris);margin-left:4px}
+.of .for{color:var(--gris);font-size:14.5px;margin-top:6px}
+.of ul{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:9px;font-size:14.5px}
+.of li{display:flex;gap:10px}.of li::before{content:"✓";color:var(--vert);font-weight:800}
+.of li.plus{font-weight:700;color:var(--vert2)}.of li.plus::before{content:"+"}
+.monthly{margin-top:26px;background:var(--creme2);border:2px dashed var(--brun);border-radius:22px;padding:20px}
+.monthly h3{font-size:24px;color:var(--vert)}
+.mgrid{display:grid;gap:10px;margin-top:12px}
+@media(min-width:760px){.mgrid{grid-template-columns:repeat(3,1fr)}}
+.m{background:#fff;border-radius:16px;padding:14px;border:2px solid var(--ligne)}
+.m.reco{border-color:var(--vert)}
+.m b{font:400 24px/1 "Lilita One",sans-serif;color:var(--rouge)}
+.m span{display:block;font-weight:700;margin-top:4px}
+.m p{font-size:13.5px;color:var(--gris);margin-top:4px}
+.fine{font-size:13px;color:var(--gris);margin-top:14px}
+/* fin */
+.end{background:var(--encre);color:var(--creme);text-align:center}
+.end h2{color:var(--jaune)}
+.end .lead{color:#e3d6bb;margin-inline:auto}
+.end .ctas{justify-content:center}
+.end .who{margin-top:26px;font-size:14px;color:#cdbf9f}
+.end .who a{color:var(--jaune)}
+.rv-in{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rv-in.vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}.rv-in{opacity:1;transform:none}}
+@media(max-width:420px){.top span{display:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><p><b>Nouvelle Ardoise</b> <span>× Top Pizza</span></p><a class="btn v" href="site/">Voir la démo du site</a></div></header>
+<div class="damier" aria-hidden="true"></div>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <img class="logo" src="img/logo-top-pizza.webp" alt="Logo Top Pizza Fast Food" width="220" height="223">
+    <h1>Le comptoir est <em>au top</em>. Le téléphone pas encore.</h1>
+    <p class="lead">Audit fait le 5 novembre 2026 à partir de ce qu'un étudiant d'Uni Mail voit quand il cherche une pizza sur son téléphone. Puis ce qu'on peut mettre en place, concrètement.</p>
+    <div class="stats">
+      <div class="stat rv-in"><b>5,0</b><span>note Google</span><small>279 avis</small></div>
+      <div class="stat rv-in"><b>7.–</b><span>la Margherita 33 cm</span><small>le plus bas trouvé autour de vous</small></div>
+      <div class="stat bad rv-in"><b>0</b><span>site internet</span><small>Google affiche « Ajouter un site Web »</small></div>
+      <div class="stat bad rv-in"><b>0</b><span>commande en ligne</span><small>Uber Eats fermé depuis le 17.02.2026</small></div>
+    </div>
+    <div class="ctas"><a class="btn r" href="#constats">Lire l'audit</a><a class="btn o" href="site/">Essayer la démo</a></div>
+  </div>
+</section>
+
+<section class="forces">
+  <div class="wrap">
+    <span class="kick">Ce qui marche déjà</span>
+    <h2>Vous avez le plus dur&nbsp;: le goût et le prix.</h2>
+    <div class="fgrid">
+      <div class="f rv-in"><i>1</i><div><b>Une note parfaite : 5,0 sur 279 avis</b><p>Mieux que Pronto Pizza (4,9), Marcellina (4,8) ou Au 6 pizza (4,6), que Google propose à côté de vous.</p></div></div>
+      <div class="f rv-in"><i>2</i><div><b>Le prix le plus bas du quartier</b><p>Margherita 33 cm à 7.–, quinze pizzas à 10.– avec la boisson. Les avis le répètent : « 10 francs la pizza + la boisson ».</p></div></div>
+      <div class="f rv-in"><i>3</i><div><b>Vous répondez aux avis</b><p>Peu de restaurants le font. Google le voit, les clients aussi.</p></div></div>
+      <div class="f rv-in"><i>4</i><div><b>Une vraie identité</b><p>Logo, affiches, écran menu : tout est cohérent en vert, rouge et damier. On part de là, on ne change rien.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="constats">
+  <div class="wrap">
+    <span class="kick">Ce qui vous fait perdre des clients</span>
+    <h2>Six points à régler.</h2>
+    <p class="lead">Tout ce qui suit a été vérifié en ligne le 5 novembre 2026. Rien n'est inventé ; si un point est faux, on le corrige ensemble.</p>
+    <div class="issues">
+      <article class="is rv-in"><span class="n">01 · Site</span><h3>Pas de site internet</h3><p>Sur votre fiche Google, le champ site est vide (« Ajouter un site Web »). Un étudiant qui cherche « pizza Uni Mail » ne voit ni la carte complète, ni comment commander.</p><span class="fix">Un site rapide sur téléphone, avec la carte et la commande.</span></article>
+      <article class="is rv-in"><span class="n">02 · Commande</span><h3>Aucune commande en ligne</h3><p>Uber Eats indique votre page « fermée depuis le 17 février 2026 ». Aujourd'hui, il faut venir ou appeler. À midi, ceux qui voient la queue repartent.</p><span class="fix">Click &amp; collect avec TWINT : on commande en cours, on récupère à l'heure choisie.</span></article>
+      <article class="is rv-in"><span class="n">03 · Fidélité</span><h3>Rien pour faire revenir</h3><p>Juste à côté, A Table ! (bd du Pont-d'Arve 46) propose une carte fidélité digitale : « 10 pasta box = 1 offerte ». Ses clients ont une raison de revenir chez lui.</p><span class="fix">Votre carte dans Apple et Google Wallet : la 10<sup>e</sup> pizza offerte.</span></article>
+      <article class="is rv-in"><span class="n">04 · Infos</span><h3>Des informations contradictoires</h3><p>Yelp affiche encore « Leo's Ristorante Pizzeria » au 51 avec un autre numéro. Restaurant Guru indique samedi 18h-23h et dimanche 17h-23h, alors que votre affiche dit 7j/7, 11h-23h.</p><span class="fix">On corrige les fiches tierces et on aligne les horaires partout.</span></article>
+      <article class="is rv-in"><span class="n">05 · Prix</span><h3>7.– ou 10.–&nbsp;?</h3><p>L'affiche en vitrine annonce la Margherita à 7.–, l'écran et le menu sur Google à 10.– avec boisson. Le client ne sait pas ce qu'il va payer.</p><span class="fix">Deux offres claires, écrites pareil partout : en vitrine, en ligne, sur Google.</span></article>
+      <article class="is rv-in"><span class="n">06 · Réseaux</span><h3>Instagram à l'arrêt</h3><p>735 abonnés, dernière publication le 17 septembre 2026. TikTok fait mieux (917 abonnés, 6 355 j'aime). Facebook : 13 abonnés.</p><span class="fix">Un rythme simple : vos vraies pizzas, chaque semaine.</span></article>
+    </div>
+    <p class="src">Sources consultées le 5.11.2026 : Google Maps, Uber Eats, Yelp, Restaurant Guru, Instagram @toppizza.ge, TikTok, Facebook, a-table.ch.</p>
+  </div>
+</section>
+
+<section class="comp">
+  <div class="wrap">
+    <span class="kick">Autour de vous</span>
+    <h2>Meilleure note, plus petit prix.</h2>
+    <div class="tbl rv-in" role="table" aria-label="Comparaison avec les concurrents">
+      <div class="row h" role="row"><span role="columnheader">Adresse</span><span role="columnheader">Google</span><span role="columnheader">Ce qu'ils ont en plus</span></div>
+      <div class="row me" role="row"><span role="cell"><b>Top Pizza</b><small>Bd du Pont-d'Arve 51</small></span><span class="g" role="cell">5,0 · 279</span><span role="cell">Margherita 7.–, pizza + boisson 10.–</span></div>
+      <div class="row" role="row"><span role="cell"><b>A Table !</b><small>Bd du Pont-d'Arve 46, pâtes</small></span><span class="g" role="cell">—</span><span role="cell">Site, commande en ligne, carte fidélité digitale, menu étudiant 12.–</span></div>
+      <div class="row" role="row"><span role="cell"><b>Pizzaland 10</b><small>Rue de Carouge 73</small></span><span class="g" role="cell">Uber 3,7</span><span role="cell">Site, livraison, pizza + 1 L de thé froid à 10.–</span></div>
+      <div class="row" role="row"><span role="cell"><b>Pronto Pizza</b></span><span class="g" role="cell">4,9 · 103</span><span role="cell">Proposée par Google à côté de votre fiche</span></div>
+      <div class="row" role="row"><span role="cell"><b>Marcellina pizza &amp; cucina</b></span><span class="g" role="cell">4,8 · 217</span><span role="cell">Proposée par Google à côté de votre fiche</span></div>
+      <div class="row" role="row"><span role="cell"><b>Au 6 pizza</b></span><span class="g" role="cell">4,6 · 307</span><span role="cell">Plus d'avis que vous</span></div>
+    </div>
+    <p class="verdict rv-in">Vous gagnez sur la pizza. Ils gagnent sur le téléphone.</p>
+    <p class="src">Notes Google relevées le 5.11.2026 dans « Recherches associées » de votre fiche. Pizzaland 10 : Uber Eats et Color My Geneva (août 2025). A Table ! : a-table.ch.</p>
+  </div>
+</section>
+
+<section id="solutions">
+  <div class="wrap">
+    <span class="kick">Ce qu'on met en place</span>
+    <h2>Quatre outils, une seule identité&nbsp;: la vôtre.</h2>
+    <p class="lead">On utilise des outils qui existent et qui marchent déjà en Suisse (TWINT, Apple Wallet, Google), habillés à vos couleurs. Pas d'application à télécharger pour vos clients.</p>
+    <div class="sol">
+      <article class="s rv-in"><span class="ic">01</span><h3>Le site toppizza.ch</h3><p>Pensé pour le téléphone : la carte en photos, les horaires, l'itinéraire, les avis. Il se charge en un clin d'œil, même dans le tram.</p><span class="sp"></span><a class="btn v" href="site/">Voir le site</a></article>
+      <article class="s rv-in"><span class="ic">02</span><h3>Le click &amp; collect</h3><p>L'étudiant choisit sa pizza et son heure de passage, paie avec TWINT. Vous recevez le ticket, la pizza sort à l'heure. Moins de queue à midi, plus de commandes.</p><span class="sp"></span><a class="btn v" href="site/#carte">Essayer une commande</a></article>
+      <article class="s rv-in"><span class="ic">03</span><h3>La carte fidélité</h3><p>9 pizzas achetées, la 10<sup>e</sup> offerte. La carte vit dans le Wallet du téléphone, se tamponne en ligne ou au comptoir, et rappelle au client qu'une pizza l'attend.</p><span class="sp"></span><a class="btn v" href="site/#club">Voir la carte</a></article>
+      <article class="s rv-in"><span class="ic">04</span><h3>La fiche Google au maximum</h3><p>Votre fiche est déjà votre meilleure vendeuse. On y ajoute le site, le bouton « Commander », des photos pro et une actualité chaque semaine.</p><span class="sp"></span><a class="btn v" href="#google">Voir la fiche</a></article>
+    </div>
+  </div>
+</section>
+
+<section id="google" style="background:#fff;border-block:2px solid var(--ligne)">
+  <div class="wrap">
+    <span class="kick">Fiche Google optimisée</span>
+    <h2>La même fiche, avec tout ce qui fait commander.</h2>
+    <div class="gwrap">
+      <div class="rv-in">
+        <div class="gm" aria-label="Maquette de la fiche Google optimisée">
+          <div class="ph"><img src="img/pizzas-top-boites-sm.jpg" alt="Deux pizzas Top Roquette" width="350" height="467"><div><img src="img/four-pizzaiolo-sm.jpg" alt="Le pizzaiolo enfourne une pizza" width="175" height="233"><img src="img/pizza-top-prosciutto-sm.jpg" alt="Pizza Top Prosciutto" width="175" height="233"></div></div>
+          <div class="bd">
+            <h4>Top Pizza Fast Food</h4>
+            <p class="r"><b>5,0</b> <span class="st">★★★★★</span> (279) · 1–10 CHF<br>Pizzeria · Pizzas à emporter</p>
+            <div class="chips"><span class="chip"><i>➜</i>Itinéraire</span><span class="chip new"><i>🛍</i>Commander</span><span class="chip new"><i>🌐</i>Site Web</span><span class="chip"><i>✆</i>Appeler</span><span class="chip"><i>↗</i>Partager</span></div>
+            <div class="li"><i>⌖</i>Bd du Pont-d'Arve 51, en face d'Uni Mail</div>
+            <div class="li"><i>◷</i>Ouvert 7j/7 · 11h – 23h</div>
+            <div class="li"><i>🌐</i>toppizza.ch<span class="nw">NOUVEAU</span></div>
+            <div class="li"><i>🛍</i>Commander à emporter<span class="nw">NOUVEAU</span></div>
+            <div class="post"><img src="img/pizza-margherita-sm.jpg" alt="Pizza Margherita" width="76" height="76"><div><b>Cette semaine</b>Margherita 33 cm à 7.–, à commander en ligne et à récupérer sans attendre.</div></div>
+          </div>
+        </div>
+        <p class="gcap">Maquette. Photos de clients tirées de votre fiche actuelle.</p>
+      </div>
+      <ul class="checks rv-in">
+        <li><div><b>Lien du site et bouton « Commander »</b><span>Les deux champs sont vides aujourd'hui.</span></div></li>
+        <li><div><b>Catégories et description</b><span>« Pizzeria » en principal, « Pizzas à emporter » et « Fast-food » en plus, une description avec Uni Mail, Plainpalais et vos prix.</span></div></li>
+        <li><div><b>Photos professionnelles</b><span>Aujourd'hui, presque toutes viennent des clients. Une demi-journée de photographe suffit pour des mois.</span></div></li>
+        <li><div><b>Une actualité par semaine</b><span>Offre du moment, nouvelle pizza, horaires des fêtes. Google met en avant les fiches qui bougent.</span></div></li>
+        <li><div><b>Plus d'avis, sans rien demander de spécial</b><span>Un QR code au comptoir et dans la confirmation de commande.</span></div></li>
+        <li><div><b>Nettoyage des autres fiches</b><span>Yelp (ancien Leo's), Restaurant Guru, Facebook : mêmes horaires, même numéro.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="plan">
+  <div class="wrap">
+    <span class="kick">Le plan</span>
+    <h2>En ligne en quatre semaines.</h2>
+    <div class="weeks">
+      <div class="wk rv-in"><b>Semaine 1</b><h3>On corrige</h3><p>Fiche Google, horaires et fiches tierces. Shooting photo au comptoir, en dehors du rush.</p></div>
+      <div class="wk rv-in"><b>Semaine 2</b><h3>On construit</h3><p>Site, carte en photos, click &amp; collect et TWINT branchés. Vous validez chaque écran.</p></div>
+      <div class="wk rv-in"><b>Semaine 3</b><h3>On teste</h3><p>Commandes test avec vous, carte fidélité, QR codes et affiche comptoir.</p></div>
+      <div class="wk rv-in"><b>Semaine 4</b><h3>On lance</h3><p>Mise en ligne, posts et réels de lancement, annonce aux étudiants d'Uni Mail.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="offres">
+  <div class="wrap">
+    <span class="kick">Les offres</span>
+    <h2>Trois façons de démarrer.</h2>
+    <p class="lead">Prix de lancement uniques, en francs suisses. Aucun abonnement obligatoire.</p>
+    <div class="offers">
+      <article class="of rv-in"><h3>Essentiel</h3><p class="pr">990<small>CHF</small></p><p class="for">Être trouvé et bien présenté.</p>
+        <ul><li>Site toppizza.ch pour téléphone, FR et EN</li><li>Fiche Google optimisée, fiches tierces corrigées</li><li>Instagram&nbsp;: profil refait, 3 posts et 1 réel</li><li>Vérification technique avant la mise en ligne</li></ul></article>
+      <article class="of rv-in"><h3>Signature</h3><p class="pr">2 890<small>CHF</small></p><p class="for">Vendre en ligne et faire revenir.</p>
+        <ul><li class="plus">Tout l'Essentiel</li><li>Photographe une demi-journée, photos partout</li><li>Click &amp; collect avec TWINT</li><li>Carte fidélité Apple et Google Wallet</li><li>QR avis et commande au comptoir</li><li>Menu animé pour votre écran</li><li>2 réels et 2 posts de plus</li></ul></article>
+      <article class="of reco rv-in"><span class="badge">Recommandée</span><h3>Prestige</h3><p class="pr">4 590<small>CHF</small></p><p class="for">Devenir la pizza d'Uni Mail.</p>
+        <ul><li class="plus">Tout le Signature</li><li>Page commandes de groupe (associations, bureaux, événements)</li><li>Flyers et affiches avec QR pour l'université</li><li>Prospection&nbsp;: associations étudiantes et entreprises du quartier</li><li>Lancement&nbsp;: film, 2 réels et 2 posts de plus</li><li>Première campagne de pub ciblée étudiants</li></ul></article>
+    </div>
+    <div class="monthly rv-in">
+      <h3>Ensuite, si vous voulez qu'on s'en occupe chaque mois</h3>
+      <div class="mgrid">
+        <div class="m"><b>490.–</b><span>Présence</span><p>4 publications dont 1 réel, avis, maintenance du site, bilan mensuel.</p></div>
+        <div class="m"><b>990.–</b><span>Croissance</span><p>1 h de photographe, 4 posts, 2 réels, pub Meta, avis, maintenance, bilan.</p></div>
+        <div class="m reco"><b>1 490.–</b><span>Conquête · recommandée</span><p>Tout Croissance + prospection groupes et événements, fichier clients prêt à l'emploi, point mensuel. 3 mois minimum.</p></div>
+      </div>
+    </div>
+    <p class="fine">Hors devis, payés directement par vous : nom de domaine, impressions, outils de commande et de fidélité (environ 80 CHF par mois), budget publicitaire.</p>
+  </div>
+</section>
+
+<section class="end">
+  <div class="wrap">
+    <span class="kick" style="color:var(--jaune)">Prochaine étape</span>
+    <h2>Quinze minutes au comptoir, en dehors du rush.</h2>
+    <p class="lead">On vous montre la démo sur votre téléphone, vous nous dites ce qui vous parle, et on ajuste. Sans engagement.</p>
+    <div class="ctas"><a class="btn y" href="https://wa.me/41782133868?text=Bonjour%20Malik%2C%20c%27est%20Top%20Pizza">Écrire sur WhatsApp</a><a class="btn o" href="tel:+41782133868" style="background:transparent;color:var(--creme);border-color:var(--creme)">078 213 38 68</a></div>
+    <p class="who">Malik Younes · <a href="https://nouvelleardoise.ch">Nouvelle Ardoise</a>, agence de marketing et de communication pour la restauration.</p>
+  </div>
+</section>
+</main>
+<script>
+(()=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});document.querySelectorAll('.rv-in').forEach(el=>io.observe(el))})();
+</script>
+</body>
+</html>
