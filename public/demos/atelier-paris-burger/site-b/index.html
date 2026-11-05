@@ -10,15 +10,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="img/ouverture-l.webp" media="(min-width:901px)">
-<link rel="preload" as="image" href="img/entree-logo-m.webp" media="(max-width:900px)">
+<link rel="preload" as="image" href="img/scene/plateau-d.webp" media="(min-width:901px)">
+<link rel="preload" as="image" href="img/scene/plateau-m.webp" media="(max-width:900px)">
 <!--
   ARCHITECTURE (maquette statique, à porter dans le site final)
-  1. Ouverture (#ouverture)   : scène épinglée, caméra du monogramme vers l'assiette + bandeau nom de marque et Commander.
-  2. Nos maisons (#maisons)   : Genève (commande), Ibiza, Madrid. C'est ici que se branchent click & collect et Glovo.
-  3. La carte (#carte)        : défilé épinglé, une photo par plat (photos Glovo 4K du shooting, décor brasserie choisi par Tony).
+  1. La scène (#scene)        : socle bordeaux (décor Higgsfield) + monogramme ; nom et 3 villes, puis smash, burger, baguette
+                                viennent vers vous au défilement (vraies photos posées sur le socle, caméra animée par Kling, images lues dans un canvas).
+  2. Notre histoire (#histoire): défilement horizontal, archives en noir et blanc (domaine public / CC0, crédits sous chaque photo).
+  3. Nos maisons (#maisons)   : Genève (commande), Ibiza, Madrid. C'est ici que se branchent click & collect et Glovo.
   4. Burger offert (#offert)  : formulaire 200 burgers (à relier : Supabase + e-mail QR).
-  5. Notre histoire (#histoire): défilement horizontal, archives de Paris en noir et blanc (domaine public, crédits sous chaque photo).
   6. Fidélité + pied de page.
   Langues : FR dans le HTML, EN et ES dans le dictionnaire I18N en bas de page (attribut data-t). Choix gardé dans localStorage.
   Animations : coupées sous prefers-reduced-motion ; aucune bibliothèque.
@@ -70,28 +70,53 @@ p{margin:0}
 .langues button:hover{color:var(--on-dark)}
 .top .btn{min-height:42px;padding:0 18px}
 
-/* 1. Ouverture */
-.ouv{position:relative;height:210vh;background:#1a0709}
-.o-pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;overflow:hidden}
-.o-scene{position:relative;flex:1;overflow:hidden;background:#1a0709}
-.o-cam{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
-.o-cam img{width:100%;height:100%}
-.o-lum{position:absolute;top:0;height:100%;left:32.545%;width:34.909%;object-fit:fill;opacity:0;transition:opacity .9s ease;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.o-lum.on{opacity:1}
-.o-voile{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(16,5,7,.8) 0%,rgba(16,5,7,.35) 38%,rgba(16,5,7,0) 60%);opacity:0}
-.o-titre{position:absolute;left:0;right:0;top:calc(var(--head) + clamp(18px,5vh,56px));opacity:0;transform:translateY(16px);pointer-events:none;color:var(--on-dark)}
-.o-titre.on{pointer-events:auto}
-.o-titre h1{font-size:clamp(44px,6vw,96px);max-width:11ch;text-shadow:0 2px 24px rgba(0,0,0,.4)}
-.o-titre h1 em{font-style:normal;color:var(--or-clair)}
-.o-titre p{margin-top:14px;max-width:38ch;font-size:clamp(16px,1.25vw,19px);color:var(--on-dark)}
-.o-bande{position:relative;z-index:2;background:var(--cabsav);color:var(--on-dark);border-top:1px solid rgba(232,181,98,.35);padding:clamp(16px,2.4vh,26px) 0 calc(clamp(16px,2.4vh,26px) + env(safe-area-inset-bottom))}
-.o-bande .wrap{display:flex;align-items:center;gap:clamp(16px,3vw,40px);max-width:none}
-.o-nom{font-family:var(--serif);font-weight:600;font-size:clamp(34px,4.6vw,72px);line-height:.95;letter-spacing:.005em;color:var(--peach)}
-.o-villes{margin-top:6px;font-size:14px;letter-spacing:.08em;color:var(--or-clair)}
-.o-actions{display:flex;gap:10px;margin-left:auto}
-.o-hint{position:absolute;left:50%;bottom:18px;width:1px;height:28px;background:rgba(244,233,220,.3);overflow:hidden}
-.o-hint i{position:absolute;left:0;top:-28px;width:1px;height:28px;background:var(--or);animation:hint 1.8s var(--ease) infinite}
-@keyframes hint{to{transform:translateY(56px)}}
+/* 1. La scène : socle bordeaux, logo, villes, puis les plats viennent à vous */
+.scene{position:relative;height:880vh;background:#2a0a10}
+.s-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#2b0a11}
+.s-cv{position:absolute;inset:0;width:100%;height:100%;display:block}
+.s-scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(24,6,9,.78) 0%,rgba(24,6,9,.38) 26%,rgba(24,6,9,0) 44%);opacity:0}
+.s-intro{position:absolute;left:0;right:0;top:45%;z-index:2;text-align:center;color:var(--on-dark);will-change:opacity,transform}
+.s-nom{font-family:var(--serif);font-weight:600;font-size:clamp(46px,6.6vw,108px);line-height:.92;letter-spacing:.005em;color:var(--peach);text-shadow:0 2px 40px rgba(26,4,9,.55)}
+.s-nom span{display:inline-block}
+.s-sous{margin-top:14px;color:var(--on-dark-2);font-size:clamp(15px,1.15vw,18px)}
+.villes{list-style:none;padding:0;margin:clamp(22px,3.6vh,40px) 0 0;display:flex;justify-content:center;gap:12px}
+.ville{position:relative;display:flex;flex-direction:column;align-items:flex-start;width:clamp(158px,13.5vw,200px);padding:15px 16px 14px;border-radius:12px;text-decoration:none;text-align:left;color:var(--on-dark);background:rgba(40,8,15,.5);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 0 0 1px rgba(232,181,98,.3);overflow:hidden;transition:transform .45s var(--ease),box-shadow .45s var(--ease),background-color .45s var(--ease)}
+.ville::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,231,190,.16) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease);pointer-events:none}
+.ville:hover{transform:translateY(-5px);box-shadow:inset 0 0 0 1px rgba(232,181,98,.75),0 18px 40px -18px rgba(0,0,0,.6)}
+.ville:hover::after{transform:translateX(120%)}
+.ville:active{transform:translateY(-1px) scale(.98)}
+.v-n{font-family:var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--peach)}
+.v-e{margin-top:5px;font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--or-clair)}
+.v-a{margin-top:12px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:6px}
+.v-a i{font-style:normal;display:inline-block;transition:transform .35s var(--ease)}
+.ville:hover .v-a i{transform:translateX(5px)}
+.v-ge{background:var(--or);box-shadow:none;color:var(--woodsmoke)}
+.v-ge .v-n{color:var(--woodsmoke)}.v-ge .v-e{color:var(--cabsav)}
+.v-ge:hover{background:var(--or-clair);box-shadow:0 18px 40px -16px rgba(217,145,37,.6)}
+.js .s-intro .anim{opacity:0;transform:translateY(22px);filter:blur(6px)}
+.s-intro.vu .anim{opacity:1;transform:none;filter:none;transition:opacity .9s var(--ease) var(--d,0s),transform .9s var(--ease) var(--d,0s),filter .9s var(--ease) var(--d,0s)}
+.s-hint{position:absolute;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));z-index:2;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-dark-2)}
+.s-hint i{position:relative;width:1px;height:30px;background:rgba(244,233,220,.25);overflow:hidden}
+.s-hint i::after{content:"";position:absolute;left:0;top:-30px;width:1px;height:30px;background:var(--or);animation:hint 1.8s var(--ease) infinite}
+@keyframes hint{to{transform:translateY(60px)}}
+.s-plats{position:absolute;left:0;right:0;top:calc(var(--head) + clamp(18px,4.5vh,52px));z-index:2;color:var(--on-dark);pointer-events:none}
+.s-plats ol{list-style:none;margin:0;padding:0;display:grid}
+.s-plats li{grid-area:1/1;opacity:0;will-change:opacity,transform}
+.s-plats .num{font-size:13px;letter-spacing:.12em;color:var(--or-clair);font-variant-numeric:tabular-nums}
+.s-plats h2{margin-top:6px;font-size:clamp(54px,7.2vw,116px);color:var(--peach);text-shadow:0 2px 30px rgba(26,4,9,.5)}
+.s-plats p{margin-top:8px;max-width:34ch;font-size:clamp(16px,1.25vw,19px)}
+.s-plats .btn{margin-top:20px}
+.s-plats li.on{pointer-events:auto}
+.s-bar{position:absolute;z-index:2;left:var(--gutter);right:var(--gutter);bottom:calc(20px + env(safe-area-inset-bottom));height:2px;background:rgba(244,233,220,.16);opacity:0}
+.s-bar i{display:block;height:100%;width:0;background:var(--or)}
+.s-statique{display:none}
+/* Boutons : remplissage et flèche */
+.btn{position:relative;overflow:hidden;isolation:isolate}
+.btn::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(255,255,255,.18);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+.btn:hover::before{transform:scaleX(1)}
+.btn:active{transform:scale(.97)}
+.btn .fl{display:inline-block;transition:transform .35s var(--ease)}
+.btn:hover .fl{transform:translateX(4px)}
 
 /* 2. Nos maisons */
 .maisons{background:var(--peach);padding:clamp(64px,9vw,120px) 0}
@@ -113,24 +138,7 @@ p{margin:0}
 .m-geneve dd{color:var(--on-dark)}
 .m-geneve .btn-ghost{box-shadow:inset 0 0 0 1.5px rgba(244,233,220,.5)}
 
-/* 3. La carte : défilé */
-.carte{position:relative;height:330vh;background:#14090a}
-.c-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-.c-scene{position:absolute;inset:0}
-.c-scene figure{position:absolute;inset:0;margin:0;opacity:0;will-change:opacity,transform}
-.c-scene figure:first-child{opacity:1}
-.c-scene img{width:100%;height:100%;object-fit:cover;object-position:50% 62%}
-.c-scene::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,5,5,.86) 0%,rgba(12,5,5,.45) 30%,rgba(12,5,5,0) 50%);pointer-events:none}
-.c-txt{position:absolute;left:0;right:0;top:calc(var(--head) + clamp(18px,4vh,48px));color:var(--on-dark);z-index:2}
-.c-num{font-size:13px;letter-spacing:.1em;color:var(--or-clair);font-variant-numeric:tabular-nums}
-.c-noms{list-style:none;margin:8px 0 0;padding:0;display:grid}
-.c-noms li{grid-area:1/1;opacity:0;transform:translateY(14px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
-.c-noms li.on{opacity:1;transform:none}
-.c-noms h2{font-size:clamp(52px,7vw,112px);color:var(--peach)}
-.c-noms p{margin-top:10px;max-width:36ch;font-size:clamp(16px,1.25vw,19px);color:var(--on-dark)}
-.c-txt .btn{margin-top:22px}
-.c-bar{position:absolute;z-index:2;left:var(--gutter);right:var(--gutter);bottom:calc(22px + env(safe-area-inset-bottom));height:2px;background:rgba(244,233,220,.2)}
-.c-bar i{display:block;height:100%;width:0;background:var(--or)}
+
 
 /* 4. Burger offert */
 .offert{background:var(--cabsav);color:var(--on-dark)}
@@ -209,19 +217,18 @@ p{margin:0}
   :root{--head:58px}
   .nav,.top .btn{display:none}
   .langues{margin-left:auto}
-  .ouv{height:200vh}
-  .o-bande .wrap{flex-direction:column;align-items:stretch;gap:14px}
-  .o-nom{font-size:clamp(34px,10vw,46px)}
-  .o-actions{margin-left:0}
-  .o-actions .btn{flex:1;padding:0 14px}
-  .o-titre h1{font-size:clamp(42px,12vw,60px)}
-  .o-hint{display:none}
+  .scene{height:760vh}
+  .s-intro{top:auto;bottom:calc(84px + env(safe-area-inset-bottom))}
+  .s-nom{font-size:clamp(40px,11.5vw,54px)}
+  .s-sous{font-size:14.5px;margin-top:10px;padding:0 12px}
+  .villes{gap:8px;padding:0 12px;margin-top:18px}
+  .ville{flex:1;width:auto;padding:12px 11px 11px;border-radius:10px}
+  .v-n{font-size:22px}.v-e{font-size:10px;letter-spacing:.06em}.v-a{font-size:12.5px;margin-top:8px}
+  .s-hint{bottom:calc(16px + env(safe-area-inset-bottom))}
+  .s-plats{top:auto;bottom:calc(96px + env(safe-area-inset-bottom))}
+  .s-plats h2{font-size:clamp(46px,13vw,60px)}
+  .s-plats .btn{display:none}
   .m-grille{grid-template-columns:1fr}
-  .carte{height:300vh}
-  .c-scene{top:auto;height:58svh;bottom:0}
-  .c-scene::after{background:linear-gradient(180deg,#14090a 0%,rgba(20,9,10,0) 22%)}
-  .c-scene img{object-position:50% 60%}
-  .c-txt .btn{display:none}
   .offert .wrap{grid-template-columns:1fr}
   .h-pan{grid-template-columns:1fr;align-items:start}
   .h-pan figure{height:46svh}
@@ -233,18 +240,14 @@ p{margin:0}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .ouv,.carte{height:auto}
-  .o-pin{position:relative;height:auto}
-  .o-scene{height:70svh;flex:none}
-  .o-titre{position:relative;top:0;opacity:1;transform:none;padding:24px 0;background:var(--cabsav)}
-  .o-voile,.o-hint,.o-lum{display:none}
-  .c-pin{position:relative;height:auto}
-  .c-scene{position:relative;inset:auto;height:auto;display:grid;gap:4px}
-  .c-scene figure{position:relative;opacity:1;aspect-ratio:3/2}
-  .c-scene::after{display:none}
-  .c-txt{position:relative;top:0;padding:32px 0}
-  .c-noms li{grid-area:auto;opacity:1;transform:none;margin-bottom:18px}
-  .c-num,.c-bar{display:none}
+  .scene{height:auto}
+  .s-pin{position:relative;height:auto;background:#2b0a11}
+  .s-cv,.s-plats,.s-bar,.s-hint,.s-scrim{display:none}
+  .s-intro{position:relative;top:auto;bottom:auto;padding:calc(var(--head) + 48px) 0 40px;background:url(img/scene/plateau-d.webp) center/cover}
+  .js .s-intro .anim{opacity:1;transform:none;filter:none}
+  .s-statique{display:grid;gap:4px;margin:0;padding:0;list-style:none}
+  .s-statique img{width:100%;height:auto}
+  .btn::before,.ville::after{display:none}
   .h-pin{position:relative;height:auto;padding:64px 0}
   .h-piste{flex-direction:column;align-items:stretch}
   .h-pan{grid-template-columns:1fr}
@@ -256,7 +259,7 @@ p{margin:0}
 <body>
 <header class="top" id="top">
   <div class="wrap">
-    <a class="marque" href="#ouverture"><img src="img/monogramme-or.svg" alt="" width="34" height="34"><span>Atelier Paris Burger</span></a>
+    <a class="marque" href="#scene"><img src="img/monogramme-or.svg" alt="" width="34" height="34"><span>Atelier Paris Burger</span></a>
     <nav class="nav" aria-label="Navigation principale">
       <a href="#maisons" data-t="nav.maisons">Nos maisons</a>
       <a href="#carte" data-t="nav.carte">La carte</a>
@@ -272,121 +275,45 @@ p{margin:0}
 </header>
 
 <main>
-  <!-- 1. OUVERTURE -->
-  <section class="ouv" id="ouverture" aria-label="Atelier Paris Burger">
-    <div class="o-pin">
-      <div class="o-scene">
-        <div class="o-cam">
-          <picture>
-            <source media="(max-width:900px)" srcset="img/entree-logo-m.webp" width="1100" height="1971">
-            <img src="img/ouverture-l.webp" width="2560" height="1601" alt="Le monogramme doré d'Atelier Paris Burger sur une boiserie bordeaux ; devant, le smash burger coupé posé dans la sauce Café de Paris" data-t-alt="alt.ouverture">
-          </picture>
-          <!-- Lumière sur le monogramme : vraie image animée, l'assiette reste la photo d'origine. Coupée sous « réduire les animations ». -->
-          <video class="o-lum" muted loop playsinline preload="none" aria-hidden="true" data-d="video/entree-lumiere.mp4" data-m="video/entree-lumiere-m.mp4"></video>
-        </div>
-        <div class="o-voile" aria-hidden="true"></div>
-        <div class="o-titre wrap">
-          <h1 data-t="o.titre">Coupé. Posé <em>dans la sauce.</em></h1>
-          <p data-t="o.lead">Le smash burger servi dans la sauce Café de Paris, une recette travaillée à Paris depuis le début des années 1980.</p>
-        </div>
-        <div class="o-hint" aria-hidden="true"><i></i></div>
+  <!-- 1. LA SCÈNE : un socle bordeaux (décor créé dans Higgsfield), le monogramme au mur.
+       D'abord le nom et les trois villes, puis au défilement chaque plat vient vers vous.
+       Les plats sont les vraies photos du shooting posées sur le socle ; la vidéo (Kling) ne fait qu'avancer la caméra.
+       Images : img/scene/<plat>-d (ordinateur, 16:9) et <plat>-m (téléphone, carré), 61 images chacune. -->
+  <section class="scene" id="scene" aria-label="Atelier Paris Burger, la carte">
+    <div class="s-pin">
+      <canvas class="s-cv" aria-hidden="true"></canvas>
+      <div class="s-scrim" aria-hidden="true"></div>
+      <div class="s-intro wrap" id="accueil">
+        <h1 class="s-nom"><span class="anim" style="--d:.15s">Atelier</span> <span class="anim" style="--d:.27s">Paris</span> <span class="anim" style="--d:.39s">Burger</span></h1>
+        <p class="s-sous anim" style="--d:.55s" data-t="s.sous">La sauce Café de Paris, travaillée à Paris depuis le début des années 1980.</p>
+        <ul class="villes" id="villes">
+          <li class="anim" style="--d:.7s"><a class="ville v-ge" href="#maisons"><span class="v-n">Genève</span><span class="v-e" data-t="v.ge.e">Dès le 27.11</span><span class="v-a"><span data-t="v.ge.a">Commander</span> <i>→</i></span></a></li>
+          <li class="anim" style="--d:.82s"><a class="ville" href="#maisons"><span class="v-n">Ibiza</span><span class="v-e" data-t="v.ib.e">Au port</span><span class="v-a"><span data-t="v.ib.a">Y aller</span> <i>→</i></span></a></li>
+          <li class="anim" style="--d:.94s"><a class="ville" href="#maisons"><span class="v-n">Madrid</span><span class="v-e" data-t="v.ma.e">En livraison</span><span class="v-a"><span data-t="v.ma.a">Sur Glovo</span> <i>→</i></span></a></li>
+        </ul>
       </div>
-      <div class="o-bande">
-        <div class="wrap">
-          <div>
-            <p class="o-nom">Atelier Paris Burger</p>
-            <p class="o-villes">GENÈVE · IBIZA · MADRID</p>
-          </div>
-          <div class="o-actions">
-            <a class="btn btn-or" href="#maisons" data-t="cta.commanderGe">Commander à Genève</a>
-            <a class="btn btn-ghost" href="#offert" data-t="cta.offert">Mon burger offert</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 2. NOS MAISONS -->
-  <section class="maisons" id="maisons">
-    <div class="wrap">
-      <h2 class="sec-t" data-t="m.titre">Nos maisons</h2>
-      <p class="sec-i" data-t="m.intro">Trois villes, une seule sauce. Choisissez la vôtre.</p>
-      <div class="m-grille">
-        <article class="m m-geneve">
-          <h3>Genève</h3>
-          <p class="etat" data-t="m.ge.etat">Ouverture le 27 novembre</p>
-          <p data-t="m.ge.txt">APB du Lac. Commandez en ligne et passez prendre votre burger, ou installez-vous.</p>
-          <dl>
-            <dt data-t="m.adresse">Adresse</dt><dd data-t="m.ge.adr">Au bord du lac (adresse exacte à confirmer)</dd>
-            <dt data-t="m.horaires">Horaires</dt><dd data-t="m.aconf">À confirmer</dd>
-          </dl>
-          <div class="acts">
-            <a class="btn btn-or" href="#" aria-disabled="true" data-t="m.ge.cc">Click &amp; collect, dès le 27.11</a>
-            <a class="btn btn-ghost" href="#offert" data-t="cta.offert">Mon burger offert</a>
-          </div>
-        </article>
-        <article class="m">
-          <h3>Ibiza</h3>
-          <p class="etat" data-t="m.ib.etat">Au port</p>
-          <p data-t="m.ib.txt">Aujourd'hui, le Patron, d'origine phénicio-libanaise, revient à ses origines et ouvre son premier restaurant en Espagne, sur l'île d'Ibiza.</p>
-          <dl>
-            <dt data-t="m.adresse">Adresse</dt><dd>Carrer Barcelona, esquina Soler 7</dd>
-          </dl>
-          <div class="acts"><a class="btn btn-line" href="https://maps.google.com/?q=Carrer+Barcelona+Soler+7+Ibiza" target="_blank" rel="noopener" data-t="m.itin">Itinéraire</a></div>
-        </article>
-        <article class="m">
-          <h3>Madrid</h3>
-          <p class="etat" data-t="m.ma.etat">En livraison</p>
-          <p data-t="m.ma.txt">La carte d'Atelier Paris Burger, livrée chez vous.</p>
-          <div class="acts"><a class="btn btn-line" href="#" aria-disabled="true" data-t="m.ma.glovo">Commander sur Glovo</a></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3. LA CARTE : une photo par plat, même table ; au défilement le plat change.
-       Pour ajouter un plat : un <figure> dans .c-scene et un <li> dans .c-noms, dans le même ordre. -->
-  <section class="carte" id="carte" aria-label="La carte">
-    <div class="c-pin">
-      <div class="c-scene">
-        <figure><picture><source media="(max-width:900px)" srcset="img/defile-smash-m.webp"><img src="img/defile-smash.webp" width="2400" height="1610" alt="Smash burger coupé, posé dans la sauce Café de Paris, frites de chaque côté" loading="lazy"></picture></figure>
-        <figure><picture><source media="(max-width:900px)" srcset="img/defile-burger-m.webp"><img src="img/defile-burger.webp" width="2400" height="1610" alt="Burger au steak épais rosé, coupé et posé dans la sauce Café de Paris" loading="lazy"></picture></figure>
-        <figure><picture><source media="(max-width:900px)" srcset="img/defile-baguette-m.webp"><img src="img/defile-baguette.webp" width="2400" height="1610" alt="La baguette garnie de bœuf, de frites et de sauce Café de Paris" loading="lazy"></picture></figure>
-      </div>
-      <div class="c-txt wrap">
-        <p class="c-num" aria-hidden="true"><b>01</b> / 03</p>
-        <ol class="c-noms">
-          <li class="on"><h2 data-t="c.1.t">Le smash.</h2><p data-t="c.1.p">Simple, double ou triple. Bœuf smashé, cheddar, posé dans la sauce.</p></li>
-          <li><h2 data-t="c.2.t">Le burger.</h2><p data-t="c.2.p">Un steak épais, cuit rosé, posé dans la sauce.</p></li>
-          <li><h2 data-t="c.3.t">La baguette.</h2><p data-t="c.3.p">Croustillante, tartinée de sauce Café de Paris.</p></li>
+      <div class="s-hint" aria-hidden="true"><span data-t="s.hint">La carte</span><i></i></div>
+      <div class="s-plats wrap" id="carte">
+        <ol>
+          <li><p class="num">01 / 03</p><h2 data-t="c.1.t">Le smash.</h2><p data-t="c.1.p">Simple, double ou triple. Bœuf smashé, cheddar, posé dans la sauce.</p><a class="btn btn-or" href="#maisons"><span data-t="cta.commanderGe">Commander à Genève</span> <span class="fl">→</span></a></li>
+          <li><p class="num">02 / 03</p><h2 data-t="c.2.t">Le burger.</h2><p data-t="c.2.p">Un steak épais, cuit rosé, posé dans la sauce.</p><a class="btn btn-or" href="#maisons"><span data-t="cta.commanderGe">Commander à Genève</span> <span class="fl">→</span></a></li>
+          <li><p class="num">03 / 03</p><h2 data-t="c.3.t">La baguette.</h2><p data-t="c.3.p">Croustillante, tartinée de sauce Café de Paris.</p><a class="btn btn-or" href="#maisons"><span data-t="cta.commanderGe">Commander à Genève</span> <span class="fl">→</span></a></li>
         </ol>
-        <a class="btn btn-or" href="#maisons" data-t="cta.commanderGe">Commander à Genève</a>
       </div>
-      <div class="c-bar" aria-hidden="true"><i></i></div>
+      <div class="s-bar" aria-hidden="true"><i></i></div>
+      <ul class="s-statique">
+        <li><img src="img/scene/smash.webp" width="1600" height="893" alt="Le smash burger coupé, posé dans la sauce Café de Paris, sur un socle bordeaux" loading="lazy"></li>
+        <li><img src="img/scene/burger.webp" width="1600" height="893" alt="Le burger au steak épais rosé, posé dans la sauce Café de Paris" loading="lazy"></li>
+        <li><img src="img/scene/baguette.webp" width="1600" height="893" alt="La baguette tartinée de sauce Café de Paris, avec ses frites" loading="lazy"></li>
+      </ul>
     </div>
   </section>
 
-  <!-- 4. BURGER OFFERT -->
-  <section class="offert" id="offert">
-    <div class="wrap">
-      <div>
-        <h2 data-t="o2.titre">Votre premier burger, <span>offert.</span></h2>
-        <p data-t="o2.txt">Le 27 novembre, à Genève, nous offrons 200 burgers. Réservez le vôtre et choisissez votre heure : un QR code arrive par e-mail.</p>
-        <div class="compteur"><b>200</b><span data-t="o2.reste">burgers encore disponibles</span></div>
-      </div>
-      <form class="form" onsubmit="event.preventDefault()">
-        <h3 data-t="f.titre">Réserver mon burger</h3>
-        <label><span data-t="f.prenom">Prénom</span><input name="prenom" autocomplete="given-name" required></label>
-        <label><span data-t="f.email">E-mail</span><input name="email" type="email" autocomplete="email" required></label>
-        <label><span data-t="f.tel">Téléphone</span><input name="tel" type="tel" autocomplete="tel" required></label>
-        <label><span data-t="f.heure">Heure de passage</span>
-          <select name="creneau"><option>11h30 – 12h30</option><option>12h30 – 13h30</option><option>18h30 – 19h30</option><option>19h30 – 20h30</option></select>
-        </label>
-        <button class="btn btn-main" type="submit" data-t="f.ok">Réserver</button>
-        <small data-t="f.note">Un burger par personne. Maquette : formulaire non relié.</small>
-      </form>
-    </div>
-  </section>
+
+
+
+
+
 
   <!-- 5. NOTRE HISTOIRE : défilement horizontal. Photos d'archives du domaine public (Wikimedia Commons), jamais présentées comme le restaurant. -->
   <section class="histoire" id="histoire" aria-label="Notre histoire">
@@ -431,6 +358,66 @@ p{margin:0}
     </div>
   </section>
 
+  <!-- 2. NOS MAISONS -->
+  <section class="maisons" id="maisons">
+    <div class="wrap">
+      <h2 class="sec-t" data-t="m.titre">Nos maisons</h2>
+      <p class="sec-i" data-t="m.intro">Trois villes, une seule sauce. Choisissez la vôtre.</p>
+      <div class="m-grille">
+        <article class="m m-geneve">
+          <h3>Genève</h3>
+          <p class="etat" data-t="m.ge.etat">Ouverture le 27 novembre</p>
+          <p data-t="m.ge.txt">APB du Lac. Commandez en ligne et passez prendre votre burger, ou installez-vous.</p>
+          <dl>
+            <dt data-t="m.adresse">Adresse</dt><dd data-t="m.ge.adr">Au bord du lac (adresse exacte à confirmer)</dd>
+            <dt data-t="m.horaires">Horaires</dt><dd data-t="m.aconf">À confirmer</dd>
+          </dl>
+          <div class="acts">
+            <a class="btn btn-or" href="#" aria-disabled="true" data-t="m.ge.cc">Click &amp; collect, dès le 27.11</a>
+            <a class="btn btn-ghost" href="#offert" data-t="cta.offert">Mon burger offert</a>
+          </div>
+        </article>
+        <article class="m">
+          <h3>Ibiza</h3>
+          <p class="etat" data-t="m.ib.etat">Au port</p>
+          <p data-t="m.ib.txt">Aujourd'hui, le Patron, d'origine phénicio-libanaise, revient à ses origines et ouvre son premier restaurant en Espagne, sur l'île d'Ibiza.</p>
+          <dl>
+            <dt data-t="m.adresse">Adresse</dt><dd>Carrer Barcelona, esquina Soler 7</dd>
+          </dl>
+          <div class="acts"><a class="btn btn-line" href="https://maps.google.com/?q=Carrer+Barcelona+Soler+7+Ibiza" target="_blank" rel="noopener" data-t="m.itin">Itinéraire</a></div>
+        </article>
+        <article class="m">
+          <h3>Madrid</h3>
+          <p class="etat" data-t="m.ma.etat">En livraison</p>
+          <p data-t="m.ma.txt">La carte d'Atelier Paris Burger, livrée chez vous.</p>
+          <div class="acts"><a class="btn btn-line" href="#" aria-disabled="true" data-t="m.ma.glovo">Commander sur Glovo</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. BURGER OFFERT -->
+  <section class="offert" id="offert">
+    <div class="wrap">
+      <div>
+        <h2 data-t="o2.titre">Votre premier burger, <span>offert.</span></h2>
+        <p data-t="o2.txt">Le 27 novembre, à Genève, nous offrons 200 burgers. Réservez le vôtre et choisissez votre heure : un QR code arrive par e-mail.</p>
+        <div class="compteur"><b>200</b><span data-t="o2.reste">burgers encore disponibles</span></div>
+      </div>
+      <form class="form" onsubmit="event.preventDefault()">
+        <h3 data-t="f.titre">Réserver mon burger</h3>
+        <label><span data-t="f.prenom">Prénom</span><input name="prenom" autocomplete="given-name" required></label>
+        <label><span data-t="f.email">E-mail</span><input name="email" type="email" autocomplete="email" required></label>
+        <label><span data-t="f.tel">Téléphone</span><input name="tel" type="tel" autocomplete="tel" required></label>
+        <label><span data-t="f.heure">Heure de passage</span>
+          <select name="creneau"><option>11h30 – 12h30</option><option>12h30 – 13h30</option><option>18h30 – 19h30</option><option>19h30 – 20h30</option></select>
+        </label>
+        <button class="btn btn-main" type="submit" data-t="f.ok">Réserver</button>
+        <small data-t="f.note">Un burger par personne. Maquette : formulaire non relié.</small>
+      </form>
+    </div>
+  </section>
+
   <!-- 6. FIDÉLITÉ -->
   <section class="fid">
     <div class="wrap">
@@ -442,7 +429,7 @@ p{margin:0}
 
 <footer class="pied">
   <div class="wrap">
-    <a class="marque" href="#ouverture"><img src="img/monogramme-or.svg" alt="" width="34" height="34"><span>Atelier Paris Burger</span></a>
+    <a class="marque" href="#scene"><img src="img/monogramme-or.svg" alt="" width="34" height="34"><span>Atelier Paris Burger</span></a>
     <p class="slogan" data-t="h.slogan">« Inspirée par la tradition, élevée à l'excellence depuis plus de quarante ans. »</p>
     <nav aria-label="Pied de page"><a href="#">Instagram</a><a href="#" data-t="p.mentions">Mentions légales</a><a href="#" data-t="p.conf">Confidentialité</a></nav>
     <small data-t="p.credits">Photos d'archives : Eugène Atget et anonyme, domaine public, via Wikimedia Commons.</small>
@@ -477,50 +464,56 @@ var SCENES=[];
   window.addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(run)}},{passive:true});
   window.addEventListener('resize',run);window.addEventListener('load',run);})();
 
-/* En-tête : se remplit après l'ouverture */
-(function(){var top=document.getElementById('top'),o=document.getElementById('ouverture');
-  SCENES.push(function(){top.classList.toggle('plein',o.getBoundingClientRect().bottom<window.innerHeight*.5||window.innerWidth<=900&&window.scrollY>20)});})();
+/* En-tête : se remplit quand on quitte la scène */
+(function(){var top=document.getElementById('top'),o=document.getElementById('scene');
+  SCENES.push(function(){top.classList.toggle('plein',o.getBoundingClientRect().bottom<window.innerHeight*.5)});})();
 
-/* 1. Ouverture : la caméra part de toute la boiserie et entre jusqu'à l'assiette */
+/* 1. La scène : le nom et les villes, puis chaque plat vient vers vous (images lues au défilement) */
 (function(){
-  var sec=document.getElementById('ouverture'),scene=sec.querySelector('.o-scene'),cam=sec.querySelector('.o-cam'),img=cam.querySelector('img'),voile=sec.querySelector('.o-voile'),titre=sec.querySelector('.o-titre'),hint=sec.querySelector('.o-hint');
-  function shot(){
-    var p=REDUCE?0:progress(sec),sw=scene.clientWidth,sh=scene.clientHeight,iw=img.naturalWidth||2560,ih=img.naturalHeight||1601,mob=sw<=900;
-    var t=ease(clamp((p-.05)/.7,0,1));
-    var base=Math.max(sw/iw,sh/ih), z=1+(mob?.12:.85)*t, sc=base*z, w=iw*sc, h=ih*sc;
-    var fx=.5, fy=mob?(.42+(.80-.42)*t):(.42+(.86-.42)*t);
-    var tx=clamp(sw/2-fx*w,sw-w,0), ty=clamp(sh/2-fy*h,sh-h,0);
-    cam.style.width=iw+'px';cam.style.height=ih+'px';
-    cam.style.transform='translate3d('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px,0) scale('+sc.toFixed(4)+')';
-    var k=REDUCE?1:clamp((p-.55)/.25,0,1);
-    voile.style.opacity=k;titre.style.opacity=k;titre.style.transform='translateY('+(16*(1-k)).toFixed(1)+'px)';titre.classList.toggle('on',k>.5);
-    if(hint)hint.style.opacity=1-clamp(p/.15,0,1);
+  var sec=document.getElementById('scene'),pin=sec.querySelector('.s-pin'),cv=sec.querySelector('.s-cv'),cx=cv.getContext('2d'),
+      intro=sec.querySelector('.s-intro'),hint=sec.querySelector('.s-hint'),scrim=sec.querySelector('.s-scrim'),
+      lis=sec.querySelectorAll('.s-plats li'),bar=sec.querySelector('.s-bar'),bari=bar.querySelector('i');
+  requestAnimationFrame(function(){intro.classList.add('vu')});
+  if(REDUCE)return;
+  var PLATS=['smash','burger','baguette'],N=61,mob=window.innerWidth<=900,suf=mob?'-m':'-d',F=[],decor=new Image();
+  decor.src='img/scene/plateau'+suf+'.webp';
+  function pad(i){return(i<10?'0':'')+i}
+  PLATS.forEach(function(k,d){F[d]=new Array(N)});
+  function charge(d,done){var n=0,i=0,act=0;function next(){while(act<6&&i<N){(function(j){var im=new Image();act++;im.onload=im.onerror=function(){act--;n++;if(im.naturalWidth)F[d][j]=im;draw();if(n===N){done&&done()}else next()};im.src='img/scene/'+PLATS[d]+suf+'/'+pad(j+1)+'.webp'})(i++)}}next()}
+  decor.onload=function(){draw();charge(0,function(){charge(1,function(){charge(2)})})};
+  function proche(d,j){var a=F[d];if(a[j])return a[j];for(var r=1;r<N;r++){if(a[j-r])return a[j-r];if(a[j+r])return a[j+r]}return null}
+  var W=0,H=0,DPR=1;
+  function taille(){DPR=Math.min(window.devicePixelRatio||1,2);W=pin.clientWidth;H=pin.clientHeight;cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);mob=W<=900}
+  function peindre(im,a){if(!im||!im.naturalWidth||a<=0)return;cx.globalAlpha=a;var iw=im.naturalWidth,ih=im.naturalHeight,s,dw,dh,x,y;
+    if(mob){/* carré, un peu plus large que l'écran, centré haut ; bords fondus dans le fond */
+      dw=W*1.32;dh=dw*ih/iw;x=(W-dw)/2;y=H*.31-dh/2;}
+    else{s=Math.max(W/iw,H/ih);dw=iw*s;dh=ih*s;x=(W-dw)/2;y=(H-dh)*.5}
+    cx.drawImage(im,x*DPR,y*DPR,dw*DPR,dh*DPR);cx.globalAlpha=1}
+  function fondu(){if(!mob)return;var dw=W*1.32,dh=dw,y=H*.31-dh/2,g;
+    g=cx.createLinearGradient(0,(y)*DPR,0,(y+70)*DPR);g.addColorStop(0,'rgba(43,10,17,1)');g.addColorStop(1,'rgba(43,10,17,0)');cx.fillStyle=g;cx.fillRect(0,0,cv.width,(y+70)*DPR);
+    g=cx.createLinearGradient(0,(y+dh-150)*DPR,0,(y+dh)*DPR);g.addColorStop(0,'rgba(43,10,17,0)');g.addColorStop(1,'rgba(43,10,17,1)');cx.fillStyle=g;cx.fillRect(0,(y+dh-150)*DPR,cv.width,cv.height)}
+  function ss(t){t=clamp(t,0,1);return t*t*(3-2*t)}
+  /* Changement de plat : la lumière baisse, le plat change, la lumière revient (pas de fondu fantôme) */
+  function cue(a,b,t){t=clamp(t,0,1);var k;if(t<.5){peindre(a||b,1);k=ss(t*2)}else{peindre(b||a,1);k=ss((1-t)*2)}if(k>0){cx.fillStyle='rgba(18,4,7,'+(k*.92).toFixed(3)+')';cx.fillRect(0,0,cv.width,cv.height)}}
+  var I0=.035,I1=.11,L=(1-I1)/PLATS.length,last=-1;
+  function draw(){
+    var p=progress(sec);
+    cx.fillStyle='#2b0a11';cx.fillRect(0,0,cv.width,cv.height);
+    var a=null,ja=0,b=null,tb=0,txt=-1,ta=0;
+    if(p<I1){cue(decor,proche(0,0),(p-I0)/(I1-I0))}
+    else{var x=(p-I1)/L,d=Math.min(PLATS.length-1,Math.floor(x)),s=x-d,fin=d===PLATS.length-1,j;
+      if(s<.48)j=ss(s/.48)*(N-1);else if(fin||s<.6)j=N-1;else if(s<.86)j=(1-ss((s-.6)/.26))*(N-1);else j=0;
+      if(!fin&&s>=.86)cue(proche(d,0),proche(d+1,0),(s-.86)/.14);else peindre(proche(d,Math.round(j)),1);
+      txt=d;ta=fin?ss((s-.18)/.12):Math.min(ss((s-.18)/.12),1-ss((s-.66)/.12));}
+    fondu();
+    var ki=1-ss((p-.004)/.03);intro.style.opacity=ki.toFixed(3);intro.style.transform='translateY('+(-40*(1-ki)).toFixed(1)+'px)';intro.style.visibility=ki<.01?'hidden':'visible';
+    hint.style.opacity=(1-ss(p/.02)).toFixed(3);
+    scrim.style.opacity=(mob?0:Math.max(0,ta)).toFixed(3);
+    for(var i=0;i<lis.length;i++){var o=i===txt?ta:0;lis[i].style.opacity=o.toFixed(3);lis[i].style.transform='translateY('+(18*(1-o)).toFixed(1)+'px)';lis[i].classList.toggle('on',o>.5)}
+    bar.style.opacity=p>I1?1:0;bari.style.width=(clamp((p-I1)/(1-I1),0,1)*100).toFixed(1)+'%';
   }
-  SCENES.push(shot); if(img.complete)shot(); else img.addEventListener('load',shot); shot();
-  var lum=sec.querySelector('.o-lum');
-  if(lum&&!REDUCE&&!(navigator.connection&&navigator.connection.saveData)){
-    window.addEventListener('load',function(){
-      var mob=window.innerWidth<=900;
-      if(mob){lum.style.left='0';lum.style.width='100%';lum.style.webkitMaskImage='none';lum.style.maskImage='none'}
-      lum.src=mob?lum.dataset.m:lum.dataset.d;
-      lum.addEventListener('playing',function(){lum.classList.add('on')},{once:true});
-      new IntersectionObserver(function(e){if(e[0].isIntersecting){var pr=lum.play();if(pr&&pr.catch)pr.catch(function(){})}else lum.pause()}).observe(sec);
-    });
-  }
-})();
-
-/* 3. La carte : le plat suivant se pose par-dessus le précédent */
-(function(){
-  var sec=document.getElementById('carte'); if(REDUCE)return;
-  var figs=sec.querySelectorAll('.c-scene figure'),noms=sec.querySelectorAll('.c-noms li'),num=sec.querySelector('.c-num b'),bar=sec.querySelector('.c-bar i'),n=figs.length,cur=-1;
-  figs.forEach(function(f){f.querySelector('img').loading='eager'});
-  SCENES.push(function(){
-    var p=progress(sec),x=p*(n-1),k0=Math.min(n-1,Math.floor(x)),f=x-k0,t=clamp((f-.3)/.4,0,1);t=t*t*(3-2*t);
-    for(var i=0;i<n;i++){var o=i<k0?0:(i===k0?1:(i===k0+1?t:0)),d=i===k0+1?(1-t):(i===k0?-t:0);
-      figs[i].style.opacity=o.toFixed(3);figs[i].style.transform='translate3d('+(d*2.5).toFixed(2)+'%,0,0) scale(1.04)'}
-    var k=Math.round(x); if(k!==cur){cur=k;noms.forEach(function(li,j){li.classList.toggle('on',j===k)});num.textContent=('0'+(k+1)).slice(-2)}
-    bar.style.width=(p*100).toFixed(1)+'%';
-  });
+  taille();window.addEventListener('resize',function(){taille();draw()});
+  SCENES.push(draw);draw();
 })();
 
 /* 5. Histoire : le défilement vertical fait glisser la piste à l'horizontale */
@@ -533,8 +526,8 @@ var SCENES=[];
 })();
 
 /* Barre fixe iPhone : visible après l'ouverture */
-(function(){var b=document.getElementById('barre'),o=document.getElementById('ouverture');
-  SCENES.push(function(){b.classList.toggle('on',o.getBoundingClientRect().bottom<window.innerHeight*.6)});})();
+(function(){var b=document.getElementById('barre'),o=document.getElementById('scene');
+  SCENES.push(function(){b.classList.toggle('on',window.scrollY>window.innerHeight*.35)});})();
 
 /* Pop-up 200 burgers : une fois par visite, après 1,8 s */
 (function(){
@@ -550,6 +543,7 @@ en:{"nav.maisons":"Our houses","nav.carte":"Menu","nav.histoire":"Our story","ct
 "o.titre":"Cut. Laid <em>in the sauce.</em>","o.lead":"The smash burger served in Café de Paris sauce, a recipe perfected in Paris since the early 1980s.",
 "m.titre":"Our houses","m.intro":"Three cities, one sauce. Pick yours.","m.ge.etat":"Opening 27 November","m.ge.txt":"APB du Lac. Order online and pick up your burger, or stay and eat.","m.adresse":"Address","m.horaires":"Hours","m.aconf":"To be confirmed","m.ge.adr":"On the lakeside (exact address to be confirmed)","m.ge.cc":"Click & collect, from 27.11",
 "m.ib.etat":"At the harbour","m.ib.txt":"Today, the Patron, of Phoenician-Lebanese origin, returns to his roots and opens his first restaurant in Spain, on the island of Ibiza.","m.itin":"Directions","m.ma.etat":"Delivery","m.ma.txt":"The Atelier Paris Burger menu, delivered to your door.","m.ma.glovo":"Order on Glovo",
+"s.sous":"Café de Paris sauce, perfected in Paris since the early 1980s.","s.hint":"The menu","v.ge.e":"From 27.11","v.ge.a":"Order","v.ib.e":"At the harbour","v.ib.a":"Directions","v.ma.e":"Delivery","v.ma.a":"On Glovo",
 "c.1.t":"The smash.","c.1.p":"Single, double or triple. Smashed beef, cheddar, laid in the sauce.","c.2.t":"The burger.","c.2.p":"One thick patty, cooked pink, laid in the sauce.","c.3.t":"The baguette.","c.3.p":"Crisp, spread with Café de Paris sauce.",
 "o2.titre":"Your first burger, <span>on us.</span>","o2.txt":"On 27 November in Geneva, we are giving away 200 burgers. Book yours and pick a time: a QR code arrives by e-mail.","o2.reste":"burgers still available",
 "f.titre":"Book my burger","f.prenom":"First name","f.email":"E-mail","f.tel":"Phone","f.heure":"Pick-up time","f.ok":"Book","f.note":"One burger per person. Mock-up: form not connected.",
@@ -568,6 +562,7 @@ es:{"nav.maisons":"Nuestras casas","nav.carte":"La carta","nav.histoire":"Nuestr
 "o.titre":"Cortado. Servido <em>en la salsa.</em>","o.lead":"La smash burger servida en salsa Café de Paris, una receta trabajada en París desde principios de los años ochenta.",
 "m.titre":"Nuestras casas","m.intro":"Tres ciudades, una sola salsa. Elige la tuya.","m.ge.etat":"Apertura el 27 de noviembre","m.ge.txt":"APB du Lac. Pide en línea y recoge tu burger, o quédate a comer.","m.adresse":"Dirección","m.horaires":"Horario","m.aconf":"Por confirmar","m.ge.adr":"Junto al lago (dirección exacta por confirmar)","m.ge.cc":"Click & collect, desde el 27.11",
 "m.ib.etat":"En el puerto","m.ib.txt":"Hoy, el Patrón, de origen fenicio-libanés, vuelve a sus orígenes y abre su primer restaurante en España, en la isla de Ibiza.","m.itin":"Cómo llegar","m.ma.etat":"A domicilio","m.ma.txt":"La carta de Atelier Paris Burger, en tu casa.","m.ma.glovo":"Pedir en Glovo",
+"s.sous":"La salsa Café de Paris, trabajada en París desde principios de los años ochenta.","s.hint":"La carta","v.ge.e":"Desde el 27.11","v.ge.a":"Pedir","v.ib.e":"En el puerto","v.ib.a":"Cómo llegar","v.ma.e":"A domicilio","v.ma.a":"En Glovo",
 "c.1.t":"La smash.","c.1.p":"Simple, doble o triple. Ternera smash, cheddar, servida en la salsa.","c.2.t":"La burger.","c.2.p":"Un filete grueso, al punto rosado, servido en la salsa.","c.3.t":"La baguette.","c.3.p":"Crujiente, untada con salsa Café de Paris.",
 "o2.titre":"Tu primera burger, <span>invita la casa.</span>","o2.txt":"El 27 de noviembre, en Ginebra, regalamos 200 burgers. Reserva la tuya y elige la hora: recibirás un código QR por e-mail.","o2.reste":"burgers aún disponibles",
 "f.titre":"Reservar mi burger","f.prenom":"Nombre","f.email":"E-mail","f.tel":"Teléfono","f.heure":"Hora de recogida","f.ok":"Reservar","f.note":"Una burger por persona. Maqueta: formulario no conectado.",
