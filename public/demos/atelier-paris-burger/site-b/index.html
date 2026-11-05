@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="img/hero-merlot.webp" media="(min-width:901px)">
-<link rel="preload" as="image" href="img/hero-merlot-m.webp" media="(max-width:900px)">
+<link rel="preload" as="image" href="img/entree-logo.webp" media="(min-width:901px)">
+<link rel="preload" as="image" href="img/entree-logo-m.webp" media="(max-width:900px)">
 <style>
 /* Charte Atelier Paris Burger (brand book 28.10 + ES 04.11). Peach Cream et Woodsmoke : valeurs à caler sur le brand book ES. */
 :root{
@@ -179,7 +179,7 @@ p{margin:0}
 .maisons-bar span{font-size:14px;color:var(--on-dark-2)}
 
 /* Rituel : séquence image par image au défilement */
-.rituel{position:relative;height:520vh;background:var(--woodsmoke);color:var(--on-dark)}
+.rituel{position:relative;height:340vh;background:var(--woodsmoke);color:var(--on-dark)}
 .r-pin{position:sticky;top:72px;height:calc(100vh - 72px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;max-width:var(--max);margin:0 auto;padding:0 var(--gutter);gap:clamp(24px,4vw,64px)}
 .r-txt ol{list-style:none;margin:0;padding:0;display:grid}
 .r-txt li{grid-area:1/1;opacity:0;transform:translateY(14px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
@@ -212,7 +212,7 @@ p{margin:0}
   .maisons-bar a{padding:14px 12px}
   .maisons-bar b{font-size:20px}
   .maisons-bar span{font-size:12.5px}
-  .rituel{height:480vh}
+  .rituel{height:320vh}
   .r-pin{top:0;height:100svh;grid-template-columns:minmax(0,1fr);padding:0}
   .r-fig{grid-area:1/1;height:100%;width:100%;aspect-ratio:auto;border-radius:0}
   .r-fig canvas{object-fit:cover}
@@ -226,6 +226,36 @@ p{margin:0}
   .r-txt li{grid-area:auto;opacity:1;transform:none;margin-bottom:24px}
   .r-bar{display:none}
   .js .pop[open]{animation:none}
+}
+
+
+/* Entrée : caméra qui descend du monogramme doré jusqu'à l'assiette */
+.entree{position:relative;height:230vh;background:#2a0b0f}
+.e-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.e-cam{position:absolute;left:0;top:0;margin:0;transform-origin:0 0;will-change:transform}
+.e-cam img{display:block;width:100%;height:100%}
+@media (min-width:901px){.e-cam img{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%)}.entree{background:radial-gradient(ellipse at 50% 40%,#4a1219 0%,#2a0b0f 70%)}}
+.e-veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(20,6,8,.78) 0%,rgba(20,6,8,.35) 34%,rgba(20,6,8,0) 55%);opacity:0}
+.e-intro{position:absolute;left:0;right:0;bottom:calc(64px + env(safe-area-inset-bottom));text-align:center;font-family:var(--serif);font-size:clamp(22px,2.2vw,30px);color:var(--peach);text-shadow:0 2px 18px rgba(0,0,0,.55);padding:0 var(--gutter)}
+.e-titre{position:absolute;left:0;right:0;top:calc(72px + clamp(24px,6vh,64px));opacity:0;transform:translateY(18px);pointer-events:none}
+.e-titre.on{pointer-events:auto}
+.e-titre h1{font-size:clamp(46px,5.4vw,88px);color:var(--peach);max-width:12ch;text-shadow:0 2px 24px rgba(0,0,0,.45)}
+.e-titre h1 em{font-style:normal;color:var(--or-clair)}
+.e-titre .lead{margin-top:16px;max-width:40ch;font-size:clamp(17px,1.3vw,19px);color:var(--on-dark)}
+.e-titre .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.e-titre .btn-line{color:var(--peach);box-shadow:inset 0 0 0 1.5px var(--peach)}
+.e-hint{position:absolute;left:50%;bottom:22px;width:1px;height:30px;background:rgba(244,233,220,.35);overflow:hidden}
+.e-hint i{position:absolute;left:0;top:-30px;width:1px;height:30px;background:var(--or);animation:hint 1.8s var(--ease) infinite}
+@keyframes hint{to{transform:translateY(60px)}}
+.maisons-bar{position:static;background:var(--cabsav);backdrop-filter:none;-webkit-backdrop-filter:none}
+@media (max-width:900px){
+  .entree{height:210vh}
+  .e-titre{top:calc(72px + 16px)}
+  .e-titre h1{font-size:clamp(40px,11vw,58px)}
+  .e-titre .actions .btn-line{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .e-hint i{animation:none}
 }
 
 /* Barre fixe iPhone */
@@ -282,25 +312,30 @@ p{margin:0}
 </header>
 
 <main>
-  <section class="hero">
-    <div class="wrap">
-      <h1 id="h1">Coupé. Posé <em>dans la sauce.</em></h1>
-      <p class="lead" id="lead">Le smash burger servi dans la sauce Café de Paris, une recette travaillée à Paris depuis le début des années 1980.</p>
-      <div class="actions">
-        <a class="btn btn-or" href="#offert">Réserver mon burger offert</a>
-        <a class="btn btn-line" href="#carte">Voir la carte</a>
+  <section class="entree" id="entree" aria-label="Atelier Paris Burger">
+    <div class="e-pin">
+      <picture class="e-cam">
+        <source media="(max-width:900px)" srcset="img/entree-logo-m.webp" width="1100" height="1971">
+        <img src="img/entree-logo.webp" width="1536" height="2752" alt="Le monogramme doré d'Atelier Paris Burger sur une boiserie bordeaux, et devant, le smash burger coupé posé dans la sauce Café de Paris">
+      </picture>
+      <div class="e-veil" aria-hidden="true"></div>
+      <p class="e-intro">Depuis plus de quarante ans, la sauce Café de Paris.</p>
+      <div class="e-titre wrap">
+        <h1>Coupé. Posé <em>dans la sauce.</em></h1>
+        <p class="lead">Le smash burger servi dans la sauce Café de Paris, une recette travaillée à Paris depuis le début des années 1980.</p>
+        <div class="actions">
+          <a class="btn btn-or" href="#offert">Réserver mon burger offert</a>
+          <a class="btn btn-line" href="#carte">Voir la carte</a>
+        </div>
       </div>
+      <div class="e-hint" aria-hidden="true"><i></i></div>
     </div>
-    <picture class="hero-bg">
-      <source media="(max-width:900px)" srcset="img/hero-merlot-m.webp" width="1100" height="762">
-      <img src="img/hero-merlot.webp" width="2400" height="1610" alt="Smash burger coupé en deux, posé dans la sauce Café de Paris, avec ses frites">
-    </picture>
-    <nav class="maisons-bar" aria-label="Nos maisons">
-      <a href="#maisons"><b>Genève</b><span>Ouverture le 27 novembre</span></a>
-      <a href="#maisons"><b>Ibiza</b><span>Au port</span></a>
-      <a href="#maisons"><b>Madrid</b><span>En livraison</span></a>
-    </nav>
   </section>
+  <nav class="maisons-bar" aria-label="Nos maisons">
+    <a href="#maisons"><b>Genève</b><span>Ouverture le 27 novembre</span></a>
+    <a href="#maisons"><b>Ibiza</b><span>Au port</span></a>
+    <a href="#maisons"><b>Madrid</b><span>En livraison</span></a>
+  </nav>
 
 
 
@@ -319,7 +354,7 @@ p{margin:0}
         </ol>
         <div class="r-bar" aria-hidden="true"><i></i></div>
       </div>
-      <figure class="r-fig"><canvas width="800" height="1200" aria-hidden="true"></canvas><img class="r-fallback" src="img/seq/126.webp" width="800" height="1200" alt="Le smash burger coupé, servi dans la sauce Café de Paris" loading="lazy"></figure>
+      <figure class="r-fig"><canvas width="800" height="1200" aria-hidden="true"></canvas><img class="r-fallback" src="img/seq/059.webp" width="800" height="1200" alt="Le smash burger coupé, servi dans la sauce Café de Paris" loading="lazy"></figure>
     </div>
   </section>
   <section class="carte" id="carte">
@@ -468,26 +503,64 @@ p{margin:0}
 })();
 </script>
 <script>
-/* Séquence du rituel : 127 vraies photos du shooting (rafales DSC06290-06468), dessinées sur un canvas selon le défilement.
-   Pour changer la séquence : remplacer les images de img/seq/ (000.webp, 001.webp…) et ajuster N et STAGES. */
+/* Entrée : la « caméra » part du monogramme doré et descend jusqu'au burger dans la sauce. Une seule image, transformée au défilement. */
+(function(){
+  var sec=document.getElementById('entree'); if(!sec) return;
+  var cam=sec.querySelector('.e-cam'), img=cam.querySelector('img'), veil=sec.querySelector('.e-veil'), intro=sec.querySelector('.e-intro'), titre=sec.querySelector('.e-titre'), hint=sec.querySelector('.e-hint');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+  function shot(p){
+    var vw=sec.clientWidth, vh=sec.querySelector('.e-pin').clientHeight, iw=img.naturalWidth||1536, ih=img.naturalHeight||2752, mob=vw<=900;
+    var t=ease(Math.min(1,Math.max(0,(p-.08)/.7))), sc, tx, ty;
+    if(mob){
+      var A={y:.40,z:1.22}, B={y:.80,z:1.1}, fy=A.y+(B.y-A.y)*t, z=A.z+(B.z-A.z)*t;
+      sc=Math.max(vw/iw,vh/ih)*z; var w=iw*sc, h=ih*sc;
+      tx=(vw-w)/2; ty=Math.min(0,Math.max(vh-h,vh/2-fy*h));
+    } else {
+      /* bureau : l'image garde sa hauteur relative, les côtés se fondent dans le bordeaux */
+      var Hk=2.2+(1.8-2.2)*t, fy2=.39+(.86-.39)*t, cxr=.5+(.63-.5)*t;
+      sc=vh*Hk/ih; var w2=iw*sc, h2=ih*sc;
+      tx=vw*cxr-w2/2; ty=Math.min(0,Math.max(vh-h2,vh/2-fy2*h2));
+    }
+    cam.style.width=iw+'px'; cam.style.height=ih+'px';
+    cam.style.transform='translate3d('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px,0) scale('+sc.toFixed(4)+')';
+    var k=Math.min(1,Math.max(0,(p-.62)/.22));
+    veil.style.opacity=k; titre.style.opacity=k; titre.style.transform='translateY('+(18*(1-k)).toFixed(1)+'px)'; titre.classList.toggle('on',k>.5);
+    var o=1-Math.min(1,p/.18); intro.style.opacity=o; hint.style.opacity=o;
+  }
+  function step(){var r=sec.getBoundingClientRect(),tot=sec.offsetHeight-window.innerHeight;shot(reduce?1:Math.min(1,Math.max(0,-r.top/tot)))}
+  var tk=false; function on(){if(!tk){tk=true;requestAnimationFrame(function(){tk=false;step()})}}
+  if(!reduce) window.addEventListener('scroll',on,{passive:true});
+  window.addEventListener('resize',on);
+  if(img.complete) step(); else img.addEventListener('load',step);
+  step();
+})();
+/* Séquence du rituel : rafale sur pied DSC06388-06446 (coupe puis ouverture), un seul cadrage, puis fondu vers la sauce (DSC06450).
+   Pour changer la séquence : remplacer les images de img/seq/ (000.webp…) et ajuster N, SAUCE et STAGES. */
 (function(){
   var sec=document.getElementById('rituel'); if(!sec) return;
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var cv=sec.querySelector('canvas'), cx=cv.getContext('2d'), N=127,STAGES=[0,32,55,64,114], imgs=[], cur=-1, items=sec.querySelectorAll('.r-txt li'), bar=sec.querySelector('.r-bar i');
+  var cv=sec.querySelector('canvas'), cx=cv.getContext('2d'), N=60,SAUCE=59,STAGES=[0,36], imgs=[], cur=-1, items=sec.querySelectorAll('.r-txt li'), bar=sec.querySelector('.r-bar i');
   function src(i){return 'img/seq/'+('00'+i).slice(-3)+'.webp'}
   function load(i){if(imgs[i])return imgs[i];var im=new Image();im.decoding='async';im.src=src(i);im.onload=function(){if(i===want)draw(i)};imgs[i]=im;return im}
   var want=0;
   function fit(){var r=cv.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);cur=-1;draw(want)}
+  var blend=0;
+  function paint(im,a){var W=cv.width,H=cv.height,s=Math.max(W/im.naturalWidth,H/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;cx.globalAlpha=a;cx.drawImage(im,(W-w)/2,(H-h)/2,w,h);cx.globalAlpha=1}
+  function ok(im){return im&&im.complete&&im.naturalWidth}
   function draw(i){
+    if(blend>0&&ok(imgs[SAUCE-1])&&ok(imgs[SAUCE])){paint(imgs[SAUCE-1],1);paint(imgs[SAUCE],blend);cur=-1;return}
     var k=i; while(k>=0&&!(imgs[k]&&imgs[k].complete&&imgs[k].naturalWidth)) k--; if(k<0||k===cur) return; cur=k;
     var im=imgs[k],W=cv.width,H=cv.height,s=Math.max(W/im.naturalWidth,H/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;
     cx.drawImage(im,(W-w)/2,(H-h)/2,w,h);
   }
   function step(){
     var r=sec.getBoundingClientRect(), total=sec.offsetHeight-window.innerHeight, p=Math.min(1,Math.max(0,-r.top/total));
-    var i=Math.min(N-1,Math.round(p*(N-1)));
-    want=i; load(i); draw(i);
-    var st=0; for(var j=0;j<STAGES.length;j++){ if(i>=STAGES[j]) st=j; }
+    /* 0 à 0,82 : coupe et ouverture image par image ; 0,82 à 1 : fondu vers la sauce */
+    var i=p<.82?Math.round(p/.82*(SAUCE-1)):SAUCE-1;
+    blend=p<.82?0:Math.min(1,(p-.82)/.14);
+    want=i; load(i); load(SAUCE); draw(i);
+    var st=blend>.5?2:(i>=STAGES[1]?1:0);
     items.forEach(function(li,j){li.classList.toggle('on',j===st)});
     bar.style.transform='scaleX('+p.toFixed(3)+')';
   }
@@ -501,7 +574,7 @@ p{margin:0}
   fit(); step();
 })();
 /* Barre iPhone : apparaît une fois le premier écran passé */
-(function(){var b=document.querySelector('.barre'),h=document.querySelector('.hero');if(!b||!h)return;new IntersectionObserver(function(e){b.classList.toggle('on',!e[0].isIntersecting)},{threshold:0.15}).observe(h)})();
+(function(){var b=document.querySelector('.barre'),h=document.querySelector('.e-titre');if(!b||!h)return;new IntersectionObserver(function(e){b.classList.toggle('on',!e[0].isIntersecting)},{threshold:0.15}).observe(h)})();
 /* Pop-up de l'offre, une fois par visite */
 (function(){
   var d=document.getElementById('pop'); if(!d||!d.showModal) return;
