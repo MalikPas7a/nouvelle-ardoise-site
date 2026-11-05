@@ -230,8 +230,8 @@ p{margin:0}
 
 
 /* Défilé des plats */
-.defile{position:relative;height:330vh;background:#640e22}
-.d-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:linear-gradient(180deg,#5e0d20 0%,#7f1028 60%,#7a0f26 100%)}
+.defile{position:relative;height:330vh;background:#7f1028}
+.d-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#801329}
 .d-stage{position:absolute;inset:0}
 .d-stage figure{position:absolute;inset:0;margin:0;opacity:0;will-change:opacity,transform}
 .d-stage figure:first-child{opacity:1}
@@ -250,8 +250,8 @@ p{margin:0}
 .d-bar i{display:block;height:100%;width:0;background:var(--or)}
 @media (max-width:900px){
   .defile{height:300vh}
-  .d-stage{top:auto;height:52svh;bottom:0}
-  .d-stage img{object-position:50% 60%;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 22%);mask-image:linear-gradient(180deg,transparent 0,#000 22%)}
+  .d-stage{top:auto;height:56svh;bottom:0}
+  .d-stage img{object-position:50% 60%;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 10%);mask-image:linear-gradient(180deg,transparent 0,#000 10%)}
   .d-txt .btn{display:none}
 }
 @media (prefers-reduced-motion:reduce){
@@ -389,14 +389,14 @@ p{margin:0}
     <div class="d-pin">
       <div class="d-stage">
         <figure class="on"><picture><source media="(max-width:900px)" srcset="img/defile-smash-m.webp"><img src="img/defile-smash.webp" width="2400" height="1610" alt="Smash burger triple coupé, posé dans la sauce Café de Paris, frites de chaque côté" loading="lazy"></picture></figure>
-        <figure><picture><source media="(max-width:900px)" srcset="img/defile-burger-m.webp"><img src="img/defile-burger.webp" width="2400" height="1610" alt="Burger au steak épais coupé, posé dans la sauce Café de Paris, frites de chaque côté" loading="lazy"></picture></figure>
+        <figure><picture><source media="(max-width:900px)" srcset="img/defile-burger-m.webp"><img src="img/defile-burger.webp" width="2400" height="1610" alt="Burger au steak épais rosé, coupé et posé dans la sauce Café de Paris, frites de chaque côté" loading="lazy"></picture></figure>
         <figure><picture><source media="(max-width:900px)" srcset="img/defile-baguette-m.webp"><img src="img/defile-baguette.webp" width="2400" height="1610" alt="La baguette garnie de bœuf tranché et de sauce Café de Paris, avec ses frites" loading="lazy"></picture></figure>
       </div>
       <div class="d-txt wrap">
         <p class="d-num" aria-hidden="true"><b>01</b> / 03</p>
         <ol class="d-noms">
           <li class="on"><h2>Le smash.</h2><p>Simple, double ou triple. Bœuf smashé, cheddar, posé dans la sauce.</p></li>
-          <li><h2>Le burger.</h2><p>Le steak épais. Simple, double ou triple, posé dans la sauce.</p></li>
+          <li><h2>Le burger.</h2><p>Un steak épais, cuit rosé, posé dans la sauce.</p></li>
           <li><h2>La baguette.</h2><p>Croustillante, tartinée de sauce Café de Paris.</p></li>
         </ol>
         <a class="btn btn-or" href="#offert">Réserver mon burger offert</a>
