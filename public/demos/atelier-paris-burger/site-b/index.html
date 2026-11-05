@@ -230,11 +230,13 @@ p{margin:0}
 
 
 /* Entrée : caméra qui descend du monogramme doré jusqu'à l'assiette */
-.entree{position:relative;height:230vh;background:#2a0b0f}
+.entree{position:relative;height:230vh;background:radial-gradient(ellipse at 50% 38%,#4a1219 0%,#2a0b0f 72%)}
 .e-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 .e-cam{position:absolute;left:0;top:0;margin:0;transform-origin:0 0;will-change:transform}
-.e-cam img{display:block;width:100%;height:100%}
-@media (min-width:901px){.e-cam img{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%)}.entree{background:radial-gradient(ellipse at 50% 40%,#4a1219 0%,#2a0b0f 70%)}}
+.e-cam img,.e-lum{display:block;width:100%;height:100%}
+.e-lum{position:absolute;inset:0;object-fit:fill;opacity:0;transition:opacity .8s ease}
+.e-lum.on{opacity:1}
+@media (min-width:901px){.e-cam img,.e-lum{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%)}.entree{background:radial-gradient(ellipse at 50% 40%,#4a1219 0%,#2a0b0f 70%)}}
 .e-veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(20,6,8,.78) 0%,rgba(20,6,8,.35) 34%,rgba(20,6,8,0) 55%);opacity:0}
 .e-intro{position:absolute;left:0;right:0;bottom:calc(64px + env(safe-area-inset-bottom));text-align:center;font-family:var(--serif);font-size:clamp(22px,2.2vw,30px);color:var(--peach);text-shadow:0 2px 18px rgba(0,0,0,.55);padding:0 var(--gutter)}
 .e-titre{position:absolute;left:0;right:0;top:calc(72px + clamp(24px,6vh,64px));opacity:0;transform:translateY(18px);pointer-events:none}
@@ -314,10 +316,14 @@ p{margin:0}
 <main>
   <section class="entree" id="entree" aria-label="Atelier Paris Burger">
     <div class="e-pin">
-      <picture class="e-cam">
-        <source media="(max-width:900px)" srcset="img/entree-logo-m.webp" width="1100" height="1971">
-        <img src="img/entree-logo.webp" width="1536" height="2752" alt="Le monogramme doré d'Atelier Paris Burger sur une boiserie bordeaux, et devant, le smash burger coupé posé dans la sauce Café de Paris">
-      </picture>
+      <div class="e-cam">
+        <picture>
+          <source media="(max-width:900px)" srcset="img/entree-logo-m.webp" width="1100" height="1971">
+          <img src="img/entree-logo.webp" width="1536" height="2752" alt="Le monogramme doré d'Atelier Paris Burger sur une boiserie bordeaux, et devant, le smash burger coupé posé dans la sauce Café de Paris">
+        </picture>
+        <!-- Lumière qui glisse sur le monogramme (vraie photo animée, l'assiette reste la photo d'origine). Remplacée par l'image fixe sous « réduire les animations ». -->
+        <video class="e-lum" muted loop playsinline preload="none" aria-hidden="true" data-d="video/entree-lumiere.mp4" data-m="video/entree-lumiere-m.mp4"></video>
+      </div>
       <div class="e-veil" aria-hidden="true"></div>
       <p class="e-intro">Depuis plus de quarante ans, la sauce Café de Paris.</p>
       <div class="e-titre wrap">
@@ -513,14 +519,15 @@ p{margin:0}
     var vw=sec.clientWidth, vh=sec.querySelector('.e-pin').clientHeight, iw=img.naturalWidth||1536, ih=img.naturalHeight||2752, mob=vw<=900;
     var t=ease(Math.min(1,Math.max(0,(p-.08)/.7))), sc, tx, ty;
     if(mob){
-      var A={y:.40,z:1.22}, B={y:.80,z:1.1}, fy=A.y+(B.y-A.y)*t, z=A.z+(B.z-A.z)*t;
-      sc=Math.max(vw/iw,vh/ih)*z; var w=iw*sc, h=ih*sc;
-      tx=(vw-w)/2; ty=Math.min(0,Math.max(vh-h,vh/2-fy*h));
+      /* iPhone : on part de l'image entière (logo plus petit, boiserie visible), puis on entre jusqu'au burger */
+      var s0=Math.min(vw/iw,vh*.9/ih), s1=Math.max(vw/iw,vh/ih)*1.1, fy=.40+(.80-.40)*t;
+      sc=s0+(s1-s0)*t; var w=iw*sc, h=ih*sc;
+      tx=(vw-w)/2; ty=h<=vh?(vh-h)*.42:Math.min(0,Math.max(vh-h,vh/2-fy*h));
     } else {
       /* bureau : l'image garde sa hauteur relative, les côtés se fondent dans le bordeaux */
-      var Hk=2.2+(1.8-2.2)*t, fy2=.39+(.86-.39)*t, cxr=.5+(.63-.5)*t;
+      var Hk=1.06+(1.8-1.06)*t, fy2=.39+(.86-.39)*t, cxr=.5+(.63-.5)*t;
       sc=vh*Hk/ih; var w2=iw*sc, h2=ih*sc;
-      tx=vw*cxr-w2/2; ty=Math.min(0,Math.max(vh-h2,vh/2-fy2*h2));
+      tx=vw*cxr-w2/2; ty=h2<=vh?(vh-h2)/2:Math.min(0,Math.max(vh-h2,vh/2-fy2*h2));
     }
     cam.style.width=iw+'px'; cam.style.height=ih+'px';
     cam.style.transform='translate3d('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px,0) scale('+sc.toFixed(4)+')';
@@ -534,6 +541,15 @@ p{margin:0}
   window.addEventListener('resize',on);
   if(img.complete) step(); else img.addEventListener('load',step);
   step();
+  /* Lumière sur le logo : chargée après la page, lue seulement quand l'entrée est à l'écran */
+  var lum=sec.querySelector('.e-lum');
+  if(lum&&!reduce&&!(navigator.connection&&navigator.connection.saveData)){
+    window.addEventListener('load',function(){
+      lum.src=(sec.clientWidth<=900)?lum.dataset.m:lum.dataset.d;
+      lum.addEventListener('playing',function(){lum.classList.add('on')},{once:true});
+      new IntersectionObserver(function(e){if(e[0].isIntersecting){var pr=lum.play();if(pr&&pr.catch)pr.catch(function(){})}else lum.pause()}).observe(sec);
+    });
+  }
 })();
 /* Séquence du rituel : rafale sur pied DSC06388-06446 (coupe puis ouverture), un seul cadrage, puis fondu vers la sauce (DSC06450).
    Pour changer la séquence : remplacer les images de img/seq/ (000.webp…) et ajuster N, SAUCE et STAGES. */
