@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Atelier Paris Burger · maquette B</title>
+<meta name="description" content="Maquette d'accueil, direction Brasserie claire. Document de travail Nouvelle Ardoise.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hero-merlot.webp" media="(min-width:901px)">
+<link rel="preload" as="image" href="img/hero-merlot-m.webp" media="(max-width:900px)">
+<style>
+/* Charte Atelier Paris Burger (brand book 28.10 + ES 04.11). Peach Cream et Woodsmoke : valeurs à caler sur le brand book ES. */
+:root{
+  --merlot:#7F0F28;
+  --cabsav:#490917;
+  --or:#D99125;
+  --or-clair:#E8B562;
+  --peach:#F4E9DC;
+  --peach-2:#EADBC8;
+  --woodsmoke:#16110F;
+  --ink:#2A1A16;
+  --ink-2:#6B5249;
+  --on-dark:#F7EFE4;
+  --on-dark-2:#D9C4B4;
+  --serif:"Cormorant Garamond","Mendl Serif",Georgia,serif;
+  --sans:"DM Sans",system-ui,-apple-system,sans-serif;
+  --max:1240px;
+  --gutter:clamp(16px,4vw,48px);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{overflow-x:clip}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--peach);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--or);outline-offset:3px;border-radius:4px;transition:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.02;margin:0;overflow-wrap:break-word;min-width:0;letter-spacing:-.01em}
+p{margin:0}
+
+/* En-tête */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--peach) 92%,transparent);backdrop-filter:saturate(1.2) blur(10px);-webkit-backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid color-mix(in srgb,var(--ink) 8%,transparent)}
+.top .wrap{display:flex;align-items:center;gap:24px;height:72px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:40px;height:40px}
+.brand span{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--merlot)}
+.nav{display:flex;gap:28px;margin-left:auto}
+.nav a{text-decoration:none;font-size:15px;color:var(--ink-2)}
+.nav a:hover{color:var(--merlot)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;font:500 15px/1 var(--sans);text-decoration:none;cursor:pointer;border:0;transition:background-color .2s var(--ease),color .2s var(--ease),transform .2s var(--ease)}
+.btn:active{transform:scale(.98)}
+.btn-main{background:var(--merlot);color:var(--on-dark)}
+.btn-main:hover{background:var(--cabsav)}
+.btn-line{background:transparent;color:var(--merlot);box-shadow:inset 0 0 0 1.5px var(--merlot)}
+.btn-line:hover{background:color-mix(in srgb,var(--merlot) 8%,transparent)}
+.btn-or{background:var(--or);color:var(--woodsmoke)}
+.btn-or:hover{background:var(--or-clair)}
+.top .btn{min-height:42px;padding:0 18px}
+
+/* Ouverture */
+.hero{position:relative;min-height:calc(100svh - 72px);display:flex;align-items:flex-start;background:var(--woodsmoke);color:var(--on-dark);overflow:hidden}
+.hero-bg{position:absolute;inset:0;margin:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(22,17,15,.82) 0%,rgba(22,17,15,.55) 30%,rgba(22,17,15,0) 52%)}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-top:clamp(36px,6vh,72px)}
+.hero h1{font-size:clamp(44px,5.4vw,84px);color:var(--peach);max-width:16ch}
+.hero .nw{white-space:nowrap}
+.hero h1 em{font-style:normal;color:var(--or-clair)}
+.hero .lead{margin-top:18px;max-width:44ch;font-size:clamp(17px,1.3vw,19px);color:var(--on-dark)}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.hero .btn-line{color:var(--peach);box-shadow:inset 0 0 0 1.5px var(--peach)}
+.hero .btn-line:hover{background:rgba(244,233,220,.1)}
+.hero .note{position:absolute;z-index:2;left:0;right:0;bottom:22px;text-align:center;font-size:14px;color:var(--on-dark)}
+.hero .note strong{color:var(--or-clair);font-weight:600}
+
+/* Chapitre Merlot : la sauce */
+.sauce{background:var(--merlot);color:var(--on-dark)}
+.sauce .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:center;padding-top:clamp(64px,8vw,120px);padding-bottom:clamp(64px,8vw,120px)}
+.sauce figure{margin:0;border-radius:6px;overflow:hidden;aspect-ratio:4/3.4}
+.sauce figure img{width:100%;height:100%;object-fit:cover;object-position:30% 60%}
+.sauce h2{font-size:clamp(38px,4.6vw,66px);color:var(--on-dark)}
+.sauce h2 span{color:var(--or-clair)}
+.sauce p{margin-top:22px;max-width:44ch;color:var(--on-dark-2);font-size:18px}
+.sauce .sign{display:flex;align-items:center;gap:14px;margin-top:34px;font-family:var(--serif);font-size:21px;color:var(--or-clair)}
+.sauce .sign img{width:46px;height:46px}
+
+/* Le geste */
+.geste{padding:clamp(72px,9vw,128px) 0}
+.geste h2,.carte h2,.adresse h2{font-size:clamp(36px,4.4vw,60px);color:var(--cabsav)}
+.geste .intro,.carte .intro{margin-top:14px;max-width:46ch;color:var(--ink-2)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,28px);margin-top:44px}
+.step figure{margin:0;border-radius:6px;overflow:hidden;aspect-ratio:4/5;background:var(--peach-2)}
+.step img{width:100%;height:100%;object-fit:cover}
+.step h3{margin-top:18px;font-size:30px;color:var(--merlot)}
+.step p{margin-top:6px;color:var(--ink-2);font-size:16px}
+
+/* La carte */
+.carte{padding:0 0 clamp(72px,9vw,128px)}
+.carte .head{display:flex;align-items:end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.plats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,28px);margin-top:40px}
+.plat{background:#fff8ef;border-radius:8px;overflow:hidden;outline:1px solid color-mix(in srgb,var(--ink) 7%,transparent);outline-offset:-1px;display:flex;flex-direction:column}
+.plat figure{margin:0;aspect-ratio:3/2;overflow:hidden;background:var(--cabsav)}
+.plat figure.clair{background:var(--peach-2);display:grid;place-items:center;padding:8%}
+.plat img{width:100%;height:100%;object-fit:cover}
+.plat figure.clair img{object-fit:contain}
+.plat .txt{padding:20px 22px 24px}
+.plat h3{font-size:28px;color:var(--cabsav)}
+.plat p{margin-top:6px;font-size:15.5px;color:var(--ink-2)}
+
+/* Burger offert */
+.offert{background:var(--cabsav);color:var(--on-dark)}
+.offert .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:clamp(28px,5vw,80px);align-items:center;padding-top:clamp(64px,8vw,112px);padding-bottom:clamp(64px,8vw,112px)}
+.offert h2{font-size:clamp(40px,5vw,72px);color:var(--on-dark)}
+.offert h2 span{color:var(--or-clair)}
+.offert p{margin-top:18px;max-width:40ch;color:var(--on-dark-2);font-size:18px}
+.compteur{display:flex;align-items:baseline;gap:12px;margin-top:30px}
+.compteur b{font-family:var(--serif);font-size:72px;font-weight:600;line-height:1;color:var(--or-clair);font-variant-numeric:tabular-nums}
+.compteur span{color:var(--on-dark-2)}
+.form{background:var(--peach);color:var(--ink);border-radius:10px;padding:28px}
+.form h3{font-size:28px;color:var(--cabsav)}
+.form label{display:block;margin-top:16px;font-size:14px;color:var(--ink-2)}
+.form input,.form select{display:block;width:100%;margin-top:6px;min-height:48px;padding:0 14px;border-radius:8px;border:1px solid color-mix(in srgb,var(--ink) 20%,transparent);background:#fffaf3;font:16px var(--sans);color:var(--ink)}
+.form input:focus-visible,.form select:focus-visible{outline:2px solid var(--merlot);outline-offset:1px}
+.form .btn{width:100%;margin-top:22px}
+.form small{display:block;margin-top:12px;font-size:13px;color:var(--ink-2)}
+
+/* Adresse */
+.adresse{padding:clamp(72px,9vw,120px) 0}
+.adresse .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:start}
+.adresse dl{margin:28px 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px 28px}
+.adresse dt{color:var(--ink-2);font-size:15px}
+.adresse dd{margin:0;font-size:17px}
+.adresse .carte-fid{background:#fff8ef;border-radius:10px;padding:30px;outline:1px solid color-mix(in srgb,var(--ink) 7%,transparent);outline-offset:-1px}
+.adresse .carte-fid h3{font-size:32px;color:var(--merlot)}
+.adresse .carte-fid p{margin-top:10px;color:var(--ink-2)}
+.adresse .carte-fid .btn{margin-top:22px}
+
+/* Pied */
+.pied{background:var(--merlot);color:var(--on-dark-2);padding:56px 0 110px}
+.pied .wrap{display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between}
+.pied .brand span{color:var(--on-dark)}
+.pied nav{display:flex;gap:22px;flex-wrap:wrap;font-size:15px}
+.pied nav a{text-decoration:none}
+.pied nav a:hover{color:var(--on-dark)}
+
+
+/* Histoire */
+.histoire{background:var(--cabsav);color:var(--on-dark);padding:clamp(72px,9vw,128px) 0}
+.histoire h2{font-size:clamp(36px,4.4vw,60px);color:var(--on-dark)}
+.frise{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(18px,2.4vw,36px);border-top:1px solid rgba(232,181,98,.35)}
+.frise li{padding-top:22px;position:relative}
+.frise li::before{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:var(--or)}
+.frise b{display:block;font-family:var(--serif);font-size:clamp(24px,2.2vw,30px);font-weight:600;color:var(--or-clair);line-height:1.1}
+.frise p{margin-top:10px;color:var(--on-dark-2);font-size:16px}
+.histoire .pos{margin-top:48px;max-width:62ch;font-size:clamp(18px,1.5vw,21px);color:var(--on-dark)}
+.valeurs{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.valeurs li{color:var(--on-dark-2);font-size:15px}
+.valeurs b{display:block;font-family:var(--serif);font-size:24px;font-weight:600;color:var(--on-dark);margin-bottom:4px}
+.maison{margin-top:30px}
+.maison+.maison{padding-top:28px;border-top:1px solid color-mix(in srgb,var(--ink) 12%,transparent)}
+.maison h3{font-size:28px;color:var(--merlot)}
+.maison p{margin-top:10px;color:var(--ink-2);max-width:48ch}
+.maison dl{margin-top:16px}
+.pied .slogan{font-family:var(--serif);font-size:20px;color:var(--or-clair);max-width:34ch}
+@media (max-width:900px){.frise,.valeurs{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.frise{row-gap:28px}}
+@media (max-width:520px){.frise{grid-template-columns:minmax(0,1fr)}}
+
+
+/* Barre des maisons (accueil .com) */
+.maisons-bar{position:absolute;z-index:2;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid rgba(232,181,98,.35);background:rgba(22,17,15,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.maisons-bar a{display:flex;flex-direction:column;gap:2px;padding:16px clamp(16px,3vw,40px);text-decoration:none;color:var(--on-dark);transition:background-color .2s var(--ease)}
+.maisons-bar a+a{border-left:1px solid rgba(232,181,98,.25)}
+.maisons-bar a:hover{background:rgba(127,15,40,.55)}
+.maisons-bar b{font-family:var(--serif);font-size:24px;font-weight:600;color:var(--peach)}
+.maisons-bar span{font-size:14px;color:var(--on-dark-2)}
+
+/* Rituel : séquence image par image au défilement */
+.rituel{position:relative;height:320vh;background:var(--woodsmoke);color:var(--on-dark)}
+.r-pin{position:sticky;top:72px;height:calc(100vh - 72px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;max-width:var(--max);margin:0 auto;padding:0 var(--gutter);gap:clamp(24px,4vw,64px)}
+.r-txt ol{list-style:none;margin:0;padding:0;display:grid}
+.r-txt li{grid-area:1/1;opacity:0;transform:translateY(14px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.r-txt li.on{opacity:1;transform:none}
+.r-txt h2{font-size:clamp(48px,6vw,96px);color:var(--peach)}
+.r-txt li:last-child h2{color:var(--or-clair)}
+.r-txt p{margin-top:16px;max-width:30ch;font-size:clamp(17px,1.4vw,20px);color:var(--on-dark-2)}
+.r-bar{margin-top:40px;height:2px;width:min(260px,60%);background:rgba(244,233,220,.18)}
+.r-bar i{display:block;height:100%;width:100%;background:var(--or);transform-origin:left;transform:scaleX(0)}
+.r-fig{margin:0;justify-self:center;height:min(calc(100vh - 120px),900px);aspect-ratio:2/3;border-radius:8px;overflow:hidden;background:#0d0a09}
+.r-fig canvas{width:100%;height:100%;display:block}
+.r-fallback{display:none;width:100%;height:100%;object-fit:cover}
+
+/* Pop-up offre */
+.pop{border:0;padding:clamp(28px,4vw,44px);width:min(440px,calc(100vw - 32px));border-radius:14px;background:var(--cabsav);color:var(--on-dark);text-align:center}
+.pop::backdrop{background:rgba(22,17,15,.62)}
+.pop h2{margin-top:14px;font-size:clamp(36px,5vw,48px);color:var(--peach)}
+.pop p{margin-top:12px;color:var(--on-dark-2)}
+.pop .compteur{justify-content:center;margin-top:18px}
+.pop .compteur b{font-size:56px}
+.pop .btn{width:100%;margin-top:22px}
+.pop-later{margin-top:10px;background:none;border:0;color:var(--on-dark-2);font:14px var(--sans);cursor:pointer;min-height:44px;padding:0 12px}
+.pop-x{position:absolute;top:10px;right:10px;width:44px;height:44px;border:0;background:none;color:var(--on-dark);font-size:28px;cursor:pointer;border-radius:50%}
+.pop-x:focus-visible,.pop-later:focus-visible,.maisons-bar a:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+.js .pop[open]{animation:popin .35s var(--ease)}
+@keyframes popin{from{opacity:0;transform:translateY(12px) scale(.98)}}
+
+@media (max-width:900px){
+  .maisons-bar{position:static;background:var(--cabsav);backdrop-filter:none}
+  .maisons-bar a{padding:14px 12px}
+  .maisons-bar b{font-size:20px}
+  .maisons-bar span{font-size:12.5px}
+  .rituel{height:300vh}
+  .r-pin{top:0;height:100svh;grid-template-columns:minmax(0,1fr);padding:0}
+  .r-fig{grid-area:1/1;height:100%;width:100%;aspect-ratio:auto;border-radius:0}
+  .r-fig canvas{object-fit:cover}
+  .r-txt{grid-area:1/1;align-self:end;z-index:2;padding:0 var(--gutter) calc(96px + env(safe-area-inset-bottom));background:linear-gradient(0deg,rgba(13,10,9,.85),rgba(13,10,9,0));padding-top:120px}
+  .r-txt h2{font-size:clamp(44px,13vw,64px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .rituel{height:auto}
+  .r-pin{position:static;height:auto;padding-top:64px;padding-bottom:64px}
+  .r-fig canvas{display:none}.r-fallback{display:block}
+  .r-txt li{grid-area:auto;opacity:1;transform:none;margin-bottom:24px}
+  .r-bar{display:none}
+  .js .pop[open]{animation:none}
+}
+
+/* Barre fixe iPhone */
+.barre{display:none}
+
+/* Apparitions sobres, uniquement si le script tourne */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .rv.on{opacity:1;transform:none}
+.js .hero-bg img{opacity:0;transform:scale(1.04);transition:opacity 1s var(--ease),transform 1.6s var(--ease)}
+.js .hero-bg.on img{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .nav{display:none}
+  .top .btn{display:none}
+  .top .wrap{height:62px}
+  .hero{min-height:0;display:block;padding-bottom:0}
+  .hero::before{display:none}
+  .hero .wrap{padding-top:28px;padding-bottom:26px}
+  .hero h1{font-size:clamp(40px,11vw,60px)}
+  .hero .actions{display:none}
+  .hero-bg{position:relative;inset:auto}
+  .hero-bg img{height:auto;aspect-ratio:1100/762}
+  .hero-bg::before{content:"";position:absolute;inset:0 0 auto;height:30%;background:linear-gradient(180deg,var(--woodsmoke),rgba(22,17,15,0));z-index:1}
+  .hero .wrap{padding-bottom:4px}
+  .hero .note{position:static;padding:14px var(--gutter) 18px;text-align:left}
+  .sauce .wrap,.offert .wrap,.adresse .wrap{grid-template-columns:minmax(0,1fr)}
+  .steps,.plats{grid-template-columns:minmax(0,1fr)}
+  .steps{gap:36px}
+  .step figure{aspect-ratio:4/3}
+  .barre{display:flex;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--peach) 94%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid color-mix(in srgb,var(--ink) 10%,transparent)}
+  .js .barre{transform:translateY(110%);transition:transform .35s var(--ease)}
+  .js .barre.on{transform:none}
+  .barre .btn{flex:1;min-height:50px}
+  .barre .btn-line{flex:0 0 auto;padding:0 18px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rv,.js .hero-bg img{opacity:1;transform:none;transition:none}
+  .btn{transition:none}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="img/monogramme-or.svg" alt="" width="40" height="40"><span>Atelier Paris Burger</span></a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#histoire">Notre histoire</a>
+      <a href="#carte">La carte</a>
+      <a href="#maisons">Nos adresses</a>
+    </nav>
+    <a class="btn btn-main" href="#offert">Réserver mon burger offert</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1 id="h1">Coupé. Posé <em>dans la sauce.</em></h1>
+      <p class="lead" id="lead">Le smash burger servi dans la sauce Café de Paris, une recette travaillée à Paris depuis le début des années 1980.</p>
+      <div class="actions">
+        <a class="btn btn-or" href="#offert">Réserver mon burger offert</a>
+        <a class="btn btn-line" href="#carte">Voir la carte</a>
+      </div>
+    </div>
+    <picture class="hero-bg">
+      <source media="(max-width:900px)" srcset="img/hero-merlot-m.webp" width="1100" height="762">
+      <img src="img/hero-merlot.webp" width="2400" height="1610" alt="Smash burger coupé en deux, posé dans la sauce Café de Paris, avec ses frites">
+    </picture>
+    <nav class="maisons-bar" aria-label="Nos maisons">
+      <a href="#maisons"><b>Genève</b><span>Ouverture le 27 novembre</span></a>
+      <a href="#maisons"><b>Ibiza</b><span>Au port</span></a>
+      <a href="#maisons"><b>Madrid</b><span>En livraison</span></a>
+    </nav>
+  </section>
+
+
+
+
+
+
+  <section class="rituel" id="rituel" aria-label="Le rituel">
+    <div class="r-pin">
+      <div class="r-txt">
+        <ol>
+          <li class="on"><h2>Coupé.</h2><p>À la main, d'un seul trait de couteau.</p></li>
+          <li><h2>Ouvert.</h2><p>Bœuf smashé, cheddar fondu, pain brioché.</p></li>
+          <li><h2>Posé dans la sauce.</h2><p>Les deux moitiés servies dans la sauce Café de Paris, chaude.</p></li>
+        </ol>
+        <div class="r-bar" aria-hidden="true"><i></i></div>
+      </div>
+      <figure class="r-fig"><canvas width="800" height="1200" aria-hidden="true"></canvas><img class="r-fallback" src="img/seq/62.webp" width="800" height="1200" alt="Le smash burger coupé, servi dans la sauce Café de Paris" loading="lazy"></figure>
+    </div>
+  </section>
+  <section class="carte" id="carte">
+    <div class="wrap">
+      <div class="head rv">
+        <div>
+          <h2>Trois façons de la manger.</h2>
+          <p class="intro">Smash, burger ou baguette, toujours avec la sauce Café de Paris.</p>
+        </div>
+        <a class="btn btn-line" href="#carte">Toute la carte</a>
+      </div>
+      <div class="plats">
+        <article class="plat rv">
+          <figure><img src="img/carte-smash.webp" width="1400" height="939" alt="Smash burger triple coupé, servi dans la sauce Café de Paris avec ses frites" loading="lazy"></figure>
+          <div class="txt"><h3>Les smash burgers</h3><p>Simple, double ou triple. Bœuf smashé, cheddar, servi dans la sauce avec ses frites.</p></div>
+        </article>
+        <article class="plat rv">
+          <figure><img src="img/carte-burger.webp" width="1400" height="939" alt="Burger au steak épais, coupé et servi dans la sauce Café de Paris" loading="lazy"></figure>
+          <div class="txt"><h3>Les burgers</h3><p>Le steak épais. Simple, double ou triple, servi dans la sauce avec ses frites.</p></div>
+        </article>
+        <article class="plat rv">
+          <figure><img src="img/carte-baguette.webp" width="1400" height="939" alt="La baguette et ses frites, sauce Café de Paris" loading="lazy"></figure>
+          <div class="txt"><h3>La baguette</h3><p>La sauce Café de Paris tartinée dans une baguette croustillante.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="offert" id="offert">
+    <div class="wrap">
+      <div class="rv">
+        <h2>Votre premier burger, <span>offert.</span></h2>
+        <p>Le 27 novembre, nous offrons 200 burgers. Réservez le vôtre et choisissez l'heure de passage : un QR code arrive par e-mail.</p>
+        <div class="compteur"><b>200</b><span>burgers encore disponibles</span></div>
+      </div>
+      <form class="form rv" onsubmit="event.preventDefault()">
+        <h3>Réserver mon burger</h3>
+        <label>Prénom<input name="prenom" autocomplete="given-name" required></label>
+        <label>E-mail<input name="email" type="email" autocomplete="email" required></label>
+        <label>Téléphone<input name="tel" type="tel" autocomplete="tel" required></label>
+        <label>Heure de passage
+          <select name="creneau"><option>11h30 à 12h30</option><option>12h30 à 13h30</option><option>18h30 à 19h30</option><option>19h30 à 20h30</option></select>
+        </label>
+        <button class="btn btn-main" type="submit">Réserver</button>
+        <small>Un burger par personne. Maquette : formulaire non relié.</small>
+      </form>
+    </div>
+  </section>
+  <section class="sauce" id="sauce">
+    <div class="wrap">
+      <figure class="rv"><img src="img/trempage.webp" width="1800" height="1000" alt="Une moitié de burger trempée dans la sauce Café de Paris" loading="lazy"></figure>
+      <div class="rv">
+        <h2>Inspirée par la tradition, <span>élevée à l'excellence</span> depuis plus de quarante ans.</h2>
+        <p>Notre sauce s'inscrit dans la tradition des grandes sauces d'entrecôte du XX<sup>e</sup> siècle, née entre Genève et Paris, avant de trouver à Paris sa propre identité. Transmise, affinée et perfectionnée au fil des années, elle est restée au cœur de notre maison.</p>
+        <div class="sign"><img src="img/monogramme-or.svg" alt="" width="46" height="46">Depuis plus de quarante ans.</div>
+      </div>
+    </div>
+  </section>
+  <section class="histoire" id="histoire">
+    <div class="wrap">
+      <h2 class="rv">Notre histoire</h2>
+      <ol class="frise">
+        <li class="rv"><b>XX<sup>e</sup> siècle</b><p>La tradition des grandes sauces d'entrecôte naît entre Genève et Paris.</p></li>
+        <li class="rv"><b>Début des années 1980</b><p>La recette est introduite et travaillée à Paris, où elle trouve sa propre identité.</p></li>
+        <li class="rv"><b>Plusieurs décennies</b><p>Servie à L'Entrecôte Café de Paris : rue Feydeau, rue de Ponthieu, rue François-Miron, et à Cannes.</p></li>
+        <li class="rv"><b>Aujourd'hui</b><p>Atelier Paris Burger : une évolution parisienne d'une tradition partagée, pensée pour le présent sans renoncer à son héritage.</p></li>
+      </ol>
+      <p class="pos rv">Nous ne revendiquons pas l'origine de la sauce. Nous assurons la continuité d'une interprétation parisienne, construite dans le temps, et nous lui donnons deux formats d'aujourd'hui : le burger et la baguette.</p>
+      <ul class="valeurs rv">
+        <li><b>Transmission</b>Un savoir-faire préservé.</li>
+        <li><b>Exigence</b>Précision et constance.</li>
+        <li><b>Authenticité</b>Une histoire réelle, sans excès.</li>
+        <li><b>Évolution</b>L'héritage, au format d'aujourd'hui.</li>
+      </ul>
+    </div>
+  </section>
+  <section class="adresse" id="maisons">
+    <div class="wrap">
+      <div class="rv">
+        <h2>Nos adresses</h2>
+        <div class="maison">
+          <h3>Genève, APB du Lac</h3>
+          <dl>
+            <dt>Ouverture</dt><dd>Vendredi 27 novembre 2026</dd>
+            <dt>Adresse</dt><dd>Au bord du lac, face au Jet d'eau (adresse exacte à confirmer)</dd>
+            <dt>Horaires</dt><dd>À confirmer avec Tony</dd>
+          </dl>
+        </div>
+        <div class="maison">
+          <h3>Ibiza, au port</h3>
+          <p>Aujourd'hui, le Patron, d'origine phénicio-libanaise, revient à ses origines et ouvre son premier restaurant en Espagne, sur l'île d'Ibiza.</p>
+          <dl>
+            <dt>Adresse</dt><dd>Carrer Barcelona, esquina Soler 7 (forme postale à confirmer)</dd>
+          </dl>
+        </div>
+        <div class="maison">
+          <h3>Madrid, en livraison</h3>
+          <p>La carte d'Atelier Paris Burger, livrée chez vous.</p>
+          <dl>
+            <dt>Commander</dt><dd>Sur Glovo (lien à ajouter)</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="carte-fid rv">
+        <h3>La carte de fidélité</h3>
+        <p>Dans votre téléphone, sans application à télécharger. Un tampon à chaque passage.</p>
+        <a class="btn btn-main" href="#">Ajouter à mon Wallet</a>
+      </div>
+    </div>
+  </section>
+</main>
+<dialog class="pop" id="pop" aria-labelledby="pop-t">
+  <button class="pop-x" type="button" aria-label="Fermer">×</button>
+  <img src="img/monogramme-or.svg" alt="" width="54" height="54">
+  <h2 id="pop-t">200 burgers offerts.</h2>
+  <p>Le 27 novembre, pour l'ouverture à Genève. Réservez le vôtre en 30 secondes.</p>
+  <div class="compteur"><b>200</b><span>encore disponibles</span></div>
+  <a class="btn btn-or" href="#offert" data-close>Réserver mon burger</a>
+  <button class="pop-later" type="button" data-close>Plus tard</button>
+</dialog>
+
+
+<footer class="pied">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="img/monogramme-creme.svg" alt="" width="40" height="40"><span>Atelier Paris Burger</span></a>
+    <p class="slogan">Inspirée par la tradition, élevée à l'excellence depuis plus de quarante ans.</p>
+    <nav aria-label="Pied de page">
+      <a href="#">Instagram</a>
+      <a href="#">Mentions légales</a>
+      <a href="#">Confidentialité</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="barre">
+  <a class="btn btn-main" href="#offert">Réserver mon burger offert</a>
+  <a class="btn btn-line" href="#carte">Carte</a>
+</div>
+
+<script>
+(function(){
+  var d=document.documentElement; d.classList.add('js');
+  var els=document.querySelectorAll('.rv,.hero-bg');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('on')});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+<script>
+/* Séquence du rituel : 63 vraies photos (rafale DSC06388-06468), dessinées sur un canvas selon le défilement */
+(function(){
+  var sec=document.getElementById('rituel'); if(!sec) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var cv=sec.querySelector('canvas'), cx=cv.getContext('2d'), N=63, imgs=[], cur=-1, items=sec.querySelectorAll('.r-txt li'), bar=sec.querySelector('.r-bar i');
+  function src(i){return 'img/seq/'+(i<10?'0':'')+i+'.webp'}
+  function load(i){if(imgs[i])return imgs[i];var im=new Image();im.decoding='async';im.src=src(i);im.onload=function(){if(i===want)draw(i)};imgs[i]=im;return im}
+  var want=0;
+  function fit(){var r=cv.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);cur=-1;draw(want)}
+  function draw(i){
+    var k=i; while(k>=0&&!(imgs[k]&&imgs[k].complete&&imgs[k].naturalWidth)) k--; if(k<0||k===cur) return; cur=k;
+    var im=imgs[k],W=cv.width,H=cv.height,s=Math.max(W/im.naturalWidth,H/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;
+    cx.drawImage(im,(W-w)/2,(H-h)/2,w,h);
+  }
+  function step(){
+    var r=sec.getBoundingClientRect(), total=sec.offsetHeight-window.innerHeight, p=Math.min(1,Math.max(0,-r.top/total));
+    /* 0-0.55 : coupe (00-49) ; 0.55-0.75 : ouverture (50-58) ; 0.75-1 : dans la sauce (59-62) */
+    var i = p<.55 ? Math.round(p/.55*49) : p<.75 ? 50+Math.round((p-.55)/.2*8) : 59+Math.min(3,Math.floor((p-.75)/.25*4));
+    want=i; load(i); draw(i);
+    var st = p<.5?0 : p<.73?1 : 2;
+    items.forEach(function(li,j){li.classList.toggle('on',j===st)});
+    bar.style.transform='scaleX('+p.toFixed(3)+')';
+  }
+  var ticking=false;
+  function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(function(){ticking=false;step()})}}
+  /* préchargement progressif quand la section approche */
+  new IntersectionObserver(function(es){if(es[0].isIntersecting){for(var i=0;i<N;i++)load(i)}},{rootMargin:'100% 0px'}).observe(sec);
+  load(0);
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',fit);
+  fit(); step();
+})();
+/* Barre iPhone : apparaît une fois le premier écran passé */
+(function(){var b=document.querySelector('.barre'),h=document.querySelector('.hero');if(!b||!h)return;new IntersectionObserver(function(e){b.classList.toggle('on',!e[0].isIntersecting)},{threshold:0.15}).observe(h)})();
+/* Pop-up de l'offre, une fois par visite */
+(function(){
+  var d=document.getElementById('pop'); if(!d||!d.showModal) return;
+  var seen=false; try{seen=sessionStorage.getItem('apb-pop')==='1'}catch(e){}
+  if(seen) return;
+  function close(){d.close();try{sessionStorage.setItem('apb-pop','1')}catch(e){}}
+  d.querySelector('.pop-x').addEventListener('click',close);
+  d.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',close)});
+  d.addEventListener('click',function(e){if(e.target===d)close()});
+  d.addEventListener('cancel',function(){try{sessionStorage.setItem('apb-pop','1')}catch(e){}});
+  setTimeout(function(){if(!document.hidden)d.showModal()},1800);
+})();
+</script>
+</body>
+</html>
