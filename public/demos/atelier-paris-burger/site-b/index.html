@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="img/hero-brasserie.webp" media="(min-width:901px)">
-<link rel="preload" as="image" href="img/hero-brasserie-m.webp" media="(max-width:900px)">
+<link rel="preload" as="image" href="img/hero-merlot.webp" media="(min-width:901px)">
+<link rel="preload" as="image" href="img/hero-merlot-m.webp" media="(max-width:900px)">
 <style>
 /* Charte Atelier Paris Burger (brand book 28.10 + ES 04.11). Peach Cream et Woodsmoke : valeurs à caler sur le brand book ES. */
 :root{
@@ -169,6 +169,65 @@ p{margin:0}
 @media (max-width:900px){.frise,.valeurs{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.frise{row-gap:28px}}
 @media (max-width:520px){.frise{grid-template-columns:minmax(0,1fr)}}
 
+
+/* Barre des maisons (accueil .com) */
+.maisons-bar{position:absolute;z-index:2;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid rgba(232,181,98,.35);background:rgba(22,17,15,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.maisons-bar a{display:flex;flex-direction:column;gap:2px;padding:16px clamp(16px,3vw,40px);text-decoration:none;color:var(--on-dark);transition:background-color .2s var(--ease)}
+.maisons-bar a+a{border-left:1px solid rgba(232,181,98,.25)}
+.maisons-bar a:hover{background:rgba(127,15,40,.55)}
+.maisons-bar b{font-family:var(--serif);font-size:24px;font-weight:600;color:var(--peach)}
+.maisons-bar span{font-size:14px;color:var(--on-dark-2)}
+
+/* Rituel : séquence image par image au défilement */
+.rituel{position:relative;height:320vh;background:var(--woodsmoke);color:var(--on-dark)}
+.r-pin{position:sticky;top:72px;height:calc(100vh - 72px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;max-width:var(--max);margin:0 auto;padding:0 var(--gutter);gap:clamp(24px,4vw,64px)}
+.r-txt ol{list-style:none;margin:0;padding:0;display:grid}
+.r-txt li{grid-area:1/1;opacity:0;transform:translateY(14px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.r-txt li.on{opacity:1;transform:none}
+.r-txt h2{font-size:clamp(48px,6vw,96px);color:var(--peach)}
+.r-txt li:last-child h2{color:var(--or-clair)}
+.r-txt p{margin-top:16px;max-width:30ch;font-size:clamp(17px,1.4vw,20px);color:var(--on-dark-2)}
+.r-bar{margin-top:40px;height:2px;width:min(260px,60%);background:rgba(244,233,220,.18)}
+.r-bar i{display:block;height:100%;width:100%;background:var(--or);transform-origin:left;transform:scaleX(0)}
+.r-fig{margin:0;justify-self:center;height:min(calc(100vh - 120px),900px);aspect-ratio:2/3;border-radius:8px;overflow:hidden;background:#0d0a09}
+.r-fig canvas{width:100%;height:100%;display:block}
+.r-fallback{display:none;width:100%;height:100%;object-fit:cover}
+
+/* Pop-up offre */
+.pop{border:0;padding:clamp(28px,4vw,44px);width:min(440px,calc(100vw - 32px));border-radius:14px;background:var(--cabsav);color:var(--on-dark);text-align:center}
+.pop::backdrop{background:rgba(22,17,15,.62)}
+.pop h2{margin-top:14px;font-size:clamp(36px,5vw,48px);color:var(--peach)}
+.pop p{margin-top:12px;color:var(--on-dark-2)}
+.pop .compteur{justify-content:center;margin-top:18px}
+.pop .compteur b{font-size:56px}
+.pop .btn{width:100%;margin-top:22px}
+.pop-later{margin-top:10px;background:none;border:0;color:var(--on-dark-2);font:14px var(--sans);cursor:pointer;min-height:44px;padding:0 12px}
+.pop-x{position:absolute;top:10px;right:10px;width:44px;height:44px;border:0;background:none;color:var(--on-dark);font-size:28px;cursor:pointer;border-radius:50%}
+.pop-x:focus-visible,.pop-later:focus-visible,.maisons-bar a:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+.js .pop[open]{animation:popin .35s var(--ease)}
+@keyframes popin{from{opacity:0;transform:translateY(12px) scale(.98)}}
+
+@media (max-width:900px){
+  .maisons-bar{position:static;background:var(--cabsav);backdrop-filter:none}
+  .maisons-bar a{padding:14px 12px}
+  .maisons-bar b{font-size:20px}
+  .maisons-bar span{font-size:12.5px}
+  .rituel{height:300vh}
+  .r-pin{top:0;height:100svh;grid-template-columns:minmax(0,1fr);padding:0}
+  .r-fig{grid-area:1/1;height:100%;width:100%;aspect-ratio:auto;border-radius:0}
+  .r-fig canvas{object-fit:cover}
+  .r-txt{grid-area:1/1;align-self:end;z-index:2;padding:0 var(--gutter) calc(96px + env(safe-area-inset-bottom));background:linear-gradient(0deg,rgba(13,10,9,.85),rgba(13,10,9,0));padding-top:120px}
+  .r-txt h2{font-size:clamp(44px,13vw,64px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .rituel{height:auto}
+  .r-pin{position:static;height:auto;padding-top:64px;padding-bottom:64px}
+  .r-fig canvas{display:none}.r-fallback{display:block}
+  .r-txt li{grid-area:auto;opacity:1;transform:none;margin-bottom:24px}
+  .r-bar{display:none}
+  .js .pop[open]{animation:none}
+}
+
 /* Barre fixe iPhone */
 .barre{display:none}
 
@@ -197,6 +256,8 @@ p{margin:0}
   .steps{gap:36px}
   .step figure{aspect-ratio:4/3}
   .barre{display:flex;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--peach) 94%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid color-mix(in srgb,var(--ink) 10%,transparent)}
+  .js .barre{transform:translateY(110%);transition:transform .35s var(--ease)}
+  .js .barre.on{transform:none}
   .barre .btn{flex:1;min-height:50px}
   .barre .btn-line{flex:0 0 auto;padding:0 18px}
 }
@@ -223,91 +284,59 @@ p{margin:0}
 <main>
   <section class="hero">
     <div class="wrap">
-      <h1 id="h1">La sauce <span class="nw">Café de Paris</span>, <em>en smash burger.</em></h1>
-      <p class="lead" id="lead">Plus de quarante ans de sauce, un burger fait à la minute. Ouverture le 27 novembre, face au Jet d'eau.</p>
+      <h1 id="h1">Coupé. Posé <em>dans la sauce.</em></h1>
+      <p class="lead" id="lead">Le smash burger servi dans la sauce Café de Paris, une recette travaillée à Paris depuis le début des années 1980.</p>
       <div class="actions">
         <a class="btn btn-or" href="#offert">Réserver mon burger offert</a>
         <a class="btn btn-line" href="#carte">Voir la carte</a>
       </div>
     </div>
     <picture class="hero-bg">
-      <source media="(max-width:900px)" srcset="img/hero-brasserie-m.webp" width="1100" height="762">
-      <img src="img/hero-brasserie.webp" width="2400" height="1610" alt="Smash burger coupé en deux, frites et sauce Café de Paris, sur une table de brasserie">
+      <source media="(max-width:900px)" srcset="img/hero-merlot-m.webp" width="1100" height="762">
+      <img src="img/hero-merlot.webp" width="2400" height="1610" alt="Smash burger coupé en deux, posé dans la sauce Café de Paris, avec ses frites">
     </picture>
-    <p class="note"><strong>200 burgers offerts</strong> le jour de l'ouverture.</p>
+    <nav class="maisons-bar" aria-label="Nos maisons">
+      <a href="#maisons"><b>Genève</b><span>Ouverture le 27 novembre</span></a>
+      <a href="#maisons"><b>Ibiza</b><span>Au port</span></a>
+      <a href="#maisons"><b>Madrid</b><span>En livraison</span></a>
+    </nav>
   </section>
 
-  <section class="sauce" id="sauce">
-    <div class="wrap">
-      <figure class="rv"><img src="img/trempage.webp" width="1800" height="1000" alt="Une moitié de burger trempée dans la sauce Café de Paris" loading="lazy"></figure>
-      <div class="rv">
-        <h2>Inspirée par la tradition, <span>élevée à l'excellence</span> depuis plus de quarante ans.</h2>
-        <p>Notre sauce s'inscrit dans la tradition des grandes sauces d'entrecôte du XX<sup>e</sup> siècle, née entre Genève et Paris, avant de trouver à Paris sa propre identité. Transmise, affinée et perfectionnée au fil des années, elle est restée au cœur de notre maison.</p>
-        <div class="sign"><img src="img/monogramme-or.svg" alt="" width="46" height="46">Depuis plus de quarante ans.</div>
+
+
+
+
+
+  <section class="rituel" id="rituel" aria-label="Le rituel">
+    <div class="r-pin">
+      <div class="r-txt">
+        <ol>
+          <li class="on"><h2>Coupé.</h2><p>À la main, d'un seul trait de couteau.</p></li>
+          <li><h2>Ouvert.</h2><p>Bœuf smashé, cheddar fondu, pain brioché.</p></li>
+          <li><h2>Posé dans la sauce.</h2><p>Les deux moitiés servies dans la sauce Café de Paris, chaude.</p></li>
+        </ol>
+        <div class="r-bar" aria-hidden="true"><i></i></div>
       </div>
+      <figure class="r-fig"><canvas width="800" height="1200" aria-hidden="true"></canvas><img class="r-fallback" src="img/seq/62.webp" width="800" height="1200" alt="Le smash burger coupé, servi dans la sauce Café de Paris" loading="lazy"></figure>
     </div>
   </section>
-
-  <section class="histoire" id="histoire">
-    <div class="wrap">
-      <h2 class="rv">Notre histoire</h2>
-      <ol class="frise">
-        <li class="rv"><b>XX<sup>e</sup> siècle</b><p>La tradition des grandes sauces d'entrecôte naît entre Genève et Paris.</p></li>
-        <li class="rv"><b>Début des années 1980</b><p>La recette est introduite et travaillée à Paris, où elle trouve sa propre identité.</p></li>
-        <li class="rv"><b>Plusieurs décennies</b><p>Servie à L'Entrecôte Café de Paris : rue Feydeau, rue de Ponthieu, rue François-Miron, et à Cannes.</p></li>
-        <li class="rv"><b>Aujourd'hui</b><p>Atelier Paris Burger : une évolution parisienne d'une tradition partagée, pensée pour le présent sans renoncer à son héritage.</p></li>
-      </ol>
-      <p class="pos rv">Nous ne revendiquons pas l'origine de la sauce. Nous assurons la continuité d'une interprétation parisienne, construite dans le temps, et nous lui donnons deux formats d'aujourd'hui : le burger et la baguette.</p>
-      <ul class="valeurs rv">
-        <li><b>Transmission</b>Un savoir-faire préservé.</li>
-        <li><b>Exigence</b>Précision et constance.</li>
-        <li><b>Authenticité</b>Une histoire réelle, sans excès.</li>
-        <li><b>Évolution</b>L'héritage, au format d'aujourd'hui.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="geste">
-    <div class="wrap">
-      <h2 class="rv">Smasher, couper, tremper.</h2>
-      <p class="intro rv">Trois gestes, dans cet ordre, pour chaque burger.</p>
-      <div class="steps">
-        <article class="step rv">
-          <figure><img src="img/smasher.webp" width="1400" height="778" alt="Le steak smashé, cheddar fondu, sorti de la plancha" loading="lazy"></figure>
-          <h3>Smasher</h3>
-          <p>Le bœuf écrasé sur la plancha brûlante, croûte saisie, cheddar fondu.</p>
-        </article>
-        <article class="step rv">
-          <figure><img src="img/couper.webp" width="1400" height="778" alt="Le burger coupé en deux, à la main" loading="lazy"></figure>
-          <h3>Couper</h3>
-          <p>En deux, net, pour montrer les couches.</p>
-        </article>
-        <article class="step rv">
-          <figure><img src="img/tremper.webp" width="1400" height="989" alt="Le burger coupé, servi dans la sauce Café de Paris" loading="lazy" style="object-position:45% 60%"></figure>
-          <h3>Tremper</h3>
-          <p>Les deux moitiés servies directement dans la sauce Café de Paris, chaude.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
   <section class="carte" id="carte">
     <div class="wrap">
       <div class="head rv">
         <div>
-          <h2>Une carte courte.</h2>
-          <p class="intro">Le burger, la baguette et la sauce au centre de chaque assiette.</p>
+          <h2>Trois façons de la manger.</h2>
+          <p class="intro">Smash, burger ou baguette, toujours avec la sauce Café de Paris.</p>
         </div>
         <a class="btn btn-line" href="#carte">Toute la carte</a>
       </div>
       <div class="plats">
         <article class="plat rv">
-          <figure><img src="img/carte-smash.webp" width="1400" height="939" alt="Smash burger coupé, servi dans la sauce Café de Paris avec ses frites" loading="lazy"></figure>
-          <div class="txt"><h3>Le smash burger</h3><p>Simple, double ou triple. Coupé en deux et servi dans la sauce Café de Paris, avec ses frites.</p></div>
+          <figure><img src="img/carte-smash.webp" width="1400" height="939" alt="Smash burger triple coupé, servi dans la sauce Café de Paris avec ses frites" loading="lazy"></figure>
+          <div class="txt"><h3>Les smash burgers</h3><p>Simple, double ou triple. Bœuf smashé, cheddar, servi dans la sauce avec ses frites.</p></div>
         </article>
         <article class="plat rv">
-          <figure><img src="img/carte-frites.webp" width="1400" height="939" alt="Frites et sauce Café de Paris" loading="lazy"></figure>
-          <div class="txt"><h3>Frites et sauce</h3><p>Les frites, avec la sauce Café de Paris.</p></div>
+          <figure><img src="img/carte-burger.webp" width="1400" height="939" alt="Burger au steak épais, coupé et servi dans la sauce Café de Paris" loading="lazy"></figure>
+          <div class="txt"><h3>Les burgers</h3><p>Le steak épais. Simple, double ou triple, servi dans la sauce avec ses frites.</p></div>
         </article>
         <article class="plat rv">
           <figure><img src="img/carte-baguette.webp" width="1400" height="939" alt="La baguette et ses frites, sauce Café de Paris" loading="lazy"></figure>
@@ -316,7 +345,6 @@ p{margin:0}
       </div>
     </div>
   </section>
-
   <section class="offert" id="offert">
     <div class="wrap">
       <div class="rv">
@@ -337,7 +365,34 @@ p{margin:0}
       </form>
     </div>
   </section>
-
+  <section class="sauce" id="sauce">
+    <div class="wrap">
+      <figure class="rv"><img src="img/trempage.webp" width="1800" height="1000" alt="Une moitié de burger trempée dans la sauce Café de Paris" loading="lazy"></figure>
+      <div class="rv">
+        <h2>Inspirée par la tradition, <span>élevée à l'excellence</span> depuis plus de quarante ans.</h2>
+        <p>Notre sauce s'inscrit dans la tradition des grandes sauces d'entrecôte du XX<sup>e</sup> siècle, née entre Genève et Paris, avant de trouver à Paris sa propre identité. Transmise, affinée et perfectionnée au fil des années, elle est restée au cœur de notre maison.</p>
+        <div class="sign"><img src="img/monogramme-or.svg" alt="" width="46" height="46">Depuis plus de quarante ans.</div>
+      </div>
+    </div>
+  </section>
+  <section class="histoire" id="histoire">
+    <div class="wrap">
+      <h2 class="rv">Notre histoire</h2>
+      <ol class="frise">
+        <li class="rv"><b>XX<sup>e</sup> siècle</b><p>La tradition des grandes sauces d'entrecôte naît entre Genève et Paris.</p></li>
+        <li class="rv"><b>Début des années 1980</b><p>La recette est introduite et travaillée à Paris, où elle trouve sa propre identité.</p></li>
+        <li class="rv"><b>Plusieurs décennies</b><p>Servie à L'Entrecôte Café de Paris : rue Feydeau, rue de Ponthieu, rue François-Miron, et à Cannes.</p></li>
+        <li class="rv"><b>Aujourd'hui</b><p>Atelier Paris Burger : une évolution parisienne d'une tradition partagée, pensée pour le présent sans renoncer à son héritage.</p></li>
+      </ol>
+      <p class="pos rv">Nous ne revendiquons pas l'origine de la sauce. Nous assurons la continuité d'une interprétation parisienne, construite dans le temps, et nous lui donnons deux formats d'aujourd'hui : le burger et la baguette.</p>
+      <ul class="valeurs rv">
+        <li><b>Transmission</b>Un savoir-faire préservé.</li>
+        <li><b>Exigence</b>Précision et constance.</li>
+        <li><b>Authenticité</b>Une histoire réelle, sans excès.</li>
+        <li><b>Évolution</b>L'héritage, au format d'aujourd'hui.</li>
+      </ul>
+    </div>
+  </section>
   <section class="adresse" id="maisons">
     <div class="wrap">
       <div class="rv">
@@ -373,6 +428,16 @@ p{margin:0}
     </div>
   </section>
 </main>
+<dialog class="pop" id="pop" aria-labelledby="pop-t">
+  <button class="pop-x" type="button" aria-label="Fermer">×</button>
+  <img src="img/monogramme-or.svg" alt="" width="54" height="54">
+  <h2 id="pop-t">200 burgers offerts.</h2>
+  <p>Le 27 novembre, pour l'ouverture à Genève. Réservez le vôtre en 30 secondes.</p>
+  <div class="compteur"><b>200</b><span>encore disponibles</span></div>
+  <a class="btn btn-or" href="#offert" data-close>Réserver mon burger</a>
+  <button class="pop-later" type="button" data-close>Plus tard</button>
+</dialog>
+
 
 <footer class="pied">
   <div class="wrap">
@@ -401,10 +466,52 @@ p{margin:0}
 })();
 </script>
 <script>
-(function(){var e=new URLSearchParams(location.search).get('edito');var V={
-b:['Coupé. Posé <em>dans la sauce.</em>','Le smash burger servi dans la sauce Café de Paris, une recette travaillée à Paris depuis le début des années 1980. Ouverture le 27 novembre, face au Jet d\'eau.'],
-c:['De Paris au bord du lac, <em>la même sauce.</em>','Servie pendant des décennies à L\'Entrecôte Café de Paris, notre sauce arrive en smash burger, face au Jet d\'eau. Ouverture le 27 novembre.']};
-if(V[e]){document.getElementById('h1').innerHTML=V[e][0];document.getElementById('lead').textContent=V[e][1];}})();
+/* Séquence du rituel : 63 vraies photos (rafale DSC06388-06468), dessinées sur un canvas selon le défilement */
+(function(){
+  var sec=document.getElementById('rituel'); if(!sec) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var cv=sec.querySelector('canvas'), cx=cv.getContext('2d'), N=63, imgs=[], cur=-1, items=sec.querySelectorAll('.r-txt li'), bar=sec.querySelector('.r-bar i');
+  function src(i){return 'img/seq/'+(i<10?'0':'')+i+'.webp'}
+  function load(i){if(imgs[i])return imgs[i];var im=new Image();im.decoding='async';im.src=src(i);im.onload=function(){if(i===want)draw(i)};imgs[i]=im;return im}
+  var want=0;
+  function fit(){var r=cv.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);cur=-1;draw(want)}
+  function draw(i){
+    var k=i; while(k>=0&&!(imgs[k]&&imgs[k].complete&&imgs[k].naturalWidth)) k--; if(k<0||k===cur) return; cur=k;
+    var im=imgs[k],W=cv.width,H=cv.height,s=Math.max(W/im.naturalWidth,H/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;
+    cx.drawImage(im,(W-w)/2,(H-h)/2,w,h);
+  }
+  function step(){
+    var r=sec.getBoundingClientRect(), total=sec.offsetHeight-window.innerHeight, p=Math.min(1,Math.max(0,-r.top/total));
+    /* 0-0.55 : coupe (00-49) ; 0.55-0.75 : ouverture (50-58) ; 0.75-1 : dans la sauce (59-62) */
+    var i = p<.55 ? Math.round(p/.55*49) : p<.75 ? 50+Math.round((p-.55)/.2*8) : 59+Math.min(3,Math.floor((p-.75)/.25*4));
+    want=i; load(i); draw(i);
+    var st = p<.5?0 : p<.73?1 : 2;
+    items.forEach(function(li,j){li.classList.toggle('on',j===st)});
+    bar.style.transform='scaleX('+p.toFixed(3)+')';
+  }
+  var ticking=false;
+  function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(function(){ticking=false;step()})}}
+  /* préchargement progressif quand la section approche */
+  new IntersectionObserver(function(es){if(es[0].isIntersecting){for(var i=0;i<N;i++)load(i)}},{rootMargin:'100% 0px'}).observe(sec);
+  load(0);
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',fit);
+  fit(); step();
+})();
+/* Barre iPhone : apparaît une fois le premier écran passé */
+(function(){var b=document.querySelector('.barre'),h=document.querySelector('.hero');if(!b||!h)return;new IntersectionObserver(function(e){b.classList.toggle('on',!e[0].isIntersecting)},{threshold:0.15}).observe(h)})();
+/* Pop-up de l'offre, une fois par visite */
+(function(){
+  var d=document.getElementById('pop'); if(!d||!d.showModal) return;
+  var seen=false; try{seen=sessionStorage.getItem('apb-pop')==='1'}catch(e){}
+  if(seen) return;
+  function close(){d.close();try{sessionStorage.setItem('apb-pop','1')}catch(e){}}
+  d.querySelector('.pop-x').addEventListener('click',close);
+  d.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',close)});
+  d.addEventListener('click',function(e){if(e.target===d)close()});
+  d.addEventListener('cancel',function(){try{sessionStorage.setItem('apb-pop','1')}catch(e){}});
+  setTimeout(function(){if(!document.hidden)d.showModal()},1800);
+})();
 </script>
 </body>
 </html>
