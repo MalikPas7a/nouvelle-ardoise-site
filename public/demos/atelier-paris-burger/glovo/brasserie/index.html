@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Atelier Paris Burger · Brasserie Glovo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout : en-tête, propositions audacieuses, 4 ambiances (photo + zooms), puis le retour à envoyer */
+:root{
+  --bg:#f5eee6; --panel:#fffaf4; --fg:#2a1218; --muted:#6e5157; --line:#e2d3c8; --accent:#7f0f28; --on-accent:#fff7f0; --or:#a87b22;
+  --display:"Cormorant Garamond",Georgia,serif; --ui:"DM Sans",system-ui,-apple-system,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{--bg:#170c0f;--panel:#221317;--fg:#f4e9de;--muted:#c6aab0;--line:#3a2329;--accent:#e07b92;--on-accent:#170c0f;--or:#d9a94a;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 var(--ui)}
+img{max-width:100%}
+[hidden]{display:none!important}
+.wrap{max-width:1200px;margin:0 auto;padding:32px max(16px,env(safe-area-inset-right,0px)) 64px max(16px,env(safe-area-inset-left,0px));display:grid;gap:52px}
+h1,h2{font-family:var(--display);font-weight:600;text-wrap:balance;margin:0}
+h1{font-size:clamp(30px,4.5vw,46px);line-height:1.05}
+h2{font-size:clamp(26px,3.2vw,36px);line-height:1.1}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--or);font-weight:600}
+.lead{max-width:64ch;color:var(--muted);margin:10px 0 0}
+.block{display:grid;gap:14px;padding-top:24px;border-top:1px solid var(--line)}
+.block > p{margin:0;max-width:70ch;color:var(--muted)}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.opt{display:grid;gap:8px;min-width:0;cursor:pointer;position:relative}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:6px;outline:3px solid transparent;outline-offset:3px;transition:outline-color .15s}
+.opt:hover img{outline-color:var(--line)}
+.opt input:checked + img{outline-color:var(--accent)}
+.opt input:focus-visible + img{outline-color:var(--or)}
+.cap{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.cap b{font-weight:600}
+.cap small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.chk{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);visibility:hidden;white-space:nowrap}
+.opt input:checked ~ .cap .chk{visibility:visible}
+.amb{display:grid;grid-template-columns:2fr 1fr;gap:12px;min-width:0}
+.zooms{display:grid;gap:12px;min-width:0}
+.zooms figure{margin:0;position:relative}
+.zooms img{display:block;width:100%;aspect-ratio:5/3;object-fit:cover;border-radius:6px}
+.zooms figcaption{position:absolute;left:8px;bottom:8px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:#fff;background:rgba(0,0,0,.45);padding:2px 7px;border-radius:4px}
+@media (max-width:700px){.amb{grid-template-columns:1fr}.zooms{grid-template-columns:1fr 1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px;display:grid;gap:14px}
+textarea{width:100%;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:10px;font:14px var(--ui);resize:vertical}
+pre{white-space:pre-wrap;margin:0;font:13px/1.5 ui-monospace,Menlo,monospace;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-block;background:var(--accent);color:var(--on-accent);border:0;padding:11px 18px;border-radius:8px;font:600 14px var(--ui);text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btn:focus-visible,textarea:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+.note{font-size:13px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Atelier Paris Burger · photos Glovo · brasserie</div>
+    <h1>Tony, choisis ta photo brasserie</h1>
+    <p class="lead">Tu as choisi la brasserie et le burger 240 g. Voici 7 propositions dans ce thème. Clique sur celle que tu préfères (une seule), ajoute une remarque si tu veux, puis envoie ton choix en bas de la page. Ensuite, on refait tout le menu dans ce style.</p>
+  </header>
+
+  <form id="f" onsubmit="return false" style="display:grid;gap:52px">
+  <section class="block">
+    <h2>Les plus audacieuses</h2>
+    <p>Ici, on change la lumière, le cadrage et la mise en scène, pas seulement le décor. Ce sont les photos qui donnent le plus envie sur Glovo.</p>
+    <div class="grid3">
+      <label class="opt"><input type="radio" name="choix" id="c-contre-jour" value="Contre-jour doré"><img src="img/x1.jpg" alt="Burger en contre-jour doré dans une brasserie, légère vapeur"><div class="cap"><div><b>Contre-jour doré</b><small>Lumière de fin de journée, un filet de vapeur.</small></div><span class="chk">Choisi</span></div></label>
+      <label class="opt"><input type="radio" name="choix" id="c-gros-plan" value="Gros plan héro"><img src="img/x2.jpg" alt="Gros plan sur la moitié trempée dans la sauce et la cuisson rosée"><div class="cap"><div><b>Gros plan héro</b><small>Serré sur la sauce et la cuisson rosée.</small></div><span class="chk">Choisi</span></div></label>
+      <label class="opt"><input type="radio" name="choix" id="c-table" value="Table dressée"><img src="img/x3.jpg" alt="Table de brasserie dressée, nappe blanche et saucière de sauce Café de Paris"><div class="cap"><div><b>Table dressée</b><small>Nappe blanche, saucière de Café de Paris. Sans la petite carte.</small></div><span class="chk">Choisi</span></div></label>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Les 4 ambiances</h2>
+    <p>Même photo du burger, seul le décor change. À droite de chaque photo, un zoom sur le plat et un sur le décor.</p>
+    <div class="amb">
+      <label class="opt"><input type="radio" name="choix" id="c-soir" value="Ambiance 1 · Le soir"><img src="img/b1.jpg" alt="Brasserie du soir, banquette velours bordeaux, appliques dorées"><div class="cap"><div><b>1 · Le soir</b><small>Velours bordeaux capitonné, boiseries, miroirs, appliques.</small></div><span class="chk">Choisi</span></div></label>
+      <div class="zooms"><figure><img src="img/b1-plat.jpg" alt="Zoom sur le plat"><figcaption>Le plat</figcaption></figure><figure><img src="img/b1-decor.jpg" alt="Zoom sur le décor"><figcaption>Le décor</figcaption></figure></div>
+    </div>
+    <div class="amb">
+      <label class="opt"><input type="radio" name="choix" id="c-midi" value="Ambiance 2 · Le midi"><img src="img/b2.jpg" alt="Brasserie de jour, rideaux bistrot, chaises cannées, marbre"><div class="cap"><div><b>2 · Le midi</b><small>Lumière du jour, rideaux bistrot, chaises cannées, marbre.</small></div><span class="chk">Choisi</span></div></label>
+      <div class="zooms"><figure><img src="img/b2-plat.jpg" alt="Zoom sur le plat"><figcaption>Le plat</figcaption></figure><figure><img src="img/b2-decor.jpg" alt="Zoom sur le décor"><figcaption>Le décor</figcaption></figure></div>
+    </div>
+    <div class="amb">
+      <label class="opt"><input type="radio" name="choix" id="c-belle-epoque" value="Ambiance 3 · Belle Époque"><img src="img/b3.jpg" alt="Brasserie Belle Époque, miroirs dorés, lampes boules"><div class="cap"><div><b>3 · Belle Époque</b><small>Miroirs dorés, lampes boules, marbre crème.</small></div><span class="chk">Choisi</span></div></label>
+      <div class="zooms"><figure><img src="img/b3-plat.jpg" alt="Zoom sur le plat"><figcaption>Le plat</figcaption></figure><figure><img src="img/b3-decor.jpg" alt="Zoom sur le décor"><figcaption>Le décor</figcaption></figure></div>
+    </div>
+    <div class="amb">
+      <label class="opt"><input type="radio" name="choix" id="c-lampe" value="Ambiance 4 · La lampe"><img src="img/b4.jpg" alt="Coin bordeaux, lampe en laiton allumée, plante"><div class="cap"><div><b>4 · La lampe</b><small>Coin bordeaux, petite lampe laiton, plus intime.</small></div><span class="chk">Choisi</span></div></label>
+      <div class="zooms"><figure><img src="img/b4-plat.jpg" alt="Zoom sur le plat"><figcaption>Le plat</figcaption></figure><figure><img src="img/b4-decor.jpg" alt="Zoom sur le décor"><figcaption>Le décor</figcaption></figure></div>
+    </div>
+  </section>
+  </form>
+
+  <section class="panel" aria-label="Ton retour">
+    <h2>Ton retour à Malik</h2>
+    <label for="msg" class="note">Un détail à changer ? Écris-le ici (facultatif).</label>
+    <textarea id="msg" rows="3" placeholder="Ex. : le gros plan, mais avec le décor du soir"></textarea>
+    <pre id="recap" aria-live="polite"></pre>
+    <div class="row">
+      <a id="wa" class="btn" href="https://wa.me/" target="_blank" rel="noopener">Envoyer par WhatsApp</a>
+      <a id="mail" class="btn ghost" href="mailto:malik@pastamo.ch">Envoyer par mail</a>
+      <button type="button" class="btn ghost" id="copy">Copier le texte</button>
+    </div>
+    <p class="note" id="copied" hidden>Texte copié. Colle-le dans un message à Malik.</p>
+    <p class="note">Adresse de Malik : malik@pastamo.ch</p>
+  </section>
+</div>
+<script>
+const f=document.getElementById('f'),msg=document.getElementById('msg'),recap=document.getElementById('recap');
+function text(){const c=f.querySelector('input[name=choix]:checked');return ['Atelier Paris Burger · photos Glovo brasserie','Mon choix : '+(c?c.value:'pas encore choisi'),'Burger : 240 g',msg.value.trim()?'Remarque : '+msg.value.trim():''].filter(Boolean).join('\n');}
+function upd(){const t=text();recap.textContent=t;document.getElementById('wa').href='https://wa.me/?text='+encodeURIComponent(t);document.getElementById('mail').href='mailto:malik@pastamo.ch?subject='+encodeURIComponent('Atelier Paris Burger – photo brasserie')+'&body='+encodeURIComponent(t);}
+f.addEventListener('change',upd);msg.addEventListener('input',upd);
+document.getElementById('copy').addEventListener('click',async()=>{const ok=document.getElementById('copied');try{await navigator.clipboard.writeText(text());ok.hidden=false;}catch(e){const r=document.createRange();r.selectNodeContents(recap);const s=getSelection();s.removeAllRanges();s.addRange(r);ok.textContent='Texte sélectionné : copie-le avec Cmd+C.';ok.hidden=false;}});
+upd();
+</script>
+</body>
+</html>
