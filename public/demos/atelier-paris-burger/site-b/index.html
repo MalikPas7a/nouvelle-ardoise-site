@@ -64,7 +64,7 @@ p{margin:0}
 /* Ouverture */
 .hero{position:relative;min-height:calc(100svh - 72px);display:flex;align-items:flex-start;background:var(--woodsmoke);color:var(--on-dark);overflow:hidden}
 .hero-bg{position:absolute;inset:0;margin:0}
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 70%}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
 .hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(22,17,15,.82) 0%,rgba(22,17,15,.55) 30%,rgba(22,17,15,0) 52%)}
 .hero .wrap{position:relative;z-index:2;width:100%;padding-top:clamp(36px,6vh,72px)}
 .hero h1{font-size:clamp(44px,5.4vw,84px);color:var(--peach);max-width:16ch}
@@ -223,8 +223,8 @@ p{margin:0}
 <main>
   <section class="hero">
     <div class="wrap">
-      <h1>La sauce <span class="nw">Café de Paris</span>, <em>en smash burger.</em></h1>
-      <p class="lead">Plus de quarante ans de sauce, un burger fait à la minute. Ouverture le 27 novembre, face au Jet d'eau.</p>
+      <h1 id="h1">La sauce <span class="nw">Café de Paris</span>, <em>en smash burger.</em></h1>
+      <p class="lead" id="lead">Plus de quarante ans de sauce, un burger fait à la minute. Ouverture le 27 novembre, face au Jet d'eau.</p>
       <div class="actions">
         <a class="btn btn-or" href="#offert">Réserver mon burger offert</a>
         <a class="btn btn-line" href="#carte">Voir la carte</a>
@@ -357,6 +357,13 @@ p{margin:0}
             <dt>Adresse</dt><dd>Carrer Barcelona, esquina Soler 7 (forme postale à confirmer)</dd>
           </dl>
         </div>
+        <div class="maison">
+          <h3>Madrid, en livraison</h3>
+          <p>La carte d'Atelier Paris Burger, livrée chez vous.</p>
+          <dl>
+            <dt>Commander</dt><dd>Sur Glovo (lien à ajouter)</dd>
+          </dl>
+        </div>
       </div>
       <div class="carte-fid rv">
         <h3>La carte de fidélité</h3>
@@ -392,6 +399,12 @@ p{margin:0}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
   els.forEach(function(e){io.observe(e)});
 })();
+</script>
+<script>
+(function(){var e=new URLSearchParams(location.search).get('edito');var V={
+b:['Coupé. Posé <em>dans la sauce.</em>','Le smash burger servi dans la sauce Café de Paris, une recette travaillée à Paris depuis le début des années 1980. Ouverture le 27 novembre, face au Jet d\'eau.'],
+c:['De Paris au bord du lac, <em>la même sauce.</em>','Servie pendant des décennies à L\'Entrecôte Café de Paris, notre sauce arrive en smash burger, face au Jet d\'eau. Ouverture le 27 novembre.']};
+if(V[e]){document.getElementById('h1').innerHTML=V[e][0];document.getElementById('lead').textContent=V[e][1];}})();
 </script>
 </body>
 </html>
