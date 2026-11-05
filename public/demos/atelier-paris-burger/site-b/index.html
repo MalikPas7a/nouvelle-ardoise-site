@@ -179,7 +179,7 @@ p{margin:0}
 .maisons-bar span{font-size:14px;color:var(--on-dark-2)}
 
 /* Rituel : séquence image par image au défilement */
-.rituel{position:relative;height:320vh;background:var(--woodsmoke);color:var(--on-dark)}
+.rituel{position:relative;height:520vh;background:var(--woodsmoke);color:var(--on-dark)}
 .r-pin{position:sticky;top:72px;height:calc(100vh - 72px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;max-width:var(--max);margin:0 auto;padding:0 var(--gutter);gap:clamp(24px,4vw,64px)}
 .r-txt ol{list-style:none;margin:0;padding:0;display:grid}
 .r-txt li{grid-area:1/1;opacity:0;transform:translateY(14px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
@@ -212,7 +212,7 @@ p{margin:0}
   .maisons-bar a{padding:14px 12px}
   .maisons-bar b{font-size:20px}
   .maisons-bar span{font-size:12.5px}
-  .rituel{height:300vh}
+  .rituel{height:480vh}
   .r-pin{top:0;height:100svh;grid-template-columns:minmax(0,1fr);padding:0}
   .r-fig{grid-area:1/1;height:100%;width:100%;aspect-ratio:auto;border-radius:0}
   .r-fig canvas{object-fit:cover}
@@ -311,13 +311,15 @@ p{margin:0}
     <div class="r-pin">
       <div class="r-txt">
         <ol>
-          <li class="on"><h2>Coupé.</h2><p>À la main, d'un seul trait de couteau.</p></li>
-          <li><h2>Ouvert.</h2><p>Bœuf smashé, cheddar fondu, pain brioché.</p></li>
+          <li class="on"><h2>Smashé.</h2><p>Le bœuf écrasé sur la plancha brûlante, jusqu'à la croûte.</p></li>
+          <li><h2>Fondu.</h2><p>Le cheddar posé à chaud, puis tout passe sur le pain brioché.</p></li>
+          <li><h2>Monté.</h2><p>Le pain, le bœuf, le cheddar, le chapeau. Rien de plus.</p></li>
+          <li><h2>Coupé.</h2><p>À la main, d'un seul trait de couteau.</p></li>
           <li><h2>Posé dans la sauce.</h2><p>Les deux moitiés servies dans la sauce Café de Paris, chaude.</p></li>
         </ol>
         <div class="r-bar" aria-hidden="true"><i></i></div>
       </div>
-      <figure class="r-fig"><canvas width="800" height="1200" aria-hidden="true"></canvas><img class="r-fallback" src="img/seq/62.webp" width="800" height="1200" alt="Le smash burger coupé, servi dans la sauce Café de Paris" loading="lazy"></figure>
+      <figure class="r-fig"><canvas width="800" height="1200" aria-hidden="true"></canvas><img class="r-fallback" src="img/seq/126.webp" width="800" height="1200" alt="Le smash burger coupé, servi dans la sauce Café de Paris" loading="lazy"></figure>
     </div>
   </section>
   <section class="carte" id="carte">
@@ -466,12 +468,13 @@ p{margin:0}
 })();
 </script>
 <script>
-/* Séquence du rituel : 63 vraies photos (rafale DSC06388-06468), dessinées sur un canvas selon le défilement */
+/* Séquence du rituel : 127 vraies photos du shooting (rafales DSC06290-06468), dessinées sur un canvas selon le défilement.
+   Pour changer la séquence : remplacer les images de img/seq/ (000.webp, 001.webp…) et ajuster N et STAGES. */
 (function(){
   var sec=document.getElementById('rituel'); if(!sec) return;
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var cv=sec.querySelector('canvas'), cx=cv.getContext('2d'), N=63, imgs=[], cur=-1, items=sec.querySelectorAll('.r-txt li'), bar=sec.querySelector('.r-bar i');
-  function src(i){return 'img/seq/'+(i<10?'0':'')+i+'.webp'}
+  var cv=sec.querySelector('canvas'), cx=cv.getContext('2d'), N=127,STAGES=[0,32,55,64,114], imgs=[], cur=-1, items=sec.querySelectorAll('.r-txt li'), bar=sec.querySelector('.r-bar i');
+  function src(i){return 'img/seq/'+('00'+i).slice(-3)+'.webp'}
   function load(i){if(imgs[i])return imgs[i];var im=new Image();im.decoding='async';im.src=src(i);im.onload=function(){if(i===want)draw(i)};imgs[i]=im;return im}
   var want=0;
   function fit(){var r=cv.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);cur=-1;draw(want)}
@@ -482,10 +485,9 @@ p{margin:0}
   }
   function step(){
     var r=sec.getBoundingClientRect(), total=sec.offsetHeight-window.innerHeight, p=Math.min(1,Math.max(0,-r.top/total));
-    /* 0-0.55 : coupe (00-49) ; 0.55-0.75 : ouverture (50-58) ; 0.75-1 : dans la sauce (59-62) */
-    var i = p<.55 ? Math.round(p/.55*49) : p<.75 ? 50+Math.round((p-.55)/.2*8) : 59+Math.min(3,Math.floor((p-.75)/.25*4));
+    var i=Math.min(N-1,Math.round(p*(N-1)));
     want=i; load(i); draw(i);
-    var st = p<.5?0 : p<.73?1 : 2;
+    var st=0; for(var j=0;j<STAGES.length;j++){ if(i>=STAGES[j]) st=j; }
     items.forEach(function(li,j){li.classList.toggle('on',j===st)});
     bar.style.transform='scaleX('+p.toFixed(3)+')';
   }
