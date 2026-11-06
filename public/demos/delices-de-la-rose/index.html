@@ -203,68 +203,47 @@ footer{background:var(--brun);color:#bfa99c;font-size:12.5px;padding:0 0 32px;te
 .pub li::before{content:"";position:absolute;left:3px;top:16px;width:7px;height:7px;background:var(--or2);transform:rotate(45deg)}
 @media (max-width:860px){.insta .grid{grid-template-columns:1fr}}
 /* prospection : carte de Genève */
-.prosp{background:var(--brun);color:var(--ivoire);position:relative;overflow:hidden}
+.prosp{background:var(--brun);color:var(--ivoire);overflow:hidden}
+.prosp .kick{color:var(--or2)}
 .prosp h2{color:var(--ivoire)}.prosp h2 em{color:var(--or2)}
-.prosp .lead{color:#d8c9bd}
-.prosp .grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(24px,4vw,56px);align-items:start;margin-top:40px}
-@media (max-width:900px){.prosp .grid{grid-template-columns:1fr}.prosp .carte{order:-1}}
-.compteurs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.compteurs div{border:1px solid rgba(217,184,120,.28);border-radius:14px;padding:14px 16px;background:rgba(255,255,255,.03)}
-.compteurs b{display:block;font-variant-numeric:tabular-nums;font-family:Manrope,sans-serif;font-weight:300;letter-spacing:-.03em;font-size:clamp(1.9rem,1.4rem + 1.5vw,2.6rem);line-height:1;color:var(--ivoire);font-variant-numeric:tabular-nums}
-.compteurs span{display:block;font-size:12.5px;color:#cbb9ab;margin-top:6px;line-height:1.35}
-.compteurs .rose b{color:#f0a3a8}
-.etapes{list-style:none;margin:18px 0 0;padding:0}
-.etapes li{display:grid;grid-template-columns:20px 1fr;gap:12px;align-items:start;padding:11px 0;border-top:1px solid rgba(217,184,120,.22);cursor:pointer;color:#bfa99c;transition:color .3s}
-.etapes li i{width:10px;height:10px;margin:6px 0 0 4px;border:1px solid var(--or2);transform:rotate(45deg);transition:background .3s}
-.etapes li b{display:block;color:inherit;font-weight:700;font-size:14px}
-.etapes li span{font-size:13px;line-height:1.4}
-.etapes li.on{color:var(--ivoire)}.etapes li.on i,.etapes li.fait i{background:var(--or2)}
-.etapes li.fait{color:#e3d6cb}
-.ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:18px}
-.ctrl .btn{background:var(--or2);color:var(--brun)}.ctrl .btn:hover{background:var(--ivoire)}
-.ctrl small{font-size:12px;color:#bfa99c}
-.carte{position:relative;margin:0}@media (min-width:901px){.carte{position:sticky;top:84px}}
-.carte svg{display:block;width:100%;height:auto;touch-action:manipulation}
-.carte .cm{fill:#4a2927;stroke:rgba(217,184,120,.42);stroke-width:1.1;transition:fill .25s;cursor:pointer}
+.pgrid{display:grid;grid-template-columns:260px 1fr;gap:clamp(20px,4vw,48px);align-items:center;margin-top:clamp(28px,4vw,44px)}
+.chiffres3{display:grid;gap:clamp(18px,3vw,34px)}
+.chiffres3 b{display:block;font:300 clamp(3rem,2.2rem + 3vw,4.8rem)/.95 Manrope,sans-serif;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:var(--ivoire)}
+.chiffres3 span{display:block;font-size:14px;color:#cbb9ab;margin-top:6px}
+.chiffres3 .rose b{color:#f0a3a8}
+@media (max-width:860px){.pgrid{grid-template-columns:1fr}.carte{order:-1}.chiffres3{grid-template-columns:repeat(3,1fr);gap:10px}.chiffres3 b{font-size:clamp(2rem,9vw,3rem)}.chiffres3 span{font-size:12px;line-height:1.3}}
+.carte{position:relative;margin:0}
+.carte svg{display:block;width:100%;height:auto}
+.carte .cm{fill:#4a2927;stroke:rgba(217,184,120,.4);stroke-width:1.1}
 .carte .cm[data-c="6621"]{fill:#5a332f}
-.carte .cm:hover,.carte .cm.sel{fill:#6b3d37}
-.carte .lac{fill:#2c1716;stroke:rgba(217,184,120,.25);stroke-width:1}
+.carte .lac{fill:#2c1716}
 .carte .lbl{font:600 17px Manrope,sans-serif;fill:#d8c9bd;letter-spacing:.06em;text-transform:uppercase;pointer-events:none;paint-order:stroke;stroke:#3a1e1d;stroke-width:4px}
-.carte .lbl.lacl{font:italic 500 26px Cormorant,serif;letter-spacing:.02em;text-transform:none;fill:#8f7a72;stroke:none}
-.carte .pin{fill:#f6f1e7;opacity:.28;transition:opacity .4s,fill .4s;cursor:pointer}
-.carte .pin.s0{opacity:.55}
-.carte .pin.s1{fill:var(--or2);opacity:.95}
-.carte .pin.s3{fill:#fff3d6;opacity:1}
-.carte .pin.s4{fill:#f0a3a8;opacity:1}
-.carte .pin.sel{stroke:#fff;stroke-width:3}
-.carte .vol{fill:none;stroke:var(--or2);stroke-width:1.4;stroke-linecap:round;opacity:.8;pointer-events:none}
-.carte .onde{fill:none;stroke:var(--or2);stroke-width:1.5;pointer-events:none}
+.carte .lacl{font:italic 500 26px Cormorant,serif;letter-spacing:.02em;text-transform:none;fill:#8f7a72;stroke:none}
+.carte .pin{fill:#f6f1e7;opacity:0;transition:opacity .4s,fill .4s}
+.carte .pin.s0{opacity:.5}.carte .pin.s1{fill:var(--or2);opacity:.95}.carte .pin.s4{fill:#f0a3a8;opacity:1}
+.carte .vol{fill:none;stroke:var(--or2);stroke-width:1.4;stroke-linecap:round;pointer-events:none}
+.carte .onde{fill:none;stroke:var(--or2);stroke-width:1.5}
 .carte .bout circle.c{fill:var(--rose);stroke:var(--ivoire);stroke-width:3}
-.carte .bout text{font:700 18px Manrope,sans-serif;fill:var(--ivoire);paint-order:stroke;stroke:#3a1e1d;stroke-width:5px}
-.legende{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:#cbb9ab;margin-top:12px}
-.legende i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:-1px}
-.info{margin-top:12px;min-height:22px;font-size:13.5px;color:#e3d6cb}
-.fiche{position:absolute;left:12px;bottom:12px;width:min(300px,calc(100% - 24px));background:var(--papier);color:var(--encre);border-radius:14px;box-shadow:0 24px 50px -20px rgba(0,0,0,.6);overflow:hidden;opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .3s var(--ease),transform .3s var(--ease)}
-.fiche.ouv{opacity:1;transform:none;pointer-events:auto}
-.fiche .t{display:flex;gap:12px;padding:12px;align-items:center;border-bottom:1px solid var(--ligne)}
-.fiche .t img{width:58px;height:58px;border-radius:10px;object-fit:cover;flex:none}
-.fiche .t b{display:block;font-size:14px;line-height:1.25}.fiche .t span{font-size:12px;color:var(--gris)}
-.fiche .m{padding:10px 12px 12px;font-size:12.5px;line-height:1.45;color:var(--gris)}
-.fiche .m strong{color:var(--encre)}
-.fiche .st{display:inline-block;margin-top:8px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:999px;background:var(--ivoire2);color:var(--brun)}
-.fiche .x{position:absolute;top:6px;right:6px;width:32px;height:32px;border:0;background:none;font-size:20px;color:var(--gris);cursor:pointer;border-radius:50%}
-@media (max-width:900px){.fiche{position:relative;left:auto;bottom:auto;width:auto;margin-top:12px;display:none}.fiche.ouv{display:block}}
-.simu{margin-top:clamp(40px,6vw,64px);border:1px solid rgba(217,184,120,.3);border-radius:18px;padding:clamp(18px,3vw,30px);display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(20px,4vw,44px);align-items:center;background:rgba(255,255,255,.03)}
-@media (max-width:820px){.simu{grid-template-columns:1fr}}
-.simu h3{font-size:clamp(1.7rem,1.3rem + 1.4vw,2.3rem);color:var(--ivoire)}
-.simu label{display:block;margin-top:16px;font-size:13.5px;color:#e3d6cb}
-.simu label output{float:right;font-weight:700;color:var(--or2)}
-.simu input[type=range]{width:100%;margin-top:8px;accent-color:var(--or2);height:28px}
-.simu .res{text-align:center;padding:22px;border-radius:14px;background:var(--ivoire);color:var(--brun)}
-.simu .res span{font-size:12.5px;color:var(--gris);display:block}
-.simu .res b{display:block;font-variant-numeric:tabular-nums;font-family:Manrope,sans-serif;font-weight:300;letter-spacing:-.03em;font-size:clamp(2.3rem,1.8rem + 2vw,3.2rem);line-height:1.05;margin:6px 0;font-variant-numeric:tabular-nums}
-.simu .res small{display:block;font-size:12px;color:var(--gris);line-height:1.4}
-@media (prefers-reduced-motion:reduce){.carte .pin,.fiche,.etapes li{transition:none}}
+.carte .bout text{font:700 19px Manrope,sans-serif;fill:var(--ivoire);paint-order:stroke;stroke:#3a1e1d;stroke-width:5px}
+.phase{position:absolute;top:8px;left:8px;background:var(--ivoire);color:var(--brun);font-size:13px;font-weight:700;padding:7px 14px;border-radius:999px;box-shadow:0 8px 20px -10px rgba(0,0,0,.6)}
+.phase:empty{display:none}
+.rejouer{position:absolute;right:8px;bottom:8px;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid rgba(217,184,120,.5);background:rgba(58,30,29,.85);color:var(--ivoire);font:600 13px Manrope,sans-serif;cursor:pointer}
+.rejouer:hover{background:var(--rose)}
+.notif{position:absolute;display:flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;background:var(--papier);color:var(--encre);border-radius:14px;box-shadow:0 16px 34px -14px rgba(0,0,0,.7);font-size:13px;line-height:1.25;white-space:nowrap;width:max-content;pointer-events:none;transform:translate(-50%,calc(-100% - 14px))}
+.notif img{width:44px;height:44px;border-radius:9px;object-fit:cover}
+.notif b{display:block;font-size:13px}.notif span{color:var(--or);font-weight:700;font-size:12px}
+.notif.rose span{color:var(--rose)}
+@media (max-width:600px){.notif{font-size:11px;padding:5px 10px 5px 5px;gap:7px}.notif img{width:32px;height:32px}.notif b{font-size:11px}.notif span{font-size:10.5px}.phase{font-size:11.5px;padding:5px 11px}}
+.resultat{margin-top:clamp(32px,5vw,56px);display:grid;grid-template-columns:auto 1fr auto;gap:clamp(16px,3vw,36px);align-items:center;background:var(--ivoire);color:var(--brun);border-radius:20px;padding:clamp(14px,2vw,20px) clamp(18px,3vw,36px) clamp(14px,2vw,20px) clamp(14px,2vw,20px)}
+.resultat img{width:clamp(96px,14vw,150px);aspect-ratio:1;object-fit:cover;border-radius:14px}
+.resultat p{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--or)}
+.resultat b{display:block;font:300 clamp(2.4rem,1.8rem + 2.6vw,4rem)/1 Manrope,sans-serif;letter-spacing:-.04em;margin-top:4px}
+.resultat span{display:block;color:var(--gris);font-size:14.5px;margin-top:4px}
+.resultat .ca{text-align:right;border-left:1px solid var(--ligne);padding-left:clamp(16px,3vw,36px)}
+.resultat .ca b{color:var(--rose)}
+.prosp small{display:block;margin-top:12px;font-size:12px;color:#bfa99c}
+@media (max-width:760px){.resultat{grid-template-columns:auto 1fr}.resultat .ca{grid-column:1/-1;text-align:left;border-left:0;border-top:1px solid var(--ligne);padding:14px 0 4px}}
+@media (prefers-reduced-motion:reduce){.carte .pin{transition:none}}
 /* révélation */
 .r{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .r.vu{opacity:1;transform:none}
@@ -420,66 +399,33 @@ footer{background:var(--brun);color:#bfa99c;font-size:12.5px;padding:0 0 32px;te
 
 <section class="prosp" id="prospection">
   <div class="wrap">
-    <p class="kick r" style="color:var(--or2)">La prospection de fin d'année</p>
-    <h2 class="r">240 entreprises genevoises <em>reçoivent vos coffrets</em> dans leur boîte mail.</h2>
-    <p class="lead r">Fiduciaires, régies, cabinets, cliniques, organisations&nbsp;: à Genève, elles offrent des cadeaux à leurs clients et à leurs équipes chaque décembre. On les trouve, on leur écrit en votre nom avec vos coffrets, on relance et on appelle les plus intéressées. Lancez la campagne sur la carte pour voir comment elle se déroule.</p>
-
-    <div class="grid">
-      <div class="r">
-        <div class="compteurs" aria-live="polite">
-          <div><b id="kCib">0</b><span>entreprises ciblées dans le canton</span></div>
-          <div><b id="kMail">0</b><span>e-mails envoyés en votre nom</span></div>
-          <div><b id="kAppel">0</b><span>appels aux plus intéressées</span></div>
-          <div class="rose"><b id="kDem">0</b><span>demandes de devis, si 5&nbsp;% répondent*</span></div>
-        </div>
-        <ol class="etapes" id="etapes">
-          <li data-e="0"><i></i><div><b>Jusqu'au 14 novembre · la liste</b><span>240 entreprises, avec le bon contact, commune par commune.</span></div></li>
-          <li data-e="1"><i></i><div><b>Dès le 17 novembre · le premier e-mail</b><span>Votre coffret en photo, une carte au nom de l'entreprise. Envoyé par petits lots pour éviter les spams.</span></div></li>
-          <li data-e="2"><i></i><div><b>24 novembre · la relance</b><span>Un rappel court à celles qui n'ont pas répondu.</span></div></li>
-          <li data-e="3"><i></i><div><b>Dès le 26 novembre · les appels</b><span>Un appel aux entreprises qui ont ouvert ou cliqué.</span></div></li>
-          <li data-e="4"><i></i><div><b>Décembre · les commandes</b><span>Les demandes arrivent sur votre formulaire entreprises. Vous confirmez, vous préparez.</span></div></li>
-        </ol>
-        <div class="ctrl">
-          <button class="btn" id="lancer" type="button">Lancer la campagne</button>
-          <small>Touchez un point ou une commune</small>
-        </div>
+    <p class="kick r">La prospection de fin d'année</p>
+    <h2 class="r">Vos coffrets sur les bureaux <em>de tout Genève</em>.</h2>
+    <div class="pgrid">
+      <div class="chiffres3 r" aria-live="polite">
+        <div><b id="kCib">240</b><span>entreprises contactées</span></div>
+        <div><b>3</b><span>semaines, avant Noël</span></div>
+        <div class="rose"><b id="kDem">12</b><span>demandes de devis*</span></div>
       </div>
-
       <figure class="carte r" id="carte">
-        <svg viewBox="70 215 880 700" role="img" aria-label="Carte du canton de Genève avec les entreprises ciblées">
+        <svg viewBox="70 215 880 700" role="img" aria-label="Carte de Genève : 240 entreprises contactées depuis la boutique">
           <defs><clipPath id="clipGe"><rect x="70" y="215" width="880" height="700"/></clipPath></defs>
           <g clip-path="url(#clipGe)"><path class="lac" d="M1798,-603L1825,-578L1843,-580L1899,-549L1900,-554L1911,-556L1940,-547L2002,-549L2010,-544L2032,-542L2105,-510L2160,-468L2205,-482L2239,-470L2267,-442L2315,-418L2339,-417L2373,-408L2399,-397L2413,-400L2465,-391L2475,-363L2521,-347L2542,-308L2560,-312L2591,-302L2600,-286L2631,-276L2656,-279L2666,-273L2680,-239L2689,-233L2703,-236L2719,-204L2737,-153L2719,-112L2707,-102L2653,-104L2639,-96L2619,-102L2589,-101L2560,-92L2542,-101L2538,-97L2535,-63L2509,-74L2455,-67L2389,-98L2349,-96L2242,-141L2196,-145L2146,-159L2033,-157L2006,-146L1918,-154L1868,-142L1784,-139L1662,-109L1577,-149L1514,-123L1496,-107L1487,-93L1487,-59L1471,-33L1348,26L1292,29L1268,64L1256,68L1227,106L1152,78L1123,31L1115,-5L1100,-15L1063,-14L1052,-23L1023,-10L987,-2L983,9L953,27L912,64L912,82L891,117L855,163L858,183L834,235L810,245L812,271L795,302L772,321L739,376L718,399L688,407L675,433L670,512L611,615L559,644L529,642L560,617L560,577L549,558L551,549L560,478L560,457L573,440L593,410L599,410L608,380L613,357L604,330L613,306L612,283L645,243L661,220L684,193L698,159L708,117L717,107L722,68L734,49L758,8L774,-5L831,-72L835,-85L865,-110L907,-100L918,-120L930,-129L929,-161L954,-195L957,-228L973,-236L1009,-267L1039,-312L1072,-335L1109,-379L1127,-381L1205,-394L1221,-391L1239,-376L1276,-373L1313,-404L1363,-417L1398,-429L1416,-449L1434,-446L1440,-478L1461,-497L1485,-497L1507,-539L1534,-553L1560,-592L1574,-597L1580,-592L1606,-591L1653,-562L1705,-561L1723,-578L1748,-586L1766,-602L1784,-600L1798,-603Z"/></g>
           <g id="communes"><path class="cm" data-c="6601" data-n="Aire-la-Ville" data-k="0" d="M218,661L230,661L267,683L296,685L291,700L276,711L285,715L279,727L269,729L253,718L239,731L209,712L215,699L207,677L218,661Z"/><path class="cm" data-c="6602" data-n="Anières" data-k="0" d="M795,302L817,323L799,336L798,357L832,415L806,415L791,399L773,397L766,403L739,376L772,321L795,302Z"/><path class="cm" data-c="6603" data-n="Avully" data-k="0" d="M105,748L136,754L154,749L157,749L162,766L178,784L181,803L140,826L128,804L108,798L80,824L59,814L75,764L84,761L93,772L105,748Z"/><path class="cm" data-c="6604" data-n="Avusy" data-k="0" d="M140,826L181,803L181,823L172,843L207,854L224,868L192,895L167,886L134,889L107,879L75,887L85,850L140,826Z"/><path class="cm" data-c="6605" data-n="Bardonnex" data-k="2" d="M535,880L530,884L521,875L504,899L479,901L463,892L402,886L382,854L402,830L413,842L422,826L472,856L503,840L515,845L512,859L523,863L535,880Z"/><path class="cm" data-c="6606" data-n="Bellevue" data-k="3" d="M477,457L468,414L528,371L534,415L573,440L560,457L560,478L547,475L529,456L492,481L491,468L487,473L477,457Z"/><path class="cm" data-c="6607" data-n="Bernex" data-k="3" d="M269,729L279,727L285,715L276,711L291,700L296,685L310,682L324,656L336,649L352,646L374,618L387,616L392,627L382,663L372,677L377,685L370,690L361,701L374,724L374,748L345,752L336,779L369,795L350,814L339,815L333,863L296,818L274,831L262,851L264,830L248,813L253,801L233,774L249,770L264,755L271,741L269,729Z"/><path class="cm" data-c="6608" data-n="Carouge" data-k="16" d="M518,789L500,757L489,761L496,755L496,733L485,738L484,710L506,699L511,707L558,718L558,743L542,757L536,753L516,773L518,789Z"/><path class="cm" data-c="6609" data-n="Cartigny" data-k="0" d="M209,712L239,731L253,718L269,729L271,741L264,755L249,770L233,774L181,803L178,784L162,766L157,749L209,712Z"/><path class="cm" data-c="6610" data-n="Céligny" data-k="0" d="M614,73L630,54L654,75L646,84L627,72L618,97L606,88L614,73ZM678,84L683,65L659,61L622,39L618,24L632,18L627,9L643,0L664,18L692,18L703,41L718,39L734,49L722,68L717,107L678,84Z"/><path class="cm" data-c="6611" data-n="Chancy" data-k="0" d="M59,814L80,824L108,798L128,804L140,826L85,850L75,887L68,912L57,925L26,937L13,934L3,943L0,926L28,906L25,876L50,830L59,814Z"/><path class="cm" data-c="6612" data-n="Chêne-Bougeries" data-k="6" d="M692,635L693,651L671,666L661,686L650,687L650,704L640,726L642,739L633,746L602,760L607,737L597,714L598,704L612,689L607,687L620,658L632,639L649,645L675,636L692,635Z"/><path class="cm" data-c="6613" data-n="Chêne-Bourg" data-k="6" d="M650,704L650,687L661,686L671,666L693,651L692,635L699,628L703,668L688,681L682,701L664,695L650,704Z"/><path class="cm" data-c="6614" data-n="Choulex" data-k="0" d="M728,517L736,522L730,537L756,543L778,520L794,528L790,553L810,561L808,572L784,592L779,603L762,595L736,624L745,592L736,577L741,565L720,558L695,533L702,524L728,517Z"/><path class="cm" data-c="6615" data-n="Collex-Bossy" data-k="0" d="M528,371L468,414L463,404L469,400L457,396L442,377L451,368L424,344L427,322L421,318L452,281L468,281L474,269L507,292L509,306L498,319L504,334L521,335L523,345L535,335L528,371Z"/><path class="cm" data-c="6616" data-n="Collonge-Bellerive" data-k="3" d="M728,517L702,524L695,533L670,512L675,433L688,407L718,399L748,422L762,447L770,449L762,465L752,460L742,473L728,497L728,517Z"/><path class="cm" data-c="6617" data-n="Cologny" data-k="5" d="M675,636L649,645L632,639L620,658L614,652L621,640L607,636L614,625L611,615L670,512L695,533L656,580L662,586L655,594L664,606L660,607L675,636Z"/><path class="cm" data-c="6618" data-n="Confignon" data-k="2" d="M369,795L336,779L345,752L374,748L374,724L361,701L370,690L380,705L383,733L395,739L387,742L395,757L404,757L404,766L418,780L400,799L393,792L373,807L369,795Z"/><path class="cm" data-c="6619" data-n="Corsier" data-k="0" d="M739,376L766,403L773,397L791,399L806,415L832,415L817,440L788,436L770,449L762,447L748,422L718,399L739,376Z"/><path class="cm" data-c="6620" data-n="Dardagny" data-k="0" d="M154,749L136,754L105,748L103,738L113,724L103,705L26,665L28,661L53,643L43,627L58,594L69,586L110,592L106,564L120,564L130,574L115,616L108,621L114,639L139,666L134,674L155,718L154,749Z"/><path class="cm" data-c="6621" data-n="Genève" data-k="96" d="M558,743L558,718L511,707L506,699L484,710L486,672L473,678L468,671L443,672L440,650L438,636L462,594L449,578L459,572L472,554L477,558L487,551L502,534L517,548L518,539L530,544L532,539L551,549L549,558L560,577L560,617L529,642L559,644L611,615L614,625L607,636L621,640L614,652L620,658L607,687L612,689L598,704L597,714L584,713L572,751L564,752L558,743Z"/><path class="cm" data-c="6622" data-n="Genthod" data-k="2" d="M573,440L534,415L528,371L546,358L557,369L574,365L608,380L599,410L593,410L573,440Z"/><path class="cm" data-c="6623" data-n="Le Grand-Saconnex" data-k="10" d="M477,457L487,473L491,468L492,481L511,512L493,525L502,534L487,551L477,558L472,554L459,572L444,560L416,509L429,496L436,500L477,457Z"/><path class="cm" data-c="6624" data-n="Gy" data-k="0" d="M817,440L832,415L862,446L860,459L877,475L928,448L927,441L957,408L962,412L958,443L949,444L916,487L887,497L869,483L865,495L850,492L841,469L830,470L842,455L817,440Z"/><path class="cm" data-c="6625" data-n="Hermance" data-k="0" d="M817,323L795,302L812,271L810,245L831,257L826,262L830,286L839,297L837,312L817,323Z"/><path class="cm" data-c="6626" data-n="Jussy" data-k="0" d="M850,492L865,495L869,483L887,497L916,487L949,444L958,443L974,448L1000,443L995,447L988,462L997,468L999,492L954,568L946,574L938,566L912,563L882,574L846,572L835,581L821,558L826,548L809,544L811,533L805,532L810,517L821,521L826,508L839,513L850,492Z"/><path class="cm" data-c="6627" data-n="Laconnex" data-k="0" d="M224,868L207,854L172,843L181,823L181,803L233,774L253,801L248,813L264,830L262,851L259,860L244,846L224,861L224,868Z"/><path class="cm" data-c="6628" data-n="Lancy" data-k="15" d="M484,710L485,738L496,733L496,755L489,761L500,757L518,789L516,794L511,788L502,790L508,782L505,778L500,787L479,773L473,778L461,765L448,769L436,757L442,750L434,734L438,725L416,672L440,650L443,672L468,671L473,678L486,672L484,710Z"/><path class="cm" data-c="6629" data-n="Meinier" data-k="0" d="M810,561L790,553L794,528L778,520L756,543L730,537L736,522L728,517L728,497L742,473L752,460L762,465L770,449L788,436L817,440L842,455L830,470L841,469L850,492L839,513L826,508L821,521L810,517L805,532L811,533L809,544L826,548L821,558L810,561Z"/><path class="cm" data-c="6630" data-n="Meyrin" data-k="15" d="M416,509L444,560L420,580L375,561L364,578L340,576L343,583L336,589L331,583L324,588L280,540L260,530L302,476L309,474L326,493L378,470L416,509Z"/><path class="cm" data-c="6631" data-n="Onex" data-k="6" d="M370,690L377,685L398,691L416,672L438,725L434,734L442,750L436,757L404,766L404,757L395,757L387,742L395,739L383,733L380,705L370,690Z"/><path class="cm" data-c="6632" data-n="Perly-Certoux" data-k="0" d="M402,830L382,854L333,863L339,815L350,814L369,795L373,807L393,792L400,799L414,814L402,830Z"/><path class="cm" data-c="6633" data-n="Plan-les-Ouates" data-k="14" d="M515,845L503,840L472,856L422,826L413,842L402,830L414,814L400,799L418,780L404,766L436,757L448,769L461,765L473,778L479,773L500,787L505,778L508,782L502,790L511,788L516,794L518,789L521,790L515,845Z"/><path class="cm" data-c="6634" data-n="Pregny-Chambésy" data-k="4" d="M492,481L529,456L547,475L560,478L551,549L532,539L530,544L518,539L517,548L502,534L493,525L511,512L492,481Z"/><path class="cm" data-c="6635" data-n="Presinge" data-k="0" d="M784,592L808,572L810,561L821,558L835,581L846,572L882,574L912,563L938,566L946,574L903,606L872,613L825,646L814,640L802,633L823,603L812,594L784,592Z"/><path class="cm" data-c="6636" data-n="Puplinge" data-k="0" d="M736,624L762,595L779,603L784,592L812,594L823,603L802,633L814,640L810,647L784,640L773,651L755,660L736,624Z"/><path class="cm" data-c="6637" data-n="Russin" data-k="0" d="M218,661L207,677L215,699L209,712L157,749L154,749L155,718L134,674L139,666L114,639L108,621L115,616L129,626L152,616L153,643L163,640L176,655L218,661Z"/><path class="cm" data-c="6638" data-n="Satigny" data-k="5" d="M296,685L267,683L230,661L218,661L176,655L163,640L153,643L152,616L129,626L115,616L130,574L149,561L158,538L168,539L166,532L177,527L201,522L225,502L249,524L260,530L280,540L324,588L338,603L322,614L334,626L329,641L336,649L324,656L310,682L296,685Z"/><path class="cm" data-c="6639" data-n="Soral" data-k="0" d="M192,895L224,868L224,861L244,846L259,860L262,851L274,831L296,818L333,863L270,854L261,869L258,895L244,895L223,920L213,901L192,895Z"/><path class="cm" data-c="6640" data-n="Thônex" data-k="6" d="M633,746L642,739L640,726L650,704L664,695L682,701L688,681L703,668L699,628L723,619L736,624L755,660L727,690L707,696L683,730L656,739L648,752L633,746Z"/><path class="cm" data-c="6641" data-n="Troinex" data-k="0" d="M535,880L523,863L512,859L515,845L521,790L543,788L569,803L565,807L584,826L610,822L616,832L551,858L535,880Z"/><path class="cm" data-c="6642" data-n="Vandoeuvres" data-k="0" d="M692,635L675,636L660,607L664,606L655,594L662,586L656,580L695,533L720,558L741,565L736,577L745,592L736,624L723,619L699,628L692,635Z"/><path class="cm" data-c="6643" data-n="Vernier" data-k="13" d="M377,685L372,677L382,663L392,627L387,616L374,618L352,646L336,649L329,641L334,626L322,614L338,603L324,588L331,583L336,589L343,583L340,576L364,578L375,561L420,580L444,560L459,572L449,578L462,594L438,636L440,650L416,672L398,691L377,685Z"/><path class="cm" data-c="6644" data-n="Versoix" data-k="6" d="M488,187L512,223L529,237L564,263L612,283L613,306L604,330L613,357L608,380L574,365L557,369L546,358L528,371L535,335L523,345L521,335L504,334L498,319L509,306L507,292L474,269L469,226L471,208L484,188L488,187Z"/><path class="cm" data-c="6645" data-n="Veyrier" data-k="4" d="M518,789L516,773L536,753L542,757L558,743L564,752L572,751L584,713L597,714L607,737L602,760L633,746L648,752L655,800L616,832L610,822L584,826L565,807L569,803L543,788L521,790L518,789Z"/></g>
           <text class="lbl lacl" x="680" y="420">Lac Léman</text>
-          <g id="vols"></g>
-          <g id="pins"></g>
-          <g id="labels"></g>
-          <g class="bout" id="bout"></g>
+          <g id="vols"></g><g id="pins"></g><g id="labels"></g><g class="bout" id="bout"></g>
         </svg>
-        <div class="legende"><span><i style="background:rgba(246,241,231,.55)"></i>Entreprise ciblée</span><span><i style="background:var(--or2)"></i>E-mail reçu</span><span><i style="background:#fff3d6"></i>Appelée</span><span><i style="background:#f0a3a8"></i>Demande de devis</span></div>
-        <p class="info" id="info"></p>
-        <div class="fiche" id="fiche" role="dialog" aria-label="Détail de l'entreprise">
-          <button class="x" type="button" aria-label="Fermer">×</button>
-          <div class="t"><img src="img/coffret-sm.jpg" alt="" width="58" height="58"><div><b id="fSect">Fiduciaire</b><span id="fCom">Genève</span></div></div>
-          <div class="m"><strong>Objet&nbsp;:</strong> Vos cadeaux de fin d'année, préparés à deux pas de Cornavin<br><strong>Proposé&nbsp;:</strong> coffret Le Bureau, 1,2 à 1,4&nbsp;kg, carte au nom de l'entreprise<br><span class="st" id="fSt">Ciblée</span></div>
-        </div>
+        <div class="phase" id="phase"></div>
+        <div id="notifs"></div>
+        <button class="rejouer" id="lancer" type="button">↻ Rejouer</button>
       </figure>
     </div>
-
-    <div class="simu r">
-      <div>
-        <h3>Et si quelques entreprises commandent&nbsp;?</h3>
-        <label>Entreprises qui commandent <output id="oE">8</output><input type="range" id="iE" min="1" max="30" value="8"></label>
-        <label>Coffrets par entreprise <output id="oC">15</output><input type="range" id="iC" min="5" max="60" step="5" value="15"></label>
-        <label>Prix moyen d'un coffret <output id="oP">50 CHF</output><input type="range" id="iP" min="20" max="120" step="5" value="50"></label>
-      </div>
-      <div class="res" aria-live="polite">
-        <span>Ventes de coffrets en décembre</span>
-        <b id="oT">6 000 CHF</b>
-        <small id="oN">120 coffrets à préparer</small>
-        <small style="margin-top:10px">* Calcul indicatif, avec vos propres chiffres. Personne ne peut garantir un taux de réponse&nbsp;: on suit les résultats chaque semaine et on vous les montre.</small>
-      </div>
+    <div class="resultat r">
+      <img src="img/coffret-sm.jpg" alt="Coffret de baklavas" width="640" height="640" loading="lazy">
+      <div><p>Le résultat visé</p><b>120 coffrets</b><span>si 8 entreprises sur 240 en commandent 15</span></div>
+      <div class="ca"><b>≈ 6&nbsp;000 CHF</b><span>de ventes en décembre</span></div>
     </div>
+    <small>* Exemple pour se représenter le potentiel, pas une promesse. On vous montre les vrais chiffres chaque semaine.</small>
   </div>
 </section>
 
@@ -675,71 +621,49 @@ els.forEach(e=>io.observe(e))})();
 <script>
 (()=>{
 const D={"pins":[[510.4,652.8,6621,10],[591.5,654.8,6621,1],[511.5,641.4,6621,8],[524.4,648.4,6621,6],[454.0,668.3,6621,1],[508.3,621.8,6621,9],[546.0,655.9,6621,10],[542.9,683.7,6621,10],[508.5,573.4,6621,9],[537.2,695.2,6621,6],[528.3,580.2,6621,7],[501.2,655.8,6621,2],[511.2,597.9,6621,9],[506.1,679.8,6621,5],[540.6,627.0,6621,6],[539.3,665.2,6621,7],[565.8,656.8,6621,5],[500.7,665.1,6621,7],[482.0,605.9,6621,1],[594.9,626.2,6621,4],[503.3,537.9,6621,5],[525.5,681.4,6621,9],[550.8,673.9,6621,9],[476.3,584.3,6621,0],[442.7,654.3,6621,10],[521.5,630.1,6621,2],[530.8,672.0,6621,10],[520.1,671.4,6621,5],[501.1,633.4,6621,7],[569.0,639.1,6621,10],[554.9,696.9,6621,8],[475.0,616.1,6621,10],[533.0,710.8,6621,3],[546.2,551.8,6621,11],[529.4,601.4,6621,7],[517.1,698.8,6621,5],[524.5,659.3,6621,3],[551.6,607.5,6621,10],[485.1,700.0,6621,11],[488.5,657.6,6621,1],[536.6,648.3,6621,7],[500.2,594.9,6621,8],[540.3,560.8,6621,1],[580.3,702.3,6621,5],[539.8,580.0,6621,8],[529.7,569.0,6621,2],[561.0,665.5,6621,3],[604.1,646.4,6621,1],[469.0,651.4,6621,8],[499.7,611.2,6621,4],[495.0,542.4,6621,4],[496.6,691.2,6621,6],[508.8,608.7,6621,2],[559.2,616.5,6621,7],[551.6,686.8,6621,3],[484.4,625.8,6621,3],[460.4,647.8,6621,6],[577.8,654.1,6621,6],[494.0,623.9,6621,7],[444.8,632.5,6621,6],[517.8,605.3,6621,5],[551.6,597.1,6621,0],[586.8,673.5,6621,8],[491.2,641.6,6621,5],[474.0,638.2,6621,3],[521.5,707.7,6621,1],[455.1,616.1,6621,10],[464.8,586.2,6621,11],[513.3,547.9,6621,2],[581.3,636.7,6621,11],[495.5,566.7,6621,3],[530.7,636.5,6621,10],[501.1,582.5,6621,0],[527.7,694.5,6621,7],[460.5,638.8,6621,0],[546.6,619.4,6621,9],[576.6,669.9,6621,4],[511.7,630.7,6621,0],[467.2,670.4,6621,6],[511.1,671.9,6621,6],[601.5,677.2,6621,4],[540.4,600.8,6621,0],[515.9,683.4,6621,3],[530.8,551.7,6621,6],[518.2,615.7,6621,11],[473.8,662.8,6621,2],[607.8,661.0,6621,2],[516.5,564.5,6621,6],[550.5,643.6,6621,5],[465.9,564.6,6621,3],[591.9,682.5,6621,6],[479.7,568.6,6621,7],[486.3,590.4,6621,6],[543.6,705.9,6621,11],[529.1,615.9,6621,7],[478.5,652.2,6621,7],[541.5,753.4,6608,5],[548.0,740.3,6608,9],[489.8,716.6,6608,2],[502.3,704.8,6608,0],[519.8,747.8,6608,2],[557.5,722.7,6608,1],[499.4,736.7,6608,11],[505.8,724.0,6608,4],[511.7,765.1,6608,3],[516.6,715.6,6608,3],[527.0,728.2,6608,6],[523.1,757.2,6608,1],[511.6,776.6,6608,7],[514.4,732.3,6608,9],[507.2,749.7,6608,5],[492.4,707.1,6608,9],[472.3,742.3,6628,6],[453.8,722.7,6628,2],[433.4,659.7,6628,6],[466.0,766.0,6628,3],[448.0,737.6,6628,10],[479.3,768.8,6628,2],[435.9,718.2,6628,9],[438.2,707.6,6628,8],[484.6,746.3,6628,5],[447.2,710.6,6628,9],[461.6,739.2,6628,7],[501.4,766.8,6628,6],[426.8,668.6,6628,6],[453.2,765.6,6628,8],[490.8,762.1,6628,8],[331.7,640.7,6643,11],[436.1,585.6,6643,7],[433.3,650.1,6643,11],[452.2,568.9,6643,5],[407.6,593.3,6643,5],[447.5,596.3,6643,7],[342.5,626.0,6643,7],[351.5,594.7,6643,8],[355.6,609.0,6643,3],[347.9,581.4,6643,4],[411.2,607.4,6643,7],[399.9,636.2,6643,1],[357.6,630.4,6643,6],[395.6,514.1,6630,6],[326.3,561.2,6630,7],[302.3,543.3,6630,0],[314.5,531.4,6630,4],[367.7,549.1,6630,5],[394.7,559.1,6630,3],[287.5,543.4,6630,6],[336.8,513.2,6630,0],[380.1,472.3,6630,0],[364.3,506.0,6630,8],[325.7,496.5,6630,9],[315.4,485.6,6630,5],[374.7,526.5,6630,2],[390.0,523.6,6630,1],[378.6,537.0,6630,5],[471.9,814.1,6633,9],[513.5,829.4,6633,3],[422.2,772.8,6633,1],[423.9,817.0,6633,8],[478.3,798.0,6633,9],[420.9,787.6,6633,4],[487.7,804.2,6633,8],[427.9,761.0,6633,5],[482.2,824.7,6633,8],[410.0,807.1,6633,2],[431.3,780.4,6633,11],[446.9,816.3,6633,6],[509.9,819.2,6633,11],[464.8,803.6,6633,8],[457.3,540.3,6623,9],[453.0,524.3,6623,9],[476.0,537.1,6623,11],[488.2,480.0,6623,8],[493.0,529.9,6623,10],[475.9,511.9,6623,2],[483.8,499.4,6623,5],[461.0,490.1,6623,11],[466.9,482.0,6623,1],[443.2,543.3,6623,0],[676.1,688.1,6613,2],[700.6,666.7,6613,9],[699.9,649.2,6613,3],[690.6,664.8,6613,11],[699.9,637.3,6613,9],[666.1,681.0,6613,9],[645.7,746.6,6640,1],[737.2,676.7,6640,3],[694.1,702.7,6640,7],[723.0,619.4,6640,3],[711.3,679.0,6640,5],[664.9,711.8,6640,6],[387.5,709.8,6631,11],[415.3,695.8,6631,6],[417.6,753.9,6631,10],[377.7,695.9,6631,3],[408.9,739.4,6631,8],[396.7,704.5,6631,11],[674.2,529.6,6617,9],[643.9,613.8,6617,5],[677.3,539.9,6617,10],[656.4,544.7,6617,2],[637.9,605.1,6617,6],[536.3,243.9,6644,8],[562.5,337.3,6644,7],[507.4,259.6,6644,4],[538.3,342.2,6644,4],[520.4,313.1,6644,5],[538.0,269.7,6644,10],[633.7,645.7,6612,9],[610.2,739.0,6612,10],[624.8,711.1,6612,9],[611.4,748.1,6612,8],[615.7,721.7,6612,8],[661.2,649.7,6612,1],[535.2,771.5,6645,0],[583.1,820.8,6645,11],[584.0,772.1,6645,8],[599.0,800.4,6645,2],[302.6,587.5,6638,9],[226.0,556.1,6638,7],[198.6,578.5,6638,10],[131.7,618.5,6638,10],[135.9,590.4,6638,2],[534.4,487.6,6634,10],[516.8,500.3,6634,8],[529.5,541.1,6634,4],[511.9,533.2,6634,6],[757.7,445.5,6616,3],[703.5,441.8,6616,4],[710.3,473.5,6616,6],[329.5,778.6,6607,8],[341.0,668.6,6607,10],[333.4,770.5,6607,2],[397.4,839.6,6605,0],[429.3,879.3,6605,4],[520.7,428.5,6606,1],[475.5,445.9,6606,9],[543.4,465.3,6606,11],[588.5,382.1,6622,8],[584.6,395.9,6622,4],[408.7,770.5,6618,9],[383.2,741.4,6618,10]],"shop":[515.7,604.8],"sect":["Fiduciaire","Régie immobilière","Cabinet d’avocats","Clinique","Agence","Assurance","Cabinet médical","Organisation internationale","Banque privée","École privée","Hôtel","Bureau d’architectes"],"names":{"6601":"Aire-la-Ville","6602":"Anières","6603":"Avully","6604":"Avusy","6605":"Bardonnex","6606":"Bellevue","6607":"Bernex","6608":"Carouge","6609":"Cartigny","6610":"Céligny","6611":"Chancy","6612":"Chêne-Bougeries","6613":"Chêne-Bourg","6614":"Choulex","6615":"Collex-Bossy","6616":"Collonge-Bellerive","6617":"Cologny","6618":"Confignon","6619":"Corsier","6620":"Dardagny","6621":"Genève","6622":"Genthod","6623":"Le Grand-Saconnex","6624":"Gy","6625":"Hermance","6626":"Jussy","6627":"Laconnex","6628":"Lancy","6629":"Meinier","6630":"Meyrin","6631":"Onex","6632":"Perly-Certoux","6633":"Plan-les-Ouates","6634":"Pregny-Chambésy","6635":"Presinge","6636":"Puplinge","6637":"Russin","6638":"Satigny","6639":"Soral","6640":"Thônex","6641":"Troinex","6642":"Vandoeuvres","6643":"Vernier","6644":"Versoix","6645":"Veyrier"}};
-const svg=document.querySelector('#carte svg'),NS='http://www.w3.org/2000/svg';
+const svg=document.querySelector('#carte svg'),NS='http://www.w3.org/2000/svg',VB=[70,215,880,700];
 const gp=document.getElementById('pins'),gv=document.getElementById('vols'),gl=document.getElementById('labels'),gb=document.getElementById('bout');
+const phase=document.getElementById('phase'),notifs=document.getElementById('notifs'),btn=document.getElementById('lancer');
 const red=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const mk=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
+const mk=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e};
 const [sx,sy]=D.shop;
-// étiquettes
-[['6621','Genève',0,0],['6608','Carouge',0,0],['6630','Meyrin',0,0],['6643','Vernier',0,0],['6628','Lancy',0,0],['6644','Versoix',0,0],['6633','Plan-les-Ouates',0,0],['6640','Thônex',0,0]].forEach(([c,t,dx,dy])=>{
-  const b=svg.querySelector(`[data-c="${c}"]`).getBBox();const g=c==='6621';mk('text',{class:'lbl',x:g?sx+48:b.x+b.width/2+dx,y:g?sy+58:b.y+b.height/2+dy,'text-anchor':'middle'},gl).textContent=t});
-// boutique
+[['6630','Meyrin'],['6643','Vernier'],['6628','Lancy'],['6608','Carouge'],['6644','Versoix'],['6640','Thônex'],['6633','Plan-les-Ouates']].forEach(([c,t])=>{const b=svg.querySelector(`[data-c="${c}"]`).getBBox();mk('text',{class:'lbl',x:b.x+b.width/2,y:b.y+b.height/2,'text-anchor':'middle'},gl).textContent=t});
 const onde=mk('circle',{class:'onde',cx:sx,cy:sy,r:10,opacity:0},gb);
-mk('circle',{class:'c',cx:sx,cy:sy,r:11},gb);
-mk('text',{x:sx+18,y:sy-14},gb).textContent='Délices de la Rose';
-// points
-const pins=D.pins.map((p,i)=>{const d=Math.hypot(p[0]-sx,p[1]-sy);const e=mk('circle',{class:'pin',cx:p[0],cy:p[1],r:5.2,tabindex:-1},gp);return{e,x:p[0],y:p[1],c:p[2],s:p[3],d,i,st:-1}});
+mk('circle',{class:'c',cx:sx,cy:sy,r:12},gb);mk('text',{x:sx+18,y:sy-14},gb).textContent='Délices de la Rose';
+const pins=D.pins.slice(0,240).map((p,i)=>({e:mk('circle',{class:'pin',cx:p[0],cy:p[1],r:5.5},gp),x:p[0],y:p[1],c:p[2],s:p[3],d:Math.hypot(p[0]-sx,p[1]-sy),i}));
 const byD=[...pins].sort((a,b)=>a.d-b.d);
-// appels et demandes : sous-ensemble fixe
+const st=(p,s)=>p.e.setAttribute('class','pin s'+s);
 let h=11;const rnd=()=>(h=(h*9301+49297)%233280)/233280;
-const appel=new Set(),dem=new Set();
-while(appel.size<30)appel.add(Math.floor(rnd()*pins.length));
-[...appel].slice(0,12).forEach(i=>dem.add(i));
-const ST=['Ciblée','E-mail reçu','Relancée','Appelée','Demande de devis'];
-const setSt=(p,s)=>{p.st=s;p.e.setAttribute('class','pin'+(s>=0?' s'+Math.min(s,s>=4?4:s===2?1:s):'')+(p===selP?' sel':''))};
-// compteurs
-const K={cib:document.getElementById('kCib'),mail:document.getElementById('kMail'),appel:document.getElementById('kAppel'),dem:document.getElementById('kDem')};
-const val={cib:0,mail:0,appel:0,dem:0};
-const anim=(k,to,ms)=>{const from=val[k];val[k]=to;if(red||!ms){K[k].textContent=to;return}const t0=performance.now();const f=t=>{const q=Math.min(1,(t-t0)/ms);K[k].textContent=Math.round(from+(to-from)*(1-Math.pow(1-q,3)));if(q<1)requestAnimationFrame(f)};requestAnimationFrame(f)};
-// étapes
-const lis=[...document.querySelectorAll('#etapes li')];
-const marque=n=>lis.forEach((l,i)=>{l.classList.toggle('on',i===n);l.classList.toggle('fait',i<n)});
-let timers=[];const later=(f,ms)=>timers.push(setTimeout(f,ms));
-const stop=()=>{timers.forEach(clearTimeout);timers=[]};
-const vol=p=>{if(red)return;const mx=(sx+p.x)/2,my=Math.min(sy,p.y)-Math.max(30,p.d*.25);const e=mk('path',{class:'vol',d:`M${sx},${sy}Q${mx},${my} ${p.x},${p.y}`},gv);const L=e.getTotalLength();e.style.strokeDasharray=L;e.animate([{strokeDashoffset:L,opacity:.9},{strokeDashoffset:0,opacity:.9,offset:.6},{strokeDashoffset:0,opacity:0}],{duration:1100,easing:'cubic-bezier(.3,.6,.3,1)'}).onfinish=()=>e.remove()};
-const pulse=()=>{if(red)return;onde.animate([{r:10,opacity:.9},{r:120,opacity:0}],{duration:1400,easing:'ease-out'})};
-function etape(n,instant){
-  marque(n);const T=instant?0:1;
-  if(n===0){pins.forEach(p=>setSt(p,-1));gv.innerHTML='';byD.forEach((p,j)=>later(()=>setSt(p,0),T*j*6));anim('cib',pins.length,T*1500);anim('mail',0,0);anim('appel',0,0);anim('dem',0,0)}
-  if(n===1){pulse();later(pulse,T*700);byD.forEach((p,j)=>later(()=>{setSt(p,1);if(j%3===0)vol(p)},T*(j*9+Math.floor(j/80)*350)));anim('mail',pins.length,T*2600)}
-  if(n===2){pulse();pins.forEach(p=>{setSt(p,2);if(!red&&!instant)p.e.animate([{r:5.2},{r:8},{r:5.2}],{duration:700,delay:p.d*2})});anim('mail',pins.length*2,T*1600)}
-  if(n===3){[...appel].forEach((i,j)=>later(()=>{setSt(pins[i],3);if(!red&&!instant)pins[i].e.animate([{r:5.2},{r:10},{r:7}],{duration:600,fill:'forwards'});else pins[i].e.setAttribute('r',7)},T*j*60));anim('appel',appel.size,T*1800)}
-  if(n===4){[...dem].forEach((i,j)=>later(()=>{setSt(pins[i],4);pins[i].e.setAttribute('r',8);if(!red&&!instant)pins[i].e.animate([{r:6},{r:13},{r:8}],{duration:700})},T*j*180));anim('dem',dem.size,T*2000)}
+const dem=[];while(dem.length<12){const i=Math.floor(rnd()*pins.length);if(!dem.includes(i))dem.push(i)}
+const vedettes=[3,96,150,170,120,200].map(i=>pins[i]).filter(Boolean);
+const K={c:document.getElementById('kCib'),d:document.getElementById('kDem')};
+const compte=(el,to,ms)=>{if(red){el.textContent=to;return}const t0=performance.now();const f=t=>{const q=Math.min(1,(t-t0)/ms);el.textContent=Math.round(to*(1-Math.pow(1-q,3)));if(q<1)requestAnimationFrame(f)};requestAnimationFrame(f)};
+let T=[];const at=(f,ms)=>T.push(setTimeout(f,ms));
+const vol=p=>{const mx=(sx+p.x)/2,my=Math.min(sy,p.y)-Math.max(30,p.d*.25);const e=mk('path',{class:'vol',d:`M${sx},${sy}Q${mx},${my} ${p.x},${p.y}`},gv);const L=e.getTotalLength();e.style.strokeDasharray=L;e.animate([{strokeDashoffset:L,opacity:.9},{strokeDashoffset:0,opacity:.9,offset:.6},{strokeDashoffset:0,opacity:0}],{duration:1100,easing:'cubic-bezier(.3,.6,.3,1)'}).onfinish=()=>e.remove()};
+const pulse=()=>onde.animate([{r:10,opacity:.9},{r:130,opacity:0}],{duration:1400,easing:'ease-out'});
+function notif(p,txt,rose){const n=document.createElement('div');n.className='notif'+(rose?' rose':'');
+  n.style.left=((p.x-VB[0])/VB[2]*100)+'%';n.style.top=((p.y-VB[1])/VB[3]*100)+'%';
+  n.innerHTML=`<img src="img/coffret-sm.jpg" alt=""><div><b>${D.sect[p.s]} · ${D.names[p.c]}</b><span>${txt}</span></div>`;
+  notifs.appendChild(n);{const W=notifs.parentNode.clientWidth,w=n.offsetWidth,x=(p.x-VB[0])/VB[2]*W;n.style.left=Math.min(W-w/2-4,Math.max(w/2+4,x))+'px'}n.animate([{opacity:0,transform:'translate(-50%,calc(-100% - 4px)) scale(.92)'},{opacity:1,transform:'translate(-50%,calc(-100% - 14px))',offset:.15},{opacity:1,transform:'translate(-50%,calc(-100% - 14px))',offset:.85},{opacity:0,transform:'translate(-50%,calc(-100% - 20px))'}],{duration:2000,easing:'ease-out'}).onfinish=()=>n.remove()}
+function fin(){T.forEach(clearTimeout);T=[];gv.innerHTML='';notifs.innerHTML='';pins.forEach(p=>st(p,1));dem.forEach(i=>{st(pins[i],4);pins[i].e.setAttribute('r',8)});K.c.textContent=pins.length;K.d.textContent=dem.length;phase.textContent='Décembre · les commandes arrivent'}
+function lancer(){
+  T.forEach(clearTimeout);T=[];gv.innerHTML='';notifs.innerHTML='';
+  if(red){fin();return}
+  pins.forEach(p=>{st(p,'x');p.e.setAttribute('r',5.5)});K.c.textContent='0';K.d.textContent='0';
+  phase.textContent='La liste · 240 entreprises';byD.forEach((p,j)=>at(()=>st(p,0),j*5));compte(K.c,pins.length,1300);
+  at(()=>{phase.textContent='17 novembre · vos coffrets par e-mail';pulse();
+    byD.forEach((p,j)=>at(()=>{st(p,1);if(j%3===0)vol(p)},j*10));
+    vedettes.slice(0,3).forEach((p,k)=>at(()=>notif(p,'a reçu vos coffrets'),300+k*800))},1800);
+  at(()=>{phase.textContent='24 novembre · relance et appels';pulse();pins.forEach(p=>p.e.animate([{r:5.5},{r:8},{r:5.5}],{duration:700,delay:p.d*2}))},5400);
+  at(()=>{phase.textContent='Décembre · les commandes arrivent';
+    dem.forEach((i,j)=>at(()=>{st(pins[i],4);pins[i].e.setAttribute('r',8);pins[i].e.animate([{r:5},{r:14},{r:8}],{duration:700})},j*160));
+    compte(K.d,dem.length,2000);
+    [pins[dem[0]],pins[dem[5]]].forEach((p,k)=>at(()=>notif(p,'demande un devis',true),400+k*1000))},7600);
 }
-function jusqua(n){stop();pins.forEach(p=>p.e.setAttribute('r',5.2));for(let i=0;i<=n;i++)etape(i,true);marque(n)}
-const btn=document.getElementById('lancer');
-function lancer(){stop();pins.forEach(p=>p.e.setAttribute('r',5.2));btn.textContent='Rejouer la campagne';
-  if(red){jusqua(4);return}
-  [0,2600,5800,8300,10800].forEach((t,n)=>later(()=>etape(n),t))}
 btn.addEventListener('click',lancer);
-lis.forEach((l,i)=>l.addEventListener('click',()=>{btn.textContent='Rejouer la campagne';jusqua(i)}));
-// démarrage auto quand la carte est visible
+fin();
 let parti=false;
-if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{if(es[0].isIntersecting&&!parti){parti=true;io.disconnect();lancer()}},{threshold:.45});io.observe(svg)}else lancer();
-// interactions
-const info=document.getElementById('info'),fiche=document.getElementById('fiche');
-let selC=null,selP=null;
-svg.querySelectorAll('.cm').forEach(c=>c.addEventListener('click',()=>{selC&&selC.classList.remove('sel');selC=c;c.classList.add('sel');const k=+c.dataset.k;info.textContent=c.dataset.n+' · '+(k?k+' entreprise'+(k>1?'s':'')+' ciblée'+(k>1?'s':''):'pas d’entreprise ciblée pour cette campagne')}));
-function ouvre(p){if(selP){const o=selP;selP=null;setSt(o,o.st)}selP=p;setSt(p,p.st);
-  document.getElementById('fSect').textContent=D.sect[p.s];document.getElementById('fCom').textContent=D.names[p.c]+' · exemple de cible';
-  document.getElementById('fSt').textContent=ST[Math.max(0,p.st)];fiche.classList.add('ouv')}
-pins.forEach(p=>p.e.addEventListener('click',ev=>{ev.stopPropagation();ouvre(p)}));
-fiche.querySelector('.x').addEventListener('click',()=>{fiche.classList.remove('ouv');if(selP){const o=selP;selP=null;setSt(o,o.st)}});
-// simulateur
-const f=n=>n.toLocaleString('fr-CH').replace(/ | |’/g,' ');
-const iE=document.getElementById('iE'),iC=document.getElementById('iC'),iP=document.getElementById('iP');
-const calc=()=>{const e=+iE.value,c=+iC.value,p=+iP.value;document.getElementById('oE').textContent=e;document.getElementById('oC').textContent=c;document.getElementById('oP').textContent=p+' CHF';document.getElementById('oT').textContent=f(e*c*p)+' CHF';document.getElementById('oN').textContent=f(e*c)+' coffrets à préparer'};
-[iE,iC,iP].forEach(i=>i.addEventListener('input',calc));calc();
+if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{if(es[0].isIntersecting&&!parti){parti=true;io.disconnect();lancer()}},{threshold:.5});io.observe(svg)}
 })();
 </script>
 </body>
