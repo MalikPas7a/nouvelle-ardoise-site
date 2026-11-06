@@ -37,6 +37,9 @@ h1{font-family:var(--display);font-weight:600;color:var(--or);font-size:clamp(34
 .phone .play svg{width:34px;height:34px;margin-left:5px;fill:#490917}
 .phone.on .play{display:none}
 .note{margin-top:14px;text-align:center;font-size:12.5px;color:var(--muted)}
+.sons{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.sons button{font:inherit;font-size:13px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer}
+.sons button.on{background:var(--fg);color:#fff;border-color:var(--fg)}
 footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
 footer a{color:var(--fg)}
 </style>
@@ -65,6 +68,11 @@ footer a{color:var(--fg)}
    <button class="play" id="pl" aria-label="Lire le réel"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></button>
   </div>
   <p class="note">Appuyez pour lancer, avec le son.</p>
+  <div class="sons" id="sons">
+   <button data-src="reel-smash-v41-son-A.mp4">Son A · salle seule</button>
+   <button data-src="reel-smash-v41.mp4" class="on">Son B · salle + balais</button>
+   <button data-src="reel-smash-v41-son-C.mp4">Son C · cuisine</button>
+  </div>
  </div>
 </main>
 <footer>
@@ -77,6 +85,9 @@ const v=document.getElementById('v'),ph=document.getElementById('ph'),pl=documen
 pl.addEventListener('click',()=>{ph.classList.add('on');v.play()});
 v.addEventListener('play',()=>ph.classList.add('on'));
 v.addEventListener('ended',()=>{ph.classList.remove('on');v.currentTime=0});
+</script>
+<script>
+document.querySelectorAll('#sons button').forEach(b=>b.addEventListener('click',()=>{const v=document.getElementById('v');const t=v.currentTime;document.querySelectorAll('#sons button').forEach(x=>x.classList.remove('on'));b.classList.add('on');v.querySelector('source').src=b.dataset.src;v.load();v.currentTime=t;v.play().catch(()=>{});}));
 </script>
 </body>
 </html>
