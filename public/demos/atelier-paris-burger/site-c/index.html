@@ -29,20 +29,32 @@ a{color:inherit;text-decoration:none}
 .top .btn{min-height:42px;padding:0 22px;font-size:14px}
 
 /* Ouverture façon Maison */
-.ouv{background:var(--merlot);color:var(--peach)}
-.ouv .in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,80px);align-items:center;min-height:calc(100svh - 72px);padding-top:40px;padding-bottom:40px}
+.ouv{position:relative;background:var(--merlot);color:var(--peach)}
+.scene{position:relative;height:calc(100svh - 72px);min-height:600px;max-height:980px;overflow:hidden;background:var(--cabsav)}
+.scene picture img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 62%;opacity:0;transform:scale(1.06);transition:opacity 1.3s ease,transform 7s linear}
+.scene picture.on img{opacity:1;transform:scale(1)}
+.scene::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(73,9,23,.55) 0,rgba(73,9,23,0) 34%,rgba(0,0,0,0) 72%,rgba(40,6,14,.55));pointer-events:none}
+.ouv .txt{position:absolute;z-index:2;left:0;right:0;top:clamp(34px,7vh,80px);text-align:center}
 .ouv .eye{color:var(--orc)}
-.ouv .titre{margin-top:18px;max-width:14ch;font:500 clamp(40px,5vw,76px)/1.02 var(--serif);text-wrap:balance}
+.ouv .titre{margin:16px auto 0;max-width:22ch;font:500 clamp(40px,4.4vw,70px)/1.02 var(--serif);text-wrap:balance;text-shadow:0 2px 24px rgba(40,6,14,.35)}
 .ouv .titre em{font-style:italic;color:var(--orc)}
-.mots{display:flex;gap:22px;margin-top:28px;font:400 15px var(--caps);letter-spacing:.28em;text-transform:uppercase}
-.mots span{opacity:.38;transition:opacity .35s,color .35s}
-.mots span.on{opacity:1;color:var(--orc)}
-.ouv .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
-.film{position:relative;justify-self:center;width:min(100%,calc((100svh - 150px)*2/3));max-width:520px;aspect-ratio:2/3;background:var(--cabsav)}
+.ouv .cta{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:26px}
+.plats{position:absolute;z-index:2;left:0;right:0;bottom:22px;display:flex;justify-content:center;gap:8px}
+.plats button{appearance:none;border:1px solid rgba(244,233,220,.35);background:rgba(40,6,14,.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--peach);border-radius:999px;padding:11px 18px;font:400 12.5px var(--caps);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background-color .25s,border-color .25s,color .25s}
+.plats button[aria-pressed=true]{background:var(--peach);border-color:var(--peach);color:var(--merlot)}
+.geste{background:var(--cabsav);color:var(--peach);padding:90px 0}
+.geste .in{display:grid;grid-template-columns:1fr auto;gap:clamp(30px,6vw,90px);align-items:center}
+.geste h2{font:500 clamp(34px,4vw,54px)/1.05 var(--serif);margin-top:14px}
+.geste h2 em{font-style:italic;color:var(--orc)}
+.geste .lead{margin-top:18px;max-width:42ch;font-size:16px;line-height:1.6;opacity:.82}
+.mots{list-style:none;margin-top:34px}
+.mots li{font:italic 500 clamp(44px,6vw,92px)/1.02 var(--serif);opacity:.22;transition:opacity .4s,color .4s}
+.mots li.on{opacity:1;color:var(--orc)}
+.film{position:relative;width:min(40vw,calc((100svh - 120px)*2/3));max-width:500px;aspect-ratio:2/3;background:#1a0408}
 .film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.film::after{content:"";position:absolute;inset:12px;border:1px solid rgba(232,181,98,.55);pointer-events:none}
-.film .leg{position:absolute;left:24px;bottom:22px;z-index:1;font:400 11px var(--caps);letter-spacing:.24em;text-transform:uppercase;color:var(--peach);text-shadow:0 1px 8px rgba(0,0,0,.6)}
-.film .pause{position:absolute;right:22px;bottom:16px;z-index:2;width:36px;height:36px;border-radius:50%;border:1px solid rgba(244,233,220,.5);background:rgba(73,9,23,.5);color:var(--peach);font:600 12px var(--sans);cursor:pointer}
+.film::after{content:"";position:absolute;inset:12px;border:1px solid rgba(232,181,98,.5);pointer-events:none}
+.film .pause{position:absolute;right:22px;bottom:20px;z-index:2;width:36px;height:36px;border-radius:50%;border:1px solid rgba(244,233,220,.5);background:rgba(40,6,14,.5);color:var(--peach);font:600 12px var(--sans);cursor:pointer}
+@media (prefers-reduced-motion:reduce){.scene picture img{transition:opacity .01s;transform:none}}
 .villes{display:flex;justify-content:center;border-top:1px solid rgba(232,181,98,.32)}
 .villes a{position:relative;padding:22px 26px 20px;font:400 14px var(--caps);letter-spacing:.3em;text-transform:uppercase;opacity:.8}
 .villes a:hover{opacity:1}
@@ -60,19 +72,9 @@ a{color:inherit;text-decoration:none}
 .tabs .on{background:var(--merlot);color:var(--peach);border-color:var(--merlot)}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .card{background:var(--ivoire);display:flex;flex-direction:column;border:1px solid rgba(127,15,40,.1)}
-.card .ph{aspect-ratio:4/5;overflow:hidden;background:var(--cabsav)}
+.card .ph{aspect-ratio:5/4;overflow:hidden;background:var(--cabsav)}
 .card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 @media (hover:hover){.card:hover .ph img{transform:scale(1.035)}}
-.geste{background:var(--cabsav);color:var(--peach);padding:80px 0}
-.geste .tete2{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:30px}
-.geste h2{font:500 clamp(34px,4vw,54px)/1.05 var(--serif)}
-.geste h2 em{font-style:italic;color:var(--orc)}
-.geste ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.geste li{position:relative;aspect-ratio:2/3;overflow:hidden}
-.geste li img{width:100%;height:100%;object-fit:cover}
-.geste li::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(30,4,10,.75))}
-.geste li b{position:absolute;left:22px;bottom:18px;z-index:1;font:italic 500 40px/1 var(--serif);color:var(--peach)}
-.geste li small{position:absolute;left:22px;top:18px;z-index:1;font:400 12px var(--caps);letter-spacing:.24em;color:var(--orc)}
 .card .t{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1}
 .card h3{font:500 30px/1.05 var(--serif);color:var(--merlot)}
 .card .rule{width:34px;height:1px;background:var(--or);margin:14px 0}
@@ -122,18 +124,20 @@ footer small{display:block;margin-top:26px;font-size:12px;opacity:.55}
  .top .mono{justify-self:start}
  .top .mono img{width:38px;height:38px}
  .top .btn{display:none}
- .ouv .in{display:flex;flex-direction:column-reverse;align-items:stretch;position:relative;min-height:0;padding:0}
- .film{width:100%;max-width:none;aspect-ratio:auto;height:48svh;min-height:320px}
- .dl{display:none}
- .film::after{display:none}
- .film::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(73,9,23,.35) 0,transparent 16%,transparent 80%,var(--merlot))}
- .film .leg{top:16px;bottom:auto;left:16px}
- .film .pause{top:10px;bottom:auto;right:12px}
- .ouv .txt{position:relative;z-index:3;margin-top:-34px;padding:0 16px 26px}
+ .scene{height:72svh;min-height:520px;max-height:none}
+ .scene picture img{object-position:50% 70%}
+ .ouv .txt{top:24px;padding:0 16px}
  .ouv .eye{font-size:11px;letter-spacing:.18em}
- .ouv .titre{font-size:35px;margin-top:8px}
- .mots{gap:14px;margin-top:16px;font-size:12.5px}
+ .ouv .titre{font-size:34px;margin-top:10px}
  .ouv .cta{display:none}
+ .dl{display:none}
+ .plats{bottom:14px;gap:6px;padding:0 10px}
+ .plats button{padding:9px 11px;font-size:10.5px;letter-spacing:.12em}
+ .geste{padding:54px 0}
+ .geste .in{grid-template-columns:1fr;gap:28px}
+ .mots{display:flex;gap:16px;margin-top:22px}
+ .mots li{font-size:34px}
+ .film{width:100%;max-width:none}
  .villes a{flex:1;padding:16px 4px 14px;font-size:12px;letter-spacing:.2em}
  .villes a.on::after{left:22%;right:22%;bottom:9px}
  .villes small{font-size:10.5px;letter-spacing:.02em}
@@ -142,10 +146,6 @@ footer small{display:block;margin-top:26px;font-size:12px;opacity:.55}
  .tete{flex-direction:column;align-items:flex-start}
  .tabs{overflow-x:auto;max-width:100%}
  .grid{grid-template-columns:1fr}
- .geste{padding:50px 0}
- .geste ol{grid-template-columns:repeat(3,72vw);overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(-1*var(--g));padding:0 var(--g)}
- .geste li{scroll-snap-align:start}
- .geste .tete2{flex-direction:column;align-items:flex-start}
  .offert .w{grid-template-columns:1fr;gap:14px;text-align:left}
  .offert .n{font-size:64px}
  .hist{padding:52px 0}
@@ -161,16 +161,15 @@ footer small{display:block;margin-top:26px;font-size:12px;opacity:.55}
 </style></head><body>
 <header class="top"><div class="w"><nav aria-label="Menu"><a href="#carte">La carte</a><a href="#histoire">Notre histoire</a><a href="#maisons">Nos maisons</a></nav><a class="mono" href="#" aria-label="Atelier Paris Burger, accueil"><img src="../lignes/img/monogramme-or.svg" alt=""></a><div class="r"><div class="langs"><a class="on" href="#">FR</a><a href="#">EN</a><a href="#">ES</a></div><a class="btn btn-or" href="../site-b/geneve/">Commander</a></div></div></header>
 <main>
-<section class="ouv"><h1 class="vh">Atelier Paris Burger</h1><div class="in w">
+<section class="ouv"><h1 class="vh">Atelier Paris Burger</h1><div class="scene"><picture class="on"><source media="(max-width:860px)" srcset="img/m-burger.webp"><img src="img/h-burger.webp" alt="Burger 160 g coupé en deux, posé dans la sauce Café de Paris, frites" width="2400" height="1610"></picture><picture class=""><source media="(max-width:860px)" srcset="img/m-double-smash.webp"><img src="img/h-double-smash.webp" alt="Double smash burger coupé, posé dans la sauce Café de Paris, frites" width="2400" height="1610" loading="lazy"></picture><picture class=""><source media="(max-width:860px)" srcset="img/m-baguette.webp"><img src="img/h-baguette.webp" alt="Baguette au bœuf tartinée de sauce Café de Paris, frites" width="2400" height="1610" loading="lazy"></picture>
 <div class="txt"><p class="caps eye">Sauce Café de Paris<span class="dl"> · depuis plus de quarante ans</span></p><p class="titre">La sauce des brasseries parisiennes, <em>en smash burger.</em></p>
-<p class="mots" aria-hidden="true"><span data-t="0">Smashé</span><span data-t="7.2">Coupé</span><span data-t="10.3">Trempé</span></p>
 <div class="cta"><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève →</a><a class="btn btn-ligne" href="../site-b/reserver/">Mon burger offert</a></div></div>
-<div class="film"><video id="film" src="film.mp4" poster="img/film-poster.jpg" muted playsinline loop autoplay preload="auto" aria-label="Le geste en photos : le bœuf smashé sur la plaque, le cheddar, la coupe, le burger posé dans la sauce Café de Paris"></video><span class="leg">Tournage en cuisine · vraies photos</span><button class="pause" type="button" aria-label="Mettre en pause">II</button></div>
-</div>
+<div class="plats" role="group" aria-label="Nos plats"><button type="button" aria-pressed="true">Burger 160 g</button><button type="button" aria-pressed="false">Double smash</button><button type="button" aria-pressed="false">Baguette</button></div></div>
 <nav class="villes w" aria-label="Nos villes"><a class="on" href="../site-b/geneve/">Genève<small>Sur place</small></a><a href="#maisons">Madrid<small>En livraison</small></a><a href="#maisons">Ibiza<small>Sur place</small></a></nav></section>
-<section class="carte" id="carte"><div class="w"><div class="tete"><div><span class="caps eye">Genève</span><h2>La carte</h2></div><nav class="tabs" aria-label="Catégories"><a class="on" href="#carte">Tout</a><a href="#double-smash">Smash</a><a href="#burger">Burgers</a><a href="#baguette">Baguette</a></nav></div><div class="grid"><article class="card" id="double-smash"><div class="ph"><img src="img/double-smash.webp" alt="Le double smash, photo du tournage Atelier Paris Burger" loading="lazy" width="900" height="1125"></div><div class="t"><h3>Le double smash</h3><div class="rule"></div><p>Deux steaks smashés sur la plaque, cheddar fondu. Servi avec la sauce Café de Paris.</p><div class="bas"><span>Sauce Café de Paris</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article><article class="card" id="burger"><div class="ph"><img src="img/burger.webp" alt="Le burger 160 g, photo du tournage Atelier Paris Burger" loading="lazy" width="900" height="1125"></div><div class="t"><h3>Le burger 160 g</h3><div class="rule"></div><p>Bœuf, cheddar, coupé en deux et posé dans la sauce Café de Paris.</p><div class="bas"><span>Sauce Café de Paris</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article><article class="card" id="baguette"><div class="ph"><img src="img/baguette.webp" alt="La baguette, photo du tournage Atelier Paris Burger" loading="lazy" width="900" height="1125"></div><div class="t"><h3>La baguette</h3><div class="rule"></div><p>Croustillante, garnie de bœuf et tartinée de sauce Café de Paris.</p><div class="bas"><span>Sauce Café de Paris</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article></div></div></section>
-<section class="geste" aria-labelledby="geste-t"><div class="w"><div class="tete2"><div><span class="caps eye" style="color:var(--orc)">Le geste</span><h2 id="geste-t">Trois temps, <em>une seule sauce.</em></h2></div></div>
-<ol><li><small>01</small><img src="img/g-smash.webp" alt="Bœuf smashé sur la plaque, avec la fumée" loading="lazy" width="800" height="1200"><b>Smashé.</b></li><li><small>02</small><img src="img/g-coupe.webp" alt="Le burger coupé au couteau sur la planche" loading="lazy" width="800" height="1200"><b>Coupé.</b></li><li><small>03</small><img src="img/g-trempe.webp" alt="La moitié du burger posée dans la sauce Café de Paris" loading="lazy" width="800" height="1200"><b>Trempé.</b></li></ol></div></section>
+<section class="carte" id="carte"><div class="w"><div class="tete"><div><span class="caps eye">Genève</span><h2>La carte</h2></div><nav class="tabs" aria-label="Catégories"><a class="on" href="#carte">Tout</a><a href="#double-smash">Smash</a><a href="#burger">Burgers</a><a href="#baguette">Baguette</a></nav></div><div class="grid"><article class="card" id="double-smash"><div class="ph"><img src="img/double-smash.webp" alt="Le double smash, servi avec la sauce Café de Paris" loading="lazy" width="1000" height="800"></div><div class="t"><h3>Le double smash</h3><div class="rule"></div><p>Deux steaks smashés sur la plaque, cheddar fondu. Servi avec la sauce Café de Paris.</p><div class="bas"><span>Sauce Café de Paris</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article><article class="card" id="burger"><div class="ph"><img src="img/burger.webp" alt="Le burger 160 g, servi avec la sauce Café de Paris" loading="lazy" width="1000" height="800"></div><div class="t"><h3>Le burger 160 g</h3><div class="rule"></div><p>Bœuf, cheddar, coupé en deux et posé dans la sauce Café de Paris.</p><div class="bas"><span>Sauce Café de Paris</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article><article class="card" id="baguette"><div class="ph"><img src="img/baguette.webp" alt="La baguette, servi avec la sauce Café de Paris" loading="lazy" width="1000" height="800"></div><div class="t"><h3>La baguette</h3><div class="rule"></div><p>Croustillante, garnie de bœuf et tartinée de sauce Café de Paris.</p><div class="bas"><span>Sauce Café de Paris</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article></div></div></section>
+<section class="geste" aria-labelledby="geste-t"><div class="w in"><div><span class="caps eye" style="color:var(--orc)">Le geste</span><h2 id="geste-t">Trois temps, <em>une seule sauce.</em></h2><p class="lead">En cuisine : le bœuf smashé sur la plaque, le cheddar, la coupe au couteau, puis la moitié posée dans la sauce Café de Paris.</p>
+<ol class="mots" aria-hidden="true"><li data-t="0" class="on">Smashé.</li><li data-t="7.2">Coupé.</li><li data-t="10.3">Trempé.</li></ol></div>
+<div class="film"><video id="film" src="film.mp4" poster="img/film-poster.jpg" muted playsinline loop preload="none" aria-label="Photos du tournage en cuisine : le smash, le cheddar, la coupe, le burger posé dans la sauce"></video><button class="pause" type="button" aria-label="Mettre en pause">II</button></div></div></section>
 <section class="offert"><div class="w"><p class="n">200</p><div><h2>Votre premier burger, offert.</h2><p>Pour l’ouverture à Genève : 200 burgers offerts, un par personne, sur réservation.</p></div><a class="btn btn-or" href="../site-b/reserver/">Réserver le mien</a></div></section>
 <section class="hist" id="histoire"><div class="w"><div><span class="caps eye">Notre histoire</span><h2>Inspirée par la tradition, <em>élevée à l’excellence.</em></h2><p class="lead">Une sauce de la grande tradition des sauces d’entrecôte, née entre Genève et Paris. Nous ne l’avons pas inventée : nous la servons comme elle le mérite, avec un burger coupé en deux et posé dedans.</p></div>
 <ol class="frise"><li><b>1980</b><div><h3>Paris</h3><p>La sauce arrive dans les brasseries parisiennes, rue Feydeau, rue de Ponthieu, rue François-Miron.</p></div></li><li><b>40 ans</b><div><h3>Le geste transmis</h3><p>De salle en salle, la recette s’affine et le geste se transmet.</p></div></li><li><b>Aujourd’hui</b><div><h3>En smash burger</h3><p>Smashé sur la plaque, coupé, posé dans la sauce. À Genève, Madrid et Ibiza.</p></div></li></ol></div></section>
@@ -182,14 +181,20 @@ footer small{display:block;margin-top:26px;font-size:12px;opacity:.55}
 <footer><img src="../lignes/img/monogramme-or.svg" alt="Atelier Paris Burger"><p class="slog">Inspirée par la tradition, élevée à l’excellence depuis plus de quarante ans.</p><nav class="liens"><a href="#carte">La carte</a><a href="#histoire">Notre histoire</a><a href="#maisons">Nos maisons</a><a href="https://instagram.com/">Instagram</a></nav><small>Atelier Paris Burger · Maquette Nouvelle Ardoise</small></footer>
 <div class="barre"><a class="btn btn-or" href="../site-b/geneve/">Commander</a><a class="btn btn-ligne" href="../site-b/reserver/">Burger offert</a></div>
 <script>
-(function(){var v=document.getElementById('film'),b=document.querySelector('.film .pause'),m=[].slice.call(document.querySelectorAll('.mots span'));
-if(!v)return;var rm=matchMedia('(prefers-reduced-motion: reduce)');
-function set(p){if(p){v.pause();b.textContent='▶';b.setAttribute('aria-label','Lire')}else{var q=v.play();if(q&&q.catch)q.catch(function(){});b.textContent='II';b.setAttribute('aria-label','Mettre en pause')}}
-if(rm.matches){v.removeAttribute('autoplay');set(true)}
-b.addEventListener('click',function(){set(!v.paused)});
+(function(){var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var pics=[].slice.call(document.querySelectorAll('.scene picture')),bt=[].slice.call(document.querySelectorAll('.plats button')),cur=0,tm;
+function show(i){cur=i;pics.forEach(function(p,k){p.classList.toggle('on',k===i)});bt.forEach(function(b,k){b.setAttribute('aria-pressed',k===i?'true':'false')})}
+function loop(){clearInterval(tm);if(!rm)tm=setInterval(function(){show((cur+1)%pics.length)},5200)}
+bt.forEach(function(b,k){b.addEventListener('click',function(){show(k);loop()})});loop();
+document.addEventListener('visibilitychange',function(){document.hidden?clearInterval(tm):loop()});
+var v=document.getElementById('film'),pb=document.querySelector('.film .pause'),m=[].slice.call(document.querySelectorAll('.mots li')),user=false;
+if(!v)return;
+function play(){var q=v.play();if(q&&q.catch)q.catch(function(){});pb.textContent='II';pb.setAttribute('aria-label','Mettre en pause')}
+function stop(){v.pause();pb.textContent='▶';pb.setAttribute('aria-label','Lire')}
+pb.addEventListener('click',function(){user=true;v.paused?play():stop()});
 v.addEventListener('timeupdate',function(){var t=v.currentTime,k=0;m.forEach(function(e,i){if(t>=+e.dataset.t)k=i});m.forEach(function(e,i){e.classList.toggle('on',i===k)})});
-if('IntersectionObserver' in window&&!rm.matches)new IntersectionObserver(function(e){if(!b.dataset.u){e[0].isIntersecting?v.play().catch(function(){}):v.pause()}}).observe(v);
-b.addEventListener('click',function(){b.dataset.u=1});
+if(rm){stop();return}
+if('IntersectionObserver' in window)new IntersectionObserver(function(e){if(user)return;e[0].isIntersecting?(v.preload='auto',play()):v.pause()},{threshold:.25}).observe(v);
 })();
 </script>
 </body></html>
