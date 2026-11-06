@@ -153,26 +153,6 @@ h2{font-size:clamp(2.3rem,1.5rem + 3.4vw,4rem);color:var(--brun);margin-top:12px
 .plan h3{font-size:1.7rem;color:var(--brun);margin-top:8px}
 .plan p{color:var(--gris);font-size:14.5px;margin-top:8px}
 @media (max-width:820px){.plan ol{grid-template-columns:1fr 1fr}}@media (max-width:480px){.plan ol{grid-template-columns:1fr}}
-/* offres */
-.offres{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px;align-items:stretch}
-.offre{background:var(--papier);border:1px solid var(--ligne);border-radius:18px;padding:28px 24px;display:flex;flex-direction:column;position:relative}
-.offre h3{font-size:2rem;color:var(--brun)}
-.offre .prix{font-family:Cormorant,serif;font-size:3rem;line-height:1;margin-top:14px;color:var(--brun)}
-.offre .prix small{font-family:Manrope,sans-serif;font-size:13px;color:var(--gris);margin-left:4px}
-.offre .pour{color:var(--gris);font-size:14px;margin-top:8px;min-height:3em}
-.offre ul{list-style:none;margin:18px 0 0;padding:0;font-size:14.5px;flex:1}
-.offre li{padding:9px 0 9px 22px;border-top:1px solid var(--ligne);position:relative}
-.offre li::before{content:"";position:absolute;left:2px;top:17px;width:7px;height:7px;background:var(--or);transform:rotate(45deg)}
-.offre li.plus{font-weight:600;color:var(--brun)}
-.offre.reco{background:var(--brun);color:var(--ivoire);border-color:var(--brun)}
-.offre.reco h3,.offre.reco .prix{color:var(--ivoire)}.offre.reco .pour,.offre.reco .prix small{color:#d8c9bd}
-.offre.reco li{border-color:rgba(217,184,120,.3)}.offre.reco li.plus{color:var(--or2)}
-.badge{position:absolute;top:-13px;left:24px;background:var(--or2);color:var(--brun);font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
-.mensuel{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
-.mensuel div{border:1px solid var(--ligne);border-radius:14px;padding:16px 18px;background:var(--papier)}
-.mensuel b{font-family:Cormorant,serif;font-size:1.5rem;color:var(--brun);font-weight:600}
-.mensuel span{display:block;font-size:13.5px;color:var(--gris);margin-top:4px}
-@media (max-width:900px){.offres{grid-template-columns:1fr}.mensuel{grid-template-columns:1fr}.offre .pour{min-height:0}}
 /* fin */
 .end{text-align:center;background:var(--brun);color:var(--ivoire)}
 .end.motif{background-color:var(--brun)}
@@ -609,67 +589,10 @@ footer{background:var(--brun);color:#bfa99c;font-size:12.5px;padding:0 0 32px;te
     <h2 class="r">Prêt pour les fêtes, <em>en quatre semaines</em>.</h2>
     <ol>
       <li class="r"><h3>On corrige</h3><p>Fiche Google complète, horaires alignés partout, photo de couverture, coffrets en produits.</p></li>
-      <li class="r"><h3>On construit</h3><p>Le site autour des coffrets, la commande avec retrait, la page entreprises.</p></li>
+      <li class="r"><h3>On construit</h3><p>Le site autour des coffrets, la commande avec retrait ou livraison, la page entreprises.</p></li>
       <li class="r"><h3>On écrit</h3><p>La liste d'entreprises et le premier envoi, pendant que le photographe passe en boutique.</p></li>
       <li class="r"><h3>On lance</h3><p>Le site en ligne, les visuels de fin d'année, la vidéo avec un créateur.</p></li>
     </ol>
-  </div>
-</section>
-
-<section id="offres" style="background:var(--papier);border-top:1px solid var(--ligne)">
-  <div class="wrap">
-    <p class="kick r">Les offres</p>
-    <h2 class="r">Trois façons de <em>démarrer</em>.</h2>
-    <p class="lead r">Prix uniques, en CHF. Les outils de commande et de fidélité sont des solutions existantes, branchées et réglées pour vous.</p>
-    <div class="offres">
-      <article class="offre r">
-        <h3>Essentiel</h3>
-        <p class="prix">990<small>CHF</small></p>
-        <p class="pour">Être trouvé et rassurer.</p>
-        <ul>
-          <li>Fiche Google complète et corrigée</li>
-          <li>Site refait et rapide, en français, anglais et arabe</li>
-          <li>Horaires et infos alignés sur Uber Eats et les annuaires</li>
-          <li>Instagram relancé&nbsp;: profil, 3 posts et 1 réel</li>
-        </ul>
-      </article>
-      <article class="offre r">
-        <h3>Signature</h3>
-        <p class="prix">2&nbsp;890<small>CHF</small></p>
-        <p class="pour">Vendre les coffrets en ligne.</p>
-        <ul>
-          <li>Tout l'Essentiel</li>
-          <li class="plus">Photographe en boutique, une demi-journée</li>
-          <li class="plus">Coffrets à composer, retrait payé d'avance (TWINT)</li>
-          <li class="plus">Page entreprises avec demande de devis</li>
-          <li>Carte de fidélité dans le téléphone</li>
-          <li>Visuels coffrets aux formats réseaux</li>
-          <li>2 réels et 2 posts</li>
-        </ul>
-      </article>
-      <article class="offre reco r">
-        <span class="badge">Recommandé</span>
-        <h3>Prestige</h3>
-        <p class="prix">4&nbsp;790<small>CHF</small></p>
-        <p class="pour">Faire des entreprises et des fêtes votre plus gros chiffre.</p>
-        <ul>
-          <li>Toute la Signature</li>
-          <li class="plus">Prospection des entreprises&nbsp;: liste, e-mails, relances</li>
-          <li class="plus">Collaboration avec un créateur genevois</li>
-          <li class="plus">Film de lancement, 2 réels et 2 posts</li>
-          <li class="plus">Page Ramadan et Aïd, prête dès janvier</li>
-          <li>Première campagne de pub pour les fêtes</li>
-          <li>Cartes et affichette QR pour la vitrine</li>
-        </ul>
-      </article>
-    </div>
-    <h3 class="r" style="font-size:1.8rem;color:var(--brun);margin-top:48px">Ensuite, si vous voulez qu'on s'en occupe chaque mois</h3>
-    <div class="mensuel r">
-      <div><b>Présence · 490</b><span>CHF par mois. Fiche Google et Instagram tenus à jour, maintenance comprise.</span></div>
-      <div><b>Croissance · 990</b><span>CHF par mois. En plus&nbsp;: photographe une heure par mois, réels réguliers, publicités.</span></div>
-      <div><b>Conquête · 1&nbsp;490</b><span>CHF par mois. En plus&nbsp;: prospection des entreprises et des événements menée avec nous.</span></div>
-    </div>
-    <p class="src r">Hors devis&nbsp;: nom de domaine, impressions, abonnements des outils de commande et de fidélité, budget publicitaire, coffrets offerts au créateur.</p>
   </div>
 </section>
 
