@@ -1,0 +1,62 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><title>Ligne 3 · La sauce · Atelier Paris Burger</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=Marcellus&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--merlot:#7F0F28;--cabsav:#490917;--or:#D99125;--orc:#E8B562;--peach:#F4E9DC;--wood:#16110F;--serif:"Cormorant Garamond",serif;--caps:"Marcellus",serif;--sans:"DM Sans",system-ui,sans-serif;--g:clamp(16px,4vw,56px)}
+html{-webkit-text-size-adjust:100%}
+body{overflow-x:clip}
+body{font-family:var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;font:600 15px var(--sans);letter-spacing:.01em;transition:transform .2s,background-color .2s}
+.btn:active{transform:scale(.97)}
+.marque{display:flex;align-items:center;gap:12px;font-family:var(--caps);letter-spacing:.14em;text-transform:uppercase;font-size:15px;white-space:nowrap}
+.marque img{width:34px;height:34px}
+.barre{display:none}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:760px){
+ .barre{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
+ .barre .btn{flex:1;min-height:50px;padding:0 10px;font-size:14.5px}
+ body{padding-bottom:72px}
+ .nav-d{display:none!important}
+}
+
+body{background:var(--wood);color:var(--peach)}
+header{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:18px var(--g)}
+header .mono{width:44px}
+header .btn{min-height:44px;background:var(--or);color:var(--cabsav);border-radius:999px}
+.hero{position:relative;height:100svh;min-height:560px;overflow:hidden}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:40% 50%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,17,15,.55) 0%,rgba(22,17,15,0) 30%,rgba(22,17,15,0) 50%,rgba(22,17,15,.9) 100%)}
+.hero .txt{position:absolute;z-index:2;left:var(--g);right:var(--g);bottom:48px;display:flex;align-items:flex-end;justify-content:space-between;gap:30px}
+.hero h1{font:600 clamp(56px,9vw,150px)/.9 var(--serif);letter-spacing:-.02em}
+.hero h1 span{display:block}
+.hero h1 span+span{color:var(--orc);font-style:italic}
+.hero .r{max-width:300px;font-size:15.5px;line-height:1.5;color:rgba(244,233,220,.8)}
+.hero .r .btn{margin-top:18px;background:var(--or);color:var(--cabsav);border-radius:999px}
+.villes{display:flex;justify-content:center;gap:0;border-top:1px solid rgba(232,181,98,.25);border-bottom:1px solid rgba(232,181,98,.25)}
+.villes a{flex:1;max-width:340px;padding:22px 0;text-align:center;font:400 20px var(--caps);letter-spacing:.2em;text-transform:uppercase}
+.villes a+a{border-left:1px solid rgba(232,181,98,.25)}
+.villes small{display:block;margin-top:6px;font:500 11px var(--sans);letter-spacing:.14em;color:rgba(244,233,220,.6)}
+.trois{display:grid;grid-template-columns:repeat(3,1fr)}
+.trois figure{position:relative;aspect-ratio:3/4;overflow:hidden}
+.trois img{width:100%;height:100%;object-fit:cover}
+.trois figcaption{position:absolute;left:20px;bottom:18px;font:600 40px var(--serif)}
+.barre{background:rgba(22,17,15,.95);border-top:1px solid rgba(232,181,98,.25)}
+.barre .a{background:var(--or);color:var(--cabsav);border-radius:999px}
+.barre .b{border:1px solid rgba(244,233,220,.5);border-radius:999px}
+@media (max-width:760px){
+ header .btn{display:none}
+ .hero{height:86svh}
+ .hero img{object-position:30% 50%}
+ .hero .txt{flex-direction:column;align-items:flex-start;bottom:24px;left:16px;right:16px}
+ .hero h1{font-size:60px}
+ .hero .r .btn{display:none}
+ .villes a{font-size:14px;padding:16px 0}
+ .trois{grid-template-columns:1fr 1fr}
+ .trois figure:last-child{display:none}
+ .trois figcaption{font-size:28px;left:12px}
+}
+</style></head><body><header><img class="mono" src="../img/monogramme-or.svg" alt="Atelier Paris Burger"><a class="btn nav-d" href="#">Commander</a></header>
+<main><section class="hero"><img src="../img/trempage.webp" alt="Smash burger posé dans la sauce Café de Paris, en gros plan"><div class="txt"><h1><span>Coupé.</span><span>Posé dans la sauce.</span></h1><div class="r"><p>Quarante ans de sauce Café de Paris. Maintenant en smash burger.</p><a class="btn" href="#">Commander à Genève →</a></div></div></section>
+<nav class="villes" aria-label="Villes"><a href="#">Genève<small>Sur place · Livraison</small></a><a href="#">Madrid<small>En livraison</small></a><a href="#">Ibiza<small>Sur place</small></a></nav>
+<section class="trois"><figure><img src="../img/smasher.webp" alt="Le steak smashé sur la plaque"><figcaption>Smashé.</figcaption></figure><figure><img src="../img/couper.webp" alt="Le burger coupé en deux"><figcaption>Coupé.</figcaption></figure><figure><img src="../img/tremper.webp" alt="Le burger posé dans la sauce"><figcaption>Trempé.</figcaption></figure></section></main>
+<div class="barre"><a class="btn a" href="#">Commander</a><a class="btn b" href="#">Burger offert</a></div></body></html>
