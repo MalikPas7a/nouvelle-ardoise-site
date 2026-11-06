@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#490917">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Marcellus&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="img/stage/stage.webp">
 <link rel="preload" as="image" href="img/stage/smash-plat.webp">
 <!--
@@ -75,15 +75,15 @@ p{margin:0}
 .s-pin canvas,.f-pin canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .s-haut{position:absolute;z-index:2;left:var(--gutter);top:calc(var(--head) + clamp(20px,5vh,56px));max-width:min(560px,40vw)}
 .s-eye{font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--or-clair)}
-.s-nom{margin-top:16px;font-size:clamp(54px,6.2vw,104px);line-height:.9;color:var(--peach);text-shadow:0 2px 30px rgba(20,4,8,.35)}
-.s-villes{list-style:none;padding:0;margin:26px 0 0;display:flex;flex-wrap:wrap;gap:8px}
-.s-villes a{display:inline-flex;align-items:baseline;gap:8px;min-height:44px;padding:13px 16px 0;border-radius:999px;text-decoration:none;font-size:15px;font-weight:500;color:var(--on-dark);background:rgba(29,7,11,.5);box-shadow:inset 0 0 0 1px rgba(232,181,98,.38);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:background-color .25s var(--ease),transform .2s var(--ease),box-shadow .25s var(--ease)}
-.s-villes a small{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--or-clair)}
-.s-villes a:hover{box-shadow:inset 0 0 0 1px rgba(232,181,98,.8)}
-.s-villes a:active{transform:scale(.97)}
-.s-villes .ge{background:var(--or);color:var(--woodsmoke);box-shadow:none}
-.s-villes .ge small{color:var(--cabsav)}
-.s-villes .ge:hover{background:var(--or-clair);box-shadow:none}
+.s-nom{margin-top:18px;font-family:"Mendl Serif","Marcellus",serif;font-weight:400;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(46px,4.9vw,84px);line-height:1;color:var(--peach);text-shadow:0 2px 30px rgba(20,4,8,.35)}
+.s-villes{display:inline-flex;margin-top:30px;border:1px solid rgba(232,181,98,.55);background:rgba(29,7,11,.42);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.s-villes a{position:relative;display:flex;align-items:center;justify-content:center;min-height:50px;padding:0 26px;font-family:"Mendl Serif","Marcellus",serif;font-size:15px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:var(--peach);transition:background-color .3s var(--ease),color .3s var(--ease)}
+.s-villes a+a{border-left:1px solid rgba(232,181,98,.38)}
+.s-villes a::after{content:"";position:absolute;left:26px;right:26px;bottom:12px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.s-villes a:hover::after,.s-villes a:focus-visible::after{transform:scaleX(1)}
+.s-villes a:active{background:rgba(232,181,98,.12)}
+.s-villes .ge{background:var(--or);color:var(--cabsav)}
+.s-villes .ge:hover{background:var(--or-clair)}
 .s-plat{position:absolute;z-index:2;right:var(--gutter);top:calc(var(--head) + clamp(20px,5vh,56px));width:min(380px,30vw)}
 .s-num{display:flex;align-items:center;gap:12px;font-size:12.5px;font-weight:600;letter-spacing:.14em;color:var(--or-clair);font-variant-numeric:tabular-nums}
 .s-num i{position:relative;flex:0 0 72px;height:1px;background:rgba(232,181,98,.28);overflow:hidden}
@@ -142,6 +142,8 @@ p{margin:0}
 .f-idx button:hover{color:var(--on-dark)}
 .f-idx button[aria-current="true"]{color:var(--peach)}
 .f-idx button[aria-current="true"]::before{width:36px;background:var(--or)}
+
+.marque span{font-family:"Mendl Serif","Marcellus",serif;font-weight:400;font-size:16px;letter-spacing:.12em;text-transform:uppercase}
 
 /* Grain très léger sur toute la page (rendu photo, pas numérique) */
 body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -260,12 +262,10 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
   .scene{height:330vh}
   .s-haut{right:var(--gutter);top:calc(var(--head) + 8px);max-width:none}
   .s-eye{font-size:10.5px;letter-spacing:.12em}
-  .s-nom{margin-top:8px;font-size:clamp(34px,9.6vw,44px);line-height:1}
-  .s-nom .l{display:inline-block}
-  .s-nom .l+.l{margin-left:.24em}
-  .s-villes{margin-top:12px;gap:6px;flex-wrap:nowrap}
-  .s-villes a{min-height:38px;padding:10px 12px 0;font-size:13.5px;gap:6px}
-  .s-villes a small{font-size:9.5px;letter-spacing:.06em}
+  .s-nom{margin-top:8px;font-size:clamp(28px,8.2vw,38px);letter-spacing:.05em;line-height:1.02}
+  .s-villes{display:flex;margin-top:14px}
+  .s-villes a{flex:1;min-height:44px;padding:0 6px;font-size:12.5px;letter-spacing:.16em}
+  .s-villes a::after{left:12px;right:12px;bottom:9px}
   .s-plat{left:var(--gutter);right:var(--gutter);top:auto;bottom:calc(80px + env(safe-area-inset-bottom));width:auto}
   .s-txt{height:140px;margin-top:10px}
   .s-p h2{font-size:clamp(40px,11vw,48px)}
@@ -350,12 +350,10 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
       <canvas aria-hidden="true"></canvas>
       <div class="s-haut">
         <p class="s-eye in" style="--d:.05s" data-t="s.eye">Sauce Café de Paris · depuis les années 1980</p>
-        <h1 class="s-nom"><span class="l"><span style="--d:.12s">Atelier</span></span><span class="l"><span style="--d:.22s">Paris Burger</span></span></h1>
-        <ul class="s-villes in" style="--d:.5s">
-          <li><a class="ge" href="geneve/"><span>Genève</span><small data-t="s.v.ge">Commander</small></a></li>
-          <li><a href="#maisons"><span>Ibiza</span><small data-t="s.v.ib">Au port</small></a></li>
-          <li><a href="#maisons"><span>Madrid</span><small data-t="s.v.ma">Livraison</small></a></li>
-        </ul>
+        <h1 class="s-nom"><span class="l"><span style="--d:.12s">Atelier Paris</span></span><span class="l"><span style="--d:.22s">Burger</span></span></h1>
+        <nav class="s-villes in" style="--d:.5s" aria-label="Nos villes">
+          <a class="ge" href="geneve/">Genève</a><a href="#maisons">Madrid</a><a href="#maisons">Ibiza</a>
+        </nav>
       </div>
       <div class="s-plat" id="carte" style="--d:.65s">
         <p class="s-num" aria-hidden="true"><b id="s-n">01</b><i><b></b></i><span>03</span></p>
@@ -574,7 +572,8 @@ function bascule(list,k){list.forEach(function(e,i){e.classList.toggle('on',i===
     var im=IM[n],q=L[n];if(!im.p.naturalWidth)return;
     var lift=-dy;
     if(im.r.naturalWidth&&ra>0){cx.globalAlpha=ra;cx.drawImage(im.r,ox+q.r[0]*s+dx,oy+q.r[1]*s+lift*.6,q.r[2]*s,q.r[3]*s)}
-    cx.globalAlpha=a;cx.drawImage(im.p,ox+q.p[0]*s+dx,oy+q.p[1]*s+dy,q.p[2]*s,q.p[3]*s);cx.globalAlpha=1;
+    var Z=W>900?1.14:.9,pw=q.p[2]*s*Z,ph=q.p[3]*s*Z,px=ox+(q.p[0]+q.p[2]/2)*s-pw/2,py=oy+(q.p[1]+q.p[3]*.8)*s-ph*.8;
+    cx.globalAlpha=a;cx.drawImage(im.p,px+dx,py+dy,pw,ph);cx.globalAlpha=1;
   }
   /* Rythme du défilement : maintien, passage, maintien, passage, maintien */
   var T=[[.2,.44],[.58,.82]],cur=0,intro=REDUCE?1:0,t0=0,forcé=-1;
