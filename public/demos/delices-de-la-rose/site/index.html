@@ -107,6 +107,24 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brun);outline-of
 .recap dd{margin:4px 0 0;color:#efe4da}
 .recap .btn{width:100%;margin-top:22px;background:var(--or2);color:var(--brun)}
 .recap .btn:hover{background:var(--ivoire)}
+.boite{background:var(--ivoire);border-radius:14px;padding:10px 10px 12px;margin:16px 0 6px;box-shadow:inset 0 0 0 2px var(--or2),0 16px 30px -18px rgba(0,0,0,.7)}
+.boite .couv{display:flex;justify-content:center;padding:4px 0 10px}.boite .couv img{height:30px;width:auto}
+.cases{display:grid;grid-template-columns:repeat(var(--c,3),1fr);gap:6px;background:#eadcc2;border-radius:10px;padding:8px}
+.cases i{display:block;aspect-ratio:1;border-radius:50%;background:#e0cfb0 center/185% no-repeat;box-shadow:inset 0 0 0 1px rgba(184,138,62,.45)}
+.cases i.plein{box-shadow:0 3px 5px -1px rgba(58,30,29,.45)}
+.cases i.neuf{animation:tombe .5s var(--ease) both}
+@keyframes tombe{from{transform:translateY(-16px) scale(.5);opacity:0}to{transform:none;opacity:1}}
+.boite p{text-align:center;font-size:12px;color:var(--gris);margin-top:8px}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.modes button{text-align:left;border:1px solid var(--ligne);background:#fff;border-radius:14px;padding:12px;cursor:pointer;font:inherit;color:inherit;transition:border-color .2s,transform .2s var(--ease)}
+.modes button:active{transform:scale(.98)}
+.modes svg{width:28px;height:28px;color:var(--or);display:block;margin-bottom:8px;flex:none}
+.modes b{display:block;font-size:14px;color:var(--brun);line-height:1.25}
+.modes small{display:block;font-size:12px;color:var(--gris);margin-top:3px;line-height:1.3}
+.modes button[aria-pressed=true]{border-color:var(--brun);box-shadow:0 0 0 2px var(--brun)}
+#lAdr{margin-top:14px}#lAdr[hidden]{display:none}
+@media (max-width:620px){.modes{grid-template-columns:1fr}.modes button{display:flex;gap:12px;align-items:center}.modes svg{margin:0}}
+@media (prefers-reduced-motion:reduce){.cases i.neuf{animation:none}}
 .recap .note{font-size:12px;color:#c8b6aa;margin-top:12px}
 @media (max-width:900px){.etapes{grid-template-columns:1fr}.recap{position:static}.ligne2{grid-template-columns:1fr}}
 /* ticket */
@@ -222,7 +240,7 @@ footer a{color:#efe4da}
 <section class="composer" id="composer">
   <div class="wrap">
     <p class="kick r">Commander en ligne</p>
-    <h2 class="r">Composez, réservez, <em>passez prendre</em>.</h2>
+    <h2 class="r">Composez votre coffret, <em>à emporter ou livré</em>.</h2>
     <div class="etapes">
       <div>
         <div class="bloc r">
@@ -235,24 +253,31 @@ footer a{color:#efe4da}
           <div class="choix" id="varietes"></div>
         </div>
         <div class="bloc r">
-          <h3><span>3</span> Le retrait</h3>
+          <h3><span>3</span> Retrait ou livraison</h3>
+          <div class="modes" id="modes" role="group" aria-label="Retrait ou livraison">
+            <button type="button" data-m="retrait" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h16l-1-5H5zM5 10v9h14v-9M10 19v-5h4v5"/></svg><span><b>Je passe le chercher</b><small>Rue du Grand-Pré 46, gratuit</small></span></button>
+            <button type="button" data-m="boutique" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9h14v10H5zM3 9l2-4h14l2 4M9 13h6"/></svg><span><b>Livré par la boutique</b><small>Par notre livreur, à Genève</small></span></button>
+            <button type="button" data-m="uber" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="17" r="2.5"/><circle cx="18" cy="17" r="2.5"/><path d="M8.5 17h7M14 7h3l3 7M6 14.5 9 9h5l2 5"/></svg><span><b>Coursier Uber</b><small>Genève et environs</small></span></button>
+          </div>
+          <label id="lAdr" hidden>Adresse de livraison<input id="adresse" autocomplete="street-address" placeholder="Rue, numéro, code postal"></label>
           <div class="ligne2">
             <label>Jour<select id="jour"></select></label>
             <label>Votre prénom<input id="prenom" autocomplete="given-name" placeholder="Votre prénom"></label>
           </div>
-          <div class="creneaux" id="heures" role="group" aria-label="Heure de retrait"></div>
+          <div class="creneaux" id="heures" role="group" aria-label="Heure"></div>
           <label style="margin-top:14px"><input type="checkbox" id="cadeau" style="display:inline-block;width:auto;min-height:0;margin:0 8px 0 0;vertical-align:-2px">Emballage cadeau avec ruban et carte</label>
         </div>
       </div>
       <aside class="recap r motif" aria-live="polite">
         <h3>Votre coffret</h3>
+        <div class="boite" aria-hidden="true"><div class="couv"><img src="../img/logo-brun.png" alt="" width="120" height="53"></div><div class="cases" id="cases"></div><p id="bLeg">Choisissez une taille</p></div>
         <dl>
           <dt>Taille</dt><dd id="rTaille">–</dd>
           <dt>Variétés</dt><dd id="rVar">–</dd>
-          <dt>Retrait</dt><dd id="rRetrait">–</dd>
+          <dt id="rModeL">Retrait</dt><dd id="rRetrait">–</dd>
         </dl>
         <button class="btn" id="valider" disabled>Payer et réserver</button>
-        <p class="note">Le prix s'affiche selon votre carte une fois le site en place. Payé en ligne, prêt à l'heure, sans attente au comptoir.</p>
+        <p class="note">Le prix s'affiche selon votre carte une fois le site en place. Payé en ligne, prêt ou livré à l'heure choisie.</p>
       </aside>
     </div>
   </div>
@@ -357,7 +382,11 @@ const V=[
  ['dattier','Dattier, dattes et noix','noix'],['doigts-coco','Doigts à la noix de coco','noix']];
 const S=[['fatayer','Fatayer au fromage (feta)','sale']];
 const $=s=>document.querySelector(s);
-const st={t:null,v:[],j:null,h:null};
+const st={t:null,v:[],j:null,h:null,m:'retrait'};
+const NB={s:[6,3],m:[9,3],l:[12,4],xl:[16,4],xxl:[20,5]};let avant=[];
+const MODES={retrait:['Retrait','Je passe le chercher'],boutique:['Livraison','Livré par la boutique'],uber:['Livraison','Coursier Uber']};
+document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>{st.m=b.dataset.m;document.getElementById('lAdr').hidden=st.m==='retrait';maj()});
+document.getElementById('adresse').addEventListener('input',()=>maj());
 // tailles
 const tl=$('#tailles'),ct=$('#choixTaille'),te=$('#tailleEnt');
 T.forEach(t=>{
@@ -393,20 +422,29 @@ function maj(){
  const max=st.t?st.t.max:3;$('#aideVar').textContent=`Choisissez jusqu'à ${max} variétés (${st.v.length}/${max}).`;
  $('#rTaille').textContent=st.t?`${st.t.nom} · ${st.t.g}`:'–';
  $('#rVar').textContent=st.v.length?st.v.map(nomV).join(', '):'–';
- $('#rRetrait').textContent=st.h?`${st.j}, ${st.h}`:'–';
- $('#valider').disabled=!(st.t&&st.v.length&&st.h);
+ document.querySelectorAll('#modes button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.m===st.m)));
+ $('#rModeL').textContent=MODES[st.m][0];
+ $('#rRetrait').textContent=st.h?`${MODES[st.m][1]} · ${st.j}, ${st.h}`:MODES[st.m][1];
+ const [n,c]=st.t?NB[st.t.id]:[6,3];const cs=$('#cases');cs.style.setProperty('--c',c);
+ const nv=Array.from({length:n},(_,i)=>st.v.length?st.v[(i+Math.floor(i/c))%st.v.length]:null);
+ if(cs.children.length!==n){cs.innerHTML='';for(let i=0;i<n;i++)cs.append(document.createElement('i'));avant=[]}
+ [...cs.children].forEach((el,i)=>{const k=nv[i];if(k===avant[i])return;el.className=k?'plein neuf':'';el.style.backgroundImage=k?`url(../img/${k}-sm.jpg)`:'';el.style.animationDelay=k?(i*35)+'ms':'';});
+ avant=nv;
+ $('#bLeg').textContent=st.t?`${st.t.nom} · ${st.t.g}`+(st.v.length?` · ${st.v.length} variété${st.v.length>1?'s':''}`:''):'Choisissez une taille';
+ const adr=($('#adresse').value||'').trim();
+ $('#valider').disabled=!(st.t&&st.v.length&&st.h&&(st.m==='retrait'||adr.length>4));
 }
 maj();
 const dlg=$('#ticket'),corps=$('#ticketCorps');
 $('#valider').onclick=()=>{
  const pr=($('#prenom').value||'').trim();
- corps.innerHTML=`<img src="../img/logo-brun.png" alt="Délices de la Rose" width="150" height="66"><h3 id="tTitre">Votre coffret</h3><p>Payez pour réserver l'heure de retrait.</p>
- <ul><li><span>Coffret</span><b>${st.t.nom}</b></li><li><span>Variétés</span><b>${st.v.length}</b></li><li><span>Retrait</span><b>${st.j}, ${st.h}</b></li>${$('#cadeau').checked?'<li><span>Emballage</span><b>Cadeau, avec carte</b></li>':''}</ul>
+ corps.innerHTML=`<img src="../img/logo-brun.png" alt="Délices de la Rose" width="150" height="66"><h3 id="tTitre">Votre coffret</h3><p>${st.m==='retrait'?"Payez pour réserver l'heure de retrait.":'Payez pour confirmer la livraison.'}</p>
+ <ul><li><span>Coffret</span><b>${st.t.nom}</b></li><li><span>Variétés</span><b>${st.v.length}</b></li><li><span>${MODES[st.m][0]}</span><b>${st.j}, ${st.h}</b></li>${st.m!=='retrait'?`<li><span>Par</span><b>${st.m==='uber'?'Coursier Uber':'Livreur de la boutique'}</b></li>`:''}${$('#cadeau').checked?'<li><span>Emballage</span><b>Cadeau, avec carte</b></li>':''}</ul>
  <button class="twint" id="payer" type="button">Payer avec TWINT (démo)</button><button class="btn ghost" type="button" id="fermer">Modifier</button>`;
  dlg.showModal();
  $('#fermer').onclick=()=>dlg.close();
  $('#payer').onclick=()=>{const code='R'+Math.floor(100+Math.random()*900);
-  corps.innerHTML=`<img src="../img/logo-brun.png" alt="Délices de la Rose" width="150" height="66"><h3 id="tTitre">C'est réservé${pr?', '+pr.replace(/[<>&"]/g,''):''}.</h3><p class="code">${code}</p><p>Donnez ce code au comptoir. Votre coffret sera prêt ${st.j.toLowerCase()} à ${st.h}, rue du Grand-Pré 46.</p><p style="font-size:12px">Démo&nbsp;: aucun paiement n'a été effectué.</p><button class="btn" type="button" id="fermer">Fermer</button>`;
+  corps.innerHTML=`<img src="../img/logo-brun.png" alt="Délices de la Rose" width="150" height="66"><h3 id="tTitre">${st.m==='retrait'?'C\'est réservé':'C\'est commandé'}${pr?', '+pr.replace(/[<>&"]/g,''):''}.</h3><p class="code">${code}</p><p>${st.m==='retrait'?`Donnez ce code au comptoir. Votre coffret sera prêt ${st.j.toLowerCase()} à ${st.h}, rue du Grand-Pré 46.`:`Votre coffret arrive ${st.j.toLowerCase()} vers ${st.h}, ${($('#adresse').value||'').replace(/[<>&"]/g,'')}. ${st.m==='uber'?'Un coursier Uber le récupère à la boutique.':'Livré par la boutique.'}`}</p><p style="font-size:12px">Démo&nbsp;: aucun paiement n'a été effectué.</p><button class="btn" type="button" id="fermer">Fermer</button>`;
   $('#fermer').onclick=()=>dlg.close()}
 };
 dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
