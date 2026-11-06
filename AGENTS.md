@@ -30,8 +30,13 @@ Compétences de design dans `.claude/skills/`, à utiliser pour toutes les créa
 - Impeccable (Apache 2.0, github.com/pbakaus/impeccable) : `impeccable` (critique, audit, polish, typographie, mise en page, couleurs, adaptation mobile).
 - Taste (MIT, github.com/Leonxlnx/taste-skill) : `taste-skill` (direction artistique moins générique, références, contrôle dans un vrai navigateur).
 - Unslop (CC BY 4.0, github.com/heydamir/unslop, Damir Sokolovsky) : `unslop` (repère tout ce qui « fait IA » dans une interface, puis corrige en 9 passes : espacements, couleurs, icônes, textes, typo, mise en page, détails, visuels, mouvement). Créditer l'auteur en cas de copie.
+- Hallmark (MIT, github.com/Nutlope/hallmark) : `hallmark` (pages neuves qui ont l'air dessinées, pas générées).
+- Addy Osmani (MIT, github.com/addyosmani/web-quality-skills) : `web-quality-audit`, `performance`, `core-web-vitals`, `accessibility` (WCAG 2.2), `seo`, `best-practices`.
+- Vercel (MIT, github.com/vercel-labs/web-interface-guidelines) : `web-interface-guidelines` (relecture du code ligne par ligne : focus, formulaires, cibles tactiles, typo, images).
+- Corey Haines (MIT, github.com/coreyhaines31/marketingskills) : `cro` (conversion : commander, réserver, appeler), `copywriting`, `seo-audit` (dont SEO local et fiche Google), `schema` (JSON-LD Restaurant, Menu), `ai-seo` (être cité par ChatGPT, Perplexity, Google IA).
+- Maison : `audit-excellence` (grille sur 100 en 10 axes + script de mesure `scripts/audit.mjs` : iPhone, Lighthouse, WCAG, SEO, conversion, signes IA, règles NA, comparaison au secteur).
 
-Boucle de travail : direction choisie avec Malik, puis code, puis contrôle dans un navigateur (Playwright, déjà installé dans le conteneur) avec captures bureau et iPhone, puis `impeccable` critique/audit et `review-animations`, puis corrections. Nos règles passent avant les leurs :
+Boucle de travail : direction choisie avec Malik, puis code, puis contrôle dans un navigateur (Playwright, déjà installé dans le conteneur) avec captures bureau et iPhone, puis `audit-excellence` (note sur 100, bloquants, 5 corrections prioritaires) en s'appuyant sur `impeccable` critique/audit et `review-animations`, puis corrections, puis nouvel audit jusqu'au statut « Excellence » (≥ 90, aucun bloquant) avant de demander « publie ». Nos règles passent avant les leurs :
 
 - Jamais de plat, de burger ou de nourriture générés par IA : uniquement les vraies photos du client ou du photographe. L'IA sert seulement à animer ou agrandir une vraie photo.
 - Jamais d'alcool, dans aucun texte ni visuel.
