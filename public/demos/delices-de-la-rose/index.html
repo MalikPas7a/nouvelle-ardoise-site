@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f6f1e7">
+<title>Délices de la Rose × Nouvelle Ardoise · Propositions</title>
+<meta name="description" content="Audit de la présence en ligne de Délices de la Rose (Rue du Grand-Pré 46, Genève) et propositions : fiche Google, coffrets pour entreprises, créateurs de contenu, site.">
+<link rel="icon" href="img/icone-180.png" type="image/png">
+<link rel="apple-touch-icon" href="img/icone-180.png">
+<link rel="preload" href="fonts/cormorant-500-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Cormorant;src:url(fonts/cormorant-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:Cormorant;src:url(fonts/cormorant-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:Cormorant;src:url(fonts/cormorant-500-italic.woff2) format("woff2");font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:Cormorant;src:url(fonts/cormorant-600-italic.woff2) format("woff2");font-weight:600;font-style:italic;font-display:swap}
+@font-face{font-family:Manrope;src:url(fonts/manrope.woff2) format("woff2");font-weight:300 800;font-display:swap}
+:root{
+  --ivoire:#f6f1e7;--ivoire2:#efe7d8;--papier:#fbf8f2;--brun:#3a1e1d;--brun2:#55302c;--rose:#8c3b3f;
+  --or:#b88a3e;--or2:#d9b878;--encre:#2a1716;--gris:#6f5c56;--ligne:#e2d6c2;
+  --pad:clamp(18px,4.5vw,56px);--max:1140px;--ease:cubic-bezier(.2,.7,.2,1)
+}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ivoire);color:var(--encre);font:16px/1.6 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}a{color:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+h1,h2,h3,.serif{font-family:Cormorant,Georgia,serif;font-weight:500;line-height:1.02;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1 em,h2 em{font-style:italic;color:var(--rose)}
+p{margin:0}
+section{padding-block:clamp(64px,9vw,120px)}
+.kick{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--or)}
+h2{font-size:clamp(2.3rem,1.5rem + 3.4vw,4rem);color:var(--brun);margin-top:12px}
+.lead{color:var(--gris);font-size:1.06rem;max-width:40em;margin-top:16px}
+.src{font-size:12.5px;color:var(--gris);margin-top:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;background:var(--brun);color:var(--ivoire);text-decoration:none;font-weight:600;font-size:15px;transition:background .2s,transform .2s var(--ease)}
+.btn:hover{background:var(--rose)}.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--brun);border:1px solid var(--brun)}
+.btn.ghost:hover{background:var(--brun);color:var(--ivoire)}
+/* motif treillis, repris des boîtes */
+.motif{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23b88a3e' stroke-width='.8' opacity='.55'%3E%3Cpath d='M28 6l6 16 16 6-16 6-6 16-6-16-16-6 16-6z'/%3E%3Crect x='17' y='17' width='22' height='22' transform='rotate(45 28 28)'/%3E%3Cpath d='M0 0l6 6M56 0l-6 6M0 56l6-6M56 56l-6-6'/%3E%3C/g%3E%3C/svg%3E");background-size:56px 56px}
+.filet{height:10px;border-block:1px solid var(--or2);margin:0}
+/* entête */
+.top{position:sticky;top:0;z-index:10;background:rgba(246,241,231,.92);backdrop-filter:saturate(1.2) blur(10px);-webkit-backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid var(--ligne)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:12px;font-size:13.5px}
+.top img{height:30px;width:auto}
+.top span{color:var(--gris)}
+.top .btn{min-height:40px;font-size:13.5px;padding:0 16px}
+@media (max-width:620px){.top span{display:none}}
+/* héro */
+.hero{padding:clamp(36px,6vw,72px) 0 clamp(56px,8vw,96px)}
+.hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,72px);align-items:center}
+.hero img.logo{width:min(300px,64vw)}
+.hero h1{font-size:clamp(2.7rem,1.5rem + 5.2vw,5.4rem);color:var(--brun);margin-top:26px}
+.hero .lead{font-size:1.1rem}
+.hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.hero figure{margin:0;position:relative}
+.hero figure img{border-radius:220px 220px 14px 14px;aspect-ratio:4/5;object-fit:cover;width:100%;box-shadow:0 30px 60px -30px rgba(58,30,29,.45)}
+.hero figure::before{content:"";position:absolute;inset:-14px -14px 26px 26px;border:1px solid var(--or2);border-radius:230px 230px 18px 18px;z-index:-1}
+.hero figcaption{font-size:12.5px;color:var(--gris);margin-top:12px;text-align:right}
+@media (max-width:820px){.hero .grid{grid-template-columns:1fr}.hero figure{max-width:440px;margin-inline:auto;width:100%}}
+/* forces */
+.forces{background:var(--brun);color:var(--ivoire);position:relative;overflow:hidden}
+.forces.motif{background-color:var(--brun)}
+.forces h2{color:var(--ivoire)}.forces h2 em{color:var(--or2)}
+.forces .lead{color:#d8c9bd}
+.chiffres{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(217,184,120,.35);border:1px solid rgba(217,184,120,.35);margin-top:44px;border-radius:14px;overflow:hidden}
+.chiffres div{background:var(--brun);padding:26px 22px}
+.chiffres b{display:block;font-family:Cormorant,serif;font-weight:500;font-size:clamp(2.4rem,1.6rem + 2.2vw,3.4rem);line-height:1;color:var(--or2)}
+.chiffres span{display:block;margin-top:10px;font-size:14px;color:#e9ddd2}
+@media (max-width:820px){.chiffres{grid-template-columns:1fr 1fr}}
+/* constats */
+.liste{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:44px}
+.item{background:var(--papier);border:1px solid var(--ligne);border-radius:16px;padding:26px}
+.item .n{font-family:Cormorant,serif;font-style:italic;font-size:22px;color:var(--or)}
+.item h3{font-size:1.65rem;color:var(--brun);margin-top:6px}
+.item p{color:var(--gris);margin-top:10px;font-size:15px}
+.item p b{color:var(--encre);font-weight:600}
+@media (max-width:760px){.liste{grid-template-columns:1fr}}
+/* fiche Google avant / après */
+.fiches{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:44px;align-items:start}
+.gcard{background:#fff;border-radius:18px;box-shadow:0 1px 2px rgba(0,0,0,.08),0 18px 40px -24px rgba(58,30,29,.35);overflow:hidden;font-family:Roboto,Arial,system-ui,sans-serif;color:#202124}
+.gcard .etiq{font:700 11px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:12px 16px;background:var(--ivoire2);color:var(--brun2)}
+.gcard.apres .etiq{background:var(--brun);color:var(--or2)}
+.gcard .ph{aspect-ratio:16/8;background:#d9d2c8 center/cover}
+.gcard .ph.vide{display:grid;place-items:center;color:#5f6368;font-size:13px;text-align:center;padding:16px;background:linear-gradient(135deg,#cfc6ba,#b8ab9c)}
+.gcard .c{padding:14px 16px 18px}
+.gcard h4{font-size:21px;font-weight:400;margin:0}
+.gcard .note{font-size:14px;color:#70757a;margin-top:4px}.gcard .note b{color:#202124;font-weight:500}.gcard .note i{color:#fbbc04;font-style:normal;letter-spacing:1px}
+.gcard ul{list-style:none;margin:12px 0 0;padding:0;font-size:13.5px}
+.gcard li{padding:8px 0;border-top:1px solid #eee;display:flex;gap:10px;align-items:flex-start}
+.gcard li .k{flex:0 0 86px;color:#70757a}
+.gcard li.bad .v{color:#b3261e}
+.gcard li.good .v{color:#137333}
+.gcard .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.gcard .chips span{border:1px solid #dadce0;border-radius:999px;padding:5px 11px;font-size:12.5px;color:#3c4043}
+.gcard .chips span.on{background:#e8f0fe;border-color:#d2e3fc;color:#174ea6}
+@media (max-width:820px){.fiches{grid-template-columns:1fr}}
+/* idées */
+.idee{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,5vw,64px);align-items:start;margin-top:56px;padding-top:56px;border-top:1px solid var(--ligne)}
+.idee:first-of-type{border-top:0;padding-top:0}
+.idee .num{font-family:Cormorant,serif;font-style:italic;font-size:64px;line-height:.8;color:var(--or2)}
+.idee h3{font-size:clamp(2rem,1.4rem + 2vw,2.8rem);color:var(--brun);margin-top:10px}
+.idee .txt p{color:var(--gris);margin-top:14px}
+.idee ul.pts{margin:18px 0 0;padding:0;list-style:none}
+.idee ul.pts li{padding:10px 0 10px 26px;border-top:1px solid var(--ligne);position:relative;font-size:15px}
+.idee ul.pts li::before{content:"";position:absolute;left:4px;top:18px;width:8px;height:8px;border:1px solid var(--or);transform:rotate(45deg)}
+@media (max-width:860px){.idee{grid-template-columns:1fr}}
+/* calendrier */
+.cal{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
+.cal div{background:var(--papier);border:1px solid var(--ligne);border-radius:12px;padding:14px}
+.cal b{display:block;font-family:Cormorant,serif;font-size:1.35rem;font-weight:600;color:var(--brun);line-height:1.1}
+.cal span{display:block;font-size:12.5px;color:var(--gris);margin-top:6px}
+.cal .now{background:var(--brun);border-color:var(--brun)}.cal .now b{color:var(--or2)}.cal .now span{color:#e3d6cb}
+
+/* mail */
+.mail{background:#fff;border:1px solid var(--ligne);border-radius:16px;overflow:hidden;box-shadow:0 18px 40px -28px rgba(58,30,29,.4)}
+.mail .h{padding:14px 18px;border-bottom:1px solid var(--ligne);font-size:13px;color:var(--gris);display:grid;gap:4px}
+.mail .h b{color:var(--encre);font-weight:600}
+.mail .b{padding:20px 18px;font-size:14.5px;line-height:1.65}
+.mail .b p+p{margin-top:12px}
+.mail .b img{border-radius:10px;margin:14px 0;aspect-ratio:16/9;object-fit:cover;width:100%}
+/* storyboard */
+.story{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.story figure{margin:0;position:relative;border-radius:14px;overflow:hidden;aspect-ratio:9/16;background:#000}
+.story img{width:100%;height:100%;object-fit:cover}
+.story figcaption{position:absolute;inset:auto 0 0 0;padding:34px 10px 10px;background:linear-gradient(transparent,rgba(20,10,10,.85));color:#fff;font-size:12px;line-height:1.35}
+.story figcaption b{display:block;font-family:Cormorant,serif;font-style:italic;font-size:17px;font-weight:600;color:var(--or2)}
+@media (max-width:560px){.story{grid-template-columns:1fr 1fr}}
+/* visuel coffret */
+.visuel{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/5;background:var(--brun);color:var(--ivoire);box-shadow:0 30px 60px -30px rgba(58,30,29,.6)}
+.visuel>img{position:absolute;inset:0;width:100%;height:62%;object-fit:cover}
+.visuel .bas{position:absolute;inset:auto 0 0 0;height:44%;background:var(--brun);padding:26px 26px 22px;display:flex;flex-direction:column;justify-content:space-between}
+.visuel .bas::before{content:"";position:absolute;inset:0;opacity:.35}
+.visuel .arc{position:absolute;left:50%;top:-38px;transform:translateX(-50%);width:76px;height:76px;border-radius:50%;background:var(--brun);display:grid;place-items:center;border:1px solid var(--or2)}
+.visuel .arc img{width:44px}
+.visuel .t1{font-family:Cormorant,serif;font-style:italic;font-size:clamp(1.7rem,1.2rem + 1.6vw,2.3rem);line-height:1.05;text-align:center;margin-top:28px;position:relative}
+.visuel .t2{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--or2);text-align:center;position:relative}
+.visuel .t3{display:flex;justify-content:space-between;font-size:12px;color:#d9cbbf;border-top:1px solid rgba(217,184,120,.4);padding-top:12px;position:relative}
+/* démo site */
+.demo{background:var(--ivoire2)}
+.demo .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.phone{width:min(320px,80vw);margin:0 auto;border-radius:44px;padding:12px;background:#1d1312;box-shadow:0 40px 80px -40px rgba(30,15,15,.7)}
+.phone .ecran{border-radius:34px;overflow:hidden;aspect-ratio:9/19.5;background:var(--ivoire);position:relative}
+.phone .ecran img{width:100%;height:100%;object-fit:cover;object-position:top}
+@media (max-width:820px){.demo .grid{grid-template-columns:1fr}}
+/* plan */
+.plan ol{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:s}
+.plan li{counter-increment:s;border-top:1px solid var(--brun);padding-top:16px}
+.plan li::before{content:"Semaine " counter(s);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--or)}
+.plan h3{font-size:1.7rem;color:var(--brun);margin-top:8px}
+.plan p{color:var(--gris);font-size:14.5px;margin-top:8px}
+@media (max-width:820px){.plan ol{grid-template-columns:1fr 1fr}}@media (max-width:480px){.plan ol{grid-template-columns:1fr}}
+/* offres */
+.offres{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px;align-items:stretch}
+.offre{background:var(--papier);border:1px solid var(--ligne);border-radius:18px;padding:28px 24px;display:flex;flex-direction:column;position:relative}
+.offre h3{font-size:2rem;color:var(--brun)}
+.offre .prix{font-family:Cormorant,serif;font-size:3rem;line-height:1;margin-top:14px;color:var(--brun)}
+.offre .prix small{font-family:Manrope,sans-serif;font-size:13px;color:var(--gris);margin-left:4px}
+.offre .pour{color:var(--gris);font-size:14px;margin-top:8px;min-height:3em}
+.offre ul{list-style:none;margin:18px 0 0;padding:0;font-size:14.5px;flex:1}
+.offre li{padding:9px 0 9px 22px;border-top:1px solid var(--ligne);position:relative}
+.offre li::before{content:"";position:absolute;left:2px;top:17px;width:7px;height:7px;background:var(--or);transform:rotate(45deg)}
+.offre li.plus{font-weight:600;color:var(--brun)}
+.offre.reco{background:var(--brun);color:var(--ivoire);border-color:var(--brun)}
+.offre.reco h3,.offre.reco .prix{color:var(--ivoire)}.offre.reco .pour,.offre.reco .prix small{color:#d8c9bd}
+.offre.reco li{border-color:rgba(217,184,120,.3)}.offre.reco li.plus{color:var(--or2)}
+.badge{position:absolute;top:-13px;left:24px;background:var(--or2);color:var(--brun);font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.mensuel{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.mensuel div{border:1px solid var(--ligne);border-radius:14px;padding:16px 18px;background:var(--papier)}
+.mensuel b{font-family:Cormorant,serif;font-size:1.5rem;color:var(--brun);font-weight:600}
+.mensuel span{display:block;font-size:13.5px;color:var(--gris);margin-top:4px}
+@media (max-width:900px){.offres{grid-template-columns:1fr}.mensuel{grid-template-columns:1fr}.offre .pour{min-height:0}}
+/* fin */
+.end{text-align:center;background:var(--brun);color:var(--ivoire)}
+.end.motif{background-color:var(--brun)}
+.end img{width:min(260px,60vw);margin:0 auto}
+.end h2{color:var(--ivoire);margin-top:28px}.end h2 em{color:var(--or2)}
+.end .lead{color:#d8c9bd;margin-inline:auto}
+.end .btn{background:var(--or2);color:var(--brun);margin-top:28px}.end .btn:hover{background:var(--ivoire)}
+footer{background:var(--brun);color:#bfa99c;font-size:12.5px;padding:0 0 32px;text-align:center}
+/* révélation */
+.r{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.r.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.r{opacity:1;transform:none;transition:none}.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <img src="img/logo-brun.png" alt="Délices de la Rose" width="68" height="30">
+    <span>Propositions préparées par <b>Nouvelle Ardoise</b> · novembre 2026</span>
+    <a class="btn" href="site/">Voir la démo du site</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap grid">
+    <div class="r">
+      <img class="logo" src="img/logo-brun.png" alt="Délices de la Rose Sweets, Pâtisserie, Confiserie, Viennoiserie" width="900" height="397">
+      <h1>Vos coffrets méritent d'être <em>offerts</em> par toute la ville.</h1>
+      <p class="lead">La boutique est belle, les clients vous donnent 4,9 sur 5 et vos boîtes de 300&nbsp;g à 1,4&nbsp;kg sont prêtes à être offertes. Il manque la partie qui se passe sur le téléphone&nbsp;: la fiche Google, la commande en ligne, et ceux qui offrent des cadeaux en grand nombre, les entreprises.</p>
+      <div class="cta">
+        <a class="btn" href="#google">Votre fiche Google</a>
+        <a class="btn ghost" href="#idees">Trois idées pour les coffrets</a>
+      </div>
+    </div>
+    <figure class="r">
+      <img src="img/coffret.jpg" srcset="img/coffret-sm.jpg 640w, img/coffret.jpg 1400w" sizes="(max-width:820px) 90vw, 46vw" alt="Plateau doré de baklavas au chocolat et à la pistache" width="1400" height="1400" fetchpriority="high">
+      <figcaption>Photo&nbsp;: votre site delicesdelarose.ch</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="forces motif">
+  <div class="wrap">
+    <p class="kick r">Ce que vous avez déjà</p>
+    <h2 class="r">Le plus difficile est fait&nbsp;: <em>le goût</em> et la confiance.</h2>
+    <p class="lead r">On ne change rien à la vitrine. On s'assure seulement que ceux qui cherchent «&nbsp;baklava Genève&nbsp;» ou «&nbsp;coffret cadeau oriental&nbsp;» tombent sur vous, et puissent commander sans se déplacer deux fois.</p>
+    <div class="chiffres r">
+      <div><b>4,9</b><span>note Google, sur 129 avis</span></div>
+      <div><b>7/7</b><span>ouvert, dimanche matin compris</span></div>
+      <div><b>5</b><span>formats de boîtes à votre nom, de 300&nbsp;g à 1,4&nbsp;kg</span></div>
+      <div><b>25+</b><span>photos de produits nettes, déjà prises pour votre site</span></div>
+    </div>
+    <p class="src" style="color:#bfa99c">Relevé le 6 novembre 2026 sur Google Maps et delicesdelarose.ch.</p>
+  </div>
+</section>
+
+<section id="google">
+  <div class="wrap">
+    <p class="kick r">Votre fiche Google</p>
+    <h2 class="r">Six réglages, et la fiche <em>vend les coffrets</em> à votre place.</h2>
+    <p class="lead r">C'est la première chose que voit un client qui passe à Cornavin ou qui cherche un cadeau. Aujourd'hui elle rassure (la note est excellente), mais elle ne dit presque rien de ce que vous vendez.</p>
+
+    <div class="liste">
+      <article class="item r"><span class="n">01</span><h3>La première photo montre des dos</h3><p>L'image de couverture est une file de clients vue de derrière. Elle devrait montrer <b>un coffret ouvert</b> ou la vitrine de baklavas, ce qui donne envie en une seconde.</p></article>
+      <article class="item r"><span class="n">02</span><h3>Deux horaires différents</h3><p>Google affiche <b>fermeture à 20&nbsp;h&nbsp;30</b> (vendredi), votre site dit <b>19&nbsp;h&nbsp;30</b> du lundi au samedi et Uber Eats 19&nbsp;h&nbsp;30. Un client qui vient pour rien ne revient pas.</p></article>
+      <article class="item r"><span class="n">03</span><h3>Les coffrets n'existent pas sur la fiche</h3><p>Rien sur les boîtes de 300&nbsp;g à 1,4&nbsp;kg, les coffrets sur mesure ni le service traiteur, que votre site mentionne pourtant. Il faut les ajouter en <b>produits</b> avec photo, et en <b>services</b>.</p></article>
+      <article class="item r"><span class="n">04</span><h3>Une seule catégorie visible&nbsp;: Pâtisserie</h3><p>Ajouter des catégories secondaires (confiserie, traiteur, selon la liste Google) pour apparaître sur plus de recherches, dont celles des <b>cadeaux</b>.</p></article>
+      <article class="item r"><span class="n">05</span><h3>Pas de description ni de posts</h3><p>Aucune présentation de la maison, aucune actualité. Un post par semaine (nouveauté, coffret de saison, fête) suffit à garder la fiche vivante pendant les périodes fortes.</p></article>
+      <article class="item r"><span class="n">06</span><h3>Le bouton «&nbsp;Commander&nbsp;» mène à une impasse</h3><p>La fiche propose de commander, mais la livraison Uber Eats est <b>indisponible</b> et la page «&nbsp;Commander&nbsp;» du site demande de taper sa liste, puis de payer en boutique. Il faut un vrai retrait commandé et payé d'avance.</p></article>
+    </div>
+
+    <div class="fiches">
+      <div class="gcard r" aria-label="Fiche Google aujourd'hui">
+        <div class="etiq">Aujourd'hui</div>
+        <div class="ph vide">Couverture actuelle&nbsp;: une file de clients<br>vue de dos</div>
+        <div class="c">
+          <h4>Délices de la rose</h4>
+          <p class="note"><b>4,9</b> <i>★★★★★</i> (129) · Pâtisserie</p>
+          <ul>
+            <li class="bad"><span class="k">Horaires</span><span class="v">Ferme à 20:30 (site&nbsp;: 19&nbsp;h&nbsp;30)</span></li>
+            <li class="bad"><span class="k">Commander</span><span class="v">Livraison indisponible</span></li>
+            <li class="bad"><span class="k">Produits</span><span class="v">Aucun coffret présenté</span></li>
+            <li><span class="k">Site</span><span class="v">delicesdelarose.ch</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="gcard apres r" aria-label="Fiche Google après">
+        <div class="etiq">Après</div>
+        <div class="ph" style="background-image:url(img/coffret-sm.jpg)" role="img" aria-label="Coffret de baklavas en couverture"></div>
+        <div class="c">
+          <h4>Délices de la Rose · Pâtisserie orientale</h4>
+          <p class="note"><b>4,9</b> <i>★★★★★</i> (129) · Pâtisserie · Confiserie · Traiteur</p>
+          <ul>
+            <li class="good"><span class="k">Horaires</span><span class="v">Les mêmes partout, fêtes comprises</span></li>
+            <li class="good"><span class="k">Commander</span><span class="v">Retrait en boutique, payé d'avance</span></li>
+            <li class="good"><span class="k">Produits</span><span class="v">5 coffrets, de 300&nbsp;g à 1,4&nbsp;kg</span></li>
+            <li class="good"><span class="k">Entreprises</span><span class="v">Coffrets avec carte, devis en 24&nbsp;h</span></li>
+          </ul>
+          <div class="chips"><span class="on">Coffrets cadeaux</span><span>Baklava pistache</span><span>Nid de rossignol</span><span>Fatayer</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="src r">Le «&nbsp;après&nbsp;» est une maquette. Les nouvelles catégories dépendent de la liste proposée par Google.</p>
+  </div>
+</section>
+
+<section style="background:var(--papier);border-block:1px solid var(--ligne)">
+  <div class="wrap">
+    <p class="kick r">Votre site actuel</p>
+    <h2 class="r">Il présente la maison. <em>Il ne vend pas encore.</em></h2>
+    <div class="liste">
+      <article class="item r"><span class="n">01</span><h3>Commander = taper une liste</h3><p>La page «&nbsp;Commander&nbsp;» demande d'écrire les produits et les quantités, d'attendre une confirmation, puis de <b>payer en boutique</b>. Personne ne commande un coffret d'entreprise comme ça.</p></article>
+      <article class="item r"><span class="n">02</span><h3>Les coffrets sont «&nbsp;sur demande&nbsp;»</h3><p>Vos boîtes sont superbes, mais le site ne montre ni les tailles ni comment les composer. C'est pourtant <b>le produit qui se vend le plus cher</b> et qui s'offre.</p></article>
+      <article class="item r"><span class="n">03</span><h3>Des détails qui datent</h3><p>Copyright 2023, «&nbsp;proche des Nations Unies&nbsp;» alors que la boutique est près de Cornavin, quelques fautes («&nbsp;Farci ai Fromage&nbsp;», «&nbsp;Blande&nbsp;»). Petits points, mais ils se voient.</p></article>
+      <article class="item r"><span class="n">04</span><h3>Plus de 3 secondes pour s'ouvrir</h3><p>Mesuré à 3,2&nbsp;s pour la page d'accueil. Sur un téléphone, devant la gare, c'est le moment où l'on repart sur Google.</p></article>
+    </div>
+    <p class="src r">Relevé le 6 novembre 2026. Les photos de produits du site, elles, sont nettes et utilisables telles quelles.</p>
+  </div>
+</section>
+
+<section id="idees">
+  <div class="wrap">
+    <p class="kick r">Trois idées pour les coffrets</p>
+    <h2 class="r">Les coffrets peuvent devenir <em>votre meilleure vente</em>.</h2>
+    <p class="lead r">Une boîte d'un kilo, c'est le panier de plusieurs clients de passage, vendu en une fois. Les trois idées ci-dessous visent ce panier-là.</p>
+
+    <div class="idee">
+      <div class="txt r">
+        <span class="num">1</span>
+        <h3>Écrire aux entreprises avant les fêtes</h3>
+        <p>Fiduciaires, régies, cabinets, cliniques, agences&nbsp;: elles offrent des cadeaux à leurs clients et à leurs équipes, et cherchent quelque chose de moins banal que le chocolat. On prépare la liste, le message et le suivi&nbsp;; vous n'avez qu'à confirmer les commandes.</p>
+        <ul class="pts">
+          <li>Une liste d'entreprises du quartier Cornavin, Servette, Sécheron et des Pâquis</li>
+          <li>Un e-mail court avec une photo de coffret et une carte au nom de l'entreprise</li>
+          <li>Une relance, puis un appel pour les plus intéressées</li>
+          <li>Un formulaire «&nbsp;entreprises&nbsp;» sur le site&nbsp;: quantité, date, carte</li>
+        </ul>
+        <div class="cal">
+          <div class="now"><b>Mi-novembre</b><span>Cadeaux de fin d'année. Les commandes se décident maintenant.</span></div>
+          <div><b>Février</b><span>Saint-Valentin</span></div>
+          <div><b>Fév. – mars 2027</b><span>Ramadan et Aïd&nbsp;: la plus grosse saison des boîtes</span></div>
+          <div><b>Mai</b><span>Fête des mères, départs, anniversaires d'équipe</span></div>
+        </div>
+      </div>
+      <div class="mail r" aria-label="Exemple d'e-mail aux entreprises">
+        <div class="h">
+          <span>De&nbsp;: <b>Délices de la Rose</b></span>
+          <span>Objet&nbsp;: <b>Vos cadeaux de fin d'année, préparés à deux pas de Cornavin</b></span>
+        </div>
+        <div class="b">
+          <p>Bonjour,</p>
+          <p>Nous sommes Délices de la Rose, pâtisserie orientale rue du Grand-Pré, notée 4,9 sur 5 par nos clients. Pour les fêtes, nous préparons des coffrets de baklavas faits maison, de 300&nbsp;g à 1,4&nbsp;kg, avec une carte à votre nom.</p>
+          <img src="img/indiv-sm.jpg" alt="Baklavas emballés individuellement" width="640" height="640" loading="lazy">
+          <p>Dites-nous combien de personnes vous souhaitez remercier et à quelle date&nbsp;: nous vous répondons avec une proposition sous 24&nbsp;h.</p>
+          <p>Belle journée,<br>L'équipe Délices de la Rose</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="idee">
+      <div class="txt r">
+        <span class="num">2</span>
+        <h3>Un créateur genevois ouvre un coffret</h3>
+        <p>Deux vidéos TikTok de créateurs genevois parlent déjà de vous. Plutôt que d'attendre la prochaine, on en provoque une, centrée sur ce qui se partage le mieux&nbsp;: <b>l'ouverture d'un coffret</b>, le bruit de la pâte filo, la pistache.</p>
+        <ul class="pts">
+          <li>Trois profils proposés (food Genève, famille, cadeaux), vous choisissez</li>
+          <li>Un coffret offert et une visite en boutique, pas de script imposé</li>
+          <li>Un code pour suivre les commandes venues de la vidéo</li>
+          <li>On garde les images pour vos propres réseaux (avec son accord)</li>
+        </ul>
+        <p class="src">Pas de musique ni de mise en scène artificielle&nbsp;: le son de la boutique suffit.</p>
+      </div>
+      <div class="story r" aria-label="Storyboard de la vidéo en quatre plans">
+        <figure><img src="img/plateau-sm.jpg" alt="" loading="lazy"><figcaption><b>0 – 3 s</b>La vitrine, en gros plan</figcaption></figure>
+        <figure><img src="img/coffret-sm.jpg" alt="" loading="lazy"><figcaption><b>3 – 10 s</b>Le coffret se remplit, pièce par pièce</figcaption></figure>
+        <figure><img src="img/nid-pistache-sm.jpg" alt="" loading="lazy"><figcaption><b>10 – 20 s</b>La première bouchée, sans un mot</figcaption></figure>
+        <figure><img src="img/boutique-sm.jpg" alt="" loading="lazy" style="object-position:40% 50%"><figcaption><b>20 – 30 s</b>L'adresse, à deux pas de la gare</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="idee">
+      <div class="txt r">
+        <span class="num">3</span>
+        <h3>Le visuel qui vend le coffret</h3>
+        <p>Une même image, déclinée pour la fiche Google, Instagram, l'e-mail aux entreprises et une petite affiche en vitrine. Elle reprend ce que vous avez déjà&nbsp;: votre logo à la rose, l'ivoire et le brun de vos boîtes, l'or du treillis de la boutique.</p>
+        <ul class="pts">
+          <li>Vos vraies photos, retouchées par un photographe, jamais d'images générées</li>
+          <li>Une version par saison&nbsp;: fêtes, Ramadan, fête des mères</li>
+          <li>Les formats 4:5, 9:16 et 1:1, prêts à publier</li>
+        </ul>
+      </div>
+      <div class="visuel r" aria-label="Exemple de visuel pour les coffrets">
+        <img src="img/coffret.jpg" alt="Coffret de baklavas" width="1400" height="1400" loading="lazy">
+        <div class="bas motif">
+          <div class="arc"><img src="img/rose-blanche.svg" alt="" width="44" height="40" style="filter:sepia(1) saturate(2) hue-rotate(-10deg) brightness(.95)"></div>
+          <p class="t1">Avec les compliments<br>de votre entreprise</p>
+          <p class="t2">Coffrets de 300 g à 1,4 kg</p>
+          <p class="t3"><span>Délices de la Rose</span><span>Rue du Grand-Pré 46</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="demo">
+  <div class="wrap grid">
+    <div class="r">
+      <p class="kick">La démo</p>
+      <h2>Votre site, pensé <em>autour des coffrets</em>.</h2>
+      <p class="lead">Une démo à ouvrir sur votre téléphone&nbsp;: choisir une taille de boîte, la composer, réserver l'heure de retrait, et une page pour les entreprises. Tout est fait avec les photos de votre site actuel.</p>
+      <div class="cta" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:26px">
+        <a class="btn" href="site/">Ouvrir la démo du site</a>
+        <a class="btn ghost" href="site/#entreprises">La page entreprises</a>
+      </div>
+      <p class="src">Démo non publiée, sans paiement réel.</p>
+    </div>
+    <a class="phone r" href="site/" aria-label="Ouvrir la démo du site">
+      <div class="ecran"><img src="img/apercu-site.jpg" alt="Aperçu du site sur téléphone" width="640" height="1090" loading="lazy"></div>
+    </a>
+  </div>
+</section>
+
+<section class="plan">
+  <div class="wrap">
+    <p class="kick r">Le déroulé</p>
+    <h2 class="r">Prêt pour les fêtes, <em>en quatre semaines</em>.</h2>
+    <ol>
+      <li class="r"><h3>On corrige</h3><p>Fiche Google complète, horaires alignés partout, photo de couverture, coffrets en produits.</p></li>
+      <li class="r"><h3>On construit</h3><p>Le site autour des coffrets, la commande avec retrait, la page entreprises.</p></li>
+      <li class="r"><h3>On écrit</h3><p>La liste d'entreprises et le premier envoi, pendant que le photographe passe en boutique.</p></li>
+      <li class="r"><h3>On lance</h3><p>Le site en ligne, les visuels de fin d'année, la vidéo avec un créateur.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="offres" style="background:var(--papier);border-top:1px solid var(--ligne)">
+  <div class="wrap">
+    <p class="kick r">Les offres</p>
+    <h2 class="r">Trois façons de <em>démarrer</em>.</h2>
+    <p class="lead r">Prix uniques, en CHF. Les outils de commande et de fidélité sont des solutions existantes, branchées et réglées pour vous.</p>
+    <div class="offres">
+      <article class="offre r">
+        <h3>Essentiel</h3>
+        <p class="prix">990<small>CHF</small></p>
+        <p class="pour">Être trouvé et rassurer.</p>
+        <ul>
+          <li>Fiche Google complète et corrigée</li>
+          <li>Site refait et rapide, en français, anglais et arabe</li>
+          <li>Horaires et infos alignés sur Uber Eats et les annuaires</li>
+          <li>Instagram&nbsp;: profil, 3 posts et 1 réel</li>
+        </ul>
+      </article>
+      <article class="offre r">
+        <h3>Signature</h3>
+        <p class="prix">2&nbsp;890<small>CHF</small></p>
+        <p class="pour">Vendre les coffrets en ligne.</p>
+        <ul>
+          <li>Tout l'Essentiel</li>
+          <li class="plus">Photographe en boutique, une demi-journée</li>
+          <li class="plus">Coffrets à composer, retrait payé d'avance (TWINT)</li>
+          <li class="plus">Page entreprises avec demande de devis</li>
+          <li>Carte de fidélité dans le téléphone</li>
+          <li>Visuels coffrets aux formats réseaux</li>
+          <li>2 réels et 2 posts</li>
+        </ul>
+      </article>
+      <article class="offre reco r">
+        <span class="badge">Recommandé</span>
+        <h3>Prestige</h3>
+        <p class="prix">4&nbsp;790<small>CHF</small></p>
+        <p class="pour">Faire des entreprises et des fêtes votre plus gros chiffre.</p>
+        <ul>
+          <li>Toute la Signature</li>
+          <li class="plus">Prospection des entreprises&nbsp;: liste, e-mails, relances</li>
+          <li class="plus">Collaboration avec un créateur genevois</li>
+          <li class="plus">Film de lancement, 2 réels et 2 posts</li>
+          <li class="plus">Page Ramadan et Aïd, prête dès janvier</li>
+          <li>Première campagne de pub pour les fêtes</li>
+          <li>Cartes et affichette QR pour la vitrine</li>
+        </ul>
+      </article>
+    </div>
+    <h3 class="r" style="font-size:1.8rem;color:var(--brun);margin-top:48px">Ensuite, si vous voulez qu'on s'en occupe chaque mois</h3>
+    <div class="mensuel r">
+      <div><b>Présence · 490</b><span>CHF par mois. Fiche Google et Instagram tenus à jour, maintenance comprise.</span></div>
+      <div><b>Croissance · 990</b><span>CHF par mois. En plus&nbsp;: photographe une heure par mois, réels réguliers, publicités.</span></div>
+      <div><b>Conquête · 1&nbsp;490</b><span>CHF par mois. En plus&nbsp;: prospection des entreprises et des événements menée avec nous.</span></div>
+    </div>
+    <p class="src r">Hors devis&nbsp;: nom de domaine, impressions, abonnements des outils de commande et de fidélité, budget publicitaire, coffrets offerts au créateur.</p>
+  </div>
+</section>
+
+<section class="end motif">
+  <div class="wrap">
+    <img class="r" src="img/logo-or.png" alt="Délices de la Rose" width="900" height="397" loading="lazy">
+    <h2 class="r">Un café, <em>quinze minutes</em>, en dehors du rush.</h2>
+    <p class="lead r">On vous montre la démo sur votre téléphone et on choisit ensemble par quoi commencer. Sans engagement.</p>
+    <a class="btn r" href="https://wa.me/41782133868">Écrire à Malik sur WhatsApp</a>
+  </div>
+</section>
+</main>
+<footer><div class="wrap">Nouvelle Ardoise · Agence de marketing et de communication pour la restauration et les métiers de bouche · 078 213 38 68</div></footer>
+
+<script>
+(()=>{const els=document.querySelectorAll('.r');
+if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(e=>e.classList.add('vu'));return}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+els.forEach(e=>io.observe(e))})();
+</script>
+</body>
+</html>
