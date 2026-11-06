@@ -119,20 +119,21 @@ p{margin:0}
 .vu .s-haut .in,.vu .s-plat{opacity:1;transform:none;transition:opacity .9s var(--ease) var(--d,0s),transform .9s var(--ease) var(--d,0s)}
 
 /* 2. Le geste : les vrais rushes du tournage, image par image au défilement */
-.film{position:relative;height:720vh;background:#120406}
+.film{position:relative;height:420vh;background:#120406}
 .f-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;color:var(--on-dark)}
-.f-txt{position:absolute;z-index:2;left:var(--gutter);top:50%;transform:translateY(-50%);width:min(440px,calc(50vw - 28svh - var(--gutter) - 24px))}
+.f-txt{position:absolute;z-index:2;left:var(--gutter);top:50%;transform:translateY(-50%);width:min(520px,calc(62vw - 37.5svh - var(--gutter) - 32px))}
 .f-tete{display:flex;align-items:center;gap:14px;font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--or-clair)}
+.f-tot{margin-left:-6px;color:rgba(232,181,98,.6)}
 .f-tete b{font-variant-numeric:tabular-nums;font-weight:600}
 .f-ligne{position:relative;flex:0 0 72px;height:1px;background:rgba(232,181,98,.25);overflow:hidden}
 .f-ligne i{position:absolute;inset:0;background:var(--or);transform-origin:left;transform:scaleX(0)}
-.f-chs{position:relative;height:clamp(250px,34vh,320px);margin-top:20px}
+.f-chs{position:relative;height:clamp(300px,44vh,420px);margin-top:20px}
 .f-ch{position:absolute;left:0;right:0;top:0;pointer-events:none}
 .f-ch.on{pointer-events:auto}
-.f-ch h2{font-size:clamp(54px,6vw,104px);line-height:.92;color:var(--peach)}
+.f-ch h2{font-size:clamp(72px,8.4vw,150px);line-height:.9;color:var(--peach)}
 .f-ch p{margin-top:16px;max-width:30ch;color:var(--on-dark-2);font-size:clamp(16px,1.15vw,18px)}
-.f-fin h2{font-size:clamp(46px,4.6vw,80px)}
-.f-fin h2 .l+.l{color:var(--or-clair);font-style:italic}
+.f-fin h2{font-size:clamp(52px,5.4vw,96px)}
+.f-fin h2 .l:last-child{color:var(--or-clair);font-style:italic}
 .f-fin .btn{margin-top:24px}
 .f-idx{position:absolute;z-index:2;right:var(--gutter);top:50%;transform:translateY(-50%);list-style:none;margin:0;padding:0;display:grid;gap:2px}
 .f-idx button{display:flex;align-items:center;gap:12px;min-height:40px;padding:0 4px;border:0;background:none;color:rgba(217,196,180,.55);font:500 14px var(--sans);cursor:pointer;transition:color .3s var(--ease)}
@@ -272,12 +273,15 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
   .s-p .btn{display:none}
   .s-tabs{margin-top:0}
   .s-hint{display:none}
-  .film{height:640vh}
+  .film{height:380vh}
   .f-txt{left:var(--gutter);right:var(--gutter);top:auto;bottom:calc(84px + env(safe-area-inset-bottom));transform:none;width:auto}
-  .f-chs{height:150px;margin-top:12px}
-  .f-ch h2{font-size:clamp(46px,13vw,60px)}
+  .f-chs{height:170px;margin-top:12px}
+  .f-tete{white-space:nowrap;gap:10px}
+  .f-tot{display:none}
+  .f-ligne{flex-basis:40px}
+  .f-ch h2{font-size:clamp(60px,17vw,76px)}
   .f-ch p{margin-top:8px;font-size:15px}
-  .f-fin h2{font-size:clamp(38px,10.4vw,46px)}
+  .f-fin h2{font-size:clamp(40px,11vw,50px)}
   .f-fin .btn{display:none}
   .f-idx{display:none}
   .m-grille{grid-template-columns:1fr}
@@ -371,25 +375,14 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
     <div class="f-pin">
       <canvas aria-hidden="true"></canvas>
       <div class="f-txt">
-        <p class="f-tete"><b id="f-n">01</b><i class="f-ligne"><i></i></i><span data-t="f.tete">Le geste, filmé en cuisine</span></p>
+        <p class="f-tete"><b id="f-n">01</b><i class="f-ligne"><i></i></i><span data-t="f.tete">Le geste, filmé en cuisine</span><span class="f-tot">/ 03</span></p>
         <div class="f-chs">
-          <div class="f-ch rv on"><h2><span class="l"><span data-t="f.1.t">Smashé.</span></span></h2><p class="o" data-t="f.1.p">Une boule de bœuf, écrasée d'un geste sur la plaque. La croûte se forme en quelques secondes.</p></div>
-          <div class="f-ch rv" aria-hidden="true"><h2><span class="l"><span data-t="f.2.t">Fondu.</span></span></h2><p class="o" data-t="f.2.p">Le cheddar posé sur la viande encore grésillante.</p></div>
-          <div class="f-ch rv" aria-hidden="true"><h2><span class="l"><span data-t="f.3.t">Coupé.</span></span></h2><p class="o" data-t="f.3.p">En deux, au couteau. Pour qu'il puisse entrer dans la sauce.</p></div>
-          <div class="f-ch rv" aria-hidden="true"><h2><span class="l"><span data-t="f.4.t">La sauce.</span></span></h2><p class="o" data-t="f.4.p">La Café de Paris, versée généreusement au fond de l'assiette.</p></div>
-          <div class="f-ch rv" aria-hidden="true"><h2><span class="l"><span data-t="f.5.t">Posé dedans.</span></span></h2><p class="o" data-t="f.5.p">Chaque moitié, posée directement dans la sauce.</p></div>
-          <div class="f-ch rv" aria-hidden="true"><h2><span class="l"><span data-t="f.6.t">Servi.</span></span></h2><p class="o" data-t="f.6.p">Dans la sauce, avec ses frites. Il n'attend plus que vous.</p></div>
-          <div class="f-ch rv f-fin" aria-hidden="true"><h2><span class="l"><span data-t="f.7.t">Coupé.</span></span><span class="l"><span data-t="f.7.t2">Posé dans la sauce.</span></span></h2><a class="btn btn-or o" href="geneve/"><span data-t="cta.commanderGe">Commander à Genève</span> <span class="fl">→</span></a></div>
+          <div class="f-ch rv on"><h2><span class="l"><span data-t="f.1.t">Smashé.</span></span></h2><p class="o" data-t="f.1.p">Écrasé d'un coup sur la plaque brûlante. La croûte se forme en quelques secondes.</p></div>
+          <div class="f-ch rv" aria-hidden="true"><h2><span class="l"><span data-t="f.2.t">Coupé.</span></span></h2><p class="o" data-t="f.2.p">En deux, au couteau. Pour entrer dans la sauce.</p></div>
+          <div class="f-ch rv" aria-hidden="true"><h2><span class="l"><span data-t="f.3.t">Trempé.</span></span></h2><p class="o" data-t="f.3.p">Posé directement dans la sauce Café de Paris.</p></div>
+          <div class="f-ch rv f-fin" aria-hidden="true"><h2><span class="l"><span data-t="f.1.t">Smashé.</span></span><span class="l"><span data-t="f.2.t">Coupé.</span></span><span class="l"><span data-t="f.3.t">Trempé.</span></span></h2><a class="btn btn-or o" href="geneve/"><span data-t="cta.commanderGe">Commander à Genève</span> <span class="fl">→</span></a></div>
         </div>
       </div>
-      <ol class="f-idx" aria-label="Les étapes">
-        <li><button type="button" aria-current="true"><b>01</b><span data-t="f.1.i">Smashé</span></button></li>
-        <li><button type="button"><b>02</b><span data-t="f.2.i">Fondu</span></button></li>
-        <li><button type="button"><b>03</b><span data-t="f.3.i">Coupé</span></button></li>
-        <li><button type="button"><b>04</b><span data-t="f.4.i">La sauce</span></button></li>
-        <li><button type="button"><b>05</b><span data-t="f.5.i">Posé dedans</span></button></li>
-        <li><button type="button"><b>06</b><span data-t="f.6.i">Servi</span></button></li>
-      </ol>
     </div>
   </section>
 
@@ -568,12 +561,12 @@ function bascule(list,k){list.forEach(function(e,i){e.classList.toggle('on',i===
   var NOMS=['smash','burger','baguette'],IM={},st=new Image(),pret=0;
   function ok(){pret++;dessine()}
   st.onload=ok;st.src='img/stage/stage.webp';
-  NOMS.forEach(function(n){var p=new Image(),r=new Image();p.onload=ok;r.onload=ok;p.src='img/stage/'+n+'-plat.webp';r.src='img/stage/'+n+'-reflet.webp';IM[n]={p:p,r:r}});
+  NOMS.forEach(function(n){var p=new Image();p.onload=ok;p.src='img/stage/'+n+'-plat.webp';IM[n]={p:p,r:{}}});
   var W=0,H=0,D=1,s=1,ox=0,oy=0,mob=false;
   function taille(){
     D=Math.min(window.devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=Math.round(W*D);cv.height=Math.round(H*D);mob=W<=900;
-    if(mob){s=W*1.04/1500;ox=W/2-1460*s;oy=H*.5-1010*s}
-    else{s=Math.max(Math.min(W*.6,H*1.2)/1500,W/2752,H/1536);ox=W/2-1460*s;oy=H*.64-1010*s;ox=Math.min(0,Math.max(W-2752*s,ox));oy=Math.min(0,Math.max(H-1536*s,oy))}
+    if(mob){s=W*1.04/1500;ox=W/2-1378*s;oy=H*.5-1010*s}
+    else{s=Math.max(Math.min(W*.6,H*1.2)/1500,W/2752,H/1536);ox=W/2-1378*s;oy=H*.64-1010*s;ox=Math.min(0,Math.max(W-2752*s,ox));oy=Math.min(0,Math.max(H-1536*s,oy))}
     dessine();
   }
   var FOND='#1d070b';
@@ -595,18 +588,19 @@ function bascule(list,k){list.forEach(function(e,i){e.classList.toggle('on',i===
       if(hb>0){g=cx.createLinearGradient(0,hb,0,hb+90);g.addColorStop(0,FOND);g.addColorStop(1,'rgba(29,7,11,0)');cx.fillStyle=g;cx.fillRect(0,hb-1,W,91)}
       if(bb<H){g=cx.createLinearGradient(0,bb-120,0,bb);g.addColorStop(0,'rgba(29,7,11,0)');g.addColorStop(1,FOND);cx.fillStyle=g;cx.fillRect(0,bb-120,W,121)}
     }
-    var Lh=H*.045,Wd=W*.92,k=forcé>=0?forcé:-1;
-    if(k>=0){couche(NOMS[k],0,0,1,1)}
-    else if(cur<T[0][0]){var e=ioe(clamp(intro,0,1));couche(NOMS[0],0,-(1-e)*Lh*1.6,ss(intro*1.6),e)}
+    var Lh=H*.03,Wd=W*.55,k=forcé>=0?forcé:-1;
+    if(k>=0){couche(NOMS[k],0,0,1,0)}
+    else if(cur<T[0][0]){var e=ioe(clamp(intro,0,1));couche(NOMS[0],0,-(1-e)*Lh,ss(intro*1.4),0)}
     else{
       var i,u,fait=false;
       for(i=0;i<2;i++){
         if(cur>=T[i][0]&&cur<=T[i][1]){u=(cur-T[i][0])/(T[i][1]-T[i][0]);
-          var l1=ss(u/.35),s1=ioe(clamp((u-.18)/.82,0,1));couche(NOMS[i],-s1*Wd,-l1*Lh,1,1-l1*.85);
-          var s2=ioe(clamp(u/.82,0,1)),l2=ss((u-.62)/.38);couche(NOMS[i+1],(1-s2)*Wd,-(1-l2)*Lh,1,.15+.85*l2);
+          /* Un plat à la fois : le premier sort à gauche en s'effaçant, puis le suivant entre par la droite et se pose */
+          if(u<.5){var a1=clamp(u/.5,0,1);couche(NOMS[i],-ioe(a1)*Wd,0,1-ss((a1-.2)/.7),0)}
+          else{var a2=clamp((u-.5)/.5,0,1);couche(NOMS[i+1],(1-ioe(a2))*Wd,0,ss(a2/.6),0)}
           fait=true;break}
       }
-      if(!fait)couche(NOMS[cur<T[1][0]?1:2],0,0,1,1);
+      if(!fait)couche(NOMS[cur<T[1][0]?1:2],0,0,1,0);
     }
     /* Lisibilité : voile sombre derrière les textes, sans toucher au plat */
     if(!mob){g=cx.createLinearGradient(0,0,W*.42,0);g.addColorStop(0,'rgba(22,5,9,.66)');g.addColorStop(1,'rgba(22,5,9,0)');cx.fillStyle=g;cx.fillRect(0,0,W*.42,H);
@@ -633,13 +627,13 @@ function bascule(list,k){list.forEach(function(e,i){e.classList.toggle('on',i===
    Chaque chapitre a la même part du défilement ; entre deux plans, un bref passage au noir. */
 (function(){
   var sec=document.getElementById('geste'),cv=sec.querySelector('canvas'),cx=cv.getContext('2d');
-  var B=[0,52,82,147,208,269,346],N=346,FIN=.9,dir=window.innerWidth<=900?'m':'d',fr=[],ok=[];
-  var chs=[].slice.call(sec.querySelectorAll('.f-ch')),idx=[].slice.call(sec.querySelectorAll('.f-idx button')),num=document.getElementById('f-n'),ligne=sec.querySelector('.f-ligne i');
+  var B=[0,52,117,178],N=178,NC=3,FIN=.88,dir=window.innerWidth<=900?'m':'d',fr=[],ok=[];
+  var chs=[].slice.call(sec.querySelectorAll('.f-ch')),num=document.getElementById('f-n'),ligne=sec.querySelector('.f-ligne i');
   var W=0,H=0,D=1,cur=0,veut=0,run=false;
-  function charge(i){if(fr[i])return;var im=new Image();im.decoding='async';im.onload=function(){ok[i]=1;if(Math.abs(i-veut)<8)dessine()};im.src='img/film/'+dir+'/'+String(i+1).padStart(3,'0')+'.webp';fr[i]=im}
-  var parti=false;function demarre(){if(parti)return;parti=true;var i;for(i=0;i<N;i+=6)charge(i);setTimeout(function(){for(var j=0;j<N;j+=2)charge(j);setTimeout(function(){for(var k=0;k<N;k++)charge(k)},600)},300)}
+  function charge(i){if(fr[i])return;var im=new Image();im.decoding='async';im.onload=function(){ok[i]=1;if(Math.abs(i-veut)<8)dessine()};im.src='img/film3/'+dir+'/'+String(i+1).padStart(3,'0')+'.webp';fr[i]=im}
+  var parti=false;function demarre(){if(parti)return;parti=true;var i;for(i=0;i<N;i+=4)charge(i);setTimeout(function(){for(var j=0;j<N;j+=2)charge(j);setTimeout(function(){for(var k=0;k<N;k++)charge(k)},600)},300)}
   new IntersectionObserver(function(e){if(e[0].isIntersecting)demarre()},{rootMargin:'200% 0px'}).observe(sec);
-  function image(p){var q=clamp(p/FIN,0,1)*6,c=Math.min(5,Math.floor(q)),f=q-c;return{c:c,i:Math.min(B[c+1]-1,B[c]+Math.round(f*(B[c+1]-B[c]-1)))}}
+  function image(p){var q=clamp(p/FIN,0,1)*NC,c=Math.min(NC-1,Math.floor(q)),f=q-c;return{c:c,i:Math.min(B[c+1]-1,B[c]+Math.round(f*(B[c+1]-B[c]-1)))}}
   function proche(i){for(var d=0;d<N;d++){if(ok[i-d])return fr[i-d];if(ok[i+d])return fr[i+d]}return null}
   function taille(){D=Math.min(window.devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=Math.round(W*D);cv.height=Math.round(H*D);dessine()}
   var FOND='#120406';
@@ -651,19 +645,19 @@ function bascule(list,k){list.forEach(function(e,i){e.classList.toggle('on',i===
       if(W<=900){var sc=Math.max(W/im.naturalWidth,H/im.naturalHeight),w=im.naturalWidth*sc,h=im.naturalHeight*sc;cx.drawImage(im,(W-w)/2,(H-h)/2,w,h);
         g=cx.createLinearGradient(0,H*.45,0,H);g.addColorStop(0,'rgba(18,4,6,0)');g.addColorStop(.55,'rgba(18,4,6,.78)');g.addColorStop(1,'rgba(18,4,6,.95)');cx.fillStyle=g;cx.fillRect(0,H*.45,W,H*.55);
         g=cx.createLinearGradient(0,0,0,H*.16);g.addColorStop(0,'rgba(18,4,6,.6)');g.addColorStop(1,'rgba(18,4,6,0)');cx.fillStyle=g;cx.fillRect(0,0,W,H*.16)}
-      else{var hh=H,ww=hh*im.naturalWidth/im.naturalHeight,x=(W-ww)/2;cx.drawImage(im,x,0,ww,hh);
+      else{var sh=im.naturalWidth*4/3,sy=(im.naturalHeight-sh)/2,hh=H,ww=H*.75,x=W*.62-ww/2;cx.drawImage(im,0,sy,im.naturalWidth,sh,x,0,ww,hh);
         g=cx.createLinearGradient(x,0,x+110,0);g.addColorStop(0,FOND);g.addColorStop(1,'rgba(18,4,6,0)');cx.fillStyle=g;cx.fillRect(x-1,0,111,H);
         g=cx.createLinearGradient(x+ww-110,0,x+ww,0);g.addColorStop(0,'rgba(18,4,6,0)');g.addColorStop(1,FOND);cx.fillStyle=g;cx.fillRect(x+ww-110,0,111,H)}
     }
-    if(!REDUCE){var noir=0;for(var b=1;b<6;b++){noir=Math.max(noir,1-Math.abs(p-b/6*FIN)/.011)}if(noir>0){cx.fillStyle='rgba(8,2,3,'+(noir*.92).toFixed(3)+')';cx.fillRect(0,0,W,H)}}
-    var k=p>FIN+.02?6:a.c;
-    if(k!==actif){actif=k;bascule(chs,k);idx.forEach(function(b,i){b.setAttribute('aria-current',String(i===Math.min(k,5)))});num.textContent='0'+(Math.min(k,5)+1)}
+    if(!REDUCE){var noir=0;for(var b=1;b<NC;b++){noir=Math.max(noir,1-Math.abs(p-b/NC*FIN)/.014)}if(noir>0){cx.fillStyle='rgba(8,2,3,'+(noir*.92).toFixed(3)+')';cx.fillRect(0,0,W,H)}}
+    var k=p>FIN+.02?NC:a.c;
+    if(k!==actif){actif=k;bascule(chs,k);num.textContent='0'+(Math.min(k,NC-1)+1)}
     ligne.style.transform='scaleX('+clamp(p/FIN,0,1).toFixed(3)+')';
   }
   var actif=0;
-  idx.forEach(function(b,i){b.addEventListener('click',function(){vers(sec,(i+.12)/6*FIN)})});
+  
   window.addEventListener('resize',taille);taille();
-  if(REDUCE){demarre();bascule(chs,6);return}
+  if(REDUCE){demarre();bascule(chs,NC);return}
   function tick(){var t=progress(sec),d=t-cur;cur=Math.abs(d)<.0002?t:cur+d*.18;dessine();if(cur!==t)requestAnimationFrame(tick);else run=false}
   SCENES.push(function(){if(!run){run=true;requestAnimationFrame(tick)}});
 })();
@@ -733,12 +727,12 @@ es:{"nav.maisons":"Nuestras casas","nav.carte":"La carta","nav.histoire":"Nuestr
 /* Textes de la v12 (scène, geste, histoire en couleur) */
 Object.assign(I18N.en,{"nav.geste":"The craft","s.eye":"Café de Paris sauce · since the 1980s","s.v.ge":"Order","s.v.ib":"Harbour","s.v.ma":"Delivery","s.hint":"Scroll",
 "k.1.t":"The smash.","k.1.p":"Single, double or triple. Smashed beef, cheddar, cut and laid in the sauce.","k.2.t":"The burger.","k.2.p":"One thick patty, cooked pink, cut and laid in the sauce.","k.3.t":"The baguette.","k.3.p":"Crisp, spread with Café de Paris sauce.","k.b":"Order",
-"f.tete":"The craft, filmed in our kitchen","f.1.t":"Smashed.","f.1.p":"A ball of beef, pressed flat on the griddle in one move. The crust forms in seconds.","f.2.t":"Melted.","f.2.p":"Cheddar laid on the still-sizzling beef.","f.3.t":"Cut.","f.3.p":"In two, with a knife. So it can go into the sauce.","f.4.t":"The sauce.","f.4.p":"Café de Paris, poured generously over the plate.","f.5.t":"Laid in.","f.5.p":"Each half, laid straight into the sauce.","f.6.t":"Served.","f.6.p":"In the sauce, with its fries. All it needs is you.","f.7.t":"Cut.","f.7.t2":"Laid in the sauce.",
+"f.tete":"The craft, filmed in our kitchen","f.1.t":"Smashed.","f.1.p":"Pressed flat on the scorching griddle in one move. The crust forms in seconds.","f.2.t":"Cut.","f.2.p":"In two, with a knife. Ready for the sauce.","f.3.t":"Dipped.","f.3.p":"Laid straight into the Café de Paris sauce.","f.4.t":"The sauce.","f.4.p":"Café de Paris, poured generously over the plate.","f.5.t":"Laid in.","f.5.p":"Each half, laid straight into the sauce.","f.6.t":"Served.","f.6.p":"In the sauce, with its fries. All it needs is you.","f.7.t":"Cut.","f.7.t2":"Laid in the sauce.",
 "f.1.i":"Smashed","f.2.i":"Melted","f.3.i":"Cut","f.4.i":"The sauce","f.5.i":"Laid in","f.6.i":"Served",
 "h.eye":"Our story","h.cap":"Illustration","h.1.an":"The 1980s","h.1.t":"The recipe reaches Paris","h.1.p":"Introduced and refined in Paris, it is served at L'Entrecôte Café de Paris, notably rue Feydeau.","h.2.an":"Three addresses","h.2.t":"Handed down, refined","h.2.p":"Rue Feydeau, rue de Ponthieu, rue François-Miron. From room to room, the craft is passed on and the recipe refined.","h.3.an":"Then Cannes","h.3.t":"All the way to the Croisette","h.3.p":"The recipe travels to the Riviera. One address in Cannes, the same standards.","h.4.an":"Today","h.4.t":"Geneva, Ibiza, Madrid","h.4.p":"We do not claim to have invented the sauce. We carry it on, in two modern formats: the burger and the baguette.","h.fin":"The craft of a Parisian brasserie, in today's format.","h.n.1":"1980","h.n.2":"The brasserie","h.n.3":"Cannes","h.n.4":"Today","p.credits":"Story images are illustrations, not photographs of our restaurants. Food photos: Atelier Paris Burger shoot."});
 Object.assign(I18N.es,{"nav.geste":"El gesto","s.eye":"Salsa Café de Paris · desde los años ochenta","s.v.ge":"Pedir","s.v.ib":"Puerto","s.v.ma":"A domicilio","s.hint":"Desliza",
 "k.1.t":"La smash.","k.1.p":"Simple, doble o triple. Ternera smash, cheddar, cortada y servida en la salsa.","k.2.t":"La burger.","k.2.p":"Un filete grueso, al punto rosado, cortado y servido en la salsa.","k.3.t":"La baguette.","k.3.p":"Crujiente, untada con salsa Café de Paris.","k.b":"Pedir",
-"f.tete":"El gesto, filmado en cocina","f.1.t":"Smash.","f.1.p":"Una bola de ternera, aplastada de un golpe en la plancha. La costra se forma en segundos.","f.2.t":"Fundido.","f.2.p":"El cheddar sobre la carne aún chisporroteando.","f.3.t":"Cortado.","f.3.p":"En dos, a cuchillo. Para que pueda entrar en la salsa.","f.4.t":"La salsa.","f.4.p":"La Café de Paris, vertida generosamente en el plato.","f.5.t":"En la salsa.","f.5.p":"Cada mitad, directamente en la salsa.","f.6.t":"Servido.","f.6.p":"En la salsa, con sus patatas. Solo falta usted.","f.7.t":"Cortado.","f.7.t2":"Servido en la salsa.",
+"f.tete":"El gesto, filmado en cocina","f.1.t":"Smash.","f.1.p":"Aplastada de un golpe en la plancha ardiente. La costra se forma en segundos.","f.2.t":"Cortada.","f.2.p":"En dos, a cuchillo. Lista para la salsa.","f.3.t":"Mojada.","f.3.p":"Directamente en la salsa Café de Paris.","f.4.t":"La salsa.","f.4.p":"La Café de Paris, vertida generosamente en el plato.","f.5.t":"En la salsa.","f.5.p":"Cada mitad, directamente en la salsa.","f.6.t":"Servido.","f.6.p":"En la salsa, con sus patatas. Solo falta usted.","f.7.t":"Cortado.","f.7.t2":"Servido en la salsa.",
 "f.1.i":"Smash","f.2.i":"Fundido","f.3.i":"Cortado","f.4.i":"La salsa","f.5.i":"En la salsa","f.6.i":"Servido",
 "h.eye":"Nuestra historia","h.cap":"Ilustración","h.1.an":"Los años ochenta","h.1.t":"La receta llega a París","h.1.p":"Introducida y trabajada en París, se sirve en L'Entrecôte Café de Paris, en la rue Feydeau entre otras.","h.2.an":"Tres direcciones","h.2.t":"Transmitida, afinada","h.2.p":"Rue Feydeau, rue de Ponthieu, rue François-Miron. De sala en sala, el gesto se transmite y la receta se afina.","h.3.an":"Después, Cannes","h.3.t":"Hasta la Croisette","h.3.p":"La receta baja a la Costa Azul. Una dirección en Cannes, la misma exigencia.","h.4.an":"Hoy","h.4.t":"Ginebra, Ibiza, Madrid","h.4.p":"No reivindicamos la invención de la salsa. Le damos continuidad, en dos formatos de hoy: la burger y la baguette.","h.fin":"El gesto de una brasserie parisina, en formato de hoy.","h.n.1":"1980","h.n.2":"La brasserie","h.n.3":"Cannes","h.n.4":"Hoy","p.credits":"Las imágenes de la historia son ilustraciones, no fotos de nuestros restaurantes. Fotos de platos: sesión de Atelier Paris Burger."});
 (function(){
