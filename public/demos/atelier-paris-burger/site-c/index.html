@@ -91,17 +91,6 @@ a{color:inherit;text-decoration:none}
 .offert p{margin-top:8px;color:rgba(244,233,220,.75);font-size:15.5px}
 
 /* Histoire */
-.hist{padding:84px 0}
-.hist .w{display:grid;grid-template-columns:1fr 1.15fr;gap:70px;align-items:start}
-.hist h2{font:500 clamp(36px,3.6vw,54px)/1.05 var(--serif);color:var(--merlot)}
-.hist h2 em{font-style:italic}
-.hist .eye{display:block;margin-bottom:14px;color:var(--merlot)}
-.hist p.lead{margin-top:20px;font-size:17px;line-height:1.6;color:var(--txt2);max-width:42ch}
-.frise{list-style:none;border-top:1px solid rgba(127,15,40,.2)}
-.frise li{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid rgba(127,15,40,.2)}
-.frise b{font:500 30px/1 var(--serif);color:var(--merlot)}
-.frise h3{font:600 16px var(--sans)}
-.frise p{margin-top:4px;font-size:15px;line-height:1.5;color:var(--txt2)}
 
 /* Maisons */
 .maisons{background:var(--ivoire);padding:76px 0}
@@ -117,6 +106,29 @@ footer .slog{margin:18px auto 0;max-width:30ch;font:italic 500 24px/1.3 var(--se
 footer .liens{display:flex;justify-content:center;gap:26px;margin-top:28px;font-size:14px;opacity:.85}
 footer small{display:block;margin-top:26px;font-size:12px;opacity:.55}
 
+.hist{padding:100px 0 60px;overflow:hidden}
+.hist .intro{max-width:760px;margin:0 auto 70px;text-align:center}
+.hist h2{font:500 clamp(36px,4vw,60px)/1.04 var(--serif);color:var(--merlot)}
+.hist h2 em{font-style:italic}
+.hist .eye{display:block;margin-bottom:14px;color:var(--merlot)}
+.hist p.lead{margin:22px auto 0;font-size:17px;line-height:1.6;color:var(--txt2);max-width:46ch}
+.chap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,6vw,90px);align-items:center;padding:40px 0}
+.chap.inv{grid-template-columns:.9fr 1.1fr}
+.chap.inv .ph{order:2}
+.chap .ph{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--cabsav);clip-path:inset(12% 8% 12% 8%);transition:clip-path 1.2s cubic-bezier(.2,.7,.1,1)}
+.chap .ph img{width:100%;height:118%;object-fit:cover;transform:translate3d(0,var(--py,0px),0) scale(1.14);transition:transform 1.6s cubic-bezier(.2,.7,.1,1);will-change:transform}
+.chap.vu .ph{clip-path:inset(0 0 0 0)}
+.chap.vu .ph img{transform:translate3d(0,var(--py,0px),0) scale(1)}
+.chap .an{display:block;font:500 clamp(64px,9vw,140px)/.9 var(--serif);color:var(--merlot);font-variant-numeric:lining-nums}
+.chap .an small{font-size:.32em;margin-left:.15em;font-style:italic}
+.chap h3{margin-top:18px;font:400 14px var(--caps);letter-spacing:.26em;text-transform:uppercase;color:var(--merlot)}
+.chap p{margin-top:14px;font-size:17px;line-height:1.6;color:var(--txt2);max-width:38ch}
+.chap .t>*{opacity:0;transform:translateY(22px);transition:opacity .9s,transform .9s cubic-bezier(.2,.7,.1,1)}
+.chap.vu .t>*{opacity:1;transform:none}
+.chap.vu .t>*:nth-child(2){transition-delay:.12s}.chap.vu .t>*:nth-child(3){transition-delay:.24s}
+.chap .ligne{display:block;width:0;height:1px;background:var(--or);margin-top:22px;transition:width 1.4s .3s cubic-bezier(.2,.7,.1,1)}
+.chap.vu .ligne{width:120px}
+@media (prefers-reduced-motion:reduce){.chap .ph{clip-path:none;transition:none}.chap .ph img{transform:none!important;transition:none}.chap .t>*{opacity:1;transform:none;transition:none}.chap .ligne{width:120px;transition:none}}
 .barre{display:none}
 @media (max-width:860px){
  .top .w{grid-template-columns:auto 1fr;height:62px}
@@ -148,10 +160,11 @@ footer small{display:block;margin-top:26px;font-size:12px;opacity:.55}
  .grid{grid-template-columns:1fr}
  .offert .w{grid-template-columns:1fr;gap:14px;text-align:left}
  .offert .n{font-size:64px}
- .hist{padding:52px 0}
- .hist .w{grid-template-columns:1fr;gap:30px}
- .frise li{grid-template-columns:1fr;gap:6px}
- .frise b{font-size:26px}
+ .hist{padding:56px 0 30px}
+ .hist .intro{margin-bottom:30px;text-align:left}
+ .chap,.chap.inv{grid-template-columns:1fr;gap:22px;padding:26px 0}
+ .chap.inv .ph{order:0}
+ .chap .an{font-size:72px}
  .maisons{padding:50px 0}
  .maisons .grid{gap:30px}
  .barre{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(73,9,23,.96);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid rgba(232,181,98,.3)}
@@ -171,8 +184,11 @@ footer small{display:block;margin-top:26px;font-size:12px;opacity:.55}
 <ol class="mots" aria-hidden="true"><li data-t="0" class="on">Smashé.</li><li data-t="4">Coupé.</li><li data-t="6.76">Trempé.</li></ol></div>
 <div class="film"><video id="film" src="film.mp4" poster="img/film-poster.jpg" muted playsinline loop preload="none" aria-label="Photos du tournage en cuisine : le smash, le cheddar, la coupe, le burger posé dans la sauce"></video><button class="pause" type="button" aria-label="Mettre en pause">II</button></div></div></section>
 <section class="offert"><div class="w"><p class="n">200</p><div><h2>Votre premier burger, offert.</h2><p>Pour l’ouverture à Genève : 200 burgers offerts, un par personne, sur réservation.</p></div><a class="btn btn-or" href="../site-b/reserver/">Réserver le mien</a></div></section>
-<section class="hist" id="histoire"><div class="w"><div><span class="caps eye">Notre histoire</span><h2>Inspirée par la tradition, <em>élevée à l’excellence.</em></h2><p class="lead">Une sauce de la grande tradition des sauces d’entrecôte, née entre Genève et Paris. Nous ne l’avons pas inventée : nous la servons comme elle le mérite, avec un burger coupé en deux et posé dedans.</p></div>
-<ol class="frise"><li><b>1980</b><div><h3>Paris</h3><p>La sauce arrive dans les brasseries parisiennes, rue Feydeau, rue de Ponthieu, rue François-Miron.</p></div></li><li><b>40 ans</b><div><h3>Le geste transmis</h3><p>De salle en salle, la recette s’affine et le geste se transmet.</p></div></li><li><b>Aujourd’hui</b><div><h3>En smash burger</h3><p>Smashé sur la plaque, coupé, posé dans la sauce. À Genève, Madrid et Ibiza.</p></div></li></ol></div></section>
+<section class="hist" id="histoire"><div class="w"><div class="intro"><span class="caps eye">Notre histoire</span><h2>Inspirée par la tradition, <em>élevée à l’excellence.</em></h2><p class="lead">Une sauce de la grande tradition des sauces d’entrecôte, née entre Genève et Paris. Nous ne l’avons pas inventée : nous la servons comme elle le mérite.</p></div>
+<article class="chap"><div class="ph"><img src="img/hist-1.webp" alt="La sauce Café de Paris, en noir et blanc" loading="lazy" width="1100" height="825"></div><div class="t"><span class="an" data-n="1980">1980</span><h3>Paris</h3><p>La sauce arrive dans les brasseries parisiennes : rue Feydeau, rue de Ponthieu, rue François-Miron.</p><span class="ligne"></span></div></article>
+<article class="chap inv"><div class="ph"><img src="img/hist-2.webp" alt="Double smash coupé en deux, cheddar fondu" loading="lazy" width="900" height="1125"></div><div class="t"><span class="an" data-n="40">40<small>ans</small></span><h3>Le geste transmis</h3><p>De salle en salle, la recette s’affine et le geste se transmet.</p><span class="ligne"></span></div></article>
+<article class="chap"><div class="ph"><img src="img/hist-3.webp" alt="Burger coupé posé dans la sauce Café de Paris, frites" loading="lazy" width="900" height="672"></div><div class="t"><span class="an">Aujourd’hui</span><h3>En smash burger</h3><p>Smashé sur la plaque, coupé, servi avec la sauce. À Genève, Madrid et Ibiza.</p><span class="ligne"></span></div></article>
+</div></section>
 <section class="maisons" id="maisons"><div class="w"><div class="tete"><div><span class="caps eye">Nos maisons</span><h2>Trois villes</h2></div></div><div class="grid">
 <article><h3>Genève</h3><p>Sur place et à emporter. Commande en ligne, retrait au comptoir.</p><a class="l" href="../site-b/geneve/">Commander à Genève</a></article>
 <article><h3>Madrid</h3><p>En livraison à domicile.</p><a class="l" href="#">Commander en livraison</a></article>
@@ -187,6 +203,17 @@ function show(i){cur=i;pics.forEach(function(p,k){p.classList.toggle('on',k===i)
 function loop(){clearInterval(tm);if(!rm)tm=setInterval(function(){show((cur+1)%pics.length)},5200)}
 bt.forEach(function(b,k){b.addEventListener('click',function(){show(k);loop()})});loop();
 document.addEventListener('visibilitychange',function(){document.hidden?clearInterval(tm):loop()});
+
+var ch=[].slice.call(document.querySelectorAll('.chap'));
+function count(el){var n=+el.dataset.n,s=el.querySelector('small'),from=n>1000?1900:0,t0=null;
+ function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/1400),e=1-Math.pow(1-k,3);el.firstChild.nodeValue=String(Math.round(from+(n-from)*e));if(k<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
+if(rm||!('IntersectionObserver' in window)){ch.forEach(function(c){c.classList.add('vu')})}else{
+ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');var a=e.target.querySelector('.an[data-n]');if(a)count(a);io.unobserve(e.target)}})},{threshold:.3});
+ ch.forEach(function(c){io.observe(c)});
+ var imgs=ch.map(function(c){return c.querySelector('.ph img')}),tick=false;
+ function par(){tick=false;var vh=innerHeight;imgs.forEach(function(im){var r=im.parentNode.getBoundingClientRect();if(r.bottom<0||r.top>vh)return;var k=(r.top+r.height/2-vh/2)/vh;im.style.setProperty('--py',(k*-60).toFixed(1)+'px')})}
+ addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(par)}},{passive:true});par();
+}
 var v=document.getElementById('film'),pb=document.querySelector('.film .pause'),m=[].slice.call(document.querySelectorAll('.mots li')),user=false;
 if(!v)return;
 function play(){var q=v.play();if(q&&q.catch)q.catch(function(){});pb.textContent='II';pb.setAttribute('aria-label','Mettre en pause')}
