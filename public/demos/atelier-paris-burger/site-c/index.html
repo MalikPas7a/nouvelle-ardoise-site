@@ -94,7 +94,15 @@ a{color:inherit;text-decoration:none}
 
 /* Maisons */
 .maisons{background:var(--ivoire);padding:76px 0}
-.maisons .grid article{padding:28px 0 0;border-top:1px solid var(--merlot)}
+.maisons .grid article{padding:0}
+.maisons .vph{position:relative;aspect-ratio:4/3;overflow:hidden;margin-bottom:24px;background:var(--cabsav)}
+.maisons .vph img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.6s cubic-bezier(.2,.7,.1,1),filter .6s}
+.maisons article.vu .vph img{transform:scale(1)}
+.maisons article:hover .vph img{transform:scale(1.03)}
+.maisons h3{padding-top:20px;border-top:1px solid var(--merlot)}
+.chap .ph .cr{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:28px 16px 12px;font:500 12px var(--sans);letter-spacing:.02em;color:#f4e9dc;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(20,8,6,.72))}
+footer small.credits{margin-top:10px;max-width:70ch;margin-left:auto;margin-right:auto;font-size:12px;line-height:1.5}
+@media (prefers-reduced-motion:reduce){.maisons .vph img{transform:none;transition:none}}
 .maisons h3{font:400 22px var(--caps);letter-spacing:.2em;text-transform:uppercase;color:var(--merlot)}
 .maisons p{margin-top:10px;font-size:15px;line-height:1.5;color:var(--txt2)}
 .maisons a.l{display:inline-block;margin-top:16px;font-weight:600;color:var(--merlot);border-bottom:1px solid}
@@ -185,16 +193,16 @@ footer small{display:block;margin-top:26px;font-size:12px;opacity:.78}
 <div class="film"><video id="film" src="film.mp4" poster="img/film-poster.jpg" muted playsinline loop preload="none" aria-label="Photos du tournage en cuisine : le smash, le cheddar, la coupe, le burger posé dans la sauce"></video><button class="pause" type="button" aria-label="Mettre en pause"><span aria-hidden="true">II</span></button></div></div></section>
 <section class="offert"><div class="w"><p class="n">200</p><div><h2>Votre premier burger, offert.</h2><p>Pour l’ouverture à Genève : 200 burgers offerts, un par personne, sur réservation.</p></div><a class="btn btn-or" href="../site-b/reserver/">Réserver le mien</a></div></section>
 <section class="hist" id="histoire"><div class="w"><div class="intro"><span class="caps eye">Notre histoire</span><h2>Inspirée par la tradition, <em>élevée à l’excellence.</em></h2><p class="lead">Une sauce de la grande tradition des sauces d’entrecôte, née entre Genève et Paris. Nous ne l’avons pas inventée : nous la servons comme elle le mérite.</p></div>
-<article class="chap"><div class="ph"><img src="img/hist-1.webp" alt="La sauce Café de Paris, en noir et blanc" loading="lazy" width="1100" height="825"></div><div class="t"><span class="an" data-n="1980">1980</span><h3>Paris</h3><p>La sauce arrive dans les brasseries parisiennes : rue Feydeau, rue de Ponthieu, rue François-Miron.</p><span class="ligne"></span></div></article>
-<article class="chap inv"><div class="ph"><img src="img/hist-2.webp" alt="Double smash coupé en deux, cheddar fondu" loading="lazy" width="900" height="1125"></div><div class="t"><span class="an" data-n="40">40<small>ans</small></span><h3>Le geste transmis</h3><p>De salle en salle, la recette s’affine et le geste se transmet.</p><span class="ligne"></span></div></article>
+<article class="chap"><div class="ph"><img src="img/hist-1.webp" alt="La brasserie Le Dôme, boulevard du Montparnasse, en 1931" loading="lazy" width="1500" height="910"><small class="cr">Le Dôme, Montparnasse, 1931 · Agence Rol, BnF</small></div><div class="t"><span class="an" data-n="1980">1980</span><h3>Paris</h3><p>La sauce arrive dans les brasseries parisiennes : rue Feydeau, rue de Ponthieu, rue François-Miron.</p><span class="ligne"></span></div></article>
+<article class="chap inv"><div class="ph"><img src="img/hist-2.webp" alt="Cinq cuisiniers en toque au travail dans une cuisine parisienne" loading="lazy" width="1400" height="1069"><small class="cr">Cuisine parisienne, années 1920 · Agence Meurisse, BnF</small></div><div class="t"><span class="an" data-n="40">40<small>ans</small></span><h3>Le geste transmis</h3><p>De salle en salle, la recette s’affine et le geste se transmet.</p><span class="ligne"></span></div></article>
 <article class="chap"><div class="ph"><img src="img/hist-3.webp" alt="Burger coupé posé dans la sauce Café de Paris, frites" loading="lazy" width="900" height="672"></div><div class="t"><span class="an">Aujourd’hui</span><h3>En smash burger</h3><p>Smashé sur la plaque, coupé, servi avec la sauce. À Genève, Madrid et Ibiza.</p><span class="ligne"></span></div></article>
 </div></section>
 <section class="maisons" id="maisons"><div class="w"><div class="tete"><div><span class="caps eye">Nos maisons</span><h2>Trois villes</h2></div></div><div class="grid">
-<article><h3>Genève</h3><p>Sur place et à emporter. Commande en ligne, retrait au comptoir.</p><a class="l" href="../site-b/geneve/">Commander à Genève</a></article>
-<article><h3>Madrid</h3><p>En livraison à domicile.</p><a class="l" href="#">Commander en livraison</a></article>
-<article><h3>Ibiza</h3><p>Sur place.</p><a class="l" href="#">Voir l’adresse</a></article></div></div></section>
+<article><div class="vph"><img src="img/ville-geneve.webp" alt="La rade de Genève et le jet d’eau" loading="lazy" width="1000" height="750"></div><h3>Genève</h3><p>Sur place et à emporter. Commande en ligne, retrait au comptoir.</p><a class="l" href="../site-b/geneve/">Commander à Genève</a></article>
+<article><div class="vph"><img src="img/ville-madrid.webp" alt="La Gran Vía à Madrid" loading="lazy" width="1000" height="750"></div><h3>Madrid</h3><p>En livraison à domicile.</p><a class="l" href="#">Commander en livraison</a></article>
+<article><div class="vph"><img src="img/ville-ibiza.webp" alt="Dalt Vila, la vieille ville d’Ibiza" loading="lazy" width="1000" height="750"></div><h3>Ibiza</h3><p>Sur place.</p><a class="l" href="#">Voir l’adresse</a></article></div></div></section>
 </main>
-<footer><img src="../lignes/img/monogramme-or.svg" alt="Atelier Paris Burger"><p class="slog">Inspirée par la tradition, élevée à l’excellence depuis plus de quarante ans.</p><nav class="liens"><a href="#carte">La carte</a><a href="#histoire">Notre histoire</a><a href="#maisons">Nos maisons</a><a href="https://instagram.com/">Instagram</a></nav><small>Atelier Paris Burger · Maquette Nouvelle Ardoise</small></footer>
+<footer><img src="../lignes/img/monogramme-or.svg" alt="Atelier Paris Burger"><p class="slog">Inspirée par la tradition, élevée à l’excellence depuis plus de quarante ans.</p><nav class="liens"><a href="#carte">La carte</a><a href="#histoire">Notre histoire</a><a href="#maisons">Nos maisons</a><a href="https://instagram.com/">Instagram</a></nav><small>Atelier Paris Burger · Maquette Nouvelle Ardoise</small><small class="credits">Photos d’archives : Agence Rol et Agence Meurisse, BnF Gallica (domaine public). Genève : Thibaut120094 (CC BY 4.0). Madrid : Carlos Delgado (CC BY-SA 4.0). Ibiza : A.Savin (Licence Art Libre). Via Wikimedia Commons.</small></footer>
 <div class="barre"><a class="btn btn-or" href="../site-b/geneve/">Commander</a><a class="btn btn-ligne" href="../site-b/reserver/">Burger offert</a></div>
 <script>
 (function(){var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -214,6 +222,7 @@ if(rm||!('IntersectionObserver' in window)){ch.forEach(function(c){c.classList.a
  function par(){tick=false;var vh=innerHeight;imgs.forEach(function(im){var r=im.parentNode.getBoundingClientRect();if(r.bottom<0||r.top>vh)return;var k=(r.top+r.height/2-vh/2)/vh;im.style.setProperty('--py',(k*-60).toFixed(1)+'px')})}
  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(par)}},{passive:true});par();
 }
+var mv=[].slice.call(document.querySelectorAll('.maisons article'));if(rm||!('IntersectionObserver' in window)){mv.forEach(function(a){a.classList.add('vu')})}else{var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');io2.unobserve(e.target)}})},{threshold:.25});mv.forEach(function(a){io2.observe(a)})}
 var v=document.getElementById('film'),pb=document.querySelector('.film .pause'),m=[].slice.call(document.querySelectorAll('.mots li')),user=false;
 if(!v)return;
 function play(){var q=v.play();if(q&&q.catch)q.catch(function(){});pb.firstChild.textContent='II';pb.setAttribute('aria-label','Mettre en pause')}
