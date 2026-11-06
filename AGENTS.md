@@ -29,6 +29,7 @@ Compétences de design dans `.claude/skills/`, à utiliser pour toutes les créa
 - Emil Kowalski (MIT, github.com/emilkowalski/skills) : `emil-design-eng` (finition UI, détails, mouvement), `animate`, `review-animations`, `improve-animations`, `find-animation-opportunities`, `animation-vocabulary`, `animation-performance`, `break-ui` (pousser l'interface dans ses cas limites).
 - Impeccable (Apache 2.0, github.com/pbakaus/impeccable) : `impeccable` (critique, audit, polish, typographie, mise en page, couleurs, adaptation mobile).
 - Taste (MIT, github.com/Leonxlnx/taste-skill) : `taste-skill` (direction artistique moins générique, références, contrôle dans un vrai navigateur).
+- Unslop (CC BY 4.0, github.com/heydamir/unslop, Damir Sokolovsky) : `unslop` (repère tout ce qui « fait IA » dans une interface, puis corrige en 9 passes : espacements, couleurs, icônes, textes, typo, mise en page, détails, visuels, mouvement). Créditer l'auteur en cas de copie.
 
 Boucle de travail : direction choisie avec Malik, puis code, puis contrôle dans un navigateur (Playwright, déjà installé dans le conteneur) avec captures bureau et iPhone, puis `impeccable` critique/audit et `review-animations`, puis corrections. Nos règles passent avant les leurs :
 
