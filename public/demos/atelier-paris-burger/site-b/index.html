@@ -10,19 +10,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="video/geste/sauce.webp">
+<link rel="preload" as="image" href="img/stage/stage.webp">
+<link rel="preload" as="image" href="img/stage/smash-plat.webp">
 <!--
-  ARCHITECTURE (maquette statique, à porter dans le site final)
-  1. Ouverture (#accueil)    : nom, 3 villes, et une vraie vidéo du tournage (la sauce versée, le burger posé dedans).
-  1b. Le geste (#geste)      : 4 temps au défilement (smashé, fondu, coupé, posé dans la sauce), chacun = un vrai plan filmé
-                                qui se joue en boucle ; le mot entre par un masque. Aucun zoom, aucune image générée.
-  1c. La carte (#carte)       : smash, burger, baguette, photos 4K nettes, bouton vers la page Genève (commande).
-  2. Notre histoire (#histoire): défilement horizontal, archives en noir et blanc (domaine public / CC0, crédits sous chaque photo).
-  3. Nos maisons (#maisons)   : Genève (commande), Ibiza, Madrid. C'est ici que se branchent click & collect et Glovo.
-  4. Burger offert (#offert)  : formulaire 200 burgers (à relier : Supabase + e-mail QR).
-  6. Fidélité + pied de page.
-  Langues : FR dans le HTML, EN et ES dans le dictionnaire I18N en bas de page (attribut data-t). Choix gardé dans localStorage.
-  Animations : coupées sous prefers-reduced-motion ; aucune bibliothèque.
+  ARCHITECTURE v12 (maquette statique, à porter dans le site final)
+  1. La scène (#accueil)   : fond bordeaux au monogramme doré. Nom, 3 villes (Genève = Commander), et les 3 plats (vraies photos)
+                             qui se succèdent sur le socle au défilement. Onglets Smash / Burger / Baguette, bouton Commander par plat.
+  2. Le geste (#geste)     : les vrais rushes du tournage, 346 images lues au défilement (smash, cheddar, coupe, sauce, posé, servi).
+  3. Nos maisons (#maisons): Genève (commande), Ibiza, Madrid (Glovo).
+  4. Notre histoire        : en couleur, défilement horizontal + chapitres cliquables. Images = ILLUSTRATIONS signalées (aucun plat dedans).
+  5. Valeurs, burger offert (200), fidélité, pied de page.
+  Langues : FR dans le HTML, EN et ES dans le dictionnaire I18N (attribut data-t). Animations coupées sous prefers-reduced-motion.
 -->
 <style>
 :root{
@@ -71,88 +69,78 @@ p{margin:0}
 .langues button:hover{color:var(--on-dark)}
 .top .btn{min-height:42px;padding:0 18px}
 
-/* 1. Ouverture : le nom, les villes, et la vraie sauce qui coule */
-.ouv{position:relative;min-height:100vh;min-height:100svh;background:radial-gradient(120% 90% at 78% 50%,#5a0f1f 0%,var(--cabsav) 46%,#1c0609 100%);color:var(--on-dark);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:center;gap:clamp(24px,4vw,64px);padding:calc(var(--head) + 24px) var(--gutter) 40px;overflow:hidden}
-.o-txt{position:relative;z-index:2;max-width:640px;justify-self:end;width:100%}
-.o-mono{width:58px;height:58px}
-.o-nom{margin-top:22px;font-size:clamp(56px,7.4vw,124px);line-height:.9;color:var(--peach)}
-.o-nom .l{display:block;overflow:hidden;padding:.14em 0 .08em;margin:-.14em 0 -.08em}
-.o-nom .l>span{display:block}
-.o-sous{margin-top:20px;max-width:34ch;color:var(--on-dark-2);font-size:clamp(16px,1.2vw,19px)}
-.villes{list-style:none;padding:0;margin:clamp(26px,4vh,40px) 0 0;display:flex;gap:12px}
-.ville{position:relative;display:flex;flex-direction:column;align-items:flex-start;width:clamp(150px,12vw,190px);padding:15px 16px 14px;border-radius:12px;text-decoration:none;text-align:left;color:var(--on-dark);background:rgba(40,8,15,.45);box-shadow:inset 0 0 0 1px rgba(232,181,98,.3);overflow:hidden;transition:transform .45s var(--ease),box-shadow .45s var(--ease),background-color .45s var(--ease)}
-.ville::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,231,190,.16) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease);pointer-events:none}
-.ville:hover{transform:translateY(-5px);box-shadow:inset 0 0 0 1px rgba(232,181,98,.75),0 18px 40px -18px rgba(0,0,0,.6)}
-.ville:hover::after{transform:translateX(120%)}
-.ville:active{transform:translateY(-1px) scale(.98)}
-.v-n{font-family:var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--peach)}
-.v-e{margin-top:5px;font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--or-clair)}
-.v-a{margin-top:12px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:6px}
-.v-a i{font-style:normal;display:inline-block;transition:transform .35s var(--ease)}
-.ville:hover .v-a i{transform:translateX(5px)}
-.v-ge{background:var(--or);box-shadow:none;color:var(--woodsmoke)}
-.v-ge .v-n{color:var(--woodsmoke)}.v-ge .v-e{color:var(--cabsav)}
-.v-ge:hover{background:var(--or-clair);box-shadow:0 18px 40px -16px rgba(217,145,37,.6)}
-.o-film{position:relative;z-index:1;justify-self:start;width:min(100%,calc((100svh - var(--head) - 56px) * .98),760px);aspect-ratio:1080/1100;border-radius:4px;overflow:hidden;background:#1c0609;box-shadow:0 40px 90px -40px rgba(0,0,0,.8),0 0 0 1px rgba(232,181,98,.22)}
-.o-film video,.o-film img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.o-film figcaption{position:absolute;left:16px;bottom:14px;z-index:2;font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark)}
-.o-film::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 70%,rgba(20,4,8,.55));pointer-events:none}
-.o-hint{position:absolute;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));z-index:2;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-dark-2)}
-.o-hint i{position:relative;width:1px;height:30px;background:rgba(244,233,220,.25);overflow:hidden}
-.o-hint i::after{content:"";position:absolute;left:0;top:-30px;width:1px;height:30px;background:var(--or);animation:hint 1.8s var(--ease) infinite}
+/* 1. La scène : fond bordeaux au monogramme doré ; les plats se posent sur le socle au défilement */
+.scene{position:relative;height:340vh;background:#1d070b}
+.s-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;color:var(--on-dark)}
+.s-pin canvas,.f-pin canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.s-haut{position:absolute;z-index:2;left:var(--gutter);top:calc(var(--head) + clamp(20px,5vh,56px));max-width:min(560px,40vw)}
+.s-eye{font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--or-clair)}
+.s-nom{margin-top:16px;font-size:clamp(54px,6.2vw,104px);line-height:.9;color:var(--peach);text-shadow:0 2px 30px rgba(20,4,8,.35)}
+.s-villes{list-style:none;padding:0;margin:26px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.s-villes a{display:inline-flex;align-items:baseline;gap:8px;min-height:44px;padding:13px 16px 0;border-radius:999px;text-decoration:none;font-size:15px;font-weight:500;color:var(--on-dark);background:rgba(29,7,11,.5);box-shadow:inset 0 0 0 1px rgba(232,181,98,.38);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:background-color .25s var(--ease),transform .2s var(--ease),box-shadow .25s var(--ease)}
+.s-villes a small{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--or-clair)}
+.s-villes a:hover{box-shadow:inset 0 0 0 1px rgba(232,181,98,.8)}
+.s-villes a:active{transform:scale(.97)}
+.s-villes .ge{background:var(--or);color:var(--woodsmoke);box-shadow:none}
+.s-villes .ge small{color:var(--cabsav)}
+.s-villes .ge:hover{background:var(--or-clair);box-shadow:none}
+.s-plat{position:absolute;z-index:2;right:var(--gutter);top:calc(var(--head) + clamp(20px,5vh,56px));width:min(380px,30vw)}
+.s-num{display:flex;align-items:center;gap:12px;font-size:12.5px;font-weight:600;letter-spacing:.14em;color:var(--or-clair);font-variant-numeric:tabular-nums}
+.s-num i{position:relative;flex:0 0 72px;height:1px;background:rgba(232,181,98,.28);overflow:hidden}
+.s-num i b{position:absolute;inset:0;background:var(--or);transform-origin:left;transform:scaleX(.334);transition:transform .6s var(--ease)}
+.s-txt{position:relative;height:clamp(214px,27vh,250px);margin-top:16px}
+.s-p{position:absolute;left:0;right:0;top:0;pointer-events:none}
+.s-p.on{pointer-events:auto}
+.s-p h2{font-size:clamp(46px,4.4vw,72px);color:var(--peach)}
+.s-p p{margin-top:12px;max-width:31ch;color:var(--on-dark-2);font-size:clamp(15.5px,1.1vw,17px)}
+.s-p .btn{margin-top:20px}
+.s-tabs{display:flex;gap:4px;margin-top:6px}
+.s-tabs button{min-height:40px;padding:0 12px;border:0;border-radius:999px;background:none;color:var(--on-dark-2);font:500 13.5px var(--sans);cursor:pointer;transition:color .2s var(--ease),background-color .2s var(--ease)}
+.s-tabs button:hover{color:var(--on-dark)}
+.s-tabs button[aria-pressed="true"]{color:var(--peach);background:rgba(244,233,220,.1)}
+.s-hint{position:absolute;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));z-index:2;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-dark-2);transition:opacity .4s var(--ease)}
+.s-hint i{position:relative;width:1px;height:30px;background:rgba(244,233,220,.22);overflow:hidden}
+.s-hint i::after{content:"";position:absolute;left:0;top:-30px;width:1px;height:30px;background:var(--or);animation:hint 1.8s var(--ease) infinite}
 @keyframes hint{to{transform:translateY(60px)}}
-/* Entrée : les lignes montent derrière un masque, puis le reste suit */
-.js .o-nom .l>span{transform:translateY(150%)}
-.js .o-anim{opacity:0;transform:translateY(16px)}
-.js .o-film{clip-path:inset(100% 0 0 0)}
-.vu .o-nom .l>span{transform:none;transition:transform 1.1s cubic-bezier(.16,1,.3,1) var(--d,0s)}
-.vu .o-anim{opacity:1;transform:none;transition:opacity .9s var(--ease) var(--d,0s),transform .9s var(--ease) var(--d,0s)}
-.vu .o-film{clip-path:inset(0);transition:clip-path 1.4s cubic-bezier(.65,0,.35,1) .1s}
+/* Textes qui changent : les lignes passent derrière un masque, le reste suit en fondu */
+.rv .l{display:block;overflow:hidden;padding:.22em 0 .18em;margin:-.22em 0 -.18em}
+.s-nom .l{display:block;overflow:hidden;padding:.12em 0 .1em;margin:-.12em 0 -.1em}
+.s-nom .l>span{display:block}
+.rv .l>span{display:block;transform:translateY(170%);transition:transform .75s cubic-bezier(.16,1,.3,1)}
+.rv.out .l>span{transform:translateY(-170%)}
+.rv.on .l>span{transform:none;transition-delay:.1s}
+.rv.on .l+.l>span{transition-delay:.18s}
+.rv .o{opacity:0;transform:translateY(10px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.rv.on .o{opacity:1;transform:none;transition-delay:.28s}
+/* Entrée de la page */
+.js .s-nom .l>span{transform:translateY(130%)}
+.js .s-haut .in,.js .s-plat{opacity:0;transform:translateY(14px)}
+.vu .s-nom .l>span{transform:none;transition:transform 1.1s cubic-bezier(.16,1,.3,1) var(--d,0s)}
+.vu .s-haut .in,.vu .s-plat{opacity:1;transform:none;transition:opacity .9s var(--ease) var(--d,0s),transform .9s var(--ease) var(--d,0s)}
 
-/* 1b. Le geste : quatre temps, quatre vrais plans filmés */
-.geste{position:relative;height:440vh;background:#1c0609}
-.g-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:clamp(24px,4vw,64px);padding:calc(var(--head) + 16px) var(--gutter) 32px;color:var(--on-dark);background:radial-gradient(110% 90% at 72% 50%,#3d0a15 0%,#1c0609 70%)}
-.g-mots{position:relative;justify-self:end;width:100%;max-width:640px;height:min(62vh,520px)}
-.g-tete{display:flex;align-items:center;gap:14px;font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--or-clair)}
-.g-tete b{font-variant-numeric:tabular-nums;font-weight:600}
-.g-ligne{flex:0 0 96px;height:1px;background:rgba(232,181,98,.25);position:relative;overflow:hidden}
-.g-ligne i{position:absolute;inset:0;background:var(--or);transform-origin:left;transform:scaleX(0)}
-.g-mot{position:absolute;left:0;right:0;top:56px}
-.g-mot h2{font-size:clamp(64px,8.4vw,150px);line-height:.92;color:var(--peach)}
-.g-mot h2 .l{display:block;overflow:hidden;padding:.16em 0 .1em;margin:-.16em 0 -.1em}
-.g-mot h2 .l>span{display:block;will-change:transform}
-.g-mot h2 em{font-style:italic;color:var(--or-clair)}
-.g-mot p{margin-top:22px;max-width:32ch;color:var(--on-dark-2);font-size:clamp(16px,1.2vw,19px);will-change:opacity,transform}
-.g-film{position:relative;justify-self:start;width:min(100%,calc((100svh - var(--head) - 70px) * .98),640px);aspect-ratio:1080/1100;border-radius:4px;overflow:hidden;background:#140407;box-shadow:0 40px 90px -40px rgba(0,0,0,.85),0 0 0 1px rgba(232,181,98,.22)}
-.g-film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:clip-path,transform}
-.g-cta{position:absolute;justify-self:start;width:max-content;left:var(--gutter);bottom:calc(28px + env(safe-area-inset-bottom));z-index:3;opacity:0;transform:translateY(12px);transition:opacity .5s var(--ease),transform .5s var(--ease);pointer-events:none}
-.g-cta.on{opacity:1;transform:none;pointer-events:auto}
-
-/* 1c. La carte */
-.carte{background:var(--cabsav);color:var(--on-dark);padding:clamp(80px,10vw,150px) 0 clamp(64px,8vw,120px)}
-.k-tete{display:flex;align-items:end;justify-content:space-between;gap:24px;flex-wrap:wrap}
-.k-tete h2{font-size:clamp(48px,6vw,96px);color:var(--peach)}
-.k-tete p{max-width:36ch;color:var(--on-dark-2)}
-.k-liste{list-style:none;margin:clamp(40px,6vw,80px) 0 0;padding:0;display:grid;gap:clamp(56px,8vw,120px)}
-.k-plat{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:center;gap:clamp(24px,4vw,64px)}
-.k-plat:nth-child(even){grid-template-columns:minmax(0,1fr) minmax(0,1.5fr)}
-.k-plat:nth-child(even) figure{order:2}
-.k-plat figure{margin:0;position:relative;aspect-ratio:3/2;overflow:hidden;border-radius:4px;background:#2a0a10}
-.k-plat figure img{width:100%;height:100%;object-fit:cover}
-.k-num{font-size:12.5px;font-weight:600;letter-spacing:.14em;color:var(--or-clair);font-variant-numeric:tabular-nums}
-.k-plat h3{margin-top:10px;font-size:clamp(44px,4.6vw,76px);color:var(--peach)}
-.k-plat h3 .l{display:block;overflow:hidden;padding:.16em 0 .1em;margin:-.16em 0 -.1em}
-.k-plat h3 .l>span{display:block}
-.k-plat p{margin-top:14px;max-width:34ch;color:var(--on-dark-2)}
-.k-plat .k-act{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
-.js .k-plat figure{clip-path:inset(10% 10% 10% 10%)}
-.js .k-plat figure img{transform:scale(1.14)}
-.js .k-plat h3 .l>span{transform:translateY(150%)}
-.js .k-plat .k-o{opacity:0;transform:translateY(14px)}
-.k-plat.vu figure{clip-path:inset(0);transition:clip-path 1.3s cubic-bezier(.65,0,.35,1)}
-.k-plat.vu figure img{transform:none;transition:transform 1.8s cubic-bezier(.16,1,.3,1)}
-.k-plat.vu h3 .l>span{transform:none;transition:transform 1s cubic-bezier(.16,1,.3,1) .25s}
-.k-plat.vu .k-o{opacity:1;transform:none;transition:opacity .8s var(--ease) var(--d,.4s),transform .8s var(--ease) var(--d,.4s)}
+/* 2. Le geste : les vrais rushes du tournage, image par image au défilement */
+.film{position:relative;height:720vh;background:#120406}
+.f-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;color:var(--on-dark)}
+.f-txt{position:absolute;z-index:2;left:var(--gutter);top:50%;transform:translateY(-50%);width:min(440px,calc(50vw - 28svh - var(--gutter) - 24px))}
+.f-tete{display:flex;align-items:center;gap:14px;font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--or-clair)}
+.f-tete b{font-variant-numeric:tabular-nums;font-weight:600}
+.f-ligne{position:relative;flex:0 0 72px;height:1px;background:rgba(232,181,98,.25);overflow:hidden}
+.f-ligne i{position:absolute;inset:0;background:var(--or);transform-origin:left;transform:scaleX(0)}
+.f-chs{position:relative;height:clamp(250px,34vh,320px);margin-top:20px}
+.f-ch{position:absolute;left:0;right:0;top:0;pointer-events:none}
+.f-ch.on{pointer-events:auto}
+.f-ch h2{font-size:clamp(54px,6vw,104px);line-height:.92;color:var(--peach)}
+.f-ch p{margin-top:16px;max-width:30ch;color:var(--on-dark-2);font-size:clamp(16px,1.15vw,18px)}
+.f-fin h2{font-size:clamp(46px,4.6vw,80px)}
+.f-fin h2 .l+.l{color:var(--or-clair);font-style:italic}
+.f-fin .btn{margin-top:24px}
+.f-idx{position:absolute;z-index:2;right:var(--gutter);top:50%;transform:translateY(-50%);list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.f-idx button{display:flex;align-items:center;gap:12px;min-height:40px;padding:0 4px;border:0;background:none;color:rgba(217,196,180,.55);font:500 14px var(--sans);cursor:pointer;transition:color .3s var(--ease)}
+.f-idx button b{font-size:11.5px;font-weight:600;letter-spacing:.12em;font-variant-numeric:tabular-nums}
+.f-idx button::before{content:"";width:18px;height:1px;background:currentColor;transition:width .4s var(--ease)}
+.f-idx button:hover{color:var(--on-dark)}
+.f-idx button[aria-current="true"]{color:var(--peach)}
+.f-idx button[aria-current="true"]::before{width:36px;background:var(--or)}
 
 /* Grain très léger sur toute la page (rendu photo, pas numérique) */
 body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -201,29 +189,35 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
 .form .btn{width:100%;margin-top:22px}
 .form small{display:block;margin-top:12px;font-size:13px;color:var(--ink-2)}
 
-/* 5. Histoire : défilement horizontal en noir et blanc */
-.histoire{position:relative;background:#0f0c0b;color:var(--on-dark)}
+/* 5. Histoire : en couleur, défilement horizontal, chapitres cliquables */
+.histoire{position:relative;background:radial-gradient(120% 100% at 20% 0%,#5c1023 0%,var(--cabsav) 55%,#2a060e 100%);color:var(--on-dark)}
 .h-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;align-items:center}
-.h-piste{display:flex;gap:clamp(20px,3vw,48px);padding:0 var(--gutter);will-change:transform;align-items:center}
-.h-intro{flex:0 0 min(520px,82vw)}
-.h-intro h2{font-size:clamp(46px,6vw,96px);color:var(--peach)}
-.h-intro p{margin-top:16px;max-width:34ch;color:var(--on-dark-2);font-size:18px}
+.h-piste{display:flex;gap:clamp(28px,4vw,72px);padding:0 var(--gutter);will-change:transform;align-items:center}
+.h-intro{flex:0 0 min(500px,82vw)}
+.h-eye{font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--or-clair)}
+.h-intro h2{margin-top:14px;font-size:clamp(50px,6vw,100px);color:var(--peach)}
+.h-intro p{margin-top:18px;max-width:34ch;color:var(--on-dark-2);font-size:18px}
 .h-intro .fl{margin-top:28px;font-size:14px;letter-spacing:.08em;color:var(--or-clair)}
-.h-pan{flex:0 0 auto;display:grid;grid-template-columns:auto minmax(0,300px);gap:clamp(18px,2.4vw,36px);align-items:end}
-.h-pan figure{margin:0;height:min(70vh,640px);aspect-ratio:4/5;overflow:hidden;border-radius:4px;background:#222}
-.h-pan img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
-.h-pan figcaption{font-size:12.5px;color:#9d8f86;margin-top:8px}
-.h-pan .an{font-family:var(--serif);font-size:clamp(30px,2.8vw,44px);font-weight:600;color:var(--or-clair);line-height:1}
-.h-pan h3{margin-top:10px;font-size:clamp(24px,2vw,30px);color:var(--peach)}
-.h-pan p{margin-top:10px;color:var(--on-dark-2);font-size:16px}
-.h-pan.paysage figure{aspect-ratio:4/3}
-.h-pan.sans-photo{grid-template-columns:minmax(0,360px)}
-.h-fin{flex:0 0 min(620px,86vw);display:grid;gap:22px}
-.h-fin figure{margin:0;aspect-ratio:16/10;overflow:hidden;border-radius:4px}
+.h-pan{flex:0 0 auto;display:grid;grid-template-columns:auto minmax(0,300px);gap:clamp(20px,2.6vw,40px);align-items:end}
+.h-pan figure{position:relative;margin:0;height:min(74vh,720px);aspect-ratio:4/5;overflow:hidden;border-radius:6px;background:#3a0a14;box-shadow:0 40px 80px -40px rgba(0,0,0,.7)}
+.h-pan.paysage figure{aspect-ratio:1200/872}
+.h-pan img{width:100%;height:100%;object-fit:cover}
+.h-pan figcaption{position:absolute;left:12px;bottom:12px;padding:5px 9px;border-radius:999px;background:rgba(20,4,8,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--on-dark-2)}
+.h-pan .an{font-family:var(--serif);font-size:clamp(32px,3vw,48px);font-weight:600;color:var(--or-clair);line-height:1}
+.h-pan h3{margin-top:12px;font-size:clamp(26px,2.2vw,34px);color:var(--peach)}
+.h-pan p{margin-top:12px;color:var(--on-dark-2);font-size:16.5px}
+.h-fin{flex:0 0 min(620px,86vw);display:grid;gap:22px;padding-right:var(--gutter)}
+.h-fin figure{margin:0;aspect-ratio:16/10;overflow:hidden;border-radius:6px}
 .h-fin img{width:100%;height:100%;object-fit:cover}
-.h-fin blockquote{margin:0;font-family:var(--serif);font-size:clamp(26px,2.4vw,36px);line-height:1.15;color:var(--peach)}
-.h-fin p{color:var(--on-dark-2);font-size:15.5px;max-width:52ch}
-.valeurs{background:#0f0c0b;color:var(--on-dark);padding:0 0 clamp(56px,7vw,96px)}
+.h-fin blockquote{margin:0;font-family:var(--serif);font-size:clamp(28px,2.6vw,40px);line-height:1.12;color:var(--peach)}
+.h-fin p{color:var(--on-dark-2);font-size:16px;max-width:52ch}
+.h-nav{position:absolute;z-index:3;left:var(--gutter);right:var(--gutter);bottom:calc(22px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:6px}
+.h-nav button{min-height:40px;padding:0 14px;border:0;border-radius:999px;background:rgba(20,4,8,.35);color:var(--on-dark-2);font:500 13.5px var(--sans);cursor:pointer;transition:background-color .25s var(--ease),color .25s var(--ease)}
+.h-nav button:hover{color:var(--on-dark)}
+.h-nav button[aria-current="true"]{background:var(--or);color:var(--woodsmoke)}
+.h-barre{flex:1;height:1px;margin-left:10px;background:rgba(232,181,98,.25);position:relative;overflow:hidden}
+.h-barre i{position:absolute;inset:0;background:var(--or);transform-origin:left;transform:scaleX(0)}
+.valeurs{background:#2a060e;color:var(--on-dark);padding:0 0 clamp(56px,7vw,96px)}
 .valeurs ul{list-style:none;margin:0;padding:clamp(28px,3vw,40px) 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;border-top:1px solid rgba(232,181,98,.25)}
 .valeurs b{display:block;font-family:var(--serif);font-size:26px;color:var(--or-clair)}
 .valeurs span{color:var(--on-dark-2);font-size:15px}
@@ -262,55 +256,67 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
   :root{--head:58px}
   .nav,.top .btn{display:none}
   .langues{margin-left:auto}
-  .ouv{display:flex;flex-direction:column;padding:0 0 calc(84px + env(safe-area-inset-bottom));min-height:100svh}
-  .o-film{order:-1;flex:none;width:100%;max-width:none;border-radius:0;box-shadow:none;aspect-ratio:auto;height:56svh}
-  .o-film::after{background:linear-gradient(180deg,rgba(28,6,9,.55) 0%,transparent 22%,transparent 62%,var(--cabsav) 100%)}
-  .o-film figcaption{display:none}
-  .o-txt{margin-top:-64px;padding:0 var(--gutter);justify-self:auto}
-  .o-mono{width:44px;height:44px}
-  .o-nom{margin-top:14px;font-size:clamp(46px,13vw,60px)}
-  .o-sous{font-size:15px;margin-top:12px}
-  .villes{gap:8px;margin-top:20px}
-  .ville{flex:1;width:auto;padding:12px 11px 11px;border-radius:10px}
-  .v-n{font-size:22px}.v-e{font-size:10px;letter-spacing:.06em}.v-a{font-size:12.5px;margin-top:8px}
-  .o-hint{display:none}
-  .geste{height:420vh}
-  .g-pin{display:flex;flex-direction:column;justify-content:flex-start;gap:0;padding:var(--head) 0 0}
-  .g-film{order:-1;width:100%;max-width:none;border-radius:0;box-shadow:none;aspect-ratio:1080/1100;height:auto;max-height:44svh}
-  .g-mots{justify-self:auto;padding:22px var(--gutter) 0;height:auto;flex:1;max-width:none}
-  .g-mot{top:54px;left:var(--gutter);right:var(--gutter)}
-  .g-mot h2{font-size:clamp(48px,13.5vw,64px)}
-  .g-mot p{margin-top:12px;font-size:15px}
-  .g-cta{display:none}
-  .k-plat,.k-plat:nth-child(even){grid-template-columns:1fr}
-  .k-plat:nth-child(even) figure{order:0}
-  .k-plat figure{aspect-ratio:4/3;margin:0 calc(var(--gutter) * -1);border-radius:0}
+  .scene{height:330vh}
+  .s-haut{right:var(--gutter);top:calc(var(--head) + 8px);max-width:none}
+  .s-eye{font-size:10.5px;letter-spacing:.12em}
+  .s-nom{margin-top:8px;font-size:clamp(34px,9.6vw,44px);line-height:1}
+  .s-nom .l{display:inline-block}
+  .s-nom .l+.l{margin-left:.24em}
+  .s-villes{margin-top:12px;gap:6px;flex-wrap:nowrap}
+  .s-villes a{min-height:38px;padding:10px 12px 0;font-size:13.5px;gap:6px}
+  .s-villes a small{font-size:9.5px;letter-spacing:.06em}
+  .s-plat{left:var(--gutter);right:var(--gutter);top:auto;bottom:calc(80px + env(safe-area-inset-bottom));width:auto}
+  .s-txt{height:140px;margin-top:10px}
+  .s-p h2{font-size:clamp(40px,11vw,48px)}
+  .s-p p{margin-top:8px;font-size:15px}
+  .s-p .btn{display:none}
+  .s-tabs{margin-top:0}
+  .s-hint{display:none}
+  .film{height:640vh}
+  .f-txt{left:var(--gutter);right:var(--gutter);top:auto;bottom:calc(84px + env(safe-area-inset-bottom));transform:none;width:auto}
+  .f-chs{height:150px;margin-top:12px}
+  .f-ch h2{font-size:clamp(46px,13vw,60px)}
+  .f-ch p{margin-top:8px;font-size:15px}
+  .f-fin h2{font-size:clamp(38px,10.4vw,46px)}
+  .f-fin .btn{display:none}
+  .f-idx{display:none}
   .m-grille{grid-template-columns:1fr}
   .offert .wrap{grid-template-columns:1fr}
   .h-pan{grid-template-columns:1fr;align-items:start}
-  .h-pan figure{height:46svh}
-  .h-pan .txt{max-width:78vw}
+  .h-pin{align-items:flex-start;padding-top:calc(var(--head) + 60px)}
+  .h-pan{width:min(80vw,380px)}
+  .h-pan figure,.h-pan.paysage figure{height:38svh;width:100%;aspect-ratio:auto}
+  .h-intro{align-self:center;margin-top:-40px}
+  .h-fin{align-self:flex-start}
+  .h-pan .txt{max-width:none}
+  .h-pan p{font-size:15px}
+  .h-nav{top:calc(var(--head) + 12px);bottom:auto;overflow-x:auto;scrollbar-width:none}
+  .h-nav button{flex:none;min-height:36px;padding:0 11px;font-size:12.5px}
+  .h-barre{display:none}
   .valeurs ul{grid-template-columns:1fr 1fr}
-  .barre{display:flex;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(22,17,15,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid rgba(232,181,98,.25);transform:translateY(110%);transition:transform .35s var(--ease)}
-  .barre.on{transform:none}
+  .barre{display:flex;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(22,17,15,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid rgba(232,181,98,.25)}
   .barre .btn{flex:1;min-height:50px}
+}
+@media (max-width:900px) and (max-height:700px){
+  .s-eye{display:none}
+  .s-p p{display:none}
+  .s-txt{height:84px}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .js .o-nom .l>span,.js .o-anim,.js .o-film,.js .k-plat figure,.js .k-plat figure img,.js .k-plat h3 .l>span,.js .k-plat .k-o{transform:none;opacity:1;clip-path:none}
-  .o-hint i::after{animation:none}
-  .geste{height:auto}
-  .g-pin{position:relative;height:auto;display:block;padding:64px var(--gutter)}
-  .g-film,.g-tete,.g-cta{display:none}
-  .g-mots{height:auto;max-width:none}
-  .g-mot{position:relative;top:auto;margin-bottom:40px}
+  .scene,.film{height:auto}
+  .s-pin,.f-pin{position:relative}
+  .js .s-nom .l>span,.js .s-haut .in,.js .s-plat{transform:none;opacity:1}
+  .rv .l>span,.rv .o{transition:none}
+  .s-hint i::after{animation:none}
+  .f-idx{display:none}
   body::after{display:none}
-  .btn::before,.ville::after{display:none}
-  .h-pin{position:relative;height:auto;padding:64px 0}
+  .btn::before{display:none}
+  .h-pin{position:relative;height:auto;padding:80px 0 120px}
   .h-piste{flex-direction:column;align-items:stretch}
   .h-pan{grid-template-columns:1fr}
+  .h-nav{display:none}
   .js .pop[open]{animation:none}
-  .barre{transition:none}
 }
 </style>
 </head>
@@ -319,8 +325,9 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
   <div class="wrap">
     <a class="marque" href="#accueil"><img src="img/monogramme-or.svg" alt="" width="34" height="34"><span>Atelier Paris Burger</span></a>
     <nav class="nav" aria-label="Navigation principale">
-      <a href="#maisons" data-t="nav.maisons">Nos maisons</a>
       <a href="geneve/#carte" data-t="nav.carte">La carte</a>
+      <a href="#geste" data-t="nav.geste">Le geste</a>
+      <a href="#maisons" data-t="nav.maisons">Nos maisons</a>
       <a href="#histoire" data-t="nav.histoire">Notre histoire</a>
     </nav>
     <div class="langues" role="group" aria-label="Langue">
@@ -333,107 +340,60 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
 </header>
 
 <main>
-  <!-- 1. OUVERTURE : le nom, les trois villes, et la vraie sauce du tournage (aucune image générée). -->
-  <section class="ouv" id="accueil" aria-label="Atelier Paris Burger">
-    <div class="o-txt">
-      <img class="o-mono o-anim" src="img/monogramme-or.svg" alt="" width="58" height="58" style="--d:.05s">
-      <h1 class="o-nom"><span class="l"><span style="--d:.12s">Atelier</span></span><span class="l"><span style="--d:.22s">Paris Burger</span></span></h1>
-      <p class="o-sous o-anim" style="--d:.5s" data-t="s.sous">La sauce Café de Paris, travaillée à Paris depuis le début des années 1980.</p>
-      <ul class="villes" id="villes">
-        <li class="o-anim" style="--d:.62s"><a class="ville v-ge" href="geneve/"><span class="v-n">Genève</span><span class="v-e" data-t="v.ge.e">Dès le 27.11</span><span class="v-a"><span data-t="v.ge.a">Commander</span> <i>→</i></span></a></li>
-        <li class="o-anim" style="--d:.72s"><a class="ville" href="#maisons"><span class="v-n">Ibiza</span><span class="v-e" data-t="v.ib.e">Au port</span><span class="v-a"><span data-t="v.ib.a">Y aller</span> <i>→</i></span></a></li>
-        <li class="o-anim" style="--d:.82s"><a class="ville" href="#maisons"><span class="v-n">Madrid</span><span class="v-e" data-t="v.ma.e">En livraison</span><span class="v-a"><span data-t="v.ma.a">Sur Glovo</span> <i>→</i></span></a></li>
-      </ul>
-    </div>
-    <figure class="o-film">
-      <video class="vid" data-src="video/geste/sauce" muted loop playsinline preload="auto" poster="video/geste/sauce.webp" aria-label="La sauce Café de Paris versée, puis le burger coupé posé dedans"></video>
-      <figcaption data-t="o.cap">Sauce Café de Paris</figcaption>
-    </figure>
-    <div class="o-hint" aria-hidden="true"><span data-t="s.hint">Le geste</span><i></i></div>
-  </section>
-
-  <!-- 1b. LE GESTE : quatre temps au défilement. Chaque temps = un vrai plan du tournage du 30.10, joué en boucle. -->
-  <section class="geste" id="geste" aria-label="Le geste">
-    <div class="g-pin">
-      <div class="g-mots">
-        <p class="g-tete" aria-hidden="true"><b class="g-n">01</b><span class="g-ligne"><i></i></span><b>04</b></p>
-        <div class="g-mot"><h2><span class="l"><span data-t="g.1.t">Smashé.</span></span></h2><p data-t="g.1.p">Une boule de bœuf, écrasée d'un coup sur la plancha. La croûte se fait en quelques secondes.</p></div>
-        <div class="g-mot"><h2><span class="l"><span data-t="g.2.t">Fondu.</span></span></h2><p data-t="g.2.p">Le cheddar posé sur la viande encore brûlante, puis le pain.</p></div>
-        <div class="g-mot"><h2><span class="l"><span data-t="g.3.t">Coupé.</span></span></h2><p data-t="g.3.p">En deux, au couteau. Pour qu'il aille dans la sauce.</p></div>
-        <div class="g-mot"><h2><span class="l"><span data-t="g.4.t">Posé dans</span></span><span class="l"><span data-t="g.4.t2"><em>la sauce.</em></span></span></h2><p data-t="g.4.p">La Café de Paris, travaillée à Paris depuis le début des années 1980.</p></div>
+  <!-- 1. LA SCÈNE : fond bordeaux au monogramme doré. Les plats (vraies photos du shooting) se posent sur le socle au défilement. -->
+  <section class="scene" id="accueil" aria-label="Atelier Paris Burger">
+    <div class="s-pin">
+      <canvas aria-hidden="true"></canvas>
+      <div class="s-haut">
+        <p class="s-eye in" style="--d:.05s" data-t="s.eye">Sauce Café de Paris · depuis les années 1980</p>
+        <h1 class="s-nom"><span class="l"><span style="--d:.12s">Atelier</span></span><span class="l"><span style="--d:.22s">Paris Burger</span></span></h1>
+        <ul class="s-villes in" style="--d:.5s">
+          <li><a class="ge" href="geneve/"><span>Genève</span><small data-t="s.v.ge">Commander</small></a></li>
+          <li><a href="#maisons"><span>Ibiza</span><small data-t="s.v.ib">Au port</small></a></li>
+          <li><a href="#maisons"><span>Madrid</span><small data-t="s.v.ma">Livraison</small></a></li>
+        </ul>
       </div>
-      <div class="g-film" aria-hidden="true">
-        <video class="vid" data-src="video/geste/smash" muted loop playsinline preload="auto" poster="video/geste/smash.webp"></video>
-        <video class="vid" data-src="video/geste/fondu" muted loop playsinline preload="metadata" poster="video/geste/fondu.webp"></video>
-        <video class="vid" data-src="video/geste/coupe" muted loop playsinline preload="metadata" poster="video/geste/coupe.webp"></video>
-        <video class="vid" data-src="video/geste/pose" muted loop playsinline preload="metadata" poster="video/geste/pose.webp"></video>
+      <div class="s-plat" id="carte" style="--d:.65s">
+        <p class="s-num" aria-hidden="true"><b id="s-n">01</b><i><b></b></i><span>03</span></p>
+        <div class="s-txt">
+          <div class="s-p rv on"><h2><span class="l"><span data-t="k.1.t">Le smash.</span></span></h2><p class="o" data-t="k.1.p">Simple, double ou triple. Bœuf smashé, cheddar, coupé et posé dans la sauce.</p><a class="btn btn-or o" href="geneve/#smash"><span data-t="k.b">Commander</span> <span class="fl">→</span></a></div>
+          <div class="s-p rv" aria-hidden="true"><h2><span class="l"><span data-t="k.2.t">Le burger.</span></span></h2><p class="o" data-t="k.2.p">Un steak épais, cuit rosé, coupé et posé dans la sauce.</p><a class="btn btn-or o" href="geneve/#burgers"><span data-t="k.b">Commander</span> <span class="fl">→</span></a></div>
+          <div class="s-p rv" aria-hidden="true"><h2><span class="l"><span data-t="k.3.t">La baguette.</span></span></h2><p class="o" data-t="k.3.p">Croustillante, tartinée de sauce Café de Paris.</p><a class="btn btn-or o" href="geneve/#baguette"><span data-t="k.b">Commander</span> <span class="fl">→</span></a></div>
+        </div>
+        <div class="s-tabs" role="group" aria-label="Les plats"><button type="button" aria-pressed="true">Smash</button><button type="button" aria-pressed="false">Burger</button><button type="button" aria-pressed="false">Baguette</button></div>
       </div>
-      <a class="btn btn-or g-cta" href="geneve/#carte"><span data-t="cta.commanderGe">Commander à Genève</span> <span class="fl">→</span></a>
+      <div class="s-hint" aria-hidden="true"><span data-t="s.hint">Faites défiler</span><i></i></div>
     </div>
   </section>
 
-  <!-- 1c. LA CARTE : les vraies photos 4K, nettes, et un bouton qui mène à la commande. -->
-  <section class="carte" id="carte" aria-labelledby="k-t">
-    <div class="wrap">
-      <div class="k-tete"><h2 id="k-t" data-t="k.t">La carte.</h2><p data-t="k.p">Une sauce, trois façons de la servir. Toujours coupé, toujours posé dedans.</p></div>
-      <ol class="k-liste">
-        <li class="k-plat"><figure><img src="img/defile-smash.webp" width="2400" height="1610" alt="Le smash burger triple, coupé, posé dans la sauce Café de Paris, avec ses frites" loading="lazy"></figure>
-          <div><p class="k-num k-o" style="--d:.15s">01</p><h3><span class="l"><span data-t="c.1.t">Le smash.</span></span></h3><p class="k-o" data-t="c.1.p">Simple, double ou triple. Bœuf smashé, cheddar, posé dans la sauce.</p>
-          <div class="k-act k-o" style="--d:.55s"><a class="btn btn-or" href="geneve/#smash"><span data-t="cta.commanderGe">Commander à Genève</span> <span class="fl">→</span></a></div></div></li>
-        <li class="k-plat"><figure><img src="img/defile-burger.webp" width="2400" height="1610" alt="Le burger au steak épais rosé, coupé, posé dans la sauce Café de Paris" loading="lazy"></figure>
-          <div><p class="k-num k-o" style="--d:.15s">02</p><h3><span class="l"><span data-t="c.2.t">Le burger.</span></span></h3><p class="k-o" data-t="c.2.p">Un steak épais, cuit rosé, posé dans la sauce.</p>
-          <div class="k-act k-o" style="--d:.55s"><a class="btn btn-or" href="geneve/#burgers"><span data-t="cta.commanderGe">Commander à Genève</span> <span class="fl">→</span></a></div></div></li>
-        <li class="k-plat"><figure><img src="img/defile-baguette.webp" width="2400" height="1610" alt="La baguette tartinée de sauce Café de Paris, avec ses frites" loading="lazy"></figure>
-          <div><p class="k-num k-o" style="--d:.15s">03</p><h3><span class="l"><span data-t="c.3.t">La baguette.</span></span></h3><p class="k-o" data-t="c.3.p">Croustillante, tartinée de sauce Café de Paris.</p>
-          <div class="k-act k-o" style="--d:.55s"><a class="btn btn-or" href="geneve/#baguette"><span data-t="cta.commanderGe">Commander à Genève</span> <span class="fl">→</span></a></div></div></li>
+  <!-- 2. LE GESTE : les vrais rushes du tournage du 30.10, lus image par image au défilement (aucune image générée). -->
+  <section class="film" id="geste" aria-label="Le geste">
+    <div class="f-pin">
+      <canvas aria-hidden="true"></canvas>
+      <div class="f-txt">
+        <p class="f-tete"><b id="f-n">01</b><i class="f-ligne"><i></i></i><span data-t="f.tete">Le geste, filmé en cuisine</span></p>
+        <div class="f-chs">
+          <div class="f-ch rv on"><h2><span class="l"><span data-t="f.1.t">Smashé.</span></span></h2><p class="o" data-t="f.1.p">Une boule de bœuf, écrasée d'un geste sur la plaque. La croûte se forme en quelques secondes.</p></div>
+          <div class="f-ch rv" aria-hidden="true"><h2><span class="l"><span data-t="f.2.t">Fondu.</span></span></h2><p class="o" data-t="f.2.p">Le cheddar posé sur la viande encore grésillante.</p></div>
+          <div class="f-ch rv" aria-hidden="true"><h2><span class="l"><span data-t="f.3.t">Coupé.</span></span></h2><p class="o" data-t="f.3.p">En deux, au couteau. Pour qu'il puisse entrer dans la sauce.</p></div>
+          <div class="f-ch rv" aria-hidden="true"><h2><span class="l"><span data-t="f.4.t">La sauce.</span></span></h2><p class="o" data-t="f.4.p">La Café de Paris, versée généreusement au fond de l'assiette.</p></div>
+          <div class="f-ch rv" aria-hidden="true"><h2><span class="l"><span data-t="f.5.t">Posé dedans.</span></span></h2><p class="o" data-t="f.5.p">Chaque moitié, posée directement dans la sauce.</p></div>
+          <div class="f-ch rv" aria-hidden="true"><h2><span class="l"><span data-t="f.6.t">Servi.</span></span></h2><p class="o" data-t="f.6.p">Dans la sauce, avec ses frites. Il n'attend plus que vous.</p></div>
+          <div class="f-ch rv f-fin" aria-hidden="true"><h2><span class="l"><span data-t="f.7.t">Coupé.</span></span><span class="l"><span data-t="f.7.t2">Posé dans la sauce.</span></span></h2><a class="btn btn-or o" href="geneve/"><span data-t="cta.commanderGe">Commander à Genève</span> <span class="fl">→</span></a></div>
+        </div>
+      </div>
+      <ol class="f-idx" aria-label="Les étapes">
+        <li><button type="button" aria-current="true"><b>01</b><span data-t="f.1.i">Smashé</span></button></li>
+        <li><button type="button"><b>02</b><span data-t="f.2.i">Fondu</span></button></li>
+        <li><button type="button"><b>03</b><span data-t="f.3.i">Coupé</span></button></li>
+        <li><button type="button"><b>04</b><span data-t="f.4.i">La sauce</span></button></li>
+        <li><button type="button"><b>05</b><span data-t="f.5.i">Posé dedans</span></button></li>
+        <li><button type="button"><b>06</b><span data-t="f.6.i">Servi</span></button></li>
       </ol>
     </div>
   </section>
 
-  <!-- 5. NOTRE HISTOIRE : défilement horizontal. Photos d'archives du domaine public (Wikimedia Commons), jamais présentées comme le restaurant. -->
-  <section class="histoire" id="histoire" aria-label="Notre histoire">
-    <div class="h-pin">
-      <div class="h-piste">
-        <div class="h-intro">
-          <h2 data-t="h.titre">Quarante ans de sauce.</h2>
-          <p data-t="h.intro">Une recette née dans la tradition des grandes sauces d'entrecôte, travaillée à Paris, transmise jusqu'à nous.</p>
-          <p class="fl" aria-hidden="true">→</p>
-        </div>
-        <div class="h-pan sans-photo">
-          <div class="txt"><p class="an" data-t="h.1.an">XX<sup>e</sup> siècle</p><h3 data-t="h.1.t">Entre Genève et Paris</h3><p data-t="h.1.p">La tradition des grandes sauces d'entrecôte naît entre les deux villes, avant de trouver à Paris sa propre identité.</p></div>
-        </div>
-        <div class="h-pan paysage">
-          <figure><img src="img/histoire/feydeau-haut.webp" width="1378" height="960" alt="Le coin de la rue Feydeau à Paris, photographié par Eugène Atget" loading="lazy"><figcaption data-t="h.cr.feydeau">Paris, coin de la rue Feydeau. Eugène Atget, domaine public.</figcaption></figure>
-          <div class="txt"><p class="an" data-t="h.2.an">Début des années 1980</p><h3 data-t="h.2.t">La recette arrive à Paris</h3><p data-t="h.2.p">Introduite et travaillée à Paris, elle est servie à L'Entrecôte Café de Paris, notamment rue Feydeau.</p></div>
-        </div>
-        <div class="h-pan paysage">
-          <figure><img src="img/histoire/cannes.webp" width="1230" height="910" alt="Promeneurs sur le boulevard de la Croisette à Cannes, vers 1890" loading="lazy"><figcaption data-t="h.cr.cannes">Cannes, boulevard de la Croisette, vers 1890. Rijksmuseum, CC0.</figcaption></figure>
-          <div class="txt"><p class="an" data-t="h.3.an">Plusieurs décennies</p><h3 data-t="h.3.t">Trois adresses à Paris, une à Cannes</h3><p data-t="h.3.p">Rue Feydeau, rue de Ponthieu, rue François-Miron, puis Cannes. Transmise, affinée, perfectionnée.</p></div>
-        </div>
-        <div class="h-pan">
-          <figure><img src="img/histoire/odeon.webp" width="1373" height="1750" alt="Un café parisien en 1909, photographié par Eugène Atget" loading="lazy"><figcaption data-t="h.cr.odeon">Paris, un café en 1909. Eugène Atget, domaine public.</figcaption></figure>
-          <div class="txt"><p class="an" data-t="h.4.an">Une tradition partagée</p><h3 data-t="h.4.t">Pas l'invention, la continuité</h3><p data-t="h.4.p">Nous ne revendiquons pas l'origine de la sauce. Nous assurons la continuité d'une interprétation parisienne, construite dans le temps.</p></div>
-        </div>
-        <div class="h-fin">
-          <figure><img src="img/trempage.webp" width="1800" height="1000" alt="Une moitié de burger posée dans la sauce Café de Paris" loading="lazy"></figure>
-          <blockquote data-t="h.slogan">« Inspirée par la tradition, élevée à l'excellence depuis plus de quarante ans. »</blockquote>
-          <p data-t="h.fin">Aujourd'hui, Atelier Paris Burger lui donne deux formats d'aujourd'hui : le burger et la baguette.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="valeurs" aria-label="Nos valeurs">
-    <div class="wrap">
-      <ul>
-        <li><b data-t="v.1.t">Transmission</b><span data-t="v.1.p">Un savoir-faire préservé.</span></li>
-        <li><b data-t="v.2.t">Exigence</b><span data-t="v.2.p">Précision et constance.</span></li>
-        <li><b data-t="v.3.t">Authenticité</b><span data-t="v.3.p">Une histoire réelle, sans excès.</span></li>
-        <li><b data-t="v.4.t">Évolution</b><span data-t="v.4.p">L'héritage, au format d'aujourd'hui.</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- 2. NOS MAISONS -->
+  <!-- 3. NOS MAISONS -->
   <section class="maisons" id="maisons">
     <div class="wrap">
       <h2 class="sec-t" data-t="m.titre">Nos maisons</h2>
@@ -468,6 +428,56 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
           <div class="acts"><a class="btn btn-line" href="#" aria-disabled="true" data-t="m.ma.glovo">Commander sur Glovo</a></div>
         </article>
       </div>
+    </div>
+  </section>
+
+  <!-- 5. NOTRE HISTOIRE : en couleur, défilement horizontal + chapitres cliquables.
+       Les images sont des ILLUSTRATIONS (créées, sans aucun plat), signalées comme telles et jamais présentées comme nos restaurants. -->
+  <section class="histoire" id="histoire" aria-label="Notre histoire">
+    <div class="h-pin">
+      <div class="h-piste">
+        <div class="h-intro">
+          <p class="h-eye" data-t="h.eye">Notre histoire</p>
+          <h2 data-t="h.titre">Quarante ans de sauce.</h2>
+          <p data-t="h.intro">Une recette née dans la tradition des grandes sauces d'entrecôte, travaillée à Paris, transmise jusqu'à nous.</p>
+          <p class="fl" aria-hidden="true">→</p>
+        </div>
+        <article class="h-pan">
+          <figure><img src="img/histoire/paris-1200.webp" srcset="img/histoire/paris-720.webp 720w, img/histoire/paris-1200.webp 1200w" sizes="(max-width:900px) 80vw, 600px" width="1200" height="1490" alt="Illustration : une rue de Paris sous la pluie, une brasserie à l'auvent bordeaux" loading="lazy"><figcaption data-t="h.cap">Illustration</figcaption></figure>
+          <div class="txt"><p class="an" data-t="h.1.an">Années 1980</p><h3 data-t="h.1.t">La recette arrive à Paris</h3><p data-t="h.1.p">Introduite et travaillée à Paris, elle est servie à L'Entrecôte Café de Paris, notamment rue Feydeau.</p></div>
+        </article>
+        <article class="h-pan">
+          <figure><img src="img/histoire/brasserie-1200.webp" srcset="img/histoire/brasserie-720.webp 720w, img/histoire/brasserie-1200.webp 1200w" sizes="(max-width:900px) 80vw, 600px" width="1200" height="1490" alt="Illustration : une salle de brasserie parisienne, banquettes de velours bordeaux et miroirs dorés" loading="lazy"><figcaption data-t="h.cap">Illustration</figcaption></figure>
+          <div class="txt"><p class="an" data-t="h.2.an">Trois adresses</p><h3 data-t="h.2.t">Transmise, affinée</h3><p data-t="h.2.p">Rue Feydeau, rue de Ponthieu, rue François-Miron. De salle en salle, le geste se transmet et la recette s'affine.</p></div>
+        </article>
+        <article class="h-pan paysage">
+          <figure><img src="img/histoire/croisette-1200.webp" srcset="img/histoire/croisette-720.webp 720w, img/histoire/croisette-1200.webp 1200w" sizes="(max-width:900px) 80vw, 900px" width="1200" height="872" alt="Illustration : la Croisette à Cannes, palmiers et parasols bordeaux" loading="lazy"><figcaption data-t="h.cap">Illustration</figcaption></figure>
+          <div class="txt"><p class="an" data-t="h.3.an">Puis Cannes</p><h3 data-t="h.3.t">Jusqu'à la Croisette</h3><p data-t="h.3.p">La recette descend sur la Côte d'Azur. Une adresse à Cannes, la même exigence.</p></div>
+        </article>
+        <article class="h-pan">
+          <figure><img src="img/histoire/geneve-1200.webp" srcset="img/histoire/geneve-720.webp 720w, img/histoire/geneve-1200.webp 1200w" sizes="(max-width:900px) 80vw, 600px" width="1200" height="1490" alt="Illustration : les quais de Genève le soir, le Jet d'eau éclairé" loading="lazy"><figcaption data-t="h.cap">Illustration</figcaption></figure>
+          <div class="txt"><p class="an" data-t="h.4.an">Aujourd'hui</p><h3 data-t="h.4.t">Genève, Ibiza, Madrid</h3><p data-t="h.4.p">Nous ne revendiquons pas l'invention de la sauce. Nous en assurons la continuité, dans deux formats d'aujourd'hui : le burger et la baguette.</p></div>
+        </article>
+        <div class="h-fin">
+          <figure><img src="img/trempage.webp" width="1800" height="1000" alt="Une moitié de burger posée dans la sauce Café de Paris" loading="lazy"></figure>
+          <blockquote data-t="h.slogan">« Inspirée par la tradition, élevée à l'excellence depuis plus de quarante ans. »</blockquote>
+          <p data-t="h.fin">Le geste d'une brasserie parisienne, au format d'aujourd'hui.</p>
+        </div>
+      </div>
+      <nav class="h-nav" aria-label="Chapitres">
+        <button type="button" data-t="h.n.1">1980</button><button type="button" data-t="h.n.2">La brasserie</button><button type="button" data-t="h.n.3">Cannes</button><button type="button" data-t="h.n.4">Aujourd'hui</button>
+        <span class="h-barre" aria-hidden="true"><i></i></span>
+      </nav>
+    </div>
+  </section>
+  <section class="valeurs" aria-label="Nos valeurs">
+    <div class="wrap">
+      <ul>
+        <li><b data-t="v.1.t">Transmission</b><span data-t="v.1.p">Un savoir-faire préservé.</span></li>
+        <li><b data-t="v.2.t">Exigence</b><span data-t="v.2.p">Précision et constance.</span></li>
+        <li><b data-t="v.3.t">Authenticité</b><span data-t="v.3.p">Une histoire réelle, sans excès.</span></li>
+        <li><b data-t="v.4.t">Évolution</b><span data-t="v.4.p">L'héritage, au format d'aujourd'hui.</span></li>
+      </ul>
     </div>
   </section>
 
@@ -507,7 +517,7 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
     <a class="marque" href="#accueil"><img src="img/monogramme-or.svg" alt="" width="34" height="34"><span>Atelier Paris Burger</span></a>
     <p class="slogan" data-t="h.slogan">« Inspirée par la tradition, élevée à l'excellence depuis plus de quarante ans. »</p>
     <nav aria-label="Pied de page"><a href="#">Instagram</a><a href="#" data-t="p.mentions">Mentions légales</a><a href="#" data-t="p.conf">Confidentialité</a></nav>
-    <small data-t="p.credits">Photos d'archives : Eugène Atget et anonyme, domaine public, via Wikimedia Commons.</small>
+    <small data-t="p.credits">Les images de l'histoire sont des illustrations, pas des photos de nos restaurants. Photos des plats : shooting Atelier Paris Burger.</small>
   </div>
 </footer>
 
@@ -539,68 +549,137 @@ var SCENES=[];
   window.addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(run)}},{passive:true});
   window.addEventListener('resize',run);window.addEventListener('load',run);})();
 
-/* En-tête : se remplit quand on quitte la scène */
-(function(){var top=document.getElementById('top'),o=document.getElementById('accueil');
-  SCENES.push(function(){top.classList.toggle('plein',o.getBoundingClientRect().bottom<window.innerHeight*.35)});})();
+/* En-tête : se remplit dès qu'on commence à défiler */
+(function(){var top=document.getElementById('top');
+  SCENES.push(function(){top.classList.toggle('plein',window.scrollY>window.innerHeight*.12)});})();
 
-/* Vidéos : fichier léger sur téléphone ; elles ne jouent que lorsqu'on les voit */
-var MOB=window.matchMedia('(max-width:900px)').matches;
-var EXT=(document.createElement('video').canPlayType('video/mp4; codecs="avc1.42E01E"')?'.mp4':'.webm');
-document.querySelectorAll('video.vid').forEach(function(v){v.src=v.dataset.src+(MOB?'-m':'')+EXT;v.muted=true;v.playbackRate=.85;v.addEventListener('loadedmetadata',function(){v.playbackRate=.85})});
-function joue(v,ok){if(REDUCE)return;if(ok){if(v.paused){var p=v.play();if(p&&p.catch)p.catch(function(){})}}else if(!v.paused)v.pause()}
+function ss(t){t=clamp(t,0,1);return t*t*(3-2*t)}
+/* Fait défiler la page jusqu'à une position de la section (0 = début, 1 = fin) */
+function vers(sec,p){var y=sec.offsetTop+p*(sec.offsetHeight-window.innerHeight);window.scrollTo({top:y,behavior:REDUCE?'auto':'smooth'})}
+/* Change le texte actif : l'ancien sort par le haut, le nouveau entre par le bas */
+function bascule(list,k){list.forEach(function(e,i){e.classList.toggle('on',i===k);e.classList.toggle('out',i<k);e.setAttribute('aria-hidden',String(i!==k))})}
 
-/* 1. Ouverture : entrée en masque, vidéo de la sauce en boucle */
-(function(){var o=document.getElementById('accueil'),v=o.querySelector('video');
-  requestAnimationFrame(function(){requestAnimationFrame(function(){o.classList.add('vu')})});
-  new IntersectionObserver(function(e){joue(v,e[0].isIntersecting)},{threshold:.05}).observe(o);})();
-
-/* 1b. Le geste : chaque temps révèle son plan filmé par le bas, le mot monte derrière son masque.
-   Le défilement est suivi avec un léger amorti pour que tout glisse. */
+/* 1. LA SCÈNE : le socle bordeaux au monogramme, les trois plats se succèdent dessus.
+   Aucun zoom : le plat qui part se soulève et glisse à gauche, le suivant arrive de droite et se pose.
+   Son reflet sur le sol suit en sens inverse. Au chargement, le premier plat se pose tout seul. */
 (function(){
-  var sec=document.getElementById('geste'),vids=[].slice.call(sec.querySelectorAll('.g-film video')),
-      mots=[].slice.call(sec.querySelectorAll('.g-mot')),num=sec.querySelector('.g-n'),ligne=sec.querySelector('.g-ligne i'),cta=sec.querySelector('.g-cta'),N=vids.length;
-  var lignes=mots.map(function(m){return[].slice.call(m.querySelectorAll('.l>span'))}),paras=mots.map(function(m){return m.querySelector('p')});
-  if(REDUCE)return;
-  var vis=false;new IntersectionObserver(function(e){vis=e[0].isIntersecting;rend(cur)},{rootMargin:'20% 0px'}).observe(sec);
-  function ss(t){t=clamp(t,0,1);return t*t*(3-2*t)}
-  function rev(x,i){return i===0?1:ss((x-i+.3)/.6)}
-  var actif=-1,cur=progress(sec),run=false;
-  function rend(p){
-    var x=p*N*1.08,r=[],i;for(i=0;i<N;i++)r.push(rev(x,i));
-    var a=0;for(i=0;i<N;i++)if(r[i]>.5)a=i;
-    for(i=0;i<N;i++){
-      var ri=r[i],out=i<N-1?r[i+1]:0,v=vids[i];
-      v.style.clipPath=i===0?'none':'inset('+((1-ri)*100).toFixed(2)+'% 0 0 0)';
-      v.style.transform='scale('+(1+.06*(1-ri)+.04*out).toFixed(4)+')';
-      var y1=(1-ri)*105,y2=out*-105,y=ri<1?y1:y2;
-      var oo=ss(out/.5);lignes[i].forEach(function(l,k){var dl=.42+k*.1,yy=ri<1?(1-ss((ri-dl)/(1-dl)))*150:-oo*150;l.style.transform='translate3d(0,'+yy.toFixed(2)+'%,0)'});
-      var po=Math.min(ss((ri-.6)/.4),1-ss(out/.35));paras[i].style.opacity=po.toFixed(3);paras[i].style.transform='translateY('+((1-po)*12).toFixed(1)+'px)';
-      joue(v,vis&&(i===a||(ri>0&&ri<1)||(out>0&&out<1)));
-    }
-    if(a!==actif){actif=a;num.textContent='0'+(a+1);try{vids[a].currentTime=0}catch(e){}}
-    ligne.style.transform='scaleX('+clamp(p*1.08,0,1).toFixed(3)+')';
-    cta.classList.toggle('on',r[N-1]>.6);
+  var sec=document.getElementById('accueil'),cv=sec.querySelector('canvas'),cx=cv.getContext('2d');
+  var L={smash:{p:[641,735,1638,552],r:[641,1287,1638,249]},burger:{p:[730,732,1308,555],r:[730,1287,1308,249]},baguette:{p:[627,679,1605,608],r:[627,1287,1605,249]}};
+  var NOMS=['smash','burger','baguette'],IM={},st=new Image(),pret=0;
+  function ok(){pret++;dessine()}
+  st.onload=ok;st.src='img/stage/stage.webp';
+  NOMS.forEach(function(n){var p=new Image(),r=new Image();p.onload=ok;r.onload=ok;p.src='img/stage/'+n+'-plat.webp';r.src='img/stage/'+n+'-reflet.webp';IM[n]={p:p,r:r}});
+  var W=0,H=0,D=1,s=1,ox=0,oy=0,mob=false;
+  function taille(){
+    D=Math.min(window.devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=Math.round(W*D);cv.height=Math.round(H*D);mob=W<=900;
+    if(mob){s=W*1.04/1500;ox=W/2-1460*s;oy=H*.5-1010*s}
+    else{s=Math.max(Math.min(W*.6,H*1.2)/1500,W/2752,H/1536);ox=W/2-1460*s;oy=H*.64-1010*s;ox=Math.min(0,Math.max(W-2752*s,ox));oy=Math.min(0,Math.max(H-1536*s,oy))}
+    dessine();
   }
-  function tick(){var t=progress(sec),d=t-cur;cur=Math.abs(d)<.0003?t:cur+d*.16;rend(cur);if(cur!==t)requestAnimationFrame(tick);else run=false}
-  SCENES.push(function(){if(!run){run=true;requestAnimationFrame(tick)}});rend(cur);
+  var FOND='#1d070b';
+  function couche(n,dx,dy,a,ra){
+    var im=IM[n],q=L[n];if(!im.p.naturalWidth)return;
+    var lift=-dy;
+    if(im.r.naturalWidth&&ra>0){cx.globalAlpha=ra;cx.drawImage(im.r,ox+q.r[0]*s+dx,oy+q.r[1]*s+lift*.6,q.r[2]*s,q.r[3]*s)}
+    cx.globalAlpha=a;cx.drawImage(im.p,ox+q.p[0]*s+dx,oy+q.p[1]*s+dy,q.p[2]*s,q.p[3]*s);cx.globalAlpha=1;
+  }
+  /* Rythme du défilement : maintien, passage, maintien, passage, maintien */
+  var T=[[.2,.44],[.58,.82]],cur=0,intro=REDUCE?1:0,t0=0,forcé=-1;
+  function ioe(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+  function dessine(){
+    if(!W)return;
+    cx.setTransform(D,0,0,D,0,0);cx.fillStyle=FOND;cx.fillRect(0,0,W,H);
+    if(st.naturalWidth){
+      cx.drawImage(st,ox,oy,2752*s,1536*s);
+      var hb=oy,bb=oy+1536*s,g;
+      if(hb>0){g=cx.createLinearGradient(0,hb,0,hb+90);g.addColorStop(0,FOND);g.addColorStop(1,'rgba(29,7,11,0)');cx.fillStyle=g;cx.fillRect(0,hb-1,W,91)}
+      if(bb<H){g=cx.createLinearGradient(0,bb-120,0,bb);g.addColorStop(0,'rgba(29,7,11,0)');g.addColorStop(1,FOND);cx.fillStyle=g;cx.fillRect(0,bb-120,W,121)}
+    }
+    var Lh=H*.045,Wd=W*.92,k=forcé>=0?forcé:-1;
+    if(k>=0){couche(NOMS[k],0,0,1,1)}
+    else if(cur<T[0][0]){var e=ioe(clamp(intro,0,1));couche(NOMS[0],0,-(1-e)*Lh*1.6,ss(intro*1.6),e)}
+    else{
+      var i,u,fait=false;
+      for(i=0;i<2;i++){
+        if(cur>=T[i][0]&&cur<=T[i][1]){u=(cur-T[i][0])/(T[i][1]-T[i][0]);
+          var l1=ss(u/.35),s1=ioe(clamp((u-.18)/.82,0,1));couche(NOMS[i],-s1*Wd,-l1*Lh,1,1-l1*.85);
+          var s2=ioe(clamp(u/.82,0,1)),l2=ss((u-.62)/.38);couche(NOMS[i+1],(1-s2)*Wd,-(1-l2)*Lh,1,.15+.85*l2);
+          fait=true;break}
+      }
+      if(!fait)couche(NOMS[cur<T[1][0]?1:2],0,0,1,1);
+    }
+    /* Lisibilité : voile sombre derrière les textes, sans toucher au plat */
+    if(!mob){g=cx.createLinearGradient(0,0,W*.42,0);g.addColorStop(0,'rgba(22,5,9,.66)');g.addColorStop(1,'rgba(22,5,9,0)');cx.fillStyle=g;cx.fillRect(0,0,W*.42,H);
+      g=cx.createLinearGradient(0,0,0,H*.22);g.addColorStop(0,'rgba(22,5,9,.5)');g.addColorStop(1,'rgba(22,5,9,0)');cx.fillStyle=g;cx.fillRect(0,0,W,H*.22)}
+  }
+  var ps=[].slice.call(sec.querySelectorAll('.s-p')),tabs=[].slice.call(sec.querySelectorAll('.s-tabs button')),num=document.getElementById('s-n'),barre=sec.querySelector('.s-num i b'),hint=sec.querySelector('.s-hint'),actif=0;
+  function plat(k){if(k===actif)return;actif=k;bascule(ps,k);tabs.forEach(function(b,i){b.setAttribute('aria-pressed',String(i===k))});num.textContent='0'+(k+1);barre.style.transform='scaleX('+((k+1)/3).toFixed(3)+')'}
+  tabs.forEach(function(b,i){b.addEventListener('click',function(){if(REDUCE){forcé=i;plat(i);dessine()}else vers(sec,[.08,.51,.92][i])})});
+  var run=false;
+  function tick(now){
+    var t=progress(sec),d=t-cur;cur=Math.abs(d)<.0004?t:cur+d*.14;
+    if(intro<1){if(!t0)t0=now;intro=Math.min(1,(now-t0)/1500)}
+    dessine();plat(cur<.32?0:cur<.70?1:2);hint.style.opacity=String(1-ss(cur/.06));
+    if(cur!==t||intro<1)requestAnimationFrame(tick);else run=false;
+  }
+  window.addEventListener('resize',taille);taille();
+  requestAnimationFrame(function(){requestAnimationFrame(function(){sec.classList.add('vu')})});
+  if(REDUCE){forcé=0;dessine();return}
+  run=true;requestAnimationFrame(tick);
+  SCENES.push(function(){if(!run){run=true;requestAnimationFrame(tick)}});
 })();
 
-/* 1c. La carte : chaque plat se dévoile quand il arrive à l'écran */
-(function(){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}})},{threshold:.25});
-  document.querySelectorAll('.k-plat').forEach(function(k){if(REDUCE)k.classList.add('vu');else io.observe(k)});})();
-
-/* 5. Histoire : le défilement vertical fait glisser la piste à l'horizontale */
+/* 2. LE GESTE : 346 images tirées des vrais rushes (smash, cheddar, coupe, sauce versée, posé, travelling).
+   Chaque chapitre a la même part du défilement ; entre deux plans, un bref passage au noir. */
 (function(){
-  var sec=document.getElementById('histoire'); if(REDUCE)return;
-  var piste=sec.querySelector('.h-piste');
-  function size(){var l=piste.lastElementChild,g=parseFloat(getComputedStyle(piste).paddingLeft)||0;var d=Math.max(0,l.offsetLeft+l.offsetWidth+g-window.innerWidth);sec.style.height=(window.innerHeight+d)+'px';return d}
-  var dist=size(); window.addEventListener('resize',function(){dist=size()}); window.addEventListener('load',function(){dist=size()});document.addEventListener('apb-lang',function(){dist=size()});piste.querySelectorAll('img').forEach(function(i){i.loading='eager'});
-  SCENES.push(function(){piste.style.transform='translate3d('+(-progress(sec)*dist).toFixed(1)+'px,0,0)'});
+  var sec=document.getElementById('geste'),cv=sec.querySelector('canvas'),cx=cv.getContext('2d');
+  var B=[0,52,82,147,208,269,346],N=346,FIN=.9,dir=window.innerWidth<=900?'m':'d',fr=[],ok=[];
+  var chs=[].slice.call(sec.querySelectorAll('.f-ch')),idx=[].slice.call(sec.querySelectorAll('.f-idx button')),num=document.getElementById('f-n'),ligne=sec.querySelector('.f-ligne i');
+  var W=0,H=0,D=1,cur=0,veut=0,run=false;
+  function charge(i){if(fr[i])return;var im=new Image();im.decoding='async';im.onload=function(){ok[i]=1;if(Math.abs(i-veut)<8)dessine()};im.src='img/film/'+dir+'/'+String(i+1).padStart(3,'0')+'.webp';fr[i]=im}
+  var parti=false;function demarre(){if(parti)return;parti=true;var i;for(i=0;i<N;i+=6)charge(i);setTimeout(function(){for(var j=0;j<N;j+=2)charge(j);setTimeout(function(){for(var k=0;k<N;k++)charge(k)},600)},300)}
+  new IntersectionObserver(function(e){if(e[0].isIntersecting)demarre()},{rootMargin:'200% 0px'}).observe(sec);
+  function image(p){var q=clamp(p/FIN,0,1)*6,c=Math.min(5,Math.floor(q)),f=q-c;return{c:c,i:Math.min(B[c+1]-1,B[c]+Math.round(f*(B[c+1]-B[c]-1)))}}
+  function proche(i){for(var d=0;d<N;d++){if(ok[i-d])return fr[i-d];if(ok[i+d])return fr[i+d]}return null}
+  function taille(){D=Math.min(window.devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=Math.round(W*D);cv.height=Math.round(H*D);dessine()}
+  var FOND='#120406';
+  function dessine(){
+    if(!W)return;var p=REDUCE?1:cur,a=image(p);veut=a.i;
+    cx.setTransform(D,0,0,D,0,0);cx.fillStyle=FOND;cx.fillRect(0,0,W,H);
+    var im=proche(a.i),g;
+    if(im){
+      if(W<=900){var sc=Math.max(W/im.naturalWidth,H/im.naturalHeight),w=im.naturalWidth*sc,h=im.naturalHeight*sc;cx.drawImage(im,(W-w)/2,(H-h)/2,w,h);
+        g=cx.createLinearGradient(0,H*.45,0,H);g.addColorStop(0,'rgba(18,4,6,0)');g.addColorStop(.55,'rgba(18,4,6,.78)');g.addColorStop(1,'rgba(18,4,6,.95)');cx.fillStyle=g;cx.fillRect(0,H*.45,W,H*.55);
+        g=cx.createLinearGradient(0,0,0,H*.16);g.addColorStop(0,'rgba(18,4,6,.6)');g.addColorStop(1,'rgba(18,4,6,0)');cx.fillStyle=g;cx.fillRect(0,0,W,H*.16)}
+      else{var hh=H,ww=hh*im.naturalWidth/im.naturalHeight,x=(W-ww)/2;cx.drawImage(im,x,0,ww,hh);
+        g=cx.createLinearGradient(x,0,x+110,0);g.addColorStop(0,FOND);g.addColorStop(1,'rgba(18,4,6,0)');cx.fillStyle=g;cx.fillRect(x-1,0,111,H);
+        g=cx.createLinearGradient(x+ww-110,0,x+ww,0);g.addColorStop(0,'rgba(18,4,6,0)');g.addColorStop(1,FOND);cx.fillStyle=g;cx.fillRect(x+ww-110,0,111,H)}
+    }
+    if(!REDUCE){var noir=0;for(var b=1;b<6;b++){noir=Math.max(noir,1-Math.abs(p-b/6*FIN)/.011)}if(noir>0){cx.fillStyle='rgba(8,2,3,'+(noir*.92).toFixed(3)+')';cx.fillRect(0,0,W,H)}}
+    var k=p>FIN+.02?6:a.c;
+    if(k!==actif){actif=k;bascule(chs,k);idx.forEach(function(b,i){b.setAttribute('aria-current',String(i===Math.min(k,5)))});num.textContent='0'+(Math.min(k,5)+1)}
+    ligne.style.transform='scaleX('+clamp(p/FIN,0,1).toFixed(3)+')';
+  }
+  var actif=0;
+  idx.forEach(function(b,i){b.addEventListener('click',function(){vers(sec,(i+.12)/6*FIN)})});
+  window.addEventListener('resize',taille);taille();
+  if(REDUCE){demarre();bascule(chs,6);return}
+  function tick(){var t=progress(sec),d=t-cur;cur=Math.abs(d)<.0002?t:cur+d*.18;dessine();if(cur!==t)requestAnimationFrame(tick);else run=false}
+  SCENES.push(function(){if(!run){run=true;requestAnimationFrame(tick)}});
 })();
 
-/* Barre fixe iPhone : visible après l'ouverture */
-(function(){var b=document.getElementById('barre');
-  SCENES.push(function(){b.classList.toggle('on',window.scrollY>window.innerHeight*.35)});})();
+/* 5. Histoire : le défilement vertical fait glisser la piste à l'horizontale ; les chapitres sont cliquables */
+(function(){
+  var sec=document.getElementById('histoire'),piste=sec.querySelector('.h-piste'),pans=[].slice.call(sec.querySelectorAll('.h-pan')),bts=[].slice.call(sec.querySelectorAll('.h-nav button')),bar=sec.querySelector('.h-barre i');
+  if(REDUCE){bts.forEach(function(b,i){b.addEventListener('click',function(){pans[i].scrollIntoView()})});return}
+  function size(){var l=piste.lastElementChild,g=parseFloat(getComputedStyle(piste).paddingLeft)||0;var d=Math.max(0,l.offsetLeft+l.offsetWidth+g-window.innerWidth);sec.style.height=(window.innerHeight+d)+'px';return d}
+  var dist=size();window.addEventListener('resize',function(){dist=size()});window.addEventListener('load',function(){dist=size()});document.addEventListener('apb-lang',function(){dist=size()});
+  piste.querySelectorAll('img').forEach(function(i){i.loading='eager'});
+  function cible(i){var g=parseFloat(getComputedStyle(piste).paddingLeft)||0;return dist?clamp((pans[i].offsetLeft-g)/dist,0,1):0}
+  bts.forEach(function(b,i){b.addEventListener('click',function(){vers(sec,cible(i))})});
+  SCENES.push(function(){var p=progress(sec);piste.style.transform='translate3d('+(-p*dist).toFixed(1)+'px,0,0)';bar.style.transform='scaleX('+p.toFixed(3)+')';
+    var a=-1;pans.forEach(function(_,i){if(p>=cible(i)-.06)a=i});bts.forEach(function(b,i){b.setAttribute('aria-current',String(i===a))})});
+})();
 
 /* Pop-up 200 burgers : une fois par visite, après 1,8 s */
 (function(){
@@ -651,6 +730,17 @@ es:{"nav.maisons":"Nuestras casas","nav.carte":"La carta","nav.histoire":"Nuestr
 "p.mentions":"Aviso legal","p.conf":"Privacidad","p.credits":"Fotos de archivo: Eugène Atget y anónimo, dominio público, vía Wikimedia Commons.",
 "pop.t":"200 burgers gratis.","pop.p":"El 27 de noviembre, para la apertura en Ginebra. Reserva la tuya en 30 segundos.","pop.reste":"aún disponibles","pop.b":"Reservar mi burger","pop.later":"Más tarde"}
 };
+/* Textes de la v12 (scène, geste, histoire en couleur) */
+Object.assign(I18N.en,{"nav.geste":"The craft","s.eye":"Café de Paris sauce · since the 1980s","s.v.ge":"Order","s.v.ib":"Harbour","s.v.ma":"Delivery","s.hint":"Scroll",
+"k.1.t":"The smash.","k.1.p":"Single, double or triple. Smashed beef, cheddar, cut and laid in the sauce.","k.2.t":"The burger.","k.2.p":"One thick patty, cooked pink, cut and laid in the sauce.","k.3.t":"The baguette.","k.3.p":"Crisp, spread with Café de Paris sauce.","k.b":"Order",
+"f.tete":"The craft, filmed in our kitchen","f.1.t":"Smashed.","f.1.p":"A ball of beef, pressed flat on the griddle in one move. The crust forms in seconds.","f.2.t":"Melted.","f.2.p":"Cheddar laid on the still-sizzling beef.","f.3.t":"Cut.","f.3.p":"In two, with a knife. So it can go into the sauce.","f.4.t":"The sauce.","f.4.p":"Café de Paris, poured generously over the plate.","f.5.t":"Laid in.","f.5.p":"Each half, laid straight into the sauce.","f.6.t":"Served.","f.6.p":"In the sauce, with its fries. All it needs is you.","f.7.t":"Cut.","f.7.t2":"Laid in the sauce.",
+"f.1.i":"Smashed","f.2.i":"Melted","f.3.i":"Cut","f.4.i":"The sauce","f.5.i":"Laid in","f.6.i":"Served",
+"h.eye":"Our story","h.cap":"Illustration","h.1.an":"The 1980s","h.1.t":"The recipe reaches Paris","h.1.p":"Introduced and refined in Paris, it is served at L'Entrecôte Café de Paris, notably rue Feydeau.","h.2.an":"Three addresses","h.2.t":"Handed down, refined","h.2.p":"Rue Feydeau, rue de Ponthieu, rue François-Miron. From room to room, the craft is passed on and the recipe refined.","h.3.an":"Then Cannes","h.3.t":"All the way to the Croisette","h.3.p":"The recipe travels to the Riviera. One address in Cannes, the same standards.","h.4.an":"Today","h.4.t":"Geneva, Ibiza, Madrid","h.4.p":"We do not claim to have invented the sauce. We carry it on, in two modern formats: the burger and the baguette.","h.fin":"The craft of a Parisian brasserie, in today's format.","h.n.1":"1980","h.n.2":"The brasserie","h.n.3":"Cannes","h.n.4":"Today","p.credits":"Story images are illustrations, not photographs of our restaurants. Food photos: Atelier Paris Burger shoot."});
+Object.assign(I18N.es,{"nav.geste":"El gesto","s.eye":"Salsa Café de Paris · desde los años ochenta","s.v.ge":"Pedir","s.v.ib":"Puerto","s.v.ma":"A domicilio","s.hint":"Desliza",
+"k.1.t":"La smash.","k.1.p":"Simple, doble o triple. Ternera smash, cheddar, cortada y servida en la salsa.","k.2.t":"La burger.","k.2.p":"Un filete grueso, al punto rosado, cortado y servido en la salsa.","k.3.t":"La baguette.","k.3.p":"Crujiente, untada con salsa Café de Paris.","k.b":"Pedir",
+"f.tete":"El gesto, filmado en cocina","f.1.t":"Smash.","f.1.p":"Una bola de ternera, aplastada de un golpe en la plancha. La costra se forma en segundos.","f.2.t":"Fundido.","f.2.p":"El cheddar sobre la carne aún chisporroteando.","f.3.t":"Cortado.","f.3.p":"En dos, a cuchillo. Para que pueda entrar en la salsa.","f.4.t":"La salsa.","f.4.p":"La Café de Paris, vertida generosamente en el plato.","f.5.t":"En la salsa.","f.5.p":"Cada mitad, directamente en la salsa.","f.6.t":"Servido.","f.6.p":"En la salsa, con sus patatas. Solo falta usted.","f.7.t":"Cortado.","f.7.t2":"Servido en la salsa.",
+"f.1.i":"Smash","f.2.i":"Fundido","f.3.i":"Cortado","f.4.i":"La salsa","f.5.i":"En la salsa","f.6.i":"Servido",
+"h.eye":"Nuestra historia","h.cap":"Ilustración","h.1.an":"Los años ochenta","h.1.t":"La receta llega a París","h.1.p":"Introducida y trabajada en París, se sirve en L'Entrecôte Café de Paris, en la rue Feydeau entre otras.","h.2.an":"Tres direcciones","h.2.t":"Transmitida, afinada","h.2.p":"Rue Feydeau, rue de Ponthieu, rue François-Miron. De sala en sala, el gesto se transmite y la receta se afina.","h.3.an":"Después, Cannes","h.3.t":"Hasta la Croisette","h.3.p":"La receta baja a la Costa Azul. Una dirección en Cannes, la misma exigencia.","h.4.an":"Hoy","h.4.t":"Ginebra, Ibiza, Madrid","h.4.p":"No reivindicamos la invención de la salsa. Le damos continuidad, en dos formatos de hoy: la burger y la baguette.","h.fin":"El gesto de una brasserie parisina, en formato de hoy.","h.n.1":"1980","h.n.2":"La brasserie","h.n.3":"Cannes","h.n.4":"Hoy","p.credits":"Las imágenes de la historia son ilustraciones, no fotos de nuestros restaurantes. Fotos de platos: sesión de Atelier Paris Burger."});
 (function(){
   var els=document.querySelectorAll('[data-t]'); els.forEach(function(e){e.dataset.fr=e.innerHTML});
   var btns=document.querySelectorAll('.langues button');
