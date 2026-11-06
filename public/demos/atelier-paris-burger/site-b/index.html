@@ -144,6 +144,8 @@ p{margin:0}
 .f-idx button[aria-current="true"]::before{width:36px;background:var(--or)}
 
 .marque span{font-family:"Mendl Serif","Marcellus",serif;font-weight:400;font-size:16px;letter-spacing:.12em;text-transform:uppercase}
+.marque span{white-space:nowrap}
+@media (max-width:900px){.marque span{font-size:13px;letter-spacing:.1em}}
 
 /* Grain très léger sur toute la page (rendu photo, pas numérique) */
 body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -185,6 +187,7 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
 .compteur{display:flex;align-items:baseline;gap:12px;margin-top:28px}
 .compteur b{font-family:var(--serif);font-size:76px;font-weight:600;line-height:1;color:var(--or-clair);font-variant-numeric:tabular-nums}
 .compteur span{color:var(--on-dark-2)}
+.o-cta{display:grid;gap:14px;justify-items:start}.o-cta .btn{min-height:56px;padding:0 30px;font-size:16px}.o-cta small{color:var(--on-dark-2);font-size:14px;max-width:34ch}
 .form{background:var(--peach);color:var(--ink);border-radius:12px;padding:28px}
 .form h3{font-size:30px;color:var(--cabsav)}
 .form label{display:block;margin-top:16px;font-size:14px;color:var(--ink-2)}
@@ -400,7 +403,7 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
           </dl>
           <div class="acts">
             <a class="btn btn-or" href="#" aria-disabled="true" data-t="m.ge.cc">Click &amp; collect, dès le 27.11</a>
-            <a class="btn btn-ghost" href="#offert" data-t="cta.offert">Mon burger offert</a>
+            <a class="btn btn-ghost" href="reserver/" data-t="cta.offert">Mon burger offert</a>
           </div>
         </article>
         <article class="m">
@@ -445,8 +448,8 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
           <figure><img src="img/histoire/croisette-1200.webp" srcset="img/histoire/croisette-720.webp 720w, img/histoire/croisette-1200.webp 1200w" sizes="(max-width:900px) 80vw, 900px" width="1200" height="872" alt="Illustration : la Croisette à Cannes, palmiers et parasols bordeaux" loading="lazy"><figcaption data-t="h.cap">Illustration</figcaption></figure>
           <div class="txt"><p class="an" data-t="h.3.an">Puis Cannes</p><h3 data-t="h.3.t">Jusqu'à la Croisette</h3><p data-t="h.3.p">La recette descend sur la Côte d'Azur. Une adresse à Cannes, la même exigence.</p></div>
         </article>
-        <article class="h-pan">
-          <figure><img src="img/histoire/geneve-1200.webp" srcset="img/histoire/geneve-720.webp 720w, img/histoire/geneve-1200.webp 1200w" sizes="(max-width:900px) 80vw, 600px" width="1200" height="1490" alt="Illustration : les quais de Genève le soir, le Jet d'eau éclairé" loading="lazy"><figcaption data-t="h.cap">Illustration</figcaption></figure>
+        <article class="h-pan paysage">
+          <figure><img src="img/carte-baguette.webp" width="1400" height="939" alt="La baguette d'Atelier Paris Burger, tartinée de sauce Café de Paris" loading="lazy"></figure>
           <div class="txt"><p class="an" data-t="h.4.an">Aujourd'hui</p><h3 data-t="h.4.t">Genève, Ibiza, Madrid</h3><p data-t="h.4.p">Nous ne revendiquons pas l'invention de la sauce. Nous en assurons la continuité, dans deux formats d'aujourd'hui : le burger et la baguette.</p></div>
         </article>
         <div class="h-fin">
@@ -480,17 +483,10 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
         <p data-t="o2.txt">Le 27 novembre, à Genève, nous offrons 200 burgers. Réservez le vôtre et choisissez votre heure : un QR code arrive par e-mail.</p>
         <div class="compteur"><b>200</b><span data-t="o2.reste">burgers encore disponibles</span></div>
       </div>
-      <form class="form" onsubmit="event.preventDefault()">
-        <h3 data-t="f.titre">Réserver mon burger</h3>
-        <label><span data-t="f.prenom">Prénom</span><input name="prenom" autocomplete="given-name" required></label>
-        <label><span data-t="f.email">E-mail</span><input name="email" type="email" autocomplete="email" required></label>
-        <label><span data-t="f.tel">Téléphone</span><input name="tel" type="tel" autocomplete="tel" required></label>
-        <label><span data-t="f.heure">Heure de passage</span>
-          <select name="creneau"><option>11h30 – 12h30</option><option>12h30 – 13h30</option><option>18h30 – 19h30</option><option>19h30 – 20h30</option></select>
-        </label>
-        <button class="btn btn-main" type="submit" data-t="f.ok">Réserver</button>
-        <small data-t="f.note">Un burger par personne. Maquette : formulaire non relié.</small>
-      </form>
+      <div class="o-cta">
+        <a class="btn btn-or" href="reserver/" data-t="f.titre">Réserver mon burger</a>
+        <small data-t="o2.cta.note">Prénom, e-mail, heure de passage : 30 secondes. Un burger par personne.</small>
+      </div>
     </div>
   </section>
 
@@ -518,13 +514,13 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
   <h2 id="pop-t" data-t="pop.t">200 burgers offerts.</h2>
   <p data-t="pop.p">Le 27 novembre, pour l'ouverture à Genève. Réservez le vôtre en 30 secondes.</p>
   <div class="compteur"><b>200</b><span data-t="pop.reste">encore disponibles</span></div>
-  <a class="btn btn-or" href="#offert" data-close data-t="pop.b">Réserver mon burger</a>
+  <a class="btn btn-or" href="reserver/" data-close data-t="pop.b">Réserver mon burger</a>
   <button class="pop-later" type="button" data-close data-t="pop.later">Plus tard</button>
 </dialog>
 
 <div class="barre" id="barre">
   <a class="btn btn-or" href="geneve/" data-t="cta.commanderGe">Commander à Genève</a>
-  <a class="btn btn-ghost" href="#offert" data-t="cta.offertCourt">Burger offert</a>
+  <a class="btn btn-ghost" href="reserver/" data-t="cta.offertCourt">Burger offert</a>
 </div>
 
 <script>
@@ -724,12 +720,12 @@ es:{"nav.maisons":"Nuestras casas","nav.carte":"La carta","nav.histoire":"Nuestr
 "pop.t":"200 burgers gratis.","pop.p":"El 27 de noviembre, para la apertura en Ginebra. Reserva la tuya en 30 segundos.","pop.reste":"aún disponibles","pop.b":"Reservar mi burger","pop.later":"Más tarde"}
 };
 /* Textes de la v12 (scène, geste, histoire en couleur) */
-Object.assign(I18N.en,{"nav.geste":"The craft","s.eye":"Café de Paris sauce · since the 1980s","s.v.ge":"Order","s.v.ib":"Harbour","s.v.ma":"Delivery","s.hint":"Scroll",
+Object.assign(I18N.en,{"o2.cta.note":"First name, e-mail, pick-up time: 30 seconds. One burger per person.","nav.geste":"The craft","s.eye":"Café de Paris sauce · since the 1980s","s.v.ge":"Order","s.v.ib":"Harbour","s.v.ma":"Delivery","s.hint":"Scroll",
 "k.1.t":"The smash.","k.1.p":"Single, double or triple. Smashed beef, cheddar, cut and laid in the sauce.","k.2.t":"The burger.","k.2.p":"One thick patty, cooked pink, cut and laid in the sauce.","k.3.t":"The baguette.","k.3.p":"Crisp, spread with Café de Paris sauce.","k.b":"Order",
 "f.tete":"The craft, filmed in our kitchen","f.1.t":"Smashed.","f.1.p":"Pressed flat on the scorching griddle in one move. The crust forms in seconds.","f.2.t":"Cut.","f.2.p":"In two, with a knife. Ready for the sauce.","f.3.t":"Dipped.","f.3.p":"Laid straight into the Café de Paris sauce.","f.4.t":"The sauce.","f.4.p":"Café de Paris, poured generously over the plate.","f.5.t":"Laid in.","f.5.p":"Each half, laid straight into the sauce.","f.6.t":"Served.","f.6.p":"In the sauce, with its fries. All it needs is you.","f.7.t":"Cut.","f.7.t2":"Laid in the sauce.",
 "f.1.i":"Smashed","f.2.i":"Melted","f.3.i":"Cut","f.4.i":"The sauce","f.5.i":"Laid in","f.6.i":"Served",
 "h.eye":"Our story","h.cap":"Illustration","h.1.an":"The 1980s","h.1.t":"The recipe reaches Paris","h.1.p":"Introduced and refined in Paris, it is served at L'Entrecôte Café de Paris, notably rue Feydeau.","h.2.an":"Three addresses","h.2.t":"Handed down, refined","h.2.p":"Rue Feydeau, rue de Ponthieu, rue François-Miron. From room to room, the craft is passed on and the recipe refined.","h.3.an":"Then Cannes","h.3.t":"All the way to the Croisette","h.3.p":"The recipe travels to the Riviera. One address in Cannes, the same standards.","h.4.an":"Today","h.4.t":"Geneva, Ibiza, Madrid","h.4.p":"We do not claim to have invented the sauce. We carry it on, in two modern formats: the burger and the baguette.","h.fin":"The craft of a Parisian brasserie, in today's format.","h.n.1":"1980","h.n.2":"The brasserie","h.n.3":"Cannes","h.n.4":"Today","p.credits":"Story images are illustrations, not photographs of our restaurants. Food photos: Atelier Paris Burger shoot."});
-Object.assign(I18N.es,{"nav.geste":"El gesto","s.eye":"Salsa Café de Paris · desde los años ochenta","s.v.ge":"Pedir","s.v.ib":"Puerto","s.v.ma":"A domicilio","s.hint":"Desliza",
+Object.assign(I18N.es,{"o2.cta.note":"Nombre, e-mail, hora de recogida: 30 segundos. Una burger por persona.","nav.geste":"El gesto","s.eye":"Salsa Café de Paris · desde los años ochenta","s.v.ge":"Pedir","s.v.ib":"Puerto","s.v.ma":"A domicilio","s.hint":"Desliza",
 "k.1.t":"La smash.","k.1.p":"Simple, doble o triple. Ternera smash, cheddar, cortada y servida en la salsa.","k.2.t":"La burger.","k.2.p":"Un filete grueso, al punto rosado, cortado y servido en la salsa.","k.3.t":"La baguette.","k.3.p":"Crujiente, untada con salsa Café de Paris.","k.b":"Pedir",
 "f.tete":"El gesto, filmado en cocina","f.1.t":"Smash.","f.1.p":"Aplastada de un golpe en la plancha ardiente. La costra se forma en segundos.","f.2.t":"Cortada.","f.2.p":"En dos, a cuchillo. Lista para la salsa.","f.3.t":"Mojada.","f.3.p":"Directamente en la salsa Café de Paris.","f.4.t":"La salsa.","f.4.p":"La Café de Paris, vertida generosamente en el plato.","f.5.t":"En la salsa.","f.5.p":"Cada mitad, directamente en la salsa.","f.6.t":"Servido.","f.6.p":"En la salsa, con sus patatas. Solo falta usted.","f.7.t":"Cortado.","f.7.t2":"Servido en la salsa.",
 "f.1.i":"Smash","f.2.i":"Fundido","f.3.i":"Cortado","f.4.i":"La salsa","f.5.i":"En la salsa","f.6.i":"Servido",
