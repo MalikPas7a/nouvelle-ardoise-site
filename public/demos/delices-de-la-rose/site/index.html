@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f6f1e7">
+<title>Délices de la Rose · Pâtisserie orientale à Genève (démo)</title>
+<meta name="description" content="Démo de site pour Délices de la Rose : coffrets de baklavas à composer, retrait en boutique, coffrets pour entreprises.">
+<link rel="icon" href="../img/icone-180.png" type="image/png">
+<link rel="apple-touch-icon" href="../img/icone-180.png">
+<link rel="preload" href="../fonts/cormorant-500-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Cormorant;src:url(../fonts/cormorant-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:Cormorant;src:url(../fonts/cormorant-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:Cormorant;src:url(../fonts/cormorant-500-italic.woff2) format("woff2");font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:Cormorant;src:url(../fonts/cormorant-600-italic.woff2) format("woff2");font-weight:600;font-style:italic;font-display:swap}
+@font-face{font-family:Manrope;src:url(../fonts/manrope.woff2) format("woff2");font-weight:300 800;font-display:swap}
+:root{--ivoire:#f6f1e7;--ivoire2:#efe7d8;--papier:#fbf8f2;--brun:#3a1e1d;--brun2:#55302c;--rose:#8c3b3f;--or:#b88a3e;--or2:#d9b878;--encre:#2a1716;--gris:#6f5c56;--ligne:#e2d6c2;--pad:clamp(18px,4.5vw,56px);--max:1180px;--ease:cubic-bezier(.2,.7,.2,1)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-padding-top:72px}
+body{margin:0;background:var(--ivoire);color:var(--encre);font:16px/1.6 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}a{color:inherit}button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+h1,h2,h3{font-family:Cormorant,Georgia,serif;font-weight:500;line-height:1.02;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1 em,h2 em{font-style:italic;color:var(--rose)}
+p{margin:0}
+section{padding-block:clamp(64px,9vw,120px)}
+.kick{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--or)}
+h2{font-size:clamp(2.3rem,1.5rem + 3.2vw,3.9rem);color:var(--brun);margin-top:12px}
+.lead{color:var(--gris);font-size:1.05rem;max-width:38em;margin-top:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 24px;border-radius:999px;background:var(--brun);color:var(--ivoire);text-decoration:none;font-weight:600;font-size:15px;border:0;cursor:pointer;transition:background .2s,transform .2s var(--ease),opacity .2s}
+.btn:hover{background:var(--rose)}.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--brun);box-shadow:inset 0 0 0 1px var(--brun)}.btn.ghost:hover{background:var(--brun);color:var(--ivoire)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.motif{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23b88a3e' stroke-width='.8' opacity='.55'%3E%3Cpath d='M28 6l6 16 16 6-16 6-6 16-6-16-16-6 16-6z'/%3E%3Crect x='17' y='17' width='22' height='22' transform='rotate(45 28 28)'/%3E%3Cpath d='M0 0l6 6M56 0l-6 6M0 56l6-6M56 56l-6-6'/%3E%3C/g%3E%3C/svg%3E");background-size:56px 56px}
+.demo-bar{background:var(--brun);color:#e6d8cc;font-size:12.5px;text-align:center;padding:8px 14px}
+.demo-bar a{color:var(--or2)}
+/* entête */
+.top{position:sticky;top:0;z-index:20;background:rgba(246,241,231,.93);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne)}
+.top .wrap{display:flex;align-items:center;gap:18px;height:66px}
+.top .logo img{height:42px;width:auto}
+.top nav{display:flex;gap:22px;margin-left:auto;font-size:14.5px}
+.top nav a{text-decoration:none;color:var(--brun2)}.top nav a:hover{color:var(--rose)}
+.top .btn{min-height:42px;padding:0 18px;font-size:14px}
+.langs{display:flex;gap:2px;font-size:12px;font-weight:700}
+.langs button{background:none;border:0;padding:6px 7px;border-radius:6px;cursor:pointer;color:var(--gris)}
+.langs button[aria-pressed=true]{color:var(--brun);background:var(--ivoire2)}
+@media (max-width:900px){.top nav{display:none}.langs{margin-left:auto}}
+/* héro */
+.hero{padding:clamp(28px,5vw,64px) 0 clamp(64px,8vw,104px);overflow:hidden}
+.hero .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:center}
+.hero h1{font-size:clamp(3rem,1.6rem + 6vw,6.2rem);color:var(--brun)}
+.hero h1 em{display:block}
+.hero .lead{font-size:1.12rem}
+.hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.hero .infos{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:28px;font-size:13.5px;color:var(--gris)}
+.hero .infos b{color:var(--brun);font-weight:700}
+.arche{position:relative}
+.arche img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:260px 260px 16px 16px;box-shadow:0 34px 70px -34px rgba(58,30,29,.55)}
+.arche::before{content:"";position:absolute;inset:-14px 26px 26px -14px;border:1px solid var(--or2);border-radius:270px 270px 18px 18px;z-index:-1}
+.arche .pastille{position:absolute;left:-18px;bottom:34px;background:var(--brun);color:var(--ivoire);border-radius:14px;padding:14px 18px;box-shadow:0 16px 30px -16px rgba(0,0,0,.5)}
+.arche .pastille b{display:block;font-family:Cormorant,serif;font-size:2rem;line-height:1;color:var(--or2);font-weight:500}
+.arche .pastille span{font-size:12.5px}
+@media (max-width:820px){.hero .grid{grid-template-columns:1fr}.arche{max-width:420px;margin:8px auto 0;width:calc(100% - 20px)}.arche .pastille{left:-8px}}
+/* coffrets */
+.tailles{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:40px}
+.taille{background:var(--papier);border:1px solid var(--ligne);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;text-align:left;padding:0;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s,border-color .2s}
+.taille:hover{transform:translateY(-3px);box-shadow:0 18px 34px -24px rgba(58,30,29,.5)}
+.taille img{aspect-ratio:1;object-fit:cover;width:100%}
+.taille div{padding:14px 16px 18px}
+.taille h3{font-size:1.5rem;color:var(--brun)}
+.taille .g{font-size:13px;font-weight:700;color:var(--or);letter-spacing:.06em;margin-top:2px}
+.taille p{font-size:13.5px;color:var(--gris);margin-top:6px}
+.taille[aria-pressed=true]{border-color:var(--brun);box-shadow:0 0 0 2px var(--brun)}
+@media (max-width:980px){.tailles{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:620px){.tailles{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(var(--pad)*-1);padding:4px var(--pad) 10px}.taille{flex:0 0 66%;scroll-snap-align:start}}
+/* composer */
+.composer{background:var(--ivoire2)}
+.etapes{display:grid;grid-template-columns:1.35fr .65fr;gap:28px;margin-top:40px;align-items:start}
+.bloc{background:var(--papier);border:1px solid var(--ligne);border-radius:18px;padding:clamp(18px,3vw,28px)}
+.bloc+.bloc{margin-top:16px}
+.bloc h3{font-size:1.6rem;color:var(--brun);display:flex;align-items:baseline;gap:10px}
+.bloc h3 span{font-family:Manrope,sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--or);text-transform:uppercase}
+.bloc .aide{font-size:13.5px;color:var(--gris);margin-top:6px}
+.choix{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px;margin-top:16px}
+.var{border:1px solid var(--ligne);border-radius:14px;background:#fff;padding:0;overflow:hidden;cursor:pointer;text-align:left;position:relative;transition:border-color .2s,transform .2s var(--ease)}
+.var img{aspect-ratio:1;object-fit:cover;width:100%}
+.var span{display:block;padding:8px 10px 10px;font-size:12.5px;line-height:1.3;font-weight:600;color:var(--brun2)}
+.var::after{content:"";position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:inset 0 0 0 1px var(--ligne)}
+.var[aria-pressed=true]{border-color:var(--brun);box-shadow:0 0 0 2px var(--brun)}
+.var[aria-pressed=true]::after{background:var(--brun) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%23d9b878' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/18px no-repeat;box-shadow:none}
+.var:active{transform:scale(.97)}
+.ligne2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+label{display:block;font-size:13px;font-weight:600;color:var(--brun2)}
+input,select,textarea{display:block;width:100%;margin-top:6px;min-height:48px;padding:10px 14px;border:1px solid var(--ligne);border-radius:12px;background:#fff;font-size:16px}
+textarea{min-height:90px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--brun);outline-offset:0;border-color:var(--brun)}
+.creneaux{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.creneaux button{min-height:42px;padding:0 14px;border-radius:999px;border:1px solid var(--ligne);background:#fff;cursor:pointer;font-size:14px;font-weight:600}
+.creneaux button[aria-pressed=true]{background:var(--brun);color:var(--ivoire);border-color:var(--brun)}
+.recap{position:sticky;top:86px;background:var(--brun);color:var(--ivoire);border-radius:18px;padding:24px;overflow:hidden}
+.recap h3{font-size:1.8rem;color:var(--ivoire)}
+.recap dl{margin:16px 0 0;font-size:14px}
+.recap dt{color:var(--or2);font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-top:14px}
+.recap dd{margin:4px 0 0;color:#efe4da}
+.recap .btn{width:100%;margin-top:22px;background:var(--or2);color:var(--brun)}
+.recap .btn:hover{background:var(--ivoire)}
+.recap .note{font-size:12px;color:#c8b6aa;margin-top:12px}
+@media (max-width:900px){.etapes{grid-template-columns:1fr}.recap{position:static}.ligne2{grid-template-columns:1fr}}
+/* ticket */
+dialog{border:0;border-radius:20px;padding:0;max-width:min(420px,92vw);width:100%;background:var(--papier);color:var(--encre);box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+dialog::backdrop{background:rgba(30,15,15,.55);backdrop-filter:blur(3px)}
+.ticket{padding:28px 26px 24px;text-align:center}
+.ticket img{width:150px;margin:0 auto}
+.ticket h3{font-size:2rem;color:var(--brun);margin-top:14px}
+.ticket .code{font-family:Cormorant,serif;font-size:3rem;letter-spacing:.06em;color:var(--rose);margin-top:8px;line-height:1}
+.ticket p{color:var(--gris);font-size:14px;margin-top:10px}
+.ticket ul{list-style:none;padding:0;margin:16px 0 0;text-align:left;font-size:14px;border-top:1px dashed var(--ligne)}
+.ticket li{padding:8px 0;border-bottom:1px dashed var(--ligne);display:flex;justify-content:space-between;gap:10px}
+.ticket li b{font-weight:600;text-align:right}
+.ticket .btn{margin-top:20px;width:100%}
+.twint{display:flex;align-items:center;justify-content:center;gap:10px;background:#000;color:#fff;border-radius:12px;min-height:52px;font-weight:700;margin-top:18px;border:0;width:100%;cursor:pointer;font-size:15px}
+/* entreprises */
+.ent{background:var(--brun);color:var(--ivoire)}
+.ent.motif{background-color:var(--brun)}
+.ent h2{color:var(--ivoire)}.ent h2 em{color:var(--or2)}.ent .lead{color:#d8c9bd}.ent .kick{color:var(--or2)}
+.ent .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+.ent ul.pts{list-style:none;padding:0;margin:26px 0 0}
+.ent ul.pts li{padding:14px 0 14px 28px;border-top:1px solid rgba(217,184,120,.3);position:relative;font-size:15px;color:#efe4da}
+.ent ul.pts li::before{content:"";position:absolute;left:4px;top:22px;width:8px;height:8px;border:1px solid var(--or2);transform:rotate(45deg)}
+.ent ul.pts b{color:var(--ivoire)}
+.ent form{background:var(--papier);color:var(--encre);border-radius:20px;padding:clamp(20px,3vw,30px)}
+.ent form h3{font-size:1.9rem;color:var(--brun)}
+.ent form .ligne2{margin-top:14px}
+.ent form>label{margin-top:14px}
+.ent form .btn{width:100%;margin-top:18px}
+.ent .merci{display:none;text-align:center;padding:30px 10px}
+.ent .merci h3{font-size:2rem;color:var(--brun)}
+.ent .merci p{color:var(--gris);margin-top:10px}
+.ent form.ok .champs{display:none}.ent form.ok .merci{display:block}
+@media (max-width:860px){.ent .grid{grid-template-columns:1fr}}
+/* vitrine */
+.vitrine .grille{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+.prod figure{margin:0;border-radius:16px;overflow:hidden;background:#fff}
+.prod img{aspect-ratio:1;object-fit:cover;width:100%;transition:transform .6s var(--ease)}
+.prod:hover img{transform:scale(1.04)}
+.prod h3{font-size:1.3rem;color:var(--brun);margin-top:12px}
+.prod p{font-size:13px;color:var(--gris);margin-top:2px}
+.filtres{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.filtres button{min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--ligne);background:var(--papier);cursor:pointer;font-weight:600;font-size:14px}
+.filtres button[aria-pressed=true]{background:var(--brun);border-color:var(--brun);color:var(--ivoire)}
+@media (max-width:900px){.vitrine .grille{grid-template-columns:repeat(3,1fr)}}@media (max-width:620px){.vitrine .grille{grid-template-columns:1fr 1fr;gap:14px}}
+/* boutique */
+.boutique{background:var(--ivoire2)}
+.boutique .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,64px);align-items:center}
+.boutique .photo img{border-radius:18px;aspect-ratio:3/2;object-fit:cover;width:100%}
+.horaires{margin-top:22px;font-size:15px;border-top:1px solid var(--ligne)}
+.horaires div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--ligne)}
+.horaires span{color:var(--gris)}
+.boutique .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+@media (max-width:860px){.boutique .grid{grid-template-columns:1fr}}
+footer{background:var(--brun);color:#d6c5b9;padding:48px 0 calc(40px + env(safe-area-inset-bottom));font-size:13.5px}
+footer .wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:28px}
+footer img{width:180px}
+footer b{display:block;color:var(--or2);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
+footer a{color:#efe4da}
+@media (max-width:760px){footer .wrap{grid-template-columns:1fr}}
+/* barre mobile */
+.barre{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;display:none;gap:8px}
+.barre .btn{flex:1;min-height:52px;white-space:nowrap;padding:0 12px;font-size:14.5px;box-shadow:0 14px 30px -12px rgba(30,15,15,.6)}
+@media (max-width:900px){.barre{display:flex}body{padding-bottom:76px}}
+.r{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.r.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.r{opacity:1;transform:none;transition:none}.btn,.taille,.var,.prod img{transition:none}}
+</style>
+</head>
+<body>
+<div class="demo-bar">Démo préparée par Nouvelle Ardoise pour Délices de la Rose · aucun paiement réel · <a href="../">retour aux propositions</a></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Délices de la Rose, accueil"><img src="../img/logo-brun.png" alt="Délices de la Rose" width="82" height="36"></a>
+    <nav aria-label="Navigation principale">
+      <a href="#coffrets">Coffrets</a><a href="#composer">Composer</a><a href="#entreprises">Entreprises</a><a href="#vitrine">La vitrine</a><a href="#boutique">La boutique</a>
+    </nav>
+    <div class="langs" role="group" aria-label="Langue"><button aria-pressed="true">FR</button><button aria-pressed="false">EN</button><button aria-pressed="false">ع</button></div>
+    <a class="btn" href="#composer">Commander</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap grid">
+    <div class="r">
+      <p class="kick">Pâtisserie orientale · Genève</p>
+      <h1>L'Orient, <em>en coffret.</em></h1>
+      <p class="lead">Baklavas à la pistache, nids de rossignol, ballorieh&nbsp;: faits chaque jour dans notre boutique, à deux pas de Cornavin. Composez votre coffret, on le prépare pour l'heure qui vous arrange.</p>
+      <div class="cta">
+        <a class="btn" href="#composer">Composer un coffret</a>
+        <a class="btn ghost" href="#entreprises">Pour les entreprises</a>
+      </div>
+      <p class="infos"><span><b>4,9</b> sur Google · 129 avis</span><span>Rue du Grand-Pré 46</span><span>7 jours sur 7</span></p>
+    </div>
+    <div class="arche r">
+      <img src="../img/coffret.jpg" srcset="../img/coffret-sm.jpg 640w, ../img/coffret.jpg 1400w" sizes="(max-width:820px) 90vw, 46vw" alt="Plateau doré de baklavas au chocolat et à la pistache" width="1400" height="1400" fetchpriority="high">
+      <div class="pastille"><b>300 g → 1,4 kg</b><span>cinq tailles de coffrets</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="coffrets">
+  <div class="wrap">
+    <p class="kick r">Nos coffrets</p>
+    <h2 class="r">Une boîte <em>pour chaque table</em>.</h2>
+    <p class="lead r">Nos boîtes ivoire à la rose, de la plus petite pour deux à la grande pour tout un bureau. Choisissez une taille, puis vos variétés.</p>
+    <div class="tailles r" id="tailles"></div>
+  </div>
+</section>
+
+<section class="composer" id="composer">
+  <div class="wrap">
+    <p class="kick r">Commander en ligne</p>
+    <h2 class="r">Composez, réservez, <em>passez prendre</em>.</h2>
+    <div class="etapes">
+      <div>
+        <div class="bloc r">
+          <h3><span>1</span> La taille</h3>
+          <div class="creneaux" id="choixTaille" role="group" aria-label="Taille du coffret"></div>
+        </div>
+        <div class="bloc r">
+          <h3><span>2</span> Vos variétés</h3>
+          <p class="aide" id="aideVar">Choisissez jusqu'à 3 variétés.</p>
+          <div class="choix" id="varietes"></div>
+        </div>
+        <div class="bloc r">
+          <h3><span>3</span> Le retrait</h3>
+          <div class="ligne2">
+            <label>Jour<select id="jour"></select></label>
+            <label>Votre prénom<input id="prenom" autocomplete="given-name" placeholder="Votre prénom"></label>
+          </div>
+          <div class="creneaux" id="heures" role="group" aria-label="Heure de retrait"></div>
+          <label style="margin-top:14px"><input type="checkbox" id="cadeau" style="display:inline-block;width:auto;min-height:0;margin:0 8px 0 0;vertical-align:-2px">Emballage cadeau avec ruban et carte</label>
+        </div>
+      </div>
+      <aside class="recap r motif" aria-live="polite">
+        <h3>Votre coffret</h3>
+        <dl>
+          <dt>Taille</dt><dd id="rTaille">–</dd>
+          <dt>Variétés</dt><dd id="rVar">–</dd>
+          <dt>Retrait</dt><dd id="rRetrait">–</dd>
+        </dl>
+        <button class="btn" id="valider" disabled>Payer et réserver</button>
+        <p class="note">Le prix s'affiche selon votre carte une fois le site en place. Payé en ligne, prêt à l'heure, sans attente au comptoir.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="ent motif" id="entreprises">
+  <div class="wrap grid">
+    <div class="r">
+      <p class="kick">Entreprises</p>
+      <h2>Remerciez vos clients <em>autrement</em>.</h2>
+      <p class="lead">Fin d'année, Ramadan, départs, anniversaires d'équipe&nbsp;: des coffrets faits maison, avec une carte à votre nom, prêts à la date que vous choisissez.</p>
+      <ul class="pts">
+        <li><b>Dès 10 coffrets</b>, toutes tailles, composés pour vous</li>
+        <li><b>Une carte à votre nom</b> ou avec votre logo dans chaque boîte</li>
+        <li><b>Retrait en boutique</b>, ou livraison à convenir</li>
+        <li><b>Facture à l'entreprise</b> et proposition sous 24&nbsp;h</li>
+      </ul>
+    </div>
+    <form class="r" id="formEnt" novalidate>
+      <div class="champs">
+        <h3>Demander une proposition</h3>
+        <div class="ligne2">
+          <label>Entreprise<input name="entreprise" required autocomplete="organization"></label>
+          <label>E-mail<input name="email" type="email" required autocomplete="email"></label>
+        </div>
+        <div class="ligne2">
+          <label>Nombre de coffrets<input name="nb" type="number" min="10" step="1" inputmode="numeric" value="25"></label>
+          <label>Pour le<input name="date" type="date"></label>
+        </div>
+        <label>Taille souhaitée<select name="taille" id="tailleEnt"></select></label>
+        <label>Message sur la carte<textarea name="message" placeholder="Merci pour cette belle année ensemble."></textarea></label>
+        <button class="btn" type="submit">Recevoir une proposition</button>
+      </div>
+      <div class="merci" role="status">
+        <img src="../img/logo-brun.png" alt="" width="180" height="79" style="width:180px;margin:0 auto">
+        <h3 style="margin-top:16px">Merci, c'est noté.</h3>
+        <p>Dans la vraie version, la boutique reçoit votre demande et vous répond avec une proposition sous 24&nbsp;h.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="vitrine" id="vitrine">
+  <div class="wrap">
+    <p class="kick r">La vitrine</p>
+    <h2 class="r">Faits ici, <em>chaque matin</em>.</h2>
+    <div class="filtres r" role="group" aria-label="Filtrer">
+      <button aria-pressed="true" data-f="tout">Tout</button><button aria-pressed="false" data-f="pistache">Pistache</button><button aria-pressed="false" data-f="noix">Noix et cajou</button><button aria-pressed="false" data-f="sale">Salé</button>
+    </div>
+    <div class="grille" id="grille"></div>
+  </div>
+</section>
+
+<section class="boutique" id="boutique">
+  <div class="wrap grid">
+    <div class="photo r"><img src="../img/boutique.jpg" srcset="../img/boutique-sm.jpg 640w, ../img/boutique.jpg 1400w" sizes="(max-width:860px) 92vw, 54vw" alt="Devanture de Délices de la Rose, rue du Grand-Pré" width="1400" height="700" loading="lazy"></div>
+    <div class="r">
+      <p class="kick">La boutique</p>
+      <h2>Rue du Grand‑Pré 46, <em>au-dessus de la gare</em>.</h2>
+      <div class="horaires">
+        <div><span>Lundi – samedi</span><b>9 h – 19 h 30</b></div>
+        <div><span>Dimanche</span><b>9 h – 14 h</b></div>
+      </div>
+      <div class="cta">
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=D%C3%A9lices%20de%20la%20Rose%20Rue%20du%20Grand-Pr%C3%A9%2046%20Gen%C3%A8ve">Itinéraire</a>
+        <a class="btn ghost" href="tel:+41223033023">022 303 30 23</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><img src="../img/logo-or.png" alt="Délices de la Rose" width="180" height="79"><p style="margin-top:14px">Pâtisserie, confiserie, viennoiserie orientales.</p></div>
+    <div><b>Nous trouver</b>Rue du Grand-Pré 46<br>1202 Genève<br><a href="tel:+41223033023">022 303 30 23</a></div>
+    <div><b>Suivre</b><a href="https://www.instagram.com/delicesdelarose/">Instagram</a><br><span style="opacity:.75">Démo Nouvelle Ardoise, non publiée</span></div>
+  </div>
+</footer>
+
+<div class="barre"><a class="btn" href="#composer">Composer un coffret</a><a class="btn ghost" style="background:var(--ivoire)" href="#entreprises">Entreprises</a></div>
+
+<dialog id="ticket" aria-labelledby="tTitre">
+  <div class="ticket" id="ticketCorps"></div>
+</dialog>
+
+<script>
+(()=>{
+const T=[
+ {id:'s',nom:'Le Tête-à-tête',g:'300 – 400 g',p:'Pour deux, ou pour dire merci.',img:'indiv',max:3},
+ {id:'m',nom:'Le Partage',g:'500 – 600 g',p:'Pour un dîner, une visite.',img:'boite-4',max:4},
+ {id:'l',nom:'Le Salon',g:'700 – 850 g',p:'Pour recevoir la famille.',img:'nid-pistache',max:5},
+ {id:'xl',nom:'La Grande Table',g:'1 – 1,1 kg',p:'Pour les fêtes et les grandes tablées.',img:'coffret',max:6},
+ {id:'xxl',nom:'Le Bureau',g:'1,2 – 1,4 kg',p:'Pour toute une équipe.',img:'plateau',max:6}];
+const V=[
+ ['nid-pistache','Nid de rossignol à la pistache','pistache'],['baklava-pistache','Baklava à la pistache','pistache'],
+ ['media-blonde','Média blonde farcie à la pistache','pistache'],['media-choco','Média au chocolat et pistache','pistache'],
+ ['ballorieh-blonde','Ballorieh blonde','pistache'],['ballorieh-brune','Ballorieh brunette','pistache'],
+ ['bracelet','Bracelet de la dame','pistache'],['feuille-vigne','Feuille de vigne à la pistache','pistache'],
+ ['kol-shkor','Kol shkor à la pistache','pistache'],['warbat','Warbat à la pistache','pistache'],
+ ['nid-cajou','Nid de rossignol aux noix de cajou','noix'],['shoaibiyat','Shoaibiyat aux noix','noix'],
+ ['dattier','Dattier, dattes et noix','noix'],['doigts-coco','Doigts à la noix de coco','noix']];
+const S=[['fatayer','Fatayer au fromage (feta)','sale']];
+const $=s=>document.querySelector(s);
+const st={t:null,v:[],j:null,h:null};
+// tailles
+const tl=$('#tailles'),ct=$('#choixTaille'),te=$('#tailleEnt');
+T.forEach(t=>{
+ const b=document.createElement('button');b.className='taille';b.type='button';b.dataset.id=t.id;b.setAttribute('aria-pressed','false');
+ b.innerHTML=`<img src="../img/${t.img}-sm.jpg" alt="" width="640" height="640" loading="lazy"><div><h3>${t.nom}</h3><p class="g">${t.g}</p><p>${t.p}</p></div>`;
+ b.onclick=()=>{choisirTaille(t.id);document.getElementById('composer').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})};tl.append(b);
+ const c=document.createElement('button');c.type='button';c.textContent=`${t.nom} · ${t.g}`;c.dataset.id=t.id;c.setAttribute('aria-pressed','false');c.onclick=()=>choisirTaille(t.id);ct.append(c);
+ te.insertAdjacentHTML('beforeend',`<option>${t.nom} · ${t.g}</option>`);
+});
+te.insertAdjacentHTML('beforeend','<option>À conseiller selon le budget</option>');
+// variétés
+const vz=$('#varietes');
+V.forEach(([k,n])=>{const b=document.createElement('button');b.type='button';b.className='var';b.dataset.k=k;b.setAttribute('aria-pressed','false');
+ b.innerHTML=`<img src="../img/${k}-sm.jpg" alt="" width="640" height="640" loading="lazy"><span>${n}</span>`;
+ b.onclick=()=>{const i=st.v.indexOf(k);const max=st.t?st.t.max:3;
+  if(i>-1)st.v.splice(i,1);else{if(st.v.length>=max)st.v.shift();st.v.push(k)}maj()};vz.append(b)});
+// jours et heures
+const js=$('#jour'),d0=new Date();const fmt=new Intl.DateTimeFormat('fr-CH',{weekday:'long',day:'numeric',month:'long'});
+for(let i=0;i<7;i++){const d=new Date(d0);d.setDate(d.getDate()+i);const o=document.createElement('option');o.value=d.getDay();o.textContent=i===0?"Aujourd'hui":i===1?'Demain':fmt.format(d).replace(/^./,c=>c.toUpperCase());js.append(o)}
+st.j=js.options[0].textContent;
+const hs=$('#heures');
+function heures(){hs.innerHTML='';const dim=js.value==='0';let L=dim?['9:30','10:30','11:30','12:30','13:30']:['10:00','11:30','13:00','15:00','16:30','18:00','19:00'];
+ if(js.selectedIndex===0){const n=new Date(),m=n.getHours()*60+n.getMinutes()+60;L=L.filter(h=>{const[x,y]=h.split(':').map(Number);return x*60+y>=m})}
+ if(!L.length)hs.innerHTML='<p class="aide">Plus de créneau aujourd\'hui, choisissez demain.</p>';
+ L.forEach(h=>{const b=document.createElement('button');b.type='button';b.textContent=h;b.setAttribute('aria-pressed',String(st.h===h));b.onclick=()=>{st.h=h;maj()};hs.append(b)});if(!L.includes(st.h))st.h=null}
+js.onchange=()=>{st.j=js.options[js.selectedIndex].textContent;heures();maj()};heures();
+function choisirTaille(id){st.t=T.find(t=>t.id===id);while(st.v.length>st.t.max)st.v.pop();maj()}
+const nomV=k=>V.find(v=>v[0]===k)[1];
+function maj(){
+ document.querySelectorAll('.taille,#choixTaille button').forEach(b=>b.setAttribute('aria-pressed',String(st.t&&b.dataset.id===st.t.id)));
+ document.querySelectorAll('.var').forEach(b=>b.setAttribute('aria-pressed',String(st.v.includes(b.dataset.k))));
+ hs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.textContent===st.h)));
+ const max=st.t?st.t.max:3;$('#aideVar').textContent=`Choisissez jusqu'à ${max} variétés (${st.v.length}/${max}).`;
+ $('#rTaille').textContent=st.t?`${st.t.nom} · ${st.t.g}`:'–';
+ $('#rVar').textContent=st.v.length?st.v.map(nomV).join(', '):'–';
+ $('#rRetrait').textContent=st.h?`${st.j}, ${st.h}`:'–';
+ $('#valider').disabled=!(st.t&&st.v.length&&st.h);
+}
+maj();
+const dlg=$('#ticket'),corps=$('#ticketCorps');
+$('#valider').onclick=()=>{
+ const pr=($('#prenom').value||'').trim();
+ corps.innerHTML=`<img src="../img/logo-brun.png" alt="Délices de la Rose" width="150" height="66"><h3 id="tTitre">Votre coffret</h3><p>Payez pour réserver l'heure de retrait.</p>
+ <ul><li><span>Coffret</span><b>${st.t.nom}</b></li><li><span>Variétés</span><b>${st.v.length}</b></li><li><span>Retrait</span><b>${st.j}, ${st.h}</b></li>${$('#cadeau').checked?'<li><span>Emballage</span><b>Cadeau, avec carte</b></li>':''}</ul>
+ <button class="twint" id="payer" type="button">Payer avec TWINT (démo)</button><button class="btn ghost" type="button" id="fermer">Modifier</button>`;
+ dlg.showModal();
+ $('#fermer').onclick=()=>dlg.close();
+ $('#payer').onclick=()=>{const code='R'+Math.floor(100+Math.random()*900);
+  corps.innerHTML=`<img src="../img/logo-brun.png" alt="Délices de la Rose" width="150" height="66"><h3 id="tTitre">C'est réservé${pr?', '+pr.replace(/[<>&"]/g,''):''}.</h3><p class="code">${code}</p><p>Donnez ce code au comptoir. Votre coffret sera prêt ${st.j.toLowerCase()} à ${st.h}, rue du Grand-Pré 46.</p><p style="font-size:12px">Démo&nbsp;: aucun paiement n'a été effectué.</p><button class="btn" type="button" id="fermer">Fermer</button>`;
+  $('#fermer').onclick=()=>dlg.close()}
+};
+dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+// entreprises
+$('#formEnt').addEventListener('submit',e=>{e.preventDefault();e.currentTarget.classList.add('ok')});
+// vitrine
+const gr=$('#grille');
+function vitrine(f){gr.innerHTML='';[...V,...S].filter(v=>f==='tout'||v[2]===f).forEach(([k,n,c])=>{gr.insertAdjacentHTML('beforeend',`<article class="prod"><figure><img src="../img/${k}-sm.jpg" alt="${n}" width="640" height="640" loading="lazy"></figure><h3>${n}</h3><p>${c==='sale'?'Salé, à la pièce':'Au poids, ou en coffret'}</p></article>`)})}
+vitrine('tout');
+document.querySelectorAll('.filtres button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filtres button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));vitrine(b.dataset.f)});
+document.querySelectorAll('.langs button').forEach(b=>b.onclick=()=>document.querySelectorAll('.langs button').forEach(x=>x.setAttribute('aria-pressed',String(x===b))));
+// révélation
+const els=document.querySelectorAll('.r');
+if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(e=>e.classList.add('vu'))}
+else{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{rootMargin:'0px 0px -6% 0px'});els.forEach(e=>io.observe(e))}
+})();
+</script>
+</body>
+</html>
