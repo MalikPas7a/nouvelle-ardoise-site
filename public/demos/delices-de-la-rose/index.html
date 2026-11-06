@@ -244,6 +244,55 @@ footer{background:var(--brun);color:#bfa99c;font-size:12.5px;padding:0 0 32px;te
 .prosp small{display:block;margin-top:12px;font-size:12px;color:#bfa99c}
 @media (max-width:760px){.resultat{grid-template-columns:auto 1fr}.resultat .ca{grid-column:1/-1;text-align:left;border-left:0;border-top:1px solid var(--ligne);padding:14px 0 4px}}
 @media (prefers-reduced-motion:reduce){.carte .pin{transition:none}}
+/* coffret et marge */
+.marge{margin-top:26px;background:var(--papier);border:1px solid var(--ligne);border-radius:18px;padding:20px}
+.marge .t{font-weight:700;color:var(--brun);font-size:15px}
+.barre{display:grid;grid-template-columns:150px 1fr 64px;gap:12px;align-items:center;margin-top:16px}
+.barre .lab{font-size:13.5px;font-weight:600;line-height:1.25;color:var(--brun2)}.barre .lab small{display:block;font-weight:500;font-size:11.5px;color:var(--gris)}
+.jauge{height:14px;border-radius:99px;background:var(--ivoire2);overflow:hidden}
+.jauge i{display:block;height:100%;width:var(--w);border-radius:99px;background:var(--gris);transform-origin:left;transition:transform 1.1s var(--ease) .2s}
+.r:not(.vu) .jauge i{transform:scaleX(0)}
+.barre.best .jauge i{background:var(--or)}
+.barre b{font:300 1.6rem/1 Manrope,sans-serif;letter-spacing:-.03em;text-align:right;color:var(--brun)}
+.barre.best b{color:var(--rose);font-weight:500}
+@media (max-width:480px){.barre{grid-template-columns:1fr 56px}.barre .jauge{grid-column:1/-1;grid-row:2}.barre b{grid-row:1;grid-column:2}}
+/* publicité */
+.pubs{background:var(--papier);border-block:1px solid var(--ligne);text-align:center}
+.pubs .lead{margin-inline:auto}
+.offre-pill{display:inline-flex;align-items:center;gap:12px;margin-top:26px;padding:8px 20px 8px 8px;border-radius:999px;background:var(--brun);color:var(--ivoire);text-align:left}
+.offre-pill img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.offre-pill b{display:block;font-size:14.5px}.offre-pill small{font-size:11.5px;color:var(--or2)}
+.reseaux{display:flex;justify-content:center;align-items:flex-end;gap:clamp(12px,3vw,40px);margin-top:34px;position:relative}
+.reseaux::before{content:"";position:absolute;left:16%;right:16%;top:-22px;height:22px;border:1px dashed var(--or);border-bottom:0;border-radius:12px 12px 0 0}
+.mock{margin:0;flex:0 1 230px}
+.mock figcaption{margin-top:12px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--or)}
+.mock .ecr{position:relative;border-radius:22px;overflow:hidden;background:#111;box-shadow:0 0 0 6px #1d1312,0 30px 50px -28px rgba(30,15,15,.7);text-align:left;color:#fff}
+.mock.mstory .ecr,.mock.mtiktok .ecr{aspect-ratio:9/16}
+.mock .ecr>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mock .mtop{position:absolute;top:0;left:0;right:0;padding:12px;display:flex;align-items:center;gap:8px;font-size:12px;background:linear-gradient(rgba(20,10,10,.55),transparent);text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.mock.mfb .mtop{background:none;text-shadow:none}
+.mock .mtop i{width:28px;height:28px;border-radius:50%;background:var(--ivoire) url(img/icone-180.png) center/cover;box-shadow:0 0 0 2px var(--or2);flex:none}
+.mock .mtop small{opacity:.8;font-size:11px}
+.mock .mbas{position:absolute;inset:auto 0 0 0;padding:90px 14px 14px;text-shadow:0 1px 4px rgba(0,0,0,.5);background:linear-gradient(transparent,rgba(20,10,10,.6) 35%,rgba(20,10,10,.92))}
+.mock .mbas p{font:500 1.35rem/1.05 Cormorant,serif}.mock .mbas p b{font:600 2.2rem/1 Manrope,sans-serif;color:var(--or2)}
+.mock .mbas span{display:block;margin-top:10px;text-align:center;background:#fff;color:#111;border-radius:10px;padding:9px;font-size:13px;font-weight:700}
+.mock.mtiktok .mbas p{font:600 13px/1.3 Manrope,sans-serif;margin-top:4px}.mock.mtiktok .mbas b{font-size:13px}
+.mock.mtiktok .mbas span{background:#fe2c55;color:#fff}
+.mock .cote{position:absolute;right:10px;bottom:120px;display:grid;gap:14px}.mock .cote i{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.85)}
+.mock.mfb .ecr{background:#fff;color:#1c1e21}
+.mock.mfb .mtop{position:static;padding:12px}.mock.mfb .mtop b{display:block;font-size:12.5px}.mock.mfb .mtop small{color:#65676b}
+.mock.mfb .ecr>img{position:static;aspect-ratio:1;height:auto}
+.mock.mfb .cta{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;background:#f0f2f5;font-size:11px;color:#65676b}
+.mock.mfb .cta b{display:block;color:#1c1e21;font-size:12.5px}.mock.mfb .cta em{font-style:normal;font-weight:700;background:#e4e6eb;color:#1c1e21;padding:8px 10px;border-radius:6px;font-size:12px}
+.mock.mtiktok{transform:translateY(-18px)}
+.cible{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:34px}
+.cible span{padding:8px 14px;border-radius:999px;border:1px solid var(--ligne);background:#fff;font-size:13.5px;font-weight:600;color:var(--brun2)}
+.entonnoir{list-style:none;padding:0;margin:26px auto 0;display:flex;justify-content:center;align-items:center;gap:6px;max-width:640px}
+.entonnoir li{flex:1;padding:14px 8px;background:var(--brun);color:var(--ivoire);font-size:14px;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 50%,calc(100% - 14px) 100%,0 100%,14px 50%)}
+.entonnoir li:first-child{clip-path:polygon(0 0,calc(100% - 14px) 0,100% 50%,calc(100% - 14px) 100%,0 100%)}
+.entonnoir li:last-child{background:var(--rose)}
+@media (max-width:700px){.reseaux{overflow-x:auto;justify-content:flex-start;scroll-snap-type:x mandatory;margin-inline:calc(var(--pad)*-1);padding:26px var(--pad) 10px;align-items:flex-start}.reseaux::before{display:none}.mock{flex:0 0 62%;scroll-snap-align:center}.mock.mtiktok{transform:none}.entonnoir li{font-size:12.5px}}
+@media (prefers-reduced-motion:reduce){.jauge i{transition:none}}
 /* révélation */
 .r{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .r.vu{opacity:1;transform:none}
@@ -371,15 +420,6 @@ footer{background:var(--brun);color:#bfa99c;font-size:12.5px;padding:0 0 32px;te
           <li><b>Vendredi</b><span><strong>L'offre ou le coffret du week-end</strong>, avec le lien pour réserver l'heure de retrait.</span></li>
           <li><b>Chaque jour</b><span><strong>Une story</strong> de la vitrine le matin&nbsp;: ce qui est prêt aujourd'hui.</span></li>
         </ul>
-        <div class="pub">
-          <h3>Et une publicité qui vise juste</h3>
-          <ul>
-            <li>Autour de la boutique et de Cornavin, sur les personnes qui aiment la pâtisserie orientale</li>
-            <li>Vos abonnés et les visiteurs du site, au moment des fêtes et du Ramadan</li>
-            <li>Les responsables en entreprise à Genève, pour les coffrets de fin d'année</li>
-            <li>Un petit budget, suivi chaque semaine&nbsp;: on garde ce qui fait venir en boutique</li>
-          </ul>
-        </div>
       </div>
       <div class="ig r" aria-label="Exemple de profil Instagram sur un mois">
         <div class="h"><span class="av" aria-hidden="true"></span><div><b>delicesdelarose</b><span>Exemple d'un mois de publications</span></div></div>
@@ -394,6 +434,33 @@ footer{background:var(--brun);color:#bfa99c;font-size:12.5px;padding:0 0 32px;te
         <p class="pied">Maquette avec les photos de votre site. Les vraies publications partent des photos du photographe.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="pubs" id="publicite">
+  <div class="wrap">
+    <p class="kick r">La publicité ciblée</p>
+    <h2 class="r">Une offre, <em>partout à la fois</em>.</h2>
+    <div class="offre-pill r"><img src="img/coffret-sm.jpg" alt="" width="640" height="640"><span><b>Coffrets de fêtes · −10&nbsp;% jusqu'au 15 décembre</b><small>Exemple d'offre</small></span></div>
+    <div class="reseaux">
+      <figure class="mock mstory r">
+        <div class="ecr"><img src="img/coffret-sm.jpg" alt="" loading="lazy"><div class="mtop"><i></i><b>delicesdelarose</b><small>Sponsorisé</small></div><div class="mbas"><p>Coffrets de fêtes<br><b>−10&nbsp;%</b></p><span>Commander</span></div></div>
+        <figcaption>Instagram</figcaption>
+      </figure>
+      <figure class="mock mtiktok r">
+        <div class="ecr"><img src="img/plateau-sm.jpg" alt="" loading="lazy"><div class="cote"><i></i><i></i><i></i></div><div class="mbas"><b>@delicesdelarose</b><p>Le coffret qui part en premier au bureau</p><span>Commander</span></div></div>
+        <figcaption>TikTok</figcaption>
+      </figure>
+      <figure class="mock mfb r">
+        <div class="ecr"><div class="mtop"><i></i><span><b>Délices de la Rose</b><small>Sponsorisé</small></span></div><img src="img/nid-pistache-sm.jpg" alt="" loading="lazy"><div class="cta"><span>delicesdelarose.ch<b>Coffrets de fêtes −10&nbsp;%</b></span><em>Commander</em></div></div>
+        <figcaption>Facebook</figcaption>
+      </figure>
+    </div>
+    <div class="cible r">
+      <span>3&nbsp;km autour de Cornavin</span><span>Pâtisserie orientale</span><span>Visiteurs de votre site</span><span>Entreprises à Genève</span>
+    </div>
+    <ol class="entonnoir r"><li><b>Vues</b></li><li><b>Clics</b></li><li><b>Coffrets commandés</b></li></ol>
+    <p class="src r" style="text-align:center">Une seule campagne, suivie chaque semaine&nbsp;: on garde ce qui vend, on coupe le reste.</p>
   </div>
 </section>
 
@@ -516,17 +583,22 @@ footer{background:var(--brun);color:#bfa99c;font-size:12.5px;padding:0 0 32px;te
 <section class="demo">
   <div class="wrap grid">
     <div class="r">
-      <p class="kick">La démo</p>
-      <h2>Votre site, pensé <em>autour des coffrets</em>.</h2>
-      <p class="lead">Une démo à ouvrir sur votre téléphone&nbsp;: choisir une taille de boîte, la composer, réserver l'heure de retrait, et une page pour les entreprises. Tout est fait avec les photos de votre site actuel.</p>
-      <div class="cta" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:26px">
-        <a class="btn" href="site/">Ouvrir la démo du site</a>
-        <a class="btn ghost" href="site/#entreprises">La page entreprises</a>
+      <p class="kick">Votre site</p>
+      <h2>Le client remplit son coffret, <em>vous choisissez qui livre</em>.</h2>
+      <div class="marge">
+        <p class="t">Sur un coffret à 60&nbsp;CHF, il vous reste&nbsp;:</p>
+        <div class="barre"><span class="lab">App Uber Eats<small>32&nbsp;% de commission</small></span><span class="jauge"><i style="--w:68%"></i></span><b>40.80</b></div>
+        <div class="barre"><span class="lab">Votre site + coursier Uber<small>dès 6.50 la course</small></span><span class="jauge"><i style="--w:89%"></i></span><b>53.50</b></div>
+        <div class="barre best"><span class="lab">Votre site + votre livreur<small>ou retrait en boutique</small></span><span class="jauge"><i style="--w:100%"></i></span><b>60.–</b></div>
+        <p class="src">Tarifs publiés par Uber Eats pour la Suisse, relevés le 6&nbsp;novembre 2026.</p>
       </div>
-      <p class="src">Démo non publiée, sans paiement réel.</p>
+      <div class="cta" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:24px">
+        <a class="btn" href="site/#composer">Remplir un coffret</a>
+        <a class="btn ghost" href="site/">Tout le site</a>
+      </div>
     </div>
-    <a class="phone r" href="site/" aria-label="Ouvrir la démo du site">
-      <div class="ecran"><img src="img/apercu-site.jpg" alt="Aperçu du site sur téléphone" width="640" height="1090" loading="lazy"></div>
+    <a class="phone r" href="site/#composer" aria-label="Ouvrir la démo : composer un coffret">
+      <div class="ecran"><img src="img/apercu-coffret.jpg" alt="Coffret rempli sur téléphone" width="640" height="1387" loading="lazy"></div>
     </a>
   </div>
 </section>
