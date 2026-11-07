@@ -95,6 +95,11 @@ ul.coche li::before{content:"";position:absolute;left:0;top:.5em;width:14px;heig
 .complet ul.coche li{color:#F4F4F2}
 @media (max-width:820px){.complet{grid-template-columns:1fr;padding:24px}}
 .lance .grp{color:var(--rouge);margin-top:6px}
+.plan{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px;background:var(--filet);border:2px solid var(--filet)}
+.plan li{background:var(--blanc);padding:22px;display:grid;gap:10px;align-content:start}
+.plan .sem{justify-self:start;font:500 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blanc);background:var(--navy);padding:6px 8px}
+.plan li:nth-child(n+5) .sem{background:var(--rouge)}
+.plan p{color:var(--gris);font-size:16px;margin-top:8px}
 /* carte fidélité */
 .fid{display:grid;grid-template-columns:minmax(0,380px) 1fr;gap:40px;align-items:center}
 .carte{background:var(--navy);color:var(--blanc);border-radius:18px;padding:22px;display:grid;gap:18px;box-shadow:0 18px 40px rgba(28,42,99,.28);max-width:380px}
@@ -216,8 +221,22 @@ ul.coche li::before{content:"";position:absolute;left:0;top:.5em;width:14px;heig
   </div>
 </section>
 
+<section class="wrap" aria-labelledby="t-plan">
+  <span class="lab">03 · Le plan de lancement</span>
+  <h2 id="t-plan">4 posts, 2 réels.<br><em>Trois semaines.</em></h2>
+  <ol class="plan">
+    <li><span class="sem">Semaine 1</span><div><h3>Post · La carte Athletic</h3><p>Carrousel des plats phares, avec les photos du shooting.</p></div></li>
+    <li><span class="sem">Semaine 1</span><div><h3>Réel · De la cuisine au bowl</h3><p>Un bowl préparé de A à Z, sous-titré, avec les vrais sons de la cuisine.</p></div></li>
+    <li><span class="sem">Semaine 2</span><div><h3>Post · La carte fidélité arrive</h3><p>« Scanne au comptoir, le 10<sup>e</sup> bowl est offert. » Stories pour montrer comment l'ajouter au téléphone.</p></div></li>
+    <li><span class="sem">Semaine 2</span><div><h3>Post · Le plat signature</h3><p>Un plat en grand, ses protéines et ses ingrédients, avec un rappel de la carte fidélité.</p></div></li>
+    <li><span class="sem">Jour J</span><div><h3>Réel · Le groupe de coureurs</h3><p>L'arrivée après la course, les bowls servis, deux ou trois mots des coureurs.</p></div></li>
+    <li><span class="sem">Jour J + 1</span><div><h3>Post · Merci aux coureurs</h3><p>La photo du groupe, le club identifié, et une invitation à venir avec sa carte fidélité.</p></div></li>
+  </ol>
+  <p class="note">Dates à caler avec vous, surtout le jour de la venue des coureurs. Vraies photos et vraies vidéos uniquement.</p>
+</section>
+
 <section class="wrap" aria-labelledby="t-mois">
-  <span class="lab">03 · Chaque mois</span>
+  <span class="lab">04 · Chaque mois</span>
   <h2 id="t-mois">Des réseaux qui publient.<br><em>Un bilan chiffré.</em></h2>
   <div class="formules">
     <div class="f">
@@ -249,7 +268,7 @@ ul.coche li::before{content:"";position:absolute;left:0;top:.5em;width:14px;heig
 </section>
 
 <section class="wrap" aria-labelledby="t-next">
-  <span class="lab">04 · Pour démarrer</span>
+  <span class="lab">05 · Pour démarrer</span>
   <h2 id="t-next">Un message,<br><em>et on lance.</em></h2>
   <ol class="etapes">
     <li>Vous choisissez le lancement et la formule du mois (boutons ci-dessus ou devis signé).</li>
