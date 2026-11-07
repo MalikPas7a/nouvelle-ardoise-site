@@ -894,16 +894,40 @@ function ll2px(lat,lon){const n=2**11*256,x=(lon+180)/360*n,r=lat*Math.PI/180,y=
  const sc=new THREE.Mesh(new THREE.CircleGeometry(2,64),new THREE.ShadowMaterial({opacity:.55}));sc.rotation.x=-Math.PI/2;sc.position.y=.002;sc.receiveShadow=true;scene.add(sc);
  const GARMENTS={
   shoe:{off:.012,rough:.55,dir:1,glsl:`float ok=step(vB.y,.135);
-   vec3 col=mix(uA,uB,smoothstep(.09,.13,vB.y));col=mix(col,uB,step(vB.z,-.06));col=mix(col,uC,step(vB.y,.032));col=mix(col,vec3(.05),step(vB.y,.012));`},
+   vec3 col=mix(uA,uB,smoothstep(.09,.13,vB.y));col=mix(col,uB,step(vB.z,-.06));col=mix(col,uC,step(vB.y,.032));col=mix(col,vec3(.05),step(vB.y,.012));
+   col*=1.-.35*exp(-pow((vB.y-.037)/.0025,2.));col*=1.-.25*exp(-pow((vB.y-.088)/.002,2.));
+   gH=.0007*step(vB.y,.03)*step(.5,fract(vB.z*55.))*aa(55.,fw)+.00015*(vn(vB*500.)-.5)*aa(500.,fw)*step(.035,vB.y);`},
   pant:{env:'envLeg(eP,eN);envEll(eP,eN,.2,.125,0.,.84,1.0);',off:.006,rough:.8,dir:1,glsl:`float ok=step(uX,vB.y)*step(vB.y,1.0)*step(abs(vB.x),.24);
-   vec3 col=mix(uA,uB,smoothstep(.50,.53,vB.y));col=mix(col,uC,step(.955,vB.y));`},
+   float ax=abs(vB.x);vec3 col=uA;
+   float kn=step(uX,.2)*smoothstep(.005,.02,vB.z)*smoothstep(.465,.475,vB.y)*(1.-smoothstep(.57,.58,vB.y));col=mix(col,uB,kn*.8);
+   float pk=smoothstep(.145,.155,ax)*smoothstep(.62,.625,vB.y)*(1.-smoothstep(.735,.74,vB.y))*(1.-smoothstep(.05,.055,abs(vB.z)));
+   float fl=pk*smoothstep(.70,.705,vB.y);col=mix(col,mix(col,uB,.3),fl);col*=1.-.1*pk;
+   float wb=smoothstep(.948,.952,vB.y);col=mix(col,uC,wb);
+   col*=1.-.3*exp(-pow(vB.z/.0025,2.))*step(.15,ax);
+   col*=1.-.2*(1.-smoothstep(uX+.012,uX+.02,vB.y));
+   gH=.0001*sin((vB.x*.7+vB.y)*1634.)*aa(260.,fw)+kn*.0007+pk*.0009+fl*.0004+wb*.001;`},
   base:{env:'envEll(eP,eN,.168,.12,0.,.9,1.37);envSleeve(eP,eN,.05,.034);',off:.0035,rough:.9,dir:-1,glsl:`float ok=step(.90,vB.y)*step(vB.y,1.535)*step(abs(vB.x),uX);
-   vec3 col=uA;`},
+   float ax=abs(vB.x);vec3 col=uA;
+   float nk=smoothstep(1.505,1.515,vB.y)*step(ax,.22);float cf=smoothstep(uX-.03,uX-.025,ax)*step(.22,ax);
+   col*=1.-.16*nk-.12*cf;
+   gH=.00012*sin((ax<.22?vB.x:vB.y)*2827.)*aa(450.,fw)+.0008*nk+.0005*cf;`},
   fleece:{env:'envEll(eP,eN,.192,.136,0.,.86,1.385);envSleeve(eP,eN,.058,.042);',off:.009,rough:1.,sheen:1,dir:-1,glsl:`float ok=step(.86,vB.y)*step(vB.y,1.55)*step(abs(vB.x),.70);
-   vec3 col=mix(uA,uB,clamp(step(1.36,vB.y)+step(.30,abs(vB.x)),0.,1.))*(.92+.16*fract(sin(dot(floor(vB.xy*900.),vec2(12.9,78.2)))*43758.5));
-   col=mix(col,vec3(.05),step(abs(vB.x),.006)*step(.04,vB.z));`},
+   float ax=abs(vB.x);vec3 col=uA;
+   float yk=smoothstep(1.375,1.385,vB.y)*step(ax,.30);float cf=smoothstep(.665,.67,ax);float hb=1.-smoothstep(.895,.9,vB.y);float cl=smoothstep(1.515,1.525,vB.y)*step(ax,.24);
+   col=mix(col,uB,max(max(yk,cf),max(hb,cl)));
+   col*=1.-.35*exp(-pow((vB.y-1.38)/.002,2.))*step(ax,.30);
+   float pile=vn(vB*170.);col*=.95+.1*mix(.5,pile,aa(170.,fw));
+   float zp=step(.04,vB.z);col=mix(col,vec3(.05),step(ax,.006)*zp);
+   float pu=zp*step(ax,.011)*step(1.46,vB.y)*step(vB.y,1.505);col=mix(col,vec3(.62,.64,.68),pu);
+   gH=.0003*(vn(vB*600.)-.5)*aa(600.,fw)+.0005*(pile-.5)*aa(170.,fw)+.0012*cl+.0008*(cf+hb)+.0008*pu;`},
   rain:{env:'envEll(eP,eN,.207,.15,0.,.80,1.395);envSleeve(eP,eN,.065,.048);',off:.015,rough:.42,clear:.4,dir:-1,glsl:`float ok=step(.80,vB.y)*step(vB.y,1.575)*step(abs(vB.x),.712);
-   vec3 col=uA;col=mix(col,vec3(.04),step(abs(vB.x),.007)*step(.04,vB.z));col=mix(col,uA*.7,step(1.32,vB.y)*step(vB.y,1.335)*step(.04,vB.z));`},
+   float ax=abs(vB.x);vec3 col=uA;float fr=step(.04,vB.z);
+   float zp=step(ax,.014)*fr;col=mix(col,uA*.6,zp);col=mix(col,vec3(.04),step(ax,.004)*fr);
+   float pz=fr*step(.05,vB.x)*step(vB.x,.17)*exp(-pow((vB.y-1.33)/.0028,2.));col=mix(col,vec3(.04),pz);
+   col*=1.-.3*exp(-pow((ax-.235)/.003,2.))*step(1.36,vB.y);
+   float cl=smoothstep(1.53,1.545,vB.y)*step(ax,.24);float hb=1.-smoothstep(.825,.835,vB.y);float cf=smoothstep(.68,.685,ax);
+   col*=1.-.1*cl-.12*hb-.15*cf;
+   gH=.0005*(vn(vB*45.)-.5)+.0012*cl+.0008*hb+.0007*cf+.0006*zp-.0004*pz;`},
  };
  GARMENTS.soft=Object.assign({},GARMENTS.rain,{rough:.7,clear:0});
  const ENV=`
@@ -925,6 +949,20 @@ function ll2px(lat,lon){const n=2**11*256,x=(lon+180)/360*n,r=lat*Math.PI/180,y=
   vec2 d=vec2(ax-cx,p.z-cz);float L=length(d);if(L>=r||L<0.005)return;vec2 q=d/L*r;
   p=vec3(sg*(cx+q.x),p.y,cz+q.y);n=normalize(vec3(sg*d.x/L,0.,d.y/L));}
  `;
+ const FHELP=`
+ float hs(vec3 p){return fract(sin(dot(p,vec3(12.9898,78.233,37.719)))*43758.5453);}
+ float vn(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
+  return mix(mix(mix(hs(i),hs(i+vec3(1,0,0)),f.x),mix(hs(i+vec3(0,1,0)),hs(i+vec3(1,1,0)),f.x),f.y),mix(mix(hs(i+vec3(0,0,1)),hs(i+vec3(1,0,1)),f.x),mix(hs(i+vec3(0,1,1)),hs(i+vec3(1,1,1)),f.x),f.y),f.z);}
+ float aa(float fq,float fw){return 1.-smoothstep(.2,.45,fw*fq);}
+ float folds(vec3 p,float fw){float h=0.,ax=abs(p.x);
+  h+=smoothstep(.37,.44,ax)*(1.-smoothstep(.53,.6,ax))*step(1.3,p.y)*.003*sin(ax*95.+vn(p*30.)*4.);
+  h+=smoothstep(.37,.44,p.y)*(1.-smoothstep(.58,.66,p.y))*step(ax,.24)*.0026*sin(p.y*110.+vn(p*25.)*4.+ax*20.);
+  h+=smoothstep(.13,.16,p.y)*(1.-smoothstep(.22,.28,p.y))*step(ax,.24)*.002*sin(p.y*160.+vn(p*40.)*5.);
+  h+=step(.86,p.y)*step(p.y,1.4)*step(ax,.24)*.0009*sin(p.y*70.+p.x*30.+vn(p*12.)*5.);
+  return h+.0022*(vn(p*14.)-.5)*aa(14.,fw);}
+ vec3 pnA(vec3 sx,vec3 sy,vec3 n,vec2 d,float fd){vec3 r1=cross(sy,n),r2=cross(n,sx);float det=dot(sx,r1)*fd;
+  return normalize(abs(det)*n-sign(det)*(d.x*r1+d.y*r2));}
+ `;
  const MATS={};
  function garmentMat(g,key){
   const m=new THREE.MeshPhysicalMaterial({color:0xffffff,envMapIntensity:.45,roughness:g.rough,metalness:0,sheen:g.sheen?1:0,sheenRoughness:.8,sheenColor:new THREE.Color(0x8899aa),clearcoat:g.clear||0,clearcoatRoughness:.35});
@@ -932,8 +970,9 @@ function ll2px(lat,lon){const n=2**11*256,x=(lon+180)/360*n,r=lat*Math.PI/180,y=
   m.userData.u=u;
   m.onBeforeCompile=s=>{Object.assign(s.uniforms,u);
    s.vertexShader='uniform float uOff;varying vec3 vB;vec3 eP;vec3 eN;\n'+ENV+s.vertexShader.replace('#include <beginnormal_vertex>','#include <beginnormal_vertex>\neP=position;eN=objectNormal;'+(g.env||'')+'objectNormal=eN;').replace('#include <begin_vertex>','#include <begin_vertex>\nvB=position;transformed=eP+eN*uOff;');
-   s.fragmentShader='uniform float uRev;uniform float uDir;uniform float uOn;uniform float uX;uniform vec3 uA;uniform vec3 uB;uniform vec3 uC;varying vec3 vB;\n'+s.fragmentShader
-    .replace('#include <color_fragment>','#include <color_fragment>\n'+g.glsl+'\nif(ok<.5||uOn<.5)discard;\nfloat rv=uDir>0.?uRev-vB.y:vB.y-uRev;if(rv<0.)discard;\ndiffuseColor.rgb*=pow(col,vec3(2.2));')
+   s.fragmentShader='uniform float uRev;uniform float uDir;uniform float uOn;uniform float uX;uniform vec3 uA;uniform vec3 uB;uniform vec3 uC;varying vec3 vB;\n'+FHELP+s.fragmentShader
+    .replace('#include <normal_fragment_maps>','#include <normal_fragment_maps>\nnormal=pnA(sPx,sPy,normal,dH,faceDirection);')
+    .replace('#include <color_fragment>','#include <color_fragment>\nfloat gH=0.;float fw=length(fwidth(vB))+1e-6;\n'+g.glsl+'\ngH+=folds(vB,fw);col*=1.+clamp(gH*25.,-.12,.06);vec2 dH=vec2(dFdx(gH),dFdy(gH));vec3 sPx=dFdx(-vViewPosition),sPy=dFdy(-vViewPosition);\nif(ok<.5||uOn<.5)discard;\nfloat rv=uDir>0.?uRev-vB.y:vB.y-uRev;if(rv<0.)discard;\ndiffuseColor.rgb*=pow(col,vec3(2.2));')
     .replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\ntotalEmissiveRadiance+=vec3(.35,.45,1.)*2.5*exp(-rv*rv/0.0006);');};
   m.customProgramCacheKey=()=>'g_'+key;return m;
  }
