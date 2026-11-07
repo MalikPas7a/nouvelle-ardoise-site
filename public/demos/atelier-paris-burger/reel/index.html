@@ -37,6 +37,7 @@ h1{font-family:var(--display);font-weight:600;color:var(--or);font-size:clamp(34
 .phone .play svg{width:34px;height:34px;margin-left:5px;fill:#490917}
 .phone.on .play{display:none}
 .note{margin-top:14px;text-align:center;font-size:12.5px;color:var(--muted)}
+.sons .lab{flex-basis:100%;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-top:.4rem}
 .sons{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
 .sons button{font:inherit;font-size:13px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer}
 .sons button.on{background:var(--fg);color:#fff;border-color:var(--fg)}
@@ -57,21 +58,26 @@ footer a{color:var(--fg)}
   <ul class="meta">
    <li>Format Instagram 9:16, 23 s, vraies photos et rushes du shooting, charte officielle Atelier Paris Burger (Cormorant Garamond + DM Sans, Merlot, crème, or), logo officiel tiré des fichiers de la charte.</li>
    <li>Entrée dans la photo du journal (une entrecôte nappée de sauce Café de Paris, 1982) : le noir et blanc tramé coupe sur le burger en couleur. Fin : le logo Atelier Paris Burger, puis Madrid, Ibiza et Genève montent ; le reste s’efface, Genève reste seule et un Jet d’eau de sauce Café de Paris (couleur et texture de la sauce, généré par IA à partir d’une image puis animé et incrusté) monte pendant « Bientôt, à Genève, face au Jet d’eau ».</li>
-   <li>Son : voix Paul K sur un fond musical percussif généré (batterie, body percussion, voix humaines en chœur et en shouts, sans instrument à cordes ni piano ni synthé), ducké sous la voix ; bruitages propres sur la plancha, la coupe et le trempage ; les sons des clips de base sont coupés. Trois fonds au choix ci-dessous : A trap hype (fort dès la première seconde), B swing snap (jazz-hop, claquements de doigts), C tambours de guerre et chœur (montée épique).</li>
+   <li>Son : voix Paul K sur un fond musical plus fort et plus premium (percussions et voix humaines, sans instrument à cordes ni piano ni synthé), ducké sous la voix ; bruitages propres sur la plancha, la coupe et le trempage ; les sons des clips de base sont coupés. Six fonds au choix ci-dessous : A défilé luxe (808, snaps, chœur grave, 96 bpm), B taiko trailer (tambours japonais, timbales, chœur d’hommes, montée épique), C afro-house Ibiza (kick profond, congas, chants), puis les trois précédents D trap hype, E swing snap, F tambours + chœur.</li>
   </ul>
  </section>
  <div>
   <div class="phone" id="ph">
    <video id="v" playsinline preload="metadata" poster="poster.jpg" controls>
-    <source src="reel-smash-v42-son-A.mp4" type="video/mp4">
+    <source src="reel-smash-v43-son-B.mp4" type="video/mp4">
    </video>
    <button class="play" id="pl" aria-label="Lire le réel"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></button>
   </div>
   <p class="note">Appuyez pour lancer, avec le son.</p>
   <div class="sons" id="sons">
-   <button data-src="reel-smash-v42-son-A.mp4" class="on">Son A · trap hype</button>
-   <button data-src="reel-smash-v42-son-B.mp4">Son B · swing snap</button>
-   <button data-src="reel-smash-v42-son-C.mp4">Son C · tambours + chœur</button>
+   <span class="lab">Nouveaux, plus forts</span>
+   <button data-src="reel-smash-v43-son-A.mp4">Son A · défilé luxe</button>
+   <button data-src="reel-smash-v43-son-B.mp4" class="on">Son B · taiko trailer</button>
+   <button data-src="reel-smash-v43-son-C.mp4">Son C · afro-house Ibiza</button>
+   <span class="lab">Précédents</span>
+   <button data-src="reel-smash-v42-son-A.mp4">Son D · trap hype</button>
+   <button data-src="reel-smash-v42-son-B.mp4">Son E · swing snap</button>
+   <button data-src="reel-smash-v42-son-C.mp4">Son F · tambours + chœur</button>
   </div>
  </div>
 </main>
