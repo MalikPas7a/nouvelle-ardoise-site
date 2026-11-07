@@ -883,7 +883,7 @@ function ll2px(lat,lon){const n=2**11*256,x=(lon+180)/360*n,r=lat*Math.PI/180,y=
  const scene=new THREE.Scene();scene.environment=new THREE.PMREMGenerator(R).fromScene(new RoomEnvironment(),.04).texture;
  const cam=new THREE.PerspectiveCamera(30,1,.05,60);
  scene.add(new THREE.HemisphereLight(0xdfe6ff,0x101018,.4));
- const key=new THREE.SpotLight(0xffffff,26,30,.5,.6,1.6);key.position.set(2.6,4.6,3.2);key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.bias=-.0004;key.shadow.radius=6;scene.add(key,key.target);
+ const key=new THREE.SpotLight(0xfff6ec,20,30,.55,.8,1.6);key.position.set(2.6,4.6,3.2);key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.bias=-.0004;key.shadow.radius=6;scene.add(key,key.target);
  const rimL=new THREE.SpotLight(0x5d6bff,70,20,.6,.7,1.4);rimL.position.set(-3.2,2.6,-2.6);scene.add(rimL,rimL.target);
  const rimR=new THREE.SpotLight(0x9fb2ff,40,20,.6,.7,1.4);rimR.position.set(3.4,2.2,-2.4);scene.add(rimR,rimR.target);
  const fill=new THREE.DirectionalLight(0xfff2e6,.6);fill.position.set(-3,2,4);scene.add(fill);
@@ -944,7 +944,7 @@ function ll2px(lat,lon){const n=2**11*256,x=(lon+180)/360*n,r=lat*Math.PI/180,y=
   model.traverse(o=>{if(o.name.startsWith('mixamorig'))bones[o.name.replace('mixamorig','')]=o;});
   const skinned=[];model.traverse(o=>{if(o.isSkinnedMesh)skinned.push(o);});
   skinned.forEach(o=>{o.castShadow=true;o.receiveShadow=true;o.frustumCulled=false;
-   o.material=o.name!=='Beta_Joints'?new THREE.MeshPhysicalMaterial({color:0xf2f2f0,roughness:.28,clearcoat:.6,clearcoatRoughness:.2}):new THREE.MeshPhysicalMaterial({color:0x8c8f96,roughness:.35,metalness:.2});});
+   o.material=new THREE.MeshPhysicalMaterial({color:o.name!=='Beta_Joints'?0x9a948c:0x837d75,roughness:.55,envMapIntensity:.5});});
   for(const k in GARMENTS){const g=GARMENTS[k];MATS[k]=[garmentMat(g,k),garmentMat(Object.assign({},g,{off:.0015}),k+'j')];
    skinned.forEach(o=>{const c=new THREE.SkinnedMesh(o.geometry,o.name==='Beta_Joints'?MATS[k][1]:MATS[k][0]);c.bind(o.skeleton,o.bindMatrix);c.castShadow=true;c.frustumCulled=false;o.parent.add(c);});}
   bones.LeftArm.rotateOnWorldAxis(new THREE.Vector3(0,0,1),-1.15);bones.RightArm.rotateOnWorldAxis(new THREE.Vector3(0,0,1),1.15);
@@ -962,19 +962,23 @@ function ll2px(lat,lon){const n=2**11*256,x=(lon+180)/360*n,r=lat*Math.PI/180,y=
   const dir=cam.position.clone().sub(controls.target).normalize();cam.position.copy(controls.target).addScaledVector(dir,dist);}
  new ResizeObserver(size).observe(box);size();
  let seq=[],t0=0,seen=false;const ORDER=['shoe','pant','base','fleece','rain','soft'];
+ let porte=null;
+ // n'anime que les couches qui changent : les autres restent portées
  window.dressMQ=(L,anim=true)=>{
   if(!ready||!seen){pending=[L,anim];return;}
-  pending=null;const worn=L.filter(l=>!l.sac);
-  for(const k in MATS)for(const m of MATS[k]){m.userData.u.uOn.value=0;}
-  seq=worn.slice().sort((a,b)=>ORDER.indexOf(a.g)-ORDER.indexOf(b.g)).map((l,i)=>{const p=P[l.p],c=p.c||[[.5,.5,.5]];
+  pending=null;const worn=L.filter(l=>!l.sac).sort((a,b)=>ORDER.indexOf(a.g)-ORDER.indexOf(b.g));
+  const avant=porte;porte={};worn.forEach(l=>porte[l.g]=l.p);
+  for(const k in MATS)if(!porte[k])for(const m of MATS[k])m.userData.u.uOn.value=0;
+  let n=0;
+  seq=worn.map(l=>{const p=P[l.p],c=p.c||[[.5,.5,.5]],change=anim&&(!avant||avant[l.g]!==l.p);
    for(const m of MATS[l.g]){const u=m.userData.u;u.uOn.value=1;u.uA.value.setRGB(...c[0]);u.uB.value.setRGB(...(c[1]||c[0]));u.uC.value.setRGB(...(c[2]||c[1]||c[0]));u.uX.value=l.g==='pant'?(p.court?.5:.125):(p.court?.36:.715);}
-   return {g:l.g,p:l.p,at:anim?i*1.0:-5};});
+   return {g:l.g,p:l.p,at:change?(n++)*.9:-5};});
   t0=performance.now()/1000;
-  document.querySelectorAll('.layer').forEach(e=>e.classList.toggle('on',!anim));
-  if(anim){seq.forEach(s=>{const i=L.findIndex(l=>l.p===s.p);setTimeout(()=>{const el=document.querySelector(`.layer[data-i="${i}"]`);el&&el.classList.add('on');},s.at*1000+300);});
-   setTimeout(()=>document.querySelectorAll('.layer').forEach(e=>e.classList.add('on')),seq.length*1000+600);}
+  seq.forEach(s=>{const i=L.findIndex(l=>l.p===s.p),el=document.querySelector(`.layer[data-i="${i}"]`);if(!el)return;
+   if(s.at<0)el.classList.add('on');else{el.classList.remove('on');setTimeout(()=>el.classList.add('on'),s.at*1000+300);}});
+  document.querySelectorAll('.layer').forEach(e=>{if(!seq.some(s=>L.findIndex(l=>l.p===s.p)===+e.dataset.i))e.classList.add('on');});
  };
- $('replay').onclick=()=>{seen=true;window.dressMQ(tenue(),true);};
+ $('replay').onclick=()=>{seen=true;porte=null;window.dressMQ(tenue(),true);};
  let on=false,tourne=false;visible(box,v=>{on=v;if(v){if(!seen){seen=true;if(pending)window.dressMQ(...pending);else window.dressMQ(tenue(),true);}if(!tourne){tourne=true;requestAnimationFrame(loop);}}});
  function loop(now){
   if(!on){tourne=false;return;}
