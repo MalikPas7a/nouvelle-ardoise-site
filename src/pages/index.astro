@@ -72,7 +72,6 @@ const jsonLd = JSON.stringify({
 });
 ---
 <Cartographe title={title} description={description} jsonLd={jsonLd} image="/partage-commerces.jpg" imageAlt="Qu’on vous trouve. Qu’on vous choisisse. Nouvelle Ardoise, agence de marketing à Genève et en Suisse romande" entete="flottant" teinte="#1E2427">
-  <script is:inline>(function () { if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; var d = document.documentElement; d.classList.add('attente'); setTimeout(function () { if (!window.__vivante) d.classList.remove('attente'); }, 3000); })();</script>
 
   <section class="ouv" data-fond="ardoise" aria-labelledby="titre">
     <div class="g">
@@ -270,7 +269,7 @@ const jsonLd = JSON.stringify({
     <p class="etiq">Votre interlocuteur</p>
     <h2 id="fin-titre">Parlons de <em>votre commerce.</em></h2>
     <p class="fin__sous">Un seul numéro, du premier appel au bilan mensuel.</p>
-    <a class="numero" href="tel:+41782133868" aria-label="Appeler le 078 213 38 68"><span class="numero__txt">{TEL}</span><span class="numero__roue" aria-hidden="true"></span></a>
+    <a class="numero" href="tel:+41782133868"><span class="sr">Appeler le {TEL}</span><span class="numero__txt" aria-hidden="true">{TEL}</span><span class="numero__roue" aria-hidden="true"></span></a>
     <ol class="mois">
       <li><b>Un objectif clair</b><span>fixé ensemble au départ</span></li>
       <li><b>Trois priorités</b><span>celles qui rapportent d’abord</span></li>
@@ -319,8 +318,21 @@ body.flottant :focus-visible { outline: 2px solid var(--craie); outline-offset: 
 body[data-fond="craie"] .tete__cta, body[data-fond="craie"] .barre .btn--craie { background: var(--ardoise); color: var(--craie); border-color: var(--ardoise); }
 body[data-fond="craie"] .tete__cta .cta__duree, body[data-fond="craie"] .barre .btn--craie .cta__duree { background: var(--craie); color: var(--ardoise); }
 .tete__cta, .barre .btn--craie { transition: background-color .3s, color .3s, transform .16s var(--sortie); }
-/* En attendant le script : rien ne s'affiche puis ne saute (3 s au plus, ensuite tout reste visible) */
-html.attente:not(.mvt) .titre .l > span, html.attente:not(.mvt) .ouv__sur, html.attente:not(.mvt) .ouv__bas > * { opacity: 0; }
+/* Ouverture en CSS : elle part dès le premier affichage, sans attendre le script (meilleur LCP).
+   Les lignes arrivent de côtés opposés ; jamais à opacité 0 pour que le navigateur compte le titre tout de suite. */
+@media (prefers-reduced-motion: no-preference) {
+  .titre .l > span { animation: arrive-g 1.25s cubic-bezier(.16, 1, .3, 1) both; }
+  .titre .l2 > span, .titre .l4 > span { animation-name: arrive-d; }
+  .titre .l2 > span { animation-delay: .09s; }
+  .titre .l3 > span { animation-delay: .18s; }
+  .titre .l4 > span { animation-delay: .27s; }
+  .ouv__sur { animation: monte 0.8s cubic-bezier(.16, 1, .3, 1) .25s both; }
+  .ouv__bas > * { animation: monte-b 0.9s cubic-bezier(.16, 1, .3, 1) .7s both; }
+}
+@keyframes arrive-g { from { transform: translateX(-70%); opacity: .02; } }
+@keyframes arrive-d { from { transform: translateX(70%); opacity: .02; } }
+@keyframes monte { from { transform: translateY(16px); opacity: .02; } }
+@keyframes monte-b { from { transform: translateY(24px); opacity: .02; } }
 
 /* 1. Ouverture sur l'ardoise */
 .ouv { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; background: var(--ardoise); color: var(--papier); overflow: hidden; padding-top: 96px; box-sizing: border-box; }
@@ -705,8 +717,12 @@ function majFond() {
     if (sec && sec !== document.body) { fond(sec.dataset.fond); return; }
   }
 }
-let image = 0;
-(function boucle() { if (++image % 2 === 0) majFond(); requestAnimationFrame(boucle); })();
+// Recalcul seulement quand la page bouge (une fois par image au plus), pas en boucle permanente
+let fondPrevu = false;
+function prevoirFond() { if (fondPrevu) return; fondPrevu = true; requestAnimationFrame(() => { fondPrevu = false; majFond(); }); }
+addEventListener('scroll', prevoirFond, { passive: true });
+addEventListener('resize', prevoirFond, { passive: true });
+prevoirFond();
 
 // Fondu en bas d'une figure seulement si elle déborde vraiment
 function majDebord() {
@@ -718,9 +734,11 @@ function majDebord() {
 }
 
 const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Rend la main au navigateur entre deux scènes : la mise en place ne bloque plus l'écran d'un seul coup (TBT, INP)
+const pause = () => (window.scheduler && scheduler.yield ? scheduler.yield() : new Promise((r) => setTimeout(r, 0)));
 if (!calme) demarrer();
 
-function demarrer() {
+async function demarrer() {
   document.documentElement.classList.add('mvt');
   window.__vivante = true;
   window.scrollTo(0, 0);
@@ -764,10 +782,7 @@ function demarrer() {
   const trait = q('.trait path'), longueur = q('.trait').getBoundingClientRect().width * 1.15 + 20;
   gsap.set(trait, { strokeDasharray: longueur, strokeDashoffset: longueur });
   gsap.timeline({ defaults: { ease: 'expo.out' } })
-    .from('.l > span', { xPercent: (i) => (i % 2 ? 70 : -70), opacity: 0, duration: 1.25, stagger: 0.09 })
-    .from('.ouv__sur', { y: 16, opacity: 0, duration: 0.8 }, 0.25)
     .to(trait, { strokeDashoffset: 0, duration: 0.9, ease: 'power2.inOut', onComplete: () => gsap.set(trait, { clearProps: 'strokeDasharray,strokeDashoffset' }) }, 0.9)
-    .from('.ouv__bas > *', { y: 24, opacity: 0, duration: 0.9, stagger: 0.1 }, 0.7)
     .from('.rang', { xPercent: (i) => (i ? 30 : -30), duration: 1.4 }, 0.5);
 
   // Au défilement, l'ardoise s'écarte, puis la brique recouvre tout
@@ -777,6 +792,7 @@ function demarrer() {
   gsap.to(['.l2', '.l4'], { xPercent: 16, ease: 'none', scrollTrigger: sortie });
   gsap.to('.titre', { scale: 1.1, transformOrigin: '50% 100%', ease: 'none', scrollTrigger: sortie });
 
+  await pause();
   // 2. Manifeste : bord en biais qui se redresse, phrases qui se croisent, pastilles qui tombent
   gsap.fromTo('.mani', { clipPath: 'polygon(0% 12%, 100% 0%, 100% 100%, 0% 100%)' }, { clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)', ease: 'none', scrollTrigger: { trigger: '.mani', start: 'top bottom', end: 'top 30%', scrub: true } });
   const traverse = { trigger: '.mani', start: 'top bottom', end: 'bottom top', scrub: true };
@@ -785,6 +801,7 @@ function demarrer() {
   gsap.fromTo('.mani__un', { rotation: -10, yPercent: 8 }, { rotation: 6, yPercent: -10, ease: 'none', scrollTrigger: traverse });
   gsap.from('.puces li', { y: -120, rotation: () => gsap.utils.random(-24, 24), opacity: 0, duration: 1, ease: 'back.out(1.5)', stagger: 0.07, scrollTrigger: { trigger: '.puces', start: 'top 92%', once: true } });
 
+  await pause();
   // 3. Chapitres
   const rail = q('.piste__rail'), pans = qa('.pan'), compteur = q('.compteur'), num = q('.compteur b');
   const n = pans.length;
@@ -948,6 +965,7 @@ function demarrer() {
     attente = setTimeout(() => { figer(); ScrollTrigger.refresh(); }, 220);
   });
 
+  await pause();
   // 4. Le test : le titre arrive en deux temps, la carte du test s'ouvre depuis son bord haut
   const arrivee = (trigger) => ({ trigger, start: 'top 80%', once: true });
   gsap.from('.essai h2 > span', { xPercent: (i) => (i ? 24 : -24), opacity: 0, duration: 1.1, ease: 'expo.out', stagger: 0.1, scrollTrigger: arrivee('.essai') });
@@ -958,6 +976,7 @@ function demarrer() {
   gsap.from('.metiers h2', { y: 60, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: arrivee('.metiers') });
   qa('.metier').forEach((m, i) => gsap.from(m, { x: i % 2 ? 90 : -90, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: m, start: 'top 92%', once: true } }));
 
+  await pause();
   // 6. Zone : la carte se dessine depuis Genève quand on arrive dessus
   const carte = q('.carte');
   if (carte) ScrollTrigger.create({ trigger: carte, start: 'top 75%', once: true, onEnter: () => carte.classList.add('allume') });
@@ -969,6 +988,7 @@ function demarrer() {
   // 8. Questions
   gsap.from('.questions h2', { x: -80, opacity: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: arrivee('.questions') });
 
+  await pause();
   // 9. Fin : le numéro roule, une colonne vers le haut, la suivante vers le bas
   const cols = qa('.col');
   cols.forEach((c, i) => gsap.set(c.firstChild, { y: i % 2 ? '-10em' : '1em' }));
@@ -979,6 +999,8 @@ function demarrer() {
   });
   gsap.from('.mois li', { y: 30, opacity: 0, duration: 0.8, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: '.mois', start: 'top 90%', once: true } });
 
+  // Si la page a fini de charger pendant la mise en place, GSAP ne recalculera plus seul
+  if (document.readyState === 'complete') ScrollTrigger.refresh();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
 }
 </script>
