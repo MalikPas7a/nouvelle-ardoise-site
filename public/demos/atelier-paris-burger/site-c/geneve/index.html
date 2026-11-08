@@ -264,19 +264,16 @@ footer small{display:block;margin:20px auto 0;max-width:72ch;font-size:12px;line
 .sig .cta{margin-top:36px}
 /* Page Genève : en-tête */
 .vtete{background:var(--wood);color:var(--peach)}
-.vtete .w{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(28px,5vw,72px);align-items:center;padding-top:56px;padding-bottom:56px}
-.vtete .fil{font:500 13px var(--sans);color:rgba(249,237,220,.7)}
-.vtete .fil a{color:var(--or)}
-.vtete .eye{margin-top:22px;color:var(--or)}
-.vtete h1{margin-top:12px;font-size:clamp(48px,6vw,64px);line-height:1;letter-spacing:-.02em;text-transform:uppercase}
-.vtete .sous{margin-top:18px;max-width:38ch;font-size:18px;line-height:1.55;color:rgba(249,237,220,.86)}
-.vtete .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-.vtete figure img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
-#infos .ailleurs{grid-column:auto;grid-template-columns:1fr 1fr;gap:14px 24px;margin-top:24px}
-#infos .ailleurs h3{grid-column:1/-1}
-#infos .ailleurs p:last-child{grid-column:1/-1}
-#infos .ailleurs a{color:var(--merlot);font-weight:700}
-.vtete figcaption{margin-top:10px;font-size:13px;color:rgba(249,237,220,.7)}
+.vtete .w{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-areas:'txt ph' 'cta ph';column-gap:clamp(28px,5vw,72px);align-items:end;padding-top:48px;padding-bottom:48px}
+.vtete .txt{grid-area:txt}
+.vtete figure{grid-area:ph;align-self:center}
+.vtete .cta{grid-area:cta;align-self:start;display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.vtete h1{font-size:clamp(44px,5vw,64px);line-height:1;letter-spacing:-.02em;text-transform:uppercase}
+.vtete h1 .q{display:block;margin-top:6px;font-size:.62em;color:var(--or);white-space:nowrap}
+.vtete h1 .sep{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.vtete .ouv{margin-top:20px;font:700 14px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--peach)}
+.vtete .sous{margin-top:14px;max-width:36ch;font-size:17px;line-height:1.55;color:rgba(249,237,220,.8)}
+.vtete figure img{width:100%;height:auto;display:block}
 @media (max-width:860px){
  .villes,.sig{padding:60px 0 64px}
  .villes .grille,.sig .grille{grid-template-columns:1fr;gap:16px}
@@ -287,15 +284,21 @@ footer small{display:block;margin:20px auto 0;max-width:72ch;font-size:12px;line
  .ville p{font-size:14px}
  .ville .btn{margin-top:14px}
  .sig .sc{height:190px}
- .vtete .w{grid-template-columns:1fr;padding-top:32px;padding-bottom:40px;gap:28px}
- .vtete figure{order:-1;margin:0 calc(-1*var(--g))}
- .vtete figcaption{padding:0 var(--g)}
+ .vtete .w{grid-template-columns:1fr;grid-template-areas:'txt' 'ph' 'cta';padding-top:22px;padding-bottom:28px}
+ .vtete h1{font-size:40px}
+ .vtete h1 .q{font-size:.7em;margin-top:4px}
+ .vtete .ouv{margin-top:10px;font-size:13px}
+ .vtete .sous{display:none}
+ .vtete figure{margin:18px calc(-1*var(--g)) 0}
+ .vtete .cta{flex-direction:column;gap:10px;margin-top:18px}
+ .vtete .cta .btn{width:100%;min-height:50px}
 }
 </style></head><body>
 <div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menu"><a href="#carte">La carte</a><a href="#infos">Infos</a><a href="../#villes">Nos villes</a></nav><a class="logo" href="../"><img src="../img/logo/apb-logotype.svg" alt="Atelier Paris Burger, accueil" width="300" height="20"></a><div class="d"><a class="btn btn-or" href="../../site-b/geneve/">Commander</a><details class="mmenu"><summary aria-label="Ouvrir le menu"><span></span><span></span></summary><nav aria-label="Menu mobile"><a href="#carte">La carte</a><a href="#infos">Infos</a><a href="../#villes">Nos villes</a><a href="../../site-b/geneve/">Commander</a></nav></details></div></div></header>
 <main>
-<section class="vtete" id="haut"><div class="w"><div><p class="fil"><a href="../">Atelier Paris Burger</a> · Genève</p><p class="eye">Eaux-Vives, au bord du lac</p><h1>Genève</h1><p class="sous">Ouverture prévue le 27 novembre. Sur place, à emporter, ou commandé en ligne et retiré au comptoir.</p><div class="cta"><a class="btn btn-or" href="#carte">Voir la carte</a><a class="btn btn-ligne" href="../../site-b/geneve/">Commander</a></div></div>
-<figure><img src="../img/ville-geneve.webp" width="1000" height="750" alt="La rade de Genève et le Jet d’eau" fetchpriority="high" decoding="async"><figcaption>La rade de Genève, face au Jet d’eau.</figcaption></figure></div></section>
+<section class="vtete" id="haut"><div class="w"><div class="txt"><h1>Genève<span class="sep"> · </span><span class="q">Eaux-Vives</span></h1><p class="ouv">Ouverture prévue le 27 novembre</p><p class="sous">Le smash coupé, posé dans la sauce Café de Paris. Sur place, à emporter ou à commander en ligne.</p></div>
+<figure><picture><source media="(max-width:860px)" srcset="../img/g-smash-m.webp" width="1170" height="771"><img src="../img/g-smash-d.webp" width="1600" height="839" alt="Un smash 160 g coupé en deux, posé dans la sauce Café de Paris, avec des frites" fetchpriority="high" decoding="async"></picture></figure>
+<div class="cta"><a class="btn btn-or" href="#carte">Voir la carte</a><a class="btn btn-ligne" href="../../site-b/reserver/">Réserver mon burger offert</a></div></div></section>
 <section class="carte" id="carte"><div class="w"><div class="tete"><div><p class="eye">La carte · Genève</p><h2>Choisissez votre format</h2></div><nav class="tabs" aria-label="Aller à"><a href="#p-smash" data-f="smash">Smash</a><a href="#p-burger" data-f="burger">Burger</a><a href="#p-baguette" data-f="baguette">Baguette</a><a href="#p-desserts" data-f="desserts">Desserts</a></nav></div>
 <article class="prod" id="p-smash" data-nom="Smash">
 <div class="scene"><div class="plat"><img class="" style="translate:-2.1% 0" data-k="smash-80" src="../img/d-smash-80.webp" srcset="../img/d-smash-80-m.webp 820w, ../img/d-smash-80.webp 1600w" sizes="(max-width:860px) 92vw, 640px" width="1600" height="469" alt="Smash 80 g coupé en deux, un steak smashé et cheddar, avec frites et sauce Café de Paris" loading="lazy" decoding="async"><img class="on" style="translate:-0.6% 0" data-k="smash-160" src="../img/d-smash-160.webp" srcset="../img/d-smash-160-m.webp 820w, ../img/d-smash-160.webp 1600w" sizes="(max-width:860px) 92vw, 640px" width="1600" height="487" alt="Smash 160 g coupé en deux, deux steaks smashés et cheddar, avec frites et sauce Café de Paris" loading="lazy" decoding="async"><img class="" style="translate:0% 0" data-k="smash-240" src="../img/d-smash-240.webp" srcset="../img/d-smash-240-m.webp 820w, ../img/d-smash-240.webp 1600w" sizes="(max-width:860px) 92vw, 640px" width="1600" height="513" alt="Smash 240 g coupé en deux, trois steaks smashés et cheddar, avec frites et sauce Café de Paris" loading="lazy" decoding="async"></div><figure class="coupe" aria-hidden="true"><div class="rond"><img class="" data-k="smash-80" src="../img/coupe/smash-80.webp" width="560" height="560" alt="" loading="lazy" decoding="async"><img class="on" data-k="smash-160" src="../img/coupe/smash-160.webp" width="560" height="560" alt="" loading="lazy" decoding="async"><img class="" data-k="smash-240" src="../img/coupe/smash-240.webp" width="560" height="560" alt="" loading="lazy" decoding="async"></div><figcaption>Vue de la coupe : les bords croustillants</figcaption></figure></div>
