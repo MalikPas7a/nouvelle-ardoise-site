@@ -56,7 +56,7 @@ a{color:inherit;text-decoration:none}
 #or3d{position:absolute;inset:0;z-index:2;width:100%;height:100%;display:block;pointer-events:none}
 .mono2d{position:absolute;z-index:2;left:var(--fx);top:var(--fy);height:36%;width:auto;translate:-50% -50%;opacity:0;filter:drop-shadow(0 10px 30px rgba(0,0,0,.5))}
 .couv.sans3d .mono2d,.couv:not(.js) .mono2d{opacity:1}
-.couv .txt{position:absolute;z-index:3;left:var(--g);width:min(40%,600px);top:calc(var(--fy) + 22%);text-align:left;opacity:0;transform:translateY(18px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);visibility:hidden}
+.couv .txt{position:absolute;z-index:3;left:max(var(--g),calc(50% - var(--max)/2 + var(--g)));width:min(40%,600px);top:calc(var(--fy) + 22%);text-align:left;opacity:0;transform:translateY(18px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);visibility:hidden}
 .couv.fin .txt,.couv:not(.js) .txt{opacity:1;transform:none;visibility:visible}
 .defile{position:absolute;z-index:3;left:50%;bottom:28px;translate:-50% 0;font:400 11px var(--caps);letter-spacing:.3em;text-transform:uppercase;color:rgba(244,233,220,.7);opacity:calc(1 - 4*var(--p));display:flex;flex-direction:column;align-items:center;gap:10px}
 .defile::after{content:"";width:1px;height:34px;background:linear-gradient(var(--orc),transparent);animation:defile 2s ease-in-out infinite}
@@ -129,7 +129,7 @@ a{color:inherit;text-decoration:none}
 /* Burger offert */
 .offert{background:var(--cabsav);color:var(--peach)}
 .offert .w{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:40px;padding-top:44px;padding-bottom:44px}
-.offert .n{font:500 92px/.9 var(--serif);color:var(--orc)}
+.offert .n{font:500 92px/1 var(--serif);font-variant-numeric:lining-nums;color:var(--orc);transform:translateY(-.04em)}
 .offert h2{font:500 clamp(28px,2.6vw,38px)/1.1 var(--serif)}
 .offert p{margin-top:8px;color:rgba(244,233,220,.75);font-size:15.5px}
 
@@ -151,9 +151,9 @@ footer small.credits{margin-top:10px;max-width:70ch;margin-left:auto;margin-righ
 .maisons a.l{display:inline-block;margin-top:16px;font-weight:600;color:var(--merlot);border-bottom:1px solid}
 
 /* Pied */
-footer{background:var(--merlot);color:var(--peach);padding:60px 0 40px;text-align:center}
+footer{background:var(--merlot);color:var(--peach);padding:60px var(--g) 40px;text-align:center}
 footer img{width:56px;margin:0 auto}
-footer .slog{margin:18px auto 0;max-width:30ch;font:italic 500 24px/1.3 var(--serif);color:var(--orc)}
+footer .slog{margin:18px auto 0;max-width:34ch;text-wrap:balance;font:italic 500 24px/1.3 var(--serif);color:var(--orc)}
 footer .liens{display:flex;justify-content:center;gap:26px;margin-top:28px;font-size:14px;opacity:.85}
 footer small{display:block;margin-top:26px;font-size:12px;opacity:.78}
 
@@ -218,7 +218,9 @@ footer small{display:block;margin-top:26px;font-size:12px;opacity:.78}
  .ouv .cta{display:none}
  .carte{padding:46px 0}
  .tete{flex-direction:column;align-items:flex-start}
- .tabs{flex-wrap:wrap;max-width:100%}
+ .tabs{flex-wrap:nowrap;min-width:0;max-width:calc(100% + 2*var(--g));width:calc(100% + 2*var(--g));box-sizing:border-box;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1*var(--g));padding:0 var(--g)}
+ .tabs::-webkit-scrollbar{display:none}
+ .tabs a{flex:none}
  .grid.g4,#desserts .grid{grid-template-columns:1fr}
  .grid{grid-template-columns:1fr}
  .offert .w{grid-template-columns:1fr;gap:14px;text-align:left}
@@ -235,52 +237,55 @@ footer small{display:block;margin-top:26px;font-size:12px;opacity:.78}
  body{padding-bottom:72px}
 }
 
-/* Rideau monogramme */
-.rideau{position:relative;height:clamp(260px,46vh,460px);background:#3d0614;overflow:hidden;display:grid;place-items:center;--r:0}
-.rideau .motif{position:absolute;inset:-120px 0;background:url(../lignes/img/monogramme-or.svg) 0 0/72px 72px repeat;opacity:.24;transform:translateY(calc(var(--r)*-120px));will-change:transform}
-.rideau .motif.b{background-position:36px 36px;opacity:.08;transform:translateY(calc(var(--r)*-60px))}
-.rideau::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 70% at 50% 50%,rgba(61,6,20,.0),#3d0614 92%)}
-.rideau h2{position:relative;z-index:1;text-align:center;color:var(--peach);font:500 clamp(44px,7vw,104px)/1 var(--serif)}
-.rideau h2 em{display:block;color:var(--orc);font-size:.42em;font-style:normal;font:400 clamp(12px,1.2vw,15px) var(--caps);letter-spacing:.22em;text-transform:uppercase;margin-bottom:18px}
-/* Défilé des burgers */
-.defile{position:relative;background:#120c0b;color:var(--peach)}
-.defile .pin2{position:sticky;top:var(--hh,72px);height:calc(100vh - var(--hh,72px));overflow:hidden}
-.defile .lueur2{position:absolute;left:30%;top:52%;width:min(80vw,1000px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(closest-side,rgba(92,8,34,.75),rgba(70,6,26,.35) 50%,transparent);pointer-events:none}
-.defile .piste{position:relative;display:flex;height:100%;width:calc(var(--n)*100%);will-change:transform}
-.defile .dsl{flex:0 0 calc(100%/var(--n));text-transform:none;letter-spacing:normal;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);align-items:center;min-width:0;overflow:hidden;gap:clamp(20px,4vw,64px);padding:0 var(--g)}
-.defile .dsl .dph{position:relative;aspect-ratio:3/2;border-radius:4px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.45)}
-.defile .dsl .dph img{width:100%;height:100%;object-fit:cover}
-.defile .dsl .dph{max-height:68vh}
-.defile .dsl .no{font:400 13px var(--caps);letter-spacing:.2em;color:var(--orc)}
-.defile .dsl h3{font:500 clamp(48px,6.4vw,96px)/.95 var(--serif);margin:14px 0 6px}
-.defile .dsl h3 span{color:var(--orc);font-style:italic}
-.defile .dsl .st{font:600 15px var(--sans);letter-spacing:.02em;color:var(--orc)}
-.defile .dsl p.d{font:400 17px/1.55 var(--sans);opacity:.86;max-width:34ch;margin:14px 0 22px}
-.defile .dsl .serv{display:flex;align-items:center;gap:10px;font:400 12.5px var(--caps);letter-spacing:.16em;text-transform:uppercase;opacity:.8;margin-bottom:26px}
-.defile .dsl .serv::before{content:"";width:28px;height:1px;background:var(--orc)}
-.defile .barre{position:absolute;left:var(--g);right:var(--g);bottom:26px;height:2px;background:rgba(244,233,220,.14)}
-.defile .barre i{position:absolute;inset:0;background:var(--or);transform-origin:0 50%;transform:scaleX(var(--k,0))}
+/* Rideau monogramme : seulement le motif, net, centré */
+.rideau{position:relative;height:clamp(220px,34vh,340px);background:#3d0614;overflow:hidden;display:grid;place-items:center;--r:0}
+.rideau .motif{position:absolute;left:50%;top:-80px;bottom:-80px;width:calc(100% - 2*var(--g));translate:-50% 0;background:url(../lignes/img/monogramme-or.svg) center top/40px 40px space;opacity:.22;transform:translateY(calc(var(--r)*-80px));will-change:transform}
+.rideau h2{position:relative;z-index:1;text-align:center;color:var(--peach);font:500 clamp(44px,6vw,88px)/1 var(--serif);padding:.34em .7em .42em;background:#3d0614;outline:1px solid rgba(232,181,98,.38);outline-offset:-8px}
+.rideau h2 em{display:block;color:var(--orc);font:400 13px/1 var(--caps);letter-spacing:.3em;text-transform:uppercase;margin-bottom:16px;padding-left:.3em}
+/* Nos burgers : fond anthracite unique, plats détourés, spot lie-de-vin */
+.plats{position:relative;background:#1e1f22;color:var(--peach);--x:50%;--y:46%}
+.plats .pin2{position:sticky;top:var(--hh,72px);height:calc(100svh - var(--hh,72px));overflow:hidden;touch-action:pan-y}
+.plats .spot2{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle max(min(48vw,640px),300px) at var(--x) var(--y),rgba(120,12,43,.8) 0,rgba(104,10,38,.6) 22%,rgba(88,8,32,.36) 45%,rgba(70,7,26,.16) 68%,rgba(50,6,20,.05) 86%,rgba(30,31,34,0) 100%)}
+.plats .piste{position:relative;display:flex;height:100%;width:calc(var(--n)*100%);will-change:transform}
+.plats .pl2{flex:0 0 calc(100%/var(--n));min-width:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 var(--g) 64px;--d:0}
+.plats .plat{position:relative;flex:none;align-self:center;width:min(70vw,1020px);transform:scale(calc(1 - .1*var(--d)));opacity:calc(1 - .6*var(--d));transition:transform .2s linear}
+.plats .plat.bag{width:min(54vw,780px)}
+.plats .plat img{display:block;width:100%;height:auto;position:relative;z-index:1}
+.plats .plat::after{content:"";position:absolute;left:8%;right:8%;bottom:-3%;height:16%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.55),rgba(0,0,0,0));filter:blur(6px)}
+.plats .tx{margin-top:clamp(18px,3.4vh,36px);opacity:calc(1 - 1.8*max(var(--d) - .12,0));transform:translateY(calc(var(--d)*14px))}
+.plats .no{font:400 12px/1 var(--caps);letter-spacing:.3em;color:var(--orc);padding-left:.3em}
+.plats h3{font:500 clamp(46px,5.6vw,84px)/1 var(--serif);margin:12px 0 0}
+.plats h3 span{color:var(--orc);font-style:italic}
+.plats .st{margin-top:12px;font:500 15px/1.5 var(--sans);color:rgba(244,233,220,.86)}
+.plats .st b{font-weight:500;color:var(--orc)}
+.plats .st i{font-style:normal;opacity:.5;margin:0 .6em}
+.plats .btn{margin-top:22px}
+.plats .prog{position:absolute;left:50%;bottom:30px;width:min(220px,40vw);translate:-50% 0;height:2px;background:rgba(244,233,220,.16)}
+.plats .prog i{position:absolute;inset:0;background:var(--or);transform-origin:0 50%;transform:scaleX(var(--k,0))}
 /* Bandeau qui défile */
-.bandeau{display:block;background:var(--or);color:var(--cabsav);overflow:hidden;white-space:nowrap;border-block:1px solid rgba(73,9,23,.25)}
-.bandeau .rail{display:inline-flex;gap:0;animation:rail 28s linear infinite;padding:18px 0}
-.bandeau span{font:500 clamp(30px,4vw,56px)/1 var(--serif);font-style:italic;padding:0 .5em}
-.bandeau span b{font:400 .38em var(--caps);font-style:normal;letter-spacing:.2em;vertical-align:middle;margin:0 1.2em}
+.bandeau{display:block;background:var(--or);color:var(--cabsav);overflow:hidden;white-space:nowrap}
+.bandeau .rail{display:inline-flex;animation:rail 32s linear infinite;padding:16px 0}
+.bandeau span{font:500 clamp(28px,3.4vw,48px)/1 var(--serif);font-style:italic;padding:0 .5em}
+.bandeau span b{font:400 .4em var(--caps);font-style:normal;vertical-align:middle;margin:0 1.2em}
 .bandeau:hover .rail{animation-play-state:paused}
 @keyframes rail{to{transform:translateX(-50%)}}
 @media (max-width:860px){
- .defile .dsl{grid-template-columns:minmax(0,1fr);align-content:start;gap:12px;padding-top:2vh}
- .defile .dsl .dph{max-height:34vh}
- .defile .barre{bottom:80px}
- .defile .dsl h3{font-size:46px}
- .defile .dsl p.d{font-size:15.5px;margin:8px 0 14px}
- .defile .dsl .serv{margin-bottom:14px}
- .defile .lueur2{left:50%;top:34%}
+ .rideau .motif{background-size:30px 30px}
+ .plats .pl2{padding-bottom:84px}
+ .plats .plat{width:128vw}
+ .plats .plat.bag{width:100vw}
+ .plats h3{font-size:44px}
+ .plats .st{font-size:14px}
+ .plats .prog{bottom:44px}
 }
 @media (prefers-reduced-motion:reduce){
  .bandeau .rail{animation:none}
- .defile .pin2{position:relative;top:0;height:auto;overflow-x:auto;scroll-snap-type:x mandatory}
- .defile .dsl{scroll-snap-align:start;min-height:80vh}
+ .plats{height:auto!important}
+ .plats .pin2{position:relative;top:0;height:auto;overflow-x:auto;scroll-snap-type:x mandatory}
+ .plats .piste{height:auto}
+ .plats .pl2{scroll-snap-align:start;min-height:80svh;--d:0!important}
  .rideau .motif{transform:none}
+ .plats .prog{display:none}
 }
 </style></head><body>
 <header class="top"><div class="w"><nav aria-label="Menu"><a href="#carte">La carte</a><a href="#histoire">Notre histoire</a><a href="#maisons">Nos maisons</a></nav><a class="mono" href="./" aria-label="Atelier Paris Burger, accueil"><img src="../lignes/img/monogramme-or.svg" alt=""></a><div class="r"><div class="langs"><span class="on" aria-current="true">FR</span><span title="Version anglaise en préparation">EN</span><span title="Versión española en preparación">ES</span></div><details class="mmenu"><summary aria-label="Ouvrir le menu"><span></span><span></span></summary><nav aria-label="Menu mobile"><a href="#carte">La carte</a><a href="#histoire">Notre histoire</a><a href="#maisons">Nos maisons</a><a href="../site-b/geneve/">Commander à Genève</a></nav></details><a class="btn btn-or" href="../site-b/geneve/">Commander</a></div></div></header>
@@ -290,8 +295,8 @@ footer small{display:block;margin-top:26px;font-size:12px;opacity:.78}
 <div class="cta"><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève →</a><a class="btn btn-ligne" href="../site-b/reserver/">Mon burger offert</a></div></div>
 <p class="defile" aria-hidden="true">Faites défiler</p></div></div>
 <nav class="villes w" aria-label="Nos villes"><a class="on" href="../site-b/geneve/">Genève<small>Sur place</small></a><a href="#maisons">Madrid<small>En livraison</small></a><a href="#maisons">Ibiza<small>Sur place</small></a></nav></section>
-<div class="rideau" aria-hidden="false"><div class="motif"></div><div class="motif b"></div><h2><em>La carte</em>Nos burgers</h2></div>
-<section class="defile" id="defile" aria-label="Nos burgers, un par un" style="height:530vh"><div class="pin2"><div class="lueur2" aria-hidden="true"></div><div class="piste" style="--n:7"><article class="dsl"><div class="dph"><img src="img/c-smash-80.webp" alt="Smash 80 g, frites et sauce Café de Paris sur assiette noire" loading="lazy" width="1200" height="800"></div><div><p class="no">01 / 07</p><h3>Smash <span>80 g</span></h3><p class="st">1 steak smashé</p><p class="d">Bords croustillants, cheddar fondu.</p><p class="serv">Frites et sauce Café de Paris</p><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève</a></div></article><article class="dsl"><div class="dph"><img src="img/c-smash-160.webp" alt="Smash 160 g, frites et sauce Café de Paris sur assiette noire" loading="lazy" width="1200" height="800"></div><div><p class="no">02 / 07</p><h3>Smash <span>160 g</span></h3><p class="st">2 steaks smashés</p><p class="d">Bords croustillants, double cheddar fondu.</p><p class="serv">Frites et sauce Café de Paris</p><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève</a></div></article><article class="dsl"><div class="dph"><img src="img/c-smash-240.webp" alt="Smash 240 g, frites et sauce Café de Paris sur assiette noire" loading="lazy" width="1200" height="800"></div><div><p class="no">03 / 07</p><h3>Smash <span>240 g</span></h3><p class="st">3 steaks smashés</p><p class="d">Pour les grandes faims, triple cheddar.</p><p class="serv">Frites et sauce Café de Paris</p><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève</a></div></article><article class="dsl"><div class="dph"><img src="img/c-burger-80.webp" alt="Burger 80 g, frites et sauce Café de Paris sur assiette noire" loading="lazy" width="1200" height="800"></div><div><p class="no">04 / 07</p><h3>Burger <span>80 g</span></h3><p class="st">1 steak épais</p><p class="d">Cuisson rosée, cheddar.</p><p class="serv">Frites et sauce Café de Paris</p><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève</a></div></article><article class="dsl"><div class="dph"><img src="img/c-burger-160.webp" alt="Burger 160 g, frites et sauce Café de Paris sur assiette noire" loading="lazy" width="1200" height="800"></div><div><p class="no">05 / 07</p><h3>Burger <span>160 g</span></h3><p class="st">1 steak épais</p><p class="d">Cuisson rosée, cheddar.</p><p class="serv">Frites et sauce Café de Paris</p><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève</a></div></article><article class="dsl"><div class="dph"><img src="img/c-burger-240.webp" alt="Burger 240 g, frites et sauce Café de Paris sur assiette noire" loading="lazy" width="1200" height="800"></div><div><p class="no">06 / 07</p><h3>Burger <span>240 g</span></h3><p class="st">1 steak épais</p><p class="d">Cuisson rosée, cheddar.</p><p class="serv">Frites et sauce Café de Paris</p><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève</a></div></article><article class="dsl"><div class="dph"><img src="img/c-baguette.webp" alt="La baguette , frites et sauce Café de Paris sur assiette noire" loading="lazy" width="1200" height="800"></div><div><p class="no">07 / 07</p><h3>La baguette</h3><p class="st">Bœuf tranché</p><p class="d">Pain tendre, tartinée de sauce Café de Paris.</p><p class="serv">Servie sans frites</p><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève</a></div></article></div><div class="barre" aria-hidden="true"><i></i></div></div></section>
+<div class="rideau"><div class="motif" aria-hidden="true"></div><h2><em>La carte</em>Nos burgers</h2></div>
+<section class="plats" id="burgers" aria-label="Nos burgers, un par un" style="height:530vh"><div class="pin2"><div class="spot2" aria-hidden="true"></div><div class="piste" style="--n:7"><article class="pl2" aria-label="Smash 80 g"><div class="plat"><img src="img/d-smash-80.webp" srcset="img/d-smash-80-m.webp 820w, img/d-smash-80.webp 1600w" sizes="(max-width:860px) 150vw, 70vw" alt="" width="1600" height="469" loading="lazy" decoding="async"></div><div class="tx"><p class="no">01 / 07</p><h3>Smash <span>80 g</span></h3><p class="st"><b>1 steak smashé</b><i>·</i>Frites et sauce Café de Paris</p><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève</a></div></article><article class="pl2" aria-label="Smash 160 g"><div class="plat"><img src="img/d-smash-160.webp" srcset="img/d-smash-160-m.webp 820w, img/d-smash-160.webp 1600w" sizes="(max-width:860px) 150vw, 70vw" alt="" width="1600" height="487" loading="lazy" decoding="async"></div><div class="tx"><p class="no">02 / 07</p><h3>Smash <span>160 g</span></h3><p class="st"><b>2 steaks smashés</b><i>·</i>Frites et sauce Café de Paris</p><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève</a></div></article><article class="pl2" aria-label="Smash 240 g"><div class="plat"><img src="img/d-smash-240.webp" srcset="img/d-smash-240-m.webp 820w, img/d-smash-240.webp 1600w" sizes="(max-width:860px) 150vw, 70vw" alt="" width="1600" height="513" loading="lazy" decoding="async"></div><div class="tx"><p class="no">03 / 07</p><h3>Smash <span>240 g</span></h3><p class="st"><b>3 steaks smashés</b><i>·</i>Frites et sauce Café de Paris</p><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève</a></div></article><article class="pl2" aria-label="Burger 80 g"><div class="plat"><img src="img/d-burger-80.webp" srcset="img/d-burger-80-m.webp 820w, img/d-burger-80.webp 1600w" sizes="(max-width:860px) 150vw, 70vw" alt="" width="1600" height="504" loading="lazy" decoding="async"></div><div class="tx"><p class="no">04 / 07</p><h3>Burger <span>80 g</span></h3><p class="st"><b>1 steak épais</b><i>·</i>Frites et sauce Café de Paris</p><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève</a></div></article><article class="pl2" aria-label="Burger 160 g"><div class="plat"><img src="img/d-burger-160.webp" srcset="img/d-burger-160-m.webp 820w, img/d-burger-160.webp 1600w" sizes="(max-width:860px) 150vw, 70vw" alt="" width="1600" height="500" loading="lazy" decoding="async"></div><div class="tx"><p class="no">05 / 07</p><h3>Burger <span>160 g</span></h3><p class="st"><b>1 steak épais</b><i>·</i>Frites et sauce Café de Paris</p><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève</a></div></article><article class="pl2" aria-label="Burger 240 g"><div class="plat"><img src="img/d-burger-240.webp" srcset="img/d-burger-240-m.webp 820w, img/d-burger-240.webp 1600w" sizes="(max-width:860px) 150vw, 70vw" alt="" width="1600" height="550" loading="lazy" decoding="async"></div><div class="tx"><p class="no">06 / 07</p><h3>Burger <span>240 g</span></h3><p class="st"><b>1 steak épais</b><i>·</i>Frites et sauce Café de Paris</p><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève</a></div></article><article class="pl2" aria-label="La baguette"><div class="plat bag"><img src="img/d-baguette.webp" srcset="img/d-baguette-m.webp 820w, img/d-baguette.webp 1394w" sizes="(max-width:860px) 150vw, 70vw" alt="" width="1394" height="522" loading="lazy" decoding="async"></div><div class="tx"><p class="no">07 / 07</p><h3>La baguette</h3><p class="st"><b>Bœuf tranché</b><i>·</i>Servie sans frites</p><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève</a></div></article></div><div class="prog" aria-hidden="true"><i></i></div></div></section>
 <a class="bandeau" href="../site-b/geneve/" aria-label="Commander à Genève"><span class="rail" aria-hidden="true"><span>Commander à Genève<b>·</b></span><span>Smash &amp; sauce Café de Paris<b>·</b></span><span>Click &amp; collect<b>·</b></span><span>Commander à Genève<b>·</b></span><span>Smash &amp; sauce Café de Paris<b>·</b></span><span>Click &amp; collect<b>·</b></span><span>Commander à Genève<b>·</b></span><span>Smash &amp; sauce Café de Paris<b>·</b></span><span>Click &amp; collect<b>·</b></span><span>Commander à Genève<b>·</b></span><span>Smash &amp; sauce Café de Paris<b>·</b></span><span>Click &amp; collect<b>·</b></span></span></a>
 <section class="carte" id="carte"><div class="w"><div class="tete"><div><h2>La carte <small class="ou">à Genève</small></h2></div><nav class="tabs" aria-label="Catégories"><a class="on" href="#carte" data-f="tout">Tout</a><a href="#smash" data-f="smash">Smash</a><a href="#burgers" data-f="burgers">Burgers</a><a href="#baguette" data-f="baguette">Baguette</a><a href="#desserts" data-f="desserts">Desserts</a></nav></div><div class="groupe" id="tout" data-cat="tout"><div class="grid g4"><article class="card"><div class="ph"><img src="img/c-smash-160.webp" alt="Smash double, deux steaks smashés et cheddar, photo du shooting sur fond sombre" loading="lazy" width="1200" height="800"></div><div class="t"><p class="sub">80, 160 ou 240 g</p><h3>Smash</h3><div class="rule"></div><p>1, 2 ou 3 steaks smashés, bords croustillants, cheddar fondu.</p><div class="bas"><a class="voir" href="#smash" data-f="smash">Voir les 3 smash</a><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article><article class="card"><div class="ph"><img src="img/c-burger-160.webp" alt="Burger 160 g coupé en deux sur assiette noire, frites et sauce Café de Paris, fond sombre" loading="lazy" width="1200" height="800"></div><div class="t"><p class="sub">80, 160 ou 240 g</p><h3>Burgers</h3><div class="rule"></div><p>Un seul steak épais, cuisson rosée, cheddar.</p><div class="bas"><a class="voir" href="#burgers" data-f="burgers">Voir les 3 burgers</a><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article><article class="card"><div class="ph"><img src="img/c-baguette.webp" alt="La baguette au bœuf, tartinée de sauce Café de Paris, sur fond sombre" loading="lazy" width="1200" height="800"></div><div class="t"><p class="sub">Sans frites</p><h3>La baguette</h3><div class="rule"></div><p>Pain tendre, bœuf tranché, tartinée de sauce Café de Paris.</p><div class="bas"><a class="voir" href="#baguette" data-f="baguette">Voir la baguette</a><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article><article class="card"><div class="ph"><img src="img/c-fondant.webp" alt="Fondant au chocolat sur fond sombre" loading="lazy" width="1200" height="800"></div><div class="t"><p class="sub">Pour finir</p><h3>Desserts</h3><div class="rule"></div><p>Fondant au chocolat ou tarte aux pommes fine.</p><div class="bas"><a class="voir" href="#desserts" data-f="desserts">Voir les desserts</a><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article></div></div><div class="groupe" id="smash" data-cat="smash"><div class="gt"><h3>Smash</h3><p>Servis avec frites et sauce Café de Paris.</p></div><div class="grid"><article class="card" id="smash-80"><div class="ph"><img src="img/c-smash-80.webp" alt="Smash simple, steak smashé et cheddar fondu, photo du shooting sur fond sombre" loading="lazy" width="1200" height="800"></div><div class="t"><p class="sub">Simple</p><h3>Smash 80 g</h3><div class="rule"></div><p>Steak smashé sur la plaque, bords croustillants, cheddar fondu.</p><div class="bas"><span>Frites et sauce Café de Paris</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article><article class="card" id="smash-160"><div class="ph"><img src="img/c-smash-160.webp" alt="Smash double, deux steaks smashés et cheddar, photo du shooting sur fond sombre" loading="lazy" width="1200" height="800"></div><div class="t"><p class="sub">Double</p><h3>Smash 160 g</h3><div class="rule"></div><p>Steak smashé sur la plaque, bords croustillants, cheddar fondu.</p><div class="bas"><span>Frites et sauce Café de Paris</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article><article class="card" id="smash-240"><div class="ph"><img src="img/c-smash-240.webp" alt="Smash triple, trois steaks smashés et cheddar, photo du shooting sur fond sombre" loading="lazy" width="1200" height="800"></div><div class="t"><p class="sub">Triple</p><h3>Smash 240 g</h3><div class="rule"></div><p>Steak smashé sur la plaque, bords croustillants, cheddar fondu.</p><div class="bas"><span>Frites et sauce Café de Paris</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article></div></div><div class="groupe" id="burgers" data-cat="burgers"><div class="gt"><h3>Burgers</h3><p>Servis avec frites et sauce Café de Paris.</p></div><div class="grid"><article class="card" id="burger-80"><div class="ph"><img src="img/c-burger-80.webp" alt="Burger coupé en deux sur assiette noire, frites et sauce Café de Paris, fond sombre" loading="lazy" width="1200" height="800"></div><div class="t"><h3>Burger 80 g</h3><div class="rule"></div><p>Steak épais, cuisson rosée, cheddar.</p><div class="bas"><span>Frites et sauce Café de Paris</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article><article class="card" id="burger-160"><div class="ph"><img src="img/c-burger-160.webp" alt="Burger 160 g coupé en deux sur assiette noire, frites et sauce Café de Paris, fond sombre" loading="lazy" width="1200" height="800"></div><div class="t"><h3>Burger 160 g</h3><div class="rule"></div><p>Steak épais, cuisson rosée, cheddar.</p><div class="bas"><span>Frites et sauce Café de Paris</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article><article class="card" id="burger-240"><div class="ph"><img src="img/c-burger-240.webp" alt="Burger 240 g coupé en deux sur assiette noire, frites et sauce Café de Paris, fond sombre" loading="lazy" width="1200" height="800"></div><div class="t"><h3>Burger 240 g</h3><div class="rule"></div><p>Steak épais, cuisson rosée, cheddar.</p><div class="bas"><span>Frites et sauce Café de Paris</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article></div></div><div class="groupe" id="baguette" data-cat="baguette"><div class="gt"><h3>Baguette</h3><p>Servie sans frites.</p></div><div class="grid"><article class="card" id="baguette"><div class="ph"><img src="img/c-baguette.webp" alt="La baguette au bœuf, tartinée de sauce Café de Paris, sur fond sombre" loading="lazy" width="1200" height="800"></div><div class="t"><p class="sub">Sans frites</p><h3>La baguette</h3><div class="rule"></div><p>Pain tendre, bœuf tranché, tartinée de sauce Café de Paris. Servie seule.</p><div class="bas"><span>Sauce tartinée</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article></div></div><div class="groupe" id="desserts" data-cat="desserts"><div class="gt"><h3>Desserts</h3><p>Pour finir.</p></div><div class="grid"><article class="card" id="fondant"><div class="ph"><img src="img/c-fondant.webp" alt="Fondant au chocolat sur fond sombre" loading="lazy" width="1200" height="800"></div><div class="t"><h3>Fondant au chocolat</h3><div class="rule"></div><p>Pour finir le repas.</p><div class="bas"><span>Dessert</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article><article class="card" id="tarte"><div class="ph"><img src="img/c-tarte.webp" alt="Tarte aux pommes fine sur fond sombre" loading="lazy" width="1200" height="800"></div><div class="t"><h3>Tarte aux pommes fine</h3><div class="rule"></div><p>Pour finir le repas.</p><div class="bas"><span>Dessert</span><a class="btn btn-m" href="../site-b/geneve/">Commander</a></div></div></article></div></div></div></section>
 <section class="geste" aria-labelledby="geste-t"><div class="w in"><div><span class="caps eye" style="color:var(--orc)">Le rituel</span><h2 id="geste-t">Ici, on ne verse pas la sauce. <em>On y trempe son burger.</em></h2><p class="lead">Inspirée par la tradition, élevée à l’excellence depuis plus de quarante ans.</p><a class="btn btn-or" style="margin-top:28px" href="../site-b/geneve/">Commander à Genève</a></div>
@@ -302,7 +307,7 @@ footer small{display:block;margin-top:26px;font-size:12px;opacity:.78}
 <article class="chap inv"><div class="ph"><img src="img/hist-2.webp" alt="Cinq cuisiniers en toque au travail dans une cuisine parisienne" loading="lazy" width="1400" height="1069"><small class="cr">Cuisine parisienne, années 1920 · Agence Meurisse, BnF</small></div><div class="t"><span class="an" data-n="40">40<small>ans</small></span><h3>Le geste transmis</h3><p>De salle en salle, la recette s’affine et le geste se transmet.</p><span class="ligne"></span></div></article>
 <article class="chap"><div class="ph"><img src="img/hist-3.webp" alt="Steak smashé sur la plaque en cuisine" loading="lazy" width="900" height="675"></div><div class="t"><span class="an">Aujourd’hui</span><h3>En smash burger</h3><p>Smashé sur la plaque, coupé, servi avec la sauce. À Genève, Madrid et Ibiza.</p><span class="ligne"></span></div></article>
 </div></section>
-<section class="maisons" id="maisons"><div class="w"><div class="tete"><div><h2>Trois villes</h2></div></div><div class="grid">
+<section class="maisons" id="maisons"><div class="w"><div class="tete"><div><span class="eye">Nos maisons</span><h2>Trois villes</h2></div></div><div class="grid">
 <article><div class="vph"><img src="img/ville-geneve.webp" alt="La rade de Genève et le jet d’eau" loading="lazy" width="1000" height="750"></div><h3>Genève</h3><p>Sur place et à emporter. Commande en ligne, retrait au comptoir.</p><a class="l" href="../site-b/geneve/">Commander à Genève</a></article>
 <article><div class="vph"><img src="img/ville-madrid.webp" alt="La Gran Vía à Madrid" loading="lazy" width="1000" height="750"></div><h3>Madrid</h3><p>En livraison à domicile. Lien de commande bientôt en ligne.</p></article>
 <article><div class="vph"><img src="img/ville-ibiza.webp" alt="Dalt Vila, la vieille ville d’Ibiza" loading="lazy" width="1000" height="750"></div><h3>Ibiza</h3><p>Sur place. Adresse communiquée à l’ouverture.</p></article></div></div></section>
@@ -338,12 +343,21 @@ if('IntersectionObserver' in window)new IntersectionObserver(function(e){if(user
 </script>
 <script type="module" src="js/couverture.js"></script><script>
 (function(){var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;if(rm)return;
-var ri=document.querySelector('.rideau'),de=document.getElementById('defile'),pi=de&&de.querySelector('.piste'),ba=de&&de.querySelector('.barre'),t=false;
+var ri=document.querySelector('.rideau'),de=document.getElementById('burgers'),pin=de&&de.firstElementChild,pi=de&&de.querySelector('.piste'),ba=de&&de.querySelector('.prog'),sl=pi?[].slice.call(pi.children):[],t=false;
+var cx=50,cy=46,tx=50,ty=46,last=-1e9,raf=0;
+function cible(u){if(performance.now()-last<1600)return;tx=50+Math.sin(u*Math.PI)*9;ty=innerWidth<861?36:40}
 function f(){t=false;var vh=innerHeight;
  if(ri){var r=ri.getBoundingClientRect();ri.style.setProperty('--r',((vh-r.top)/(vh+r.height)).toFixed(3))}
- if(de){var r2=de.getBoundingClientRect(),pin=de.firstElementChild,tot=de.offsetHeight-pin.offsetHeight,k=Math.min(1,Math.max(0,(pin.offsetTop-r2.top+ (r2.top>0?0:0)) / 1));
-  var off=parseFloat(getComputedStyle(pin).top)||0;k=Math.min(1,Math.max(0,(off-r2.top)/tot));
-  var n=pi.children.length,u=k*(n-1),i=Math.floor(u),fr=u-i,e=Math.min(1,Math.max(0,(fr-.3)/.4));e=e*e*(3-2*e);if(i>=n-1){i=n-1;e=0}pi.style.transform='translate3d('+(-(i+e)/n*100)+'%,0,0)';ba.style.setProperty('--k',k.toFixed(3))}}
+ if(de){var r2=de.getBoundingClientRect(),tot=de.offsetHeight-pin.offsetHeight,off=parseFloat(getComputedStyle(pin).top)||0,k=Math.min(1,Math.max(0,(off-r2.top)/tot));
+  var n=sl.length,u=k*(n-1),i=Math.floor(u),fr=u-i,e=Math.min(1,Math.max(0,(fr-.25)/.5));e=e*e*(3-2*e);if(i>=n-1){i=n-1;e=0}var pos=i+e;
+  pi.style.transform='translate3d('+(-pos/n*100)+'%,0,0)';ba.style.setProperty('--k',k.toFixed(3));
+  for(var j=0;j<n;j++){var d=Math.min(1,Math.abs(j-pos));sl[j].style.setProperty('--d',d.toFixed(3));sl[j].style.visibility=d>.98?'hidden':''}
+  cible(fr);anime()}}
+function anime(){if(raf)return;raf=requestAnimationFrame(function b(){cx+=(tx-cx)*.12;cy+=(ty-cy)*.12;de.style.setProperty('--x',cx.toFixed(2)+'%');de.style.setProperty('--y',cy.toFixed(2)+'%');if(Math.abs(tx-cx)+Math.abs(ty-cy)>.05)raf=requestAnimationFrame(b);else raf=0})}
+function vise(px,py){var r=pin.getBoundingClientRect();tx=(px-r.left)/r.width*100;ty=(py-r.top)/r.height*100;last=performance.now();anime()}
+if(pin){pin.addEventListener('pointermove',function(ev){vise(ev.clientX,ev.clientY)});pin.addEventListener('pointerdown',function(ev){vise(ev.clientX,ev.clientY)});
+ pin.addEventListener('touchmove',function(ev){var p=ev.touches[0];if(p)vise(p.clientX,p.clientY)},{passive:true});
+ pin.addEventListener('pointerleave',function(){last=-1e9;f()})}
 addEventListener('scroll',function(){if(!t){t=true;requestAnimationFrame(f)}},{passive:true});addEventListener('resize',f);f();})();
 </script>
 </body></html>
