@@ -25,9 +25,9 @@ function majCss(p) {
   couv.classList.toggle('fin', p > 0.62);
 }
 
-if (couv && canvas && photo) {
+if (couv && canvas) {
   couv.classList.add('js');
-  const scene2d = initPhoto();
+  const scene2d = photo ? initPhoto() : () => {};
   const or = initOr();
   let last = -1;
   const tick = () => {
@@ -111,7 +111,7 @@ function initOr() {
   new RGBELoader().load('img/or/studio.hdr', (hdr) => {
     hdr.mapping = THREE.EquirectangularReflectionMapping;
     scene.environment = pmrem.fromEquirectangular(hdr).texture; hdr.dispose();
-    const q = new URLSearchParams(location.search); scene.environmentRotation.set(parseFloat(q.get('rx')) || 0, parseFloat(q.get('ry')) || 1.6, 0);
+    const q = new URLSearchParams(location.search); scene.environmentRotation.set(parseFloat(q.get('rx')) || 0, parseFloat(q.get('ry')) || (innerWidth < 861 ? 2.0 : 1.6), 0);
   });
 
   const camera = new THREE.PerspectiveCamera(28, 1, 0.1, 100);
@@ -205,7 +205,7 @@ function initOr() {
     const L = lisse(p / 0.7);
     gold.envMapIntensity = 1;
     scene.environmentIntensity = 0.75 * L * L;
-    spot.intensity = 260 * L;
+    spot.intensity = 260 * L * (FH < 0.3 ? 0.45 : 1);
     spot.position.set(group.position.x + 0.5, group.position.y + 6.5, 3.2);
     spot.target.position.copy(group.position);
     rim.position.set(group.position.x, group.position.y + 0.3, -2.5);
