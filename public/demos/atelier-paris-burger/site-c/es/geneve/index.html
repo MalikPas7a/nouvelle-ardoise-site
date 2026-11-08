@@ -530,6 +530,13 @@ html:not(.hz) .hcompte{display:none}
 .plan figcaption{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:16px 6px 4px}
 .plan figcaption b{display:block;font:600 22px/1.1 var(--serif);color:var(--merlot)}
 .plan figcaption span{font-size:15px;color:var(--t2)}
+
+/* v15 : la sauce coule au défilement dans l'arche (séquence d'images, repli photo fixe HD) */
+.arche canvas.seq{z-index:1;opacity:0;transition:opacity .5s ease;transform:translateY(calc(var(--s,0)*-3%)) scale(calc(1.04 + var(--s,0)*.14));transform-origin:50% 62%;pointer-events:none}
+.arche canvas.seq.on{opacity:1}
+.arche::after{z-index:2}
+.seqon .couv .hero{position:sticky;top:var(--band)}
+@media (prefers-reduced-motion:reduce){.arche canvas.seq{display:none}}
 </style></head><body>
 <div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menú"><a href="#carte">La carta</a><a href="#infos">Info</a><a href="../#villes">Nuestras ciudades</a></nav><a class="logo" href="../"><img src="../../img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, inicio" width="300" height="20"></a><div class="d"><nav class="langs" aria-label="Idioma"><a href="../../geneve/" hreflang="fr" lang="fr">FR</a><a href="../../en/geneve/" hreflang="en" lang="en">EN</a><a href="./" hreflang="es" lang="es" aria-current="true">ES</a></nav><a class="btn btn-m" href="../commander/">Pedir</a><details class="mmenu"><summary aria-label="Abrir el menú"><span></span><span></span></summary><nav aria-label="Menú móvil"><a href="#carte">La carta</a><a href="#infos">Info</a><a href="../#villes">Nuestras ciudades</a><a href="../commander/">Pedir</a></nav></details></div></div></header>
 <main>
@@ -646,6 +653,26 @@ var fr=0,last=-1;function pos(){fr=0;var r=sec.getBoundingClientRect(),t=sec.off
  var d=v.duration||7.84,q=p<.42?p/.42*5.16:p<.9?5.16+(p-.42)/.48*(d-5.16):d,ct=Math.max(.2,Math.min(d-.05,q));if(Math.abs(ct-last)>.04&&v.readyState>=1){last=ct;try{v.currentTime=ct}catch(e){}}
  for(var j=0;j<et.length;j++)et[j].classList.toggle('on',j===(ct>=5.16?1:0))}
 addEventListener('scroll',function(){if(!fr)fr=requestAnimationFrame(pos)},{passive:true});v.addEventListener('loadedmetadata',pos);pos();
+})();
+
+/* v15 : séquence de la sauce dans l'arche. Repli : la photo fixe HD reste si mouvement réduit, économie de données, image lente ou en erreur */
+(function(){var cv=document.querySelector('.arche canvas.seq'),couv=document.querySelector('.couv,.vtete'),hero=couv&&couv.querySelector('.hero');if(!cv||!hero)return;
+var c=navigator.connection||{};if(matchMedia('(prefers-reduced-motion: reduce)').matches||c.saveData||/(^|-)2g$/.test(c.effectiveType||''))return;
+var M=matchMedia('(max-width:860px)').matches,B=(cv.parentNode.querySelector('img.photo').getAttribute('src')||'').replace(/[^\/]*$/,''),dir=B+(M?'sauce-m/':'sauce-d/'),N=61,st=M?2:1,im=[],ok=[],H=document.documentElement,ctx=cv.getContext('2d'),fr=0,cur=-1,lw=0,on=false;
+function src(i){return dir+(i<10?'0':'')+i+'.webp'}
+function load(i,cb){if(im[i])return;var g=new Image();g.decoding='async';im[i]=g;g.onload=function(){ok[i]=1;if(cb)cb();if(on)draw()};g.onerror=function(){if(cb)cb(1)};g.src=src(i)}
+function size(){var r=cv.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1),w=Math.round(cv.offsetWidth*d),h=Math.round(cv.offsetHeight*d);if(w&&(cv.width!==w||cv.height!==h)){cv.width=w;cv.height=h;cur=-1}}
+function pin(){if(innerWidth===lw)return;lw=innerWidth;couv.style.height=(hero.offsetHeight+Math.round(innerHeight*(M?.7:.8)))+'px';size();draw()}
+function prog(){var t=couv.offsetHeight-hero.offsetHeight;return t>0?Math.min(1,Math.max(0,-couv.getBoundingClientRect().top/t)):0}
+function draw(){fr=0;var want=Math.round(prog()*(N-1)/st)*st,i=want;while(i>0&&!ok[i])i-=st;if(!ok[i]||i===cur)return;cur=i;var g=im[i];ctx.drawImage(g,0,0,g.naturalWidth,g.naturalHeight,0,0,cv.width,cv.height)}
+var to=setTimeout(function(){to=0},4000);
+load(0,function(err){if(err||!to)return;clearTimeout(to);
+ H.classList.add('seqon');lw=0;pin();on=true;draw();
+ var show=function(){cv.classList.add('on');removeEventListener('scroll',show)};setTimeout(show,2700);addEventListener('scroll',show,{passive:true});
+ [8,4,2,1].forEach(function(s){if(s<st)return;for(var i=0;i<N;i+=s)load(i)});
+ addEventListener('scroll',function(){if(!fr)fr=requestAnimationFrame(draw)},{passive:true});
+ addEventListener('resize',function(){M=matchMedia('(max-width:860px)').matches;size();pin();cur=-1;draw()});
+});
 })();
 
 /* v13 : la bande défile, plus vite quand on défile la page */
