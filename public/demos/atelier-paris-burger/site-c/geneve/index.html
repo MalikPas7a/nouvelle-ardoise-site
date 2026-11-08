@@ -324,6 +324,23 @@ footer small{display:block;margin:20px auto 0;max-width:72ch;font-size:12px;line
 .mmenu nav{background:var(--peach);border-top:1px solid rgba(127,15,40,.15)}
 .mmenu nav a{border-bottom-color:rgba(127,15,40,.14)}
 .mmenu nav a:last-child{color:var(--merlot);font-weight:700}
+
+/* Service : respiration photo */
+.service{background:var(--wood);color:var(--peach);overflow:hidden}
+.service .w{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:center;gap:clamp(32px,6vw,96px);padding-top:clamp(64px,9vw,120px);padding-bottom:clamp(64px,9vw,120px)}
+.service figure{margin:0;position:relative}
+.service img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:2px}
+.service figcaption{margin-top:12px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(249,237,220,.55)}
+.service .eye{color:var(--or)}
+.service h2{font-size:clamp(2.2rem,4.6vw,4rem);line-height:1.02;margin:.25em 0 .45em;text-wrap:balance}
+.service p.t{font-size:1.06rem;line-height:1.65;max-width:34ch;color:rgba(249,237,220,.82);margin:0}
+.service .filet{width:56px;height:1px;background:var(--or);margin:28px 0 0}
+@media (max-width:860px){
+ .service .w{grid-template-columns:1fr;gap:28px}
+ .service figure{margin:0 calc(-1*var(--g))}
+ .service img{border-radius:0}
+ .service figcaption{padding:0 var(--g)}
+}
 </style></head><body>
 <div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menu"><a href="#carte">La carte</a><a href="#infos">Infos</a><a href="../#villes">Nos villes</a></nav><a class="logo" href="../"><img src="../img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, accueil" width="300" height="20"></a><div class="d"><a class="btn btn-m" href="../../site-c/commander/">Commander</a><details class="mmenu"><summary aria-label="Ouvrir le menu"><span></span><span></span></summary><nav aria-label="Menu mobile"><a href="#carte">La carte</a><a href="#infos">Infos</a><a href="../#villes">Nos villes</a><a href="../../site-c/commander/">Commander</a></nav></details></div></div></header>
 <main>
@@ -342,7 +359,7 @@ footer small{display:block;margin:20px auto 0;max-width:72ch;font-size:12px;line
 <div><div class="offert"><p class="n">200</p><p>Pour l’ouverture, 200 burgers offerts, un par personne, sur réservation. <a href="../../site-c/reserver/">Réserver le mien</a></p></div>
 <div class="ailleurs"><h3>Autres villes</h3><p><b>Madrid</b>En livraison, sur Glovo.</p><p><b>Ibiza</b>Restaurant ouvert, sur place.</p><p><a href="../#villes">Voir toutes les villes</a></p></div></div></div></section>
 </main>
-<footer><div class="logo-pied"><img class="m" src="../img/logo/apb-mark-or.svg" width="72" height="72" alt=""><img class="t" src="../img/logo/apb-logotype.svg" width="260" height="17" alt="Atelier Paris Burger"></div><p class="slog">Inspirée par la tradition, élevée à l’excellence depuis plus de quarante ans.</p><nav class="liens" aria-label="Pied de page"><a href="#carte">La carte</a><a href="#infos">Infos</a><a href="../#villes">Nos villes</a><a href="../../site-c/commander/">Commander à Genève</a></nav><small>Atelier Paris Burger · Maquette Nouvelle Ardoise</small><small>Photos d’archives : Agence Rol et Agence Meurisse, BnF Gallica (domaine public). Genève : Thibaut120094 (CC BY 4.0). Madrid : Carlos Delgado (CC BY-SA 4.0). Ibiza : A.Savin (Licence Art Libre). Via Wikimedia Commons.</small></footer>
+<footer><div class="logo-pied"><img class="m" src="../img/logo/apb-mark-or.svg" width="72" height="72" alt=""><img class="t" src="../img/logo/apb-logotype.svg" width="260" height="17" alt="Atelier Paris Burger"></div><p class="slog">Inspirée par la tradition, élevée à l’excellence depuis plus de quarante ans.</p><nav class="liens" aria-label="Pied de page"><a href="#carte">La carte</a><a href="#infos">Infos</a><a href="../#villes">Nos villes</a><a href="../../site-c/commander/">Commander à Genève</a></nav><small>Atelier Paris Burger · Maquette Nouvelle Ardoise</small><small>Photos d’archives : Agence Rol et Agence Meurisse, BnF Gallica (domaine public). Genève : Thibaut120094 (CC BY 4.0). Madrid : Carlos Delgado (CC BY-SA 4.0). Via Wikimedia Commons. Ibiza : photo de la maison (fiche Google Atelier Paris Burger Ibiza).</small></footer>
 <nav class="barre" aria-label="Commander"><a class="btn btn-ligne" href="#carte">La carte</a><a class="btn btn-or" href="../../site-c/commander/">Commander</a></nav>
 <script>
 (function(){
