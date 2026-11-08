@@ -376,10 +376,81 @@ footer small{display:block;margin:20px auto 0;max-width:72ch;font-size:12px;line
  .service figure{width:min(100%,400px);margin:0 auto 10px}
  .service figcaption{font-size:15px}
 }
+
+/* v12 : fond des parties sombres (noir d'origine ou vin profond) */
+:root{--fond:#1f0a10}
+html[data-fond="noir"]{--fond:#121416}
+.couv,.hero,.service,.hist,.vtete{background:var(--fond)}
+.service figcaption{background:var(--fond)}
+.arche{box-shadow:0 0 0 1px var(--or),0 0 0 8px var(--fond),0 0 0 9px rgba(217,145,37,.45)}
+/* Légende du cadre : le rideau ne la coupe plus */
+.js-rv .rideau.vu{clip-path:inset(-3em)}
+/* Couverture : entrée */
+@media (prefers-reduced-motion:no-preference){
+ .hero .arche{animation:archeIn 1.5s cubic-bezier(.2,.7,.1,1) both}
+ .hero .arche img.photo{animation:photoIn 2.6s cubic-bezier(.2,.7,.1,1) both}
+ .hero .txt>*{animation:monte .95s cubic-bezier(.2,.7,.1,1) both}
+ .hero .txt>:nth-child(1){animation-delay:.25s}.hero .txt>:nth-child(2){animation-delay:.38s}.hero .txt>:nth-child(3){animation-delay:.52s}.hero .txt>:nth-child(4){animation-delay:.64s}.hero .txt>:nth-child(5){animation-delay:.76s}
+ .hero .arche::before{content:"";position:absolute;z-index:3;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,226,170,.22) 50%,transparent 65%);transform:translateX(-120%);animation:reflet 2.2s 1s cubic-bezier(.4,0,.2,1) forwards;pointer-events:none}
+}
+@keyframes archeIn{from{opacity:0;translate:0 40px}to{opacity:1;translate:0 0}}
+@keyframes photoIn{from{scale:1.22;filter:brightness(.25) saturate(.6)}to{scale:1;filter:none}}
+@keyframes monte{from{opacity:0;translate:0 22px}to{opacity:1;translate:0 0}}
+@keyframes reflet{to{transform:translateX(120%)}}
+/* Rappel des villes dès la couverture */
+.vchoix{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:26px}
+.vchoix span{width:100%;font:500 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:rgba(249,237,220,.6);margin-bottom:4px}
+.vchoix a{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 15px;border:1px solid rgba(217,145,37,.45);border-radius:999px;font:500 14px/1 var(--sans);color:var(--peach);transition:background .2s var(--ease),border-color .2s}
+.vchoix a:hover{background:rgba(217,145,37,.16);border-color:var(--or)}
+.vchoix a small{font-size:11px;color:var(--or);letter-spacing:.04em}
+/* Langues */
+.langs{display:flex;align-items:center;gap:2px;margin-right:10px}
+.langs a{font:600 12px/1 var(--sans);letter-spacing:.1em;padding:8px 6px;opacity:.6;border-bottom:1px solid transparent}
+.langs a:hover{opacity:1}
+.langs a[aria-current]{opacity:1;border-color:var(--or)}
+.hero .langs-m{display:none}
+@media (max-width:860px){
+ .bandeau .langs{display:none}
+ .hero .langs-m{display:flex;position:absolute;z-index:2;right:calc(var(--g) - 6px);top:4px;margin:0;color:var(--peach)}
+ .hero .langs-m a{padding:10px 6px;font-size:11px}
+ .hero .eye .eye-a{display:none}
+ .vchoix{order:5;margin-top:12px;gap:6px;flex-wrap:nowrap}.vchoix span{display:none}
+ .vchoix a{flex:1;justify-content:center;min-height:36px;padding:0 8px;font-size:13px}
+ .arche{height:calc(100svh - var(--band) - 276px)}
+}
+/* Monogramme entre les parties */
+.mono{position:relative;height:0;z-index:5;display:flex;justify-content:center;pointer-events:none}
+.mono b{position:absolute;top:0;translate:0 -50%;display:grid;place-items:center;width:84px;height:84px;border-radius:50%;background:var(--cabsav);box-shadow:0 0 0 1px var(--or),0 0 0 6px var(--cabsav),0 0 0 7px rgba(217,145,37,.5),0 14px 30px rgba(0,0,0,.35)}
+.mono b img{width:46px;height:46px}
+.mono i{position:absolute;top:0;height:1px;width:min(30vw,300px);background:linear-gradient(90deg,transparent,var(--or));translate:0 -50%;right:calc(50% + 52px);transform-origin:right;transform:scaleX(0);transition:transform 1.2s cubic-bezier(.2,.7,.1,1) .15s}
+.mono i+i{right:auto;left:calc(50% + 52px);background:linear-gradient(-90deg,transparent,var(--or));transform-origin:left}
+.js-rv .mono b{scale:.5;rotate:-90deg;opacity:0;transition:scale 1s cubic-bezier(.2,.7,.1,1),rotate 1.2s cubic-bezier(.2,.7,.1,1),opacity .6s}
+.mono.vu b,.mono.vu i{scale:1;rotate:0deg;opacity:1;transform:none}
+html:not(.js-rv) .mono i{transform:none}
+@media (max-width:860px){.mono b{width:64px;height:64px}.mono b img{width:34px;height:34px}.mono i{right:calc(50% + 42px)}.mono i+i{left:calc(50% + 42px)}}
+/* Histoire : défilement horizontal épinglé */
+.hpin .hst{position:relative}
+.hz .hist{padding:0;overflow:clip}
+.hz .hpin{position:relative}
+.hz .hst{position:sticky;top:var(--band);height:calc(100svh - var(--band));display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,3vh,36px);overflow:hidden}
+.hz .frise{overflow:visible;scroll-snap-type:none;margin-top:0;will-change:transform}
+.hz .frise figure{flex-basis:min(62vw,620px)}
+.hz .frise-nav{display:none}
+.hz .hist .tete{padding-top:0}
+.hz .hist .etapes-w{padding-bottom:90px}
+.hcompte{display:flex;align-items:center;gap:14px;font:500 12px/1 var(--sans);letter-spacing:.16em;color:rgba(249,237,220,.6)}
+.hcompte i{position:relative;width:120px;height:1px;background:rgba(249,237,220,.2)}
+.hcompte i::after{content:"";position:absolute;inset:0;background:var(--or);transform-origin:left;transform:scaleX(var(--hp,0))}
+html:not(.hz) .hcompte{display:none}
+@media (max-width:860px){
+ .hz .frise figure{flex-basis:78vw}
+ .hz .hist .tete .l{display:none}
+ .hz .hst{gap:16px}
+}
 </style></head><body>
-<div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menu"><a href="#villes">Nos villes</a><a href="geneve/#carte">La carte</a><a href="#histoire">Notre histoire</a></nav><a class="logo" href="./"><img src="img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, accueil" width="300" height="20"></a><div class="d"><a class="btn btn-m" href="../site-c/commander/">Commander</a><details class="mmenu"><summary aria-label="Ouvrir le menu"><span></span><span></span></summary><nav aria-label="Menu mobile"><a href="#villes">Nos villes</a><a href="geneve/#carte">La carte</a><a href="#histoire">Notre histoire</a><a href="../site-c/commander/">Commander à Genève</a></nav></details></div></div></header>
+<div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menu"><a href="#villes">Nos villes</a><a href="geneve/#carte">La carte</a><a href="#histoire">Notre histoire</a></nav><a class="logo" href="./"><img src="img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, accueil" width="300" height="20"></a><div class="d"><nav class="langs" aria-label="Langue"><a href="./" hreflang="fr" lang="fr" aria-current="true">FR</a><a href="en/" hreflang="en" lang="en">EN</a><a href="es/" hreflang="es" lang="es">ES</a></nav><a class="btn btn-m" href="../site-c/commander/">Commander</a><details class="mmenu"><summary aria-label="Ouvrir le menu"><span></span><span></span></summary><nav aria-label="Menu mobile"><a href="#villes">Nos villes</a><a href="geneve/#carte">La carte</a><a href="#histoire">Notre histoire</a><a href="../site-c/commander/">Commander à Genève</a></nav></details></div></div></header>
 <main>
-<div class="couv" id="couv"><section class="hero" aria-labelledby="t-ouv"><div class="txt"><p class="eye">Sauce Café de Paris · Depuis plus de 40 ans</p><h1 id="t-ouv">Le burger à la sauce Café de Paris</h1><p class="sous">Coupé en deux, posé dans la sauce, trempé jusqu’à la dernière bouchée. À Genève, Madrid et Ibiza.</p><div class="cta"><a class="btn btn-or" href="../site-c/commander/">Commander</a><a class="btn btn-ligne" href="geneve/#carte">Voir la carte</a></div></div>
+<div class="couv" id="couv"><section class="hero" aria-labelledby="t-ouv"><div class="txt"><nav class="langs langs-m" aria-label="Langue"><a href="./" hreflang="fr" lang="fr" aria-current="true">FR</a><a href="en/" hreflang="en" lang="en">EN</a><a href="es/" hreflang="es" lang="es">ES</a></nav><p class="eye"><span class="eye-a">Sauce Café de Paris · </span>Depuis plus de 40 ans</p><h1 id="t-ouv">Le burger à la sauce Café de Paris</h1><p class="sous">Coupé en deux, posé dans la sauce, trempé jusqu’à la dernière bouchée. À Genève, Madrid et Ibiza.</p><div class="cta"><a class="btn btn-or" href="../site-c/commander/">Commander</a><a class="btn btn-ligne" href="geneve/#carte">Voir la carte</a></div><nav class="vchoix" aria-label="Choisir sa ville"><span>Votre ville</span><a href="geneve/">Genève <small>27.11</small></a><a href="#v-ibiza">Ibiza</a><a href="#v-madrid">Madrid <small>livraison</small></a></nav></div>
 <figure class="arche"><picture><source media="(max-width:860px)" srcset="img/couv-main-m.webp 600w, img/couv-main-m2.webp 900w" sizes="80vw" width="600" height="800"><img class="photo" src="img/couv-main-d.webp" width="1000" height="800" alt="Une main gantée tient une moitié de burger nappée de sauce Café de Paris au-dessus d’un saucier, la sauce coule" fetchpriority="high"></picture></figure></section></div>
 <div class="ruban" aria-hidden="true"><div class="store"></div><div class="piste"><span>Smash · Burger · Baguette · Sauce Café de Paris · Depuis plus de 40 ans ·</span><span>Smash · Burger · Baguette · Sauce Café de Paris · Depuis plus de 40 ans ·</span></div></div>
 <section class="sig" aria-labelledby="sig-t"><div class="w"><p class="eye">La signature</p><h2 id="sig-t">Trois façons de tremper</h2><div class="grille">
@@ -387,18 +458,23 @@ footer small{display:block;margin:20px auto 0;max-width:72ch;font-size:12px;line
 <a class="p" href="geneve/#p-burger"><div class="sc"><img class="" src="img/d-burger-160-m.webp" width="820" height="250" alt="" loading="lazy" decoding="async"></div><h3>Le burger</h3><p>Un seul steak épais, de 80 à 240 g, avec frites et sauce.</p><span class="lien">Voir les formats</span></a>
 <a class="p" href="geneve/#p-baguette"><div class="sc"><img class="" src="img/d-baguette-m.webp" width="820" height="250" alt="" loading="lazy" decoding="async"></div><h3>La baguette</h3><p>Bœuf tranché, sauce tartinée. Servie sans frites.</p><span class="lien">Voir les formats</span></a>
 </div><div class="cta"><a class="btn btn-m" href="geneve/#carte">Voir la carte de Genève</a></div></div></section>
+<div class="mono" aria-hidden="true"><i></i><b><img src="img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
 <section class="service" aria-labelledby="service-t"><div class="w"><figure><picture><source media="(max-width:860px)" srcset="img/service-m.webp" width="800" height="1000"><img src="img/service.webp" width="1080" height="1350" alt="Un serveur en chemise blanche tient une assiette ovale : burger coupé en deux posé dans la sauce Café de Paris, frites dorées" loading="lazy" decoding="async"></picture><figcaption>Servi au bord du lac Léman</figcaption></figure><div class="c"><p class="eye">À table</p><h2 id="service-t">Coupé, posé dans la sauce, servi chaud.</h2><p class="t">Le burger arrive coupé en deux, déjà dans la sauce Café de Paris. Les frites restent à côté, pour tremper à votre rythme.</p><div class="filet" aria-hidden="true"></div><a class="btn btn-or svc-cmd" href="../site-c/commander/">Commander à Genève</a></div></div></section>
+<div class="mono" aria-hidden="true"><i></i><b><img src="img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
 <section class="villes" id="villes" aria-labelledby="villes-t"><div class="w"><div class="tete"><p class="eye">Nos adresses</p><h2 id="villes-t">Choisissez votre ville</h2></div><div class="grille">
 <article class="ville"><img src="img/ville-geneve.webp" width="1000" height="750" alt="La rade de Genève et le Jet d’eau" loading="lazy" decoding="async"><div class="c"><span class="statut or">Ouverture le 27 novembre</span><h3>Genève</h3><p>Eaux-Vives, au bord du lac. Sur place, à emporter et commande en ligne.</p><a class="btn btn-m" href="geneve/">Carte et commande</a></div></article>
-<article class="ville"><img src="img/ville-madrid.webp" width="1000" height="750" alt="La Gran Vía à Madrid" loading="lazy" decoding="async"><div class="c"><span class="statut">Ouvert</span><h3>Madrid</h3><p>En livraison uniquement, sur Glovo.</p><span class="bientot">Lien Glovo à venir</span></div></article>
-<article class="ville"><img src="img/ville-ibiza.webp" style="object-position:4% 50%" width="1000" height="750" alt="La terrasse d’Atelier Paris Burger à Ibiza, sous l’auvent rayé bordeaux" loading="lazy" decoding="async"><div class="c"><span class="statut">Ouvert</span><h3>Ibiza</h3><p>Restaurant ouvert, sur place et à emporter.</p><span class="bientot">Carrer Barcelona 7 · Eivissa</span></div></article>
+<article class="ville" id="v-madrid"><img src="img/ville-madrid.webp" width="1000" height="750" alt="La Gran Vía à Madrid" loading="lazy" decoding="async"><div class="c"><span class="statut">Ouvert</span><h3>Madrid</h3><p>En livraison uniquement, sur Glovo.</p><span class="bientot">Lien Glovo à venir</span></div></article>
+<article class="ville" id="v-ibiza"><img src="img/ville-ibiza.webp" style="object-position:4% 50%" width="1000" height="750" alt="La terrasse d’Atelier Paris Burger à Ibiza, sous l’auvent rayé bordeaux" loading="lazy" decoding="async"><div class="c"><span class="statut">Ouvert</span><h3>Ibiza</h3><p>Restaurant ouvert, sur place et à emporter.</p><span class="bientot">Carrer Barcelona 7 · Eivissa</span></div></article>
 </div></div></section>
+<div class="mono" aria-hidden="true"><i></i><b><img src="img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
 <section class="rituel" id="geste" aria-labelledby="rituel-t"><div class="w"><div><p class="eye">Le geste</p><h2 id="rituel-t" class="trois"><span data-a="0">Coupé.</span> <span data-a="5.16">Trempé.</span></h2><p class="l">Le couteau passe d’un trait, au comptoir. Le burger arrive coupé en deux, posé dans la sauce Café de Paris : chaque moitié se trempe.</p><span class="fil" aria-hidden="true"><i></i></span><div class="cta2"><a class="btn btn-or" href="../site-c/commander/">Commander</a><a class="lien-or" href="geneve/#carte">Voir la carte</a></div></div>
 <div class="film"><video id="film" src="geste.mp4" poster="img/geste-poster.webp" muted playsinline preload="none" aria-label="En cuisine : le couteau coupe le smash, deux mains l’ouvrent, puis une moitié plonge dans la sauce Café de Paris et ressort nappée"></video><button class="pause" type="button" aria-label="Mettre en pause"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14"><path d="M3 2h3v10H3zM8 2h3v10H8z" fill="currentColor"/></svg></button></div></div></section>
-<section class="hist" id="histoire" aria-labelledby="hist-t"><div class="w"><div class="tete"><p class="eye">Notre histoire</p><h2 id="hist-t">Une sauce de brasserie, depuis plus de quarante ans</h2><p class="l">Elle vient de la tradition des sauces d’entrecôte, née entre Genève et Paris. Nous ne l’avons pas inventée : nous la servons avec un smash burger.</p></div>
+<div class="mono" aria-hidden="true"><i></i><b><img src="img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
+<section class="hist" id="histoire" aria-labelledby="hist-t"><div class="hpin"><div class="hst"><div class="w"><div class="tete"><p class="eye">Notre histoire</p><h2 id="hist-t">Une sauce de brasserie, depuis plus de quarante ans</h2><p class="l">Elle vient de la tradition des sauces d’entrecôte, née entre Genève et Paris. Nous ne l’avons pas inventée : nous la servons avec un smash burger.</p></div>
 <div class="frise-nav" aria-hidden="true"><button type="button" class="fl prec" tabindex="-1" aria-label="Photo précédente">&#8592;</button><button type="button" class="fl suiv" tabindex="-1" aria-label="Photo suivante">&#8594;</button></div></div>
 <div class="frise" tabindex="0" role="region" aria-label="Photos d’archives des brasseries parisiennes"><figure><img src="img/hist-1.webp" width="1500" height="1000" alt="Photo d’archive : La brasserie Le Dôme, boulevard du Montparnasse, en 1931" loading="lazy" decoding="async"><figcaption><b>Le Dôme, 1931.</b> Montparnasse, la terrasse d’une grande brasserie. <span>Agence Rol, BnF.</span></figcaption></figure><figure><img src="img/hist-2.webp" width="1500" height="1000" alt="Photo d’archive : Le café de la Rotonde et l’entrée du métro Vavin, à Montparnasse, dans les années 1920" loading="lazy" decoding="async"><figcaption><b>La Rotonde, années 1920.</b> En face du Dôme, l’autre brasserie du carrefour Vavin. <span>Agence Rol, BnF.</span></figcaption></figure><figure><img src="img/hist-3.webp" width="1500" height="1000" alt="Photo d’archive : Cinq cuisiniers en toque découpent des volailles rôties dans une cuisine carrelée" loading="lazy" decoding="async"><figcaption><b>En cuisine.</b> Une brigade parisienne au travail, toques et tabliers blancs. <span>Agence Meurisse, BnF.</span></figcaption></figure><figure><img src="img/hist-4.webp" width="1500" height="1000" alt="Photo d’archive : Les Grands Boulevards sous la neige, vus d’un balcon, avec les kiosques et un omnibus" loading="lazy" decoding="async"><figcaption><b>Les Grands Boulevards.</b> Le Paris des brasseries, un jour de neige. <span>Agence Rol, BnF.</span></figcaption></figure></div>
-<div class="w"><ol class="etapes"><li><b>Début des années 1980</b><span>La sauce arrive dans les brasseries parisiennes : rue Feydeau, rue de Ponthieu, rue François-Miron.</span></li><li><b>Quarante ans</b><span>La recette se transmet de salle en salle.</span></li><li><b>Aujourd’hui</b><span>En smash burger, à Genève, Madrid et Ibiza.</span></li></ol><p class="arch-note">Photos d’archives du début du XXe siècle (BnF Gallica, domaine public). Elles montrent l’univers des brasseries parisiennes, bien avant l’arrivée de la sauce.</p></div></section>
+<div class="w"><p class="hcompte" aria-hidden="true"><b>01</b><i></i>04</p></div></div></div>
+<div class="w etapes-w"><ol class="etapes"><li><b>Début des années 1980</b><span>La sauce arrive dans les brasseries parisiennes : rue Feydeau, rue de Ponthieu, rue François-Miron.</span></li><li><b>Quarante ans</b><span>La recette se transmet de salle en salle.</span></li><li><b>Aujourd’hui</b><span>En smash burger, à Genève, Madrid et Ibiza.</span></li></ol><p class="arch-note">Photos d’archives du début du XXe siècle (BnF Gallica, domaine public). Elles montrent l’univers des brasseries parisiennes, bien avant l’arrivée de la sauce.</p></div></section>
 </main>
 <footer><div class="logo-pied"><img class="m" src="img/logo/apb-mark-or.svg" width="72" height="72" alt=""><img class="t" src="img/logo/apb-logotype.svg" width="260" height="17" alt="Atelier Paris Burger"></div><p class="slog">Le smash à la sauce Café de Paris.</p><nav class="liens" aria-label="Pied de page"><a href="#villes">Nos villes</a><a href="geneve/#carte">La carte</a><a href="#histoire">Notre histoire</a><a href="../site-c/commander/">Commander à Genève</a></nav><small>Atelier Paris Burger · Maquette Nouvelle Ardoise</small><small>Photos d’archives : Agence Rol et Agence Meurisse, BnF Gallica (domaine public). Genève : Thibaut120094 (CC BY 4.0). Madrid : Carlos Delgado (CC BY-SA 4.0). Via Wikimedia Commons. Ibiza : photo de la maison (fiche Google Atelier Paris Burger Ibiza).</small></footer>
 <nav class="barre" aria-label="Accès rapide"><a class="btn btn-ligne" href="#villes">Nos villes</a><a class="btn btn-or" href="../site-c/commander/">Commander à Genève</a></nav>
@@ -497,6 +573,18 @@ var fr=0,last=-1;function pos(){fr=0;var r=sec.getBoundingClientRect(),t=sec.off
  var d=v.duration||7.84,ct=Math.min(d-.05,p*d);if(Math.abs(ct-last)>.04&&v.readyState>=1){last=ct;try{v.currentTime=ct}catch(e){}}
  for(var j=0;j<et.length;j++)et[j].classList.toggle('on',j===(ct>=5.16?1:0))}
 addEventListener('scroll',function(){if(!fr)fr=requestAnimationFrame(pos)},{passive:true});v.addEventListener('loadedmetadata',pos);pos();
+})();
+
+/* v12 : monogrammes et histoire horizontale */
+(function(){var m=/[?&]fond=(noir|vin)/.exec(location.search);if(m)document.documentElement.dataset.fond=m[1]})();
+(function(){var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var ms=document.querySelectorAll('.mono');if(ms.length){if(rm||!('IntersectionObserver' in window)){[].forEach.call(ms,function(m){m.classList.add('vu')})}else{var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target)}})},{rootMargin:'0px 0px -18% 0px'});[].forEach.call(ms,function(m){io.observe(m)})}}
+var pin=document.querySelector('.hpin'),f=document.querySelector('.hpin .frise');if(!pin||!f||rm)return;
+var H=document.documentElement,cpt=document.querySelector('.hcompte'),cb=cpt&&cpt.querySelector('b'),n=f.children.length,fr=0,ov=0;
+function mesure(){H.classList.add('hz');f.style.transform='';ov=Math.max(0,f.scrollWidth-innerWidth);pin.style.height=(pin.querySelector('.hst').offsetHeight+ov)+'px';tick()}
+function tick(){fr=0;var r=pin.getBoundingClientRect(),t=pin.offsetHeight-pin.querySelector('.hst').offsetHeight,p=Math.min(1,Math.max(0,-r.top/Math.max(1,t)));f.style.transform='translate3d('+(-p*ov).toFixed(1)+'px,0,0)';if(cpt){cpt.style.setProperty('--hp',p.toFixed(3));if(cb)cb.textContent=String(Math.min(n,1+Math.round(p*(n-1)))).padStart(2,'0')}}
+addEventListener('scroll',function(){if(!fr)fr=requestAnimationFrame(tick)},{passive:true});addEventListener('resize',mesure);
+if(document.readyState==='complete')mesure();else addEventListener('load',mesure);mesure();
 })();
 </script>
 </body></html>

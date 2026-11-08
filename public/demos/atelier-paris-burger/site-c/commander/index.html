@@ -377,6 +377,77 @@ footer small{display:block;margin:20px auto 0;max-width:72ch;font-size:12px;line
  .service figcaption{font-size:15px}
 }
 
+/* v12 : fond des parties sombres (noir d'origine ou vin profond) */
+:root{--fond:#1f0a10}
+html[data-fond="noir"]{--fond:#121416}
+.couv,.hero,.service,.hist,.vtete{background:var(--fond)}
+.service figcaption{background:var(--fond)}
+.arche{box-shadow:0 0 0 1px var(--or),0 0 0 8px var(--fond),0 0 0 9px rgba(217,145,37,.45)}
+/* Légende du cadre : le rideau ne la coupe plus */
+.js-rv .rideau.vu{clip-path:inset(-3em)}
+/* Couverture : entrée */
+@media (prefers-reduced-motion:no-preference){
+ .hero .arche{animation:archeIn 1.5s cubic-bezier(.2,.7,.1,1) both}
+ .hero .arche img.photo{animation:photoIn 2.6s cubic-bezier(.2,.7,.1,1) both}
+ .hero .txt>*{animation:monte .95s cubic-bezier(.2,.7,.1,1) both}
+ .hero .txt>:nth-child(1){animation-delay:.25s}.hero .txt>:nth-child(2){animation-delay:.38s}.hero .txt>:nth-child(3){animation-delay:.52s}.hero .txt>:nth-child(4){animation-delay:.64s}.hero .txt>:nth-child(5){animation-delay:.76s}
+ .hero .arche::before{content:"";position:absolute;z-index:3;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,226,170,.22) 50%,transparent 65%);transform:translateX(-120%);animation:reflet 2.2s 1s cubic-bezier(.4,0,.2,1) forwards;pointer-events:none}
+}
+@keyframes archeIn{from{opacity:0;translate:0 40px}to{opacity:1;translate:0 0}}
+@keyframes photoIn{from{scale:1.22;filter:brightness(.25) saturate(.6)}to{scale:1;filter:none}}
+@keyframes monte{from{opacity:0;translate:0 22px}to{opacity:1;translate:0 0}}
+@keyframes reflet{to{transform:translateX(120%)}}
+/* Rappel des villes dès la couverture */
+.vchoix{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:26px}
+.vchoix span{width:100%;font:500 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:rgba(249,237,220,.6);margin-bottom:4px}
+.vchoix a{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 15px;border:1px solid rgba(217,145,37,.45);border-radius:999px;font:500 14px/1 var(--sans);color:var(--peach);transition:background .2s var(--ease),border-color .2s}
+.vchoix a:hover{background:rgba(217,145,37,.16);border-color:var(--or)}
+.vchoix a small{font-size:11px;color:var(--or);letter-spacing:.04em}
+/* Langues */
+.langs{display:flex;align-items:center;gap:2px;margin-right:10px}
+.langs a{font:600 12px/1 var(--sans);letter-spacing:.1em;padding:8px 6px;opacity:.6;border-bottom:1px solid transparent}
+.langs a:hover{opacity:1}
+.langs a[aria-current]{opacity:1;border-color:var(--or)}
+.hero .langs-m{display:none}
+@media (max-width:860px){
+ .bandeau .langs{display:none}
+ .hero .langs-m{display:flex;position:absolute;z-index:2;right:calc(var(--g) - 6px);top:4px;margin:0;color:var(--peach)}
+ .hero .langs-m a{padding:10px 6px;font-size:11px}
+ .hero .eye .eye-a{display:none}
+ .vchoix{order:5;margin-top:12px;gap:6px;flex-wrap:nowrap}.vchoix span{display:none}
+ .vchoix a{flex:1;justify-content:center;min-height:36px;padding:0 8px;font-size:13px}
+ .arche{height:calc(100svh - var(--band) - 276px)}
+}
+/* Monogramme entre les parties */
+.mono{position:relative;height:0;z-index:5;display:flex;justify-content:center;pointer-events:none}
+.mono b{position:absolute;top:0;translate:0 -50%;display:grid;place-items:center;width:84px;height:84px;border-radius:50%;background:var(--cabsav);box-shadow:0 0 0 1px var(--or),0 0 0 6px var(--cabsav),0 0 0 7px rgba(217,145,37,.5),0 14px 30px rgba(0,0,0,.35)}
+.mono b img{width:46px;height:46px}
+.mono i{position:absolute;top:0;height:1px;width:min(30vw,300px);background:linear-gradient(90deg,transparent,var(--or));translate:0 -50%;right:calc(50% + 52px);transform-origin:right;transform:scaleX(0);transition:transform 1.2s cubic-bezier(.2,.7,.1,1) .15s}
+.mono i+i{right:auto;left:calc(50% + 52px);background:linear-gradient(-90deg,transparent,var(--or));transform-origin:left}
+.js-rv .mono b{scale:.5;rotate:-90deg;opacity:0;transition:scale 1s cubic-bezier(.2,.7,.1,1),rotate 1.2s cubic-bezier(.2,.7,.1,1),opacity .6s}
+.mono.vu b,.mono.vu i{scale:1;rotate:0deg;opacity:1;transform:none}
+html:not(.js-rv) .mono i{transform:none}
+@media (max-width:860px){.mono b{width:64px;height:64px}.mono b img{width:34px;height:34px}.mono i{right:calc(50% + 42px)}.mono i+i{left:calc(50% + 42px)}}
+/* Histoire : défilement horizontal épinglé */
+.hpin .hst{position:relative}
+.hz .hist{padding:0;overflow:clip}
+.hz .hpin{position:relative}
+.hz .hst{position:sticky;top:var(--band);height:calc(100svh - var(--band));display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,3vh,36px);overflow:hidden}
+.hz .frise{overflow:visible;scroll-snap-type:none;margin-top:0;will-change:transform}
+.hz .frise figure{flex-basis:min(62vw,620px)}
+.hz .frise-nav{display:none}
+.hz .hist .tete{padding-top:0}
+.hz .hist .etapes-w{padding-bottom:90px}
+.hcompte{display:flex;align-items:center;gap:14px;font:500 12px/1 var(--sans);letter-spacing:.16em;color:rgba(249,237,220,.6)}
+.hcompte i{position:relative;width:120px;height:1px;background:rgba(249,237,220,.2)}
+.hcompte i::after{content:"";position:absolute;inset:0;background:var(--or);transform-origin:left;transform:scaleX(var(--hp,0))}
+html:not(.hz) .hcompte{display:none}
+@media (max-width:860px){
+ .hz .frise figure{flex-basis:78vw}
+ .hz .hist .tete .l{display:none}
+ .hz .hst{gap:16px}
+}
+
 /* Page Commander */
 .ctete{background:var(--wood);color:var(--peach);padding:clamp(40px,6vw,72px) 0 clamp(30px,4vw,48px)}
 .ctete .eye{color:var(--or)}
@@ -459,7 +530,7 @@ dialog.panier::backdrop{background:rgba(18,20,22,.6)}
 .prod.choisi{outline:2px solid var(--or);outline-offset:8px}
 @media (max-width:860px){.fid .w{grid-template-columns:1fr}.carteF{max-width:380px}.panier-b .t small{display:none}.onglets a{min-height:40px;padding:0 14px;font-size:12px}}
 </style></head><body>
-<div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menu"><a href="../geneve/">Genève</a><a href="#retrait">Retrait</a><a href="../#villes">Nos villes</a></nav><a class="logo" href="../"><img src="../img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, accueil" width="300" height="20"></a><div class="d"><a class="btn btn-m" href="#" data-panier onclick="event.preventDefault();var d=document.getElementById('panier');d&&d.showModal()">Ma commande</a><details class="mmenu"><summary aria-label="Ouvrir le menu"><span></span><span></span></summary><nav aria-label="Menu mobile"><a href="../geneve/">Genève</a><a href="#retrait">Retrait</a><a href="../#villes">Nos villes</a><a href="#" data-panier onclick="event.preventDefault();var d=document.getElementById('panier');d&&d.showModal()">Ma commande</a></nav></details></div></div></header>
+<div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menu"><a href="../geneve/">Genève</a><a href="#retrait">Retrait</a><a href="../#villes">Nos villes</a></nav><a class="logo" href="../"><img src="../img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, accueil" width="300" height="20"></a><div class="d"><nav class="langs" aria-label="Langue"><a href="./" hreflang="fr" lang="fr" aria-current="true">FR</a><a href="../en/commander/" hreflang="en" lang="en">EN</a><a href="../es/commander/" hreflang="es" lang="es">ES</a></nav><a class="btn btn-m" href="#" data-panier onclick="event.preventDefault();var d=document.getElementById('panier');d&&d.showModal()">Ma commande</a><details class="mmenu"><summary aria-label="Ouvrir le menu"><span></span><span></span></summary><nav aria-label="Menu mobile"><a href="../geneve/">Genève</a><a href="#retrait">Retrait</a><a href="../#villes">Nos villes</a><a href="#" data-panier onclick="event.preventDefault();var d=document.getElementById('panier');d&&d.showModal()">Ma commande</a></nav></details></div></div></header>
 <main class="cmdp">
 <section class="ctete"><div class="w"><p class="eye">Commande en ligne · Genève</p><h1>Commander</h1><ul class="pts"><li>Retrait au comptoir, Eaux-Vives</li><li>TWINT ou carte</li><li>Dès le 27 novembre</li></ul><p class="note">Maquette : prix, horaires et paiement à confirmer avec le restaurant.</p></div></section>
 <nav class="onglets" aria-label="Catégories"><div class="wrap"><a href="#smash" class="on">Smash</a><a href="#burger">Burger</a><a href="#baguette">Baguette</a><a href="#cote">À côté</a><a href="#desserts">Desserts</a></div></nav>
