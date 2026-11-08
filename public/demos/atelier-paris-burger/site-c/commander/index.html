@@ -218,7 +218,7 @@ p{margin:0}
   <section class="ouv" id="ouv">
     <img src="img/hero.webp" width="2400" height="1610" alt="Le burger au steak épais rosé, coupé et posé dans la sauce Café de Paris, dans la salle d'une brasserie" fetchpriority="high">
     <div class="wrap">
-      <p class="sur anim" style="--d:.1s" data-t="g.sur">APB du Lac · Ouverture le 27 novembre</p>
+      <p class="sur anim" style="--d:.1s" data-t="g.sur">Eaux-Vives · Ouverture prévue le 27 novembre</p>
       <h1 class="anim" style="--d:.2s">Genève</h1>
       <p class="lead anim" style="--d:.35s" data-t="g.lead">Le smash, le burger et la baguette, servis dans la sauce Café de Paris. Commandez en ligne, passez prendre, ou installez-vous.</p>
       <div class="acts anim" style="--d:.5s">
@@ -307,7 +307,7 @@ p{margin:0}
 
   <section class="infos" aria-label="Infos pratiques">
     <div class="wrap">
-      <div><h3 data-t="i.adr.t">Adresse</h3><p data-t="i.adr">APB du Lac, au bord du lac. Adresse exacte à confirmer.</p></div>
+      <div><h3 data-t="i.adr.t">Adresse</h3><p data-t="i.adr">Eaux-Vives, au bord du lac. Adresse exacte communiquée avant l’ouverture.</p></div>
       <div><h3 data-t="i.h.t">Horaires</h3><p data-t="i.h">Ouverture le 27 novembre. Horaires à confirmer.</p></div>
       <div><h3 data-t="i.c.t">Click &amp; collect</h3><p data-t="i.c">Commandez, choisissez l'heure, payez avec TWINT, passez prendre au comptoir.</p></div>
     </div>
@@ -358,9 +358,14 @@ requestAnimationFrame(function(){document.getElementById('ouv').classList.add('v
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});els.forEach(function(e){io.observe(e)});})();
 
 /* Onglets : suivent la catégorie visible */
-(function(){var liens=[].slice.call(document.querySelectorAll('.onglets a')),cats=liens.map(function(a){return document.querySelector(a.getAttribute('href'))});
-  function f(){var y=innerHeight*.35,k=0;cats.forEach(function(c,i){if(c.getBoundingClientRect().top<y)k=i});liens.forEach(function(a,i){var on=i===k;if(on!==a.classList.contains('on')){a.classList.toggle('on',on);if(on)a.scrollIntoView({block:'nearest',inline:'center'})}})}
-  addEventListener('scroll',f,{passive:true});f();})();
+(function(){var nav=document.querySelector('.onglets'),wrap=nav.querySelector('.wrap'),liens=[].slice.call(nav.querySelectorAll('a')),cats=liens.map(function(a){return document.querySelector(a.getAttribute('href'))}),cur=-1,lock=0;
+  function act(k){if(k===cur)return;cur=k;liens.forEach(function(a,i){a.classList.toggle('on',i===k);if(i===k)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
+    var a=liens[k],l=a.offsetLeft-(wrap.clientWidth-a.offsetWidth)/2;wrap.scrollTo({left:Math.max(0,l),behavior:REDUCE?'auto':'smooth'})}
+  function f(){if(Date.now()<lock)return;var y=nav.getBoundingClientRect().bottom+24,k=0;cats.forEach(function(c,i){if(c.getBoundingClientRect().top<=y)k=i});
+    if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)k=cats.length-1;act(k)}
+  liens.forEach(function(a,i){a.addEventListener('click',function(e){e.preventDefault();var t=cats[i].getBoundingClientRect().top+scrollY-(nav.offsetHeight+parseFloat(getComputedStyle(nav).top||0))-12;
+    lock=Date.now()+900;act(i);window.scrollTo({top:t,behavior:REDUCE?'auto':'smooth'});history.replaceState(null,'',a.getAttribute('href'))})});
+  addEventListener('scroll',f,{passive:true});addEventListener('scrollend',function(){lock=0;f()});f();})();
 
 /* Commande (maquette locale) */
 var T={};
@@ -398,23 +403,23 @@ var T={};
 /* Langues : FR dans la page, EN et ES ici (à relire par Tony). Même choix que l'accueil (localStorage apb-lang). */
 (function(){
 var I18N={
-en:{"g.sur":"APB du Lac · Opening 27 November","g.lead":"The smash, the burger and the baguette, served in Café de Paris sauce. Order online and pick up, or stay and eat.","g.voir":"See the menu and order","g.offert":"My free burger",
+en:{"g.sur":"Eaux-Vives · Opening planned 27 November","g.lead":"The smash, the burger and the baguette, served in Café de Paris sauce. Order online and pick up, or stay and eat.","g.voir":"See the menu and order","g.offert":"My free burger",
 "c.t":"The menu","c.i":"Everything comes with fries and Café de Paris sauce. The burger arrives cut, laid in the sauce.","o.smash":"Smash","o.burgers":"Burgers","o.baguette":"Baguette","o.cote":"Sides","o.desserts":"Desserts",
 "o.smash.t":"Smash burgers","o.smash.d":"Thin patties pressed on the griddle, crisp edges, cooked through.","o.burgers.t":"Burgers","o.burgers.d":"Thick patties, seared and pink inside.","o.baguette.t":"The baguette","o.baguette.d":"Spread with Café de Paris sauce.","o.cote.t":"Sides","o.desserts.t":"Desserts",
 "d.s80":"1 smashed patty, cheddar, Café de Paris sauce, fries.","d.s160":"2 smashed patties, cheddar, Café de Paris sauce, fries.","d.s240":"3 smashed patties, cheddar, Café de Paris sauce, fries.","d.b80":"1 thick patty, cheddar, Café de Paris sauce, fries.","d.b160":"1 thick patty, cheddar, Café de Paris sauce, fries.","d.b240":"1 big thick patty, cheddar, Café de Paris sauce, fries.",
 "n.baguette":"The baguette","d.bag":"Sliced beef, Café de Paris sauce spread inside. Served without fries.","n.frites":"Fries and sauce","d.frites":"House fries, Café de Paris sauce.","n.fondant":"Chocolate fondant","d.fondant":"Molten centre.","n.tarte":"Apple tart","d.tarte":"Thin puff pastry, caramelised apples.",
 "b.ajout":"Add","c.note":"Mock-up: prices, allergens and hours to be confirmed with the restaurant.","prix.vide":"Price to come",
 "f.sur":"Loyalty","f.t":"The golden sauceboat","f.lead":"Your card on your phone, no app to download.","f.1":"Add the card to Apple Wallet or Google Wallet.","f.2":"One stamp per visit, scanned at the counter.","f.3":"The tenth burger is on us.","f.b1":"Add to my Wallet",
-"i.adr.t":"Address","i.adr":"APB du Lac, on the lakeside. Exact address to be confirmed.","i.h.t":"Hours","i.h":"Opening 27 November. Hours to be confirmed.","i.c.t":"Click & collect","i.c":"Order, pick a time, pay with TWINT, collect at the counter.",
+"i.adr.t":"Address","i.adr":"Eaux-Vives, by the lake. Exact address shared before opening.","i.h.t":"Hours","i.h":"Opening 27 November. Hours to be confirmed.","i.c.t":"Click & collect","i.c":"Order, pick a time, pay with TWINT, collect at the counter.",
 "k.vide":"Your order","k.sous":"Click & collect in Geneva, from 27.11","k.b":"Order","k.art":"item","k.arts":"items","p.t":"My order","p.vide":"Your order is empty. Pick a dish from the menu.","p.h":"Pick-up time","p.b":"Pay with TWINT","p.note":"Mock-up: ordering opens on 27 November."},
-es:{"g.sur":"APB du Lac · Apertura el 27 de noviembre","g.lead":"La smash, la burger y la baguette, servidas en salsa Café de Paris. Pide en línea y recoge, o quédate a comer.","g.voir":"Ver la carta y pedir","g.offert":"Mi burger gratis",
+es:{"g.sur":"Eaux-Vives · Apertura prevista el 27 de noviembre","g.lead":"La smash, la burger y la baguette, servidas en salsa Café de Paris. Pide en línea y recoge, o quédate a comer.","g.voir":"Ver la carta y pedir","g.offert":"Mi burger gratis",
 "c.t":"La carta","c.i":"Todo se sirve con patatas fritas y salsa Café de Paris. La burger llega cortada, servida en la salsa.","o.smash":"Smash","o.burgers":"Burgers","o.baguette":"Baguette","o.cote":"Para acompañar","o.desserts":"Postres",
 "o.smash.t":"Las smash","o.smash.d":"Carne fina aplastada en la plancha, bordes crujientes, bien hecha.","o.burgers.t":"Las burgers","o.burgers.d":"Carne gruesa, sellada y rosada por dentro.","o.baguette.t":"La baguette","o.baguette.d":"Untada con salsa Café de Paris.","o.cote.t":"Para acompañar","o.desserts.t":"Postres",
 "d.s80":"1 carne smash, cheddar, salsa Café de Paris, patatas.","d.s160":"2 carnes smash, cheddar, salsa Café de Paris, patatas.","d.s240":"3 carnes smash, cheddar, salsa Café de Paris, patatas.","d.b80":"1 carne gruesa, cheddar, salsa Café de Paris, patatas.","d.b160":"1 carne gruesa, cheddar, salsa Café de Paris, patatas.","d.b240":"1 carne gruesa grande, cheddar, salsa Café de Paris, patatas.",
 "n.baguette":"La baguette","d.bag":"Ternera en lonchas, salsa Café de Paris untada. Servida sin patatas.","n.frites":"Patatas y salsa","d.frites":"Patatas caseras, salsa Café de Paris.","n.fondant":"Coulant de chocolate","d.fondant":"Corazón fundido.","n.tarte":"Tarta de manzana","d.tarte":"Hojaldre fino, manzanas caramelizadas.",
 "b.ajout":"Añadir","c.note":"Maqueta: precios, alérgenos y horarios por confirmar con el restaurante.","prix.vide":"Precio próximamente",
 "f.sur":"Fidelidad","f.t":"La salsera de oro","f.lead":"Tu tarjeta en el móvil, sin descargar ninguna app.","f.1":"Añade la tarjeta a Apple Wallet o Google Wallet.","f.2":"Un sello en cada visita, escaneado en el mostrador.","f.3":"La décima burger corre de nuestra cuenta.","f.b1":"Añadir a mi Wallet",
-"i.adr.t":"Dirección","i.adr":"APB du Lac, junto al lago. Dirección exacta por confirmar.","i.h.t":"Horario","i.h":"Apertura el 27 de noviembre. Horario por confirmar.","i.c.t":"Click & collect","i.c":"Pide, elige la hora, paga con TWINT y recoge en el mostrador.",
+"i.adr.t":"Dirección","i.adr":"Eaux-Vives, junto al lago. Dirección exacta antes de la apertura.","i.h.t":"Horario","i.h":"Apertura el 27 de noviembre. Horario por confirmar.","i.c.t":"Click & collect","i.c":"Pide, elige la hora, paga con TWINT y recoge en el mostrador.",
 "k.vide":"Tu pedido","k.sous":"Click & collect en Ginebra, desde el 27.11","k.b":"Pedir","k.art":"artículo","k.arts":"artículos","p.t":"Mi pedido","p.vide":"Tu pedido está vacío. Elige un plato de la carta.","p.h":"Hora de recogida","p.b":"Pagar con TWINT","p.note":"Maqueta: los pedidos se abren el 27 de noviembre."}};
 var els=document.querySelectorAll('[data-t]');els.forEach(function(e){e.dataset.fr=e.innerHTML});
 var btns=document.querySelectorAll('.langues button');
