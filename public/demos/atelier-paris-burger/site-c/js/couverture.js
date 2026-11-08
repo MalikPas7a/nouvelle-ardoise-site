@@ -47,11 +47,11 @@ if (couv && canvas) {
 // ---- Le trempage : vraie séquence vidéo (Kling 4.0) pilotée image par image par le défilement ----
 function initPhoto() {
   const ctx = photo.getContext('2d');
-  const N = 61, W = 1440, H = 804;
+  const N = 61, W = 1440, H = 804, DOS = 'img/trempe/';
   const imgs = new Array(N); let pEnCours = 0, montre = -1;
   const charge = (i) => {
     if (imgs[i]) return imgs[i];
-    const im = new Image(); im.decoding = 'async'; im.src = 'img/trempe/' + String(i).padStart(3, '0') + '.webp';
+    const im = new Image(); im.decoding = 'async'; im.src = DOS + String(i).padStart(3, '0') + '.webp';
     im.onload = () => { if (i === 0) couv.classList.add('photo-ok'); if (i === 0 || i === montre) dessine(pEnCours, true); };
     return (imgs[i] = im);
   };
@@ -119,7 +119,7 @@ function initOr() {
 
   // Spot de scène venu d'en haut, contre-jour lie-de-vin, reflet qui passe une fois
   const spot = new THREE.SpotLight(0xffe4b8, 0, 30, 0.34, 0.6, 1.2); scene.add(spot); scene.add(spot.target);
-  const rim = new THREE.PointLight(0x9b1a3a, 0, 20, 1.6); scene.add(rim);
+  const rim = new THREE.PointLight(0x620c26, 0, 20, 1.6); scene.add(rim);
   const sweep = new THREE.PointLight(0xffd79a, 0, 12, 1.8); scene.add(sweep);
 
   // Matière : or brossé, micro-martelage, légères variations de brillant
