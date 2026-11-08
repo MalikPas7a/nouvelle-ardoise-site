@@ -358,9 +358,14 @@ requestAnimationFrame(function(){document.getElementById('ouv').classList.add('v
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});els.forEach(function(e){io.observe(e)});})();
 
 /* Onglets : suivent la catégorie visible */
-(function(){var liens=[].slice.call(document.querySelectorAll('.onglets a')),cats=liens.map(function(a){return document.querySelector(a.getAttribute('href'))});
-  function f(){var y=innerHeight*.35,k=0;cats.forEach(function(c,i){if(c.getBoundingClientRect().top<y)k=i});liens.forEach(function(a,i){var on=i===k;if(on!==a.classList.contains('on')){a.classList.toggle('on',on);if(on)a.scrollIntoView({block:'nearest',inline:'center'})}})}
-  addEventListener('scroll',f,{passive:true});f();})();
+(function(){var nav=document.querySelector('.onglets'),wrap=nav.querySelector('.wrap'),liens=[].slice.call(nav.querySelectorAll('a')),cats=liens.map(function(a){return document.querySelector(a.getAttribute('href'))}),cur=-1,lock=0;
+  function act(k){if(k===cur)return;cur=k;liens.forEach(function(a,i){a.classList.toggle('on',i===k);if(i===k)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
+    var a=liens[k],l=a.offsetLeft-(wrap.clientWidth-a.offsetWidth)/2;wrap.scrollTo({left:Math.max(0,l),behavior:REDUCE?'auto':'smooth'})}
+  function f(){if(Date.now()<lock)return;var y=nav.getBoundingClientRect().bottom+24,k=0;cats.forEach(function(c,i){if(c.getBoundingClientRect().top<=y)k=i});
+    if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)k=cats.length-1;act(k)}
+  liens.forEach(function(a,i){a.addEventListener('click',function(e){e.preventDefault();var t=cats[i].getBoundingClientRect().top+scrollY-(nav.offsetHeight+parseFloat(getComputedStyle(nav).top||0))-12;
+    lock=Date.now()+900;act(i);window.scrollTo({top:t,behavior:REDUCE?'auto':'smooth'});history.replaceState(null,'',a.getAttribute('href'))})});
+  addEventListener('scroll',f,{passive:true});addEventListener('scrollend',function(){lock=0;f()});f();})();
 
 /* Commande (maquette locale) */
 var T={};
