@@ -44,10 +44,9 @@ a{color:inherit;text-decoration:none}
 .ouv{position:relative;background:var(--merlot);color:var(--peach)}
 .couv{position:relative;height:250vh;background:#121416;--fx:25%;--fy:30%;--p:0;--hh:72px}
 .pin{position:sticky;top:var(--hh);height:calc(100vh - var(--hh));height:calc(100svh - var(--hh));overflow:hidden;background:#121416}
-.pin .fond img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%;transform:scale(calc(1.07 - .07*var(--p)));transform-origin:70% 50%;will-change:transform}
+.pin .fond img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:100% 100%;transform:scale(calc(1 + .07*var(--p)));transform-origin:68% 82%;filter:brightness(calc(.55 + .45*var(--p)));will-change:transform}
 #photo{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity .4s}
-.couv.photo-ok #photo{opacity:1}.couv.photo-ok .fond{visibility:hidden}
-.pin .voile{position:absolute;inset:0;background:#121416;opacity:calc(.4 - .7*var(--p));pointer-events:none}
+.pin .voile{position:absolute;inset:0;background:#121416;opacity:calc(.5 - .5*var(--p));pointer-events:none}
 .pin::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(18,20,22,.88) 0,rgba(18,20,22,.55) 30%,rgba(18,20,22,0) 52%),linear-gradient(0deg,rgba(18,20,22,.6) 0,rgba(18,20,22,0) 20%)}
 .lueur{position:absolute;z-index:1;left:var(--fx);top:var(--fy);width:min(70vw,900px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(closest-side,rgba(155,26,58,.62),rgba(127,15,40,.32) 45%,rgba(73,9,23,0) 100%);opacity:calc(.15 + .85*var(--p));scale:calc(.7 + .3*var(--p));pointer-events:none}
 .spot{position:absolute;z-index:1;left:var(--fx);top:-10%;width:min(46vw,620px);height:calc(var(--fy) + 34%);translate:-50% 0;filter:blur(24px);mix-blend-mode:screen;opacity:calc(1.6*var(--p) - .45);pointer-events:none}
@@ -194,7 +193,7 @@ footer small{display:block;margin-top:26px;font-size:12px;opacity:.78}
  .top .mmenu nav{display:flex}
  .langs span{min-width:36px}
  .couv{--fx:50%;--fy:11%;--hh:62px;height:230vh}
- .pin .fond img{top:21%;bottom:auto;height:calc(79% - 72px);object-position:50% 64%;transform-origin:50% 40%}
+ .pin .fond img{top:16%;bottom:auto;height:calc(84% - 72px - 104px);object-position:50% 100%;transform-origin:50% 75%}
  .pin::after{background:linear-gradient(180deg,#121416 0,#121416 21%,rgba(18,20,22,0) 30%),linear-gradient(0deg,#121416 0,#121416 72px,rgba(18,20,22,.88) 140px,rgba(18,20,22,0) 230px)}
  .lueur{width:110vw}
  .spot{width:80vw;height:calc(var(--fy) + 20%)}
@@ -237,7 +236,7 @@ footer small{display:block;margin-top:26px;font-size:12px;opacity:.78}
 </style></head><body>
 <header class="top"><div class="w"><nav aria-label="Menu"><a href="#carte">La carte</a><a href="#histoire">Notre histoire</a><a href="#maisons">Nos maisons</a></nav><a class="mono" href="./" aria-label="Atelier Paris Burger, accueil"><img src="../lignes/img/monogramme-or.svg" alt=""></a><div class="r"><div class="langs"><span class="on" aria-current="true">FR</span><span title="Version anglaise en préparation">EN</span><span title="Versión española en preparación">ES</span></div><details class="mmenu"><summary aria-label="Ouvrir le menu"><span></span><span></span></summary><nav aria-label="Menu mobile"><a href="#carte">La carte</a><a href="#histoire">Notre histoire</a><a href="#maisons">Nos maisons</a><a href="../site-b/geneve/">Commander à Genève</a></nav></details><a class="btn btn-or" href="../site-b/geneve/">Commander</a></div></div></header>
 <main>
-<section class="ouv"><h1 class="vh">Atelier Paris Burger</h1><div class="couv" id="couv"><div class="pin"><picture class="fond"><source media="(max-width:860px)" srcset="img/couv-m.webp"><img fetchpriority="high" src="img/couv-d.webp" alt="Une main gantée trempe un demi-burger dans une saucière de sauce Café de Paris" width="1928" height="1076"></picture><canvas id="photo" aria-hidden="true"></canvas><div class="voile"></div><div class="lueur" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div><canvas id="or3d" aria-hidden="true"></canvas><img class="mono2d" src="../lignes/img/monogramme-or.svg" alt="" aria-hidden="true">
+<section class="ouv"><h1 class="vh">Atelier Paris Burger</h1><div class="couv" id="couv"><div class="pin"><picture class="fond"><source media="(max-width:860px)" srcset="img/couv-m.webp"><img fetchpriority="high" src="img/couv-d.webp" alt="Smash burger 160 g coupé en deux, frites et sauce Café de Paris, servi sur assiette noire" width="2400" height="1320"></picture><div class="voile"></div><div class="lueur" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div><canvas id="or3d" aria-hidden="true"></canvas><img class="mono2d" src="../lignes/img/monogramme-or.svg" alt="" aria-hidden="true">
 <div class="txt"><p class="caps eye">Sauce Café de Paris<span class="dl"> · depuis plus de quarante ans</span></p><p class="titre">La sauce des brasseries parisiennes, <em>en smash burger.</em></p>
 <div class="cta"><a class="btn btn-or" href="../site-b/geneve/">Commander à Genève →</a><a class="btn btn-ligne" href="../site-b/reserver/">Mon burger offert</a></div></div>
 <p class="defile" aria-hidden="true">Faites défiler</p></div></div>
