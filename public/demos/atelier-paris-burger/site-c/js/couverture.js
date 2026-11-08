@@ -47,11 +47,11 @@ if (couv && canvas) {
 // ---- Le trempage : vraie séquence vidéo (Kling 4.0) pilotée image par image par le défilement ----
 function initPhoto() {
   const ctx = photo.getContext('2d');
-  const N = 61, W = 1440, H = 804;
+  const MOB = innerWidth < 861, N = 61, W = MOB ? 720 : 1440, H = MOB ? 598 : 810, DOS = MOB ? 'img/trempe-m/' : 'img/trempe-d/';
   const imgs = new Array(N); let pEnCours = 0, montre = -1;
   const charge = (i) => {
     if (imgs[i]) return imgs[i];
-    const im = new Image(); im.decoding = 'async'; im.src = 'img/trempe/' + String(i).padStart(3, '0') + '.webp';
+    const im = new Image(); im.decoding = 'async'; im.src = DOS + String(i).padStart(3, '0') + '.webp';
     im.onload = () => { if (i === 0) couv.classList.add('photo-ok'); if (i === 0 || i === montre) dessine(pEnCours, true); };
     return (imgs[i] = im);
   };
@@ -71,7 +71,7 @@ function initPhoto() {
   }
   function dessine(p, force) {
     pEnCours = p;
-    const voulu = Math.round(lisse(p / 0.8) * (N - 1));
+    const voulu = Math.round(lisse((p - 0.12) / 0.72) * (N - 1));
     // image la plus proche déjà chargée
     let i = voulu; while (i > 0 && !(imgs[i] && imgs[i].complete && imgs[i].naturalWidth)) i--;
     const im = imgs[i];
@@ -80,8 +80,8 @@ function initPhoto() {
     if (i === montre && !force && !re) return;
     montre = voulu;
     const mob = cw / dpr < 861;
-    const rx = 0, ry = mob ? ch * 0.21 : 0, rw = cw, rh = mob ? ch * 0.79 - 72 * dpr : ch;
-    const fx = mob ? 0.63 : 0.62, fy = mob ? 0.64 : 0.5;
+    const rx = 0, ry = mob ? ch * 0.2 : 0, rw = cw, rh = mob ? ch * 0.8 - 176 * dpr : ch;
+    const fx = 0.5, fy = mob ? 0.6 : 1;
     const s = Math.max(rw / W, rh / H);
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, cw, ch);
