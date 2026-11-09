@@ -43,6 +43,14 @@ h1{font-family:var(--display);font-weight:600;color:var(--or);font-size:clamp(34
 .sons button.on{background:var(--fg);color:#fff;border-color:var(--fg)}
 footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
 footer a{color:var(--fg)}
+.courts{margin-top:64px;padding-top:40px;border-top:1px solid var(--line)}
+.courts h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(30px,4vw,44px);line-height:1.05;margin:0 0 8px}
+.courts .lead{margin:0 0 28px}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px}
+@media (max-width:760px){.duo{grid-template-columns:1fr;gap:40px}}
+.duo .phone{width:min(100%,340px)}
+.duo h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:26px;margin:18px 0 6px;text-align:center}
+.duo p{margin:0;text-align:center;font-size:14px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -91,15 +99,28 @@ footer a{color:var(--fg)}
    <button data-src="reel-smash-v62-son-D.mp4">Son D · hip-hop sombre, prise 2</button>
    <button data-src="reel-smash-v62-son-E.mp4">Son E · percussions épiques + chœur</button>
    <button data-src="reel-smash-v62-son-F.mp4">Son F · percussions épiques, prise 2</button>
-   <span class="lab">Deux réels courts, avec les mêmes rushes</span>
-   <button data-src="reel-apb-A-devinez-la-ville.mp4">Réel A · Devinez la ville · 10 s</button>
-   <button data-src="reel-apb-B-la-sauce.mp4">Réel B · La sauce · 8 s, en boucle</button>
    <span class="lab">Pour comparer</span>
    <button data-src="reel-smash-v61-son-B.mp4">v61 · Son B</button>
    <button data-src="reel-smash-v53-son-B.mp4">v53 · Son B</button>
   </div>
  </div>
 </main>
+<section class="courts">
+ <h2>Deux réels courts, avec les mêmes rushes</h2>
+ <p class="lead">Pensés d’après les réels burger les plus vus sur Instagram : 8 à 10 secondes, pas de logo au début, une question qui fait commenter, une boucle qui fait revoir.</p>
+ <div class="duo">
+  <div>
+   <div class="phone"><video playsinline preload="metadata" poster="posterA.jpg" controls><source src="reel-apb-A-devinez-la-ville.mp4" type="video/mp4"></video></div>
+   <h3>Réel A · Devinez la ville</h3>
+   <p>10 s · « Madrid. Ibiza. Et la troisième ville ? Devinez laquelle. Indice : un jet d’eau. » Fin : une 3<sup>e</sup> ville, 27 novembre, 200 burgers offerts, réponse en commentaire.</p>
+  </div>
+  <div>
+   <div class="phone"><video playsinline preload="metadata" poster="posterB.jpg" controls loop><source src="reel-apb-B-la-sauce.mp4" type="video/mp4"></video></div>
+   <h3>Réel B · La sauce</h3>
+   <p>8 s, en boucle · la sauce versée à la louche, le burger qu’on trempe, la moitié qui ressort entière, la macro. « Une sauce. 40 ans. On le trempe. Entier. » Sans logo ni voix.</p>
+  </div>
+ </div>
+</section>
 <footer>
  <span>Proposition Nouvelle Ardoise pour Atelier Paris Burger · novembre 2026</span>
  <a href="https://nouvelleardoise.ch/">nouvelleardoise.ch</a>
