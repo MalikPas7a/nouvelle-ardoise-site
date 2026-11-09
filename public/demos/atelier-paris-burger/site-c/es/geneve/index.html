@@ -605,6 +605,21 @@ html[lang=es] .bandeau nav a,html[lang=en] .bandeau nav a{font-size:12px;letter-
  .hz .frise figure img{max-height:25svh}
  .hz .hst{gap:10px}
 }
+
+/* v18 : semis de petits monogrammes qui défile derrière les passages épinglés (film, histoire) */
+.defmono{display:none}
+.defil .rituel>.defmono,.hz .hpin>.defmono{display:block;position:sticky;top:var(--band);height:calc(100svh - var(--band));margin-bottom:calc(var(--band) - 100svh);pointer-events:none;
+ background:url(../../img/logo/semis-tuile.svg) 0 0/var(--tu,150px) var(--tu,150px) repeat;opacity:var(--op,.09);
+ background-position:0 calc(var(--p,0) * var(--dist,-1200px));
+ -webkit-mask-image:linear-gradient(transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(transparent,#000 14%,#000 86%,transparent)}
+html.semis-x .defil .rituel>.defmono,html.semis-x .hz .hpin>.defmono{background-position:calc(var(--p,0) * var(--dist,-1200px)) 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.hz .hpin>.defmono{--dist:-1600px}
+.defil .rituel>.w,.hz .hpin>.hst{z-index:1}
+@media (max-width:860px){.defmono{--tu:110px;--dist:-900px}.hz .hpin>.defmono{--dist:-1200px}}
+
+/* v18 choix : film = défilement vertical (les logos montent pendant que la photo reste fixe), histoire = horizontal (suit la frise) */
+.defil .rituel>.defmono,.hz .hpin>.defmono{--op:.14}
+html:not(.semis-y) .hz .hpin>.defmono{background-position:calc(var(--p,0) * var(--dist,-1200px)) 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
 </style></head><body>
 <div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menú"><a href="#carte">La carta</a><a href="#infos">Info</a><a href="../#villes">Nuestras ciudades</a></nav><a class="logo" href="../"><img src="../../img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, inicio" width="300" height="20"></a><div class="d"><nav class="langs" aria-label="Idioma"><a href="../../geneve/" hreflang="fr" lang="fr">FR</a><a href="../../en/geneve/" hreflang="en" lang="en">EN</a><a href="./" hreflang="es" lang="es" aria-current="true">ES</a></nav><a class="btn btn-m" href="../commander/">Pedir</a><details class="mmenu"><summary aria-label="Abrir el menú"><span></span><span></span></summary><nav aria-label="Menú móvil"><a href="#carte">La carta</a><a href="#infos">Info</a><a href="../#villes">Nuestras ciudades</a><a href="../commander/">Pedir</a></nav></details></div></div></header>
 <main>
@@ -747,6 +762,8 @@ f.addEventListener('focusin',function(e){var ch=e.target.closest('.chap');if(!ch
 (function(){var els=document.querySelectorAll('.villes,.ctete');if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('fil');io.unobserve(x.target)}})},{rootMargin:'0px 0px -25% 0px'});[].forEach.call(els,function(e){io.observe(e)})}else[].forEach.call(els,function(e){e.classList.add('fil')});
 var h=document.querySelector('.hist');if(h&&'IntersectionObserver' in window){var j=new IntersectionObserver(function(es){if(es[0].isIntersecting){[].forEach.call(h.querySelectorAll('img[loading=lazy]'),function(i){i.loading='eager'});j.disconnect()}},{rootMargin:'150% 0px'});j.observe(h)}})();
 
+(function(){var m=/[?&]semis=(x|y)/.exec(location.search);if(m)document.documentElement.classList.add('semis-'+m[1])})();
+
 /* v16 : séquence de la sauce dans l'arche (images décodées hors du fil principal, dessin « cover », lissage).
    Repli : la photo fixe HD reste si mouvement réduit, économie de données, 2G, écran trop bas, image lente ou en erreur */
 (function(){var cv=document.querySelector('.arche canvas.seq'),couv=document.querySelector('.couv,.vtete'),hero=couv&&couv.querySelector('.hero'),ph=cv&&cv.parentNode.querySelector('img.photo');if(!cv||!hero||!ph)return;
@@ -787,7 +804,7 @@ var ms=document.querySelectorAll('.mono');if(ms.length){if(rm||!('IntersectionOb
 var pin=document.querySelector('.hpin'),f=document.querySelector('.hpin .frise');if(!pin||!f||rm)return;
 var H=document.documentElement,cpt=document.querySelector('.hcompte'),cb=cpt&&cpt.querySelector('b'),n=f.children.length,fr=0,ov=0;
 function mesure(){H.classList.add('hz');f.style.transform='';var fl=f.getBoundingClientRect().left,lc=f.lastElementChild.getBoundingClientRect();ov=Math.max(0,Math.ceil(lc.right-(innerWidth-Math.max(16,fl))));pin.style.height=(pin.querySelector('.hst').offsetHeight+ov)+'px';tick()}
-function tick(){fr=0;var r=pin.getBoundingClientRect(),t=pin.offsetHeight-pin.querySelector('.hst').offsetHeight,p=Math.min(1,Math.max(0,-r.top/Math.max(1,t)));f.style.transform='translate3d('+(-p*ov).toFixed(1)+'px,0,0)';var ai=Math.round(p*(n-1));for(var q=0;q<n;q++)f.children[q].classList.toggle('on',q===ai);if(cpt){cpt.style.setProperty('--hp',p.toFixed(3));if(cb)cb.textContent=String(Math.min(n,1+Math.round(p*(n-1)))).padStart(2,'0')}}
+function tick(){fr=0;var r=pin.getBoundingClientRect(),t=pin.offsetHeight-pin.querySelector('.hst').offsetHeight,p=Math.min(1,Math.max(0,-r.top/Math.max(1,t)));f.style.transform='translate3d('+(-p*ov).toFixed(1)+'px,0,0)';pin.style.setProperty('--p',p.toFixed(4));var ai=Math.round(p*(n-1));for(var q=0;q<n;q++)f.children[q].classList.toggle('on',q===ai);if(cpt){cpt.style.setProperty('--hp',p.toFixed(3));if(cb)cb.textContent=String(Math.min(n,1+Math.round(p*(n-1)))).padStart(2,'0')}}
 addEventListener('scroll',function(){if(!fr)fr=requestAnimationFrame(tick)},{passive:true});addEventListener('resize',mesure);
 if(document.readyState==='complete')mesure();else addEventListener('load',mesure);mesure();
 if(window.ResizeObserver){var rt=0;new ResizeObserver(function(){clearTimeout(rt);rt=setTimeout(mesure,120)}).observe(f)}[].forEach.call(f.querySelectorAll('img'),function(i){i.addEventListener('load',function(){clearTimeout(rt);rt=setTimeout(mesure,120)})});
