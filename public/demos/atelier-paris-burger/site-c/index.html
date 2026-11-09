@@ -138,6 +138,7 @@ h2.trois span{transition:color .45s var(--ease),opacity .45s var(--ease)}
 .js h2.trois span.on{opacity:1;color:var(--or)}
 .film.carre{aspect-ratio:1/1;width:min(36vw,calc(100svh - 200px))}
 .film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.film .fcv{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .3s}.film.cv .fcv{opacity:1}.film.cv video{visibility:hidden}
 .film .pause{position:absolute;right:16px;bottom:16px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(249,237,220,.5);background:rgba(18,20,22,.55);display:grid;place-items:center}
 
 /* Genève */
@@ -569,6 +570,41 @@ html[lang=es] .bandeau nav a,html[lang=en] .bandeau nav a{font-size:12px;letter-
 
 /* v16 ruban : or éclairci pour le contraste sur Merlot (4,8:1) */
 .ruban .piste span.o{color:#E3A341}
+
+/* v17 histoire : le compteur reste au-dessus de la barre iPhone */
+@media (max-width:860px){.hz .hst{padding-bottom:calc(78px + env(safe-area-inset-bottom));gap:12px}.hz .frise figure img{max-height:30svh;object-fit:cover}}
+
+/* v17 monogrammes : le sceau tourne et se pose, les filets se tracent, un semis de petits logos apparaît en fondu */
+.mono .semis{position:absolute;top:0;left:50%;width:min(94vw,1040px);height:150px;translate:-50% -50%;pointer-events:none}
+.mono .semis img{position:absolute;left:var(--x);top:var(--y);width:var(--t);height:var(--t);translate:-50% -50%;opacity:0;scale:.4;transition:opacity 1.4s ease var(--d),scale 1.4s cubic-bezier(.2,.7,.1,1) var(--d)}
+.mono.vu .semis img{opacity:var(--o);scale:1}
+.js-rv .mono b{opacity:0;scale:.55;rotate:-120deg;transition:opacity .6s ease,scale 1s cubic-bezier(.2,.7,.1,1),rotate 1.3s cubic-bezier(.2,.7,.1,1)}
+.js-rv .mono.vu b{opacity:1;scale:1;rotate:0deg}
+.js-rv .mono i{opacity:1;transform:scaleX(0)!important;transition:transform 1.2s cubic-bezier(.2,.7,.1,1) .25s}
+.js-rv .mono.vu i{transform:scaleX(1)!important}
+@media (max-width:860px){.mono .semis{height:120px}.mono .semis img{width:calc(var(--t)*.8);height:calc(var(--t)*.8)}}
+@media (prefers-reduced-motion:reduce){.js-rv .mono b,.js-rv .mono i,.mono .semis img{transition:none}}
+/* v17 grand monogramme en filigrane, comme derrière l'histoire */
+.villes,.ctete,.fid{position:relative;overflow:hidden}
+.villes>.w,.ctete>.w,.fid>.w{position:relative;z-index:1}
+.villes::before,.ctete::before{content:"";position:absolute;top:50%;width:min(60vw,640px);aspect-ratio:1;translate:0 -50%;background:url(img/logo/apb-mark-or.svg) center/contain no-repeat;opacity:0;transition:opacity 1.6s ease;pointer-events:none}
+.villes::before{left:-14%}.ctete::before{right:-8%;width:min(46vw,460px)}
+.villes.fil::before,.ctete.fil::before,html:not(.js) .villes::before{opacity:.06}
+@media (prefers-reduced-motion:reduce){.villes::before,.ctete::before{opacity:.06;transition:none}}
+
+/* v17 filet de droite (le sélecteur i+i ne trouvait plus le second filet) */
+.mono i{transform-origin:right}
+.mono b+i{right:auto;left:calc(50% + 52px);background:linear-gradient(-90deg,transparent,var(--or));transform-origin:left}
+@media (max-width:860px){.mono b+i{left:calc(50% + 42px)}
+ .hz .hst{justify-content:flex-start}}
+
+/* v17 histoire iPhone : compteur en haut à droite, tout tient au-dessus de la barre */
+@media (max-width:860px){
+ .hz .hst>.w:last-child{position:absolute;top:22px;right:0;width:auto;margin:0;padding:0 var(--g)}
+ .hz .hcompte i{width:56px}
+ .hz .frise figure img{max-height:25svh}
+ .hz .hst{gap:10px}
+}
 </style></head><body>
 <div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menu"><a href="#villes">Nos villes</a><a href="geneve/#carte">La carte</a><a href="#histoire">Notre histoire</a></nav><a class="logo" href="./"><img src="img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, accueil" width="300" height="20"></a><div class="d"><nav class="langs" aria-label="Langue"><a href="./" hreflang="fr" lang="fr" aria-current="true">FR</a><a href="en/" hreflang="en" lang="en">EN</a><a href="es/" hreflang="es" lang="es">ES</a></nav><a class="btn btn-m" href="../site-c/commander/">Commander</a><details class="mmenu"><summary aria-label="Ouvrir le menu"><span></span><span></span></summary><nav aria-label="Menu mobile"><a href="#villes">Nos villes</a><a href="geneve/#carte">La carte</a><a href="#histoire">Notre histoire</a><a href="../site-c/commander/">Commander à Genève</a></nav></details></div></div></header>
 <main>
@@ -580,18 +616,18 @@ html[lang=es] .bandeau nav a,html[lang=en] .bandeau nav a{font-size:12px;letter-
 <a class="p" href="geneve/#p-burger"><div class="sc"><img class="" src="img/d-burger-160-m.webp" width="820" height="250" alt="" loading="lazy" decoding="async"></div><h3>Le burger</h3><p>Un seul steak épais, de 80 à 240 g, avec frites et sauce.</p><span class="lien">Voir la baguette</span></a>
 <a class="p" href="geneve/#p-baguette"><div class="sc"><img class="" src="img/d-baguette-m.webp" width="820" height="250" alt="" loading="lazy" decoding="async"></div><h3>La baguette</h3><p>Bœuf tranché, sauce tartinée. Servie sans frites.</p><span class="lien">Voir la baguette</span></a>
 </div><div class="cta"><a class="btn btn-m" href="geneve/#carte">Voir la carte de Genève</a></div></div></section>
-<div class="mono" aria-hidden="true"><i></i><b><img src="img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
+<div class="mono" aria-hidden="true"><span class="semis"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:6%;--y:30%;--t:14px;--o:0.1;--d:0.73s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:15%;--y:72%;--t:20px;--o:0.16;--d:0.64s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:24%;--y:22%;--t:12px;--o:0.12;--d:0.54s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:33%;--y:78%;--t:16px;--o:0.1;--d:0.44s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:67%;--y:26%;--t:16px;--o:0.1;--d:0.44s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:76%;--y:74%;--t:12px;--o:0.12;--d:0.54s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:85%;--y:30%;--t:20px;--o:0.16;--d:0.64s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:94%;--y:70%;--t:14px;--o:0.1;--d:0.73s"></span><i></i><b><img src="img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
 <section class="service" aria-labelledby="service-t"><div class="w"><figure><picture><source media="(max-width:860px)" srcset="img/service-m.webp" width="800" height="1000"><img src="img/service.webp" width="1080" height="1350" alt="Un serveur en chemise blanche tient une assiette ovale : burger coupé en deux posé dans la sauce Café de Paris, frites dorées" loading="lazy" decoding="async"></picture><figcaption>Servi au bord du lac Léman</figcaption></figure><div class="c"><p class="eye">À table</p><h2 id="service-t">Coupé, posé dans la sauce, servi chaud.</h2><p class="t">Le burger arrive coupé en deux, déjà dans la sauce Café de Paris. Les frites restent à côté, pour tremper à votre rythme.</p><div class="filet" aria-hidden="true"></div><a class="btn btn-or svc-cmd" href="../site-c/commander/">Commander à Genève</a></div></div></section>
-<div class="mono" aria-hidden="true"><i></i><b><img src="img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
+<div class="mono" aria-hidden="true"><span class="semis"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:6%;--y:30%;--t:14px;--o:0.1;--d:0.73s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:15%;--y:72%;--t:20px;--o:0.16;--d:0.64s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:24%;--y:22%;--t:12px;--o:0.12;--d:0.54s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:33%;--y:78%;--t:16px;--o:0.1;--d:0.44s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:67%;--y:26%;--t:16px;--o:0.1;--d:0.44s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:76%;--y:74%;--t:12px;--o:0.12;--d:0.54s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:85%;--y:30%;--t:20px;--o:0.16;--d:0.64s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:94%;--y:70%;--t:14px;--o:0.1;--d:0.73s"></span><i></i><b><img src="img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
 <section class="villes" id="villes" aria-labelledby="villes-t"><div class="w"><div class="tete"><p class="eye">Nos adresses</p><h2 id="villes-t">Choisissez votre ville</h2></div><div class="grille">
 <article class="ville"><img src="img/ville-geneve.webp" width="1000" height="750" alt="La rade de Genève et le Jet d’eau" loading="lazy" decoding="async"><div class="c"><span class="statut or">Ouverture le 27 novembre</span><h3>Genève</h3><p>Quai Gustave-Ador 24, Eaux-Vives. Sur place, à emporter et commande en ligne.</p><a class="btn btn-m" href="geneve/">Carte et commande</a></div></article>
 <article class="ville" id="v-madrid"><img src="img/ville-madrid.webp" width="1000" height="750" alt="La Gran Vía à Madrid" loading="lazy" decoding="async"><div class="c"><span class="statut">Ouvert</span><h3>Madrid</h3><p>En livraison uniquement, sur Glovo.</p><span class="bientot">Lien Glovo à venir</span></div></article>
 <article class="ville" id="v-ibiza"><img src="img/ville-ibiza.webp" style="object-position:4% 50%" width="1000" height="750" alt="La terrasse d’Atelier Paris Burger à Ibiza, sous l’auvent rayé bordeaux" loading="lazy" decoding="async"><div class="c"><span class="statut">Ouvert</span><h3>Ibiza</h3><p>Restaurant ouvert, sur place et à emporter.</p><span class="bientot">Carrer Barcelona 7 · Eivissa</span></div></article>
 </div></div></section>
-<div class="mono" aria-hidden="true"><i></i><b><img src="img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
+<div class="mono" aria-hidden="true"><span class="semis"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:6%;--y:30%;--t:14px;--o:0.1;--d:0.73s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:15%;--y:72%;--t:20px;--o:0.16;--d:0.64s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:24%;--y:22%;--t:12px;--o:0.12;--d:0.54s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:33%;--y:78%;--t:16px;--o:0.1;--d:0.44s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:67%;--y:26%;--t:16px;--o:0.1;--d:0.44s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:76%;--y:74%;--t:12px;--o:0.12;--d:0.54s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:85%;--y:30%;--t:20px;--o:0.16;--d:0.64s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:94%;--y:70%;--t:14px;--o:0.1;--d:0.73s"></span><i></i><b><img src="img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
 <section class="rituel" id="geste" aria-labelledby="rituel-t"><div class="w"><div><p class="eye">Le geste</p><h2 id="rituel-t" class="trois"><span data-a="0">Coupé.</span> <span data-a="5.16">Trempé.</span></h2><p class="l">Le couteau passe d’un trait, en cuisine. Le burger arrive coupé en deux, posé dans la sauce Café de Paris : chaque moitié se trempe.</p><span class="fil" aria-hidden="true"><i></i></span><div class="cta2"><a class="btn btn-or" href="../site-c/commander/">Commander</a><a class="lien-or" href="geneve/#carte">Voir la carte</a></div></div>
 <div class="film"><video id="film" src="geste.mp4" poster="img/geste-poster.webp" muted playsinline preload="none" aria-label="En cuisine : le couteau coupe le smash, deux mains l’ouvrent, puis une moitié plonge dans la sauce Café de Paris et ressort nappée"></video><button class="pause" type="button" aria-label="Mettre en pause"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14"><path d="M3 2h3v10H3zM8 2h3v10H8z" fill="currentColor"/></svg></button></div></div></section>
-<div class="mono" aria-hidden="true"><i></i><b><img src="img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
+<div class="mono" aria-hidden="true"><span class="semis"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:6%;--y:30%;--t:14px;--o:0.1;--d:0.73s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:15%;--y:72%;--t:20px;--o:0.16;--d:0.64s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:24%;--y:22%;--t:12px;--o:0.12;--d:0.54s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:33%;--y:78%;--t:16px;--o:0.1;--d:0.44s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:67%;--y:26%;--t:16px;--o:0.1;--d:0.44s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:76%;--y:74%;--t:12px;--o:0.12;--d:0.54s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:85%;--y:30%;--t:20px;--o:0.16;--d:0.64s"><img src="img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:94%;--y:70%;--t:14px;--o:0.1;--d:0.73s"></span><i></i><b><img src="img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
 <section class="hist" id="histoire" aria-labelledby="hist-t"><div class="hpin"><div class="hst"><div class="w"><div class="tete"><p class="eye">Notre histoire</p><h2 id="hist-t">Quarante ans de sauce, en cinq chapitres</h2></div></div>
 <div class="frise" tabindex="0" role="region" aria-label="Notre histoire en cinq chapitres"><article class="chap"><div class="ct"><p class="cn">Chapitre I</p><p class="cd">Le XX<sup>e</sup> siècle</p><h3>Les brasseries et leur sauce</h3><p class="cx">À Paris, les grandes brasseries servent l’entrecôte avec une sauce maison. Chaque adresse garde sa recette, et on vient pour elle.</p></div><figure><img src="img/hist-1.webp" srcset="img/hist-1-720.webp 720w, img/hist-1.webp 1500w" sizes="(max-width:860px) 84vw, 560px" width="1500" height="1000" alt="Photo d’archive : des devantures de restaurants et l’auvent de la Closerie des Lilas, boulevard du Montparnasse, à Paris en 1983" loading="lazy" decoding="async"><figcaption>Boulevard du Montparnasse, Paris, 1983</figcaption></figure></article><article class="chap"><div class="ct"><p class="cn">Chapitre II</p><p class="cd">Genève · Paris</p><h3>Une sauce entre deux villes</h3><p class="cx">La sauce Café de Paris naît de cette tradition des sauces d’entrecôte, entre Genève et Paris.</p></div><figure><img src="img/hist-2.webp" srcset="img/hist-2-720.webp 720w, img/hist-2.webp 1500w" sizes="(max-width:860px) 84vw, 560px" width="1500" height="1000" alt="Photo d’archive : la rue Saint-Antoine, ses voitures et ses auvents de boutiques, à Paris en 1981" loading="lazy" decoding="async"><figcaption>Rue Saint-Antoine, Paris, 1981</figcaption></figure></article><article class="chap"><div class="ct"><p class="cn">Chapitre III</p><p class="cd">Années 1980</p><h3>Elle s’installe à Paris</h3><p class="cx">Au début des années 1980, elle arrive dans les brasseries parisiennes : rue Feydeau, rue de Ponthieu, rue François-Miron.</p></div><figure><img src="img/hist-4.webp" srcset="img/hist-4-720.webp 720w, img/hist-4.webp 1500w" sizes="(max-width:860px) 84vw, 560px" width="1500" height="1000" alt="Photo d’archive : Les Grands Boulevards sous la neige, vus d’un balcon, avec les kiosques et un omnibus" loading="lazy" decoding="async"><figcaption>Les Grands Boulevards</figcaption></figure></article><article class="chap"><div class="ct"><p class="cn">Chapitre IV</p><p class="cd">40 ans</p><h3>Le geste se transmet</h3><p class="cx">Pendant quarante ans, la recette passe de cuisine en cuisine, de main en main.</p></div><figure><img src="img/hist-3.webp" srcset="img/hist-3-720.webp 720w, img/hist-3.webp 1500w" sizes="(max-width:860px) 84vw, 560px" width="1500" height="1000" alt="Photo d’archive : Cinq cuisiniers en toque découpent des volailles rôties dans une cuisine carrelée" loading="lazy" decoding="async"><figcaption>Une brigade parisienne</figcaption></figure></article><article class="chap couleur"><div class="ct"><p class="cn">Chapitre V</p><p class="cd">Aujourd’hui</p><h3>Dans un smash burger</h3><p class="cx">Atelier Paris Burger pose la sauce dans l’assiette, sous le burger coupé en deux. À tremper jusqu’à la dernière bouchée, à Genève, Madrid et Ibiza.</p><a class="lien-or" href="../site-c/commander/">Commander à Genève</a></div><figure><picture><source media="(max-width:860px)" srcset="img/g-smash-m.webp" width="1170" height="771"><img src="img/g-smash-d.webp" width="1600" height="839" alt="Un smash 160 g coupé en deux, posé dans la sauce Café de Paris, avec des frites" loading="lazy" decoding="async"></picture><figcaption>Atelier Paris Burger</figcaption></figure></article></div>
 <div class="w"><p class="hcompte" aria-hidden="true"><b>01</b><i></i>05</p></div></div></div>
@@ -689,15 +725,19 @@ v.addEventListener('seeked',mark);
 if(rm){stop();[].forEach.call(et,function(e){e.classList.add('on')});v.loop=true;return}
 /* Le film avance avec le défilement : un seul passage épinglé sur la page */
 var sec=document.getElementById('geste');document.documentElement.classList.add('defil');v.pause();
-var mem=false;function charge(){if(mem)return;mem=true;v.preload='auto';
- /* Le film est mis en mémoire : pas de requête réseau à chaque image quand on défile (Safari iOS) */
- if(window.fetch&&window.URL&&URL.createObjectURL){fetch(v.currentSrc||v.src).then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(b){var t=v.currentTime;v.src=URL.createObjectURL(b);v.addEventListener('loadedmetadata',function(){last=-1;pos()},{once:true})}).catch(function(){v.load&&v.readyState<1&&v.load()})}else{v.load&&v.readyState<1&&v.load()}}
-if('IntersectionObserver' in window)new IntersectionObserver(function(e){if(e[0].isIntersecting)charge()},{rootMargin:'300% 0px'}).observe(sec);else charge();
-var pend=-1;v.addEventListener('seeked',function(){if(pend>=0){var t=pend;pend=-1;try{v.currentTime=t}catch(e){}}});
-var fr=0,last=-1;function pos(){fr=0;var r=sec.getBoundingClientRect(),t=sec.offsetHeight-innerHeight,p=Math.min(1,Math.max(0,-r.top/Math.max(1,t)));sec.style.setProperty('--p',p.toFixed(4));
- var d=v.duration||10.15,q=p<.36?p/.36*5.16:p<.96?5.16+(p-.36)/.6*(d-5.16):d,ct=Math.max(.2,Math.min(d-.05,q));if(Math.abs(ct-last)>.04&&v.readyState>=1){last=ct;if(v.seeking)pend=ct;else try{v.currentTime=ct}catch(e){}}
+/* Film en images (iPhone : la vidéo ne suit pas le défilement de façon fiable) */
+var FN=127,DT=.08,M=matchMedia('(max-width:860px)').matches,dir=(v.getAttribute('poster')||'img/').replace(/img\/.*$/,'')+(M?'img/film/':'img/film-d/'),cv=document.createElement('canvas'),cx=cv.getContext('2d'),im=[],ok=[],mem=false,cur=-1,want=0;
+cv.className='fcv';cv.width=M?480:720;cv.height=M?600:900;cv.setAttribute('aria-hidden','true');v.parentNode.insertBefore(cv,v.nextSibling);
+function nom(i){return dir+('00'+i).slice(-3)+'.webp'}
+function dessine(i){var k=-1;for(var d=0;d<FN;d++){if(i-d>=0&&ok[i-d]){k=i-d;break}if(i+d<FN&&ok[i+d]){k=i+d;break}}if(k<0||k===cur)return;cur=k;var g=im[k],w=g.width,h=g.height,s=Math.max(cv.width/w,cv.height/h);cx.drawImage(g,(cv.width-w*s)/2,(cv.height-h*s)/2,w*s,h*s);v.parentNode.classList.add('cv')}
+function une(i,fin){if(im[i]){fin&&fin();return}var g=new Image();g.decoding='async';im[i]=g;g.onload=function(){(g.decode?g.decode():Promise.resolve()).catch(function(){}).then(function(){ok[i]=1;if(Math.abs(i-want)<Math.abs(cur-want)||cur<0)dessine(want);fin&&fin()})};g.onerror=function(){fin&&fin()};g.src=nom(i)}
+function charge(){if(mem)return;mem=true;var ord=[],vu={};[16,8,4,2,1].forEach(function(st){for(var i=0;i<FN;i+=st)if(!vu[i]){vu[i]=1;ord.push(i)}});if(!vu[FN-1])ord.push(FN-1);
+ var n=0,act=0;function suite(){while(act<4&&n<ord.length){act++;une(ord[n++],function(){act--;suite()})}}suite()}
+if('IntersectionObserver' in window)new IntersectionObserver(function(e){if(e[0].isIntersecting)charge()},{rootMargin:'250% 0px'}).observe(sec);else charge();
+var fr=0;function pos(){fr=0;var r=sec.getBoundingClientRect(),t=sec.offsetHeight-innerHeight,p=Math.min(1,Math.max(0,-r.top/Math.max(1,t)));sec.style.setProperty('--p',p.toFixed(4));
+ var d=10.15,q=p<.36?p/.36*5.16:p<.96?5.16+(p-.36)/.6*(d-5.16):d,ct=Math.max(0,Math.min(d,q));want=Math.max(2,Math.min(FN-1,Math.round(ct/DT)));if(mem)dessine(want);
  for(var j=0;j<et.length;j++)et[j].classList.toggle('on',j===(ct>=5.16?1:0))}
-addEventListener('scroll',function(){if(!fr)fr=requestAnimationFrame(pos)},{passive:true});v.addEventListener('loadedmetadata',pos);pos();
+addEventListener('scroll',function(){if(!fr)fr=requestAnimationFrame(pos)},{passive:true});addEventListener('resize',pos);pos();
 })();
 
 /* v16 : menu iPhone : Échap, perte de focus et défilement ferment le menu */
@@ -710,6 +750,10 @@ var y0=0;mm.addEventListener('toggle',function(){y0=scrollY});addEventListener('
 (function(){var pin=document.querySelector('.hpin'),f=pin&&pin.querySelector('.frise'),H=document.documentElement;if(!f)return;
 f.addEventListener('focusin',function(e){var ch=e.target.closest('.chap');if(!ch||!H.classList.contains('hz'))return;var hst=pin.querySelector('.hst');hst.scrollLeft=0;
  var i=[].indexOf.call(f.children,ch),n=f.children.length,t=pin.offsetHeight-hst.offsetHeight;scrollTo({top:pin.getBoundingClientRect().top+scrollY+t*i/Math.max(1,n-1),behavior:'instant'})})})();
+
+/* v17 : filigranes en fondu et images de l'histoire préchargées */
+(function(){var els=document.querySelectorAll('.villes,.ctete');if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('fil');io.unobserve(x.target)}})},{rootMargin:'0px 0px -25% 0px'});[].forEach.call(els,function(e){io.observe(e)})}else[].forEach.call(els,function(e){e.classList.add('fil')});
+var h=document.querySelector('.hist');if(h&&'IntersectionObserver' in window){var j=new IntersectionObserver(function(es){if(es[0].isIntersecting){[].forEach.call(h.querySelectorAll('img[loading=lazy]'),function(i){i.loading='eager'});j.disconnect()}},{rootMargin:'150% 0px'});j.observe(h)}})();
 
 /* v16 : séquence de la sauce dans l'arche (images décodées hors du fil principal, dessin « cover », lissage).
    Repli : la photo fixe HD reste si mouvement réduit, économie de données, 2G, écran trop bas, image lente ou en erreur */
@@ -750,10 +794,11 @@ addEventListener('scroll',function(){if(!fr)fr=requestAnimationFrame(f)},{passiv
 var ms=document.querySelectorAll('.mono');if(ms.length){if(rm||!('IntersectionObserver' in window)){[].forEach.call(ms,function(m){m.classList.add('vu')})}else{var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target)}})},{rootMargin:'0px 0px -18% 0px'});[].forEach.call(ms,function(m){io.observe(m)})}}
 var pin=document.querySelector('.hpin'),f=document.querySelector('.hpin .frise');if(!pin||!f||rm)return;
 var H=document.documentElement,cpt=document.querySelector('.hcompte'),cb=cpt&&cpt.querySelector('b'),n=f.children.length,fr=0,ov=0;
-function mesure(){H.classList.add('hz');f.style.transform='';ov=Math.max(0,f.scrollWidth-innerWidth);pin.style.height=(pin.querySelector('.hst').offsetHeight+ov)+'px';tick()}
+function mesure(){H.classList.add('hz');f.style.transform='';var fl=f.getBoundingClientRect().left,lc=f.lastElementChild.getBoundingClientRect();ov=Math.max(0,Math.ceil(lc.right-(innerWidth-Math.max(16,fl))));pin.style.height=(pin.querySelector('.hst').offsetHeight+ov)+'px';tick()}
 function tick(){fr=0;var r=pin.getBoundingClientRect(),t=pin.offsetHeight-pin.querySelector('.hst').offsetHeight,p=Math.min(1,Math.max(0,-r.top/Math.max(1,t)));f.style.transform='translate3d('+(-p*ov).toFixed(1)+'px,0,0)';var ai=Math.round(p*(n-1));for(var q=0;q<n;q++)f.children[q].classList.toggle('on',q===ai);if(cpt){cpt.style.setProperty('--hp',p.toFixed(3));if(cb)cb.textContent=String(Math.min(n,1+Math.round(p*(n-1)))).padStart(2,'0')}}
 addEventListener('scroll',function(){if(!fr)fr=requestAnimationFrame(tick)},{passive:true});addEventListener('resize',mesure);
 if(document.readyState==='complete')mesure();else addEventListener('load',mesure);mesure();
+if(window.ResizeObserver){var rt=0;new ResizeObserver(function(){clearTimeout(rt);rt=setTimeout(mesure,120)}).observe(f)}[].forEach.call(f.querySelectorAll('img'),function(i){i.addEventListener('load',function(){clearTimeout(rt);rt=setTimeout(mesure,120)})});
 })();
 </script>
 </body></html>
