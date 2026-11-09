@@ -17,9 +17,9 @@ h1,h2,h3{font-family:var(--serif);font-weight:600}
 h2{font-size:clamp(34px,3.6vw,48px);line-height:1.1;letter-spacing:-.01em;text-transform:uppercase}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 26px;border-radius:2px;font:700 14px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;transition:background-color .2s,color .2s,border-color .2s,transform .15s var(--ease)}
 .btn:active{transform:scale(.97)}
-.btn-or{background:var(--or);color:var(--wood)}.btn-or:hover{background:var(--peach)}
-.btn-ligne{border:1px solid rgba(249,237,220,.55);color:var(--peach)}.btn-ligne:hover{border-color:var(--peach);background:rgba(249,237,220,.08)}
-.btn-m{background:var(--merlot);color:var(--peach)}.btn-m:hover{background:var(--cabsav)}
+.btn-or{background:var(--or);color:var(--wood)}@media (hover:hover) and (pointer:fine){.btn-or:hover{background:var(--peach)}}
+.btn-ligne{border:1px solid rgba(249,237,220,.55);color:var(--peach)}@media (hover:hover) and (pointer:fine){.btn-ligne:hover{border-color:var(--peach);background:rgba(249,237,220,.08)}}
+.btn-m{background:var(--merlot);color:var(--peach)}@media (hover:hover) and (pointer:fine){.btn-m:hover{background:var(--cabsav)}}
 
 /* Store rayé : le seul motif du site */
 .store{height:var(--store);background:repeating-linear-gradient(90deg,var(--merlot) 0 11px,var(--cabsav) 11px 22px);box-shadow:inset 0 -6px 8px -6px rgba(0,0,0,.45)}
@@ -27,8 +27,7 @@ h2{font-size:clamp(34px,3.6vw,48px);line-height:1.1;letter-spacing:-.01em;text-t
 .bandeau{position:sticky;top:0;z-index:40;background:var(--merlot);color:var(--peach)}
 .bandeau .w{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--band)}
 .bandeau nav{display:flex;gap:30px}
-.bandeau nav a{font:500 14px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;opacity:.9;padding:12px 0}
-.bandeau nav a:hover{opacity:1;color:var(--or)}
+.bandeau nav a{font:500 14px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;opacity:.9;padding:12px 0}@media (hover:hover) and (pointer:fine){.bandeau nav a:hover{opacity:1;color:var(--or)}}
 .logo{display:block;padding:0 20px}
 .logo img{width:300px;height:auto}
 .bandeau .g a{white-space:nowrap}
@@ -74,8 +73,7 @@ h2{font-size:clamp(34px,3.6vw,48px);line-height:1.1;letter-spacing:-.01em;text-t
 .carte .tete .eye{color:var(--merlot);margin-bottom:12px}
 .carte h2{color:var(--merlot)}
 .tabs{display:flex;gap:8px}
-.tabs a{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1px solid rgba(127,15,40,.28);border-radius:2px;font:500 13px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--merlot)}
-.tabs a:hover,.tabs a[aria-current]{background:var(--merlot);border-color:var(--merlot);color:var(--peach)}
+.tabs a{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1px solid rgba(127,15,40,.28);border-radius:2px;font:500 13px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--merlot)}.tabs a[aria-current]{background:var(--merlot);border-color:var(--merlot);color:var(--peach)}@media (hover:hover) and (pointer:fine){.tabs a:hover{background:var(--merlot);border-color:var(--merlot);color:var(--peach)}}
 .prod{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-rows:1fr auto auto 1fr;grid-template-areas:'scene .' 'scene hd' 'scene ctl' 'scene .';column-gap:clamp(28px,4vw,64px);padding:34px 0;border-top:1px solid rgba(127,15,40,.2)}
 .prod:first-of-type{border-top:0;padding-top:0}
 .scene{grid-area:scene;position:relative;height:440px;overflow:hidden;background:var(--wood) url(../img/mur.webp) center/cover}
@@ -99,8 +97,7 @@ h2{font-size:clamp(34px,3.6vw,48px);line-height:1.1;letter-spacing:-.01em;text-t
 .formats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px;max-width:420px}
 .formats button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:64px;border:1px solid rgba(127,15,40,.3);border-radius:2px;transition:background-color .2s,color .2s,border-color .2s}
 .formats .g{font:600 22px/1 var(--serif);color:var(--merlot)}
-.formats .s{font:500 12px/1 var(--sans);letter-spacing:.04em;color:var(--t2)}
-.formats button:hover{border-color:var(--merlot)}
+.formats .s{font:500 12px/1 var(--sans);letter-spacing:.04em;color:var(--t2)}@media (hover:hover) and (pointer:fine){.formats button:hover{border-color:var(--merlot)}}
 .formats button[aria-pressed="true"]{background:var(--merlot);border-color:var(--merlot)}
 .formats button[aria-pressed="true"] .g,.formats button[aria-pressed="true"] .s{color:var(--peach)}
 .choix{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-top:18px;padding-top:16px;border-top:1px solid rgba(127,15,40,.16);max-width:420px}
@@ -122,7 +119,7 @@ h2{font-size:clamp(34px,3.6vw,48px);line-height:1.1;letter-spacing:-.01em;text-t
 @media (max-width:360px){.bandeau .w .logo img{width:38vw}.bandeau .w .d .btn{padding:0 10px;font-size:11px}}
 /* Le rituel */
 .rituel{background:var(--cabsav);color:var(--peach);padding:90px 0}
-.defil .rituel{height:320vh;padding:0}
+.defil .rituel{height:400vh;padding:0}
 .defil .rituel>.w{position:sticky;top:var(--band);height:calc(100vh - var(--band));height:calc(100svh - var(--band))}
 .defil .film .pause{display:none}
 .rituel .fil{display:none}
@@ -134,14 +131,14 @@ h2{font-size:clamp(34px,3.6vw,48px);line-height:1.1;letter-spacing:-.01em;text-t
 .rituel h2 em{font-style:italic;font-weight:500;color:var(--or)}
 .rituel p.l{margin-top:18px;max-width:40ch;font-size:18px;line-height:1.55;color:rgba(249,237,220,.86)}
 .rituel .cta2{margin-top:28px;display:flex;align-items:center;gap:26px;flex-wrap:wrap}
-.lien-or{font:600 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--or);text-decoration:underline;text-decoration-color:rgba(217,145,37,.45);text-underline-offset:7px;padding:12px 0}
-.lien-or:hover{text-decoration-color:currentColor}
+.lien-or{font:600 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--or);text-decoration:underline;text-decoration-color:rgba(217,145,37,.45);text-underline-offset:7px;padding:12px 0}@media (hover:hover) and (pointer:fine){.lien-or:hover{text-decoration-color:currentColor}}
 .film{position:relative;width:min(38vw,calc((100svh - 150px)*4/5));max-width:520px;aspect-ratio:4/5;background:#0e0b0c}
 h2.trois span{transition:color .45s var(--ease),opacity .45s var(--ease)}
 .js h2.trois span{opacity:.55}
 .js h2.trois span.on{opacity:1;color:var(--or)}
 .film.carre{aspect-ratio:1/1;width:min(36vw,calc(100svh - 200px))}
 .film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.film .fcv{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .3s}.film.cv .fcv{opacity:1}.film.cv video{visibility:hidden}
 .film .pause{position:absolute;right:16px;bottom:16px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(249,237,220,.5);background:rgba(18,20,22,.55);display:grid;place-items:center}
 
 /* Genève */
@@ -180,8 +177,7 @@ h2.trois span{transition:color .45s var(--ease),opacity .45s var(--ease)}
 .js-rv .rv.vu{clip-path:inset(0 0 -10% 0);translate:0 0}
 .js-rv .rideau{clip-path:inset(0 0 100% 0);transition:clip-path 1.1s var(--ease)}
 .js-rv .rideau.vu{clip-path:inset(0)}
-.sig .p{transition:translate .35s var(--ease)}
-.sig .p:hover{translate:0 -6px}
+.sig .p{transition:translate .35s var(--ease)}@media (hover:hover) and (pointer:fine){.sig .p:hover{translate:0 -6px}}
 @media (prefers-reduced-motion:reduce){.js-rv .rv,.js-rv .rideau{clip-path:none;translate:none}}
 .hist .w{position:relative}
 .hist .tete{max-width:760px}
@@ -197,8 +193,7 @@ h2.trois span{transition:color .45s var(--ease),opacity .45s var(--ease)}
 .frise figcaption b{color:var(--peach);font-weight:500}
 .frise figcaption span{display:block;font-size:12px;letter-spacing:.04em;color:rgba(249,237,220,.6);margin-top:2px}
 .frise-nav{position:absolute;right:var(--g);bottom:0;display:flex;gap:10px}
-.fl{width:48px;height:48px;border-radius:50%;border:1px solid rgba(217,145,37,.6);background:none;color:var(--peach);font-size:18px;cursor:pointer;transition:background .2s var(--ease),opacity .2s}
-.fl:hover{background:rgba(217,145,37,.18)}
+.fl{width:48px;height:48px;border-radius:50%;border:1px solid rgba(217,145,37,.6);background:none;color:var(--peach);font-size:18px;cursor:pointer;transition:background .2s var(--ease),opacity .2s}@media (hover:hover) and (pointer:fine){.fl:hover{background:rgba(217,145,37,.18)}}
 .fl:disabled{opacity:.3;cursor:default}
 .etapes{list-style:none;margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,3vw,40px);border-top:1px solid rgba(249,237,220,.22)}
 .etapes li{padding-top:18px;position:relative;display:flex;flex-direction:column;gap:6px}
@@ -311,8 +306,7 @@ footer small{display:block;margin:20px auto 0;max-width:72ch;font-size:12px;line
 .sig .sc img.bg{left:8%;right:8%;width:84%}
 .sig h3{margin-top:16px;font:600 30px/1 var(--serif);color:var(--merlot)}
 .sig p{margin-top:8px;font-size:15px;line-height:1.5;color:var(--t2)}
-.sig .lien{display:inline-block;margin-top:12px;font:700 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--merlot)}
-.sig a.p:hover .lien,.sig a.p:focus-visible .lien{text-decoration:underline;text-underline-offset:4px}
+.sig .lien{display:inline-block;margin-top:12px;font:700 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--merlot)}.sig a.p:focus-visible .lien{text-decoration:underline;text-underline-offset:4px}@media (hover:hover) and (pointer:fine){.sig a.p:hover .lien{text-decoration:underline;text-underline-offset:4px}}
 .sig .cta{margin-top:36px}
 /* Page Genève : en-tête */
 .vtete{background:var(--wood);color:var(--peach)}
@@ -352,8 +346,7 @@ footer small{display:block;margin:20px auto 0;max-width:72ch;font-size:12px;line
 
 /* Bandeau crème (essai) */
 .bandeau{background:var(--peach);color:var(--merlot);border-bottom:1px solid rgba(127,15,40,.22)}
-.bandeau nav a{opacity:1}
-.bandeau nav a:hover{color:var(--cabsav);text-decoration:underline;text-underline-offset:6px}
+.bandeau nav a{opacity:1}@media (hover:hover) and (pointer:fine){.bandeau nav a:hover{color:var(--cabsav);text-decoration:underline;text-underline-offset:6px}}
 .mmenu summary span{background:var(--merlot)}
 .mmenu nav{background:var(--peach);border-top:1px solid rgba(127,15,40,.15)}
 .mmenu nav a{border-bottom-color:rgba(127,15,40,.14)}
@@ -401,13 +394,11 @@ html[data-fond="noir"]{--fond:#121416}
 /* Rappel des villes dès la couverture */
 .vchoix{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:26px}
 .vchoix span{width:100%;font:500 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:rgba(249,237,220,.6);margin-bottom:4px}
-.vchoix a{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 15px;border:1px solid rgba(217,145,37,.45);border-radius:999px;font:500 14px/1 var(--sans);color:var(--peach);transition:background .2s var(--ease),border-color .2s}
-.vchoix a:hover{background:rgba(217,145,37,.16);border-color:var(--or)}
+.vchoix a{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 15px;border:1px solid rgba(217,145,37,.45);border-radius:999px;font:500 14px/1 var(--sans);color:var(--peach);transition:background .2s var(--ease),border-color .2s}@media (hover:hover) and (pointer:fine){.vchoix a:hover{background:rgba(217,145,37,.16);border-color:var(--or)}}
 .vchoix a small{font-size:11px;color:var(--or);letter-spacing:.04em}
 /* Langues */
 .langs{display:flex;align-items:center;gap:2px;margin-right:10px}
-.langs a{font:600 12px/1 var(--sans);letter-spacing:.1em;padding:8px 6px;opacity:.6;border-bottom:1px solid transparent}
-.langs a:hover{opacity:1}
+.langs a{font:600 12px/1 var(--sans);letter-spacing:.1em;padding:8px 6px;opacity:.6;border-bottom:1px solid transparent}@media (hover:hover) and (pointer:fine){.langs a:hover{opacity:1}}
 .langs a[aria-current]{opacity:1;border-color:var(--or)}
 .hero .langs-m{display:none}
 @media (max-width:860px){
@@ -425,8 +416,10 @@ html[data-fond="noir"]{--fond:#121416}
 .mono b img{width:46px;height:46px}
 .mono i{position:absolute;top:0;height:1px;width:min(30vw,300px);background:linear-gradient(90deg,transparent,var(--or));translate:0 -50%;right:calc(50% + 52px);transform-origin:right;transform:scaleX(0);transition:transform 1.2s cubic-bezier(.2,.7,.1,1) .15s}
 .mono i+i{right:auto;left:calc(50% + 52px);background:linear-gradient(-90deg,transparent,var(--or));transform-origin:left}
-.js-rv .mono b{scale:.5;rotate:-90deg;opacity:0;transition:scale 1s cubic-bezier(.2,.7,.1,1),rotate 1.2s cubic-bezier(.2,.7,.1,1),opacity .6s}
-.mono.vu b,.mono.vu i{scale:1;rotate:0deg;opacity:1;transform:none}
+.js-rv .mono b,.js-rv .mono i{opacity:0;transition:opacity .7s ease}
+.mono i{transform:none!important;transition:opacity .7s ease}
+.mono.vu b,.mono.vu i{opacity:1}
+@media (max-width:860px){html .mono+.hist .tete,html.hz .mono+.hist .tete{padding-top:40px}.mono+* .rituel>.w,.mono+.rituel>.w{padding-top:44px}.defil .rituel>.w{padding-bottom:44px}}
 html:not(.js-rv) .mono i{transform:none}
 @media (max-width:860px){.mono b{width:64px;height:64px}.mono b img{width:34px;height:34px}.mono i{right:calc(50% + 42px)}.mono i+i{left:calc(50% + 42px)}}
 /* Histoire : défilement horizontal épinglé */
@@ -495,21 +488,17 @@ html:not(.hz) .hcompte{display:none}
 @media (max-width:860px){.sceau{width:66px;height:66px;top:34px}.sceau img{width:34px;height:34px}}
 
 /* v13 : bande de marque, deux rangs en sens opposés, accélère au scroll */
-.ruban{background:var(--merlot);color:var(--peach);overflow:hidden;border-bottom:1px solid rgba(217,145,37,.45);padding-bottom:clamp(14px,2vw,26px)}
-.ruban .rang{overflow:hidden}
-.ruban .piste{display:flex;align-items:center;width:max-content;padding:clamp(10px,1.4vw,18px) 0 0;animation:none;will-change:transform}
-.ruban .piste span{display:block;padding:0 clamp(18px,2.4vw,40px);font:500 clamp(46px,8.4vw,132px)/1 var(--serif);text-transform:uppercase;letter-spacing:-.01em;white-space:nowrap}
-.ruban .piste span.o{color:transparent;-webkit-text-stroke:1.2px var(--or)}
-.ruban .piste img{width:clamp(34px,4.4vw,64px);height:auto;flex:none}
-.ruban .inv .piste span{font-size:clamp(28px,4.2vw,66px);font-style:italic;text-transform:none}
-.ruban .inv .piste span.o{-webkit-text-stroke:0;color:var(--or)}
-.ruban .piste i{font:500 clamp(28px,4vw,60px)/1 var(--serif);color:var(--or);font-style:normal}
+.ruban{background:var(--merlot);color:var(--peach);overflow:hidden;border-top:1px solid rgba(217,145,37,.35);border-bottom:1px solid rgba(217,145,37,.35);padding:0}
+.ruban .store{display:none}
+.ruban .piste{display:flex;align-items:center;width:max-content;padding:clamp(16px,1.6vw,22px) 0;animation:none;will-change:transform}
+.ruban .piste span{display:block;padding:0 clamp(16px,1.8vw,28px);font:italic 400 clamp(20px,2vw,28px)/1 var(--serif);letter-spacing:.01em;white-space:nowrap;color:rgba(249,237,220,.92)}
+.ruban .piste span.o{color:var(--or)}
+.ruban .piste img{width:clamp(16px,1.4vw,20px);height:auto;flex:none;opacity:.9}
 
 /* v13 : signature, plats centrés */
 .sig .sc{height:clamp(220px,19vw,280px);display:grid;place-items:center;background:radial-gradient(60% 55% at 50% 52%,rgba(127,15,40,.55),rgba(18,20,22,0) 70%),var(--wood)}
 .sig .sc::after{display:none}
-.sig .sc img,.sig .sc img.bg{position:relative;left:auto;right:auto;bottom:auto;width:88%;max-width:none;height:auto;filter:drop-shadow(0 18px 18px rgba(0,0,0,.55));transition:scale .5s var(--ease)}
-.sig a.p:hover .sc img{scale:1.04}
+.sig .sc img,.sig .sc img.bg{position:relative;left:auto;right:auto;bottom:auto;width:88%;max-width:none;height:auto;filter:drop-shadow(0 18px 18px rgba(0,0,0,.55));transition:scale .5s var(--ease)}@media (hover:hover) and (pointer:fine){.sig a.p:hover .sc img{scale:1.04}}
 @media (max-width:860px){.sig .sc{height:210px}.sig .sc img,.sig .sc img.bg{width:86%}}
 
 /* v13 : page Genève, photo encadrée + sceau */
@@ -537,6 +526,85 @@ html:not(.hz) .hcompte{display:none}
 .arche::after{z-index:2}
 .seqon .couv .hero{position:sticky;top:var(--band)}
 @media (prefers-reduced-motion:reduce){.arche canvas.seq{display:none}}
+
+/* v16 typo et hiérarchie */
+.service h2{font-size:clamp(34px,3.6vw,48px)}
+.chap .cd{font-size:clamp(48px,5.8vw,88px);line-height:.95}
+.sig p.eye{font-size:12px;line-height:1.4;margin-top:0}
+h2{text-wrap:balance}
+p{text-wrap:pretty}
+.vchoix a small,.hero .villes small{white-space:nowrap}
+.serv{max-width:420px}
+html[lang=es] .bandeau nav,html[lang=en] .bandeau nav{gap:20px}
+html[lang=es] .bandeau nav a,html[lang=en] .bandeau nav a{font-size:12px;letter-spacing:.06em}
+@media (min-width:861px){.hero h1{font-size:clamp(40px,3.9vw,58px)}.arche{height:min(calc(100svh - var(--band) - 64px),500px)}}
+.ville img{background:#490917}
+.sig .p{display:flex;flex-direction:column}.sig .p .lien{margin-top:auto;align-self:flex-start}
+/* v16 focus visible : Merlot sur crème, or sur les fonds sombres */
+:focus-visible{outline:2px solid var(--merlot);outline-offset:3px}
+.hero :focus-visible,.service :focus-visible,.rituel :focus-visible,.hist :focus-visible,.vtete :focus-visible,footer :focus-visible,.barre :focus-visible,.panier-b :focus-visible,.villes :focus-visible,.fid :focus-visible,.ctete :focus-visible{outline-color:var(--or)}
+/* v16 histoire épinglée : le clavier ne casse plus la frise */
+.hz .hst{overflow:clip}
+.hz .frise .chap:focus-within{opacity:1}
+/* v16 sceau : plus d'onde en boucle */
+.sceau::after{animation:none;display:none}
+/* v16 iPhone */
+@media (max-width:860px){
+ .hero h1{font-size:34px;line-height:1.02}
+ .service h2{font-size:30px}
+ body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+ html{scroll-padding-bottom:84px}
+ .ville .btn{white-space:nowrap;padding:0 12px;font-size:12px;letter-spacing:.08em}
+ .barre .btn{white-space:nowrap;font-size:12px;letter-spacing:.06em}
+ .langs-m a{padding:12px 9px}
+ .vchoix a{min-height:44px}
+ .desserts li{grid-template-columns:96px 1fr}
+ .desserts li .lien{grid-column:2;justify-self:start;margin-top:4px}
+ html.barre-vue .bandeau .d .btn{display:none}
+}
+@media (max-width:400px){.desserts li{grid-template-columns:80px 1fr}.desserts img{width:80px;height:60px}}
+@media (max-width:360px){.barre .btn{font-size:11px;letter-spacing:.04em}}
+
+/* v16 monogrammes : même respiration (40 px iPhone, 80 px ordinateur) sous chaque monogramme */
+@media (max-width:860px){html .mono+.service>.w{padding-top:72px}html .mono+.villes{padding-top:72px}html .mono+.rituel>.w{padding-top:72px}html .mono+.rituel>.w>:first-child{margin-top:60px}html .mono+.hist .tete,html.hz .mono+.hist .tete{padding-top:76px}.rituel:has(+.mono){padding-bottom:90px}}
+
+/* v16 ruban : or éclairci pour le contraste sur Merlot (4,8:1) */
+.ruban .piste span.o{color:#E3A341}
+
+/* v17 histoire : le compteur reste au-dessus de la barre iPhone */
+@media (max-width:860px){.hz .hst{padding-bottom:calc(78px + env(safe-area-inset-bottom));gap:12px}.hz .frise figure img{max-height:30svh;object-fit:cover}}
+
+/* v17 monogrammes : le sceau tourne et se pose, les filets se tracent, un semis de petits logos apparaît en fondu */
+.mono .semis{position:absolute;top:0;left:50%;width:min(94vw,1040px);height:150px;translate:-50% -50%;pointer-events:none}
+.mono .semis img{position:absolute;left:var(--x);top:var(--y);width:var(--t);height:var(--t);translate:-50% -50%;opacity:0;scale:.4;transition:opacity 1.4s ease var(--d),scale 1.4s cubic-bezier(.2,.7,.1,1) var(--d)}
+.mono.vu .semis img{opacity:var(--o);scale:1}
+.js-rv .mono b{opacity:0;scale:.55;rotate:-120deg;transition:opacity .6s ease,scale 1s cubic-bezier(.2,.7,.1,1),rotate 1.3s cubic-bezier(.2,.7,.1,1)}
+.js-rv .mono.vu b{opacity:1;scale:1;rotate:0deg}
+.js-rv .mono i{opacity:1;transform:scaleX(0)!important;transition:transform 1.2s cubic-bezier(.2,.7,.1,1) .25s}
+.js-rv .mono.vu i{transform:scaleX(1)!important}
+@media (max-width:860px){.mono .semis{height:120px}.mono .semis img{width:calc(var(--t)*.8);height:calc(var(--t)*.8)}}
+@media (prefers-reduced-motion:reduce){.js-rv .mono b,.js-rv .mono i,.mono .semis img{transition:none}}
+/* v17 grand monogramme en filigrane, comme derrière l'histoire */
+.villes,.ctete,.fid{position:relative;overflow:hidden}
+.villes>.w,.ctete>.w,.fid>.w{position:relative;z-index:1}
+.villes::before,.ctete::before{content:"";position:absolute;top:50%;width:min(60vw,640px);aspect-ratio:1;translate:0 -50%;background:url(../img/logo/apb-mark-or.svg) center/contain no-repeat;opacity:0;transition:opacity 1.6s ease;pointer-events:none}
+.villes::before{left:-14%}.ctete::before{right:-8%;width:min(46vw,460px)}
+.villes.fil::before,.ctete.fil::before,html:not(.js) .villes::before{opacity:.06}
+@media (prefers-reduced-motion:reduce){.villes::before,.ctete::before{opacity:.06;transition:none}}
+
+/* v17 filet de droite (le sélecteur i+i ne trouvait plus le second filet) */
+.mono i{transform-origin:right}
+.mono b+i{right:auto;left:calc(50% + 52px);background:linear-gradient(-90deg,transparent,var(--or));transform-origin:left}
+@media (max-width:860px){.mono b+i{left:calc(50% + 42px)}
+ .hz .hst{justify-content:flex-start}}
+
+/* v17 histoire iPhone : compteur en haut à droite, tout tient au-dessus de la barre */
+@media (max-width:860px){
+ .hz .hst>.w:last-child{position:absolute;top:22px;right:0;width:auto;margin:0;padding:0 var(--g)}
+ .hz .hcompte i{width:56px}
+ .hz .frise figure img{max-height:25svh}
+ .hz .hst{gap:10px}
+}
 
 /* Page Commander */
 .ctete{background:var(--wood);color:var(--peach);padding:clamp(40px,6vw,72px) 0 clamp(30px,4vw,48px)}
@@ -611,6 +679,11 @@ dialog.panier::backdrop{background:rgba(18,20,22,.6)}
 .pn .vide{margin-top:18px;color:var(--t2)}
 .pn .tot{display:flex;justify-content:space-between;margin-top:16px;font-weight:600}
 .pn label{display:block;margin-top:18px;font:500 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--merlot)}
+.pn input{display:block;margin-top:8px;width:100%;min-height:48px;padding:0 12px;border:1px solid rgba(127,15,40,.35);border-radius:2px;background:#fffaf2;font:500 16px var(--sans);color:inherit}
+.pn .ret{margin-top:16px;font-size:14px;color:rgba(18,20,22,.75)}
+html:has(dialog.panier[open]){overflow:hidden}
+.panier-b:not(.vue){visibility:hidden;transition:transform .35s var(--ease),visibility 0s .35s}
+@media (max-width:860px){dialog.panier{max-width:100%;width:100%;max-height:100dvh;overflow:auto;overscroll-behavior:contain}}
 .pn select{margin-top:8px;width:100%;min-height:48px;padding:0 12px;border:1px solid rgba(127,15,40,.35);border-radius:2px;background:#fffaf2;font:500 16px var(--sans)}
 .pn .payer{margin-top:20px;width:100%}
 .pn .info{margin-top:12px;font-size:13px;line-height:1.5;color:var(--t2)}
@@ -622,11 +695,11 @@ dialog.panier::backdrop{background:rgba(18,20,22,.6)}
 </style></head><body>
 <div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menu"><a href="../geneve/">Genève</a><a href="#retrait">Retrait</a><a href="../#villes">Nos villes</a></nav><a class="logo" href="../"><img src="../img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, accueil" width="300" height="20"></a><div class="d"><nav class="langs" aria-label="Langue"><a href="./" hreflang="fr" lang="fr" aria-current="true">FR</a><a href="../en/commander/" hreflang="en" lang="en">EN</a><a href="../es/commander/" hreflang="es" lang="es">ES</a></nav><a class="btn btn-m" href="#" data-panier onclick="event.preventDefault();var d=document.getElementById('panier');d&&d.showModal()">Ma commande</a><details class="mmenu"><summary aria-label="Ouvrir le menu"><span></span><span></span></summary><nav aria-label="Menu mobile"><a href="../geneve/">Genève</a><a href="#retrait">Retrait</a><a href="../#villes">Nos villes</a><a href="#" data-panier onclick="event.preventDefault();var d=document.getElementById('panier');d&&d.showModal()">Ma commande</a></nav></details></div></div></header>
 <main class="cmdp">
-<section class="ctete"><div class="w"><p class="eye">Commande en ligne · Genève</p><h1>Commander</h1><ul class="pts"><li>Retrait au comptoir, Eaux-Vives</li><li>TWINT ou carte</li><li>Dès le 27 novembre</li></ul><p class="note">Maquette : prix, horaires et paiement à confirmer avec le restaurant.</p></div></section>
+<section class="ctete"><div class="w"><p class="eye">Commande en ligne · Genève</p><h1>Commander</h1><ul class="pts"><li>Retrait au comptoir, Eaux-Vives</li><li>TWINT ou carte</li><li>Dès le vendredi 27 novembre</li></ul><p class="note">Maquette : prix, horaires et paiement à confirmer avec le restaurant.</p></div></section>
 <nav class="onglets" aria-label="Catégories"><div class="wrap"><a href="#smash" class="on">Smash</a><a href="#burger">Burger</a><a href="#baguette">Baguette</a><a href="#cote">À côté</a><a href="#desserts">Desserts</a></div></nav>
 <section class="carte" aria-label="La carte"><div class="w"><article class="prod" id="smash" data-nom="Smash">
 <div class="scene"><div class="plat"><img class="" style="translate:1.3% -1.3%" data-k="smash-80" src="../img/d-smash-80.webp" srcset="../img/d-smash-80-m.webp 820w, ../img/d-smash-80.webp 1600w" sizes="(max-width:860px) 92vw, 640px" width="1600" height="469" alt="Smash 80 g coupé en deux, un steak smashé et cheddar, avec frites et sauce Café de Paris" loading="lazy" decoding="async"><img class="on" style="translate:1.6% 0%" data-k="smash-160" src="../img/d-smash-160.webp" srcset="../img/d-smash-160-m.webp 820w, ../img/d-smash-160.webp 1600w" sizes="(max-width:860px) 92vw, 640px" width="1600" height="487" alt="Smash 160 g coupé en deux, deux steaks smashés et cheddar, avec frites et sauce Café de Paris" loading="lazy" decoding="async"><img class="" style="translate:2.55% 8.4%" data-k="smash-240" src="../img/d-smash-240.webp" srcset="../img/d-smash-240-m.webp 820w, ../img/d-smash-240.webp 1600w" sizes="(max-width:860px) 92vw, 640px" width="1600" height="513" alt="Smash 240 g coupé en deux, trois steaks smashés et cheddar, avec frites et sauce Café de Paris" loading="lazy" decoding="async"></div></div>
-<div class="hd"><p class="no">01</p><h3>Le Smash</h3><p class="desc">Des steaks fins écrasés sur la plaque brûlante : les bords caramélisent et croustillent. Cheddar fondu.</p></div><div class="ctl"><div class="formats" role="group" aria-label="Format du smash"><button type="button" aria-pressed="false" data-k="smash-80" data-g="80 g" data-s="1 steak smashé" data-p="Prix à confirmer"><span class="g">80 g</span><span class="s">1 steak</span></button><button type="button" aria-pressed="true" data-k="smash-160" data-g="160 g" data-s="2 steaks smashés" data-p="Prix à confirmer"><span class="g">160 g</span><span class="s">2 steaks</span></button><button type="button" aria-pressed="false" data-k="smash-240" data-g="240 g" data-s="3 steaks smashés" data-p="Prix à confirmer"><span class="g">240 g</span><span class="s">3 steaks</span></button></div><p class="choix" aria-live="polite"><b class="fmt">Smash 160 g</b><span class="st">2 steaks smashés</span><span class="prix">Prix à confirmer</span></p><p class="serv">Avec frites et sauce Café de Paris, pour y tremper chaque bouchée.</p><button type="button" class="btn btn-m cmd ajout" data-k="smash-160"><span class="plus" aria-hidden="true">+</span> Ajouter <span class="lib">· Smash 160 g</span><span class="qte" aria-hidden="true"></span></button></div></article><article class="prod" id="burger" data-nom="Burger">
+<div class="hd"><p class="no">01</p><h3>Le Smash</h3><p class="desc">Des steaks fins écrasés sur la plaque brûlante : les bords caramélisent et croustillent. Cheddar fondu.</p></div><div class="ctl"><div class="formats" role="group" aria-label="Format du smash"><button type="button" aria-pressed="false" data-k="smash-80" data-g="80 g" data-s="1 steak smashé" data-p="Prix à confirmer"><span class="g">80 g</span><span class="s">1 steak</span></button><button type="button" aria-pressed="true" data-k="smash-160" data-g="160 g" data-s="2 steaks smashés" data-p="Prix à confirmer"><span class="g">160 g</span><span class="s">2 steaks</span></button><button type="button" aria-pressed="false" data-k="smash-240" data-g="240 g" data-s="3 steaks smashés" data-p="Prix à confirmer"><span class="g">240 g</span><span class="s">3 steaks</span></button></div><p class="choix" aria-live="polite"><b class="fmt">Smash 160 g</b><span class="st">2 steaks smashés</span><span class="prix">Prix à confirmer</span></p><p class="serv">Avec frites et sauce Café de Paris, pour y tremper chaque bouchée.</p><button type="button" class="btn btn-m cmd ajout" data-k="smash-160"><span class="plus" aria-hidden="true">+</span> Ajouter <span class="lib">· Smash 160 g</span><span class="qte" aria-hidden="true"></span></button></div></article><article class="prod" id="burger" data-nom="Burger">
 <div class="scene"><div class="plat"><img class="" style="translate:-0.5% 0%" data-k="burger-80" src="../img/d-burger-80.webp" srcset="../img/d-burger-80-m.webp 820w, ../img/d-burger-80.webp 1600w" sizes="(max-width:860px) 92vw, 640px" width="1600" height="504" alt="Burger 80 g coupé en deux, steak épais et cheddar, avec frites et sauce Café de Paris" loading="lazy" decoding="async"><img class="on" style="translate:-0.5% -2.2%" data-k="burger-160" src="../img/d-burger-160.webp" srcset="../img/d-burger-160-m.webp 820w, ../img/d-burger-160.webp 1600w" sizes="(max-width:860px) 92vw, 640px" width="1600" height="500" alt="Burger 160 g coupé en deux, steak épais rosé et cheddar, avec frites et sauce Café de Paris" loading="lazy" decoding="async"><img class="" style="translate:-1.1% -2.0%" data-k="burger-240" src="../img/d-burger-240.webp" srcset="../img/d-burger-240-m.webp 820w, ../img/d-burger-240.webp 1600w" sizes="(max-width:860px) 92vw, 640px" width="1600" height="550" alt="Burger 240 g coupé en deux, gros steak épais et cheddar, avec frites et sauce Café de Paris" loading="lazy" decoding="async"></div></div>
 <div class="hd"><p class="no">02</p><h3>Le Burger</h3><p class="desc">Un seul steak épais, saisi puis rosé à cœur. Cheddar fondu.</p></div><div class="ctl"><div class="formats" role="group" aria-label="Format du burger"><button type="button" aria-pressed="false" data-k="burger-80" data-g="80 g" data-s="1 steak épais de 80 g" data-p="Prix à confirmer"><span class="g">80 g</span><span class="s">1 steak</span></button><button type="button" aria-pressed="true" data-k="burger-160" data-g="160 g" data-s="1 steak épais de 160 g" data-p="Prix à confirmer"><span class="g">160 g</span><span class="s">1 steak</span></button><button type="button" aria-pressed="false" data-k="burger-240" data-g="240 g" data-s="1 steak épais de 240 g" data-p="Prix à confirmer"><span class="g">240 g</span><span class="s">1 steak</span></button></div><p class="choix" aria-live="polite"><b class="fmt">Burger 160 g</b><span class="st">1 steak épais de 160 g</span><span class="prix">Prix à confirmer</span></p><p class="serv">Avec frites et sauce Café de Paris, pour y tremper chaque bouchée.</p><button type="button" class="btn btn-m cmd ajout" data-k="burger-160"><span class="plus" aria-hidden="true">+</span> Ajouter <span class="lib">· Burger 160 g</span><span class="qte" aria-hidden="true"></span></button></div></article><article class="prod" id="baguette" data-nom="Baguette">
 <div class="scene"><div class="plat"><img class="on" style="translate:0% 0%" data-k="baguette" src="../img/d-baguette.webp" srcset="../img/d-baguette-m.webp 820w, ../img/d-baguette.webp 1600w" sizes="(max-width:860px) 92vw, 640px" width="1600" height="552" alt="La baguette garnie de bœuf tranché et de sauce Café de Paris" loading="lazy" decoding="async"></div></div>
@@ -634,14 +707,16 @@ dialog.panier::backdrop{background:rgba(18,20,22,.6)}
 <div class="mc"><h4>Frites et sauce</h4><p>Frites maison, sauce Café de Paris pour tremper.</p><p class="prix">Prix à confirmer</p><button type="button" class="btn btn-m ajout" data-k="frites"><span class="plus" aria-hidden="true">+</span> Ajouter<span class="qte" aria-hidden="true"></span></button></div></article></div></section><section class="minis" id="desserts" aria-labelledby="desserts-t"><h3 id="desserts-t">Desserts</h3><div class="mgrille"><article class="mini" id="m-fondant"><div class="scene petite"><img src="../img/d-fondant.webp" srcset="../img/d-fondant-m.webp 820w, ../img/d-fondant.webp 1600w" sizes="(max-width:860px) 90vw, 400px" width="1600" height="484" alt="Fondant au chocolat au cœur coulant" loading="lazy" decoding="async"></div>
 <div class="mc"><h4>Fondant au chocolat</h4><p>Cœur coulant.</p><p class="prix">Prix à confirmer</p><button type="button" class="btn btn-m ajout" data-k="fondant"><span class="plus" aria-hidden="true">+</span> Ajouter<span class="qte" aria-hidden="true"></span></button></div></article><article class="mini" id="m-tarte"><div class="scene petite"><img src="../img/d-tarte.webp" srcset="../img/d-tarte-m.webp 820w, ../img/d-tarte.webp 1600w" sizes="(max-width:860px) 90vw, 400px" width="1600" height="466" alt="Part de tarte fine aux pommes caramélisées" loading="lazy" decoding="async"></div>
 <div class="mc"><h4>Tarte fine aux pommes</h4><p>Pâte feuilletée, pommes caramélisées.</p><p class="prix">Prix à confirmer</p><button type="button" class="btn btn-m ajout" data-k="tarte"><span class="plus" aria-hidden="true">+</span> Ajouter<span class="qte" aria-hidden="true"></span></button></div></article></div></section></div></section>
+<div class="mono" aria-hidden="true"><span class="semis"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:6%;--y:30%;--t:14px;--o:0.1;--d:0.73s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:15%;--y:72%;--t:20px;--o:0.16;--d:0.64s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:24%;--y:22%;--t:12px;--o:0.12;--d:0.54s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:33%;--y:78%;--t:16px;--o:0.1;--d:0.44s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:67%;--y:26%;--t:16px;--o:0.1;--d:0.44s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:76%;--y:74%;--t:12px;--o:0.12;--d:0.54s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:85%;--y:30%;--t:20px;--o:0.16;--d:0.64s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:94%;--y:70%;--t:14px;--o:0.1;--d:0.73s"></span><i></i><b><img src="../img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
 <section class="fid" id="fidelite" aria-labelledby="fid-t"><div class="w"><div><p class="eye">Fidélité</p><h2 id="fid-t">La saucière d’or</h2><ol><li>Votre carte dans le téléphone, sans application à télécharger.</li><li>Un tampon par visite, scanné au comptoir.</li><li>Le dixième burger est offert.</li></ol></div>
 <div class="carteF" aria-hidden="true"><div class="h"><img src="../img/logo/apb-mark-or.svg" width="34" height="34" alt=""><span>Genève</span></div><b>La saucière d’or</b><div class="pts"><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i></i><i></i><i></i><i></i></div></div></div></section>
+<div class="mono" aria-hidden="true"><span class="semis"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:6%;--y:30%;--t:14px;--o:0.1;--d:0.73s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:15%;--y:72%;--t:20px;--o:0.16;--d:0.64s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:24%;--y:22%;--t:12px;--o:0.12;--d:0.54s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:33%;--y:78%;--t:16px;--o:0.1;--d:0.44s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:67%;--y:26%;--t:16px;--o:0.1;--d:0.44s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:76%;--y:74%;--t:12px;--o:0.12;--d:0.54s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:85%;--y:30%;--t:20px;--o:0.16;--d:0.64s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:94%;--y:70%;--t:14px;--o:0.1;--d:0.73s"></span><i></i><b><img src="../img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
 <section class="retrait" id="retrait" aria-labelledby="ret-t"><div class="w"><h2 id="ret-t">Retrait</h2><dl><div><dt>Où</dt><dd>Quai Gustave-Ador 24, 1207 Genève (Eaux-Vives).</dd></div><div><dt>Quand</dt><dd>À partir du 27 novembre, à l’heure choisie.</dd></div><div><dt>Paiement</dt><dd>En ligne par TWINT ou carte, ou au comptoir.</dd></div></dl></div></section>
 </main>
-<footer><div class="logo-pied"><img class="m" src="../img/logo/apb-mark-or.svg" width="72" height="72" alt=""><img class="t" src="../img/logo/apb-logotype.svg" width="260" height="17" alt="Atelier Paris Burger"></div><p class="slog">Le smash à la sauce Café de Paris.</p><nav class="liens" aria-label="Pied de page"><a href="../geneve/">Genève</a><a href="#retrait">Retrait</a><a href="../#villes">Nos villes</a><a href="../../site-c/commander/">Commander à Genève</a></nav><small>Atelier Paris Burger · Maquette Nouvelle Ardoise</small><small>Photos d’archives : Agence Rol et Agence Meurisse, BnF Gallica (domaine public). Genève : Thibaut120094 (CC BY 4.0). Madrid : Carlos Delgado (CC BY-SA 4.0). Via Wikimedia Commons. Ibiza : photo de la maison (fiche Google Atelier Paris Burger Ibiza).</small></footer>
-<div class="panier-b" role="region" aria-label="Votre commande"><span class="n" aria-hidden="true">0</span><p class="t"><span>0 article</span><small>Retrait au comptoir, Eaux-Vives</small></p><button type="button" class="btn btn-or">Voir ma commande</button></div>
+<footer><div class="logo-pied"><img class="m" src="../img/logo/apb-mark-or.svg" width="72" height="72" alt=""><img class="t" src="../img/logo/apb-logotype.svg" width="260" height="17" alt="Atelier Paris Burger"></div><p class="slog">Le burger à la sauce Café de Paris.</p><nav class="liens" aria-label="Pied de page"><a href="../geneve/">Genève</a><a href="#retrait">Retrait</a><a href="../#villes">Nos villes</a><a href="../../site-c/commander/">Commander à Genève</a></nav><small>Atelier Paris Burger · Maquette Nouvelle Ardoise</small><small>Photos d’archives : Agence Rol et Agence Meurisse, BnF Gallica (domaine public) ; Lars Olsson (CC BY-SA 3.0) ; Todor Atanassov (libre de droits). Genève : Thibaut120094 (CC BY 4.0). Madrid : Carlos Delgado (CC BY-SA 4.0). Via Wikimedia Commons. Ibiza : photo de la maison (fiche Google Atelier Paris Burger Ibiza).</small></footer>
+<p id="annonce" class="vh" role="status" aria-live="polite"></p><div class="panier-b" role="region" aria-label="Votre commande"><span class="n" aria-hidden="true">0</span><p class="t"><span>0 article</span><small>Retrait au comptoir, Eaux-Vives</small></p><button type="button" class="btn btn-or">Voir ma commande</button></div>
 <dialog class="panier" id="panier" aria-labelledby="pn-t"><div class="pn"><header><h2 id="pn-t">Votre commande</h2><button type="button" class="x" aria-label="Fermer">×</button></header><ul></ul><p class="vide">Votre commande est vide.</p><p class="tot" hidden><span>Total</span><span>Prix à confirmer</span></p>
-<label for="heure">Heure de retrait</label><select id="heure"><option>11:00</option><option>11:15</option><option>11:30</option><option>11:45</option><option>12:00</option><option>12:15</option><option>12:30</option><option>12:45</option><option>13:00</option><option>13:15</option><option>13:30</option><option>13:45</option><option>14:00</option><option>14:15</option><option>14:30</option><option>14:45</option><option>15:00</option><option>15:15</option><option>15:30</option><option>15:45</option><option>16:00</option><option>16:15</option><option>16:30</option><option>16:45</option><option>17:00</option><option>17:15</option><option>17:30</option><option>17:45</option><option>18:00</option><option>18:15</option><option>18:30</option><option>18:45</option><option>19:00</option><option>19:15</option><option>19:30</option><option>19:45</option><option>20:00</option><option>20:15</option><option>20:30</option><option>20:45</option><option>21:00</option><option>21:15</option><option>21:30</option><option>21:45</option></select><button type="button" class="btn btn-or payer">Payer et confirmer</button><p class="info" role="status"></p></div></dialog>
+<p class="ret">Retrait au comptoir · Quai Gustave-Ador 24, Eaux-Vives</p><label for="prenom">Prénom</label><input id="prenom" name="prenom" autocomplete="given-name" required><label for="mobile">Mobile</label><input id="mobile" name="mobile" type="tel" inputmode="tel" autocomplete="tel" placeholder="079 123 45 67" required><label for="heure">Heure de retrait</label><select id="heure"><option>11:00</option><option>11:15</option><option>11:30</option><option>11:45</option><option>12:00</option><option>12:15</option><option>12:30</option><option>12:45</option><option>13:00</option><option>13:15</option><option>13:30</option><option>13:45</option><option>14:00</option><option>14:15</option><option>14:30</option><option>14:45</option><option>15:00</option><option>15:15</option><option>15:30</option><option>15:45</option><option>16:00</option><option>16:15</option><option>16:30</option><option>16:45</option><option>17:00</option><option>17:15</option><option>17:30</option><option>17:45</option><option>18:00</option><option>18:15</option><option>18:30</option><option>18:45</option><option>19:00</option><option>19:15</option><option>19:30</option><option>19:45</option><option>20:00</option><option>20:15</option><option>20:30</option><option>20:45</option><option>21:00</option><option>21:15</option><option>21:30</option><option>21:45</option></select><button type="button" class="btn btn-or payer">Payer et confirmer</button><p class="info" role="status"></p></div></dialog>
 <script>
 (function(){var REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* Onglets : suivent la catégorie visible ; le clic défile jusqu'à la section sans se faire interrompre */
@@ -655,20 +730,22 @@ addEventListener('scroll',f,{passive:true});addEventListener('scrollend',functio
  [].forEach.call(bs,function(b){b.addEventListener('click',function(){var k=b.dataset.k;[].forEach.call(bs,function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});var pl=p.querySelector('.plat');if(pl&&!REDUCE){pl.classList.remove('anime');void pl.offsetWidth;pl.classList.add('anime')}
   [].forEach.call(p.querySelectorAll('.plat img,.coupe img'),function(i){i.classList.toggle('on',i.dataset.k===k)});fmt.textContent=nom+' '+b.dataset.g;st.textContent=b.dataset.s;px.textContent=b.dataset.p;lib.textContent='· '+nom+' '+b.dataset.g;cmd.dataset.k=k;maj()})})});
 /* Panier (maquette) */
-var IT={"smash-80": {"n": "Smash 80 g", "p": null}, "smash-160": {"n": "Smash 160 g", "p": null}, "smash-240": {"n": "Smash 240 g", "p": null}, "burger-80": {"n": "Burger 80 g", "p": null}, "burger-160": {"n": "Burger 160 g", "p": null}, "burger-240": {"n": "Burger 240 g", "p": null}, "baguette": {"n": "Baguette", "p": null}, "frites": {"n": "Frites et sauce", "p": null}, "fondant": {"n": "Fondant au chocolat", "p": null}, "tarte": {"n": "Tarte fine aux pommes", "p": null}},pan={},bar=document.querySelector('.panier-b'),dlg=document.getElementById('panier'),ul=dlg.querySelector('ul'),vide=dlg.querySelector('.vide'),tot=dlg.querySelector('.tot');
+var IT={"smash-80": {"n": "Smash 80 g", "p": null}, "smash-160": {"n": "Smash 160 g", "p": null}, "smash-240": {"n": "Smash 240 g", "p": null}, "burger-80": {"n": "Burger 80 g", "p": null}, "burger-160": {"n": "Burger 160 g", "p": null}, "burger-240": {"n": "Burger 240 g", "p": null}, "baguette": {"n": "Baguette", "p": null}, "frites": {"n": "Frites et sauce", "p": null}, "fondant": {"n": "Fondant au chocolat", "p": null}, "tarte": {"n": "Tarte fine aux pommes", "p": null}},pan={};try{pan=JSON.parse(sessionStorage.getItem('apb-panier'))||{};for(var k0 in pan)if(!IT[k0]||!(pan[k0]>0))delete pan[k0]}catch(e){pan={}}var an=document.getElementById('annonce'),bar=document.querySelector('.panier-b'),dlg=document.getElementById('panier'),ul=dlg.querySelector('ul'),vide=dlg.querySelector('.vide'),tot=dlg.querySelector('.tot');
 function chf(x){return 'CHF '+x.toFixed(2)}
 function somme(){var n=0,s=0,ok=true;for(var k in pan){n+=pan[k];if(IT[k].p)s+=pan[k]*IT[k].p;else ok=false}return{n:n,s:s,ok:ok}}
 function maj(bump){var t=somme();bar.querySelector('.n').textContent=t.n;bar.querySelector('.t span').textContent=t.n+' '+(t.n>1?'articles':'article')+(t.ok&&t.s?' · '+chf(t.s):'');bar.classList.toggle('vue',t.n>0);
  if(bump){bar.classList.remove('bump');void bar.offsetWidth;bar.classList.add('bump')}
  [].forEach.call(document.querySelectorAll('.ajout'),function(b){var q=pan[b.dataset.k]||0;b.querySelector('.qte').textContent=q?'×'+q:''});
- ul.innerHTML='';Object.keys(pan).forEach(function(k){var li=document.createElement('li');li.innerHTML='<b></b><div class="q"><button type="button" aria-label="Retirer un">−</button><span></span><button type="button" aria-label="Ajouter un">+</button></div><small></small>';li.querySelector('b').textContent=IT[k].n;li.querySelector('small').textContent=IT[k].p?chf(IT[k].p):'Prix à confirmer';li.querySelector('span').textContent=pan[k];
-  var bs=li.querySelectorAll('button');bs[0].onclick=function(){if(--pan[k]<=0)delete pan[k];maj()};bs[1].onclick=function(){pan[k]++;maj(true)};ul.appendChild(li)});
- vide.hidden=t.n>0;tot.hidden=!t.n;tot.lastChild.textContent=t.ok&&t.s?chf(t.s):'Prix à confirmer'}
-function ajoute(k){pan[k]=(pan[k]||0)+1;maj(true)}
+ ul.innerHTML='';Object.keys(pan).forEach(function(k){var li=document.createElement('li');li.innerHTML='<b></b><div class="q"><button type="button" aria-label="Retirer un">−</button><span></span><button type="button" aria-label="Ajouter un">+</button></div><small></small>';li.querySelector('b').textContent=IT[k].n;li.querySelector('small').textContent=IT[k].p?chf(IT[k].p):'Prix à confirmer';li.querySelector('span').textContent=pan[k];li.dataset.k=k;
+  var bs=li.querySelectorAll('button');bs[0].setAttribute('aria-label',bs[0].getAttribute('aria-label')+' : '+IT[k].n);bs[1].setAttribute('aria-label',bs[1].getAttribute('aria-label')+' : '+IT[k].n);bs[0].onclick=function(){var z=--pan[k]<=0;if(z)delete pan[k];maj();rf(k,0,z)};bs[1].onclick=function(){pan[k]++;maj(true);rf(k,1)};ul.appendChild(li)});
+ vide.hidden=t.n>0;tot.hidden=!t.n;tot.lastChild.textContent=t.ok&&t.s?chf(t.s):'Prix à confirmer';try{sessionStorage.setItem('apb-panier',JSON.stringify(pan))}catch(e){}}
+function rf(k,i,z){var li=ul.querySelector('li[data-k="'+k+'"]');if(li&&!z)li.querySelectorAll('button')[i].focus();else{var f=ul.querySelector('li button')||dlg.querySelector('.x');f&&f.focus()}}
+function ajoute(k){pan[k]=(pan[k]||0)+1;maj(true);if(an){an.textContent='';setTimeout(function(){an.textContent=IT[k].n+' ajouté à votre commande'},60)}}
+addEventListener('pageshow',function(e){if(e.persisted){try{pan=JSON.parse(sessionStorage.getItem('apb-panier'))||{}}catch(x){}maj()}});
 [].forEach.call(document.querySelectorAll('.ajout'),function(b){b.addEventListener('click',function(){ajoute(b.dataset.k);b.classList.remove('ok');void b.offsetWidth;b.classList.add('ok')})});
 bar.querySelector('.btn').addEventListener('click',function(){dlg.showModal()});
 dlg.addEventListener('click',function(e){if(e.target===dlg||e.target.closest('.x'))dlg.close()});
-dlg.querySelector('.payer').addEventListener('click',function(){dlg.querySelector('.info').textContent='Maquette : le paiement TWINT ou carte s’ouvrira ici avec la caisse en ligne du restaurant (Lightspeed).'});
+dlg.querySelector('.payer').addEventListener('click',function(){var pr=dlg.querySelector('#prenom'),mo=dlg.querySelector('#mobile');if(!pr.value.trim()){pr.focus();dlg.querySelector('.info').textContent='Indiquez votre prénom.';return}if(mo.value.replace(/\D/g,'').length<9){mo.focus();dlg.querySelector('.info').textContent='Indiquez un numéro de mobile valide.';return}dlg.querySelector('.info').textContent='Maquette : le paiement TWINT ou carte s’ouvrira ici avec la caisse en ligne du restaurant (Lightspeed).'});
 maj();
 /* Arrivée depuis l'accueil ou la carte : ?plat=smash-240 ajoute ce plat */
 var q=new URLSearchParams(location.search).get('plat');q=q&&q.replace(/[^a-z0-9-]/g,'');
@@ -677,5 +754,6 @@ if(q&&IT[q]){var bt=document.querySelector('.formats button[data-k="'+q+'"]');if
  try{history.replaceState(null,'',location.pathname)}catch(e){}requestAnimationFrame(function(){el.scrollIntoView({block:'center'})})}
 var mm=document.querySelector('.mmenu');if(mm)mm.addEventListener('click',function(e){if(e.target.closest('nav a'))mm.open=false});
 })();
+(function(){var H=document.documentElement,rm=matchMedia('(prefers-reduced-motion: reduce)').matches;var els=document.querySelectorAll('.mono,.ctete');if(rm||!('IntersectionObserver' in window)){[].forEach.call(els,function(e){e.classList.add('vu','fil')});return}H.classList.add('js-rv');var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('vu','fil');io.unobserve(x.target)}})},{rootMargin:'0px 0px -18% 0px'});[].forEach.call(els,function(e){io.observe(e)})})();
 </script>
 </body></html>
