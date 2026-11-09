@@ -620,6 +620,13 @@ html.semis-x .defil .rituel>.defmono,html.semis-x .hz .hpin>.defmono{background-
 /* v18 choix : film = défilement vertical (les logos montent pendant que la photo reste fixe), histoire = horizontal (suit la frise) */
 .defil .rituel>.defmono,.hz .hpin>.defmono{--op:.14}
 html:not(.semis-y) .hz .hpin>.defmono{background-position:calc(var(--p,0) * var(--dist,-1200px)) 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+
+/* v18b : pas de semis derrière l'histoire ; derrière le film, une bannière resserrée qui encadre la photo */
+.hz .hpin>.defmono{display:none!important}
+.defil .rituel>.defmono{margin-left:var(--fx,0px);width:var(--fw,100%);--tu:64px;--op:.2;--dist:-1400px;border-inline:1px solid rgba(217,145,37,.28);box-sizing:border-box}
+@media (max-width:860px){.defil .rituel>.defmono{--tu:54px;--dist:-1000px}}
+
+.defil .rituel>.defmono{-webkit-mask-image:linear-gradient(transparent calc(var(--fy,0px) - 70px),#000 calc(var(--fy,0px) - 16px),#000 calc(var(--fy,0px) + var(--fh,100%) + 16px),transparent calc(var(--fy,0px) + var(--fh,100%) + 70px));mask-image:linear-gradient(transparent calc(var(--fy,0px) - 70px),#000 calc(var(--fy,0px) - 16px),#000 calc(var(--fy,0px) + var(--fh,100%) + 16px),transparent calc(var(--fy,0px) + var(--fh,100%) + 70px))}
 </style></head><body>
 <div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menu"><a href="#carte">Menu</a><a href="#infos">Info</a><a href="../#villes">Our cities</a></nav><a class="logo" href="../"><img src="../../img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, home" width="300" height="20"></a><div class="d"><nav class="langs" aria-label="Language"><a href="../../geneve/" hreflang="fr" lang="fr">FR</a><a href="./" hreflang="en" lang="en" aria-current="true">EN</a><a href="../../es/geneve/" hreflang="es" lang="es">ES</a></nav><a class="btn btn-m" href="../commander/">Order</a><details class="mmenu"><summary aria-label="Open the menu"><span></span><span></span></summary><nav aria-label="Mobile menu"><a href="#carte">Menu</a><a href="#infos">Info</a><a href="../#villes">Our cities</a><a href="../commander/">Order</a></nav></details></div></div></header>
 <main>
@@ -763,6 +770,10 @@ f.addEventListener('focusin',function(e){var ch=e.target.closest('.chap');if(!ch
 var h=document.querySelector('.hist');if(h&&'IntersectionObserver' in window){var j=new IntersectionObserver(function(es){if(es[0].isIntersecting){[].forEach.call(h.querySelectorAll('img[loading=lazy]'),function(i){i.loading='eager'});j.disconnect()}},{rootMargin:'150% 0px'});j.observe(h)}})();
 
 (function(){var m=/[?&]semis=(x|y)/.exec(location.search);if(m)document.documentElement.classList.add('semis-'+m[1])})();
+
+(function(){var s=document.querySelector('.rituel'),d=s&&s.querySelector('.defmono'),f=s&&s.querySelector('.film');if(!d||!f)return;
+function m(){var r=f.getBoundingClientRect(),q=d.getBoundingClientRect(),pad=Math.min(innerWidth<861?28:120,r.width*.3);s.style.setProperty('--fx',Math.max(0,r.left-pad).toFixed(0)+'px');s.style.setProperty('--fw',(r.width+2*pad).toFixed(0)+'px');s.style.setProperty('--fy',(r.top-q.top).toFixed(0)+'px');s.style.setProperty('--fh',r.height.toFixed(0)+'px')}
+addEventListener('resize',m);addEventListener('load',m);m()})();
 
 /* v16 : séquence de la sauce dans l'arche (images décodées hors du fil principal, dessin « cover », lissage).
    Repli : la photo fixe HD reste si mouvement réduit, économie de données, 2G, écran trop bas, image lente ou en erreur */
