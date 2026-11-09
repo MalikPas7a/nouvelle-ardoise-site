@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Karvan · Espace pro</title>
-<meta name="description" content="Démo : espace de commande pour les restaurants et tableau de gestion de Karvan.">
+<meta name="description" content="Démo : espace de commande pour les professionnels et tableau de gestion de Karvan.">
 <meta name="theme-color" content="#1B2440">
 <link rel="icon" href="../img/karvan-icone.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -260,7 +260,7 @@ button.kpi:hover{border-color:var(--lapis)}
   <div class="in">
     <a class="logo" href="../" aria-label="Karvan, site vitrine"><img src="../img/karvan-logo-inverse.svg" alt="Karvan" width="1000" height="360"></a>
     <div class="bascule" role="group" aria-label="Changer de vue">
-      <button type="button" data-mode="client" aria-pressed="true">Vue restaurant</button>
+      <button type="button" data-mode="client" aria-pressed="true">Vue client</button>
       <button type="button" data-mode="admin" aria-pressed="false">Vue Jalal</button>
     </div>
     <div class="qui" id="qui"></div>
@@ -382,17 +382,17 @@ function vueConnexion() {
   return `<section class="cnx" aria-labelledby="tc">
     <div>
       <h1 id="tc">Espace pro Karvan</h1>
-      <p class="chap">Réservé aux restaurants clients. Vos prix, vos commandes et vos factures au même endroit.</p>
+      <p class="chap">Réservé aux professionnels clients : restaurants, snacks, boulangeries, traiteurs, cafés, épiceries. Vos prix, vos commandes et vos factures au même endroit.</p>
       <ul class="plus"><li>Prix pro et remises par quantité</li><li>Commande en 1 minute, ou recommande la dernière</li><li>Paiement TWINT, carte ou sur facture à 30 jours</li><li>Factures et devis toujours à portée de main</li></ul>
     </div>
     <div class="carte">
       <h2><span class="m">Espace pro · </span>Se connecter</h2>
-      <form data-form="cnx"><label>E-mail<input name="e" type="email" autocomplete="username" placeholder="vous@restaurant.ch"></label>
+      <form data-form="cnx"><label>E-mail<input name="e" type="email" autocomplete="username" placeholder="vous@entreprise.ch"></label>
       <label>Mot de passe<input name="m" type="password" autocomplete="current-password"></label>
       <button class="btn plein" type="submit" style="width:100%">Se connecter</button></form>
       <p class="ou">Démo · entrer sans mot de passe</p>
       <div class="comptes">
-        <button class="compte" type="button" data-mode="client"><span><b>Restaurant client</b><small>${esc(CLIENTS[MOI].nom)} · vue commande</small></span><span class="f" aria-hidden="true">→</span></button>
+        <button class="compte" type="button" data-mode="client"><span><b>Client pro</b><small>${esc(CLIENTS[MOI].nom)} · vue commande</small></span><span class="f" aria-hidden="true">→</span></button>
         <button class="compte" type="button" data-mode="admin"><span><b>Jalal · administrateur</b><small>Stock, argent, commandes, clients</small></span><span class="f" aria-hidden="true">→</span></button>
       </div>
       <p class="pied">Pas encore client ? <a href="../#contact">Demander un compte pro</a></p>
@@ -623,7 +623,7 @@ VUES.cmd = () => {
   <section class="sect"><h2>Devis</h2>${tableDevis(S.devis, true)}</section>`;
 };
 VUES.clients = () => `<div class="tete"><h1>Clients</h1></div>
-  <div class="defile"><table class="tab"><thead><tr><th>Restaurant</th><th>Contact</th><th>Compte</th><th class="d">Commandé HT</th><th class="d">Reste à payer</th><th>Paiement</th><th></th></tr></thead><tbody>
+  <div class="defile"><table class="tab"><thead><tr><th>Client</th><th>Contact</th><th>Compte</th><th class="d">Commandé HT</th><th class="d">Reste à payer</th><th>Paiement</th><th></th></tr></thead><tbody>
   ${Object.entries(CLIENTS).map(([k, c]) => { const cs = S.commandes.filter(o => o.cl === k), du = cs.filter(o => o.fac && !o.payee).reduce((s, o) => s + totaux(o.lignes).ttc, 0), ret = cs.some(enRetard);
   return `<tr><td><b style="font-weight:500">${esc(c.nom)}</b><br><span class="note">${esc(c.ville)}</span></td><td>${esc(c.contact)}</td><td>${c.statut === "Validé" ? `<span class="statut s-ok">Validé</span>` : `<span class="statut s-att">À valider</span>`}</td><td class="d">${chf(cs.reduce((s, o) => s + totHT(o.lignes), 0))}</td><td class="d">${du ? chf(du) : "—"}</td><td>${ret ? `<span class="statut s-ko">En retard</span>` : c.facture ? "Facture 30 j" : "Paiement en ligne"}</td>
   <td>${c.statut !== "Validé" ? `<button class="btn petit plein" type="button" data-act="valcli" data-k="${k}">Valider</button>` : ret ? `<button class="btn petit" type="button" data-act="relancer" data-n="${cs.find(enRetard).n}">Rappel</button>` : ""}</td></tr>`; }).join("")}
