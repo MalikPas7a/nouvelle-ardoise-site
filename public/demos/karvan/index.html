@@ -59,7 +59,7 @@ header.nav .wrap{display:flex;align-items:center;gap:28px;height:68px}
 .logo img{height:56px;width:auto;margin-block:-6px}
 header nav{display:flex;gap:26px;margin-left:auto}
 header nav a{text-decoration:none;font-size:15px}
-header nav a:hover{color:var(--safran-texte)}
+header nav a:hover,header nav a[aria-current]{color:var(--safran-texte)}
 header.nav .pro{margin-left:0;font-weight:500;color:var(--lapis);text-decoration:none;border:1px solid var(--lapis);padding:10px 16px;min-height:44px;display:inline-flex;align-items:center}
 header.nav .pro:hover{background:var(--lapis);color:var(--papier)}
 header.nav .pro+.btn{margin-left:0}
@@ -205,7 +205,7 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
     <a class="logo" href="#haut" aria-label="Karvan, accueil"><img src="img/karvan-logo.svg" alt="Karvan" width="1000" height="360"></a>
     <nav aria-label="Navigation principale">
       <a href="#produits">Produits</a>
-      <a href="#personnalisation">Personnalisation</a>
+      <a href="personnalisation/">Personnalisation</a>
       <a href="#histoire">Notre histoire</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -254,7 +254,7 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
   <div class="wrap">
     <div class="tete">
       <div><span class="mono m-saf">Personnalisation · la différence Karvan</span><h2 id="t-perso">Votre enseigne, jusque dans le sac.</h2></div>
-      <a class="btn saf droite" href="#contact">Demander ma maquette</a>
+      <p class="droite chapo">Tampon, impression 1 ou 2 couleurs, ou univers complet : vos emballages à votre marque, maquette 3D avant toute commande.</p>
     </div>
     <div class="compare apparait" id="cmp">
       <img src="img/avant.webp" width="1800" height="1200" alt="Sac, box et gobelet kraft neutres" loading="lazy">
@@ -263,36 +263,10 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
       <span class="ligne"></span><span class="poignee" aria-hidden="true">⟷</span>
       <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après">
     </div>
-
-    <div class="niveaux">
-      <div><span class="mono n">Niveau 1 · Petites quantités</span><h3>Tampon ou étiquette</h3><p>Votre logo sur nos produits neutres en stock. Rapide, sans minimum de fabrication. Idéal pour une ouverture ou un food truck.</p></div>
-      <div><span class="mono n">Niveau 2 · Le cœur de l'offre</span><h3>Impression 1 ou 2 couleurs</h3><p>Logo imprimé directement sur les sacs, box burger, boîtes à pizza, gobelets et papier.</p></div>
-      <div><span class="mono n">Niveau 3 · Signature</span><h3>Création complète</h3><p>Un univers entier : motif, papier imprimé, gamme cohérente. Pour les chaînes et les concepts.</p></div>
+    <div class="actions" style="margin-top:28px;display:flex;flex-wrap:wrap;gap:12px">
+      <a class="btn saf" href="personnalisation/">Voir la personnalisation</a>
+      <a class="btn" href="#contact">Demander ma maquette</a>
     </div>
-
-    <div class="univers">
-      <figure class="apparait"><img src="img/braise.webp" width="1800" height="1200" alt="Concept Braise : sac, box burger et gobelet rouges, monogramme B" loading="lazy"><figcaption class="mono"><span>Concept 01 · Braise · Smash burgers</span><span class="m-saf">Monogramme B · rouge, crème, jaune</span></figcaption></figure>
-      <figure class="apparait"><img src="img/sesame.webp" width="1800" height="1200" alt="Concept Sésame : bols et sac bleu électrique, monogramme S" loading="lazy"><figcaption class="mono"><span>Concept 02 · Sésame · Bowls et poké</span><span class="m-saf">Monogramme S · bleu, orange, rose</span></figcaption></figure>
-      <figure class="apparait"><img src="img/croute.webp" width="1800" height="1200" alt="Concept Croûte : boîte à pizza et sac noir et jaune" loading="lazy"><figcaption class="mono"><span>Concept 03 · Croûte · Pizza</span><span class="m-saf">Monogramme Ĉ · noir, jaune, damier</span></figcaption></figure>
-    </div>
-
-    <div style="margin-top:96px;display:grid;gap:12px"><span class="mono m-saf">Le détail qu'on filme</span><h2>Imprimé dedans aussi.</h2></div>
-    <div class="ouvertes">
-      <figure class="apparait"><img src="img/ouvert-braise.webp" width="1600" height="1600" alt="Box burger Braise ouverte, imprimée à l'intérieur" loading="lazy"><figcaption class="mono">Ouverte · Braise</figcaption></figure>
-      <figure class="apparait"><img src="img/ouvert-sesame.webp" width="1600" height="1600" alt="Box Sésame ouverte" loading="lazy"><figcaption class="mono">Ouverte · Sésame</figcaption></figure>
-      <figure class="apparait"><img src="img/ouvert-croute.webp" width="1600" height="1600" alt="Boîte à pizza Croûte ouverte : « Mange tant que c'est chaud »" loading="lazy"><figcaption class="mono">Ouverte · Croûte</figcaption></figure>
-    </div>
-
-    <div style="margin-top:96px;display:grid;gap:32px">
-      <h2>Comment ça marche.</h2>
-      <ol class="etapes">
-        <li><span class="n">1</span><h3>Votre logo</h3><p>Vous l'envoyez, ou on le crée avec vous.</p></li>
-        <li><span class="n">2</span><h3>La maquette</h3><p>Vos emballages en 3D, avant toute commande.</p></li>
-        <li><span class="n">3</span><h3>Le bon à tirer</h3><p>Vous validez couleurs et placements.</p></li>
-        <li><span class="n">4</span><h3>Production</h3><p>Fabrication puis livraison chez vous.</p></li>
-      </ol>
-    </div>
-    <div class="studio"><p>Le design est signé <b>Nouvelle Ardoise</b>, agence de communication pour la restauration.</p><span class="mono m-saf">Concepts de démonstration · aucune vraie enseigne</span></div>
   </div>
 </section>
 
