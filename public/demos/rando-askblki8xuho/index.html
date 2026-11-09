@@ -507,10 +507,24 @@ const P={
  'polaire-mh120-h':{n:'Polaire zippée MH120',m:'Quechua',c:[[.07,.07,.08]],v:1.8},
  'polaire-mh120-f':{n:'Polaire zippée MH120',m:'Quechua',c:[[.62,.63,.66]],v:1.8},
  'polaire-mh500w-h':{n:'Polaire chaude déperlante MH500',m:'Quechua',c:[[.10,.25,.27],[.06,.06,.07]],v:2.8},
- 'doudoune-mt100-h':{n:'Doudoune à capuche MT100',m:'Simond',c:[[.08,.10,.18]],v:3},
+ 'doudoune-mt100-h':{n:'Doudoune à capuche MT100',m:'Simond',c:[[.08,.10,.18]],v:3,g:'down'},
  'veste-mh500-h':{n:'Veste imperméable respirante MH500',m:'Quechua',c:[[.26,.38,.34]],v:1.3},
  'veste-mh500-f':{n:'Veste imperméable légère MH500',m:'Quechua',c:[[.08,.29,.32]],v:1.1},
  'softshell-mt500-h':{n:'Veste softshell coupe-vent MT500',m:'Forclaz',c:[[.06,.06,.07]],v:1.6,g:'soft'},
+ 'doudoune-mt500-h':{n:'Doudoune en duvet MT500',m:'Simond',v:3,g:'down'},
+ 'doudoune-mt900-h':{n:'Doudoune à capuche en duvet MT900',m:'Simond',v:5,g:'down'},
+ 'doudoune-mt500-f':{n:'Doudoune à capuche en duvet MT500 Wilder',m:'Simond',v:3,g:'down'},
+ 'doudoune-mt900-f':{n:'Doudoune à capuche en duvet MT900',m:'Simond',v:5,g:'down'},
+ 'polaire-sherpa-nh900-h':{n:'Polaire sherpa chaude NH900',m:'Quechua',v:3},
+ 'polaire-sherpa-nh900-f':{n:'Polaire sherpa chaude NH900',m:'Quechua',v:3},
+ 'veste-nh500-h':{n:'Veste chaude imperméable NH500',m:'Quechua',v:3},
+ 'veste-nh500-f':{n:'Veste chaude imperméable NH500',m:'Quechua',v:3},
+ 'parka-nh900-h':{n:'Parka chaude imperméable NH900',m:'Quechua',v:6},
+ 'parka-nh900-f':{n:'Parka chaude imperméable NH900',m:'Quechua',v:6},
+ 'pantalon-neige-nh500-h':{n:'Pantalon chaud de randonnée neige NH500',m:'Quechua'},
+ 'pantalon-neige-nh500-f':{n:'Pantalon chaud de randonnée neige NH500',m:'Quechua'},
+ 'chaussure-neige-nh500-h':{n:'Chaussures chaudes imperméables neige NH500 Mid',m:'Quechua'},
+ 'chaussure-neige-nh500-f':{n:'Bottes de neige chaudes imperméables NH500',m:'Quechua'},
  'veste-mh100-f':{n:'Veste imperméable légère MH100',m:'Quechua',c:[[.80,.77,.72]],v:1},
  'sac-arpenaz-20l':{n:'Sac à dos Arpenaz 100 20 L',m:'Quechua',L:20,col:[.85,.25,.35],d:'Pour les sorties courtes et faciles.'},
  'sac-mh500-22l':{n:'Sac à dos léger MH500 22 L',m:'Quechua',L:22,col:[.45,.62,.58],d:'Léger, compartiment poche à eau.',poche:1},
@@ -566,24 +580,28 @@ function tenue(){
  const H=H0()||{cot:'T2',alt:1800},t=S.temp,f=S.profil==='f',pl=S.pluie!=='non',sx=f?'f':'h';
  const L=[];
  let sh,why;
- if(f){ if(H.cot==='T1'&&!pl&&t>5){sh='chaussure-mh500-f';why='Sentier facile et sec : légère et accrocheuse.';} else {sh='chaussure-sh500-f';why=H.cot!=='T1'?'Terrain de montagne : la tige montante tient la cheville.':'Pluie ou froid : tige montante et membrane imperméable.';} }
- else { if(H.cot==='T3'||t<=4){sh='chaussure-nh500-h';why=H.cot==='T3'?'Terrain T3 : cuir, tige montante, semelle crantée.':'Froid au sommet : chaude et imperméable.';} else {sh='chaussure-mh100-h';why='Imperméable et montante : le bon choix pour un sentier de montagne.';} }
- L.push({id:'shoe',g:'shoe',k:'Pieds · selon le terrain',rec:sh,why,txt:H.cot+' · '+({T1:'sentier facile',T2:'sentier de montagne',T3:'montagne exigeante'})[H.cot],alts:f?['chaussure-mh500-f','chaussure-sh500-f']:['chaussure-mh100-h','chaussure-nh500-h']});
+ if(f){ if(t<=0){sh='chaussure-neige-nh500-f';why='Neige possible au sommet : bottes chaudes, imperméables, semelle accrocheuse.';} else if(H.cot==='T1'&&!pl&&t>5){sh='chaussure-mh500-f';why='Sentier facile et sec : légère et accrocheuse.';} else {sh='chaussure-sh500-f';why=H.cot!=='T1'?'Terrain de montagne : la tige montante tient la cheville.':'Pluie ou froid : tige montante et membrane imperméable.';} }
+ else { if(t<=0&&H.cot!=='T3'){sh='chaussure-neige-nh500-h';why='Neige possible au sommet : chaude, imperméable, semelle accrocheuse.';} else if(H.cot==='T3'||t<=4){sh='chaussure-nh500-h';why=H.cot==='T3'?'Terrain T3 : cuir, tige montante, semelle crantée.':'Froid au sommet : chaude et imperméable.';} else {sh='chaussure-mh100-h';why='Imperméable et montante : le bon choix pour un sentier de montagne.';} }
+ L.push({id:'shoe',g:'shoe',k:'Pieds · selon le terrain',rec:sh,why,txt:H.cot+' · '+({T1:'sentier facile',T2:'sentier de montagne',T3:'montagne exigeante'})[H.cot],alts:f?['chaussure-mh500-f','chaussure-sh500-f','chaussure-neige-nh500-f']:['chaussure-mh100-h','chaussure-nh500-h','chaussure-neige-nh500-h']});
  let pa,pw;
  if(t>=18){pa='pantalon-mt500-zip-'+sx;pw='Chaud : il devient short en montée.';}
  else if(t>=3){pa='pantalon-mt500-'+sx;pw='Résistant aux frottements, il respire à l\'effort.';}
+ else if(t<=0){pa='pantalon-neige-nh500-'+sx;pw='Sous 0 °C : chaud, déperlant, il protège de la neige.';}
  else {pa=f?'pantalon-nh500-f':(pl?'pantalon-nh500v-h':'pantalon-mt900-h');pw='Sous 3 °C : déperlant et protégé du vent.';}
- L.push({id:'pant',g:'pant',k:'Jambes · selon la température',rec:pa,why:pw,txt:t+' °C au sommet',alts:f?['pantalon-mt500-zip-f','pantalon-mt500-f','pantalon-nh500-f']:['pantalon-mt500-zip-h','pantalon-mt500-h','pantalon-mt900-h','pantalon-nh500v-h','short-travel900-h']});
+ L.push({id:'pant',g:'pant',k:'Jambes · selon la température',rec:pa,why:pw,txt:t+' °C au sommet',alts:f?['pantalon-mt500-zip-f','pantalon-mt500-f','pantalon-nh500-f','pantalon-neige-nh500-f']:['pantalon-mt500-zip-h','pantalon-mt500-h','pantalon-mt900-h','pantalon-nh500v-h','pantalon-neige-nh500-h','short-travel900-h']});
  const ml=t<14;
  L.push({id:'base',g:'base',k:'Première couche · contre la peau',rec:(ml?'merinos-ml-':'merinos-tee-')+sx,why:'La laine mérinos garde chaud même humide et ne garde pas les odeurs.',txt:ml?'Manches longues sous 14 °C':'Manches courtes au-dessus de 14 °C',alts:f?['merinos-tee-f','merinos-ml-f']:['merinos-tee-h','merinos-ml-h','merinos-zip-h']});
- const fl=(!f&&t<=-2)?'doudoune-mt100-h':'polaire-mh500-'+sx;
- L.push({id:'fleece',g:'fleece',k:'Deuxième couche · la chaleur',rec:fl,why:t<=6?'On la porte au sommet et dans les pauses.':t<=14?'Enlevée en montée, remise à la pause.':'Il fait doux : elle reste dans le sac pour le sommet.',txt:t<=6?'Portée':'Dans le sac',sac:t>6,alts:f?['polaire-mh500-f','polaire-mh120-f']:['polaire-mh500-h','polaire-mh100-h','polaire-mh120-h','polaire-mh500w-h','doudoune-mt100-h']});
+ const fl=t<=0?'polaire-sherpa-nh900-'+sx:'polaire-mh500-'+sx;
+ L.push({id:'fleece',g:'fleece',k:'Deuxième couche · la chaleur',rec:fl,why:t<=6?'On la porte au sommet et dans les pauses.':t<=14?'Enlevée en montée, remise à la pause.':'Il fait doux : elle reste dans le sac pour le sommet.',txt:t<=6?'Portée':'Dans le sac',sac:t>6,alts:f?['polaire-mh500-f','polaire-mh120-f','polaire-sherpa-nh900-f']:['polaire-mh500-h','polaire-mh100-h','polaire-mh120-h','polaire-mh500w-h','polaire-sherpa-nh900-h']});
+ if(t<=10){const dd=t<=-5?'doudoune-mt900-'+sx:'doudoune-mt500-'+sx,dp=t<=0;
+  L.push({id:'down',g:'down',k:'Doudoune · la chaleur des pauses',rec:dd,why:t<=-5?'Grand froid : duvet épais et capuche, portée dès qu\'on s\'arrête.':dp?'Sous 0 °C au sommet : on l\'enfile à chaque pause.':'Légère et compressible : elle attend la pause au sommet dans le sac.',txt:dp?'Portée aux pauses':'Dans le sac',sac:!dp,alts:f?['doudoune-mt500-f','doudoune-mt900-f']:['doudoune-mt500-h','doudoune-mt900-h','doudoune-mt100-h']});}
  let ve,vw,porte=true;
- if(pl){ve='veste-mh500-'+sx;vw=S.pluie==='pluie'?'Pluie annoncée : membrane imperméable et respirante.':'Averses : imperméable et respirante, elle se range dans le sac.';porte=S.pluie==='pluie';}
+ if(pl&&t<=0){ve='veste-nh500-'+sx;vw='Froid et humide : imperméable et doublée chaud.';porte=true;}
+ else if(pl){ve='veste-mh500-'+sx;vw=S.pluie==='pluie'?'Pluie annoncée : membrane imperméable et respirante.':'Averses : imperméable et respirante, elle se range dans le sac.';porte=S.pluie==='pluie';}
  else if(S.vent==='vente'||t<=8){ve=f?'veste-mh100-f':'softshell-mt500-h';vw=S.vent==='vente'?'Vent sur les crêtes : coupe-vent et respirante.':'Frais au sommet : une coupe-vent pour les pauses.';}
  else {ve=f?'veste-mh100-f':'softshell-mt500-h';vw='Beau temps : elle reste dans le sac, au cas où.';porte=false;}
- L.push({id:'veste',g:'rain',k:'Troisième couche · pluie et vent',rec:ve,why:vw,txt:porte?'Portée':'Dans le sac',sac:!porte,alts:f?['veste-mh500-f','veste-mh100-f']:['veste-mh500-h','softshell-mt500-h']});
- L.forEach(l=>{const c=S.ch[l.id];l.p=(c&&l.alts.includes(c))?c:l.rec;if(l.id==='veste')l.g=P[l.p].g||'rain';});
+ L.push({id:'veste',g:'rain',k:'Troisième couche · pluie et vent',rec:ve,why:vw,txt:porte?'Portée':'Dans le sac',sac:!porte,alts:f?['veste-mh500-f','veste-mh100-f','veste-nh500-f','parka-nh900-f']:['veste-mh500-h','softshell-mt500-h','veste-nh500-h','parka-nh900-h']});
+ L.forEach(l=>{const c=S.ch[l.id];l.p=(c&&l.alts.includes(c))?c:l.rec;if(l.id==='veste')l.g=P[l.p].g||'rain';if(l.id==='down'||l.id==='fleece')l.g=P[l.p].g||'fleece';});
  return L;
 }
 
@@ -781,6 +799,7 @@ function refreshButtons(){document.querySelectorAll('[data-add]').forEach(b=>{co
  if(!b.dataset.add.startsWith('tenue:'))b.onclick=()=>{const key=b.dataset.add;if(CART.has(key))cartDel(key);else cartAdd(key,b.dataset.k,+b.dataset.q,b.dataset.g,b.dataset.p==='1');};});
  document.querySelectorAll('.bagc').forEach(b=>{});}
 function renderAll(){renderPanel();renderTenue();renderNutri();renderSac();renderCart();if(window.updatePins)window.updatePins();}
+window.__demo={S,renderAll,tenue};
 
 /* ---------- Progression ---------- */
 const SECS=['intro','tenue','nutri','sac','recap'];
@@ -904,7 +923,7 @@ function ll2px(lat,lon){const n=2**11*256,x=(lon+180)/360*n,r=lat*Math.PI/180,y=
 /* ---------- La tenue en vraies photos ---------- */
 (function look(){
  const box=$('stage'),grid=$('look'),calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
- const ROLE={shoe:'Pieds',pant:'Jambes',base:'1re couche',fleece:'2e couche',rain:'3e couche',soft:'3e couche'};
+ const ROLE={shoe:'Pieds',pant:'Jambes',base:'1re couche',fleece:'2e couche',down:'Doudoune',rain:'3e couche',soft:'3e couche'};
  let avant={},seen=false,pending=null;
  function tile(slot,l,i,change,delay){
   let el=grid.querySelector(`[data-slot="${slot}"]`);
@@ -921,13 +940,13 @@ function ll2px(lat,lon){const n=2**11*256,x=(lon+180)/360*n,r=lat*Math.PI/180,y=
  window.dressMQ=(L,anim=true)=>{
   if(!seen){pending=[L,anim];return;}
   const worn=L.filter(l=>!l.sac),sac=L.filter(l=>l.sac);
-  const hauts=['rain','soft','fleece','base'].map(g=>worn.find(l=>l.g===g)).filter(Boolean);
+  const hauts=['down','rain','soft','fleece','base'].map(g=>worn.find(l=>l.g===g)).filter(Boolean);
   const top=hauts[0],dessous=hauts.slice(1);
   const slots={top,pant:worn.find(l=>l.g==='pant'),shoe:worn.find(l=>l.g==='shoe')};
   let n=0;const delays={};
   for(const k in slots){const l=slots[k],change=anim&&l&&avant[k]!==l.p;delays[k]=change?(n++)*.18:0;tile(k,l,0,change,delays[k]);}
   avant={};for(const k in slots)if(slots[k])avant[k]=slots[k].p;
-  const chip=(l,cls)=>`<figure class="chip ${cls}"><img src="${IMG+l.p}.webp" alt="" loading="lazy"><figcaption><span>${cls==='sac'?'Dans le sac':'Dessous · '+ROLE[l.g]}</span>${P[l.p].n}</figcaption></figure>`;
+  const chip=(l,cls)=>`<figure class="chip ${cls}"><img src="${IMG+l.p}.webp" alt="" loading="lazy"><figcaption><span>${cls==='sac'?'Dans le sac':'Portée aussi · '+ROLE[l.g]}</span>${P[l.p].n}</figcaption></figure>`;
   $('lookUnder').innerHTML=dessous.map(l=>chip(l,'sous')).join('')+sac.map(l=>chip(l,'sac')).join('');
   document.querySelectorAll('.layer').forEach(e=>e.classList.add('on'));
  };
