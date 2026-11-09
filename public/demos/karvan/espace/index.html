@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Karvan · Espace pro</title>
+<meta name="description" content="Démo : espace de commande pour les restaurants et tableau de gestion de Karvan.">
+<meta name="theme-color" content="#1B2440">
+<link rel="icon" href="../img/karvan-icone.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --papier:#F3EEE4; --papier-2:#EBE4D6; --lapis:#1B2440; --safran:#C8902E; --safran-texte:#8E6216; --kraft:#B98A55; --blanc:#FFFFFF;
+  --encre-2:#4A5068; --filet:#D9D1C1; --vert:#2F6B45; --vert-fond:#DCEBDD; --rouge:#A33A2A; --rouge-fond:#F6DCD6; --ambre-fond:#F8E8C8;
+  --f:"Outfit","Helvetica Neue",Arial,sans-serif; --mono:"Geist Mono",ui-monospace,Menlo,monospace;
+  --g:max(16px,env(safe-area-inset-left,0px));
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--papier);color:var(--lapis);font:400 16px/1.5 var(--f);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.mono{font:500 11.5px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+h1,h2,h3{font-weight:600;margin:0;letter-spacing:-.015em;line-height:1.1}
+h1{font-size:clamp(28px,4vw,40px)}
+h2{font-size:22px}
+h3{font-size:17px}
+p{margin:0}
+.calme{color:var(--encre-2)}
+:focus-visible{outline:2px solid var(--safran);outline-offset:2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border:1px solid var(--lapis);background:transparent;font-weight:500;font-size:15px;transition:background .15s,color .15s;text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--lapis);color:var(--papier)}
+.btn.plein{background:var(--lapis);color:var(--papier)}
+.btn.plein:hover{background:#2B3658}
+.btn.saf{background:var(--safran);border-color:var(--safran);color:var(--lapis)}
+.btn.saf:hover{background:#B57F22}
+.btn.petit{min-height:36px;padding:0 12px;font-size:14px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.lien{border:0;padding:0;min-height:auto;text-decoration:underline;text-underline-offset:3px}
+.btn.lien:hover{background:none;color:var(--safran-texte)}
+
+/* bandeau démo + barre */
+.demo{background:var(--safran);color:var(--lapis);text-align:center;padding:7px var(--g);font-size:13.5px}
+.demo b{font-weight:600}
+.barre{position:sticky;top:0;z-index:30;background:var(--lapis);color:var(--papier)}
+.barre .in{max-width:1240px;margin:0 auto;padding:0 var(--g);height:64px;display:flex;align-items:center;gap:20px}
+.barre .logo img{height:44px;width:auto}
+.bascule{margin-left:auto;display:flex;border:1px solid #3A4466}
+.bascule button{background:none;border:0;color:#C9CDDA;padding:8px 14px;font-size:14px;min-height:40px}
+.bascule button[aria-pressed="true"]{background:var(--papier);color:var(--lapis);font-weight:500}
+.qui{font-size:13.5px;color:#C9CDDA;text-align:right;line-height:1.25}
+.qui b{color:var(--papier);font-weight:500;display:block}
+@media (max-width:760px){.qui{display:none}.barre .logo img{height:38px}.bascule button{padding:8px 10px}}
+
+/* onglets */
+.onglets{background:var(--papier);border-bottom:1px solid var(--filet);position:sticky;top:64px;z-index:20}
+.onglets .in{max-width:1240px;margin:0 auto;padding:0 var(--g);display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.onglets .in::-webkit-scrollbar{display:none}
+.onglets button{background:none;border:0;border-bottom:2px solid transparent;padding:14px 12px 12px;font-size:15px;white-space:nowrap;color:var(--encre-2)}
+.onglets button[aria-selected="true"]{color:var(--lapis);border-bottom-color:var(--safran);font-weight:500}
+.pastille{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;margin-left:6px;background:var(--safran);color:var(--lapis);font:500 12px/1 var(--mono);border-radius:10px}
+.pastille.rouge{background:var(--rouge);color:#fff}
+
+main{max-width:1240px;margin:0 auto;padding:28px var(--g) 120px}
+.tete{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px;margin-bottom:24px}
+.tete p{max-width:62ch}
+.carte{background:var(--blanc);border:1px solid var(--filet)}
+.sect{margin-top:36px}
+.sect>h2{margin-bottom:14px}
+
+/* catalogue */
+.outils{display:grid;grid-template-columns:1fr auto;gap:12px;margin-bottom:18px}
+.rapide{display:flex;gap:8px;background:var(--blanc);border:1px solid var(--filet);padding:8px}
+.rapide input{flex:1;min-width:0;border:0;background:none;padding:6px 8px;font-family:var(--mono);font-size:15px;text-transform:uppercase}
+.rapide input::placeholder{text-transform:none;font-family:var(--f);color:#8A8FA3}
+.rapide input:focus{outline:none}
+.filtres{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:18px}
+.filtres button{border:1px solid var(--filet);background:var(--blanc);padding:7px 12px;font-size:14px;white-space:nowrap;min-height:36px}
+.filtres button[aria-pressed="true"]{background:var(--lapis);color:var(--papier);border-color:var(--lapis)}
+@media (max-width:700px){.outils{grid-template-columns:1fr}}
+.grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px}
+@media (max-width:560px){.grille{grid-template-columns:1fr 1fr;gap:10px}.prod .corps{padding:10px 10px 12px;gap:4px}.prod h3{font-size:15px}.prod .det{font-size:12.5px}.prod .prix b{font-size:16px}.prod .prix{flex-wrap:wrap;gap:2px 6px}.prod .prix span{font-size:12px}.qte button{width:34px}.qte input{width:34px}.dispo{font-size:12px}.tete .btn{white-space:normal;text-align:center;width:100%;padding:10px 14px}}
+.prod{display:flex;flex-direction:column;background:var(--blanc);border:1px solid var(--filet)}
+.prod .vis{aspect-ratio:4/3;background:#EFE8DA;display:grid;place-items:center;overflow:hidden}
+.prod .vis img{width:78%;height:auto;mix-blend-mode:multiply}
+.prod .corps{padding:14px 14px 16px;display:grid;gap:6px;flex:1}
+.prod .ref{color:var(--safran-texte)}
+.prod h3{font-size:16px;line-height:1.25}
+.prod .det{font-size:13.5px;color:var(--encre-2)}
+.prod .prix{display:flex;align-items:baseline;gap:8px;margin-top:4px}
+.prod .prix b{font:500 19px/1 var(--mono)}
+.prod .prix span{font-size:13px;color:var(--encre-2)}
+.prod .pp{font-size:12.5px;color:var(--encre-2)}
+.prod .bas{display:flex;align-items:center;gap:8px;margin-top:10px}
+.qte{display:inline-flex;align-items:center;border:1px solid var(--filet);height:40px}
+.qte button{width:38px;height:100%;border:0;background:none;font-size:18px}
+.qte input{width:44px;height:100%;border:0;text-align:center;font-family:var(--mono);background:none;-moz-appearance:textfield}
+.qte input::-webkit-outer-spin-button,.qte input::-webkit-inner-spin-button{-webkit-appearance:none}
+.dispo{font-size:12.5px;display:flex;align-items:center;gap:6px}
+.dispo::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--vert)}
+.dispo.bas-stock::before{background:var(--safran)}
+.dispo.rupture::before{background:var(--rouge)}
+.paliers{font-size:12.5px;color:var(--encre-2);border-top:1px dashed var(--filet);padding-top:8px;margin-top:6px}
+
+/* panier flottant + tiroir */
+.flotte{position:fixed;left:50%;transform:translateX(-50%);bottom:max(16px,env(safe-area-inset-bottom));z-index:40;display:flex;align-items:center;gap:14px;background:var(--lapis);color:var(--papier);padding:10px 10px 10px 18px;box-shadow:0 10px 30px rgba(27,36,64,.25);width:min(560px,calc(100% - 32px))}
+.flotte .t{flex:1;font-size:14px;line-height:1.3}
+.flotte .t b{font:500 16px/1 var(--mono);display:block;margin-top:2px}
+.voile{position:fixed;inset:0;background:rgba(27,36,64,.45);z-index:50}
+.tiroir{position:fixed;top:0;right:0;bottom:0;width:min(480px,100%);background:var(--papier);z-index:51;display:flex;flex-direction:column;box-shadow:-10px 0 40px rgba(27,36,64,.2)}
+@media (prefers-reduced-motion:no-preference){.tiroir{animation:entre .28s cubic-bezier(.2,.7,.2,1)}@keyframes entre{from{transform:translateX(40px);opacity:0}}}
+.tiroir .h{display:flex;align-items:center;justify-content:space-between;padding:18px var(--g);border-bottom:1px solid var(--filet)}
+.tiroir .c{flex:1;overflow:auto;padding:18px var(--g)}
+.tiroir .f{border-top:1px solid var(--filet);padding:16px var(--g) max(16px,env(safe-area-inset-bottom));background:var(--blanc)}
+.fermer{background:none;border:0;width:44px;height:44px;font-size:24px;line-height:1;margin-right:-10px}
+.ligne{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--filet)}
+.ligne .n{font-size:15px}
+.ligne .s{font-size:13px;color:var(--encre-2)}
+.ligne .m{font-family:var(--mono);text-align:right}
+.tot{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:14.5px;margin:12px 0}
+.tot .gros{font-size:18px;font-weight:600}
+.tot .num{text-align:right}
+.choix{display:grid;gap:8px;margin:14px 0}
+.choix label{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:start;border:1px solid var(--filet);background:var(--blanc);padding:12px;cursor:pointer}
+.choix label:has(input:checked){border-color:var(--lapis);box-shadow:inset 0 0 0 1px var(--lapis)}
+.choix input{margin:3px 0 0;accent-color:var(--lapis);grid-row:span 2}
+.choix small{color:var(--encre-2);font-size:13px}
+.note{font-size:13px;color:var(--encre-2)}
+.alerte{padding:10px 12px;font-size:14px;background:var(--ambre-fond)}
+
+/* modale */
+.modale{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px}
+.modale .boite{position:relative;background:var(--papier);width:min(440px,100%);max-height:calc(100dvh - 32px);overflow:auto;padding:28px 24px;text-align:center;display:grid;gap:14px;justify-items:center}
+.modale .boite.large{width:min(860px,100%);text-align:left;justify-items:stretch;padding:0;background:#fff}
+.qr{width:180px;height:180px;background:#fff;border:1px solid var(--filet);padding:10px}
+.ok{width:56px;height:56px;border-radius:50%;background:var(--vert);color:#fff;display:grid;place-items:center;font-size:28px}
+@media (prefers-reduced-motion:no-preference){.ok{animation:pop .35s cubic-bezier(.2,.9,.3,1.3)}@keyframes pop{from{transform:scale(.6);opacity:0}}}
+
+/* tableaux */
+.tab{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--blanc);border:1px solid var(--filet)}
+.tab th{font:500 11.5px/1.3 var(--mono);letter-spacing:.05em;text-transform:uppercase;text-align:left;color:var(--encre-2);padding:10px 12px;border-bottom:1px solid var(--filet);background:#FAF7F1;white-space:nowrap}
+.tab td{padding:11px 12px;border-bottom:1px solid #EEE8DC;vertical-align:middle}
+.tab tr:last-child td{border-bottom:0}
+.tab .d{text-align:right;font-family:var(--mono);white-space:nowrap}
+.defile{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.statut{display:inline-block;padding:3px 8px;font-size:12.5px;font-weight:500;white-space:nowrap}
+.s-ok{background:var(--vert-fond);color:var(--vert)}
+.s-att{background:var(--ambre-fond);color:#7A5512}
+.s-ko{background:var(--rouge-fond);color:var(--rouge)}
+.s-neutre{background:var(--papier-2);color:var(--encre-2)}
+
+/* admin */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media (max-width:900px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{background:var(--blanc);border:1px solid var(--filet);padding:16px;display:grid;gap:4px;text-align:left}
+button.kpi:hover{border-color:var(--lapis)}
+.kpi .v{font:500 30px/1.05 var(--mono);letter-spacing:-.02em}
+.kpi .l{font-size:14px;color:var(--encre-2)}
+.kpi.chaud .v{color:var(--rouge)}
+.taches{display:grid;gap:10px}
+.tache{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:var(--blanc);border:1px solid var(--filet);padding:14px 16px}
+.tache .ic{width:36px;height:36px;display:grid;place-items:center;background:var(--papier-2);font:500 12px/1 var(--mono)}
+.tache .t b{font-weight:500}
+.tache .t p{font-size:13.5px;color:var(--encre-2)}
+@media (max-width:620px){.tache{grid-template-columns:1fr}.tache .ic{display:none}.tache .btn{width:100%}}
+.deux{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
+@media (max-width:900px){.deux{grid-template-columns:1fr}}
+.seuil{padding:20px;display:grid;gap:12px}
+.jauge{height:14px;background:var(--papier-2);position:relative;overflow:hidden}
+.jauge i{position:absolute;inset:0 auto 0 0;background:var(--safran);transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.jauge.vert i{background:var(--vert)}
+.legende{display:flex;justify-content:space-between;font-size:13px;color:var(--encre-2);gap:12px}
+.chiffres{display:grid;grid-template-columns:1fr auto;gap:6px 16px;font-size:14.5px}
+.chiffres .num{text-align:right}
+.chiffres .sep{grid-column:1/-1;border-top:1px solid var(--filet);margin:4px 0}
+.barres{display:flex;align-items:end;gap:10px;height:160px;padding:16px 16px 0}
+.barres div{flex:1;display:grid;gap:6px;justify-items:center;align-content:end;height:100%}
+.barres i{display:block;width:100%;max-width:44px;background:var(--lapis)}
+.barres i.ce{background:var(--safran)}
+.barres span{font:500 11px/1 var(--mono);color:var(--encre-2);padding-bottom:10px}
+.vide{padding:28px;text-align:center;color:var(--encre-2);background:var(--blanc);border:1px dashed var(--filet)}
+
+/* formulaire devis */
+.form{display:grid;gap:14px;max-width:640px}
+.form label{display:grid;gap:6px;font-size:14.5px;font-weight:500}
+.form input,.form select,.form textarea{border:1px solid var(--filet);background:var(--blanc);padding:11px 12px;font-weight:400;min-height:44px;width:100%}
+.form textarea{min-height:110px;resize:vertical}
+.deux-champs{display:grid;grid-template-columns:2fr 1fr;gap:10px}
+.cases{display:flex;flex-wrap:wrap;gap:8px}
+.cases label{display:flex;align-items:center;gap:8px;border:1px solid var(--filet);background:var(--blanc);padding:9px 12px;font-weight:400;min-height:44px}
+.cases input{min-height:auto;width:auto;accent-color:var(--lapis)}
+
+/* facture */
+.facture{padding:36px 40px;color:#111;font-size:13.5px;line-height:1.45}
+.facture .ent{display:flex;justify-content:space-between;gap:20px;align-items:start}
+.facture .ent img{height:54px;width:auto}
+.facture h2{font-size:24px;margin:28px 0 4px}
+.facture .adr{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+.facture table{width:100%;border-collapse:collapse;margin-top:22px}
+.facture th{text-align:left;font:500 11px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.05em;border-bottom:1.5px solid #111;padding:6px 4px}
+.facture td{padding:7px 4px;border-bottom:1px solid #ddd}
+.facture td:first-child{white-space:nowrap;font-family:var(--mono);font-size:12px}
+.barre-fac .mono{white-space:nowrap}
+.facture .d{text-align:right;font-family:var(--mono)}
+.facture .tt{margin-left:auto;width:min(300px,100%);display:grid;grid-template-columns:1fr auto;gap:4px 16px;margin-top:14px}
+.facture .tt .g{font-weight:600;font-size:15px;border-top:1.5px solid #111;padding-top:6px}
+.qrbill{margin-top:34px;border-top:1px dashed #555;padding-top:16px;display:grid;grid-template-columns:1fr 1.6fr;gap:24px}
+.qrbill h4{margin:0 0 8px;font-size:13px}
+.qrbill .qrc{display:grid;grid-template-columns:auto 1fr;gap:16px}
+.qrbill .qrc .q{width:138px;height:138px}
+.qrbill small{display:block;font-size:10.5px;font-weight:600;margin-top:6px}
+.facture .ex{margin-top:16px;font-size:12px;color:#666}
+.barre-fac{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;background:var(--lapis);color:var(--papier);position:sticky;top:0}
+.barre-fac .btn{border-color:var(--papier);color:var(--papier)}
+@media (max-width:640px){.facture{padding:22px 18px}.facture .adr,.qrbill{grid-template-columns:1fr}.qrbill .qrc{grid-template-columns:1fr}}
+@media print{
+  body *{visibility:hidden}
+  .imprimable,.imprimable *{visibility:visible}
+  .imprimable{position:absolute;inset:0 auto auto 0;width:100%}
+  .barre-fac{display:none}
+}
+
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:70;background:var(--lapis);color:var(--papier);padding:12px 18px;font-size:14.5px;box-shadow:0 10px 30px rgba(27,36,64,.25);max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:no-preference){.toast{animation:tombe .3s cubic-bezier(.2,.7,.2,1)}@keyframes tombe{from{transform:translate(-50%,10px);opacity:0}}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="demo"><b>Démo</b> · clients, commandes et paiements fictifs. Rien n'est envoyé ni encaissé. <button class="btn lien" id="reinit" type="button">Remettre la démo à zéro</button></div>
+
+<div class="barre">
+  <div class="in">
+    <a class="logo" href="../" aria-label="Karvan, site vitrine"><img src="../img/karvan-logo-inverse.svg" alt="Karvan" width="1000" height="360"></a>
+    <div class="bascule" role="group" aria-label="Changer de vue">
+      <button type="button" data-mode="client" aria-pressed="true">Vue restaurant</button>
+      <button type="button" data-mode="admin" aria-pressed="false">Vue Jalal</button>
+    </div>
+    <div class="qui" id="qui"></div>
+  </div>
+</div>
+
+<nav class="onglets" aria-label="Sections"><div class="in" id="onglets" role="tablist"></div></nav>
+
+<main id="vue" tabindex="-1"></main>
+
+<div id="flotte"></div>
+<div id="calque"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+"use strict";
+const TVA = 0.081, LIVRAISON = 15, FRANCO = 150, COUT_LOT = 4334.65, AUJ = "2026-11-09";
+const PALIERS = [{min:10, r:.06}, {min:5, r:.03}];
+const IMG = { bol:"bol-kraft", couv:"couvercle-bol", pap:"papier-burger", box:"box-burger", gob:"gobelet", sac:"sac-kraft", piz:"boite-pizza", sau:"barquette-sauce-pet", pot:"pot-sauce-pp", sal:"barquette-salade" };
+// ref, famille, nom, détail, pièces/carton, prix HT carton, coût complet carton, cartons reçus (lot 1), image, seuil d'alerte
+const P = [
+ ["BOL-1300","Bols","Bol kraft 1300 ml","Ø 184 × H 67",200,45.8,41.48,2,"bol",1],
+ ["BOL-850","Bols","Bol kraft 850 ml","Ø 184 × H 47",200,35.6,38.87,3,"bol",1],
+ ["BOL-750","Bols","Bol kraft 750 ml","Ø 144 × H 67",300,41.4,53.80,6,"bol",2],
+ ["BOL-550","Bols","Bol kraft 550 ml","Ø 144 × H 50",300,38.4,52.82,6,"bol",2],
+ ["COU-SM","Bols","Couvercle bol 550 / 750 ml","Ø 144, transparent",300,27,0,12,"couv",2],
+ ["COU-LX","Bols","Couvercle bol 850 à 1300 ml","Ø 184, transparent",200,20,0,5,"couv",1],
+ ["PAP-3040","Burger","Papier à burger 30 × 40","Ingraissable",1000,30,25.20,9,"pap",2],
+ ["PAP-2530","Burger","Papier à burger 25 × 30","Ingraissable",1000,24,17.52,10,"pap",2],
+ ["BOX-90","Burger","Petite box à burger","90 × 90 × 70 kraft",700,110,109.56,1,"box",1],
+ ["PIZ-33","Pizza","Boîte à pizza 33 cm","330 × 330 × 40 kraft",100,24.8,24.45,30,"piz",5],
+ ["GOB-30","Gobelets","Gobelet 30 cl / 12 oz","Ø 78 × H 115",2000,136,81.52,2,"gob",1],
+ ["GOB-25","Gobelets","Gobelet 25 cl / 8 oz","Ø 78 × H 87",2000,96,63.91,2,"gob",1],
+ ["GOB-10","Gobelets","Gobelet 10 cl / 4 oz","Ø 61 × H 60",3000,87,53.80,2,"gob",1],
+ ["COUG-L","Gobelets","Couvercle gobelet 25 / 30 cl","Taille L",1000,76,34.56,2,"gob",1],
+ ["SAC-L","Sacs","Sac kraft à poignées L","350 × 330 × 200",250,63,58.69,3,"sac",1],
+ ["SAC-M","Sacs","Sac kraft à poignées M","290 × 280 × 160",250,38.4,48.91,8,"sac",2],
+ ["SAC-S","Sacs","Sac kraft à poignées S","290 × 220 × 120",250,36.75,34.24,8,"sac",2],
+ ["SAU-20","Sauces","Barquette à sauce 20 cc","Avec couvercle, PET",2700,97.2,52.82,1,"sau",1],
+ ["SAU-30","Sauces","Barquette à sauce 30 cc","Avec couvercle, PET",2000,76,39.13,3,"sau",1],
+ ["SAU-50","Sauces","Barquette à sauce 50 cc","Avec couvercle, PET",2000,96,39.13,3,"sau",1],
+ ["SAU-80","Sauces","Barquette à sauce 80 cc","Avec couvercle, PET",2000,128,50.87,1,"sau",1],
+ ["POT-30","Sauces","Pot à sauce rond 30 cc","Avec couvercle, PP",1000,70,39.13,3,"pot",1],
+ ["SAL-150","Salades","Barquette salade 150 g","Avec couvercle",1000,68,39.13,3,"sal",1],
+ ["SAL-250","Salades","Barquette salade 250 g","Avec couvercle",1000,90,58.69,3,"sal",1],
+ ["SAL-500","Salades","Barquette salade 500 g","Avec couvercle",800,126.4,62.60,3,"sal",1]
+].map(a => ({ref:a[0],fam:a[1],nom:a[2],det:a[3],pcs:a[4],prix:a[5],cout:a[6],recu:a[7],img:IMG[a[8]],alerte:a[9]}));
+const PR = Object.fromEntries(P.map(p => [p.ref, p]));
+const FAMS = ["Tout", ...new Set(P.map(p => p.fam))];
+
+const CLIENTS = {
+  "marco": {nom:"Pizzeria Da Marco", contact:"Marco Rinaldi", adr:"Rue de Carouge 54", ville:"1205 Genève", facture:true, statut:"Validé"},
+  "bowl": {nom:"Bowl & Co", contact:"Léa Martin", adr:"Boulevard Helvétique 12", ville:"1207 Genève", facture:true, statut:"Validé"},
+  "smash": {nom:"Smash House", contact:"Karim B.", adr:"Rue de Lausanne 88", ville:"1202 Genève", facture:true, statut:"Validé"},
+  "cafe": {nom:"Café du Marché", contact:"Sophie Dubois", adr:"Place du Marché 3", ville:"1227 Carouge", facture:true, statut:"Validé"},
+  "bosphore": {nom:"Kebab Le Bosphore", contact:"Emre Yilmaz", adr:"Rue de Berne 17", ville:"1201 Genève", facture:false, statut:"À valider"}
+};
+const MOI = "marco";
+
+const seed = () => ({
+  v: 3, panier: {}, num: {c:1007, d:202, f:2026019},
+  commandes: [
+    {n:"C-1001", cl:"smash", date:"2026-11-02", lignes:{"PAP-3040":2,"SAC-L":1,"SAU-30":1}, statut:"livree", paie:"twint", payee:true, fac:"F-2026014"},
+    {n:"C-1002", cl:"marco", date:"2026-11-03", lignes:{"PIZ-33":8,"SAC-M":2}, statut:"livree", paie:"facture", payee:false, fac:"F-2026015"},
+    {n:"C-1003", cl:"cafe", date:"2026-10-05", lignes:{"GOB-25":1,"COUG-L":1,"GOB-10":1}, statut:"livree", paie:"facture", payee:false, fac:"F-2026011"},
+    {n:"C-1004", cl:"bowl", date:"2026-11-06", lignes:{"BOL-750":2,"COU-SM":3,"SAL-500":1,"BOL-1300":1,"COU-LX":1}, statut:"livree", paie:"carte", payee:true, fac:"F-2026016"},
+    {n:"C-1005", cl:"marco", date:"2026-11-09", lignes:{"PIZ-33":6,"SAU-50":1}, statut:"apreparer", paie:"facture", payee:false, fac:null},
+    {n:"C-1006", cl:"smash", date:"2026-11-08", lignes:{"PAP-2530":2,"SAC-S":2}, statut:"apreparer", paie:"twint", payee:true, fac:null}
+  ],
+  devis: [
+    {n:"D-201", cl:"bowl", date:"2026-11-07", texte:"20 cartons de bols 750 ml avec notre logo imprimé sur le couvercle, livraison début décembre.", produits:"BOL-750, COU-SM", logo:true, statut:"aenvoyer", montant:null}
+  ],
+  mouvements: []
+});
+const CLE = "karvan-demo-espace";
+let S;
+try { S = JSON.parse(localStorage.getItem(CLE)); } catch (e) { S = null; }
+if (!S || S.v !== 3) S = seed();
+const save = () => { try { localStorage.setItem(CLE, JSON.stringify(S)); } catch (e) {} };
+
+let mode = "client", onglet = "commander", famille = "Tout";
+
+// ---------- calculs ----------
+const chf = x => x.toLocaleString("fr-CH", {minimumFractionDigits:2, maximumFractionDigits:2});
+const chf0 = x => Math.round(x).toLocaleString("fr-CH");
+const remise = q => (PALIERS.find(p => q >= p.min) || {r:0}).r;
+const prixU = (ref, q) => PR[ref].prix * (1 - remise(q));
+const totHT = lignes => Object.entries(lignes).reduce((s, [r, q]) => s + prixU(r, q) * q, 0);
+const coutC = lignes => Object.entries(lignes).reduce((s, [r, q]) => s + PR[r].cout * q, 0);
+const port = ht => ht >= FRANCO || ht === 0 ? 0 : LIVRAISON;
+const totaux = lignes => { const ht = totHT(lignes), p = port(ht), tva = (ht + p) * TVA; return {ht, p, tva, ttc: ht + p + tva}; };
+const sorti = ref => S.commandes.filter(c => c.statut === "livree").reduce((s, c) => s + (c.lignes[ref] || 0), 0);
+const reserve = ref => S.commandes.filter(c => c.statut === "apreparer").reduce((s, c) => s + (c.lignes[ref] || 0), 0);
+const stock = ref => PR[ref].recu - sorti(ref) + S.mouvements.filter(m => m.ref === ref).reduce((s, m) => s + m.q, 0);
+const dispo = ref => stock(ref) - reserve(ref);
+const addJ = (d, n) => { const x = new Date(d + "T12:00:00"); x.setDate(x.getDate() + n); return x.toISOString().slice(0, 10); };
+const dfr = d => { const [y, m, j] = d.split("-"); return `${j}.${m}.${y}`; };
+const echeance = c => addJ(c.date, 30);
+const enRetard = c => c.statut === "livree" && !c.payee && echeance(c) < AUJ;
+const nbArt = lignes => Object.values(lignes).reduce((a, b) => a + b, 0);
+const esc = s => String(s).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+
+// ---------- rendu général ----------
+const $ = s => document.querySelector(s);
+const vue = $("#vue");
+const ONGLETS = {
+  client: [["commander","Commander"],["devis","Demander un devis"],["commandes","Mes commandes"],["factures","Mes factures"]],
+  admin: [["auj","Aujourd'hui"],["argent","Argent"],["stock","Stock"],["cmd","Commandes et devis"],["clients","Clients"],["prix","Produits et prix"]]
+};
+function badge(id) {
+  if (id === "auj") { const n = S.commandes.filter(c => c.statut === "apreparer").length + S.devis.filter(d => d.statut === "aenvoyer").length + S.commandes.filter(enRetard).length; return n ? `<span class="pastille">${n}</span>` : ""; }
+  if (id === "stock") { const n = P.filter(p => dispo(p.ref) <= p.alerte).length; return n ? `<span class="pastille rouge">${n}</span>` : ""; }
+  if (id === "factures") { const n = S.commandes.filter(c => c.cl === MOI && c.fac && !c.payee).length; return n ? `<span class="pastille">${n}</span>` : ""; }
+  return "";
+}
+function rendre(focus) {
+  document.querySelectorAll(".bascule button").forEach(b => b.setAttribute("aria-pressed", b.dataset.mode === mode));
+  $("#qui").innerHTML = mode === "client" ? `Connecté<b>${CLIENTS[MOI].nom}</b>` : `Connecté<b>Jalal · admin</b>`;
+  $("#onglets").innerHTML = ONGLETS[mode].map(([id, l]) => `<button role="tab" type="button" data-onglet="${id}" aria-selected="${id === onglet}">${l}${badge(id)}</button>`).join("");
+  vue.innerHTML = (VUES[onglet] || (() => ""))();
+  const sel = document.querySelector('#onglets [aria-selected="true"]'); if (sel) { const bar = $("#onglets"); bar.scrollLeft = Math.max(0, sel.offsetLeft - 16); }
+  rendreFlotte();
+  if (focus) { window.scrollTo({top:0}); vue.focus({preventScroll:true}); }
+}
+function toast(t) {
+  const el = $("#toast"); el.innerHTML = `<div class="toast">${t}</div>`;
+  clearTimeout(toast.t); toast.t = setTimeout(() => el.innerHTML = "", 3200);
+}
+
+// ---------- vues client ----------
+const VUES = {};
+VUES.commander = () => {
+  const der = S.commandes.filter(c => c.cl === MOI).sort((a, b) => b.date.localeCompare(a.date))[0];
+  const liste = P.filter(p => famille === "Tout" || p.fam === famille);
+  return `
+  <div class="tete"><div><p class="mono" style="color:var(--safran-texte)">Bonjour Marco</p><h1>Commander</h1></div>
+  ${der ? `<button class="btn" type="button" data-act="recommander" data-n="${der.n}">Recommander ma dernière commande (${nbArt(der.lignes)} cartons)</button>` : ""}</div>
+  <div class="outils">
+    <form class="rapide" data-form="rapide" autocomplete="off"><label class="sr" for="rr">Commande rapide par référence</label>
+      <input id="rr" name="r" placeholder="Commande rapide, ex. : PIZ-33 6" list="refs"><button class="btn plein petit" type="submit">Ajouter</button></form>
+    <datalist id="refs">${P.map(p => `<option value="${p.ref}">${esc(p.nom)}</option>`).join("")}</datalist>
+  </div>
+  <div class="filtres" role="group" aria-label="Familles">${FAMS.map(f => `<button type="button" data-fam="${f}" aria-pressed="${f === famille}">${f}</button>`).join("")}</div>
+  <p class="note" style="margin-bottom:14px">Prix HT par carton. Dès 5 cartons d'un même produit : −3 %. Dès 10 : −6 %. Livraison offerte dès ${FRANCO} CHF HT, sinon ${LIVRAISON} CHF.</p>
+  <div class="grille">${liste.map(carteProd).join("")}</div>`;
+};
+function carteProd(p) {
+  const d = dispo(p.ref), q = S.panier[p.ref] || 0;
+  const etat = d <= 0 ? ["rupture","Rupture, réassort en cours"] : d <= p.alerte ? ["bas-stock",`Plus que ${d} carton${d > 1 ? "s" : ""}`] : ["", "En stock, livré sous 48 h"];
+  return `<article class="prod">
+    <div class="vis"><img src="../img/${p.img}.webp" alt="" loading="lazy" width="600" height="600"></div>
+    <div class="corps">
+      <span class="mono ref">${p.ref}</span>
+      <h3>${esc(p.nom)}</h3>
+      <p class="det">${esc(p.det)} · ${p.pcs.toLocaleString("fr-CH")} pièces par carton</p>
+      <div class="prix"><b>${chf(p.prix)}</b><span>CHF HT le carton</span></div>
+      <p class="pp num">${(p.prix / p.pcs).toFixed(3)} CHF la pièce</p>
+      <p class="dispo ${etat[0]}">${etat[1]}</p>
+      <div class="bas">
+        <div class="qte"><button type="button" data-moins="${p.ref}" aria-label="Retirer un carton de ${esc(p.nom)}">−</button><input type="number" inputmode="numeric" min="0" value="${q}" data-q="${p.ref}" aria-label="Cartons de ${esc(p.nom)}"><button type="button" data-plus="${p.ref}" aria-label="Ajouter un carton de ${esc(p.nom)}" ${d - q <= 0 ? "disabled" : ""}>+</button></div>
+        ${q >= 5 ? `<span class="statut s-ok">−${remise(q) * 100} %</span>` : ""}
+      </div>
+    </div></article>`;
+}
+function rendreFlotte() {
+  const n = nbArt(S.panier), f = $("#flotte");
+  if (mode !== "client" || !n || $("#calque").innerHTML) { f.innerHTML = ""; return; }
+  const t = totaux(S.panier);
+  f.innerHTML = `<div class="flotte"><div class="t">${n} carton${n > 1 ? "s" : ""}<b>${chf(t.ht)} CHF HT</b></div><button class="btn saf" type="button" data-act="panier">Voir le panier</button></div>`;
+}
+function ouvrirPanier() {
+  $("#toast").innerHTML = "";
+  const t = totaux(S.panier), cl = CLIENTS[MOI];
+  const lignes = Object.entries(S.panier);
+  $("#calque").innerHTML = `<div class="voile" data-act="fermer"></div>
+  <aside class="tiroir" role="dialog" aria-modal="true" aria-labelledby="tp">
+    <div class="h"><h2 id="tp">Votre commande</h2><button class="fermer" type="button" data-act="fermer" aria-label="Fermer">×</button></div>
+    <div class="c">
+      ${lignes.length ? lignes.map(([r, q]) => `<div class="ligne"><div><p class="n">${q} × ${esc(PR[r].nom)}</p><p class="s"><span class="num">${r}</span> · ${chf(prixU(r, q))} CHF le carton${remise(q) ? ` (−${remise(q) * 100} %)` : ""}</p></div><p class="m">${chf(prixU(r, q) * q)}</p></div>`).join("") : `<p class="vide">Panier vide.</p>`}
+      <div class="tot"><span>Total HT</span><span class="num">${chf(t.ht)}</span><span>Livraison</span><span class="num">${t.p ? chf(t.p) : "offerte"}</span><span>TVA 8,1 %</span><span class="num">${chf(t.tva)}</span><span class="gros">Total TTC</span><span class="num gros">${chf(t.ttc)} CHF</span></div>
+      ${t.p ? `<p class="alerte">Encore ${chf(FRANCO - t.ht)} CHF HT pour la livraison offerte.</p>` : ""}
+      <fieldset class="choix" style="border:0;padding:0"><legend class="mono" style="margin-bottom:8px">Paiement</legend>
+        <label><input type="radio" name="paie" value="twint" checked><span>TWINT</span><small>Vous scannez le code, c'est payé tout de suite.</small></label>
+        <label><input type="radio" name="paie" value="carte"><span>Carte bancaire</span><small>Visa, Mastercard, Apple Pay, Google Pay.</small></label>
+        <label><input type="radio" name="paie" value="facture" ${cl.facture ? "" : "disabled"}><span>Sur facture à 30 jours</span><small>${cl.facture ? "Facture QR envoyée à la livraison. Réservé aux comptes validés." : "Disponible après votre 1re commande."}</small></label>
+      </fieldset>
+      <p class="note">Livraison à ${esc(cl.nom)}, ${esc(cl.adr)}, ${esc(cl.ville)}.</p>
+    </div>
+    <div class="f"><button class="btn plein" style="width:100%" type="button" data-act="valider" ${lignes.length ? "" : "disabled"}>Valider la commande · ${chf(t.ttc)} CHF</button></div>
+  </aside>`;
+  rendreFlotte();
+  setTimeout(() => $(".tiroir .fermer")?.focus(), 30);
+}
+function fermerCalque() { $("#calque").innerHTML = ""; rendreFlotte(); }
+function valider() {
+  const paie = (document.querySelector("input[name=paie]:checked") || {}).value || "twint";
+  const t = totaux(S.panier);
+  if (paie === "facture") return finaliser(paie);
+  const corps = paie === "twint"
+    ? `<p class="mono">Paiement TWINT</p><h2>${chf(t.ttc)} CHF</h2>${qrSvg(37, "qr")}<p class="calme">Scannez avec l'app TWINT.<br>Dans la démo, le paiement se valide tout seul.</p>`
+    : `<p class="mono">Paiement par carte</p><h2>${chf(t.ttc)} CHF</h2><div class="carte" style="width:100%;padding:14px;text-align:left;font-family:var(--mono);font-size:14px;color:var(--encre-2)">4242 4242 4242 4242 · 12/29 · 123</div><p class="calme">Page de paiement sécurisée (Payrexx). Dans la démo, rien n'est débité.</p>`;
+  $("#calque").innerHTML = `<div class="voile"></div><div class="modale" role="dialog" aria-modal="true" aria-label="Paiement"><div class="boite" id="bp">${corps}<p class="note">Validation…</p></div></div>`;
+  setTimeout(() => finaliser(paie), 2200);
+}
+function finaliser(paie) {
+  const n = "C-" + S.num.c++;
+  S.commandes.push({n, cl:MOI, date:AUJ, lignes:{...S.panier}, statut:"apreparer", paie, payee: paie !== "facture", fac:null});
+  const t = totaux(S.panier);
+  S.panier = {}; save();
+  $("#calque").innerHTML = `<div class="voile" data-act="fermer"></div><div class="modale" role="dialog" aria-modal="true" aria-labelledby="okt"><div class="boite">
+    <div class="ok" aria-hidden="true">✓</div><h2 id="okt">Commande ${n} reçue</h2>
+    <p class="calme">${paie === "facture" ? `Vous recevrez la facture QR à la livraison (${chf(t.ttc)} CHF, à payer sous 30 jours).` : `Paiement de ${chf(t.ttc)} CHF reçu.`} Un e-mail de confirmation est parti. Livraison sous 48 h.</p>
+    <button class="btn plein" type="button" data-act="voircmd">Suivre ma commande</button>
+    <p class="note">Astuce démo : passez en « Vue Jalal » pour la voir arriver chez lui.</p></div></div>`;
+  rendre();
+}
+VUES.devis = () => `
+  <div class="tete"><div><h1>Demander un devis</h1><p class="calme" style="margin-top:8px">Pour les gros volumes, une livraison régulière ou des emballages à votre logo. Jalal vous répond sous 24 h, et vous acceptez le devis en un clic.</p></div></div>
+  <form class="form carte" style="padding:20px" data-form="devis">
+    <label>Quels produits ?<select name="p"><option value="">Plusieurs produits ou je ne sais pas encore</option>${P.map(p => `<option value="${p.ref}">${p.ref} · ${esc(p.nom)}</option>`).join("")}</select></label>
+    <div class="deux-champs"><label>Quantité estimée<input name="q" inputmode="numeric" placeholder="ex. 20 cartons par mois"></label><label>Pour quand ?<input name="w" type="date" min="${AUJ}"></label></div>
+    <div><p style="font-weight:500;margin-bottom:6px;font-size:14.5px">Options</p><div class="cases">
+      <label><input type="checkbox" name="logo"> Impression de mon logo</label>
+      <label><input type="checkbox" name="regulier"> Livraison chaque mois</label>
+      <label><input type="checkbox" name="echant"> Recevoir un échantillon</label></div></div>
+    <label>Votre message<textarea name="m" placeholder="Taille de vos portions, couleurs, nombre de couverts par jour…"></textarea></label>
+    <button class="btn plein" type="submit">Envoyer ma demande</button>
+  </form>
+  ${S.devis.filter(d => d.cl === MOI).length ? `<section class="sect"><h2>Mes demandes</h2>${tableDevis(S.devis.filter(d => d.cl === MOI), false)}</section>` : ""}`;
+function tableDevis(liste, admin) {
+  if (!liste.length) return `<p class="vide">Aucune demande de devis.</p>`;
+  return `<div class="defile"><table class="tab"><thead><tr><th>N°</th><th>Date</th>${admin ? "<th>Client</th>" : ""}<th>Demande</th><th>Statut</th><th class="d">Montant HT</th><th></th></tr></thead><tbody>
+  ${liste.slice().reverse().map(d => `<tr><td class="num">${d.n}</td><td class="num">${dfr(d.date)}</td>${admin ? `<td>${esc(CLIENTS[d.cl].nom)}</td>` : ""}<td style="min-width:220px">${esc(d.texte)}${d.logo ? ` <span class="statut s-neutre">logo</span>` : ""}</td>
+  <td>${d.statut === "aenvoyer" ? `<span class="statut s-att">${admin ? "À chiffrer" : "En préparation"}</span>` : d.statut === "envoye" ? `<span class="statut s-att">${admin ? "Envoyé, en attente" : "À accepter"}</span>` : `<span class="statut s-ok">Accepté</span>`}</td>
+  <td class="d">${d.montant ? chf(d.montant) : "—"}</td>
+  <td>${admin && d.statut === "aenvoyer" ? `<button class="btn petit plein" type="button" data-act="chiffrer" data-n="${d.n}">Chiffrer et envoyer</button>` : !admin && d.statut === "envoye" ? `<button class="btn petit saf" type="button" data-act="accepter" data-n="${d.n}">Accepter</button>` : ""}</td></tr>`).join("")}
+  </tbody></table></div>`;
+}
+const libStatut = c => c.statut === "apreparer" ? `<span class="statut s-att">En préparation</span>` : `<span class="statut s-ok">Livrée</span>`;
+const libPaie = c => c.payee ? `<span class="statut s-ok">Payée</span>` : enRetard(c) ? `<span class="statut s-ko">En retard</span>` : c.fac ? `<span class="statut s-att">À payer avant le ${dfr(echeance(c))}</span>` : `<span class="statut s-neutre">Facture à la livraison</span>`;
+VUES.commandes = () => {
+  const l = S.commandes.filter(c => c.cl === MOI).sort((a, b) => b.date.localeCompare(a.date));
+  return `<div class="tete"><h1>Mes commandes</h1></div>
+  <div class="defile"><table class="tab"><thead><tr><th>N°</th><th>Date</th><th>Contenu</th><th>Livraison</th><th>Paiement</th><th class="d">Total TTC</th><th></th></tr></thead><tbody>
+  ${l.map(c => `<tr><td class="num">${c.n}</td><td class="num">${dfr(c.date)}</td><td style="min-width:200px">${Object.entries(c.lignes).map(([r, q]) => `${q} × ${r}`).join(", ")}</td><td>${libStatut(c)}</td><td>${libPaie(c)}</td><td class="d">${chf(totaux(c.lignes).ttc)}</td><td><button class="btn petit" type="button" data-act="recommander" data-n="${c.n}">Recommander</button></td></tr>`).join("")}
+  </tbody></table></div>`;
+};
+VUES.factures = () => {
+  const l = S.commandes.filter(c => c.cl === MOI && c.fac).sort((a, b) => b.date.localeCompare(a.date));
+  const du = l.filter(c => !c.payee).reduce((s, c) => s + totaux(c.lignes).ttc, 0);
+  return `<div class="tete"><div><h1>Mes factures</h1><p class="calme" style="margin-top:8px">${du ? `Reste à payer : <b class="num">${chf(du)} CHF</b>. Payez avec la facture QR, en TWINT ou par carte.` : "Tout est payé. Merci !"}</p></div></div>
+  ${l.length ? `<div class="defile"><table class="tab"><thead><tr><th>Facture</th><th>Date</th><th>Commande</th><th>Échéance</th><th>Statut</th><th class="d">Montant TTC</th><th></th></tr></thead><tbody>
+  ${l.map(c => `<tr><td class="num">${c.fac}</td><td class="num">${dfr(c.date)}</td><td class="num">${c.n}</td><td class="num">${dfr(echeance(c))}</td><td>${libPaie(c)}</td><td class="d">${chf(totaux(c.lignes).ttc)}</td>
+  <td style="white-space:nowrap"><button class="btn petit" type="button" data-act="facture" data-n="${c.n}">Voir le PDF</button> ${c.payee ? "" : `<button class="btn petit saf" type="button" data-act="payer" data-n="${c.n}">Payer</button>`}</td></tr>`).join("")}
+  </tbody></table></div>` : `<p class="vide">Vos factures apparaîtront ici dès la première livraison.</p>`}`;
+};
+
+// ---------- vues admin ----------
+const livrees = () => S.commandes.filter(c => c.statut === "livree");
+const caLot = () => livrees().reduce((s, c) => s + totHT(c.lignes), 0);
+const duMois = (m) => livrees().filter(c => c.date.slice(0, 7) === m);
+VUES.auj = () => {
+  const ap = S.commandes.filter(c => c.statut === "apreparer"), dv = S.devis.filter(d => d.statut === "aenvoyer"), rt = S.commandes.filter(enRetard);
+  const ru = P.filter(p => dispo(p.ref) <= p.alerte), nv = Object.entries(CLIENTS).filter(([, c]) => c.statut === "À valider");
+  const nov = duMois("2026-11"), ca = nov.reduce((s, c) => s + totHT(c.lignes), 0);
+  const taches = [
+    ...ap.map(c => `<div class="tache"><span class="ic">CMD</span><div class="t"><b>Préparer ${c.n} · ${esc(CLIENTS[c.cl].nom)}</b><p>${Object.entries(c.lignes).map(([r, q]) => `${q} × ${r}`).join(", ")} · ${c.payee ? "déjà payée" : "sur facture"}</p></div><button class="btn plein petit" type="button" data-act="livrer" data-n="${c.n}">Marquer livrée</button></div>`),
+    ...dv.map(d => `<div class="tache"><span class="ic">DEV</span><div class="t"><b>Devis ${d.n} · ${esc(CLIENTS[d.cl].nom)}</b><p>${esc(d.texte)}</p></div><button class="btn petit" type="button" data-act="chiffrer" data-n="${d.n}">Chiffrer et envoyer</button></div>`),
+    ...rt.map(c => `<div class="tache"><span class="ic">€</span><div class="t"><b>Relancer ${esc(CLIENTS[c.cl].nom)} · ${c.fac}</b><p>${chf(totaux(c.lignes).ttc)} CHF, échue le ${dfr(echeance(c))}</p></div><button class="btn petit" type="button" data-act="relancer" data-n="${c.n}">Envoyer un rappel</button></div>`),
+    ...nv.map(([k, c]) => `<div class="tache"><span class="ic">NEW</span><div class="t"><b>Nouveau compte · ${esc(c.nom)}</b><p>${esc(c.contact)}, ${esc(c.ville)}</p></div><button class="btn petit" type="button" data-act="valcli" data-k="${k}">Valider le compte</button></div>`)
+  ];
+  return `<div class="tete"><div><p class="mono" style="color:var(--safran-texte)">Lundi 9 novembre</p><h1>Bonjour Jalal</h1></div></div>
+  <div class="kpis">
+    <button class="kpi" type="button" data-go="cmd"><span class="v">${ap.length}</span><span class="l">commande${ap.length > 1 ? "s" : ""} à préparer</span></button>
+    <button class="kpi" type="button" data-go="cmd"><span class="v">${dv.length}</span><span class="l">devis à envoyer</span></button>
+    <button class="kpi ${rt.length ? "chaud" : ""}" type="button" data-go="clients"><span class="v">${rt.length}</span><span class="l">facture${rt.length > 1 ? "s" : ""} en retard</span></button>
+    <button class="kpi ${ru.length ? "chaud" : ""}" type="button" data-go="stock"><span class="v">${ru.length}</span><span class="l">produit${ru.length > 1 ? "s" : ""} à recommander</span></button>
+  </div>
+  <section class="sect"><h2>À faire aujourd'hui</h2><div class="taches">${taches.join("") || `<p class="vide">Rien d'urgent. Bonne journée !</p>`}</div></section>
+  <section class="sect"><h2>Ce mois-ci</h2><div class="kpis">
+    <div class="kpi"><span class="v">${chf0(ca)}</span><span class="l">CHF de ventes HT livrées</span></div>
+    <div class="kpi"><span class="v">${chf0(ca - nov.reduce((s, c) => s + coutC(c.lignes), 0))}</span><span class="l">CHF de marge</span></div>
+    <div class="kpi"><span class="v">${Math.round(caLot() / COUT_LOT * 100)} %</span><span class="l">du lot 1 remboursé</span></div>
+    <div class="kpi"><span class="v">${chf0(S.commandes.filter(c => c.fac && !c.payee).reduce((s, c) => s + totaux(c.lignes).ttc, 0))}</span><span class="l">CHF à encaisser</span></div>
+  </div></section>`;
+};
+VUES.argent = () => {
+  const ca = caLot(), pct = Math.min(100, ca / COUT_LOT * 100), reste = Math.max(0, COUT_LOT - ca);
+  const potentiel = P.reduce((s, p) => s + p.prix * p.recu, 0);
+  const marge = livrees().reduce((s, c) => s + totHT(c.lignes) - coutC(c.lignes), 0);
+  const enc = S.commandes.filter(c => c.fac && c.payee).reduce((s, c) => s + totaux(c.lignes).ttc, 0) + S.commandes.filter(c => !c.fac && c.payee).reduce((s, c) => s + totaux(c.lignes).ttc, 0);
+  const aenc = S.commandes.filter(c => c.fac && !c.payee).reduce((s, c) => s + totaux(c.lignes).ttc, 0);
+  const semaines = [["2026-10-05","S41"],["2026-10-12","S42"],["2026-10-19","S43"],["2026-10-26","S44"],["2026-11-02","S45"],["2026-11-09","S46"]].map(([d, l]) => ({l, v: livrees().filter(c => c.date >= d && c.date < addJ(d, 7)).reduce((s, c) => s + totHT(c.lignes), 0)}));
+  const max = Math.max(200, ...semaines.map(s => s.v));
+  return `<div class="tete"><div><h1>Argent</h1><p class="calme" style="margin-top:8px">Tout est calculé à partir des commandes livrées. Montants HT sauf mention.</p></div></div>
+  <div class="deux">
+    <div class="carte seuil">
+      <p class="mono">Seuil de rentabilité · lot 1 (Turquie)</p>
+      <h2>${pct >= 100 ? "Lot remboursé : la suite est du bénéfice" : `Encore ${chf0(reste)} CHF de ventes pour rentrer dans vos frais`}</h2>
+      <div class="jauge ${pct >= 100 ? "vert" : ""}" role="img" aria-label="${Math.round(pct)} % du lot remboursé"><i style="width:${pct}%"></i></div>
+      <div class="legende"><span>${chf0(ca)} CHF vendus</span><span>${chf0(COUT_LOT)} CHF payés pour le lot</span></div>
+      <div class="chiffres">
+        <span>Coût du lot, transport et douane compris</span><span class="num">${chf(COUT_LOT)}</span>
+        <span>Si tout le lot est vendu aux prix actuels</span><span class="num">${chf(potentiel)}</span>
+        <span class="sep"></span>
+        <b>Bénéfice si tout est vendu</b><b class="num">${chf(potentiel - COUT_LOT)}</b>
+        <span>Part du lot à vendre pour ne rien perdre</span><span class="num">${Math.round(COUT_LOT / potentiel * 100)} %</span>
+      </div>
+    </div>
+    <div class="carte" style="display:grid;grid-template-rows:auto 1fr">
+      <div style="padding:20px 20px 0"><p class="mono">Ventes livrées par semaine</p></div>
+      <div class="barres" role="img" aria-label="Ventes par semaine">${semaines.map((s, i) => `<div><span class="num" style="padding:0">${s.v ? chf0(s.v) : ""}</span><i class="${i === semaines.length - 1 ? "ce" : ""}" style="height:${Math.max(2, s.v / max * 100)}px"></i><span>${s.l}</span></div>`).join("")}</div>
+    </div>
+  </div>
+  <section class="sect"><div class="kpis">
+    <div class="kpi"><span class="v">${chf0(ca)}</span><span class="l">CHF de ventes depuis l'arrivée du lot</span></div>
+    <div class="kpi"><span class="v">${chf0(marge)}</span><span class="l">CHF de marge sur ces ventes</span></div>
+    <div class="kpi"><span class="v">${chf0(enc)}</span><span class="l">CHF encaissés (TTC)</span></div>
+    <div class="kpi ${aenc ? "" : ""}"><span class="v">${chf0(aenc)}</span><span class="l">CHF à encaisser (TTC)</span></div>
+  </div></section>
+  <p class="note" style="margin-top:16px">Dans la version finale, ces chiffres viennent aussi de bexio (paiements reçus) et un export arrive chaque mois dans votre Drive.</p>`;
+};
+VUES.stock = () => `<div class="tete"><div><h1>Stock</h1><p class="calme" style="margin-top:8px">Le stock baisse tout seul quand vous marquez une commande livrée. Les commandes à préparer sont déjà réservées.</p></div><button class="btn" type="button" data-act="arrivage">Saisir un arrivage</button></div>
+  <div class="defile"><table class="tab"><thead><tr><th>Réf.</th><th>Produit</th><th class="d">En stock</th><th class="d">Réservé</th><th class="d">Disponible</th><th>État</th><th class="d">Valeur (coût)</th></tr></thead><tbody>
+  ${P.slice().sort((a, b) => (dispo(a.ref) - a.alerte) - (dispo(b.ref) - b.alerte)).map(p => { const d = dispo(p.ref); return `<tr><td class="num">${p.ref}</td><td>${esc(p.nom)}</td><td class="d">${stock(p.ref)}</td><td class="d">${reserve(p.ref) || "—"}</td><td class="d"><b>${d}</b></td><td>${d <= 0 ? `<span class="statut s-ko">Rupture</span>` : d <= p.alerte ? `<span class="statut s-att">À recommander</span>` : `<span class="statut s-ok">OK</span>`}</td><td class="d">${chf(stock(p.ref) * p.cout)}</td></tr>`; }).join("")}
+  </tbody></table></div>
+  <p class="note" style="margin-top:12px">Valeur totale du stock au coût de revient : <b class="num">${chf(P.reduce((s, p) => s + stock(p.ref) * p.cout, 0))} CHF</b>.</p>`;
+VUES.cmd = () => {
+  const l = S.commandes.slice().sort((a, b) => (a.statut === "apreparer" ? -1 : 1) - (b.statut === "apreparer" ? -1 : 1) || b.date.localeCompare(a.date));
+  return `<div class="tete"><h1>Commandes et devis</h1></div>
+  <section><h2 style="margin-bottom:14px">Commandes</h2><div class="defile"><table class="tab"><thead><tr><th>N°</th><th>Date</th><th>Client</th><th>Contenu</th><th>Livraison</th><th>Paiement</th><th class="d">Total HT</th><th class="d">Marge</th><th></th></tr></thead><tbody>
+  ${l.map(c => { const ht = totHT(c.lignes); return `<tr><td class="num">${c.n}</td><td class="num">${dfr(c.date)}</td><td>${esc(CLIENTS[c.cl].nom)}</td><td style="min-width:180px">${Object.entries(c.lignes).map(([r, q]) => `${q} × ${r}`).join(", ")}</td><td>${c.statut === "apreparer" ? `<span class="statut s-att">À préparer</span>` : `<span class="statut s-ok">Livrée</span>`}</td><td>${libPaie(c)}</td><td class="d">${chf(ht)}</td><td class="d">${chf(ht - coutC(c.lignes))}</td>
+  <td style="white-space:nowrap">${c.statut === "apreparer" ? `<button class="btn petit plein" type="button" data-act="livrer" data-n="${c.n}">Marquer livrée</button>` : c.fac ? `<button class="btn petit" type="button" data-act="facture" data-n="${c.n}">Facture</button>` : ""}</td></tr>`; }).join("")}
+  </tbody></table></div></section>
+  <section class="sect"><h2>Devis</h2>${tableDevis(S.devis, true)}</section>`;
+};
+VUES.clients = () => `<div class="tete"><h1>Clients</h1></div>
+  <div class="defile"><table class="tab"><thead><tr><th>Restaurant</th><th>Contact</th><th>Compte</th><th class="d">Commandé HT</th><th class="d">Reste à payer</th><th>Paiement</th><th></th></tr></thead><tbody>
+  ${Object.entries(CLIENTS).map(([k, c]) => { const cs = S.commandes.filter(o => o.cl === k), du = cs.filter(o => o.fac && !o.payee).reduce((s, o) => s + totaux(o.lignes).ttc, 0), ret = cs.some(enRetard);
+  return `<tr><td><b style="font-weight:500">${esc(c.nom)}</b><br><span class="note">${esc(c.ville)}</span></td><td>${esc(c.contact)}</td><td>${c.statut === "Validé" ? `<span class="statut s-ok">Validé</span>` : `<span class="statut s-att">À valider</span>`}</td><td class="d">${chf(cs.reduce((s, o) => s + totHT(o.lignes), 0))}</td><td class="d">${du ? chf(du) : "—"}</td><td>${ret ? `<span class="statut s-ko">En retard</span>` : c.facture ? "Facture 30 j" : "Paiement en ligne"}</td>
+  <td>${c.statut !== "Validé" ? `<button class="btn petit plein" type="button" data-act="valcli" data-k="${k}">Valider</button>` : ret ? `<button class="btn petit" type="button" data-act="relancer" data-n="${cs.find(enRetard).n}">Rappel</button>` : ""}</td></tr>`; }).join("")}
+  </tbody></table></div>`;
+VUES.prix = () => `<div class="tete"><div><h1>Produits et prix</h1><p class="calme" style="margin-top:8px">Coût de revient complet (achat, transport, douane) et marge par carton. Repris du tableur de gestion.</p></div></div>
+  <div class="defile"><table class="tab"><thead><tr><th>Réf.</th><th>Produit</th><th class="d">Coût carton</th><th class="d">Prix HT</th><th class="d">Marge</th><th class="d">Marge %</th><th>Contrôle</th></tr></thead><tbody>
+  ${P.map(p => { const m = p.prix - p.cout, pc = m / p.prix; return `<tr><td class="num">${p.ref}</td><td>${esc(p.nom)}</td><td class="d">${p.cout ? chf(p.cout) : "inclus"}</td><td class="d">${chf(p.prix)}</td><td class="d">${chf(m)}</td><td class="d">${Math.round(pc * 100)} %</td><td>${m < 0 ? `<span class="statut s-att">Prix de lancement</span>` : pc < .15 ? `<span class="statut s-neutre">Marge faible</span>` : `<span class="statut s-ok">OK</span>`}</td></tr>`; }).join("")}
+  </tbody></table></div>
+  <p class="note" style="margin-top:12px">« Prix de lancement » : vendu sous son coût complet, couvert par le reste du lot 1 (voir Argent).</p>`;
+
+// ---------- facture ----------
+function qrSvg(n, cls) {
+  let h = 2166136261, cells = "";
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    const coin = (x < 8 && y < 8) || (x >= n - 8 && y < 8) || (x < 8 && y >= n - 8);
+    h = Math.imul(h ^ (x * 31 + y * 17 + 7), 16777619) >>> 0;
+    if (!coin && (h & 7) < 4) cells += `M${x} ${y}h1v1h-1z`;
+  }
+  const oeil = (x, y) => `<path d="M${x} ${y}h7v7h-7zM${x + 1} ${y + 1}v5h5v-5z" fill-rule="evenodd"/><path d="M${x + 2} ${y + 2}h3v3h-3z"/>`;
+  return `<svg class="${cls}" viewBox="0 0 ${n} ${n}" aria-label="Code QR d'exemple" role="img" shape-rendering="crispEdges"><path d="${cells}"/>${oeil(0, 0)}${oeil(n - 7, 0)}${oeil(0, n - 7)}<rect x="${n / 2 - 3.5}" y="${n / 2 - 3.5}" width="7" height="7" fill="#fff"/><path d="M${n / 2 - 2.5} ${n / 2 - 1}h5v2h-5zM${n / 2 - 1} ${n / 2 - 2.5}h2v5h-2z" fill="#000"/></svg>`;
+}
+function voirFacture(n) {
+  const c = S.commandes.find(o => o.n === n), cl = CLIENTS[c.cl], t = totaux(c.lignes);
+  $("#calque").innerHTML = `<div class="voile" data-act="fermer"></div><div class="modale" role="dialog" aria-modal="true" aria-label="Facture ${c.fac}"><div class="boite large">
+  <div class="barre-fac"><span class="mono">${c.fac}</span><span style="display:flex;gap:8px"><button class="btn petit" type="button" data-act="imprimer">Imprimer / PDF</button><button class="btn petit" type="button" data-act="fermer">Fermer</button></span></div>
+  <div class="facture imprimable">
+    <div class="ent"><img src="../img/karvan-logo.svg" alt="Karvan" width="1000" height="360"><div style="text-align:right">Karvan · Jalal<br>Genève (adresse à compléter)<br>TVA CHE-000.000.000 (exemple)</div></div>
+    <div class="adr"><div><b>Facturé à</b><br>${esc(cl.nom)}<br>${esc(cl.contact)}<br>${esc(cl.adr)}<br>${esc(cl.ville)}</div><div><b>Facture ${c.fac}</b><br>Date : ${dfr(c.date)}<br>Commande : ${c.n}<br>Échéance : ${dfr(echeance(c))}<br>Statut : ${c.payee ? "payée" : "à payer"}</div></div>
+    <table><thead><tr><th>Réf.</th><th>Désignation</th><th class="d">Cartons</th><th class="d">Prix HT</th><th class="d">Total HT</th></tr></thead><tbody>
+    ${Object.entries(c.lignes).map(([r, q]) => `<tr><td>${r}</td><td>${esc(PR[r].nom)}${remise(q) ? ` (−${remise(q) * 100} %)` : ""}</td><td class="d">${q}</td><td class="d">${chf(prixU(r, q))}</td><td class="d">${chf(prixU(r, q) * q)}</td></tr>`).join("")}
+    ${t.p ? `<tr><td></td><td>Livraison</td><td class="d">1</td><td class="d">${chf(t.p)}</td><td class="d">${chf(t.p)}</td></tr>` : ""}
+    </tbody></table>
+    <div class="tt"><span>Total HT</span><span class="d">${chf(t.ht + t.p)}</span><span>TVA 8,1 %</span><span class="d">${chf(t.tva)}</span><span class="g">Total TTC CHF</span><span class="g d">${chf(t.ttc)}</span></div>
+    <div class="qrbill"><div><h4>Récépissé</h4>Compte / Payable à<br>CH00 0000 0000 0000 0000 0 (QR-IBAN d'exemple)<br>Karvan, Genève<br><br>Payable par<br>${esc(cl.nom)}<br><br><b>Montant CHF ${chf(t.ttc)}</b></div>
+    <div><h4>Section paiement</h4><div class="qrc">${qrSvg(37, "q")}<div>Référence<br>00 00000 ${c.fac.replace("F-", "")} 00000<br><br>Informations<br>Facture ${c.fac}, commande ${c.n}<br><br><b>Montant CHF ${chf(t.ttc)}</b></div></div><small>Code QR d'exemple, il ne se paie pas.</small></div></div>
+    <p class="ex">Facture d'exemple. Dans la version finale, elle est créée par bexio, envoyée par e-mail au client et copiée dans le dossier Drive « Karvan / Factures / ${c.date.slice(0, 7)} ».</p>
+  </div></div></div>`;
+  rendreFlotte();
+}
+
+// ---------- actions ----------
+function ajouter(ref, q) {
+  const p = PR[ref]; if (!p) return false;
+  const max = dispo(ref); const n = Math.max(0, Math.min(max, (S.panier[ref] || 0) + q));
+  if (n) S.panier[ref] = n; else delete S.panier[ref];
+  save(); return true;
+}
+function majCarte(ref) {
+  const art = document.querySelector(`[data-q="${ref}"]`)?.closest(".prod");
+  if (art) { const tmp = document.createElement("div"); tmp.innerHTML = carteProd(PR[ref]); art.replaceWith(tmp.firstElementChild); }
+  rendreFlotte();
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("button, [data-act]"); if (!b) return;
+  const d = b.dataset;
+  if (d.mode) { mode = d.mode; onglet = mode === "client" ? "commander" : "auj"; fermerCalque(); rendre(true); return; }
+  if (d.onglet) { onglet = d.onglet; rendre(true); return; }
+  if (d.go) { onglet = d.go; rendre(true); return; }
+  if (d.fam) { famille = d.fam; rendre(); return; }
+  if (d.plus) { ajouter(d.plus, 1); majCarte(d.plus); return; }
+  if (d.moins) { ajouter(d.moins, -1); majCarte(d.moins); return; }
+  switch (d.act) {
+    case "panier": ouvrirPanier(); break;
+    case "fermer": fermerCalque(); break;
+    case "valider": valider(); break;
+    case "voircmd": fermerCalque(); onglet = "commandes"; rendre(true); break;
+    case "recommander": { const c = S.commandes.find(o => o.n === d.n); let manque = 0; Object.entries(c.lignes).forEach(([r, q]) => { const avant = S.panier[r] || 0; ajouter(r, q); if ((S.panier[r] || 0) - avant < q) manque++; }); if (onglet !== "commander") { onglet = "commander"; rendre(true); } else rendre(); ouvrirPanier(); if (manque) toast("Certains produits ne sont plus assez en stock : quantités ajustées."); break; }
+    case "livrer": { const c = S.commandes.find(o => o.n === d.n); c.statut = "livree"; c.fac = "F-" + S.num.f++; save(); rendre(); toast(`${c.n} livrée. Facture ${c.fac} envoyée à ${CLIENTS[c.cl].nom}, stock mis à jour.`); break; }
+    case "chiffrer": { const dv = S.devis.find(o => o.n === d.n); dv.statut = "envoye"; dv.montant = dv.logo ? 20 * 58.9 + 290 : 20 * 41.4; save(); rendre(); toast(`Devis ${dv.n} envoyé à ${CLIENTS[dv.cl].nom} (${chf(dv.montant)} CHF HT).`); break; }
+    case "accepter": { const dv = S.devis.find(o => o.n === d.n); dv.statut = "accepte"; save(); rendre(); toast("Devis accepté. Jalal est prévenu et prépare votre commande."); break; }
+    case "relancer": { const c = S.commandes.find(o => o.n === d.n); toast(`Rappel envoyé à ${CLIENTS[c.cl].nom} avec la facture ${c.fac} et le lien de paiement TWINT.`); break; }
+    case "valcli": CLIENTS[d.k].statut = "Validé"; rendre(); toast(`${CLIENTS[d.k].nom} peut maintenant voir vos prix et commander.`); break;
+    case "facture": voirFacture(d.n); break;
+    case "imprimer": window.print(); break;
+    case "payer": { const c = S.commandes.find(o => o.n === d.n); const t = totaux(c.lignes); $("#calque").innerHTML = `<div class="voile"></div><div class="modale" role="dialog" aria-modal="true" aria-label="Paiement"><div class="boite"><p class="mono">Payer ${c.fac} en TWINT</p><h2>${chf(t.ttc)} CHF</h2>${qrSvg(37, "qr")}<p class="note">Validation…</p></div></div>`; setTimeout(() => { c.payee = true; save(); fermerCalque(); rendre(); toast(`Facture ${c.fac} payée. Merci !`); }, 2000); break; }
+    case "arrivage": { const ref = "PIZ-33"; S.mouvements.push({ref, q:20, date:AUJ}); save(); rendre(); toast("Exemple : arrivage de 20 cartons de PIZ-33 ajouté au stock."); break; }
+  }
+});
+document.addEventListener("change", e => {
+  const i = e.target.closest("[data-q]"); if (!i) return;
+  const ref = i.dataset.q, v = Math.max(0, parseInt(i.value, 10) || 0);
+  S.panier[ref] = 0; delete S.panier[ref]; ajouter(ref, v); majCarte(ref);
+  if ((S.panier[ref] || 0) < v) toast(`Seulement ${dispo(ref)} carton${dispo(ref) > 1 ? "s" : ""} disponible${dispo(ref) > 1 ? "s" : ""}.`);
+});
+document.addEventListener("submit", e => {
+  const f = e.target.closest("[data-form]"); if (!f) return; e.preventDefault();
+  if (f.dataset.form === "rapide") {
+    const m = f.r.value.trim().toUpperCase().match(/^([A-Z]+-[A-Z0-9]+)\s*[X×]?\s*(\d+)?$/);
+    if (!m || !PR[m[1]]) { toast("Référence inconnue. Exemple : PIZ-33 6"); return; }
+    const q = parseInt(m[2] || "1", 10); ajouter(m[1], q); f.r.value = ""; majCarte(m[1]);
+    toast(`${S.panier[m[1]] || 0} × ${PR[m[1]].nom} dans le panier.`);
+  }
+  if (f.dataset.form === "devis") {
+    const txt = [f.p.value ? PR[f.p.value].nom : "Plusieurs produits", f.q.value, f.m.value].filter(Boolean).join(" · ");
+    S.devis.push({n:"D-" + S.num.d++, cl:MOI, date:AUJ, texte:txt || "Demande de devis", produits:f.p.value, logo:f.logo.checked, statut:"aenvoyer", montant:null});
+    save(); rendre(); toast("Demande envoyée. Jalal vous répond sous 24 h.");
+  }
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && $("#calque").innerHTML) fermerCalque(); });
+$("#reinit").addEventListener("click", () => { S = seed(); CLIENTS.bosphore.statut = "À valider"; save(); mode = "client"; onglet = "commander"; famille = "Tout"; fermerCalque(); rendre(true); toast("Démo remise à zéro."); });
+
+const h = location.hash.slice(1);
+if (h === "admin") { mode = "admin"; onglet = "auj"; }
+rendre();
+})();
+</script>
+</body>
+</html>
