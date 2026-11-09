@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Karvan · Espace pro</title>
-<meta name="description" content="Démo : espace de commande pour les restaurants et tableau de gestion de Karvan.">
+<meta name="description" content="Démo : espace de commande pour les professionnels et tableau de gestion de Karvan.">
 <meta name="theme-color" content="#1B2440">
 <link rel="icon" href="../img/karvan-icone.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,6 +57,27 @@ p{margin:0}
 .bascule button[aria-pressed="true"]{background:var(--papier);color:var(--lapis);font-weight:500}
 .qui{font-size:13.5px;color:#C9CDDA;text-align:right;line-height:1.25}
 .qui b{color:var(--papier);font-weight:500;display:block}
+.deco{background:none;border:1px solid #3A4466;color:#C9CDDA;padding:8px 12px;font-size:13.5px;min-height:40px}
+body.login .bascule,body.login .qui,body.login .deco,body.login .onglets{display:none}
+.cnx{max-width:980px;margin:0 auto;padding:48px var(--g) 64px;display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:start}
+.cnx h1{font-size:clamp(30px,4.4vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 14px;font-weight:600;color:var(--lapis)}
+.cnx .chap{color:var(--encre-2);font-size:16.5px;line-height:1.5;margin:0 0 22px;max-width:44ch}
+.cnx ul.plus{list-style:none;margin:0 0 26px;padding:0;display:grid;gap:10px}
+.cnx ul.plus li{padding-left:22px;position:relative;font-size:15px}
+.cnx ul.plus li::before{content:"";position:absolute;left:0;top:.5em;width:10px;height:10px;background:var(--safran)}
+.cnx .carte{background:var(--blanc);border:1px solid var(--filet);padding:26px}
+.cnx .carte h2{margin:0 0 16px;font-size:20px;color:var(--lapis)}.cnx .carte h2 .m{display:none}
+.cnx label{display:grid;gap:6px;font-size:14px;margin-bottom:14px}
+.cnx input{font:inherit;padding:12px;border:1px solid var(--filet);background:var(--papier);min-height:46px}
+.cnx .ou{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--encre-2);margin:22px 0 10px}
+.cnx .comptes{display:grid;gap:10px}
+.cnx .compte{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;background:var(--papier);border:1px solid var(--filet);padding:14px 16px;min-height:56px;font:inherit;color:var(--lapis);cursor:pointer}
+.cnx .compte:hover{border-color:var(--lapis)}
+.cnx .compte small{display:block;color:var(--encre-2);font-size:13px}
+.cnx .compte span.f{font-size:20px}
+.cnx .pied{font-size:14px;color:var(--encre-2);margin:18px 0 0}
+.cnx .pied a{color:var(--lapis)}
+@media (max-width:760px){.bascule{display:none}.deco{white-space:nowrap}.cnx{grid-template-columns:1fr;gap:26px;padding-top:30px}.cnx .carte{order:-1}.cnx h1{display:none}.cnx .carte h2 .m{display:inline}.deco{margin-left:auto}}
 @media (max-width:760px){.qui{display:none}.barre .logo img{height:38px}.bascule button{padding:8px 10px}}
 
 /* onglets */
@@ -239,10 +260,11 @@ button.kpi:hover{border-color:var(--lapis)}
   <div class="in">
     <a class="logo" href="../" aria-label="Karvan, site vitrine"><img src="../img/karvan-logo-inverse.svg" alt="Karvan" width="1000" height="360"></a>
     <div class="bascule" role="group" aria-label="Changer de vue">
-      <button type="button" data-mode="client" aria-pressed="true">Vue restaurant</button>
+      <button type="button" data-mode="client" aria-pressed="true">Vue client</button>
       <button type="button" data-mode="admin" aria-pressed="false">Vue Jalal</button>
     </div>
     <div class="qui" id="qui"></div>
+    <button class="deco" type="button" data-act="deco">Se déconnecter</button>
   </div>
 </div>
 
@@ -321,7 +343,7 @@ try { S = JSON.parse(localStorage.getItem(CLE)); } catch (e) { S = null; }
 if (!S || S.v !== 3) S = seed();
 const save = () => { try { localStorage.setItem(CLE, JSON.stringify(S)); } catch (e) {} };
 
-let mode = "client", onglet = "commander", famille = "Tout";
+let mode = "connexion", onglet = "commander", famille = "Tout";
 
 // ---------- calculs ----------
 const chf = x => x.toLocaleString("fr-CH", {minimumFractionDigits:2, maximumFractionDigits:2});
@@ -356,7 +378,30 @@ function badge(id) {
   if (id === "factures") { const n = S.commandes.filter(c => c.cl === MOI && c.fac && !c.payee).length; return n ? `<span class="pastille">${n}</span>` : ""; }
   return "";
 }
+function vueConnexion() {
+  return `<section class="cnx" aria-labelledby="tc">
+    <div>
+      <h1 id="tc">Espace pro Karvan</h1>
+      <p class="chap">Réservé aux professionnels clients : restaurants, snacks, boulangeries, traiteurs, cafés, épiceries. Vos prix, vos commandes et vos factures au même endroit.</p>
+      <ul class="plus"><li>Prix pro et remises par quantité</li><li>Commande en 1 minute, ou recommande la dernière</li><li>Paiement TWINT, carte ou sur facture à 30 jours</li><li>Factures et devis toujours à portée de main</li></ul>
+    </div>
+    <div class="carte">
+      <h2><span class="m">Espace pro · </span>Se connecter</h2>
+      <form data-form="cnx"><label>E-mail<input name="e" type="email" autocomplete="username" placeholder="vous@entreprise.ch"></label>
+      <label>Mot de passe<input name="m" type="password" autocomplete="current-password"></label>
+      <button class="btn plein" type="submit" style="width:100%">Se connecter</button></form>
+      <p class="ou">Démo · entrer sans mot de passe</p>
+      <div class="comptes">
+        <button class="compte" type="button" data-mode="client"><span><b>Client pro</b><small>${esc(CLIENTS[MOI].nom)} · vue commande</small></span><span class="f" aria-hidden="true">→</span></button>
+        <button class="compte" type="button" data-mode="admin"><span><b>Jalal · administrateur</b><small>Stock, argent, commandes, clients</small></span><span class="f" aria-hidden="true">→</span></button>
+      </div>
+      <p class="pied">Pas encore client ? <a href="../#contact">Demander un compte pro</a></p>
+    </div>
+  </section>`;
+}
 function rendre(focus) {
+  document.body.classList.toggle("login", mode === "connexion");
+  if (mode === "connexion") { vue.innerHTML = vueConnexion(); rendreFlotte(); if (focus) window.scrollTo({top:0}); return; }
   document.querySelectorAll(".bascule button").forEach(b => b.setAttribute("aria-pressed", b.dataset.mode === mode));
   $("#qui").innerHTML = mode === "client" ? `Connecté<b>${CLIENTS[MOI].nom}</b>` : `Connecté<b>Jalal · admin</b>`;
   $("#onglets").innerHTML = ONGLETS[mode].map(([id, l]) => `<button role="tab" type="button" data-onglet="${id}" aria-selected="${id === onglet}">${l}${badge(id)}</button>`).join("");
@@ -578,7 +623,7 @@ VUES.cmd = () => {
   <section class="sect"><h2>Devis</h2>${tableDevis(S.devis, true)}</section>`;
 };
 VUES.clients = () => `<div class="tete"><h1>Clients</h1></div>
-  <div class="defile"><table class="tab"><thead><tr><th>Restaurant</th><th>Contact</th><th>Compte</th><th class="d">Commandé HT</th><th class="d">Reste à payer</th><th>Paiement</th><th></th></tr></thead><tbody>
+  <div class="defile"><table class="tab"><thead><tr><th>Client</th><th>Contact</th><th>Compte</th><th class="d">Commandé HT</th><th class="d">Reste à payer</th><th>Paiement</th><th></th></tr></thead><tbody>
   ${Object.entries(CLIENTS).map(([k, c]) => { const cs = S.commandes.filter(o => o.cl === k), du = cs.filter(o => o.fac && !o.payee).reduce((s, o) => s + totaux(o.lignes).ttc, 0), ret = cs.some(enRetard);
   return `<tr><td><b style="font-weight:500">${esc(c.nom)}</b><br><span class="note">${esc(c.ville)}</span></td><td>${esc(c.contact)}</td><td>${c.statut === "Validé" ? `<span class="statut s-ok">Validé</span>` : `<span class="statut s-att">À valider</span>`}</td><td class="d">${chf(cs.reduce((s, o) => s + totHT(o.lignes), 0))}</td><td class="d">${du ? chf(du) : "—"}</td><td>${ret ? `<span class="statut s-ko">En retard</span>` : c.facture ? "Facture 30 j" : "Paiement en ligne"}</td>
   <td>${c.statut !== "Validé" ? `<button class="btn petit plein" type="button" data-act="valcli" data-k="${k}">Valider</button>` : ret ? `<button class="btn petit" type="button" data-act="relancer" data-n="${cs.find(enRetard).n}">Rappel</button>` : ""}</td></tr>`; }).join("")}
@@ -634,7 +679,8 @@ function majCarte(ref) {
 document.addEventListener("click", e => {
   const b = e.target.closest("button, [data-act]"); if (!b) return;
   const d = b.dataset;
-  if (d.mode) { mode = d.mode; onglet = mode === "client" ? "commander" : "auj"; fermerCalque(); rendre(true); return; }
+  if (d.act === "deco") { mode = "connexion"; history.replaceState(null, "", location.pathname); fermerCalque(); rendre(true); toast("Vous êtes déconnecté."); return; }
+  if (d.mode) { mode = d.mode; history.replaceState(null, "", "#" + mode); onglet = mode === "client" ? "commander" : "auj"; fermerCalque(); rendre(true); return; }
   if (d.onglet) { onglet = d.onglet; rendre(true); return; }
   if (d.go) { onglet = d.go; rendre(true); return; }
   if (d.fam) { famille = d.fam; rendre(); return; }
@@ -665,6 +711,7 @@ document.addEventListener("change", e => {
 });
 document.addEventListener("submit", e => {
   const f = e.target.closest("[data-form]"); if (!f) return; e.preventDefault();
+  if (f.dataset.form === "cnx") { mode = /jalal|karvan|admin/i.test(f.e.value) ? "admin" : "client"; onglet = mode === "client" ? "commander" : "auj"; history.replaceState(null, "", "#" + mode); rendre(true); return; }
   if (f.dataset.form === "rapide") {
     const m = f.r.value.trim().toUpperCase().match(/^([A-Z]+-[A-Z0-9]+)\s*[X×]?\s*(\d+)?$/);
     if (!m || !PR[m[1]]) { toast("Référence inconnue. Exemple : PIZ-33 6"); return; }
@@ -678,10 +725,11 @@ document.addEventListener("submit", e => {
   }
 });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && $("#calque").innerHTML) fermerCalque(); });
-$("#reinit").addEventListener("click", () => { S = seed(); CLIENTS.bosphore.statut = "À valider"; save(); mode = "client"; onglet = "commander"; famille = "Tout"; fermerCalque(); rendre(true); toast("Démo remise à zéro."); });
+$("#reinit").addEventListener("click", () => { S = seed(); CLIENTS.bosphore.statut = "À valider"; save(); mode = "connexion"; history.replaceState(null, "", location.pathname); onglet = "commander"; famille = "Tout"; fermerCalque(); rendre(true); toast("Démo remise à zéro."); });
 
 const h = location.hash.slice(1);
 if (h === "admin") { mode = "admin"; onglet = "auj"; }
+if (h === "client") { mode = "client"; onglet = "commander"; }
 rendre();
 })();
 </script>
