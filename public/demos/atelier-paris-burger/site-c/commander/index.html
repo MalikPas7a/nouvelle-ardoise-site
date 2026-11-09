@@ -138,6 +138,7 @@ h2.trois span{transition:color .45s var(--ease),opacity .45s var(--ease)}
 .js h2.trois span.on{opacity:1;color:var(--or)}
 .film.carre{aspect-ratio:1/1;width:min(36vw,calc(100svh - 200px))}
 .film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.film .fcv{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .3s}.film.cv .fcv{opacity:1}.film.cv video{visibility:hidden}
 .film .pause{position:absolute;right:16px;bottom:16px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(249,237,220,.5);background:rgba(18,20,22,.55);display:grid;place-items:center}
 
 /* Genève */
@@ -570,6 +571,41 @@ html[lang=es] .bandeau nav a,html[lang=en] .bandeau nav a{font-size:12px;letter-
 /* v16 ruban : or éclairci pour le contraste sur Merlot (4,8:1) */
 .ruban .piste span.o{color:#E3A341}
 
+/* v17 histoire : le compteur reste au-dessus de la barre iPhone */
+@media (max-width:860px){.hz .hst{padding-bottom:calc(78px + env(safe-area-inset-bottom));gap:12px}.hz .frise figure img{max-height:30svh;object-fit:cover}}
+
+/* v17 monogrammes : le sceau tourne et se pose, les filets se tracent, un semis de petits logos apparaît en fondu */
+.mono .semis{position:absolute;top:0;left:50%;width:min(94vw,1040px);height:150px;translate:-50% -50%;pointer-events:none}
+.mono .semis img{position:absolute;left:var(--x);top:var(--y);width:var(--t);height:var(--t);translate:-50% -50%;opacity:0;scale:.4;transition:opacity 1.4s ease var(--d),scale 1.4s cubic-bezier(.2,.7,.1,1) var(--d)}
+.mono.vu .semis img{opacity:var(--o);scale:1}
+.js-rv .mono b{opacity:0;scale:.55;rotate:-120deg;transition:opacity .6s ease,scale 1s cubic-bezier(.2,.7,.1,1),rotate 1.3s cubic-bezier(.2,.7,.1,1)}
+.js-rv .mono.vu b{opacity:1;scale:1;rotate:0deg}
+.js-rv .mono i{opacity:1;transform:scaleX(0)!important;transition:transform 1.2s cubic-bezier(.2,.7,.1,1) .25s}
+.js-rv .mono.vu i{transform:scaleX(1)!important}
+@media (max-width:860px){.mono .semis{height:120px}.mono .semis img{width:calc(var(--t)*.8);height:calc(var(--t)*.8)}}
+@media (prefers-reduced-motion:reduce){.js-rv .mono b,.js-rv .mono i,.mono .semis img{transition:none}}
+/* v17 grand monogramme en filigrane, comme derrière l'histoire */
+.villes,.ctete,.fid{position:relative;overflow:hidden}
+.villes>.w,.ctete>.w,.fid>.w{position:relative;z-index:1}
+.villes::before,.ctete::before{content:"";position:absolute;top:50%;width:min(60vw,640px);aspect-ratio:1;translate:0 -50%;background:url(../img/logo/apb-mark-or.svg) center/contain no-repeat;opacity:0;transition:opacity 1.6s ease;pointer-events:none}
+.villes::before{left:-14%}.ctete::before{right:-8%;width:min(46vw,460px)}
+.villes.fil::before,.ctete.fil::before,html:not(.js) .villes::before{opacity:.06}
+@media (prefers-reduced-motion:reduce){.villes::before,.ctete::before{opacity:.06;transition:none}}
+
+/* v17 filet de droite (le sélecteur i+i ne trouvait plus le second filet) */
+.mono i{transform-origin:right}
+.mono b+i{right:auto;left:calc(50% + 52px);background:linear-gradient(-90deg,transparent,var(--or));transform-origin:left}
+@media (max-width:860px){.mono b+i{left:calc(50% + 42px)}
+ .hz .hst{justify-content:flex-start}}
+
+/* v17 histoire iPhone : compteur en haut à droite, tout tient au-dessus de la barre */
+@media (max-width:860px){
+ .hz .hst>.w:last-child{position:absolute;top:22px;right:0;width:auto;margin:0;padding:0 var(--g)}
+ .hz .hcompte i{width:56px}
+ .hz .frise figure img{max-height:25svh}
+ .hz .hst{gap:10px}
+}
+
 /* Page Commander */
 .ctete{background:var(--wood);color:var(--peach);padding:clamp(40px,6vw,72px) 0 clamp(30px,4vw,48px)}
 .ctete .eye{color:var(--or)}
@@ -671,8 +707,10 @@ html:has(dialog.panier[open]){overflow:hidden}
 <div class="mc"><h4>Frites et sauce</h4><p>Frites maison, sauce Café de Paris pour tremper.</p><p class="prix">Prix à confirmer</p><button type="button" class="btn btn-m ajout" data-k="frites"><span class="plus" aria-hidden="true">+</span> Ajouter<span class="qte" aria-hidden="true"></span></button></div></article></div></section><section class="minis" id="desserts" aria-labelledby="desserts-t"><h3 id="desserts-t">Desserts</h3><div class="mgrille"><article class="mini" id="m-fondant"><div class="scene petite"><img src="../img/d-fondant.webp" srcset="../img/d-fondant-m.webp 820w, ../img/d-fondant.webp 1600w" sizes="(max-width:860px) 90vw, 400px" width="1600" height="484" alt="Fondant au chocolat au cœur coulant" loading="lazy" decoding="async"></div>
 <div class="mc"><h4>Fondant au chocolat</h4><p>Cœur coulant.</p><p class="prix">Prix à confirmer</p><button type="button" class="btn btn-m ajout" data-k="fondant"><span class="plus" aria-hidden="true">+</span> Ajouter<span class="qte" aria-hidden="true"></span></button></div></article><article class="mini" id="m-tarte"><div class="scene petite"><img src="../img/d-tarte.webp" srcset="../img/d-tarte-m.webp 820w, ../img/d-tarte.webp 1600w" sizes="(max-width:860px) 90vw, 400px" width="1600" height="466" alt="Part de tarte fine aux pommes caramélisées" loading="lazy" decoding="async"></div>
 <div class="mc"><h4>Tarte fine aux pommes</h4><p>Pâte feuilletée, pommes caramélisées.</p><p class="prix">Prix à confirmer</p><button type="button" class="btn btn-m ajout" data-k="tarte"><span class="plus" aria-hidden="true">+</span> Ajouter<span class="qte" aria-hidden="true"></span></button></div></article></div></section></div></section>
+<div class="mono" aria-hidden="true"><span class="semis"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:6%;--y:30%;--t:14px;--o:0.1;--d:0.73s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:15%;--y:72%;--t:20px;--o:0.16;--d:0.64s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:24%;--y:22%;--t:12px;--o:0.12;--d:0.54s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:33%;--y:78%;--t:16px;--o:0.1;--d:0.44s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:67%;--y:26%;--t:16px;--o:0.1;--d:0.44s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:76%;--y:74%;--t:12px;--o:0.12;--d:0.54s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:85%;--y:30%;--t:20px;--o:0.16;--d:0.64s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:94%;--y:70%;--t:14px;--o:0.1;--d:0.73s"></span><i></i><b><img src="../img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
 <section class="fid" id="fidelite" aria-labelledby="fid-t"><div class="w"><div><p class="eye">Fidélité</p><h2 id="fid-t">La saucière d’or</h2><ol><li>Votre carte dans le téléphone, sans application à télécharger.</li><li>Un tampon par visite, scanné au comptoir.</li><li>Le dixième burger est offert.</li></ol></div>
 <div class="carteF" aria-hidden="true"><div class="h"><img src="../img/logo/apb-mark-or.svg" width="34" height="34" alt=""><span>Genève</span></div><b>La saucière d’or</b><div class="pts"><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i></i><i></i><i></i><i></i></div></div></div></section>
+<div class="mono" aria-hidden="true"><span class="semis"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:6%;--y:30%;--t:14px;--o:0.1;--d:0.73s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:15%;--y:72%;--t:20px;--o:0.16;--d:0.64s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:24%;--y:22%;--t:12px;--o:0.12;--d:0.54s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:33%;--y:78%;--t:16px;--o:0.1;--d:0.44s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:67%;--y:26%;--t:16px;--o:0.1;--d:0.44s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:76%;--y:74%;--t:12px;--o:0.12;--d:0.54s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:85%;--y:30%;--t:20px;--o:0.16;--d:0.64s"><img src="../img/logo/apb-mark-or.svg" width="20" height="20" alt="" style="--x:94%;--y:70%;--t:14px;--o:0.1;--d:0.73s"></span><i></i><b><img src="../img/logo/apb-mark-or.svg" width="46" height="46" alt=""></b><i></i></div>
 <section class="retrait" id="retrait" aria-labelledby="ret-t"><div class="w"><h2 id="ret-t">Retrait</h2><dl><div><dt>Où</dt><dd>Quai Gustave-Ador 24, 1207 Genève (Eaux-Vives).</dd></div><div><dt>Quand</dt><dd>À partir du 27 novembre, à l’heure choisie.</dd></div><div><dt>Paiement</dt><dd>En ligne par TWINT ou carte, ou au comptoir.</dd></div></dl></div></section>
 </main>
 <footer><div class="logo-pied"><img class="m" src="../img/logo/apb-mark-or.svg" width="72" height="72" alt=""><img class="t" src="../img/logo/apb-logotype.svg" width="260" height="17" alt="Atelier Paris Burger"></div><p class="slog">Le burger à la sauce Café de Paris.</p><nav class="liens" aria-label="Pied de page"><a href="../geneve/">Genève</a><a href="#retrait">Retrait</a><a href="../#villes">Nos villes</a><a href="../../site-c/commander/">Commander à Genève</a></nav><small>Atelier Paris Burger · Maquette Nouvelle Ardoise</small><small>Photos d’archives : Agence Rol et Agence Meurisse, BnF Gallica (domaine public) ; Lars Olsson (CC BY-SA 3.0) ; Todor Atanassov (libre de droits). Genève : Thibaut120094 (CC BY 4.0). Madrid : Carlos Delgado (CC BY-SA 4.0). Via Wikimedia Commons. Ibiza : photo de la maison (fiche Google Atelier Paris Burger Ibiza).</small></footer>
@@ -716,5 +754,6 @@ if(q&&IT[q]){var bt=document.querySelector('.formats button[data-k="'+q+'"]');if
  try{history.replaceState(null,'',location.pathname)}catch(e){}requestAnimationFrame(function(){el.scrollIntoView({block:'center'})})}
 var mm=document.querySelector('.mmenu');if(mm)mm.addEventListener('click',function(e){if(e.target.closest('nav a'))mm.open=false});
 })();
+(function(){var H=document.documentElement,rm=matchMedia('(prefers-reduced-motion: reduce)').matches;var els=document.querySelectorAll('.mono,.ctete');if(rm||!('IntersectionObserver' in window)){[].forEach.call(els,function(e){e.classList.add('vu','fil')});return}H.classList.add('js-rv');var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('vu','fil');io.unobserve(x.target)}})},{rootMargin:'0px 0px -18% 0px'});[].forEach.call(els,function(e){io.observe(e)})})();
 </script>
 </body></html>
