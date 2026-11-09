@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Karvan · Emballages pour restaurants</title>
-<meta name="description" content="Karvan, la maison de Jalal : 25 ans d'import-export au service des restaurants. Emballages en stock et personnalisés à votre marque.">
+<title>Karvan · Emballages pour les pros de l'alimentation</title>
+<meta name="description" content="Karvan, la maison de Jalal : 25 ans d'import-export au service des professionnels de l'alimentation. Emballages en stock et personnalisés à votre marque.">
 <meta name="theme-color" content="#1B2440">
 <link rel="icon" href="img/karvan-icone.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,8 +59,11 @@ header.nav .wrap{display:flex;align-items:center;gap:28px;height:68px}
 .logo img{height:56px;width:auto;margin-block:-6px}
 header nav{display:flex;gap:26px;margin-left:auto}
 header nav a{text-decoration:none;font-size:15px}
-header nav a:hover{color:var(--safran-texte)}
-@media (max-width:900px){header nav{display:none}header.nav .btn{display:none}}
+header nav a:hover,header nav a[aria-current]{color:var(--safran-texte)}
+header.nav .pro{margin-left:0;font-weight:500;color:var(--lapis);text-decoration:none;border:1px solid var(--lapis);padding:10px 16px;min-height:44px;display:inline-flex;align-items:center}
+header.nav .pro:hover{background:var(--lapis);color:var(--papier)}
+header.nav .pro+.btn{margin-left:0}
+@media (max-width:900px){header nav{display:none}header.nav .btn{display:none}header.nav .pro{margin-left:auto}}
 @media (max-width:420px){.logo img{height:48px}}
 
 /* héros */
@@ -195,17 +198,18 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
 </head>
 <body>
 
-<div class="bandeau mono">Karvan 01 · Emballages pour la restauration<span class="sr"> · Suisse romande</span></div>
+<div class="bandeau mono">Karvan 01 · Emballages pour la restauration et les commerces<span class="sr"> · Suisse romande</span></div>
 
 <header class="nav">
   <div class="wrap">
     <a class="logo" href="#haut" aria-label="Karvan, accueil"><img src="img/karvan-logo.svg" alt="Karvan" width="1000" height="360"></a>
     <nav aria-label="Navigation principale">
       <a href="#produits">Produits</a>
-      <a href="#personnalisation">Personnalisation</a>
+      <a href="personnalisation/">Personnalisation</a>
       <a href="#histoire">Notre histoire</a>
       <a href="#contact">Contact</a>
     </nav>
+    <a class="pro" href="espace/">Espace pro</a>
     <a class="btn saf" href="#contact">Demander une offre</a>
   </div>
 </header>
@@ -216,7 +220,7 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
     <div class="txt">
       <span class="mono m-saf">Import · Export depuis 25 ans</span>
       <h1 id="t-hero">Des emballages choisis par quelqu'un qui connaît la route.</h1>
-      <p class="chapo">25 ans d'import-export au service des restaurants suisses. Des produits en stock, un seul interlocuteur, et votre marque imprimée si vous le voulez.</p>
+      <p class="chapo">25 ans d'import-export au service des restaurants, snacks, boulangeries, traiteurs et commerces suisses. Des produits en stock, un seul interlocuteur, et votre marque imprimée si vous le voulez.</p>
       <div class="actions">
         <a class="btn saf" href="#contact">Demander une offre</a>
         <a class="btn" href="#produits">Voir les produits</a>
@@ -249,46 +253,20 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
 <section id="personnalisation" aria-labelledby="t-perso" style="background:var(--blanc);border-block:1px solid var(--filet)">
   <div class="wrap">
     <div class="tete">
-      <div><span class="mono m-saf">Personnalisation · la différence Karvan</span><h2 id="t-perso">Votre restaurant, jusque dans le sac.</h2></div>
-      <a class="btn saf droite" href="#contact">Demander ma maquette</a>
+      <div><span class="mono m-saf">Personnalisation · la différence Karvan</span><h2 id="t-perso">Votre enseigne, jusque dans le sac.</h2></div>
+      <p class="droite chapo">Tampon, impression 1 ou 2 couleurs, ou univers complet : vos emballages à votre marque, maquette 3D avant toute commande.</p>
     </div>
     <div class="compare apparait" id="cmp">
       <img src="img/avant.webp" width="1800" height="1200" alt="Sac, box et gobelet kraft neutres" loading="lazy">
-      <img class="apres" src="img/braise.webp" width="1800" height="1200" alt="Les mêmes emballages aux couleurs d'un restaurant" loading="lazy">
+      <img class="apres" src="img/braise.webp" width="1800" height="1200" alt="Les mêmes emballages aux couleurs d'une enseigne" loading="lazy">
       <span class="tag g mono">Avant · neutre</span><span class="tag d mono">Après · votre marque</span>
       <span class="ligne"></span><span class="poignee" aria-hidden="true">⟷</span>
       <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après">
     </div>
-
-    <div class="niveaux">
-      <div><span class="mono n">Niveau 1 · Petites quantités</span><h3>Tampon ou étiquette</h3><p>Votre logo sur nos produits neutres en stock. Rapide, sans minimum de fabrication. Idéal pour une ouverture ou un food truck.</p></div>
-      <div><span class="mono n">Niveau 2 · Le cœur de l'offre</span><h3>Impression 1 ou 2 couleurs</h3><p>Logo imprimé directement sur les sacs, box burger, boîtes à pizza, gobelets et papier.</p></div>
-      <div><span class="mono n">Niveau 3 · Signature</span><h3>Création complète</h3><p>Un univers entier : motif, papier imprimé, gamme cohérente. Pour les chaînes et les concepts.</p></div>
+    <div class="actions" style="margin-top:28px;display:flex;flex-wrap:wrap;gap:12px">
+      <a class="btn saf" href="personnalisation/">Voir la personnalisation</a>
+      <a class="btn" href="#contact">Demander ma maquette</a>
     </div>
-
-    <div class="univers">
-      <figure class="apparait"><img src="img/braise.webp" width="1800" height="1200" alt="Concept Braise : sac, box burger et gobelet rouges, monogramme B" loading="lazy"><figcaption class="mono"><span>Concept 01 · Braise · Smash burgers</span><span class="m-saf">Monogramme B · rouge, crème, jaune</span></figcaption></figure>
-      <figure class="apparait"><img src="img/sesame.webp" width="1800" height="1200" alt="Concept Sésame : bols et sac bleu électrique, monogramme S" loading="lazy"><figcaption class="mono"><span>Concept 02 · Sésame · Bowls et poké</span><span class="m-saf">Monogramme S · bleu, orange, rose</span></figcaption></figure>
-      <figure class="apparait"><img src="img/croute.webp" width="1800" height="1200" alt="Concept Croûte : boîte à pizza et sac noir et jaune" loading="lazy"><figcaption class="mono"><span>Concept 03 · Croûte · Pizza</span><span class="m-saf">Monogramme Ĉ · noir, jaune, damier</span></figcaption></figure>
-    </div>
-
-    <div style="margin-top:96px;display:grid;gap:12px"><span class="mono m-saf">Le détail qu'on filme</span><h2>Imprimé dedans aussi.</h2></div>
-    <div class="ouvertes">
-      <figure class="apparait"><img src="img/ouvert-braise.webp" width="1600" height="1600" alt="Box burger Braise ouverte, imprimée à l'intérieur" loading="lazy"><figcaption class="mono">Ouverte · Braise</figcaption></figure>
-      <figure class="apparait"><img src="img/ouvert-sesame.webp" width="1600" height="1600" alt="Box Sésame ouverte" loading="lazy"><figcaption class="mono">Ouverte · Sésame</figcaption></figure>
-      <figure class="apparait"><img src="img/ouvert-croute.webp" width="1600" height="1600" alt="Boîte à pizza Croûte ouverte : « Mange tant que c'est chaud »" loading="lazy"><figcaption class="mono">Ouverte · Croûte</figcaption></figure>
-    </div>
-
-    <div style="margin-top:96px;display:grid;gap:32px">
-      <h2>Comment ça marche.</h2>
-      <ol class="etapes">
-        <li><span class="n">1</span><h3>Votre logo</h3><p>Vous l'envoyez, ou on le crée avec vous.</p></li>
-        <li><span class="n">2</span><h3>La maquette</h3><p>Vos emballages en 3D, avant toute commande.</p></li>
-        <li><span class="n">3</span><h3>Le bon à tirer</h3><p>Vous validez couleurs et placements.</p></li>
-        <li><span class="n">4</span><h3>Production</h3><p>Fabrication puis livraison chez vous.</p></li>
-      </ol>
-    </div>
-    <div class="studio"><p>Le design est signé <b>Nouvelle Ardoise</b>, agence de communication pour la restauration.</p><span class="mono m-saf">Concepts de démonstration · aucun vrai restaurant</span></div>
   </div>
 </section>
 
@@ -307,7 +285,7 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
           <article><span class="n">01</span><div><h3>Le départ</h3><p>Jalal grandit en Iran, sur une terre de marchands où une parole donnée vaut un contrat. <span class="af">[ville, année d'arrivée en Suisse à confirmer]</span></p></div></article>
           <article><span class="n">02</span><div><h3>La route</h3><p>Pendant 25 ans, il importe et exporte <span class="af">[produits et pays à confirmer]</span>. Il apprend à choisir les bons fabricants, à négocier et à livrer à l'heure.</p></div></article>
           <article><span class="n">03</span><div><h3>La confiance</h3><p>Ses clients le rappellent parce qu'il tient ses promesses. <span class="af">[une anecdote ou un chiffre à confirmer]</span></p></div></article>
-          <article><span class="n">04</span><div><h3>Karvan</h3><p>Aujourd'hui, il met ce savoir-faire au service des restaurants : des emballages de qualité, au juste prix, avec un interlocuteur qui répond.</p></div></article>
+          <article><span class="n">04</span><div><h3>Karvan</h3><p>Aujourd'hui, il met ce savoir-faire au service des pros de l'alimentation : restaurants, snacks, boulangeries, traiteurs. Des emballages de qualité, au juste prix, avec un interlocuteur qui répond.</p></div></article>
         </div>
         <img class="sceau" src="img/karvan-sceau-inverse.svg" width="150" height="150" alt="Cachet Karvan, import export" loading="lazy">
         <div class="suite" style="margin-top:56px"><span class="mono" style="color:var(--safran)">Karvan 01 · Emballages</span><p>D'autres routes arrivent.</p></div>
@@ -350,7 +328,7 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
 
 <footer>
   <div class="wrap">
-    <div class="haut"><img src="img/karvan-logo-inverse.svg" alt="Karvan" width="1000" height="360" loading="lazy"><p class="mono" style="color:#8E95AE">Emballages pour la restauration · Suisse romande</p></div>
+    <div class="haut"><img src="img/karvan-logo-inverse.svg" alt="Karvan" width="1000" height="360" loading="lazy"><p class="mono" style="color:#8E95AE">Emballages pour la restauration et les commerces · Suisse romande</p></div>
     <div class="bas mono"><span>© Karvan · Maquette</span><span>Site par <a href="https://nouvelleardoise.ch">Nouvelle Ardoise</a></span></div>
   </div>
 </footer>
