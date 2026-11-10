@@ -10,9 +10,11 @@
 @font-face{font-family:"APB Serif";src:local("Times New Roman Italic"),local("TimesNewRomanPS-ItalicMT"),local("Liberation Serif Italic"),local("Tinos Italic");font-style:italic;font-weight:100 900;size-adjust:88%;ascent-override:105%;descent-override:32.6%;line-gap-override:0%}
 @font-face{font-family:"APB Sans";src:local("Arial"),local("Liberation Sans"),local("Arimo");font-weight:100 599;size-adjust:104%;ascent-override:95.4%;descent-override:29.8%;line-gap-override:0%}
 @font-face{font-family:"APB Sans";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold"),local("Arimo Bold");font-weight:600 900;size-adjust:98%;ascent-override:101.2%;descent-override:31.6%;line-gap-override:0%}
+@font-face{font-family:"APB Sans Maj";src:local("Arial"),local("Liberation Sans"),local("Arimo");font-weight:100 599;size-adjust:92%;ascent-override:107.8%;descent-override:33.7%;line-gap-override:0%}
+@font-face{font-family:"APB Sans Maj";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold"),local("Arimo Bold");font-weight:600 900;size-adjust:94.9%;ascent-override:104.5%;descent-override:32.7%;line-gap-override:0%}
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--merlot:#7F0F28;--peach:#F9EDDC;--or:#D99125;--cabsav:#490917;--wood:#121416;
- --t2:rgba(18,20,22,.74);--serif:"Cormorant Garamond","APB Serif",Georgia,serif;--sans:"DM Sans","APB Sans",system-ui,sans-serif;
+ --t2:rgba(18,20,22,.74);--serif:"Cormorant Garamond","APB Serif",Georgia,serif;--sans:"DM Sans","APB Sans",system-ui,sans-serif;--sans-maj:"DM Sans","APB Sans Maj",system-ui,sans-serif;
  --g:clamp(16px,4vw,56px);--max:1240px;--store:22px;--band:72px;--ease:cubic-bezier(.22,1,.36,1)}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:calc(var(--band) + 8px)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -59,7 +61,7 @@ h2{font-size:clamp(34px,3.6vw,48px);line-height:1.1;letter-spacing:-.01em;text-t
 .hero{position:relative;min-height:calc(100vh - var(--band));min-height:calc(100svh - var(--band));display:grid;grid-template-columns:minmax(360px,1fr) auto;align-items:center;column-gap:clamp(32px,4vw,72px);padding:28px max(var(--g),calc(50vw - var(--max)/2 + var(--g)));background:var(--wood);color:var(--peach);overflow:hidden}
 .hero .eye{color:var(--or)}
 .hero h1{margin-top:18px;font-size:clamp(40px,4.2vw,64px);line-height:1.04;letter-spacing:-.02em;text-transform:uppercase;text-wrap:balance}
-.hero .sous{margin-top:20px;max-width:34ch;font-size:18px;line-height:1.55;color:rgba(249,237,220,.84)}
+.hero .sous{margin-top:20px;max-width:23.35783em;font-size:18px;line-height:1.55;color:rgba(249,237,220,.84)}
 .hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 .temps{display:flex;gap:26px;margin-top:40px;list-style:none;counter-reset:t}
 .temps li{counter-increment:t;font:500 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:rgba(249,237,220,.66);padding-top:12px;border-top:1px solid rgba(249,237,220,.2);min-width:84px;transition:color .3s,border-color .3s}
@@ -104,7 +106,7 @@ h2{font-size:clamp(34px,3.6vw,48px);line-height:1.1;letter-spacing:-.01em;text-t
 .hd{grid-area:hd}.ctl{grid-area:ctl}
 .hd .no{font:500 12px var(--sans);letter-spacing:.16em;color:var(--merlot)}
 .hd h3{margin-top:6px;font-size:clamp(34px,3vw,44px);line-height:1.05;color:var(--merlot)}
-.hd .desc{margin-top:12px;max-width:40ch;color:var(--t2)}
+.hd .desc{margin-top:12px;max-width:27.44006em;color:var(--t2)}
 .formats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px;max-width:420px}
 .formats button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:64px;border:1px solid rgba(127,15,40,.3);border-radius:2px;transition:background-color .2s,color .2s,border-color .2s}
 .formats .g{font:600 22px/1 var(--serif);color:var(--merlot)}
@@ -140,7 +142,7 @@ h2{font-size:clamp(34px,3.6vw,48px);line-height:1.1;letter-spacing:-.01em;text-t
 .rituel .eye{color:var(--or)}
 .rituel h2{margin-top:14px;max-width:16ch;text-transform:none;font-size:clamp(34px,3.6vw,48px)}
 .rituel h2 em{font-style:italic;font-weight:500;color:var(--or)}
-.rituel p.l{margin-top:18px;max-width:40ch;font-size:18px;line-height:1.55;color:rgba(249,237,220,.86)}
+.rituel p.l{margin-top:18px;max-width:27.47983em;font-size:18px;line-height:1.55;color:rgba(249,237,220,.86)}
 .rituel .cta2{margin-top:28px;display:flex;align-items:center;gap:26px;flex-wrap:wrap}
 .lien-or{font:600 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--or);text-decoration:underline;text-decoration-color:rgba(217,145,37,.45);text-underline-offset:7px;padding:12px 0}@media (hover:hover) and (pointer:fine){.lien-or:hover{text-decoration-color:currentColor}}
 .film{position:relative;width:min(38vw,calc((100svh - 150px)*4/5));max-width:520px;aspect-ratio:4/5;background:#0e0b0c}
@@ -221,7 +223,7 @@ footer .logo-pied .t{width:260px}
 footer .slog{margin:22px auto 0;max-width:36ch;font:italic 500 22px/1.35 var(--serif);text-wrap:balance}
 footer .liens{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 26px;margin-top:26px;font:500 13px var(--sans);letter-spacing:.12em;text-transform:uppercase}
 footer .liens a{padding:10px 0}
-footer small{display:block;margin:20px auto 0;max-width:72ch;font-size:12px;line-height:1.5;opacity:.8}
+footer small{display:block;margin:20px auto 0;max-width:48.45633em;font-size:12px;line-height:1.5;opacity:.8}
 .barre{display:none}
 
 @media (max-width:860px){
@@ -329,7 +331,7 @@ footer small{display:block;margin:20px auto 0;max-width:72ch;font-size:12px;line
 .vtete h1 .q{display:block;margin-top:6px;font-size:.62em;color:var(--or);white-space:nowrap}
 .vtete h1 .sep{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .vtete .ouv{margin-top:20px;font:700 14px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--peach)}
-.vtete .sous{margin-top:14px;max-width:36ch;font-size:17px;line-height:1.55;color:rgba(249,237,220,.8)}
+.vtete .sous{margin-top:14px;max-width:24.73183em;font-size:17px;line-height:1.55;color:rgba(249,237,220,.8)}
 .vtete figure img{width:100%;height:auto;display:block}
 #infos .ailleurs{grid-column:auto;grid-template-columns:1fr 1fr;gap:14px 24px;margin-top:24px}
 #infos .ailleurs h3{grid-column:1/-1}
@@ -372,7 +374,7 @@ footer small{display:block;margin:20px auto 0;max-width:72ch;font-size:12px;line
 .service figcaption{position:absolute;left:50%;bottom:-.7em;translate:-50% 0;padding:0 14px;background:var(--wood);white-space:nowrap;font:italic 400 clamp(15px,1.3vw,18px)/1.4 var(--serif);letter-spacing:.01em;color:var(--or)}
 .service .eye{color:var(--or)}
 .service h2{font-size:clamp(2.2rem,4.6vw,4rem);line-height:1.02;margin:.25em 0 .45em;text-wrap:balance}
-.service p.t{font-size:1.06rem;line-height:1.65;max-width:34ch;color:rgba(249,237,220,.82);margin:0}
+.service p.t{font-size:1.06rem;line-height:1.65;max-width:23.35783em;color:rgba(249,237,220,.82);margin:0}
 .service .filet{width:56px;height:1px;background:var(--or);margin:28px 0 0}
 .service .svc-cmd{display:inline-flex;margin-top:28px}
 .service .svc-cmd{margin-top:28px}
@@ -461,13 +463,13 @@ html:not(.hz) .hcompte{display:none}
 .chap .cd{margin-top:14px;font:500 clamp(56px,7.4vw,120px)/.92 var(--serif);letter-spacing:-.02em;color:var(--or)}
 .chap .cd sup{font-size:.45em;vertical-align:.9em}
 .chap h3{margin-top:18px;font:500 clamp(26px,2.4vw,36px)/1.1 var(--serif);color:var(--peach);text-transform:none}
-.chap .cx{margin-top:14px;max-width:38ch;font-size:17px;line-height:1.6;color:rgba(249,237,220,.84)}
+.chap .cx{margin-top:14px;max-width:26.10583em;font-size:17px;line-height:1.6;color:rgba(249,237,220,.84)}
 .chap .lien-or{display:inline-block;margin-top:20px}
 .chap figure{margin:0;position:relative}
 .chap img{width:100%;aspect-ratio:3/2;object-fit:cover;filter:grayscale(1) contrast(1.05);box-shadow:0 0 0 1px rgba(217,145,37,.35)}
 .chap.couleur img{filter:none;box-shadow:0 0 0 1px var(--or),0 0 0 7px var(--fond),0 0 0 8px rgba(217,145,37,.5)}
 .chap figcaption{margin-top:10px;font:italic 400 15px/1.3 var(--serif);color:rgba(249,237,220,.6)}
-.hist .arch-note{margin-top:28px;font-size:13px;line-height:1.55;color:rgba(249,237,220,.55);max-width:70ch}
+.hist .arch-note{margin-top:28px;font-size:13px;line-height:1.55;color:rgba(249,237,220,.55);max-width:47.87979em}
 @media (max-width:860px){
  .frise .chap{flex-basis:84vw;grid-template-columns:1fr;gap:16px;align-items:start}
  .chap .cd{margin-top:8px;font-size:48px}
@@ -779,6 +781,11 @@ footer .liens{font:500 15px var(--sans);letter-spacing:0;text-transform:none}
 @media (max-width:860px){body{padding-bottom:0}footer{padding-bottom:calc(124px + env(safe-area-inset-bottom));box-shadow:0 2px 0 var(--merlot)}}
 .ville a.bientot{align-self:flex-start;display:inline-flex;align-items:center;min-height:44px;margin-top:8px;text-decoration:underline;text-decoration-color:rgba(127,15,40,.4);text-underline-offset:5px}
 @media (hover:hover) and (pointer:fine){.ville a.bientot:hover{text-decoration-color:currentColor}}
+/* v19.1 : rien ne bouge quand les polices arrivent. Largeurs de texte en em (plus en ch, qui dépend de la police en cours),
+   police de secours à la mesure des libellés en capitales. Le rendu final, polices chargées, est inchangé. */
+@media (max-width:860px){.hd .desc{max-width:27.4002em}.hist .arch-note{max-width:47.46008em}.service p.t{max-width:23.29304em}.chap .cx{max-width:26.0302em}}
+@media (min-width:1921px) and (min-height:900px){.hero .sous{max-width:34ch}}
+.btn,.btn .plus,.bandeau .g a,.bandeau .langs a,.tabs a,.onglets a,.lien-or,.desserts .lien,.ville .statut,.vtete .ouv,.vchoix span,.pn label,.carteF .h,.hero .eye,.ctete .eye,.rtete .eye{font-family:var(--sans-maj)}
 </style><noscript><style>img[data-src]{display:none!important}noscript{display:contents}</style></noscript></head><body>
 <div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menu"><a href="#carte">Menu</a><a href="#infos">Info</a><a href="../#villes">Our cities</a></nav><a class="logo" href="../"><img src="../../img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, home" width="300" height="20"></a><div class="d"><nav class="langs" aria-label="Language"><a href="../../geneve/" hreflang="fr" lang="fr">FR</a><a href="./" hreflang="en" lang="en" aria-current="true">EN</a><a href="../../es/geneve/" hreflang="es" lang="es">ES</a></nav><a class="btn btn-m" href="../commander/">Order</a><details class="mmenu"><summary aria-label="Open the menu"><span></span><span></span></summary><nav aria-label="Mobile menu"><a href="#carte">Menu</a><a href="#infos">Info</a><a href="../#villes">Our cities</a><a href="../commander/">Order</a><div class="mlangs" role="group" aria-label="Language"><a href="../../geneve/" hreflang="fr" lang="fr">Français</a><a href="./" hreflang="en" lang="en" aria-current="true">English</a><a href="../../es/geneve/" hreflang="es" lang="es">Español</a></div></nav></details></div></div></header>
 <main>
