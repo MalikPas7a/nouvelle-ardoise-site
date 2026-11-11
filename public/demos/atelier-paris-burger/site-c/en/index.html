@@ -786,10 +786,27 @@ footer .liens{font:500 15px var(--sans);letter-spacing:0;text-transform:none}
 @media (max-width:860px){.hd .desc{max-width:27.4002em}.hist .arch-note{max-width:47.46008em}.service p.t{max-width:23.29304em}.chap .cx{max-width:26.0302em}}
 @media (min-width:1921px) and (min-height:900px){.hero .sous{max-width:34ch}}
 .btn,.btn .plus,.bandeau .g a,.bandeau .langs a,.tabs a,.onglets a,.lien-or,.desserts .lien,.ville .statut,.vtete .ouv,.vchoix span,.pn label,.carteF .h,.hero .eye,.ctete .eye,.rtete .eye{font-family:var(--sans-maj)}
+/* v20 sauce 3 : à l'arrivée du grand titre, le mot « sauce » plonge et ressort nappé d'or à moitié (bord ondulé), une goutte tombe.
+   Une fois par visite ; ensuite, et en mouvement réduit, le mot est déjà nappé, sans mouvement. Sur ordinateur, une goutte retombe au survol du titre.
+   Une goutte ne tombe que là où rien n'est sur son passage (ni lettre de la ligne du dessous, ni sceau, ni photo) ; sans place libre, il n'y en a pas.
+   v20 sauce 4 : le bouton or « Commander » laisse tomber une goutte quand il apparaît, puis à chaque survol sur ordinateur. */
+/* Ce mouvement ne fait jamais recalculer ni redessiner le texte du titre : sinon le navigateur le compterait comme « plus grand élément affiché » à la fin du plongeon
+   (LCP mesuré 1,5 s plus tard qu'avant). D'où : la sonde de ligne de base, la zone et la goutte du titre sont dans la page dès le départ (rien n'est ajouté ni retiré),
+   le mot porte dès le départ une transformation et un découpage neutres, et la nappe un découpage qui ne montre rien (sous la ligne de base des capitales). */
+.trempe{position:relative;display:inline-block;transform:translateY(0)}
+.trempe .mot{display:inline-block;clip-path:inset(-50% -2% -50% -2%)}
+.trempe .nappe{position:absolute;left:0;top:0;color:var(--or);clip-path:inset(92% -2% -50% -2%);pointer-events:none;-webkit-user-select:none;user-select:none}
+.trempe .nappe::before{content:attr(data-t)}
+.trempe .sonde{display:inline-block;width:0;height:0;vertical-align:baseline}
+.trempe .gouttes{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.trempe .gte{left:0;top:0;width:.1862em;height:.2483em;margin-left:-.0931em;transform:translateY(0)}
+@media (prefers-reduced-motion:reduce){.trempe .nappe{clip-path:inset(46.4% -2% -50% -2%)}.trempe .mot{clip-path:inset(-50% -2% 52.6% -2%)}}
+.hero .cta .btn-or,.service .btn-or,.rituel .btn-or{position:relative}
+.gte{position:absolute;width:12px;height:16px;margin-left:-6px;fill:var(--or);opacity:0;transform-origin:50% 0;pointer-events:none}
 </style><noscript><style>img[data-src]{display:none!important}noscript{display:contents}#film,.film .pause{display:none!important}</style></noscript></head><body>
 <div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menu"><a href="#villes">Our cities</a><a href="geneve/#carte">Menu</a><a href="#histoire">Our story</a></nav><a class="logo" href="./"><img src="../img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, home" width="300" height="20"></a><div class="d"><nav class="langs" aria-label="Language"><a href="../" hreflang="fr" lang="fr">FR</a><a href="./" hreflang="en" lang="en" aria-current="true">EN</a><a href="../es/" hreflang="es" lang="es">ES</a></nav><a class="btn btn-m" href="commander/">Order</a><details class="mmenu"><summary aria-label="Open the menu"><span></span><span></span></summary><nav aria-label="Mobile menu"><a href="#villes">Our cities</a><a href="geneve/#carte">Menu</a><a href="#histoire">Our story</a><a href="commander/">Order in Geneva</a><div class="mlangs" role="group" aria-label="Language"><a href="../" hreflang="fr" lang="fr">Français</a><a href="./" hreflang="en" lang="en" aria-current="true">English</a><a href="../es/" hreflang="es" lang="es">Español</a></div></nav></details></div></div></header>
 <main>
-<div class="couv" id="couv"><section class="hero" aria-labelledby="t-ouv"><div class="txt"><nav class="langs langs-m" aria-label="Language"><a href="../" hreflang="fr" lang="fr">FR</a><a href="./" hreflang="en" lang="en" aria-current="true">EN</a><a href="../es/" hreflang="es" lang="es">ES</a></nav><p class="eye"><span class="eye-a">Café de Paris sauce · </span>For over 40 years</p><h1 id="t-ouv">The burger with Café de Paris sauce</h1><p class="sous">Cut in half, set in the sauce, dipped to the very last bite. In Geneva, Madrid and Ibiza.</p><div class="cta"><a class="btn btn-or" href="commander/">Order</a><a class="btn btn-ligne" href="geneve/#carte">See the menu</a></div><nav class="vchoix" aria-label="Choose your city"><span>Your city</span><a href="geneve/">Geneva <small>27.11</small></a><a href="#v-ibiza">Ibiza</a><a href="#v-madrid">Madrid <small>delivery</small></a></nav></div>
+<div class="couv" id="couv"><section class="hero" aria-labelledby="t-ouv"><div class="txt"><nav class="langs langs-m" aria-label="Language"><a href="../" hreflang="fr" lang="fr">FR</a><a href="./" hreflang="en" lang="en" aria-current="true">EN</a><a href="../es/" hreflang="es" lang="es">ES</a></nav><p class="eye"><span class="eye-a">Café de Paris sauce · </span>For over 40 years</p><h1 id="t-ouv">The burger with Café de Paris <span class="trempe" data-g="2" data-s="0,2,3,4"><span class="mot">sauce</span><span class="nappe" aria-hidden="true" data-t="sauce"><span class="sonde"></span></span><span class="gouttes" aria-hidden="true"><svg class="gte" viewBox="0 0 12 16" aria-hidden="true" focusable="false"><path d="M6 0C6 0 .4 7 .4 10.4a5.6 5.6 0 0 0 11.2 0C11.6 7 6 0 6 0Z"/></svg></span></span></h1><p class="sous">Cut in half, set in the sauce, dipped to the very last bite. In Geneva, Madrid and Ibiza.</p><div class="cta"><a class="btn btn-or" href="commander/">Order</a><a class="btn btn-ligne" href="geneve/#carte">See the menu</a></div><nav class="vchoix" aria-label="Choose your city"><span>Your city</span><a href="geneve/">Geneva <small>27.11</small></a><a href="#v-ibiza">Ibiza</a><a href="#v-madrid">Madrid <small>delivery</small></a></nav></div>
 <div class="arche-w"><span class="sceau" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="47"/><circle class="i" cx="50" cy="50" r="41"/></svg><img src="../img/logo/apb-mark-or.svg" width="48" height="48" alt=""></span><figure class="arche"><picture><source media="(max-width:860px)" srcset="../img/couv-sauce-m.webp" width="600" height="800"><img class="photo" src="../img/couv-sauce-d.webp" width="1345" height="1076" alt="A gloved hand holds half a burger coated in Café de Paris sauce over a sauce pot, the sauce dripping" fetchpriority="high"></picture><canvas class="seq" aria-hidden="true"></canvas></figure></div></section></div>
 <div class="ruban" aria-hidden="true"><div class="rang"><div class="piste"><span>Smash</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Burger</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Baguette</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span class="o">Café de Paris sauce</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Smash</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Burger</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Baguette</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span class="o">Café de Paris sauce</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Smash</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Burger</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Baguette</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span class="o">Café de Paris sauce</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Smash</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Burger</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Baguette</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span class="o">Café de Paris sauce</span><img src="../img/logo/apb-mark-or.svg" width="22" height="22" alt=""></div></div></div>
 <section class="sig" aria-labelledby="sig-t"><div class="w"><p class="eye">Our signature</p><h2 id="sig-t">Three ways to dip</h2><div class="grille">
@@ -1027,6 +1044,104 @@ function tick(){fr=0;var r=pin.getBoundingClientRect(),t=pin.offsetHeight-hst.of
 addEventListener('scroll',function(){if(!fr)fr=requestAnimationFrame(tick)},{passive:true});addEventListener('resize',mesure);
 if(document.readyState==='complete')mesure();else addEventListener('load',mesure);mesure();
 if(window.ResizeObserver){var rt=0;new ResizeObserver(function(){clearTimeout(rt);rt=setTimeout(mesure,120)}).observe(f)}[].forEach.call(f.querySelectorAll('img'),function(i){i.addEventListener('load',function(){clearTimeout(rt);rt=setTimeout(mesure,120)})});
+})();
+/* v20 sauce 3 et 4 : le mot trempé du grand titre, le bouton or qui goutte */
+(function(){
+if(!document.documentElement.animate)return;
+var calme=matchMedia('(prefers-reduced-motion: reduce)'),EASE='cubic-bezier(.22,1,.36,1)',VAETVIENT='cubic-bezier(.77,0,.175,1)',CHUTE='cubic-bezier(.11,0,.5,0)';
+function goutte(parent,x,y,k){var t=document.createElement('div');t.innerHTML='<svg class="gte" viewBox="0 0 12 16" aria-hidden="true" focusable="false"><path d="M6 0C6 0 .4 7 .4 10.4a5.6 5.6 0 0 0 11.2 0C11.6 7 6 0 6 0Z"/></svg>';var g=t.firstChild;k=k||1;g.style.cssText='left:'+x+'px;top:'+y+'px;width:'+12*k+'px;height:'+16*k+'px;margin-left:'+(-6*k)+'px';parent.appendChild(g);return g}
+/* Une goutte se forme, s'étire, se détache et s'efface en tombant. Celle d'un bouton est ajoutée puis retirée ; celle du titre (o.place) est déjà dans la page :
+   elle est seulement déplacée, puis rendue à son état invisible */
+function egoutte(g,o){var forme=o.forme||260,pend=o.pend||140,tombe=o.tombe||420,T=forme+pend+tombe,a=forme/T,b=(forme+pend)/T,p=o.place||'',
+ A=g.animate([{offset:0,transform:p+'translateY(-2px) scale(.35)',opacity:0,easing:EASE},{offset:a,transform:p+'translateY(0) scale(1)',opacity:1,easing:VAETVIENT},{offset:b,transform:p+'translateY(0) scale(.9,1.3)',opacity:1,easing:CHUTE},{offset:b+(1-b)*.5,opacity:1},{offset:1,transform:p+'translateY('+o.chute+'px) scale(.9,1.15)',opacity:0}],{duration:T,fill:'both'});
+ function ote(){if(p)A.cancel();else g.remove()}
+ return A.finished.then(ote,ote)}
+function pret(){return document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()}
+function finis(el){return Promise.all(el.getAnimations().map(function(a){return a.finished})).then(function(){},function(){})}
+/* Ce qu'une goutte ne doit jamais toucher : un sceau, une photo, un cadre, un filet (pour les textes, la place est assurée autrement : la ligne du dessous du titre est
+   mesurée lettre par lettre, et la chute s'arrête avant le texte qui suit). genes() relève, dans la bande d'écran x1..x2 / y1..y2, le rectangle de chaque image, dessin
+   ou bloc à fond ou à bordure, hors l'élément qui porte la goutte, ses parents et son contenu, hors les gouttes elles-mêmes et hors le semis de petits logos à peine visibles. Un bloc à ombre
+   (le sceau entre deux parties, dont l'anneau déborde) compte 8 px de plus de chaque côté. libre() dit si un couloir ne croise aucun de ces rectangles. */
+function genes(hote,x1,x2,y1,y2){var E=document.body.getElementsByTagName('*'),G=[],i,e,r,cs,d;
+ for(i=0;i<E.length;i++){e=E[i];if(e===hote||e.ownerSVGElement||e.getAttribute('class')==='gte'||e.contains(hote)||hote.contains(e)||e.parentNode.className==='semis')continue;
+  r=e.getBoundingClientRect();if(!r.width||!r.height||r.right+8<=x1||r.left-8>=x2||r.bottom+8<=y1||r.top-8>=y2)continue;
+  if(e.checkVisibility&&!e.checkVisibility({visibilityProperty:true,checkVisibilityCSS:true}))continue;
+  cs=getComputedStyle(e);if(cs.visibility==='hidden')continue;d=cs.boxShadow!=='none'?8:0;
+  if(r.right+d<=x1||r.left-d>=x2||r.bottom+d<=y1||r.top-d>=y2)continue;
+  if(/^(img|canvas|video|svg)$/i.test(e.tagName)||cs.backgroundImage!=='none'||!/(, 0\)|transparent)$/.test(cs.backgroundColor)||parseFloat(cs.borderTopWidth)||parseFloat(cs.borderRightWidth)||parseFloat(cs.borderBottomWidth)||parseFloat(cs.borderLeftWidth))G.push({left:r.left-d,right:r.right+d,top:r.top-d,bottom:r.bottom+d})}
+ return G}
+function libre(G,x1,x2,y1,y2){return !G.some(function(r){return r.left<x2&&r.right>x1&&r.top<y2&&r.bottom>y1})}
+
+/* 4. Le bouton or : une goutte à son apparition, puis au survol (souris) et au clavier */
+var large=matchMedia('(min-width:861px)');
+function perle(b){if(b._gt||calme.matches||!b.offsetWidth)return;
+ if(!large.matches&&!b.closest('.service'))return; /* sur téléphone et tablette, les villes ou le film sont juste sous le bouton : seule la section Service a la place pour une goutte */
+ /* la chute est courte sous le bouton d'ouverture (les villes sont dessous) et sur téléphone ; la goutte part du côté droit du bouton, sinon du gauche, sinon elle ne part pas */
+ var R=b.getBoundingClientRect(),chute=b===heros?15:large.matches?26:16,y=R.top+b.clientTop+b.offsetHeight-1,bas=y+chute+16*.85*1.15+2,G=genes(b,R.left,R.right,y,bas),cote=null;
+ [.85,.15].forEach(function(f){var x=R.left+b.clientLeft+b.offsetWidth*f;if(cote===null&&libre(G,x-7,x+7,y,bas))cote=f});
+ if(cote===null)return;
+ b._gt=1;function fin(){b._gt=0}egoutte(goutte(b,b.offsetWidth*cote,b.offsetHeight-1,.85),{chute:chute}).then(fin,fin)}
+var heros=document.querySelector('.hero .cta .btn-or'),relais=false;
+[].forEach.call(document.querySelectorAll('.hero .cta .btn-or,.service .btn-or,.rituel .btn-or'),function(b){
+ b.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse')perle(b)});
+ b.addEventListener('focus',function(){if(b.matches(':focus-visible'))perle(b)});
+ /* à l'apparition : le bouton doit être entier à l'écran, sous l'en-tête et au-dessus de la barre fixe du téléphone, avec la place de la goutte */
+ if(b!==heros&&'IntersectionObserver' in window){var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();setTimeout(function(){perle(b)},600)}},{threshold:.99,rootMargin:'-80px 0px -'+(large.matches?64:144)+'px 0px'});io.observe(b)}});
+function perleHeros(){if(heros&&!relais){relais=true;perle(heros)}}
+
+/* 3. Le mot trempé */
+var t=document.querySelector('.trempe'),h1=t&&t.closest('h1');
+if(!t){if(heros)finis(heros.parentNode).then(function(){setTimeout(perleHeros,600)});return}
+var mot=t.querySelector('.mot'),nappe=t.querySelector('.nappe'),sonde=t.querySelector('.sonde'),gt=t.querySelector('.gte'),occupe=false,pose=false,
+ prem=+t.dataset.g||0,surv=(t.dataset.s||'0').split(',').map(Number);
+/* La ligne de base du mot se lit sur la sonde vide posée dans la page : on mesure sans rien ajouter ni retirer dans le titre */
+function mesure(){var r=t.getBoundingClientRect(),base=sonde.getBoundingClientRect().top-r.top,cs=getComputedStyle(t),c=document.createElement('canvas').getContext('2d');c.font=cs.fontStyle+' '+cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily;
+ var cap=c.measureText('H').actualBoundingBoxAscent||parseFloat(cs.fontSize)*.63;return{base:base/r.height*100,cap:cap/r.height*100,em:parseFloat(cs.fontSize),ctx:c}}
+/* Bord de la sauce : une ligne ondulée, en % de la hauteur du mot. dessus=true : la partie du mot restée au sec (elle dépasse d'un cheveu sous le bord, pour ne laisser aucun jour) */
+function bord(niveau,amp,phase,dessus){var p=[],n=20,i,x,y;
+ for(i=0;i<=n;i++){x=i/n;y=niveau+(dessus?1:0)+amp*(.7*Math.sin((x*1.45+phase)*6.2832)+.3*Math.sin((x*3.2+phase*1.7)*6.2832));p.push((x*104-2).toFixed(2)+'% '+y.toFixed(2)+'%')}
+ if(dessus)p.push('102% -50%','-2% -50%');else p.push('102% 150%','-2% 150%');return 'polygon('+p.join(',')+')'}
+function niveaux(){var m=mesure();return{cache:m.base+12,haut:m.base-m.cap*.64,fin:m.base-m.cap*.5}}
+function milieu(i){var n=mot.firstChild,r=document.createRange();r.setStart(n,i);r.setEnd(n,i+1);var c=r.getBoundingClientRect();return c.left+c.width/2}
+/* Le haut du premier bloc voisin du titre placé sous le mot, à l'écran (le sous-titre, quand le mot est sur la dernière ligne du titre) */
+function sol(q,y,em){var E=h1.parentNode.children,i,r,s=1e9;
+ for(i=0;i<E.length;i++){if(E[i]===h1||!E[i].offsetWidth)continue;r=E[i].getBoundingClientRect();if(r.top>=y&&r.left<q.right+em*.2&&r.right>q.left-em*.2&&r.top<s)s=r.top}
+ return s}
+/* p = [lettre, abscisse à l'écran] : la goutte se forme sous le mot à cette abscisse ; sans place libre (p nul), aucune goutte.
+   Sa taille suit celle du titre (en em, dans la feuille de style : 0,9 × 12 px sur 16 px pour un titre de 58 px).
+   Sa chute (0,34 em) est raccourcie s'il le faut pour qu'elle s'arrête au bord du bloc placé sous le titre, sans jamais y entrer ; sans 6 px de chute, aucune goutte */
+function tombe(p){if(!p)return Promise.resolve();var q=t.getBoundingClientRect(),m=mesure(),y=m.base/100*q.height-1,
+ c=Math.min(Math.round(m.em*.34),Math.floor(sol(q,q.top+y,m.em)-q.top-y-m.em*.2483*1.15));
+ if(c<6)return Promise.resolve();
+ return egoutte(gt,{place:'translate('+(p[1]-q.left).toFixed(2)+'px,'+y.toFixed(2)+'px) ',chute:c,tombe:400})}
+/* Où une goutte peut tomber sans rien rencontrer : sous le milieu de la lettre si le couloir de sa chute est vide (ni lettre de la ligne du dessous, ni sceau, ni photo) ;
+   sinon au milieu de l'espace entre deux mots de la ligne du dessous, s'il est à portée de la lettre ; sinon cette lettre est écartée */
+function places(){var m=mesure(),q=t.getBoundingClientRect(),hl=parseFloat(getComputedStyle(h1).lineHeight)||q.height,k=m.em/58*.9,demi=k*5.04+Math.max(1,m.em*.03),tol=m.em*.14,
+  y=q.top+m.base/100*q.height,bas=y+Math.round(m.em*.34)+16*k*1.15+2,G=genes(h1,q.left-tol-demi,q.right+tol+demi,y,bas),r=document.createRange(),w=document.createTreeWalker(h1,NodeFilter.SHOW_TEXT),n,i,c,a,pleins=[],vides=[],fin,P=[];
+ while(n=w.nextNode()){if(t.contains(n))continue;
+  for(i=0;i<n.length;i++){if(/\s/.test(n.data.charAt(i)))continue;r.setStart(n,i);r.setEnd(n,i+1);c=r.getBoundingClientRect();
+   if(c.top>q.top+hl*.5&&c.top<q.top+hl*1.5){a=m.ctx.measureText(n.data.charAt(i).toUpperCase());pleins.push([c.left-(a.actualBoundingBoxLeft||0),c.left+(a.actualBoundingBoxRight||c.width)])}}}
+ pleins.sort(function(a,b){return a[0]-b[0]});
+ for(i=0;i<pleins.length;i++){if(i&&pleins[i][0]-fin>=2*demi)vides.push((fin+pleins[i][0])/2);fin=i?Math.max(fin,pleins[i][1]):pleins[i][1]}
+ surv.forEach(function(i){var x=milieu(i),C=[x];
+  vides.filter(function(v){return Math.abs(v-x)<=tol}).sort(function(a,b){return Math.abs(a-x)-Math.abs(b-x)}).forEach(function(v){C.push(v)});
+  C.some(function(c){var ok=!pleins.some(function(p){return p[0]<c+demi&&p[1]>c-demi})&&libre(G,c-demi,c+demi,y,bas);if(ok)P.push([i,c]);return ok})});
+ return P}
+/* La place de la lettre voulue, sinon la place libre la plus proche ; s'il n'y en a aucune, rien */
+function choix(i){var P=places(),b=null;P.forEach(function(p){if(b===null||Math.abs(p[0]-i)<Math.abs(b[0]-i))b=p});return b}
+function fige(){var v=niveaux();nappe.style.clipPath=bord(v.fin,2.1,.62);mot.style.clipPath=bord(v.fin,2.1,.62,true);pose=true}
+function joue(){var v=niveaux(),K=[[0,v.cache,1.2,0,VAETVIENT],[.24,v.haut,4.2,.26,'linear'],[.36,v.haut+.6,3.4,.4,EASE],[.72,v.fin-.6,2.5,.56,'ease-out'],[1,v.fin,2.1,.62]];
+ function cles(dessus){return K.map(function(k){var o={offset:k[0],clipPath:bord(k[1],k[2],k[3],dessus)};if(k[4])o.easing=k[4];return o})}
+ occupe=true;var A=[nappe.animate(cles(false),{duration:1350,fill:'both'}),mot.animate(cles(true),{duration:1350,fill:'both'}),
+  t.animate([{offset:0,transform:'translateY(0)',easing:VAETVIENT},{offset:.24,transform:'translateY(.085em)',easing:'linear'},{offset:.36,transform:'translateY(.085em)',easing:EASE},{offset:.74,transform:'translateY(0)'},{offset:1,transform:'translateY(0)'}],{duration:1350})];
+ function rend(){occupe=false}
+ A[0].finished.then(function(){fige();A[0].cancel();A[1].cancel();try{sessionStorage.setItem('apb-trempe','1')}catch(e){}setTimeout(perleHeros,400);return tombe(choix(prem))}).then(rend,rend)}
+var vu=false;try{vu=sessionStorage.getItem('apb-trempe')==='1'}catch(e){}
+if(calme.matches||vu){fige();pret().then(fige);if(heros)finis(heros.parentNode).then(function(){setTimeout(perleHeros,600)})}
+else Promise.all([finis(h1),pret()]).then(joue);
+var rt=0;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){if(pose)fige()},150)});
+/* Sur ordinateur : une goutte retombe au survol du titre */
+h1.addEventListener('pointerenter',function(e){if(e.pointerType!=='mouse'||occupe||calme.matches||!pose)return;occupe=true;function rend(){occupe=false}var P=places();tombe(P.length?P[Math.floor(Math.random()*P.length)]:null).then(rend,rend)});
 })();
 </script>
 </body></html>
