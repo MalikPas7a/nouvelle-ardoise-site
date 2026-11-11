@@ -894,7 +894,8 @@ f.addEventListener('submit',function(e){e.preventDefault();var premier=null;
  f.querySelector('.champs').hidden=true;m.hidden=false;m.focus({preventScroll:true});f.scrollIntoView({block:'start'});nappe(m)});
 /* v20 sauce 2 : la goutte tombe dans le sceau, la sauce monte, le texte arrive */
 function nappe(m){var sc=m.querySelector('.sceau-n');if(!sc)return;
- if(matchMedia('(prefers-reduced-motion: reduce)').matches||!sc.animate){m.classList.add('fini');return}
+ /* v20 sauce garde : pas d'animation non plus sur un navigateur d'avant 2023 (il ne comprend pas « width>=0px ») : avant sa version 16.4, Safari découpait mal un rond dont le contenu s'anime, la sauce aurait débordé en carré */
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches||!sc.animate||!matchMedia('(width>=0px)').matches){m.classList.add('fini');return}
  var EASE='cubic-bezier(.22,1,.36,1)',CHUTE='cubic-bezier(.11,0,.5,0)',H=76,o={duration:950,delay:640,easing:EASE,fill:'both'},t=document.createElement('div');
  sc.animate([{transform:'scale(.94)',opacity:0},{transform:'scale(1)',opacity:1}],{duration:300,easing:EASE,fill:'backwards'});
  t.innerHTML='<svg class="gte" viewBox="0 0 12 16" aria-hidden="true" focusable="false"><path d="M6 0C6 0 .4 7 .4 10.4a5.6 5.6 0 0 0 11.2 0C11.6 7 6 0 6 0Z"/></svg>';var g=t.firstChild;g.style.cssText='width:13.2px;height:17.6px;margin-left:-6.6px;left:'+(sc.offsetLeft+sc.offsetWidth/2)+'px;top:'+(sc.offsetTop-30)+'px';m.appendChild(g);
