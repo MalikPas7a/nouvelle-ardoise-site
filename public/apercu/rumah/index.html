@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Rumah · Cuisine malaisienne à Lausanne (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour Rumah, cuisine malaisienne, Chemin de Chandieu 12, 1006 Lausanne.">
+<meta name="theme-color" content="#f4ede0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..600,50;1,9..144,400,50&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/laksa.webp">
+<style>
+:root{
+  --santan:#f4ede0;      /* lait de coco */
+  --santan-2:#ebe1cf;
+  --kayu:#3b2618;        /* brun du logo */
+  --kayu-2:#5b4130;
+  --kayu-3:#7a6250;
+  --kunyit:#c9962e;      /* moutarde du rantang */
+  --kunyit-clair:#e3b54e;
+  --pandan:#2f4a33;
+  --ligne:#d8cbb4;
+  --serif:"Fraunces", Georgia, serif;
+  --sans:"Figtree", system-ui, -apple-system, sans-serif;
+  --g:clamp(20px, 5vw, 64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--santan);color:var(--kayu);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--kayu);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1180px;margin:0 auto}
+
+/* bandeau aperçu */
+.apercu{background:var(--kayu);color:#d9cbb6;font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff7ea;font-weight:500}
+
+/* entête */
+.top{position:sticky;top:0;z-index:20;background:rgba(244,237,224,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px var(--g)}
+@media (min-width:1260px){.top .wrap{padding:12px 0}}
+.logo{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+.logo b{font:500 26px/1 var(--serif);font-variation-settings:"SOFT" 100;letter-spacing:-.01em}
+.logo span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--kayu-3)}
+@media (max-width:419px){.logo span{display:none}}
+.top nav{display:flex;align-items:center;gap:26px}
+.top nav a.l{font-size:15px;text-decoration:none;color:var(--kayu-2)}
+.top nav a.l:hover{color:var(--kayu);text-decoration:underline;text-underline-offset:4px}
+.btn-ligne{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1px solid var(--kayu);border-radius:999px;font:500 15px/1 var(--sans);text-decoration:none;white-space:nowrap;transition:background .2s,color .2s}
+.btn-ligne:hover{background:var(--kayu);color:var(--santan)}
+@media (max-width:799px){.top nav a.l{display:none}}
+
+/* hero */
+.hero{padding:28px var(--g) 64px}
+.hero .wrap{display:grid;gap:32px}
+.sur{font:600 12px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--kayu-3)}
+.sur i{font-style:normal;color:var(--kunyit)}
+h1{font:400 clamp(72px, 22vw, 168px)/.86 var(--serif);font-variation-settings:"SOFT" 100,"opsz" 144;letter-spacing:-.035em;margin:14px 0 22px}
+.chapo{font:400 clamp(20px, 2.2vw, 25px)/1.4 var(--serif);font-variation-settings:"opsz" 30;max-width:26ch;color:var(--kayu-2)}
+.chapo em{font-style:italic;color:var(--kayu)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 26px;border-radius:999px;background:var(--kayu);color:var(--santan);font:600 16px/1 var(--sans);text-decoration:none;transition:background .2s,transform .15s}
+.btn:hover{background:#4d3322}
+.btn:active{transform:scale(.98)}
+.btn.sec{background:transparent;color:var(--kayu);border:1px solid var(--kayu-3)}
+.btn.sec:hover{border-color:var(--kayu);background:var(--santan-2)}
+.btn.or{background:var(--kunyit-clair);color:var(--kayu)}
+.btn.or:hover{background:#ecc25f}
+@media (max-width:400px){.btn{padding:0 20px;font-size:15px}}
+.ouvert{margin-top:18px;font-size:14.5px;color:var(--kayu-3)}
+.hero figure{position:relative;max-width:560px;width:100%;justify-self:center}
+.hero figure img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:50%}
+.hero figcaption{margin-top:14px;text-align:center;font-size:14px;color:var(--kayu-3)}
+.hero figcaption b{font:italic 400 17px/1 var(--serif);color:var(--kayu)}
+@media (min-width:900px){
+  .hero{padding:56px var(--g) 96px}
+  .hero .wrap{grid-template-columns:1.1fr 1fr;align-items:center;gap:56px}
+}
+
+/* sections */
+section{padding:clamp(72px, 10vw, 128px) var(--g)}
+h2{font:400 clamp(40px, 7vw, 68px)/1 var(--serif);font-variation-settings:"SOFT" 100,"opsz" 120;letter-spacing:-.02em}
+h2 em{font-style:italic}
+.intro{max-width:52ch;margin-top:18px;color:var(--kayu-2)}
+
+/* cheffe */
+.cheffe{background:var(--santan-2)}
+.cheffe .wrap{display:grid;gap:40px}
+.cheffe figure img{width:100%;max-width:427px;border-radius:4px}
+.cheffe figcaption{margin-top:10px;font-size:14px;color:var(--kayu-3)}
+.cheffe blockquote{font:italic 400 clamp(26px, 3.6vw, 38px)/1.25 var(--serif);font-variation-settings:"opsz" 60;margin-top:22px;max-width:22ch}
+.points{list-style:none;margin-top:40px;border-top:1px solid var(--ligne);counter-reset:p}
+.points li{display:grid;grid-template-columns:44px 1fr;gap:4px 12px;padding:20px 0;border-bottom:1px solid var(--ligne);counter-increment:p}
+.points li::before{content:counter(p,decimal-leading-zero);font:500 14px/1.9 var(--sans);color:var(--kunyit);grid-row:span 2}
+.points b{font:500 20px/1.3 var(--serif)}
+.points span{color:var(--kayu-2);font-size:16px}
+@media (min-width:900px){.cheffe .wrap{grid-template-columns:427px 1fr;gap:80px;align-items:start}.cheffe .txt{padding-top:20px}}
+
+/* carte */
+.carte .tete{display:grid;gap:12px;margin-bottom:48px}
+@media (min-width:900px){.carte .tete{grid-template-columns:1fr 1fr;align-items:end;gap:64px}}
+.plats{list-style:none;display:grid;gap:44px 32px}
+@media (min-width:640px){.plats{grid-template-columns:1fr 1fr}}
+@media (min-width:1000px){.plats{grid-template-columns:repeat(3,1fr)}}
+.plat img{width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:4px;background:var(--santan-2)}
+.plat .n{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:16px;padding-bottom:8px;border-bottom:1px solid var(--ligne)}
+.plat h3{font:500 23px/1.15 var(--serif);font-variation-settings:"opsz" 40}
+.plat .px{font:500 15px/1 var(--sans);font-variant-numeric:tabular-nums;white-space:nowrap}
+.plat .cat{display:block;margin-top:10px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--kunyit);font-weight:600}
+.plat p{margin-top:4px;font-size:15.5px;color:var(--kayu-2)}
+.carte .bas{margin-top:48px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+.carte .bas p{font-size:14.5px;color:var(--kayu-3);max-width:60ch}
+.lien{font-weight:600;text-underline-offset:4px}
+
+/* devise */
+.devise{background:var(--pandan);color:#efe9d8;text-align:center}
+.devise p.q{font:italic 400 clamp(28px, 4.6vw, 52px)/1.2 var(--serif);font-variation-settings:"opsz" 100;max-width:24ch;margin:0 auto}
+.devise .src{margin-top:24px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#bfc7b0}
+.presse{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;margin-top:48px;padding-top:32px;border-top:1px solid rgba(239,233,216,.2);font-size:15px;color:#d8d6c4}
+.presse a{text-underline-offset:4px;text-decoration-color:rgba(239,233,216,.4)}
+
+/* avis */
+.avis .grille{display:grid;gap:36px;margin-top:44px}
+@media (min-width:900px){.avis .grille{grid-template-columns:repeat(3,1fr);gap:48px}}
+.avis figure{border-top:2px solid var(--kayu);padding-top:20px}
+.avis blockquote{font:400 21px/1.4 var(--serif);font-variation-settings:"opsz" 30}
+.avis figcaption{margin-top:14px;font-size:14px;color:var(--kayu-3)}
+
+/* galerie */
+.galerie{padding-top:0}
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gal figure{position:relative;overflow:hidden;border-radius:4px}
+.gal img{width:100%;height:100%;object-fit:cover;aspect-ratio:1}
+.gal figcaption{position:absolute;left:10px;bottom:10px;background:rgba(244,237,224,.94);color:var(--kayu);font-size:12.5px;font-weight:500;padding:4px 9px;border-radius:999px}
+.gal .large{grid-column:span 2}
+.gal .large img{aspect-ratio:16/11}
+@media (min-width:900px){
+  .gal{grid-template-columns:repeat(3,1fr);max-width:1180px;margin:0 auto;gap:14px}
+  .gal .large{grid-column:auto}
+  .gal img,.gal .large img{aspect-ratio:4/3}
+}
+
+/* infos */
+.infos{background:var(--kayu);color:var(--santan)}
+.infos h2{color:#fff7ea}
+.infos .wrap{display:grid;gap:48px}
+@media (min-width:900px){.infos .wrap{grid-template-columns:1fr 1.1fr;gap:80px}}
+.infos .sous{font:600 12px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--kunyit-clair);margin-bottom:14px}
+.infos address{font-style:normal;font:400 26px/1.3 var(--serif);margin-top:26px}
+.infos .tel{display:inline-block;margin-top:10px;font-size:19px;text-decoration:none;border-bottom:1px solid rgba(244,237,224,.45);padding-bottom:2px}
+.infos .actions{margin-top:30px}
+.infos .btn.sec{color:var(--santan);border-color:rgba(244,237,224,.45)}
+.infos .btn.sec:hover{background:rgba(244,237,224,.08);border-color:var(--santan)}
+.h{width:100%;border-collapse:collapse;font-size:16px}
+.h th,.h td{text-align:left;padding:12px 0;border-bottom:1px solid rgba(244,237,224,.16);vertical-align:top;font-weight:400}
+.h th{color:#d6c7b1;width:42%;padding-right:12px}
+.h td{font-variant-numeric:tabular-nums}
+.h .ferme td{color:#b9a892}
+.bloc + .bloc{margin-top:40px}
+.infos .note{margin-top:14px;font-size:14px;color:#b9a892}
+
+footer{background:#2c1c11;color:#b9a892;padding:36px var(--g) 44px;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between}
+footer a{color:#e6d9c4;text-underline-offset:3px}
+
+/* apparitions */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.on{opacity:1;transform:none}
+.no-js .rv{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body class="no-js">
+<div class="apercu" role="note">Aperçu imaginé par Nouvelle Ardoise pour <strong>Rumah</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="Rumah, retour en haut"><b>Rumah</b><span>cuisine malaisienne</span></a>
+    <nav aria-label="Navigation principale">
+      <a class="l" href="#carte">La carte</a>
+      <a class="l" href="#cheffe">La cheffe</a>
+      <a class="l" href="#infos">Horaires</a>
+      <a class="btn-ligne" href="https://reservationonline.fr/resto/rumah.php" target="_blank" rel="noopener">Réserver</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="titre">
+    <div class="wrap">
+      <div class="rv">
+        <p class="sur">Malaisie <i>&amp;</i> Singapour · Lausanne</p>
+        <h1 id="titre">Rumah</h1>
+        <p class="chapo">La nourriture réconfortante de la Malaisie arrive <em>« à la maison »</em>, à Lausanne.</p>
+        <div class="actions">
+          <a class="btn" href="https://reservationonline.fr/resto/rumah.php" target="_blank" rel="noopener">Réserver une table</a>
+          <a class="btn sec" href="https://www.reservationonline.fr/rumah/rumah_takeaway.php" target="_blank" rel="noopener">Commander à l'emporter</a>
+        </div>
+        <p class="ouvert">Sur place ou à emporter, du mardi au samedi · Chemin de Chandieu 12</p>
+      </div>
+      <figure class="rv">
+        <img src="img/laksa.webp" width="640" height="640" alt="Un bol de laksa : soupe de lait de coco épicée, crevettes, tofu et boulettes de poisson, vu du dessus" fetchpriority="high">
+        <figcaption><b>Laksa</b> · soupe épicée au lait de coco</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="cheffe" id="cheffe" aria-labelledby="t-cheffe">
+    <div class="wrap">
+      <figure class="rv">
+        <img src="img/cheffe.webp" width="427" height="640" loading="lazy" alt="Audrey Then, cheffe de Rumah, souriante en veste noire dans sa cuisine">
+        <figcaption>Audrey Then, en cuisine</figcaption>
+      </figure>
+      <div class="txt rv">
+        <p class="sur">La cheffe</p>
+        <h2 id="t-cheffe">Audrey <em>Then</em></h2>
+        <blockquote>« La cheffe retourne à ses racines malaisiennes pour vous les faire partager. »</blockquote>
+        <ul class="points">
+          <li><b>Une cuisine aux quatre origines</b><span>Chinoise, indienne, peranakan et malaise : l'une des cuisines les plus diversifiées d'Asie.</span></li>
+          <li><b>Viande suisse, tout fait maison</b><span>Le poulet et le bœuf servis chez Rumah sont suisses. « Tout fait maison », écrivent les clients.</span></li>
+          <li><b>Seule aux fourneaux</b><span>À l'opposé des brigades, Audrey Then fait tourner sa cuisine sans commis ni second, comme l'a raconté Blick en mars 2023.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="carte" id="carte" aria-labelledby="t-carte">
+    <div class="wrap">
+      <div class="tete rv">
+        <div>
+          <p class="sur">Sur place ou à emporter</p>
+          <h2 id="t-carte">Six plats <em>de la carte</em></h2>
+        </div>
+        <p class="intro">Des soupes parfumées au curcuma et à la citronnelle, le riz au lait de coco, les brochettes et leur sauce cacahuète. Prix en francs, tels que publiés sur rumah.ch.</p>
+      </div>
+      <ul class="plats">
+        <li class="plat rv">
+          <img src="img/nasi-lemak-ayam.webp" width="640" height="565" loading="lazy" alt="Nasi lemak au poulet : riz au lait de coco, curry de poulet, œuf, cacahuètes et concombre">
+          <span class="cat">Nasi Lemak &amp; Rendang</span>
+          <div class="n"><h3>Nasi Lemak Ayam</h3><span class="px">27.00</span></div>
+          <p>Riz cuit au lait de coco, œuf, cacahuètes grillées, concombre et sambal Rumah, avec le poulet.</p>
+        </li>
+        <li class="plat rv">
+          <img src="img/mee-hoon-soto-daging.webp" width="640" height="539" loading="lazy" alt="Mee hoon soto au bœuf : bouillon doré au curcuma, vermicelles, bœuf émincé et herbes fraîches">
+          <span class="cat">Suggestion du moment</span>
+          <div class="n"><h3>Mee Hoon Soto Daging</h3><span class="px">28.00</span></div>
+          <p>Vermicelles de riz, bouillon infusé de curcuma, citronnelle et gingembre, émincé de bœuf, tofu de poisson.</p>
+        </li>
+        <li class="plat rv">
+          <img src="img/satay-ayam.webp" width="640" height="440" loading="lazy" alt="Quatre brochettes de poulet satay sur feuille de bananier, bol de sauce cacahuète">
+          <span class="cat">Entrées</span>
+          <div class="n"><h3>Satay Ayam <small>(3 pcs)</small></h3><span class="px">14.00</span></div>
+          <p>Brochettes de poulet satay, sauce cacahuète.</p>
+        </li>
+        <li class="plat rv">
+          <img src="img/mee-goreng-udang.webp" width="640" height="565" loading="lazy" alt="Mee goreng aux crevettes : nouilles sautées, omelette en lanières et crevettes, dans un bol noir">
+          <span class="cat">Mee Goreng</span>
+          <div class="n"><h3>Mee Goreng Udang</h3><span class="px">28.00</span></div>
+          <p>Nouilles sautées aux légumes et à l'œuf, crevettes.</p>
+        </li>
+        <li class="plat rv">
+          <img src="img/popiah-goreng.webp" width="640" height="480" loading="lazy" alt="Quatre rouleaux frits dorés sur salade, sauce Rumah dans un petit bol">
+          <span class="cat">Entrées</span>
+          <div class="n"><h3>Popiah Goreng <small>(4 pcs)</small></h3><span class="px">7.00</span></div>
+          <p>Rouleaux aux légumes frits, sauce Rumah.</p>
+        </li>
+        <li class="plat rv">
+          <img src="img/panna-cotta-pandan.webp" width="640" height="632" loading="lazy" alt="Panna cotta coco pandan nappée de sirop, décorée d'une feuille de pandan">
+          <span class="cat">Manisan · Desserts</span>
+          <div class="n"><h3>Panna cotta coco pandan</h3><span class="px">8.00</span></div>
+          <p>Avec son sirop de coco pandan.</p>
+        </li>
+      </ul>
+      <div class="bas rv">
+        <a class="btn sec" href="https://rumah.ch/carte_menu.php" target="_blank" rel="noopener">Voir toute la carte</a>
+        <p>Allergies ou intolérances : l'équipe vous renseigne volontiers sur les ingrédients, sur simple demande.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="devise" aria-label="Dans la presse">
+    <div class="wrap rv">
+      <p class="q">« À l'opposé des brigades, certains chefs exercent en solitaire et font tourner leur restaurant sans l'aide de commis ou de seconds. Une expérience exigeante, mais formatrice&#8239;! »</p>
+      <p class="src">Blick · mars 2023</p>
+      <ul class="presse">
+        <li><a href="https://www.gaultmillau.ch/fr/romandie-gourmande/rumah-la-cuisine-authentique-de-malaisie" target="_blank" rel="noopener">Gault&amp;Millau, avril 2022</a></li>
+        <li><a href="https://quandestcequonmange.ch/rumah-lausanne/" target="_blank" rel="noopener">« Quand est-ce qu'on mange ? », janvier 2022</a></li>
+        <li>Reçue par l'Impératrice de Johor</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="avis" aria-labelledby="t-avis">
+    <div class="wrap">
+      <p class="sur rv">Ce qu'en disent les clients</p>
+      <h2 id="t-avis" class="rv">Fait <em>avec amour</em></h2>
+      <div class="grille">
+        <figure class="rv"><blockquote>« Très bonne nourriture authentique, et fait avec amour. Viande suisse et tout fait maison. Merci pour ce voyage. »</blockquote><figcaption>Gasser · novembre 2022</figcaption></figure>
+        <figure class="rv"><blockquote>« Petit restaurant familial avec beaucoup de charme, repas délicieux fait maison. À tester absolument ! »</blockquote><figcaption>Laura · janvier 2023</figcaption></figure>
+        <figure class="rv"><blockquote>« On apprécie tous les petits détails mis et le soin apporté à chaque plat que nous avons dégusté. »</blockquote><figcaption>Fanny · septembre 2022</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="galerie" aria-label="Galerie">
+    <div class="gal">
+      <figure class="large rv"><img src="img/enseigne.webp" width="640" height="440" loading="lazy" alt="L'enseigne lumineuse de Rumah, un rantang doré, sur la façade le soir"><figcaption>Chemin de Chandieu 12, le soir</figcaption></figure>
+      <figure class="rv"><img src="img/nasi-goreng-udang.webp" width="640" height="545" loading="lazy" alt="Nasi goreng aux crevettes garni d'omelette et d'oignons frits"><figcaption>Nasi Goreng Udang</figcaption></figure>
+      <figure class="rv"><img src="img/wonton-otak-otak.webp" width="640" height="463" loading="lazy" alt="Wontons frits farcis de poisson"><figcaption>Wonton otak-otak</figcaption></figure>
+      <figure class="rv"><img src="img/kuih-dadar.webp" width="640" height="440" loading="lazy" alt="Crêpe verte au pandan roulée, farcie de coco, sur une assiette blanche"><figcaption>Kuih dadar</figcaption></figure>
+      <figure class="rv"><img src="img/sago-gula-melaka.webp" width="640" height="480" loading="lazy" alt="Sago gula melaka : perles de tapioca dans un lait de coco, coupe en verre"><figcaption>Sago Gula Melaka</figcaption></figure>
+      <figure class="large rv"><img src="img/mee-hoon-soup-udang.webp" width="640" height="440" loading="lazy" alt="Soupe de vermicelles aux crevettes, boulettes de poisson et légumes verts"><figcaption>Mee Hoon Soup Udang</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="infos" id="infos" aria-labelledby="t-infos">
+    <div class="wrap">
+      <div class="rv">
+        <p class="sous">Venir chez Rumah</p>
+        <h2 id="t-infos">Nous <em>trouver</em></h2>
+        <address>Chemin de Chandieu 12<br>1006 Lausanne</address>
+        <a class="tel" href="tel:+41216160941">+41 21 616 09 41</a>
+        <div class="actions">
+          <a class="btn or" href="https://reservationonline.fr/resto/rumah.php" target="_blank" rel="noopener">Réserver une table</a>
+          <a class="btn sec" href="tel:+41216160941">Appeler</a>
+          <a class="btn sec" href="https://www.google.com/maps/search/?api=1&amp;query=Rumah%20Chemin%20de%20Chandieu%2012%201006%20Lausanne" target="_blank" rel="noopener">Itinéraire</a>
+        </div>
+      </div>
+      <div class="rv">
+        <div class="bloc">
+          <p class="sous">Le restaurant</p>
+          <table class="h">
+            <tr><th scope="row">Mardi au vendredi</th><td>11h45 – 14h00<br>18h45 – 22h00</td></tr>
+            <tr><th scope="row">Samedi</th><td>Le soir, 18h45 – 22h00</td></tr>
+            <tr class="ferme"><th scope="row">Dimanche et lundi</th><td>Fermé</td></tr>
+          </table>
+        </div>
+        <div class="bloc">
+          <p class="sous">À l'emporter</p>
+          <table class="h">
+            <tr><th scope="row">Mardi au samedi</th><td>11h45 – 13h30<br>18h45 – 21h00</td></tr>
+          </table>
+          <p class="note">Commande en ligne ou par téléphone. <a href="https://www.reservationonline.fr/rumah/rumah_takeaway.php" target="_blank" rel="noopener" class="lien">Commander</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Rumah · cuisine malaisienne · Chemin de Chandieu 12, 1006 Lausanne</span>
+    <span><a href="https://www.instagram.com/rumahlausanne" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/100698984811021" target="_blank" rel="noopener">Facebook</a></span>
+    <span>Aperçu non officiel, imaginé par Nouvelle Ardoise. Textes et photos : rumah.ch.</span>
+  </div>
+</footer>
+
+<script>
+document.body.classList.remove('no-js');
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('on')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
