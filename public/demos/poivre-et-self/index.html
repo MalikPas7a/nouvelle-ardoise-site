@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f5f0e6">
+<title>Poivre et Self × Nouvelle Ardoise · Les plats du Chef Clot</title>
+<meta name="description" content="Démo pour Poivre et Self (Sottens) : commandes de fêtes payées par Twint, confirmations et rappels sur WhatsApp, plat de la semaine, vue du chef.">
+<meta property="og:title" content="Les plats du Chef Clot, commandés en 30 secondes">
+<meta property="og:description" content="Démo pour Poivre et Self : commandes de fêtes, rappels WhatsApp, plat de la semaine.">
+<meta property="og:image" content="https://nouvelleardoise.ch/demos/poivre-et-self/img/apercu-partage.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="img/logo-poivre-et-self.png" type="image/png">
+<link rel="preload" href="fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Manrope;src:url(fonts/manrope-latin-wght-normal.woff2) format("woff2");font-weight:200 800;font-display:swap}
+@font-face{font-family:Caveat;src:url(fonts/caveat-latin-wght-normal.woff2) format("woff2");font-weight:400 700;font-display:swap}
+:root{
+  --creme:#f5f0e6;--papier:#fbf8f2;--encre:#1b1a17;--brun:#5b4740;--sapin:#2e5a46;--sapin2:#244a39;
+  --gris:#6b6258;--ligne:#e2d8c8;--pad:clamp(16px,4.5vw,56px);--max:1100px;--ease:cubic-bezier(.2,.7,.2,1);
+  --wa-bg:#efeae2;--wa-in:#ffffff;--wa-out:#d9fdd3;--wa-tick:#53bdeb;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--creme);color:var(--encre);font:16px/1.55 Manrope,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sapin);outline-offset:3px}
+h1,h2,h3,p{margin:0}
+h1,h2{font-weight:800;letter-spacing:-.025em;line-height:1.04;text-wrap:balance}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+.num{font-variant-numeric:tabular-nums}
+
+/* bandeau */
+.note{background:var(--encre);color:#efe9dd;font-size:13px;text-align:center;padding:9px var(--pad)}
+.note b{font-weight:700}
+
+/* héro */
+.hero{padding:clamp(36px,7vw,84px) 0 clamp(40px,6vw,72px)}
+.hero .logo{width:min(230px,56vw);margin-bottom:clamp(28px,5vw,44px)}
+.hero h1{font-size:clamp(2.4rem,1.3rem + 5vw,4.6rem);max-width:13ch}
+.hero h1 .main{font-family:Caveat,cursive;font-weight:700;font-size:1.12em;letter-spacing:0;color:var(--sapin);white-space:nowrap}
+.hero .lead{font-size:clamp(1.05rem,1rem + .3vw,1.2rem);color:var(--gris);max-width:34em;margin-top:18px}
+.hero ol{list-style:none;padding:0;margin:30px 0 0;display:grid;gap:8px;max-width:30em}
+.hero ol a{display:flex;gap:14px;align-items:baseline;text-decoration:none;padding:12px 0;border-top:1px solid var(--ligne);font-weight:600}
+.hero ol a span{font-size:13px;color:var(--gris);font-weight:700;min-width:1.5em}
+.hero ol a:hover{color:var(--sapin)}
+
+/* sections démo */
+.step{padding:clamp(56px,8vw,104px) 0;border-top:1px solid var(--ligne)}
+.step:nth-of-type(even){background:var(--papier)}
+.grid{display:grid;gap:clamp(28px,5vw,72px);align-items:center}
+@media (min-width:860px){.grid{grid-template-columns:1fr 360px}.step.flip .grid{grid-template-columns:360px 1fr}.step.flip .txt{order:2}}
+.kick{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--brun)}
+.step h2{font-size:clamp(1.9rem,1.2rem + 3vw,3.1rem);margin-top:10px;max-width:15ch}
+.step .lead{color:var(--gris);margin-top:14px;max-width:30em;font-size:1.05rem}
+.pts{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:10px;max-width:30em}
+.pts li{display:flex;gap:12px;align-items:flex-start}
+.pts li::before{content:"";flex:none;width:9px;height:9px;border-radius:50%;background:var(--encre);margin-top:.55em}
+.ex{display:inline-block;margin-top:18px;font-size:12.5px;color:var(--gris);border:1px dashed #c9bca6;border-radius:999px;padding:4px 12px}
+
+/* téléphone */
+.phone{width:min(340px,100%);margin:0 auto;aspect-ratio:9/18.5;border:10px solid var(--encre);border-radius:46px;background:#fff;overflow:hidden;position:relative;box-shadow:0 30px 60px -30px rgba(40,30,20,.45),0 2px 0 rgba(0,0,0,.04)}
+.phone::before{content:"";position:absolute;top:8px;left:50%;translate:-50% 0;width:92px;height:26px;border-radius:20px;background:var(--encre);z-index:5}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden}
+.sbar{height:44px;flex:none;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 6px;font-size:12px;font-weight:700}
+
+/* écran commande */
+.shop{background:var(--papier)}
+.shop-head{padding:6px 18px 12px;border-bottom:1px solid var(--ligne);display:flex;align-items:center;gap:10px}
+.shop-head img{width:62px}
+.shop-head p{font-size:11.5px;color:var(--gris);line-height:1.3}
+.shop-body{flex:1;overflow-y:auto;padding:14px 16px 8px;overscroll-behavior:contain}
+.shop-body h3{font-size:19px;font-weight:800;letter-spacing:-.01em}
+.shop-body .sub{font-size:12px;color:var(--gris);margin-top:2px}
+.items{list-style:none;padding:0;margin:12px 0 0}
+.item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--ligne)}
+.item div{flex:1;min-width:0}
+.item b{display:block;font-size:13.5px;font-weight:700;line-height:1.25}
+.item small{font-size:11.5px;color:var(--gris)}
+.qty{display:flex;align-items:center;gap:2px;flex:none}
+.qty button{width:36px;height:36px;border-radius:50%;border:1px solid #cdbfa9;background:#fff;font-size:17px;line-height:1;cursor:pointer;display:grid;place-items:center;touch-action:manipulation}
+.qty button:active{transform:scale(.94)}
+.qty output{width:22px;text-align:center;font-weight:800;font-size:14px}
+.lbl{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brun);margin:16px 0 8px}
+.slots{display:flex;flex-wrap:wrap;gap:6px}
+.slots button{border:1px solid #cdbfa9;background:#fff;border-radius:999px;padding:7px 11px;font-size:12.5px;font-weight:600;cursor:pointer;min-height:34px}
+.slots button[aria-pressed="true"]{background:var(--encre);border-color:var(--encre);color:#fff}
+.shop-foot{flex:none;padding:10px 16px 18px;border-top:1px solid var(--ligne);background:#fff}
+.tot{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px}
+.tot b{font-size:15px}
+.pay{width:100%;min-height:48px;border:0;border-radius:14px;background:var(--encre);color:#fff;font-weight:800;font-size:15px;cursor:pointer;transition:transform .15s var(--ease),opacity .2s}
+.pay:active{transform:scale(.98)}
+.pay:disabled{opacity:.35;cursor:not-allowed}
+.done{position:absolute;inset:44px 0 0;background:var(--papier);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;gap:12px;opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility 0s .35s}
+.done.on{opacity:1;visibility:visible;transition:opacity .35s var(--ease)}
+.done .ok{width:64px;height:64px;border-radius:50%;background:var(--sapin);display:grid;place-items:center}
+.done h3{font-size:21px;font-weight:800}
+.done p{font-size:13.5px;color:var(--gris);max-width:24ch}
+.done .again{margin-top:8px;border:1px solid #cdbfa9;background:#fff;border-radius:999px;padding:9px 16px;font-weight:700;font-size:13px;cursor:pointer;min-height:40px}
+
+/* écrans WhatsApp */
+.wa{background:var(--wa-bg)}
+.wa-head{flex:none;background:#f6f5f3;border-bottom:1px solid #e3e0dc;display:flex;align-items:center;gap:10px;padding:4px 14px 10px}
+.av{width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #e3e0dc;display:grid;place-items:center;overflow:hidden;flex:none}
+.av img{width:26px}
+.wa-head b{display:block;font-size:14px}
+.wa-head small{font-size:11px;color:#667781}
+.wa-body{flex:1;overflow:hidden;padding:12px 10px;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.38}
+.day{align-self:center;background:#fff;border-radius:8px;padding:3px 10px;font-size:11px;color:#54656f;margin:4px 0;box-shadow:0 1px .5px rgba(11,20,26,.1)}
+.msg{max-width:84%;padding:6px 9px 16px;border-radius:9px;position:relative;box-shadow:0 1px .5px rgba(11,20,26,.13)}
+.msg.in{align-self:flex-start;background:var(--wa-in);border-top-left-radius:2px}
+.msg.out{align-self:flex-end;min-width:76px;background:var(--wa-out);border-top-right-radius:2px}
+.msg time{position:absolute;right:8px;bottom:3px;font-size:10px;color:#667781}
+.msg.out time::after{content:" ✓✓";color:var(--wa-tick);letter-spacing:-.15em}
+.msg .auto{display:block;font-size:10.5px;color:#5f6d75;margin-bottom:2px}
+.msg b{font-weight:700}
+.wa-in .msg{opacity:0;transform:translateY(8px) scale(.98)}
+.wa-in.play .msg{animation:pop .45s var(--ease) forwards;animation-delay:calc(var(--i) * .55s)}
+@keyframes pop{to{opacity:1;transform:none}}
+.wa-foot{flex:none;background:#f6f5f3;padding:8px 10px 16px;display:flex;gap:8px;align-items:center}
+.wa-foot span{flex:1;background:#fff;border-radius:20px;padding:8px 14px;font-size:12.5px;color:#5f6d75}
+
+/* vue du chef */
+.dash{background:#fff}
+.dash-head{flex:none;padding:4px 16px 10px}
+.dash-head h3{font-size:18px;font-weight:800}
+.dash-head p{font-size:11.5px;color:var(--gris)}
+.tabs{display:flex;gap:6px;padding:0 16px 10px;flex:none}
+.tabs button{flex:1;border:1px solid var(--ligne);background:var(--papier);border-radius:10px;padding:7px 4px;font-size:12px;font-weight:700;cursor:pointer;min-height:40px;line-height:1.15}
+.tabs button small{display:block;font-weight:600;color:var(--gris);font-size:10.5px}
+.tabs button[aria-selected="true"]{background:var(--encre);border-color:var(--encre);color:#fff}
+.tabs button[aria-selected="true"] small{color:#d6cfc2}
+.dash-body{flex:1;overflow-y:auto;padding:0 16px 16px;overscroll-behavior:contain}
+.prod{background:var(--papier);border:1px solid var(--ligne);border-radius:14px;padding:12px}
+.prod .lbl{margin:0 0 8px}
+.bar{display:grid;grid-template-columns:1fr auto;gap:2px 10px;font-size:12.5px;margin-top:8px}
+.bar b{font-weight:800}
+.bar i{grid-column:1/-1;height:6px;border-radius:6px;background:var(--ligne);overflow:hidden}
+.bar i::after{content:"";display:block;height:100%;width:var(--w);background:var(--sapin);border-radius:6px;transition:width .6s var(--ease)}
+.orders{list-style:none;padding:0;margin:14px 0 0}
+.orders li{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--ligne);font-size:12.5px}
+.orders li .h{font-weight:800;min-width:38px}
+.orders li div{flex:1;min-width:0}
+.orders li small{display:block;color:var(--gris);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{font-size:10.5px;font-weight:800;border-radius:999px;padding:3px 8px;background:#e4efe8;color:var(--sapin2);white-space:nowrap}
+
+/* mise en place */
+.plan{padding:clamp(56px,8vw,104px) 0;border-top:1px solid var(--ligne);background:var(--encre);color:#efe9dd}
+.plan .kick{color:#c9b9a3}
+.plan h2{font-size:clamp(1.9rem,1.2rem + 3vw,3.1rem);margin-top:10px;max-width:18ch;color:#fff}
+.weeks{list-style:none;padding:0;margin:clamp(28px,4vw,44px) 0 0;display:grid;gap:14px}
+@media (min-width:760px){.weeks{grid-template-columns:repeat(3,1fr)}}
+.weeks li{border-top:2px solid #4a443c;padding-top:16px}
+.weeks b{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#c9b9a3}
+.weeks h3{font-size:1.25rem;font-weight:800;margin:6px 0 6px;color:#fff}
+.weeks p{color:#bdb4a6;font-size:.98rem}
+.need{margin-top:clamp(32px,5vw,52px);padding:20px;border:1px solid #4a443c;border-radius:16px;max-width:44em}
+.need p{color:#d9d1c4}
+.need p+p{margin-top:8px}
+
+/* contact */
+.contact{padding:clamp(48px,7vw,88px) 0}
+.contact h2{font-size:clamp(1.7rem,1.1rem + 2.4vw,2.6rem);max-width:18ch}
+.contact .lead{color:var(--gris);margin-top:12px;max-width:32em}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 22px;border-radius:999px;font-weight:800;text-decoration:none;background:var(--encre);color:#fff;transition:transform .15s var(--ease)}
+.btn.alt{background:transparent;color:var(--encre);border:1.5px solid var(--encre)}
+.btn:active{transform:scale(.97)}
+.sign{margin-top:36px;font-size:13px;color:var(--gris);border-top:1px solid var(--ligne);padding-top:18px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .wa-in .msg{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<p class="note">Démo préparée pour <b>Poivre et Self</b> par Nouvelle Ardoise. Plats, prix, prénoms et chiffres sont des exemples.</p>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="logo" src="img/logo-poivre-et-self.png" width="562" height="317" alt="Poivre et Self, Sottens, ouvert 7 jours sur 7">
+    <h1>Les plats du Chef Clot, commandés <span class="main">en 30 secondes.</span></h1>
+    <p class="lead">Pour les fêtes d'abord, puis chaque semaine. Sans appli à installer et sans caisse, comme votre épicerie. Vos clients commandent et paient sur leur téléphone, WhatsApp s'occupe des confirmations et des rappels, et vous voyez tout, trié par jour de retrait.</p>
+    <ol>
+      <li><a href="#commande"><span>01</span>Le client commande et paie avec Twint</a></li>
+      <li><a href="#rappels"><span>02</span>Confirmation et rappel sur WhatsApp</a></li>
+      <li><a href="#semaine"><span>03</span>Le plat de la semaine, chez vos fidèles</a></li>
+      <li><a href="#chef"><span>04</span>Le chef voit tout, trié</a></li>
+    </ol>
+  </div>
+</header>
+
+<main>
+<!-- 01 commande -->
+<section class="step" id="commande" aria-labelledby="t1">
+  <div class="wrap grid">
+    <div class="txt">
+      <p class="kick">01 · Commandes de fêtes</p>
+      <h2 id="t1">Votre menu de fêtes, réservé et payé d'avance.</h2>
+      <p class="lead">Un lien à partager partout : WhatsApp, Facebook, affiche avec QR code à l'épicerie. Le client choisit ses plats et son jour de retrait, puis paie avec Twint.</p>
+      <ul class="pts">
+        <li>Fini les commandes prises au téléphone ou sur un bout de papier.</li>
+        <li>Tout est payé d'avance : aucun plat préparé pour rien.</li>
+        <li>Vous fixez un nombre maximum par plat et par jour.</li>
+      </ul>
+      <span class="ex">Essayez : ajoutez un plat, choisissez un jour, payez.</span>
+    </div>
+    <div class="phone" role="group" aria-label="Démo : page de commande des fêtes">
+      <div class="screen shop">
+        <div class="sbar" aria-hidden="true"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="shop-head">
+          <img src="img/logo-poivre-et-self.png" width="562" height="317" alt="">
+          <p>Commandes de fêtes<br>Retrait à l'épicerie, Sottens</p>
+        </div>
+        <div class="shop-body">
+          <h3>Menu de fêtes du Chef Clot</h3>
+          <p class="sub">Fait maison à Sottens · exemple de carte</p>
+          <ul class="items" id="items">
+            <li class="item" data-p="18"><div><b>Terrine de campagne maison</b><small>500 g · CHF 18.–</small></div><div class="qty"><button type="button" aria-label="Retirer une terrine">−</button><output aria-live="polite">0</output><button type="button" aria-label="Ajouter une terrine">+</button></div></li>
+            <li class="item" data-p="46"><div><b>Pintade farcie aux marrons</b><small>Pour 2 · CHF 46.–</small></div><div class="qty"><button type="button" aria-label="Retirer une pintade">−</button><output aria-live="polite">0</output><button type="button" aria-label="Ajouter une pintade">+</button></div></li>
+            <li class="item" data-p="89"><div><b>Rôti de veau, sauce aux morilles</b><small>Pour 4 · CHF 89.–</small></div><div class="qty"><button type="button" aria-label="Retirer un rôti de veau">−</button><output aria-live="polite">0</output><button type="button" aria-label="Ajouter un rôti de veau">+</button></div></li>
+            <li class="item" data-p="16"><div><b>Gratin dauphinois</b><small>Pour 4 · CHF 16.–</small></div><div class="qty"><button type="button" aria-label="Retirer un gratin">−</button><output aria-live="polite">0</output><button type="button" aria-label="Ajouter un gratin">+</button></div></li>
+            <li class="item" data-p="34"><div><b>Bûche maison chocolat-marron</b><small>6 parts · CHF 34.–</small></div><div class="qty"><button type="button" aria-label="Retirer une bûche">−</button><output aria-live="polite">0</output><button type="button" aria-label="Ajouter une bûche">+</button></div></li>
+          </ul>
+          <p class="lbl" id="slotlbl">Jour de retrait</p>
+          <div class="slots" role="group" aria-labelledby="slotlbl" id="slots">
+            <button type="button" aria-pressed="false">Mer. 23 déc.</button>
+            <button type="button" aria-pressed="false">Jeu. 24 déc.</button>
+            <button type="button" aria-pressed="false">Jeu. 31 déc.</button>
+          </div>
+        </div>
+        <div class="shop-foot">
+          <div class="tot"><span id="hint">Ajoutez un plat</span><b class="num" id="total">CHF 0.–</b></div>
+          <button type="button" class="pay" id="pay" disabled>Payer avec Twint</button>
+        </div>
+        <div class="done" id="done" role="status">
+          <div class="ok" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+          <h3>Commande confirmée</h3>
+          <p id="donetxt">Payé avec Twint. La confirmation arrive sur WhatsApp.</p>
+          <button type="button" class="again" id="again">Recommencer la démo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 rappels -->
+<section class="step flip" id="rappels" aria-labelledby="t2">
+  <div class="wrap grid">
+    <div class="txt">
+      <p class="kick">02 · Confirmations et rappels</p>
+      <h2 id="t2">WhatsApp prévient vos clients à votre place.</h2>
+      <p class="lead">Dès que la commande est payée, le client reçoit sa confirmation. La veille du retrait, un rappel part tout seul. Le jour J, un message prévient que la commande attend.</p>
+      <ul class="pts">
+        <li>Moins d'oublis, moins de plats qui restent au frigo.</li>
+        <li>Le client répond directement s'il veut changer de jour.</li>
+        <li>Vous n'écrivez rien vous-même.</li>
+      </ul>
+      <span class="ex">Exemple de conversation</span>
+    </div>
+    <div class="phone" role="group" aria-label="Démo : conversation WhatsApp de confirmation et de rappel">
+      <div class="screen wa">
+        <div class="sbar" aria-hidden="true"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="wa-head"><div class="av"><img loading="lazy" src="img/pastille.png" width="125" height="128" alt=""></div><div><b>Poivre et Self</b><small>Compte professionnel</small></div></div>
+        <div class="wa-body wa-in">
+          <span class="day">Mardi 15 décembre</span>
+          <p class="msg in" style="--i:0"><span class="auto">Message automatique</span>Merci Claire ! Votre commande <b>n° 1024</b> est confirmée : 1 pintade farcie, 1 gratin, 1 bûche. Payée avec Twint.<br>Retrait <b>jeudi 24 déc.</b> à l'épicerie, à votre nom.<time>18:02</time></p>
+          <span class="day">Mercredi 23 décembre</span>
+          <p class="msg in" style="--i:1"><span class="auto">Rappel automatique</span>Petit rappel : votre commande vous attend demain. Besoin de changer de jour ? Répondez simplement ici.<time>17:00</time></p>
+          <p class="msg out" style="--i:2">Parfait, merci !<time>17:06</time></p>
+          <span class="day">Jeudi 24 décembre</span>
+          <p class="msg in" style="--i:3"><span class="auto">Message automatique</span>Votre commande vous attend ! Belles fêtes de la part du Chef Clot et de toute l'équipe.<time>07:45</time></p>
+        </div>
+        <div class="wa-foot" aria-hidden="true"><span>Message</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 plat de la semaine -->
+<section class="step" id="semaine" aria-labelledby="t3">
+  <div class="wrap grid">
+    <div class="txt">
+      <p class="kick">03 · Après les fêtes</p>
+      <h2 id="t3">Le plat de la semaine, chez vos clients fidèles.</h2>
+      <p class="lead">Chaque client qui a commandé pour les fêtes peut rejoindre la liste. Une fois par semaine, il reçoit le plat du Chef Clot sur WhatsApp et le réserve en répondant « 1 ».</p>
+      <ul class="pts">
+        <li>Un message par semaine, jamais plus : on ne lasse pas.</li>
+        <li>Les gens viennent pour le plat et repartent avec leurs courses.</li>
+        <li>Le client se désinscrit en un mot.</li>
+      </ul>
+      <span class="ex">Exemple de message hebdomadaire</span>
+    </div>
+    <div class="phone" role="group" aria-label="Démo : message WhatsApp du plat de la semaine">
+      <div class="screen wa">
+        <div class="sbar" aria-hidden="true"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="wa-head"><div class="av"><img loading="lazy" src="img/pastille.png" width="125" height="128" alt=""></div><div><b>Poivre et Self</b><small>Compte professionnel</small></div></div>
+        <div class="wa-body wa-in">
+          <span class="day">Mercredi 13 janvier</span>
+          <p class="msg in" style="--i:0"><span class="auto">Le plat de la semaine</span>Bonjour Marc ! Cette semaine, le Chef Clot vous prépare un <b>hachis parmentier maison</b>, frais au frigo dès jeudi 11h.<br><br>On vous en garde un ? Répondez <b>1</b>.<time>11:00</time></p>
+          <p class="msg out" style="--i:1">1<time>11:14</time></p>
+          <p class="msg in" style="--i:2"><span class="auto">Message automatique</span>C'est noté, Marc : 1 hachis parmentier à votre nom, jeudi dès 11h. Bonne semaine !<time>11:14</time></p>
+        </div>
+        <div class="wa-foot" aria-hidden="true"><span>Message</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 vue du chef -->
+<section class="step flip" id="chef" aria-labelledby="t4">
+  <div class="wrap grid">
+    <div class="txt">
+      <p class="kick">04 · Côté cuisine</p>
+      <h2 id="t4">Vous savez exactement quoi préparer, et pour qui.</h2>
+      <p class="lead">Toutes les commandes arrivent au même endroit, triées par jour de retrait. Les quantités de chaque plat sont additionnées pour vous : c'est votre liste de production.</p>
+      <ul class="pts">
+        <li>Fini les commandes éparpillées entre téléphone, SMS et papier.</li>
+        <li>Chaque commande est marquée payée et rappelée.</li>
+        <li>Sur votre téléphone ou sur l'ordinateur.</li>
+      </ul>
+      <span class="ex">Essayez : changez de jour</span>
+    </div>
+    <div class="phone" role="group" aria-label="Démo : vue du chef, commandes triées par jour">
+      <div class="screen dash">
+        <div class="sbar" aria-hidden="true"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="dash-head"><h3>Commandes de fêtes</h3><p>Chiffres d'exemple</p></div>
+        <div class="tabs" role="tablist" aria-label="Jour de retrait" id="tabs">
+          <button type="button" role="tab" aria-selected="false" data-d="0">Mer. 23<small>12 cmd</small></button>
+          <button type="button" role="tab" aria-selected="true" data-d="1">Jeu. 24<small>27 cmd</small></button>
+          <button type="button" role="tab" aria-selected="false" data-d="2">Jeu. 31<small>18 cmd</small></button>
+        </div>
+        <div class="dash-body" role="tabpanel" id="panel" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- mise en place -->
+<section class="plan" aria-labelledby="t5">
+  <div class="wrap">
+    <p class="kick">Comment on s'y prend</p>
+    <h2 id="t5">Les commandes de fêtes ouvertes début décembre.</h2>
+    <ol class="weeks">
+      <li><b>Semaine 1</b><h3>Votre carte de fêtes</h3><p>On fixe ensemble les plats, les prix et les jours de retrait. Un photographe vient photographier vos vrais plats.</p></li>
+      <li><b>Semaine 2</b><h3>Commande et WhatsApp</h3><p>On branche la commande, le paiement Twint et les messages automatiques sur des outils qui existent déjà. On teste tout avec vous.</p></li>
+      <li><b>Début décembre</b><h3>On ouvre</h3><p>Lien partagé sur Facebook et WhatsApp, affiche avec QR code dans l'épicerie, fiche Google mise à jour.</p></li>
+    </ol>
+    <div class="need">
+      <p><b>Ce qu'il nous faut de vous :</b> votre carte de fêtes, vos jours de retrait, une demi-journée avec le photographe.</p>
+      <p>Rien à installer pour vos clients : un lien, Twint et WhatsApp, qu'ils ont déjà.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" aria-labelledby="t6">
+  <div class="wrap">
+    <h2 id="t6">On en parle au téléphone ?</h2>
+    <p class="lead">Malik Younes, Nouvelle Ardoise, agence de marketing et de communication pour la restauration et les métiers de bouche.</p>
+    <div class="cta">
+      <a class="btn" href="tel:+41782133868">Appeler Malik · 078 213 38 68</a>
+      <a class="btn alt" href="https://nouvelleardoise.ch">nouvelleardoise.ch</a>
+    </div>
+    <p class="sign">Démo non publiée, réservée à Poivre et Self. Les plats, prix, prénoms et chiffres sont des exemples à remplacer par les vôtres.</p>
+  </div>
+</section>
+</main>
+
+<script>
+(()=>{
+  // 01 commande
+  const items=[...document.querySelectorAll('#items .item')];
+  const slots=[...document.querySelectorAll('#slots button')];
+  const pay=document.getElementById('pay'),total=document.getElementById('total'),hint=document.getElementById('hint');
+  const done=document.getElementById('done'),donetxt=document.getElementById('donetxt');
+  let slot=null;
+  const sum=()=>items.reduce((a,li)=>a+li.dataset.p*+li.querySelector('output').value,0);
+  const refresh=()=>{
+    const t=sum();total.textContent='CHF '+t+'.–';
+    hint.textContent=!t?'Ajoutez un plat':(slot===null?'Choisissez un jour':'Total');
+    pay.disabled=!(t&&slot!==null);
+    pay.textContent=pay.disabled?'Payer avec Twint':'Payer CHF '+t+'.– avec Twint';
+  };
+  items.forEach(li=>{
+    const [m,p]=li.querySelectorAll('button'),o=li.querySelector('output');
+    m.addEventListener('click',()=>{o.value=Math.max(0,+o.value-1);refresh()});
+    p.addEventListener('click',()=>{o.value=Math.min(9,+o.value+1);refresh()});
+  });
+  slots.forEach((b,i)=>b.addEventListener('click',()=>{slots.forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');slot=i;refresh()}));
+  pay.addEventListener('click',()=>{
+    donetxt.textContent='Payé avec Twint. Retrait '+slots[slot].textContent.toLowerCase()+' à l’épicerie. La confirmation arrive sur WhatsApp.';
+    done.classList.add('on');document.getElementById('again').focus({preventScroll:true});
+  });
+  document.getElementById('again').addEventListener('click',()=>{
+    items.forEach(li=>li.querySelector('output').value=0);slots.forEach(x=>x.setAttribute('aria-pressed','false'));slot=null;refresh();done.classList.remove('on');pay.focus({preventScroll:true});
+  });
+  refresh();
+
+  // 02-03 messages qui apparaissent
+  const chats=document.querySelectorAll('.wa-in');
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('play');io.unobserve(e.target)}}),{threshold:.35});
+    chats.forEach(c=>io.observe(c));
+  }else chats.forEach(c=>c.classList.add('play'));
+
+  // 04 vue du chef
+  const data=[
+    {prod:[['Pintade farcie',8],['Gratin dauphinois',10],['Bûche maison',6],['Terrine',5],['Rôti de veau',3]],
+     ord:[['08:00','Famille Rochat','2 pintades, 2 gratins'],['09:30','Sophie M.','1 rôti de veau, 1 bûche'],['11:00','Pierre-Alain B.','1 terrine, 1 bûche'],['14:00','Nadia K.','1 pintade, 1 gratin']]},
+    {prod:[['Pintade farcie',14],['Gratin dauphinois',21],['Bûche maison',17],['Terrine',11],['Rôti de veau',9]],
+     ord:[['08:00','Claire D.','1 pintade, 1 gratin, 1 bûche'],['08:30','Famille Cuendet','2 rôtis de veau, 2 gratins'],['09:00','Jean-Marc P.','1 terrine, 1 bûche'],['10:00','Anne-Lise V.','2 pintades, 1 bûche'],['11:30','Thomas R.','1 rôti de veau, 1 gratin']]},
+    {prod:[['Rôti de veau',11],['Gratin dauphinois',13],['Terrine',9],['Bûche maison',7],['Pintade farcie',4]],
+     ord:[['09:00','Famille Pittet','2 rôtis de veau, 2 gratins'],['10:00','Laura S.','1 terrine, 1 bûche'],['11:00','Michel G.','1 pintade, 1 gratin']]}
+  ];
+  const panel=document.getElementById('panel'),tabs=[...document.querySelectorAll('#tabs button')];
+  const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  const show=d=>{
+    tabs.forEach((t,i)=>t.setAttribute('aria-selected',i===d));
+    const D=data[d],max=Math.max(...D.prod.map(p=>p[1]));
+    panel.innerHTML='<div class="prod"><p class="lbl">À préparer</p>'+D.prod.map(([n,q])=>'<div class="bar"><span>'+esc(n)+'</span><b class="num">× '+q+'</b><i style="--w:'+Math.round(q/max*100)+'%"></i></div>').join('')+'</div><ul class="orders">'+D.ord.map(([h,n,c])=>'<li><span class="h num">'+h+'</span><div><b>'+esc(n)+'</b><small>'+esc(c)+'</small></div><span class="tag">Payé · rappelé</span></li>').join('')+'</ul>';
+  };
+  tabs.forEach((t,i)=>t.addEventListener('click',()=>show(i)));
+  document.getElementById('tabs').addEventListener('keydown',e=>{
+    const i=tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const n=(i+(e.key==='ArrowRight'?1:2))%3;show(n);tabs[n].focus()}
+  });
+  show(1);
+})();
+</script>
+</body>
+</html>
