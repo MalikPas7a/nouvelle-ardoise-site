@@ -878,6 +878,14 @@ footer .liens{font:500 15px var(--sans);letter-spacing:0;text-transform:none}
 .ctl,.mc{position:relative}
 .gte{position:absolute;width:12px;height:16px;margin-left:-6px;fill:var(--or);opacity:0;transform-origin:50% 0;pointer-events:none}
 .panier-b .rive{position:absolute;top:-1px;width:240px;height:2px;margin-left:-120px;background:var(--or);opacity:0;pointer-events:none}
+/* v20 sauce 2b : quand la carte de fidélité arrive à l'écran, ses tampons se remplissent de sauce un à un, puis une goutte tombe dans le dernier.
+   Une seule fois par ouverture de la page ; à la fin, la carte est exactement celle d'avant. En mouvement réduit, sans script ou sur un navigateur d'avant 2023 : rien ne bouge. */
+.carteF{position:relative}
+.carteF.arme .pts i.p{position:relative}
+.carteF.vide .pts i.p{background:none}
+.carteF .sc{position:absolute;inset:-1px;border-radius:50%;overflow:hidden}
+.carteF .sm{position:absolute;inset:0;background:var(--or);transform:translateY(122%)}
+.carteF .vg{position:absolute;left:0;bottom:calc(100% - 1px);width:200%;height:20%;fill:var(--or);transform-origin:50% 100%}
 </style><noscript><style>img[data-src]{display:none!important}noscript{display:contents}</style></noscript></head><body>
 <div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menu"><a href="../geneve/">Genève</a><a href="#retrait">Retrait</a><a href="../#villes">Nos villes</a></nav><a class="logo" href="../"><img src="../img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, accueil" width="300" height="20"></a><div class="d"><nav class="langs" aria-label="Langue"><a href="./" hreflang="fr" lang="fr" aria-current="true">FR</a><a href="../en/commander/" hreflang="en" lang="en">EN</a><a href="../es/commander/" hreflang="es" lang="es">ES</a></nav><button type="button" class="btn btn-m" data-panier>Ma commande</button><details class="mmenu"><summary aria-label="Ouvrir le menu"><span></span><span></span></summary><nav aria-label="Menu mobile"><a href="../geneve/">Genève</a><a href="#retrait">Retrait</a><a href="../#villes">Nos villes</a><button type="button" data-panier>Ma commande</button><div class="mlangs" role="group" aria-label="Langue"><a href="./" hreflang="fr" lang="fr" aria-current="true">Français</a><a href="../en/commander/" hreflang="en" lang="en">English</a><a href="../es/commander/" hreflang="es" lang="es">Español</a></div></nav></details></div></div></header>
 <main class="cmdp">
@@ -973,5 +981,33 @@ if(q&&IT[q]){var bt=document.querySelector('.formats button[data-k="'+q+'"]');if
 var mm=document.querySelector('.mmenu');if(mm)mm.addEventListener('click',function(e){if(e.target.closest('nav a,nav button'))mm.open=false});
 })();
 (function(){var H=document.documentElement,rm=matchMedia('(prefers-reduced-motion: reduce)').matches;var els=document.querySelectorAll('.mono,.ctete');if(rm||!('IntersectionObserver' in window)){[].forEach.call(els,function(e){e.classList.add('vu','fil')});return}H.classList.add('js-rv');var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('vu','fil');io.unobserve(x.target)}})},{rootMargin:'0px 0px -18% 0px'});[].forEach.call(els,function(e){io.observe(e)})})();
+/* v20 sauce 2b : les tampons de la carte de fidélité se remplissent de sauce, une goutte tombe dans le dernier */
+(function(){var c=document.querySelector('.carteF'),r=c&&c.querySelector('.pts'),P=r?[].slice.call(r.querySelectorAll('i.p')):[],n=P.length;
+/* rien non plus sur un navigateur d'avant 2023 (il ne comprend pas « width>=0px ») : avant sa version 16.4, Safari découpait mal un rond dont le contenu s'anime, la sauce aurait débordé en carré */
+if(!n||matchMedia('(prefers-reduced-motion: reduce)').matches||!r.animate||!window.Animation||!('finished' in Animation.prototype)||!('IntersectionObserver' in window)||!matchMedia('(width>=0px)').matches)return;
+var EASE='cubic-bezier(.22,1,.36,1)',CHUTE='cubic-bezier(.11,0,.5,0)',PAS=80,D=560,S=[],g=null,fait=false;
+P.forEach(function(i){var s=document.createElement('span');s.className='sc';s.innerHTML='<span class="sm"><svg class="vg" viewBox="0 0 200 10" preserveAspectRatio="none" focusable="false"><path d="M0 10V5Q12.5 0 25 5T50 5T75 5T100 5T125 5T150 5T175 5T200 5V10Z"/></svg></span>';i.appendChild(s);S.push(s)});
+c.classList.add('arme','vide');
+/* fin : les tampons retrouvent leur fond d'origine sous la sauce, puis la sauce s'efface en 0,16 s et tout est retiré.
+   (Le disque de sauce est dessiné une fraction de pixel plus large que le tampon : retiré d'un coup, le contour se resserrerait sèchement.) */
+function ote(){c.classList.remove('arme');S.forEach(function(s){s.remove()});if(g)g.remove()}
+function fin(){if(fait)return;fait=true;c.classList.remove('vide');var a;try{S.forEach(function(s){a=s.animate([{opacity:1},{opacity:0}],{duration:160,easing:'linear',fill:'forwards'})});a.finished.then(ote,ote)}catch(e){ote()}}
+function monte(s,d,dur){var m=s.firstChild;m.firstChild.animate([{transform:'translateX(0) scaleY(1)'},{transform:'translateX(-50%) scaleY(.25)'}],{duration:dur,delay:d,easing:'linear',fill:'both'});
+ return m.animate([{transform:'translateY(122%)'},{transform:'translateY(0)'}],{duration:dur,delay:d,easing:EASE,fill:'both'}).finished}
+function joue(){var der=P[n-1],t=c.querySelector('b'),rc=c.getBoundingClientRect(),q=der.getBoundingClientRect(),w=q.width,lg=Math.max(8,Math.round(w*3.6)/10),ht=lg*4/3,y0=q.top-rc.top-ht-w*.65,d=(n-1)*PAS,dur=D,k;
+ function px(v){return Math.round(v*100)/100+'px'}
+ for(k=0;k<n-1;k++)monte(S[k],k*PAS,D);
+ /* la goutte se forme juste au-dessus du dernier tampon, à 14 px au moins sous le titre de la carte : sinon (petit écran) pas de goutte, le tampon se remplit comme les autres */
+ if(t&&y0>=t.getBoundingClientRect().bottom-rc.top+14){var x=document.createElement('div');x.innerHTML='<svg class="gte" viewBox="0 0 12 16" aria-hidden="true" focusable="false"><path d="M6 0C6 0 .4 7 .4 10.4a5.6 5.6 0 0 0 11.2 0C11.6 7 6 0 6 0Z"/></svg>';g=x.firstChild;
+  g.style.cssText='width:'+px(lg)+';height:'+px(ht)+';margin-left:'+px(-lg/2)+';left:'+px(q.left-rc.left+w/2)+';top:'+px(y0);c.appendChild(g);d=(n-2)*PAS+120;
+  g.animate([{offset:0,transform:'translateY(-2px) scale(.35)',opacity:0,easing:EASE},{offset:.3,transform:'translateY(0) scale(1)',opacity:1,easing:CHUTE},{offset:.92,opacity:1},{offset:1,transform:'translateY('+px(w*1.65-ht*.2-2)+') scale(.9,1.2)',opacity:0}],{duration:480,delay:d,fill:'both'});
+  d+=440;dur=620}
+ monte(S[n-1],d,dur).then(fin,fin)}
+/* départ : dès que la rangée de tampons est bien à l'écran (entre 26 % et 80 % de sa hauteur), ou après 0,9 s si elle reste visible ailleurs */
+var tm=0,io,io2;function va(){if(!io)return;io.disconnect();io2.disconnect();io=null;clearTimeout(tm);try{joue()}catch(e){fin()}}
+function vu(es){return es[es.length-1].isIntersecting}
+io=new IntersectionObserver(function(es){if(vu(es))va()},{rootMargin:'-26% 0px -20% 0px',threshold:.9});
+io2=new IntersectionObserver(function(es){clearTimeout(tm);if(vu(es))tm=setTimeout(va,900)},{threshold:.9});
+io.observe(r);io2.observe(r)})();
 </script>
 </body></html>
