@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Les Délices du Siam · Cuisine thaïlandaise à Renens (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour Les Délices du Siam, cuisine thaïlandaise, Avenue de la Gare 1, 1020 Renens.">
+<meta name="theme-color" content="#2b1a12">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,500;0,600;0,700;1,500&family=Sarabun:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/kaphao.webp">
+<style>
+:root{
+  --ivoire:#fbf5ec;
+  --ivoire-2:#f3e8d6;
+  --laque:#9c2a21;        /* rouge des titres de leur carte */
+  --laque-f:#7d1f18;
+  --or:#c99a3a;           /* décor uniquement */
+  --teck:#2b1a12;
+  --teck-2:#5a463b;
+  --ligne:#e2d3bc;
+  --titre:"Prompt", system-ui, sans-serif;
+  --texte:"Sarabun", system-ui, sans-serif;
+  --g:clamp(20px, 5vw, 64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--ivoire);color:var(--teck);font:400 18px/1.6 var(--texte);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--laque);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 var(--g)}
+h1,h2,h3{font-family:var(--titre);font-weight:600;line-height:1.05;letter-spacing:-.01em}
+
+/* frise : losanges or, écho de la bordure de leur carte */
+.frise{height:12px;background:
+  linear-gradient(135deg,transparent 42%,var(--or) 42% 58%,transparent 58%) 0 0/12px 12px,
+  linear-gradient(45deg,transparent 42%,var(--or) 42% 58%,transparent 58%) 0 0/12px 12px;
+  opacity:.75}
+.frise.rouge{background:
+  linear-gradient(135deg,transparent 42%,#e9b8a8 42% 58%,transparent 58%) 0 0/12px 12px,
+  linear-gradient(45deg,transparent 42%,#e9b8a8 42% 58%,transparent 58%) 0 0/12px 12px;opacity:.55}
+
+.apercu{background:var(--teck);color:#e3d3bd;font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff;font-weight:600}
+
+.sur{font:500 13px/1.3 var(--titre);letter-spacing:.18em;text-transform:uppercase;color:var(--laque)}
+
+/* entête */
+.top{position:sticky;top:0;z-index:20;background:rgba(251,245,236,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--ligne)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:10px;padding-bottom:10px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo img{width:40px;height:40px;border-radius:50%}
+.logo b{font:600 18px/1.1 var(--titre);color:var(--laque)}
+.top nav{display:flex;align-items:center;gap:24px}
+.top nav a.l{font:500 15px var(--titre);text-decoration:none;color:var(--teck-2)}
+.top nav a.l:hover{color:var(--laque)}
+@media (max-width:820px){.top nav a.l{display:none}}
+@media (max-width:380px){.logo b{font-size:16px}}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;background:var(--laque);color:#fff;border:1.5px solid var(--laque);border-radius:999px;font:500 16px/1 var(--titre);text-decoration:none;transition:background .2s ease,color .2s ease,transform .15s ease;white-space:nowrap}
+.btn:hover{background:var(--laque-f);border-color:var(--laque-f)}
+.btn:active{transform:scale(.97)}
+.btn.sec{background:transparent;color:var(--laque)}
+.btn.sec:hover{background:var(--laque);color:#fff}
+.btn.petit{min-height:42px;padding:0 18px;font-size:15px}
+
+/* hero */
+.hero{padding:clamp(24px,4vw,56px) 0 clamp(48px,7vw,96px)}
+.hero .wrap{display:grid;gap:clamp(28px,5vw,64px);align-items:center}
+@media (min-width:900px){.hero .wrap{grid-template-columns:1fr 1.05fr}}
+.hero h1{font-size:clamp(50px,8.4vw,96px);color:var(--laque);margin:14px 0 20px}
+.hero h1 span{display:block;font-size:.5em;color:var(--teck);font-weight:500;margin-bottom:.1em;letter-spacing:0}
+.chapo{font-size:clamp(19px,2vw,22px);line-height:1.5;max-width:32ch;color:var(--teck-2)}
+.chapo b{color:var(--teck);font-weight:600}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero figure{position:relative}
+.hero figure img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:50% 50% 8px 8px / 38% 38% 8px 8px}
+.hero figcaption{margin-top:12px;font-size:15px;color:var(--teck-2);text-align:center}
+.hero figcaption b{font:600 15px var(--titre);color:var(--teck)}
+
+/* bandeau buffet */
+.buffet{background:var(--laque);color:#fff}
+.buffet .wrap{display:grid;gap:28px;align-items:center;padding-top:clamp(48px,7vw,88px);padding-bottom:clamp(48px,7vw,88px)}
+@media (min-width:900px){.buffet .wrap{grid-template-columns:.8fr 1.2fr}}
+.buffet img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 30%;border-radius:6px}
+.buffet .sur{color:#f5d7a0}
+.buffet h2{font-size:clamp(40px,6vw,72px);margin:12px 0 18px}
+.buffet p{font-size:19px;max-width:40ch;color:#fbe9e3}
+
+/* points */
+.points{padding:clamp(56px,8vw,104px) 0}
+.points h2{font-size:clamp(36px,5vw,56px);max-width:16ch;margin:12px 0 clamp(28px,4vw,48px)}
+.points ul{list-style:none;display:grid;gap:18px}
+@media (min-width:760px){.points ul{grid-template-columns:1fr 1fr}}
+@media (min-width:1100px){.points ul{grid-template-columns:repeat(4,1fr)}}
+.points li{border-top:2px solid var(--laque);padding-top:18px}
+.points h3{font-size:21px;margin-bottom:8px}
+.points p{font-size:16.5px;color:var(--teck-2)}
+
+/* carte */
+.carte{background:var(--ivoire-2);padding:clamp(56px,8vw,104px) 0}
+.carte .tete{display:grid;gap:16px;margin-bottom:clamp(28px,4vw,48px)}
+@media (min-width:900px){.carte .tete{grid-template-columns:1fr 1fr;align-items:end}}
+.carte h2{font-size:clamp(44px,7vw,80px);color:var(--laque)}
+.carte .tete p{color:var(--teck-2);max-width:46ch}
+.legende{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:15px;color:var(--teck-2);margin-top:6px}
+.k{display:inline-block;font:600 11px/1 var(--titre);letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;border-radius:999px;vertical-align:middle}
+.k.chef{background:var(--teck);color:#f5d7a0}
+.k.pq{background:#fff;color:var(--laque);border:1px solid var(--laque)}
+.sections{display:grid;gap:clamp(36px,5vw,56px)}
+@media (min-width:900px){.sections{grid-template-columns:1fr 1fr;column-gap:72px}}
+.sections h3{font-size:24px;color:var(--laque);padding-bottom:10px;border-bottom:2px solid var(--teck);margin-bottom:4px}
+.plats{list-style:none}
+.plats li{padding:14px 0;border-bottom:1px solid var(--ligne)}
+.plats b{font:600 18px/1.3 var(--titre)}
+.plats .k{margin-left:6px}
+.plats span.k{display:inline-block;margin-left:8px}
+.plats span:not(.k){display:block;font-size:16px;color:var(--teck-2);margin-top:2px}
+.vedette{margin-top:22px}
+.vedette img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px}
+.vedette figcaption{font-size:14.5px;color:var(--teck-2);margin-top:6px}
+.carte .bas{margin-top:clamp(28px,4vw,44px);font-size:15.5px;color:var(--teck-2);max-width:70ch}
+
+/* galerie */
+.galerie{padding:clamp(56px,8vw,104px) 0}
+.galerie h2{font-size:clamp(36px,5vw,56px);margin:12px 0 clamp(24px,3vw,36px)}
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (min-width:900px){.gal{grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:auto auto;gap:14px}}
+.gal figure{position:relative;overflow:hidden;border-radius:6px}
+.gal img{width:100%;height:100%;object-fit:cover;aspect-ratio:1/1}
+.gal .large{grid-column:span 2}
+.gal .large img{aspect-ratio:16/10}
+@media (min-width:900px){.gal .large{grid-column:auto;grid-row:span 2}.gal .large img{aspect-ratio:auto;position:absolute;inset:0}}
+.gal .large2{grid-column:span 2}
+.gal .large2 img{aspect-ratio:16/10}
+@media (min-width:900px){.gal .large2 img{aspect-ratio:2/1}}
+.gal figcaption{position:absolute;left:8px;bottom:8px;background:rgba(43,26,18,.82);color:#fff;font-size:13px;padding:4px 10px;border-radius:999px}
+
+/* infos */
+.infos{background:var(--teck);color:#f3e8d6;padding:clamp(56px,8vw,104px) 0}
+.infos .wrap{display:grid;gap:clamp(32px,5vw,64px)}
+@media (min-width:900px){.infos .wrap{grid-template-columns:1.1fr .9fr}}
+.infos .sur{color:#f5d7a0}
+.infos h2{font-size:clamp(44px,7vw,80px);color:#fff;margin:12px 0 16px}
+.infos p.intro{max-width:40ch;color:#dccab3}
+.infos .actions .btn{background:#f5d7a0;border-color:#f5d7a0;color:var(--teck)}
+.infos .actions .btn:hover{background:#fff;border-color:#fff}
+.infos .actions .btn.sec{background:transparent;color:#f5d7a0}
+.infos .actions .btn.sec:hover{background:#f5d7a0;color:var(--teck)}
+.infos dl{display:grid;gap:22px;align-content:start}
+.infos dt{font:500 13px var(--titre);letter-spacing:.16em;text-transform:uppercase;color:#c8b398}
+.infos dd{font-size:19px;margin-top:4px}
+.infos dd a{text-decoration-color:rgba(245,215,160,.6);text-underline-offset:4px}
+
+footer{background:#1d110b;color:#bba88f;padding:28px 0 36px;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between}
+
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.js .rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<div class="apercu" role="note">Aperçu imaginé par Nouvelle Ardoise pour <strong>Les Délices du Siam</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="Les Délices du Siam, retour en haut"><img src="img/logo.webp" width="400" height="400" alt=""><b>Les Délices du Siam</b></a>
+    <nav aria-label="Navigation principale">
+      <a class="l" href="#buffet">Buffet du midi</a>
+      <a class="l" href="#carte">La carte</a>
+      <a class="l" href="#infos">Nous trouver</a>
+      <a class="btn petit" href="tel:+41216358177">Réserver</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="titre">
+    <div class="wrap">
+      <div class="rv">
+        <p class="sur">Cuisine thaïlandaise · Renens</p>
+        <h1 id="titre"><span>Les Délices</span>du Siam</h1>
+        <p class="chapo"><b>Plus authentique que jamais.</b> Une cuisine qui transporte vos papilles directement en Thaïlande, Avenue de la Gare&nbsp;1.</p>
+        <div class="actions">
+          <a class="btn" href="tel:+41216358177">Réserver · 021 635 81 77</a>
+          <a class="btn sec" href="#carte">Voir la carte</a>
+        </div>
+      </div>
+      <figure class="rv">
+        <img src="img/kaphao.webp" width="1200" height="1200" alt="Porc sauté au basilic thaï surmonté d'un œuf au plat et de lamelles de piment rouge, dans un plat peint à la main" fetchpriority="high">
+        <figcaption><b>Moo Phad Kaphao</b> · porc sauté au basilic et œuf au plat</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="frise" aria-hidden="true"></div>
+
+  <section class="buffet" id="buffet" aria-labelledby="t-buffet">
+    <div class="wrap">
+      <img class="rv" src="img/buffet.webp" width="1300" height="1625" loading="lazy" alt="Le buffet chaud du midi, plats thaïs en réchauds, servi par une femme de l'équipe, souriante">
+      <div class="rv">
+        <p class="sur">Tous les midis en semaine</p>
+        <h2 id="t-buffet">Le buffet à volonté</h2>
+        <p>Tous les midis en semaine, le buffet thaï se sert à volonté. Et la carte se commande aussi à l'emporter.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="frise rouge" aria-hidden="true"></div>
+
+  <section class="points" aria-labelledby="t-points">
+    <div class="wrap">
+      <p class="sur rv">Ce qui fait la maison</p>
+      <h2 id="t-points" class="rv">L'harmonie des goûts, sans équivoque</h2>
+      <ul>
+        <li class="rv"><h3>Les recettes de la cheffe</h3><p>Sur la carte, un petit sceau signale les recettes secrètes de la cheffe : raviolis, rouleaux, satay, desserts.</p></li>
+        <li class="rv"><h3>La fondue thaï Jim Jum</h3><p>Crevettes, bœuf, porc, poulet, vermicelles et légumes thaïs dans un bouillon à la citronnelle. Sur réservation 24 h à l'avance, dès 2 personnes.</p></li>
+        <li class="rv"><h3>Viande suisse</h3><p>Le bœuf et le porc viennent de Suisse ; la provenance de chaque viande est écrite sur la carte.</p></li>
+        <li class="rv"><h3>Service traiteur</h3><p>Pour vos événements, la maison propose des menus traiteur. Il suffit de demander.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="carte" id="carte" aria-labelledby="t-carte">
+    <div class="wrap">
+      <div class="tete rv">
+        <div><p class="sur">Sur place ou à emporter</p><h2 id="t-carte">La carte</h2></div>
+        <div>
+          <p>Soupes, salades, nouilles sautées, currys au lait de coco et desserts thaïs. Une sélection, telle qu'écrite sur la carte de la maison.</p>
+          <p class="legende"><span><span class="k chef">Cheffe</span> recette secrète de la cheffe</span><span><span class="k pq">Piquant</span> plat piquant</span></p>
+        </div>
+      </div>
+      <div class="sections">
+        <div class="rv">
+          <h3>Spécialités de la maison</h3>
+          <ul class="plats">
+            <li><b>Pad Thaï Kung</b><span>Nouilles sautées aux crevettes et pousses de soja</span></li>
+            <li><b>Pad Khi Mao</b><span class="k pq">Piquant</span><span>Nouilles sautées au basilic, bœuf, porc, poulet ou crevettes</span></li>
+            <li><b>Khaw Moo Daeng</b><span>Riz jasmin accompagné de porc rouge laqué et la sauce de la cheffe</span></li>
+            <li><b>Kway thiew moo daeng</b><span>Soupe de nouilles au porc laqué et légumes thaïs</span></li>
+          </ul>
+          <div class="vedette">
+            <figure><img src="img/pad-thai.webp" width="1200" height="1200" loading="lazy" alt="Pad thaï aux crevettes garni de pousses de soja, carottes, citron vert et cacahuètes"><figcaption>Pad Thaï aux crevettes, spécialité de la maison</figcaption></figure>
+          </div>
+        </div>
+        <div class="rv">
+          <h3>Entrées</h3>
+          <ul class="plats">
+            <li><b>Chor Muang Kaï</b><span class="k chef">Cheffe</span><span>Raviolis aux fleurs thaïlandaises, ancien plat royal au poulet</span></li>
+            <li><b>Tom Kiew Moo</b><span class="k chef">Cheffe</span><span>Soupe de raviolis au porc</span></li>
+            <li><b>Kaï Satay</b><span class="k chef">Cheffe</span><span>Brochettes de poulet satay</span></li>
+          </ul>
+          <h3 style="margin-top:36px">Currys</h3>
+          <ul class="plats">
+            <li><b>Kaeng Massaman Kaï</b><span>Poulet au curry Massaman et patates douces</span></li>
+            <li><b>Boeuf au curry Panang</b><span>Curry rouge où sont marinées des feuilles de citronnelle, plus velouté que le curry rouge traditionnel</span></li>
+            <li><b>Kaeng Kiev Waan Kaï</b><span class="k pq">Piquant</span><span>Poulet au curry vert et lait de coco</span></li>
+          </ul>
+          <h3 style="margin-top:36px">Desserts</h3>
+          <ul class="plats">
+            <li><b>Kranom Saï Sey</b><span class="k chef">Cheffe</span><span>Perles de noix de coco caramélisée et crème</span></li>
+            <li><b>Kranom Tako</b><span class="k chef">Cheffe</span><span>Flan au lait de coco et à la châtaigne d'eau</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="bas rv">Plats végétariens à la carte : Pad Thaï Towu, Kaeng Towu, Phad Pha Louam Mid. Merci de nous avertir de toute allergie alimentaire.</p>
+    </div>
+  </section>
+
+  <section class="galerie" aria-labelledby="t-gal">
+    <div class="wrap">
+      <p class="sur rv">En cuisine et autour</p>
+      <h2 id="t-gal" class="rv">La Thaïlande à Renens</h2>
+      <div class="gal">
+        <figure class="large rv"><img src="img/wok.webp" width="1280" height="960" loading="lazy" alt="Des nouilles sautées dans un grand wok, sur un stand, sous l'enseigne Délices du Siam"><figcaption>Au wok</figcaption></figure>
+        <figure class="rv"><img src="img/vitrine.webp" width="720" height="960" loading="lazy" alt="La vitrine du restaurant avec le nom Les Délices du Siam et le drapeau thaïlandais"><figcaption>Avenue de la Gare 1</figcaption></figure>
+        <figure class="rv"><img src="img/fleurs.webp" width="859" height="1145" loading="lazy" alt="Une femme en tenue traditionnelle thaïe, un bouquet de fleurs à la main, dans la salle"><figcaption>Dans la salle</figcaption></figure>
+        <figure class="rv large2"><img src="img/stand.webp" width="1200" height="885" loading="lazy" alt="Le stand des Délices du Siam lors d'une fête en plein air, avec l'équipe et des clients"><figcaption>Sur un marché</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="frise" aria-hidden="true"></div>
+
+  <section class="infos" id="infos" aria-labelledby="t-infos">
+    <div class="wrap">
+      <div class="rv">
+        <p class="sur">Nous trouver</p>
+        <h2 id="t-infos">À Renens</h2>
+        <p class="intro">Réservez par téléphone, ou passez prendre votre commande à l'emporter.</p>
+        <div class="actions">
+          <a class="btn" href="tel:+41216358177">Appeler · 021 635 81 77</a>
+          <a class="btn sec" href="https://www.google.com/maps/search/?api=1&amp;query=Les+D%C3%A9lices+du+Siam+Avenue+de+la+Gare+1+1020+Renens" target="_blank" rel="noopener">Itinéraire</a>
+        </div>
+      </div>
+      <dl class="rv">
+        <div><dt>Adresse</dt><dd>Avenue de la Gare 1<br>1020 Renens</dd></div>
+        <div><dt>Téléphone</dt><dd><a href="tel:+41216358177">021 635 81 77</a></dd></div>
+        <div><dt>Écrire</dt><dd><a href="mailto:delicesdusiam1@gmail.com">delicesdusiam1@gmail.com</a></dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Les Délices du Siam · cuisine thaïlandaise · Renens</p>
+    <p>Sur place · à emporter · traiteur</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('vu')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

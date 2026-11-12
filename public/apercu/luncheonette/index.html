@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Luncheonette · Flexitarien, sans gluten, vegan à Lausanne (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour Luncheonette, Rue Grand-Saint-Jean 5, 1003 Lausanne.">
+<meta name="theme-color" content="#f2ede1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:ital,wght@0,400..600;1,400&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/burrito.webp">
+<style>
+:root{
+  --avoine:#f2ede1;
+  --avoine-2:#e7e0cf;
+  --feuille:#2f5a3a;       /* vert du logo, assombri */
+  --feuille-f:#234630;
+  --sauge:#cfdcc3;
+  --carotte:#e2702c;       /* accent décoratif */
+  --encre:#1d261f;
+  --encre-2:#4b564d;
+  --ligne:#d6cdb8;
+  --titre:"Bricolage Grotesque", system-ui, sans-serif;
+  --texte:"Instrument Sans", system-ui, sans-serif;
+  --g:clamp(20px, 5vw, 64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--avoine);color:var(--encre);font:400 17.5px/1.6 var(--texte);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--feuille);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 var(--g)}
+h1,h2,h3{font-family:var(--titre);font-weight:700;letter-spacing:-.025em;line-height:1}
+
+.apercu{background:var(--encre);color:#d9d3c3;font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff;font-weight:600}
+.sur{font:600 13px/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--feuille)}
+
+/* entête */
+.top{position:sticky;top:0;z-index:20;background:rgba(242,237,225,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--ligne)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:8px;padding-bottom:8px}
+.logo{display:flex;align-items:center;text-decoration:none}
+.logo img{width:62px;height:62px;mix-blend-mode:multiply}
+.top nav{display:flex;align-items:center;gap:22px}
+.top nav a.l{font-size:15px;font-weight:500;text-decoration:none;color:var(--encre-2)}
+.top nav a.l:hover{color:var(--feuille)}
+@media (max-width:860px){.top nav a.l{display:none}}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;background:var(--feuille);color:#fff;border:1.5px solid var(--feuille);border-radius:14px;font:600 16px/1 var(--texte);text-decoration:none;transition:background .2s ease,color .2s ease,transform .15s ease;white-space:nowrap}
+.btn:hover{background:var(--feuille-f);border-color:var(--feuille-f)}
+.btn:active{transform:scale(.97)}
+.btn.sec{background:transparent;color:var(--feuille)}
+.btn.sec:hover{background:var(--feuille);color:#fff}
+.btn.petit{min-height:42px;padding:0 18px;font-size:15px;border-radius:12px}
+
+/* hero */
+.hero{padding:clamp(24px,4vw,56px) 0 clamp(48px,7vw,96px)}
+.hero .wrap{display:grid;gap:clamp(28px,5vw,56px);align-items:center}
+@media (min-width:920px){.hero .wrap{grid-template-columns:1fr 1.1fr}}
+.tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+.tags li{background:var(--sauge);color:var(--feuille-f);font-size:14px;font-weight:600;padding:5px 12px;border-radius:999px}
+.hero h1{font-size:clamp(54px,9vw,112px);margin:20px 0 18px;color:var(--feuille)}
+.hero h1 em{display:block;font-style:normal;font-size:.42em;color:var(--encre);letter-spacing:-.01em;margin-top:.25em;font-weight:600}
+.chapo{font-size:clamp(18px,1.9vw,21px);max-width:36ch;color:var(--encre-2)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero figure{position:relative}
+.hero figure img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:28px}
+.hero .pastille{position:absolute;right:-6px;top:-14px;width:118px;height:118px;border-radius:50%;background:var(--carotte);color:#fff;display:grid;place-items:center;text-align:center;font:700 15px/1.15 var(--titre);transform:rotate(8deg);padding:12px}
+@media (max-width:600px){.hero .pastille{width:92px;height:92px;font-size:12.5px;right:6px;top:-12px}}
+
+/* trois familles */
+.menus{padding:clamp(48px,7vw,96px) 0}
+.menus .tete{display:grid;gap:14px;margin-bottom:clamp(28px,4vw,44px)}
+@media (min-width:900px){.menus .tete{grid-template-columns:1fr 1fr;align-items:end}}
+.menus h2{font-size:clamp(42px,6vw,72px)}
+.menus .tete p{color:var(--encre-2);max-width:44ch}
+.familles{list-style:none;display:grid;gap:18px}
+@media (min-width:900px){.familles{grid-template-columns:repeat(3,1fr);gap:22px}}
+.familles li{background:#fbf8f1;border:1px solid var(--ligne);border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
+.familles img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.familles .c{padding:20px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.familles h3{font-size:30px}
+.familles p{font-size:16px;color:var(--encre-2)}
+.familles .badge{align-self:flex-start;font-size:13px;font-weight:600;color:var(--feuille-f);background:var(--sauge);padding:3px 10px;border-radius:999px}
+.menus .bas{display:flex;justify-content:center;margin-top:clamp(28px,4vw,40px)}
+
+/* concept */
+.concept{background:var(--feuille);color:#eef2e8;padding:clamp(56px,8vw,104px) 0}
+.concept .wrap{display:grid;gap:clamp(32px,5vw,64px);align-items:center}
+@media (min-width:900px){.concept .wrap{grid-template-columns:.9fr 1.1fr}}
+.concept img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:28px}
+.concept .sur{color:#f4b98f}
+.concept h2{font-size:clamp(42px,6vw,72px);color:#fff;margin:12px 0 20px}
+.concept p{max-width:46ch;margin-bottom:14px;color:#dfe8da}
+.concept ul{list-style:none;display:grid;gap:12px;margin-top:22px}
+.concept li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;font-size:17px}
+.concept li::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--carotte);margin-top:8px}
+
+/* traiteur */
+.work{padding:clamp(56px,8vw,104px) 0}
+.work .boite{background:var(--avoine-2);border-radius:32px;padding:clamp(28px,5vw,64px);display:grid;gap:28px;align-items:center}
+@media (min-width:900px){.work .boite{grid-template-columns:1.2fr .8fr}}
+.work .boite>*{min-width:0}
+.work h2{font-size:clamp(30px,5.4vw,64px);margin:12px 0 16px;overflow-wrap:break-word}
+.work h2 span{color:var(--carotte);display:block}
+.work p{color:var(--encre-2);max-width:48ch}
+.work img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:22px}
+
+/* presse */
+.presse{padding:0 0 clamp(48px,7vw,88px)}
+.presse p.sur{text-align:center;margin-bottom:18px;color:var(--encre-2)}
+.presse ul{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 34px;font:700 clamp(20px,2.6vw,28px)/1.2 var(--titre);color:var(--encre);letter-spacing:-.02em}
+.presse li{opacity:.8}
+
+/* galerie */
+.galerie{padding:0 0 clamp(56px,8vw,104px)}
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (min-width:900px){.gal{grid-template-columns:repeat(3,1fr);gap:16px}}
+.gal .tri{grid-column:span 2}
+.gal .tri img{aspect-ratio:4/3}
+@media (min-width:900px){.gal .tri{grid-column:auto}.gal .tri img{aspect-ratio:3/4}}
+.gal figure{position:relative;overflow:hidden;border-radius:20px}
+.gal img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.gal figcaption{position:absolute;left:10px;bottom:10px;background:var(--avoine);font-size:13px;font-weight:600;padding:4px 10px;border-radius:999px}
+
+/* infos */
+.infos{background:var(--encre);color:#e7e3d8;padding:clamp(56px,8vw,104px) 0}
+.infos .wrap{display:grid;gap:clamp(32px,5vw,64px)}
+@media (min-width:900px){.infos .wrap{grid-template-columns:1fr 1fr}}
+.infos .sur{color:#a9c79d}
+.infos h2{font-size:clamp(44px,7vw,84px);color:#fff;margin:12px 0 16px}
+.infos p.intro{color:#c9c5b8;max-width:38ch}
+.infos .actions .btn{background:#a9c79d;border-color:#a9c79d;color:var(--encre)}
+.infos .actions .btn:hover{background:#fff;border-color:#fff}
+.infos .actions .btn.sec{background:transparent;color:#cfe3c4;border-color:#a9c79d}
+.infos .actions .btn.sec:hover{background:#a9c79d;color:var(--encre)}
+.infos dl{display:grid;gap:22px;align-content:start}
+.infos dt{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#a6a291}
+.infos dd{font-size:18.5px;margin-top:4px}
+.horaires{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;font-size:17px;margin-top:6px}
+.horaires span:nth-child(odd){color:#c9c5b8}
+footer{background:#141a15;color:#a6a291;padding:28px 0 36px;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between}
+footer .rs{display:flex;gap:18px}
+footer a{color:#e7e3d8}
+
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.js .rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<div class="apercu" role="note">Aperçu imaginé par Nouvelle Ardoise pour <strong>Luncheonette</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="Luncheonette, retour en haut"><img src="img/logo.webp" width="500" height="500" alt="Luncheonette, friendly fresh food, since 2012"></a>
+    <nav aria-label="Navigation principale">
+      <a class="l" href="#menus">Le menu</a>
+      <a class="l" href="#concept">Le concept</a>
+      <a class="l" href="#traiteur">Traiteur</a>
+      <a class="l" href="#infos">Horaires</a>
+      <a class="btn petit" href="https://www.luncheonnette-lausanne.mywhop.com/" target="_blank" rel="noopener">Commander</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="titre">
+    <div class="wrap">
+      <div class="rv">
+        <ul class="tags" aria-label="Régimes"><li>Flexitarien</li><li>Sans gluten</li><li>Vegan</li></ul>
+        <h1 id="titre">Luncheonette<em>Tes plats préférés, sains et équilibrés.</em></h1>
+        <p class="chapo">Un burrito healthy ou un bowl original entre collègues, en famille ou avec des amis, au centre de Lausanne. Sur place ou à emporter.</p>
+        <div class="actions">
+          <a class="btn" href="https://www.luncheonnette-lausanne.mywhop.com/" target="_blank" rel="noopener">Commander</a>
+          <a class="btn sec" href="https://widget.thefork.com/bff5df86-f9a6-4150-9e19-15f1b65a7684" target="_blank" rel="noopener">Réserver une table</a>
+        </div>
+      </div>
+      <figure class="rv">
+        <img src="img/burrito.webp" width="1600" height="1200" alt="Un burrito coupé en deux, garni de légumes croquants, de tomates et de carottes, sur une ardoise" fetchpriority="high">
+        <span class="pastille" aria-hidden="true">Rue Grand-Saint-Jean 5</span>
+      </figure>
+    </div>
+  </section>
+
+  <section class="menus" id="menus" aria-labelledby="t-menus">
+    <div class="wrap">
+      <div class="tete rv">
+        <div><p class="sur">Le menu</p><h2 id="t-menus">Trois envies, tous les régimes</h2></div>
+        <p>Des ingrédients frais qui s'associent pour un mariage équilibré et s'adaptent à toutes les envies. Les suggestions du moment suivent les saisons.</p>
+      </div>
+      <ul class="familles">
+        <li class="rv">
+          <img src="img/wraps.webp" width="672" height="553" loading="lazy" alt="Une pile de wraps roulés dans du papier, garnis de salade, poulet et carottes">
+          <div class="c"><h3>Burritos &amp; wraps</h3><p>Dans une grande tortilla de blé, ou de maïs pour sa version sans gluten, tous les ingrédients frais s'associent pour un mariage frais et équilibré.</p><span class="badge">Version sans gluten</span></div>
+        </li>
+        <li class="rv">
+          <img src="img/bowl.webp" width="1200" height="1600" loading="lazy" alt="Un bowl chaud aux légumes, épinards et sauce crémeuse, vu du dessus sur une table en bois peint">
+          <div class="c"><h3>Bowls</h3><p>Des ingrédients variés et équilibrés, une sauce originale. Servis chauds, ils se démarquent des poke bowls plus classiques.</p><span class="badge">100 % sans gluten</span></div>
+        </li>
+        <li class="rv">
+          <img src="img/ramen.webp" width="1439" height="962" loading="lazy" alt="Un bol de ramen avec nouilles, poulet, œuf mollet, champignons et feuille de nori">
+          <div class="c"><h3>Soupes</h3><p>Légumes de saison, sans lactose ou d'influence japonaise, à agrémenter d'une quésadilla. La version ramen, aux nouilles de blé, fait le plaisir de tous en hiver.</p><span class="badge">Selon la saison</span></div>
+        </li>
+      </ul>
+      <div class="bas rv"><a class="btn sec" href="https://www.luncheonnette-lausanne.mywhop.com/shop" target="_blank" rel="noopener">Voir tout le menu</a></div>
+    </div>
+  </section>
+
+  <section class="concept" id="concept" aria-labelledby="t-concept">
+    <div class="wrap">
+      <img class="rv" src="img/salade.webp" width="1440" height="1800" loading="lazy" alt="Une salade de poulet grillé, carottes râpées, pois chiches et tomates dans une assiette blanche">
+      <div class="rv">
+        <p class="sur">Un concept simple</p>
+        <h2 id="t-concept">Flexitarien dans l'âme</h2>
+        <p>Tout est mis en œuvre pour proposer des options végétariennes, véganes ou sans gluten, en gardant le goût et l'originalité des plats.</p>
+        <ul>
+          <li>Des produits les plus locaux possible, certains en version bio</li>
+          <li>Des suggestions du moment de saison, aux saveurs originales</li>
+          <li>Des prix abordables : on peut manger sainement et rapidement</li>
+          <li>Commande en ligne, à venir chercher à l'heure voulue</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="work" id="traiteur" aria-labelledby="t-work">
+    <div class="wrap">
+      <div class="boite rv">
+        <div>
+          <p class="sur">Traiteur</p>
+          <h2 id="t-work">Luncheonette<span>@work</span></h2>
+          <p>Un business lunch, une formation, une occasion à fêter : une pause fraîcheur pour tes collègues, tes amis ou ta famille, flexitarienne, végétarienne ou sans gluten.</p>
+          <div class="actions"><a class="btn" href="https://www.luncheonette.ch/notre-histoire" target="_blank" rel="noopener">Demander un devis</a></div>
+        </div>
+        <img src="img/jus.webp" width="1200" height="1600" loading="lazy" alt="Une boisson verte dans un verre en forme d'ananas, entourée de courges, sur une caisse en bois">
+      </div>
+    </div>
+  </section>
+
+  <section class="presse" aria-label="Dans la presse">
+    <div class="wrap rv">
+      <p class="sur">Tout le monde parle de la Luncheonette</p>
+      <ul><li>24 heures</li><li>RTS</li><li>Le Temps</li><li>Femina</li><li>The Lausanner</li></ul>
+    </div>
+  </section>
+
+  <section class="galerie" aria-label="Galerie">
+    <div class="wrap">
+      <div class="gal">
+        <figure class="rv"><img src="img/vitrine.webp" width="768" height="1024" loading="lazy" alt="La vitrine de la Luncheonette, logo vert sur la vitre"><figcaption>La vitrine</figcaption></figure>
+        <figure class="rv"><img src="img/salle.webp" width="768" height="1024" loading="lazy" alt="La salle : longue table en bois, suspensions en rotin et ardoises du menu au mur"><figcaption>La salle</figcaption></figure>
+        <figure class="rv tri"><img src="img/plafond.webp" width="1200" height="1600" loading="lazy" alt="Les suspensions en rotin et les cercles peints au mur, vus d'en bas"><figcaption>Sous les suspensions</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="infos" id="infos" aria-labelledby="t-infos">
+    <div class="wrap">
+      <div class="rv">
+        <p class="sur">Rue Grand-Saint-Jean 5</p>
+        <h2 id="t-infos">Où nous trouver ?</h2>
+        <p class="intro">En plein centre-ville de Lausanne, une belle option pour un lunch rapide et de qualité pour tous.</p>
+        <div class="actions">
+          <a class="btn" href="https://www.luncheonnette-lausanne.mywhop.com/" target="_blank" rel="noopener">Commander</a>
+          <a class="btn sec" href="https://widget.thefork.com/bff5df86-f9a6-4150-9e19-15f1b65a7684" target="_blank" rel="noopener">Réserver</a>
+          <a class="btn sec" href="https://www.google.com/maps/search/?api=1&amp;query=La+Luncheonette+Rue+Grand-Saint-Jean+5+Lausanne" target="_blank" rel="noopener">Voir le plan</a>
+        </div>
+      </div>
+      <dl class="rv">
+        <div><dt>Adresse</dt><dd>Rue Grand-Saint-Jean 5<br>1003 Lausanne</dd></div>
+        <div><dt>Heures d'ouverture</dt><dd><div class="horaires"><span>Lundi</span><span>10:00 – 14:30</span><span>Mardi – samedi</span><span>10:00 – 17:00</span><span>Cuisine salée</span><span>11:15 – 14:30 (15 h le samedi)</span><span>Dimanche</span><span>fermé</span></div></dd></div>
+        <div><dt>Contact</dt><dd><a href="tel:+41783004411">078 300 44 11</a><br><a href="mailto:info@luncheonette.ch">info@luncheonette.ch</a></dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Luncheonette · friendly fresh food · since 2012</p>
+    <p class="rs"><a href="https://www.instagram.com/la.luncheonette/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/LuncheonetteCafe" target="_blank" rel="noopener">Facebook</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('vu')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
