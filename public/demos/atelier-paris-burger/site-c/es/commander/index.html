@@ -886,6 +886,16 @@ footer .liens{font:500 15px var(--sans);letter-spacing:0;text-transform:none}
 .carteF .sc{position:absolute;inset:-1px;border-radius:50%;overflow:hidden}
 .carteF .sm{position:absolute;inset:0;background:var(--or);transform:translateY(122%)}
 .carteF .vg{position:absolute;left:0;bottom:calc(100% - 1px);width:200%;height:20%;fill:var(--or);transform-origin:50% 100%}
+/* v21 sauce 5 : quand un sceau entre deux sections s'est posé, la sauce monte dans son anneau (le bord extérieur du sceau, autour de son filet d'or), de bas en haut ;
+   quand l'anneau est plein, une goutte s'en détache et tombe (script en bas de page), s'il y a la place sous le sceau ; quand elle arrive en bas, les petits logos
+   du semis placés sous le sceau (un sur deux) apparaissent à leur tour, du plus proche au plus lointain ; ceux du dessus arrivent avec le sceau.
+   Une fois par ouverture de la page ; ensuite l'anneau reste plein. En mouvement réduit ou sans script : l'anneau est déjà plein, rien ne bouge, aucune goutte.
+   L'anneau est un pseudo-élément du sceau : aucune balise en plus ; il apparaît et tourne avec lui, puis se découvre de bas en haut (découpe animée sur lui-même). */
+.mono b::after{content:"";position:absolute;top:-7px;right:-7px;bottom:-7px;left:-7px;border-radius:50%;border:4px solid var(--or)}
+.js-rv .mono b::after{clip-path:inset(100% 0 0 0)}
+.js-rv .mono.vu b::after{clip-path:inset(-1px);transition:clip-path .9s cubic-bezier(.37,0,.63,1) .8s}
+@media (prefers-reduced-motion:no-preference){.js-rv .mono .semis img:nth-child(2n){transition-delay:calc(var(--d) + 1.8s)}}
+@media (prefers-reduced-motion:reduce){.js-rv .mono b::after{transition:none}}
 </style><noscript><style>img[data-src]{display:none!important}noscript{display:contents}</style></noscript></head><body>
 <div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menú"><a href="../geneve/">Ginebra</a><a href="#retrait">Recogida</a><a href="../#villes">Nuestras ciudades</a></nav><a class="logo" href="../"><img src="../../img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, inicio" width="300" height="20"></a><div class="d"><nav class="langs" aria-label="Idioma"><a href="../../commander/" hreflang="fr" lang="fr">FR</a><a href="../../en/commander/" hreflang="en" lang="en">EN</a><a href="./" hreflang="es" lang="es" aria-current="true">ES</a></nav><button type="button" class="btn btn-m" data-panier>Mi pedido</button><details class="mmenu"><summary aria-label="Abrir el menú"><span></span><span></span></summary><nav aria-label="Menú móvil"><a href="../geneve/">Ginebra</a><a href="#retrait">Recogida</a><a href="../#villes">Nuestras ciudades</a><button type="button" data-panier>Mi pedido</button><div class="mlangs" role="group" aria-label="Idioma"><a href="../../commander/" hreflang="fr" lang="fr">Français</a><a href="../../en/commander/" hreflang="en" lang="en">English</a><a href="./" hreflang="es" lang="es" aria-current="true">Español</a></div></nav></details></div></div></header>
 <main class="cmdp">
@@ -1009,5 +1019,37 @@ function vu(es){return es[es.length-1].isIntersecting}
 io=new IntersectionObserver(function(es){if(vu(es))va()},{rootMargin:'-26% 0px -20% 0px',threshold:.9});
 io2=new IntersectionObserver(function(es){clearTimeout(tm);if(vu(es))tm=setTimeout(va,900)},{threshold:.9});
 io.observe(r);io2.observe(r)})();
+/* v21 sauce 5 : quand l'anneau d'un sceau entre deux sections est plein de sauce, une goutte s'en détache et tombe.
+   La montée de la sauce est faite par la feuille de style ; ici, seulement la goutte, et seulement là où rien n'est sur son passage
+   (ni texte, ni photo, ni cadre) : sans la place, l'anneau se remplit sans goutte. Rien en mouvement réduit. */
+(function(){
+if(!document.documentElement.animate||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+var EASE='cubic-bezier(.22,1,.36,1)',VAETVIENT='cubic-bezier(.77,0,.175,1)',CHUTE='cubic-bezier(.11,0,.5,0)',K=.75,HT=16*K,DEMI=12,ctx;
+/* Les lettres ne montent pas jusqu'en haut de leur ligne : écart entre le haut de la ligne et le haut de l'encre du texte t, dans la police de son élément
+   (0 si le navigateur ne sait pas le dire : la goutte compte alors la ligne entière) */
+function creux(t,cs){try{ctx=ctx||document.createElement('canvas').getContext('2d');ctx.font=cs.fontStyle+' '+cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily;
+ var m=ctx.measureText(cs.textTransform==='uppercase'?t.toUpperCase():t),d=m.fontBoundingBoxAscent-m.actualBoundingBoxAscent;return d>0?d:0}catch(e){return 0}}
+/* Hauteur libre sous le point (x, y) de l'écran, dans le couloir de la goutte (12 px de chaque côté) : jusqu'au premier texte, image, dessin, cadre ou fond de la section qui suit le sceau.
+   Un bloc qui commence plus haut que y est le sol sur lequel le sceau est posé : il ne compte pas, sauf si c'est une image.
+   Un titre pas encore apparu est encore décalé vers le bas (classe rv) : on compte la place qu'il prendra. */
+function place(m,x,y){var S=m.nextElementSibling,E=S?S.getElementsByTagName('*'):[],L=S?48:0,rg=document.createRange(),i,j,e,r,cs,n,q,t,c,h;
+ for(i=0;i<E.length&&L>0;i++){e=E[i];if(e.ownerSVGElement)continue;r=e.getBoundingClientRect();
+  if(!r.width||!r.height||r.right<=x-DEMI||r.left>=x+DEMI||r.bottom<=y||r.top>=y+L+24)continue;
+  cs=getComputedStyle(e);if(cs.visibility==='hidden')continue;
+  t=e.closest('.rv');t=t&&parseFloat((getComputedStyle(t).translate||'').split(' ')[1])||0;h=r.top-t-y;
+  if(/^(img|svg|canvas|video)$/i.test(e.tagName)||h>=-1&&(cs.backgroundImage!=='none'||!/(, 0\)|transparent)$/.test(cs.backgroundColor)||parseFloat(cs.borderTopWidth)||parseFloat(cs.borderLeftWidth)||parseFloat(cs.borderRightWidth)||cs.boxShadow!=='none'))L=Math.min(L,h);
+  for(n=e.firstChild;n;n=n.nextSibling)if(n.nodeType===3&&/\S/.test(n.data)){rg.selectNodeContents(n);q=rg.getClientRects();c=-1;
+   for(j=0;j<q.length;j++)if(q[j].width&&q[j].right>x-DEMI&&q[j].left<x+DEMI&&q[j].bottom-t>y){if(c<0)c=creux(n.data,cs);L=Math.min(L,q[j].top+c-t-y)}}}
+ return L}
+[].forEach.call(document.querySelectorAll('.mono b'),function(b){b.addEventListener('transitionend',function fin(e){
+ if(e.pseudoElement!=='::after'||!/clip-path/.test(e.propertyName))return;b.removeEventListener('transitionend',fin);
+ /* la goutte part de 3 px à l'intérieur du bas de l'anneau ; sa chute est raccourcie s'il le faut pour qu'elle s'arrête à 4 px au moins de ce qui suit ; sans 6 px de chute, aucune goutte */
+ var m=b.parentNode,R=b.getBoundingClientRect(),c=Math.min(matchMedia('(min-width:861px)').matches?20:14,Math.floor(place(m,R.left+R.width/2,R.bottom+7)+3-HT*1.15-4));
+ if(c<6)return;
+ var d=document.createElement('div');d.innerHTML='<svg class="gte" viewBox="0 0 12 16" aria-hidden="true" focusable="false"><path d="M6 0C6 0 .4 7 .4 10.4a5.6 5.6 0 0 0 11.2 0C11.6 7 6 0 6 0Z"/></svg>';var g=d.firstChild;g.style.cssText='left:50%;top:'+(b.offsetHeight/2+7-3)+'px;width:'+12*K+'px;height:'+HT+'px;margin-left:'+(-6*K)+'px';m.appendChild(g);
+ function ote(){g.remove()}
+ /* même mouvement que la goutte du bouton or : elle se forme (0,26 s), s'étire (0,14 s), se détache et s'efface en tombant (0,42 s) */
+ g.animate([{offset:0,transform:'translateY(-2px) scale(.35)',opacity:0,easing:EASE},{offset:.317,transform:'translateY(0) scale(1)',opacity:1,easing:VAETVIENT},{offset:.488,transform:'translateY(0) scale(.9,1.3)',opacity:1,easing:CHUTE},{offset:.744,opacity:1},{offset:1,transform:'translateY('+c+'px) scale(.9,1.15)',opacity:0}],{duration:820,fill:'both'}).finished.then(ote,ote)})});
+})();
 </script>
 </body></html>
