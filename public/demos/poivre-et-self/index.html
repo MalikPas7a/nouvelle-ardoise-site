@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f5f0e6">
+<title>Poivre et Self × Nouvelle Ardoise · Les plats du Chef Clot</title>
+<meta name="description" content="Démo pour Poivre et Self (Sottens) : commandes de fêtes payées par Twint, confirmations et rappels sur WhatsApp, plat de la semaine, vue du chef.">
+<meta property="og:title" content="Les plats du Chef Clot, commandés en 30 secondes">
+<meta property="og:description" content="Démo pour Poivre et Self : commandes de fêtes, rappels WhatsApp, plat de la semaine.">
+<meta property="og:image" content="https://nouvelleardoise.ch/demos/poivre-et-self/img/apercu-partage.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="img/logo-poivre-et-self.png" type="image/png">
+<link rel="preload" href="fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Manrope;src:url(fonts/manrope-latin-wght-normal.woff2) format("woff2");font-weight:200 800;font-display:swap}
+@font-face{font-family:Caveat;src:url(fonts/caveat-latin-wght-normal.woff2) format("woff2");font-weight:400 700;font-display:swap}
+:root{
+  --creme:#f5f0e6;--papier:#fbf8f2;--encre:#1b1a17;--brun:#5b4740;--sapin:#2e5a46;--sapin2:#244a39;
+  --gris:#6b6258;--ligne:#e2d8c8;--pad:clamp(16px,4.5vw,56px);--max:1100px;--ease:cubic-bezier(.2,.7,.2,1);
+  --wa-bg:#efeae2;--wa-in:#ffffff;--wa-out:#d9fdd3;--wa-tick:#53bdeb;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--creme);color:var(--encre);font:16px/1.55 Manrope,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sapin);outline-offset:3px}
+h1,h2,h3,p{margin:0}
+h1,h2{font-weight:800;letter-spacing:-.025em;line-height:1.04;text-wrap:balance}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+.num{font-variant-numeric:tabular-nums}
+
+/* bandeau */
+.note{background:var(--encre);color:#efe9dd;font-size:13px;text-align:center;padding:9px var(--pad)}
+.note b{font-weight:700}
+
+/* héro */
+.hero{padding:clamp(36px,7vw,84px) 0 clamp(40px,6vw,72px)}
+.hero .logo{width:min(230px,56vw);margin-bottom:clamp(28px,5vw,44px)}
+.hero h1{font-size:clamp(2.4rem,1.3rem + 5vw,4.6rem);max-width:13ch}
+.hero h1 .main{font-family:Caveat,cursive;font-weight:700;font-size:1.12em;letter-spacing:0;color:var(--sapin);white-space:nowrap}
+.hero .lead{font-size:clamp(1.05rem,1rem + .3vw,1.2rem);color:var(--gris);max-width:34em;margin-top:18px}
+.hero ol{list-style:none;padding:0;margin:30px 0 0;display:grid;gap:8px;max-width:30em}
+.hero ol a{display:flex;gap:14px;align-items:baseline;text-decoration:none;padding:12px 0;border-top:1px solid var(--ligne);font-weight:600}
+.hero ol a span{font-size:13px;color:var(--gris);font-weight:700;min-width:1.5em}
+.hero ol a:hover{color:var(--sapin)}
+
+/* sections démo */
+.step{padding:clamp(56px,8vw,104px) 0;border-top:1px solid var(--ligne)}
+.step:nth-of-type(even){background:var(--papier)}
+.grid{display:grid;gap:clamp(28px,5vw,72px);align-items:center}
+@media (min-width:860px){.grid{grid-template-columns:1fr 360px}.step.flip .grid{grid-template-columns:360px 1fr}.step.flip .txt{order:2}}
+.kick{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--brun)}
+.step h2{font-size:clamp(1.9rem,1.2rem + 3vw,3.1rem);margin-top:10px;max-width:15ch}
+.step .lead{color:var(--gris);margin-top:14px;max-width:30em;font-size:1.05rem}
+.pts{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:10px;max-width:30em}
+.pts li{display:flex;gap:12px;align-items:flex-start}
+.pts li::before{content:"";flex:none;width:9px;height:9px;border-radius:50%;background:var(--encre);margin-top:.55em}
+.ex{display:inline-block;margin-top:18px;font-size:12.5px;color:var(--gris);border:1px dashed #c9bca6;border-radius:999px;padding:4px 12px}
+
+/* téléphone */
+.phone{width:min(340px,100%);margin:0 auto;aspect-ratio:9/18.5;border:10px solid var(--encre);border-radius:46px;background:#fff;overflow:hidden;position:relative;box-shadow:0 30px 60px -30px rgba(40,30,20,.45),0 2px 0 rgba(0,0,0,.04)}
+.phone::before{content:"";position:absolute;top:8px;left:50%;translate:-50% 0;width:92px;height:26px;border-radius:20px;background:var(--encre);z-index:5}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden}
+.sbar{height:44px;flex:none;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 6px;font-size:12px;font-weight:700}
+
+/* écran commande */
+.shop{background:var(--papier)}
+.shop-head{padding:6px 18px 12px;border-bottom:1px solid var(--ligne);display:flex;align-items:center;gap:10px}
+.shop-head img{width:62px}
+.shop-head p{font-size:11.5px;color:var(--gris);line-height:1.3}
+.shop-body{flex:1;overflow-y:auto;padding:14px 16px 8px;overscroll-behavior:contain}
+.shop-body h3{font-size:19px;font-weight:800;letter-spacing:-.01em}
+.shop-body .sub{font-size:12px;color:var(--gris);margin-top:2px}
+.items{list-style:none;padding:0;margin:12px 0 0}
+.item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--ligne)}
+.item div{flex:1;min-width:0}
+.item b{display:block;font-size:13.5px;font-weight:700;line-height:1.25}
+.item small{font-size:11.5px;color:var(--gris)}
+.qty{display:flex;align-items:center;gap:2px;flex:none}
+.qty button{width:36px;height:36px;border-radius:50%;border:1px solid #cdbfa9;background:#fff;font-size:17px;line-height:1;cursor:pointer;display:grid;place-items:center;touch-action:manipulation}
+.qty button:active{transform:scale(.94)}
+.qty output{width:22px;text-align:center;font-weight:800;font-size:14px}
+.lbl{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brun);margin:16px 0 8px}
+.slots{display:flex;flex-wrap:wrap;gap:6px}
+.slots button{border:1px solid #cdbfa9;background:#fff;border-radius:999px;padding:7px 11px;font-size:12.5px;font-weight:600;cursor:pointer;min-height:34px}
+.slots button[aria-pressed="true"]{background:var(--encre);border-color:var(--encre);color:#fff}
+.shop-foot{flex:none;padding:10px 16px 18px;border-top:1px solid var(--ligne);background:#fff}
+.tot{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px}
+.tot b{font-size:15px}
+.pay{width:100%;min-height:48px;border:0;border-radius:14px;background:var(--encre);color:#fff;font-weight:800;font-size:15px;cursor:pointer;transition:transform .15s var(--ease),opacity .2s}
+.pay:active{transform:scale(.98)}
+.pay:disabled{opacity:.35;cursor:not-allowed}
+.done{position:absolute;inset:44px 0 0;background:var(--papier);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;gap:12px;opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility 0s .35s}
+.done.on{opacity:1;visibility:visible;transition:opacity .35s var(--ease)}
+.done .ok{width:64px;height:64px;border-radius:50%;background:var(--sapin);display:grid;place-items:center}
+.done h3{font-size:21px;font-weight:800}
+.done p{font-size:13.5px;color:var(--gris);max-width:24ch}
+.done .again{margin-top:8px;border:1px solid #cdbfa9;background:#fff;border-radius:999px;padding:9px 16px;font-weight:700;font-size:13px;cursor:pointer;min-height:40px}
+
+/* écrans WhatsApp */
+.wa{background:var(--wa-bg)}
+.wa-head{flex:none;background:#f6f5f3;border-bottom:1px solid #e3e0dc;display:flex;align-items:center;gap:10px;padding:4px 14px 10px}
+.av{width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #e3e0dc;display:grid;place-items:center;overflow:hidden;flex:none}
+.av img{width:26px}
+.wa-head b{display:block;font-size:14px}
+.wa-head small{font-size:11px;color:#667781}
+.wa-body{flex:1;overflow:hidden;padding:12px 10px;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.38}
+.day{align-self:center;background:#fff;border-radius:8px;padding:3px 10px;font-size:11px;color:#54656f;margin:4px 0;box-shadow:0 1px .5px rgba(11,20,26,.1)}
+.msg{max-width:84%;padding:6px 9px 16px;border-radius:9px;position:relative;box-shadow:0 1px .5px rgba(11,20,26,.13)}
+.msg.in{align-self:flex-start;background:var(--wa-in);border-top-left-radius:2px}
+.msg.out{align-self:flex-end;min-width:76px;background:var(--wa-out);border-top-right-radius:2px}
+.msg time{position:absolute;right:8px;bottom:3px;font-size:10px;color:#667781}
+.msg.out time::after{content:" ✓✓";color:var(--wa-tick);letter-spacing:-.15em}
+.msg .auto{display:block;font-size:10.5px;color:#5f6d75;margin-bottom:2px}
+.msg b{font-weight:700}
+.wa-in .msg{opacity:0;transform:translateY(8px) scale(.98)}
+.wa-in.play .msg{animation:pop .45s var(--ease) forwards;animation-delay:calc(var(--i) * .55s)}
+@keyframes pop{to{opacity:1;transform:none}}
+.wa-foot{flex:none;background:#f6f5f3;padding:8px 10px 16px;display:flex;gap:8px;align-items:center}
+.wa-foot span{flex:1;background:#fff;border-radius:20px;padding:8px 14px;font-size:12.5px;color:#5f6d75}
+
+/* vue du chef */
+.dash{background:#fff}
+.dash-head{flex:none;padding:4px 16px 10px}
+.dash-head h3{font-size:18px;font-weight:800}
+.dash-head p{font-size:11.5px;color:var(--gris)}
+.tabs{display:flex;gap:6px;padding:0 16px 10px;flex:none}
+.tabs button{flex:1;border:1px solid var(--ligne);background:var(--papier);border-radius:10px;padding:7px 4px;font-size:12px;font-weight:700;cursor:pointer;min-height:40px;line-height:1.15}
+.tabs button small{display:block;font-weight:600;color:var(--gris);font-size:10.5px}
+.tabs button[aria-selected="true"]{background:var(--encre);border-color:var(--encre);color:#fff}
+.tabs button[aria-selected="true"] small{color:#d6cfc2}
+.dash-body{flex:1;overflow-y:auto;padding:0 16px 16px;overscroll-behavior:contain}
+.prod{background:var(--papier);border:1px solid var(--ligne);border-radius:14px;padding:12px}
+.prod .lbl{margin:0 0 8px}
+.bar{display:grid;grid-template-columns:1fr auto;gap:2px 10px;font-size:12.5px;margin-top:8px}
+.bar b{font-weight:800}
+.bar i{grid-column:1/-1;height:6px;border-radius:6px;background:var(--ligne);overflow:hidden}
+.bar i::after{content:"";display:block;height:100%;width:var(--w);background:var(--sapin);border-radius:6px;transition:width .6s var(--ease)}
+.orders{list-style:none;padding:0;margin:14px 0 0}
+.orders li{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--ligne);font-size:12.5px}
+.orders li .h{font-weight:800;min-width:38px}
+.orders li div{flex:1;min-width:0}
+.orders li small{display:block;color:var(--gris);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{font-size:10.5px;font-weight:800;border-radius:999px;padding:3px 8px;background:#e4efe8;color:var(--sapin2);white-space:nowrap}
+
+/* mise en place */
+.plan{padding:clamp(56px,8vw,104px) 0;border-top:1px solid var(--ligne);background:var(--encre);color:#efe9dd}
+.plan .kick{color:#c9b9a3}
+.plan h2{font-size:clamp(1.9rem,1.2rem + 3vw,3.1rem);margin-top:10px;max-width:18ch;color:#fff}
+.weeks{list-style:none;padding:0;margin:clamp(28px,4vw,44px) 0 0;display:grid;gap:14px}
+@media (min-width:760px){.weeks{grid-template-columns:repeat(3,1fr)}}
+.weeks li{border-top:2px solid #4a443c;padding-top:16px}
+.weeks b{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#c9b9a3}
+.weeks h3{font-size:1.25rem;font-weight:800;margin:6px 0 6px;color:#fff}
+.weeks p{color:#bdb4a6;font-size:.98rem}
+.need{margin-top:clamp(32px,5vw,52px);padding:20px;border:1px solid #4a443c;border-radius:16px;max-width:44em}
+.need p{color:#d9d1c4}
+.need p+p{margin-top:8px}
+
+/* contact */
+.contact{padding:clamp(48px,7vw,88px) 0}
+.contact h2{font-size:clamp(1.7rem,1.1rem + 2.4vw,2.6rem);max-width:18ch}
+.contact .lead{color:var(--gris);margin-top:12px;max-width:32em}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 22px;border-radius:999px;font-weight:800;text-decoration:none;background:var(--encre);color:#fff;transition:transform .15s var(--ease)}
+.btn.alt{background:transparent;color:var(--encre);border:1.5px solid var(--encre)}
+.btn:active{transform:scale(.97)}
+.sign{margin-top:36px;font-size:13px;color:var(--gris);border-top:1px solid var(--ligne);padding-top:18px}
+
+
+/* 05 supports imprimés */
+.plv{display:grid;gap:clamp(22px,4vw,40px);margin-top:clamp(32px,5vw,52px);align-items:end}
+@media (min-width:860px){.plv{grid-template-columns:1.15fr .8fr .9fr}}
+.plv figure{margin:0;container-type:inline-size}
+.plv figcaption{margin-top:14px;font-size:14px;color:var(--gris);max-width:30em}
+.plv figcaption b{display:block;color:var(--encre);font-size:15px;margin-bottom:2px}
+.print{position:relative;border-radius:4px;box-shadow:0 1px 0 rgba(0,0,0,.05),0 24px 40px -24px rgba(40,30,20,.5);overflow:hidden}
+.qr{background:#fff;padding:5%;border-radius:6px;width:30cqw}
+.qr img{width:100%;height:auto}
+.a3{aspect-ratio:297/420;background:var(--encre);color:#f3ede2;padding:9cqw 8cqw;display:flex;flex-direction:column}
+.a3 .pt{width:15cqw;filter:invert(1)}
+.a3 h3{font-size:10.5cqw;font-weight:800;letter-spacing:-.03em;line-height:1;margin-top:8cqw}
+.a3 h3 em{font-family:Caveat,cursive;font-style:normal;font-weight:700;color:#cfe3d6;font-size:1.12em;letter-spacing:0}
+.a3 p{font-size:4.1cqw;color:#c9c1b4;margin-top:5cqw;line-height:1.4}
+.a3 .row{margin-top:auto;display:flex;align-items:flex-end;gap:5cqw}
+.a3 .row p{margin:0;font-size:3.7cqw;color:#f3ede2;font-weight:700}
+.a3 .foot{margin-top:6cqw;padding-top:4cqw;border-top:1px solid #4a443c;font-size:3cqw;color:#a99f90;letter-spacing:.06em;text-transform:uppercase}
+.tent{aspect-ratio:105/148;background:var(--papier);padding:9cqw 9cqw;display:flex;flex-direction:column;border:1px solid var(--ligne)}
+.tent .k{font-size:4.6cqw;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--brun)}
+.tent .dish{font-family:Caveat,cursive;font-weight:700;font-size:15cqw;line-height:.95;margin-top:6cqw;color:var(--encre)}
+.tent .by{font-size:5cqw;color:var(--gris);margin-top:4cqw}
+.tent .row{margin-top:auto;display:flex;gap:5cqw;align-items:flex-end}
+.tent .qr{width:30cqw;padding:0;background:none}
+.tent .row p{font-size:4.6cqw;font-weight:700;line-height:1.3}
+.a6{aspect-ratio:148/105;background:#fff;display:grid;grid-template-columns:1fr 38%;border:1px solid var(--ligne)}
+.a6 .l{padding:7cqw 6cqw;display:flex;flex-direction:column}
+.a6 .l small{font-size:2.8cqw;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sapin)}
+.a6 .l h3{font-size:6.6cqw;font-weight:800;letter-spacing:-.025em;line-height:1.02;margin-top:2.5cqw}
+.a6 .l p{font-size:2.9cqw;color:var(--gris);margin-top:auto;line-height:1.4}
+.a6 .r{background:var(--sapin);color:#fff;padding:6cqw 5cqw;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3cqw;text-align:center}
+.a6 .r .qr{width:22cqw}
+.a6 .r p{font-size:2.9cqw;font-weight:700;line-height:1.25}
+/* 06 photos */
+.shots{list-style:none;padding:0;margin:clamp(28px,4vw,44px) 0 0;display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+@media (min-width:760px){.shots{grid-template-columns:repeat(4,1fr)}}
+.shots li{aspect-ratio:4/5;border:1.5px dashed #c9bca6;border-radius:12px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;background:var(--creme)}
+.shots li span{font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--brun)}
+.shots li b{font-size:15px;line-height:1.25}
+.shots li small{display:block;font-size:12.5px;color:var(--gris);margin-top:4px;font-weight:500}
+.uses{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.uses span{font-size:13px;font-weight:700;border-radius:999px;padding:6px 12px;background:#e4efe8;color:var(--sapin2)}
+/* 07 prospection */
+.cards{display:grid;gap:14px;margin-top:clamp(28px,4vw,44px)}
+@media (min-width:760px){.cards{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--papier);border:1px solid var(--ligne);border-radius:16px;padding:20px}
+.card b{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--brun)}
+.card h3{font-size:1.2rem;font-weight:800;margin:6px 0 8px;letter-spacing:-.01em}
+.card p{color:var(--gris);font-size:.98rem}
+.card p+p{margin-top:8px;color:var(--encre);font-weight:600}
+/* calendrier */
+.cal{list-style:none;padding:0;margin:clamp(28px,4vw,44px) 0 0;display:grid;gap:0}
+.cal li{display:grid;grid-template-columns:7.5em 1fr;gap:16px;padding:16px 0;border-top:1px solid #4a443c}
+.cal li b{font-size:14px;color:#c9b9a3;font-variant-numeric:tabular-nums}
+.cal li h3{font-size:1.1rem;font-weight:800;color:#fff}
+.cal li p{color:#bdb4a6;font-size:.96rem;margin-top:2px}
+.cal li.key b,.cal li.key h3{color:#cfe3d6}
+.kpi{display:grid;gap:12px;margin-top:clamp(28px,4vw,44px)}
+@media (min-width:760px){.kpi{grid-template-columns:repeat(3,1fr)}}
+.kpi div{border:1px solid #4a443c;border-radius:14px;padding:16px}
+.kpi b{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#c9b9a3}
+.kpi p{color:#efe9dd;margin-top:6px}
+
+
+/* héro v2 */
+.hero-grid{display:grid;gap:clamp(28px,5vw,64px);align-items:center}
+@media (min-width:860px){.hero-grid{grid-template-columns:1fr 440px}}
+.hero .logo{width:min(200px,48vw);margin-bottom:clamp(22px,4vw,36px)}
+.door{display:inline-flex;flex-direction:column;align-items:flex-start;gap:2px;margin-bottom:18px;font-family:Caveat,cursive;line-height:1}
+.door span{font-size:26px;letter-spacing:.06em;text-transform:uppercase;color:var(--brun);font-weight:700}
+.door b{font-family:Manrope,sans-serif;font-weight:800;font-size:clamp(3rem,1.6rem + 4.4vw,4.4rem);letter-spacing:-.045em;line-height:.95;white-space:nowrap}
+.hero h1{font-size:clamp(1.9rem,1.2rem + 2.6vw,3.1rem);max-width:17ch}
+.hero h1 .main{display:block;margin-top:.1em;font-size:1.15em}
+.live{margin-top:26px;max-width:30em}
+.live-s{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
+.live-s i{width:10px;height:10px;border-radius:50%;background:var(--sapin);box-shadow:0 0 0 0 rgba(46,90,70,.5);animation:pulse 2.4s infinite}
+.live.closed .live-s i{background:#a99f90;animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(46,90,70,0)}100%{box-shadow:0 0 0 0 rgba(46,90,70,0)}}
+.dayline{margin-top:12px}
+.day-bar{position:relative;height:8px;border-radius:8px;background:linear-gradient(90deg,var(--ligne) 0 25%,#cfe0d5 25% 91.67%,var(--ligne) 91.67%)}
+.day-bar i{position:absolute;left:25%;top:0;bottom:0;border-radius:8px;background:var(--sapin);width:0}
+.day-bar b{position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--encre);border:3px solid var(--creme);left:0}
+.day-l{position:relative;height:18px;margin-top:6px;font-size:12px;color:var(--gris);font-weight:700}
+.day-l span{position:absolute;transform:translateX(-50%)}
+.day-l span:nth-child(1){left:0;transform:none}.day-l span:nth-child(2){left:25%}.day-l span:nth-child(3){left:91.67%}
+.hero-ph{margin:0;position:relative}
+.hero-ph img{width:100%;border-radius:10px;box-shadow:0 30px 60px -30px rgba(40,30,20,.5)}
+.hero-ph figcaption{margin-top:10px;font-size:13px;color:var(--gris)}
+.toc{list-style:none;padding:0;margin:clamp(32px,5vw,56px) 0 0;display:grid;gap:0 32px}
+@media (min-width:760px){.toc{grid-template-columns:1fr 1fr}}
+.toc a{display:flex;gap:14px;align-items:baseline;text-decoration:none;padding:12px 0;border-top:1px solid var(--ligne);font-weight:600}
+.toc a span{font-size:13px;color:var(--gris);font-weight:700;min-width:1.5em}
+.toc a:hover{color:var(--sapin)}
+.film{background:var(--encre);color:#efe9dd;padding:clamp(56px,8vw,104px) 0}
+.film .kick{color:#c9b9a3}.film h2{font-size:clamp(1.9rem,1.2rem + 3vw,3.1rem);color:#fff;margin-top:10px;max-width:14ch}
+.film .lead{color:#bdb4a6;margin-top:14px;max-width:28em}
+.film-grid{display:grid;gap:32px;align-items:center}
+@media (min-width:860px){.film-grid{grid-template-columns:1fr 360px}}
+.vid{width:min(360px,100%);margin:0 auto}
+.vid video{width:100%;height:auto;border-radius:18px;background:#000;display:block}
+
+/* 07 prospection v2 */
+.rings-grid{display:grid;gap:clamp(24px,4vw,48px);margin-top:clamp(28px,4vw,44px);align-items:center}
+@media (min-width:860px){.rings-grid{grid-template-columns:380px 1fr}}
+.rings{margin:0 auto;width:min(380px,100%)}
+.rings svg{width:100%;height:auto;display:block}
+.rings circle{stroke:var(--creme);stroke-width:3}
+.rings .r4{fill:#e8e0d1}.rings .r3{fill:#dfe9e2}.rings .r2{fill:#c4dacb}.rings .r1{fill:#a3c3b0}.rings .r0{fill:var(--sapin)}
+.rings text{text-anchor:middle;font-family:Manrope,sans-serif;font-weight:800}
+.rings .c{fill:#fff;font-size:13px}
+.rings .n{fill:var(--sapin2);font-size:18px}
+.rings .t{fill:var(--sapin2);font-size:13px;letter-spacing:.02em}
+.circles{list-style:none;padding:0;margin:0;display:grid;gap:0}
+.circles li{display:grid;grid-template-columns:2.2em 1fr;gap:12px;padding:16px 0;border-top:1px solid var(--ligne)}
+.circles li>span{width:30px;height:30px;border-radius:50%;background:var(--sapin);color:#fff;font-weight:800;font-size:14px;display:grid;place-items:center}
+.circles h3{font-size:1.1rem;font-weight:800;letter-spacing:-.01em}
+.circles p{color:var(--gris);margin-top:4px}
+.circles small{display:block;margin-top:6px;font-size:13.5px;font-weight:700;color:var(--sapin2)}
+.pitch{display:grid;gap:clamp(22px,4vw,48px);margin-top:clamp(40px,6vw,72px);align-items:center}
+@media (min-width:860px){.pitch{grid-template-columns:1fr 1fr}}
+.pitch h3,.sub{font-size:1.35rem;font-weight:800;letter-spacing:-.015em}
+.pitch-txt>p{color:var(--gris);margin-top:8px;max-width:30em}
+.seq{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:8px}
+.seq li{display:flex;gap:12px;align-items:baseline;font-weight:600}
+.seq b{min-width:4.6em;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--brun)}
+.mail{background:#fff;border:1px solid var(--ligne);border-radius:14px;padding:20px;box-shadow:0 24px 40px -28px rgba(40,30,20,.45);font-size:15px}
+.mail p+p{margin-top:10px}
+.mail .mh{font-size:13px;color:var(--gris);padding-bottom:12px;border-bottom:1px solid var(--ligne);margin-bottom:14px}
+.mail .mh b{color:var(--encre)}
+.mail .sg{font-family:Caveat,cursive;font-size:24px;color:var(--brun);line-height:1.1}
+/* 08 réseaux */
+.soc-grid{display:grid;gap:clamp(28px,5vw,64px);margin-top:clamp(28px,4vw,44px);align-items:start}
+@media (min-width:860px){.soc-grid{grid-template-columns:340px 1fr}}
+.feed{aspect-ratio:auto;padding:44px 0 0;background:#fff}
+.fh{display:flex;gap:12px;padding:0 14px 14px;align-items:flex-start}
+.fh img{width:54px;height:54px;border-radius:50%;object-fit:cover;flex:none;border:1px solid var(--ligne)}
+.fh b{display:block;font-size:15px}
+.fh small{display:block;font-size:12px;color:var(--gris);font-weight:600}
+.fh p{font-size:12.5px;margin-top:4px;line-height:1.35}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.tl{aspect-ratio:1;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:9px;container-type:inline-size}
+.tl.ph{padding:0}.tl img{width:100%;height:100%;object-fit:cover}
+.tl b{font-weight:800;line-height:1.05;letter-spacing:-.02em;font-size:13cqw}
+.tl small{font-size:8.5cqw;font-weight:700;line-height:1.2;margin-top:4px}
+.t-six{background:var(--sapin);color:#fff}.t-six b{font-size:34cqw;letter-spacing:-.05em}
+.t-22{background:var(--encre);color:#efe9dd}.t-22 b{font-size:34cqw;letter-spacing:-.05em}
+.t-sem{background:var(--creme);justify-content:space-between}.t-sem small{color:var(--brun);text-transform:uppercase;letter-spacing:.06em;margin:0}
+.t-prod{background:#e8e0d1;justify-content:space-between}.t-prod small{color:var(--brun);text-transform:uppercase;letter-spacing:.06em;margin:0}
+.t-fete{background:var(--brun);color:#fff;justify-content:space-between}.t-fete small{text-transform:uppercase;letter-spacing:.06em;margin:0;color:#e8dccd}
+.t-avis{background:var(--papier);justify-content:center}.t-avis b{font-family:Caveat,cursive;font-weight:700;font-size:17cqw;letter-spacing:0;line-height:1}.t-avis small{color:var(--gris)}
+.pillars{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:0}
+.pillars li{padding:12px 0;border-top:1px solid var(--ligne);color:var(--gris)}
+.pillars b{display:block;color:var(--encre);font-size:1.02rem}
+.soc-txt .sub+.pillars+.sub{margin-top:clamp(28px,4vw,40px)}
+.week{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:8px}
+.week li{display:grid;grid-template-columns:3em auto 1fr;gap:10px;align-items:center;font-weight:600;font-size:15px}
+.week b{color:var(--brun);font-size:14px}
+.ch{font-size:12px;font-weight:800;border-radius:999px;padding:3px 9px;justify-self:start}
+.ch.wa{background:#d9fdd3;color:#0f5132}.ch.fb{background:#e3ebf8;color:#1d3f7a}.ch.gg{background:#fbe9d6;color:#7a3e0c}
+.channels{display:grid;gap:12px;margin-top:clamp(36px,5vw,56px)}
+@media (min-width:760px){.channels{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.channels{grid-template-columns:repeat(4,1fr)}}
+.channels div{background:var(--creme);border:1px solid var(--ligne);border-radius:16px;padding:18px}
+.channels b{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--sapin2)}
+.channels p{color:var(--gris);margin-top:6px;font-size:.96rem}
+.you{margin-top:20px;padding:18px 20px;border-radius:16px;background:var(--sapin);color:#eef5f0;max-width:46em}
+.you b{color:#fff}
+@media (max-width:420px){.week li{grid-template-columns:2.6em auto;}.week .d{grid-column:1/-1;margin-top:-4px}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .wa-in .msg{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<p class="note">Démo préparée pour <b>Poivre et Self</b> par Nouvelle Ardoise. Plats, prix, prénoms et chiffres sont des exemples.</p>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-txt">
+      <img class="logo" src="img/logo-poivre-et-self.png" width="562" height="317" alt="Poivre et Self, Sottens, ouvert 7 jours sur 7">
+      <p class="door" aria-label="Bienvenue, de 6 heures à 22 heures"><span>Bienvenue</span><b class="num">6:00 – 22:00</b></p>
+      <h1>Votre épicerie ne ferme presque jamais. <span class="main">Vos plats non plus.</span></h1>
+      <p class="lead">Les plats du Chef Clot se commandent en 30 secondes sur le téléphone, se paient avec Twint et se retirent à l'épicerie, comme le reste : sans caisse et sans attente.</p>
+      <div class="live" id="live" aria-live="polite">
+        <p class="live-s"><i aria-hidden="true"></i><span id="liveTxt">Ouvert tous les jours de 6h à 22h</span></p>
+        <div class="dayline" aria-hidden="true"><div class="day-bar"><i id="dayFill"></i><b id="dayDot"></b></div><div class="day-l"><span>minuit</span><span>6h</span><span>22h</span></div></div>
+      </div>
+    </div>
+    <figure class="hero-ph">
+      <img src="img/facade-poivre-et-self.jpg" srcset="img/facade-poivre-et-self-440.jpg 440w, img/facade-poivre-et-self.jpg 878w" sizes="(min-width:860px) 440px, 92vw" width="878" height="1024" alt="La façade de Poivre et Self à Sottens : Bienvenue, 6:00 – 22:00, ouverture 7 sur 7" fetchpriority="high">
+      <figcaption>Route de Moudon 3A, Sottens</figcaption>
+    </figure>
+  </div>
+  <div class="wrap">
+    <ol class="toc">
+      <li><a href="#film"><span>00</span>Le film de 30 secondes</a></li>
+      <li><a href="#commande"><span>01</span>Le client commande et paie avec Twint</a></li>
+      <li><a href="#rappels"><span>02</span>Confirmation et rappel sur WhatsApp</a></li>
+      <li><a href="#semaine"><span>03</span>Le plat de la semaine, chez vos fidèles</a></li>
+      <li><a href="#chef"><span>04</span>Le chef voit tout, trié</a></li>
+      <li><a href="#magasin"><span>05</span>Affiche, chevalet et flyer</a></li>
+      <li><a href="#photos"><span>06</span>Les vraies photos</a></li>
+      <li><a href="#prospection"><span>07</span>La stratégie de prospection</a></li>
+      <li><a href="#reseaux"><span>08</span>Marketing et réseaux sociaux</a></li>
+    </ol>
+  </div>
+</header>
+
+<section class="film" id="film" aria-labelledby="t0">
+  <div class="wrap film-grid">
+    <div>
+      <p class="kick">00 · Le film</p>
+      <h2 id="t0">Tout le projet en 30 secondes.</h2>
+      <p class="lead">De 6h du matin au menu de fêtes, avec votre vraie façade et votre vraie épicerie. Sans musique : on lit le texte, le son est coupé.</p>
+    </div>
+    <div class="vid"><video src="video/poivre-et-self.mp4" poster="video/affiche-video.jpg" controls playsinline preload="none" width="1080" height="1920" aria-label="Film de présentation : Poivre et Self, les plats du Chef Clot"></video></div>
+  </div>
+</section>
+
+<main>
+<!-- 01 commande -->
+<section class="step" id="commande" aria-labelledby="t1">
+  <div class="wrap grid">
+    <div class="txt">
+      <p class="kick">01 · Commandes de fêtes</p>
+      <h2 id="t1">Votre menu de fêtes, réservé et payé d'avance.</h2>
+      <p class="lead">Un lien à partager partout : WhatsApp, Facebook, affiche avec QR code à l'épicerie. Le client choisit ses plats et son jour de retrait, puis paie avec Twint.</p>
+      <ul class="pts">
+        <li>Fini les commandes prises au téléphone ou sur un bout de papier.</li>
+        <li>Tout est payé d'avance : aucun plat préparé pour rien.</li>
+        <li>Vous fixez un nombre maximum par plat et par jour.</li>
+      </ul>
+      <span class="ex">Essayez : ajoutez un plat, choisissez un jour, payez.</span>
+    </div>
+    <div class="phone" role="group" aria-label="Démo : page de commande des fêtes">
+      <div class="screen shop">
+        <div class="sbar" aria-hidden="true"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="shop-head">
+          <img src="img/logo-poivre-et-self.png" width="562" height="317" alt="">
+          <p>Commandes de fêtes<br>Retrait à l'épicerie, Sottens</p>
+        </div>
+        <div class="shop-body">
+          <h3>Menu de fêtes du Chef Clot</h3>
+          <p class="sub">Fait maison à Sottens · exemple de carte</p>
+          <ul class="items" id="items">
+            <li class="item" data-p="18"><div><b>Terrine de campagne maison</b><small>500 g · CHF 18.–</small></div><div class="qty"><button type="button" aria-label="Retirer une terrine">−</button><output aria-live="polite">0</output><button type="button" aria-label="Ajouter une terrine">+</button></div></li>
+            <li class="item" data-p="46"><div><b>Pintade farcie aux marrons</b><small>Pour 2 · CHF 46.–</small></div><div class="qty"><button type="button" aria-label="Retirer une pintade">−</button><output aria-live="polite">0</output><button type="button" aria-label="Ajouter une pintade">+</button></div></li>
+            <li class="item" data-p="89"><div><b>Rôti de veau, sauce aux morilles</b><small>Pour 4 · CHF 89.–</small></div><div class="qty"><button type="button" aria-label="Retirer un rôti de veau">−</button><output aria-live="polite">0</output><button type="button" aria-label="Ajouter un rôti de veau">+</button></div></li>
+            <li class="item" data-p="16"><div><b>Gratin dauphinois</b><small>Pour 4 · CHF 16.–</small></div><div class="qty"><button type="button" aria-label="Retirer un gratin">−</button><output aria-live="polite">0</output><button type="button" aria-label="Ajouter un gratin">+</button></div></li>
+            <li class="item" data-p="34"><div><b>Bûche maison chocolat-marron</b><small>6 parts · CHF 34.–</small></div><div class="qty"><button type="button" aria-label="Retirer une bûche">−</button><output aria-live="polite">0</output><button type="button" aria-label="Ajouter une bûche">+</button></div></li>
+          </ul>
+          <p class="lbl" id="slotlbl">Jour de retrait</p>
+          <div class="slots" role="group" aria-labelledby="slotlbl" id="slots">
+            <button type="button" aria-pressed="false">Mer. 23 déc.</button>
+            <button type="button" aria-pressed="false">Jeu. 24 déc.</button>
+            <button type="button" aria-pressed="false">Jeu. 31 déc.</button>
+          </div>
+        </div>
+        <div class="shop-foot">
+          <div class="tot"><span id="hint">Ajoutez un plat</span><b class="num" id="total">CHF 0.–</b></div>
+          <button type="button" class="pay" id="pay" disabled>Payer avec Twint</button>
+        </div>
+        <div class="done" id="done" role="status">
+          <div class="ok" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+          <h3>Commande confirmée</h3>
+          <p id="donetxt">Payé avec Twint. La confirmation arrive sur WhatsApp.</p>
+          <button type="button" class="again" id="again">Recommencer la démo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 rappels -->
+<section class="step flip" id="rappels" aria-labelledby="t2">
+  <div class="wrap grid">
+    <div class="txt">
+      <p class="kick">02 · Confirmations et rappels</p>
+      <h2 id="t2">WhatsApp prévient vos clients à votre place.</h2>
+      <p class="lead">Dès que la commande est payée, le client reçoit sa confirmation. La veille du retrait, un rappel part tout seul. Le jour J, un message prévient que la commande attend.</p>
+      <ul class="pts">
+        <li>Moins d'oublis, moins de plats qui restent au frigo.</li>
+        <li>Le client répond directement s'il veut changer de jour.</li>
+        <li>Vous n'écrivez rien vous-même.</li>
+      </ul>
+      <span class="ex">Exemple de conversation</span>
+    </div>
+    <div class="phone" role="group" aria-label="Démo : conversation WhatsApp de confirmation et de rappel">
+      <div class="screen wa">
+        <div class="sbar" aria-hidden="true"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="wa-head"><div class="av"><img loading="lazy" src="img/pastille.png" width="125" height="128" alt=""></div><div><b>Poivre et Self</b><small>Compte professionnel</small></div></div>
+        <div class="wa-body wa-in">
+          <span class="day">Mardi 15 décembre</span>
+          <p class="msg in" style="--i:0"><span class="auto">Message automatique</span>Merci Claire ! Votre commande <b>n° 1024</b> est confirmée : 1 pintade farcie, 1 gratin, 1 bûche. Payée avec Twint.<br>Retrait <b>jeudi 24 déc.</b> à l'épicerie, à votre nom.<time>18:02</time></p>
+          <span class="day">Mercredi 23 décembre</span>
+          <p class="msg in" style="--i:1"><span class="auto">Rappel automatique</span>Petit rappel : votre commande vous attend demain. Besoin de changer de jour ? Répondez simplement ici.<time>17:00</time></p>
+          <p class="msg out" style="--i:2">Parfait, merci !<time>17:06</time></p>
+          <span class="day">Jeudi 24 décembre</span>
+          <p class="msg in" style="--i:3"><span class="auto">Message automatique</span>Votre commande vous attend ! Belles fêtes de la part du Chef Clot et de toute l'équipe.<time>07:45</time></p>
+        </div>
+        <div class="wa-foot" aria-hidden="true"><span>Message</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 plat de la semaine -->
+<section class="step" id="semaine" aria-labelledby="t3">
+  <div class="wrap grid">
+    <div class="txt">
+      <p class="kick">03 · Après les fêtes</p>
+      <h2 id="t3">Le plat de la semaine, chez vos clients fidèles.</h2>
+      <p class="lead">Chaque client qui a commandé pour les fêtes peut rejoindre la liste. Une fois par semaine, il reçoit le plat du Chef Clot sur WhatsApp et le réserve en répondant « 1 ».</p>
+      <ul class="pts">
+        <li>Un message par semaine, jamais plus : on ne lasse pas.</li>
+        <li>Les gens viennent pour le plat et repartent avec leurs courses.</li>
+        <li>Le client se désinscrit en un mot.</li>
+      </ul>
+      <span class="ex">Exemple de message hebdomadaire</span>
+    </div>
+    <div class="phone" role="group" aria-label="Démo : message WhatsApp du plat de la semaine">
+      <div class="screen wa">
+        <div class="sbar" aria-hidden="true"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="wa-head"><div class="av"><img loading="lazy" src="img/pastille.png" width="125" height="128" alt=""></div><div><b>Poivre et Self</b><small>Compte professionnel</small></div></div>
+        <div class="wa-body wa-in">
+          <span class="day">Mercredi 13 janvier</span>
+          <p class="msg in" style="--i:0"><span class="auto">Le plat de la semaine</span>Bonjour Marc ! Cette semaine, le Chef Clot vous prépare un <b>hachis parmentier maison</b>, frais au frigo dès jeudi 11h.<br><br>On vous en garde un ? Répondez <b>1</b>.<time>11:00</time></p>
+          <p class="msg out" style="--i:1">1<time>11:14</time></p>
+          <p class="msg in" style="--i:2"><span class="auto">Message automatique</span>C'est noté, Marc : 1 hachis parmentier à votre nom, jeudi dès 11h. Bonne semaine !<time>11:14</time></p>
+        </div>
+        <div class="wa-foot" aria-hidden="true"><span>Message</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 vue du chef -->
+<section class="step flip" id="chef" aria-labelledby="t4">
+  <div class="wrap grid">
+    <div class="txt">
+      <p class="kick">04 · Côté cuisine</p>
+      <h2 id="t4">Vous savez exactement quoi préparer, et pour qui.</h2>
+      <p class="lead">Toutes les commandes arrivent au même endroit, triées par jour de retrait. Les quantités de chaque plat sont additionnées pour vous : c'est votre liste de production.</p>
+      <ul class="pts">
+        <li>Fini les commandes éparpillées entre téléphone, SMS et papier.</li>
+        <li>Chaque commande est marquée payée et rappelée.</li>
+        <li>Sur votre téléphone ou sur l'ordinateur.</li>
+      </ul>
+      <span class="ex">Essayez : changez de jour</span>
+    </div>
+    <div class="phone" role="group" aria-label="Démo : vue du chef, commandes triées par jour">
+      <div class="screen dash">
+        <div class="sbar" aria-hidden="true"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="dash-head"><h3>Commandes de fêtes</h3><p>Chiffres d'exemple</p></div>
+        <div class="tabs" role="tablist" aria-label="Jour de retrait" id="tabs">
+          <button type="button" role="tab" aria-selected="false" data-d="0">Mer. 23<small>12 cmd</small></button>
+          <button type="button" role="tab" aria-selected="true" data-d="1">Jeu. 24<small>27 cmd</small></button>
+          <button type="button" role="tab" aria-selected="false" data-d="2">Jeu. 31<small>18 cmd</small></button>
+        </div>
+        <div class="dash-body" role="tabpanel" id="panel" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 supports imprimés -->
+<section class="step" id="magasin" aria-labelledby="t7">
+  <div class="wrap">
+    <p class="kick">05 · Dans l'épicerie et les villages</p>
+    <h2 id="t7">Pour que tout le monde l'apprenne, pas seulement ceux qui ont Facebook.</h2>
+    <p class="lead">Votre épicerie est ouverte 112 heures par semaine sans personne en caisse : vos affiches font la vente à votre place. Trois supports, aux couleurs de Poivre et Self, avec un QR code qui mène à la commande.</p>
+    <div class="plv">
+      <figure>
+        <div class="print a3" role="img" aria-label="Affiche A3 : Les fêtes, c'est le Chef Clot qui cuisine, avec un QR code de commande">
+          <img class="pt" src="img/pastille.png" width="125" height="128" alt="" loading="lazy">
+          <h3>Les fêtes, c'est le Chef Clot <em>qui cuisine.</em></h3>
+          <p>Menu de fêtes fait maison à Sottens. Retrait à l'épicerie les 23, 24 et 31 décembre.</p>
+          <div class="row"><div class="qr"><img src="img/qr-commande.svg" width="33" height="33" alt="" loading="lazy"></div><p>Scannez, choisissez,<br>payez avec Twint.</p></div>
+          <p class="foot">Poivre et Self · Sottens · 7/7 de 6h à 22h</p>
+        </div>
+        <figcaption><b>Affiche A3, à l'entrée et en vitrine</b>Le premier endroit où vos clients la voient : en entrant faire leurs courses.</figcaption>
+      </figure>
+      <figure>
+        <div class="print tent" role="img" aria-label="Chevalet de frigo : le plat de la semaine, hachis parmentier maison">
+          <p class="k">Le plat de la semaine</p>
+          <p class="dish">Hachis parmentier maison</p>
+          <p class="by">Préparé par le Chef Clot, ici à Sottens.</p>
+          <div class="row"><div class="qr"><img src="img/qr-commande.svg" width="33" height="33" alt="" loading="lazy"></div><p>Recevez-le chaque semaine sur WhatsApp</p></div>
+        </div>
+        <figcaption><b>Chevalet sur le frigo des plats</b>On change le nom du plat chaque semaine, le QR inscrit à la liste WhatsApp.</figcaption>
+      </figure>
+      <figure>
+        <div class="print a6" role="img" aria-label="Flyer A6 pour les boîtes aux lettres : nouveau à Sottens, les plats du Chef Clot à emporter">
+          <div class="l"><small>Nouveau à Sottens</small><h3>Les plats du Chef Clot, à emporter 7 jours sur 7.</h3><p>Poivre et Self · Route de Moudon 3A<br>Ouvert tous les jours de 6h à 22h</p></div>
+          <div class="r"><div class="qr"><img src="img/qr-commande.svg" width="33" height="33" alt="" loading="lazy"></div><p>Menu de fêtes : commandez ici</p></div>
+        </div>
+        <figcaption><b>Flyer dans les boîtes aux lettres</b>Sottens, Villars-Mendraz, Peney-le-Jorat, Villars-Tiercelin, Montaubion et les villages voisins.</figcaption>
+      </figure>
+    </div>
+    <span class="ex">Maquettes de principe : textes, dates et plat à valider avec vous</span>
+  </div>
+</section>
+
+<!-- 06 photos -->
+<section class="step" id="photos" aria-labelledby="t8">
+  <div class="wrap">
+    <p class="kick">06 · Les vraies photos</p>
+    <h2 id="t8">Une demi-journée avec un photographe, pour tout le reste de l'année.</h2>
+    <p class="lead">Les gens achètent ce qu'ils voient. On photographie vos vrais plats, votre chef et votre épicerie, et ces photos servent ensuite partout.</p>
+    <ol class="shots">
+      <li><span>01</span><div><b>Vos plats de fêtes</b><small>Un par un, lumière du jour, comme dans l'assiette</small></div></li>
+      <li><span>02</span><div><b>Le Chef Clot en cuisine</b><small>Les mains, le geste, sans pose</small></div></li>
+      <li><span>03</span><div><b>L'épicerie au petit matin</b><small>Ouverte, lumière allumée, personne en caisse</small></div></li>
+      <li><span>04</span><div><b>Le frigo des plats</b><small>Plein, étiqueté, prêt à être pris</small></div></li>
+      <li><span>05</span><div><b>Vos producteurs</b><small>Les produits du coin, avec leur nom</small></div></li>
+      <li><span>06</span><div><b>Le paiement</b><small>Un client qui paie seul, en deux secondes</small></div></li>
+      <li><span>07</span><div><b>Le village</b><small>La façade, le parking, la route de Moudon</small></div></li>
+      <li><span>08</span><div><b>Le plat de la semaine</b><small>Une première série d'avance pour janvier</small></div></li>
+    </ol>
+    <div class="uses" aria-label="Où les photos servent"><span>Fiche Google</span><span>Page de commande</span><span>Affiche et flyer</span><span>Facebook et WhatsApp</span><span>Site</span></div>
+  </div>
+</section>
+
+<!-- 07 prospection -->
+<section class="step" id="prospection" aria-labelledby="t9">
+  <div class="wrap">
+    <p class="kick">07 · La stratégie de prospection</p>
+    <h2 id="t9">Quatre cercles, du frigo jusqu'aux entreprises.</h2>
+    <p class="lead">On ne cherche pas « du monde » au hasard. On part de ceux qui poussent déjà votre porte, puis on élargit, un cercle après l'autre, avec un message et un support pour chacun.</p>
+    <div class="rings-grid">
+      <figure class="rings" role="img" aria-label="Quatre cercles autour de Poivre et Self : les clients de l'épicerie, Jorat-Menthue, les villages voisins, les groupes">
+        <svg viewBox="0 0 400 400" aria-hidden="true">
+          <circle cx="200" cy="200" r="196" class="r4"/>
+          <circle cx="200" cy="200" r="158" class="r3"/>
+          <circle cx="200" cy="200" r="118" class="r2"/>
+          <circle cx="200" cy="200" r="78" class="r1"/>
+          <circle cx="200" cy="200" r="40" class="r0"/>
+          <text x="200" y="196" class="c">Poivre</text><text x="200" y="212" class="c">et Self</text>
+          <text x="200" y="147" class="n">1</text><text x="200" y="107" class="n">2</text><text x="200" y="67" class="n">3</text><text x="200" y="29" class="n">4</text>
+          <text x="200" y="263" class="t">clients</text>
+          <text x="200" y="303" class="t">Jorat-Menthue</text>
+          <text x="200" y="343" class="t">villages voisins</text>
+          <text x="200" y="381" class="t">groupes</text>
+        </svg>
+      </figure>
+      <ol class="circles">
+        <li><span>1</span><div><h3>Ceux qui viennent déjà faire leurs courses</h3><p>Ils ne savent pas encore que le chef cuisine. Affiche à l'entrée, chevalet sur le frigo, QR code vers la liste WhatsApp.</p><small>Objectif : chaque client de l'épicerie connaît les plats.</small></div></li>
+        <li><span>2</span><div><h3>Les habitants de Jorat-Menthue</h3><p>Flyer dans les boîtes aux lettres, annonce au bulletin et au pilier public, messages dans les groupes Facebook des villages.</p><small>Sottens, Villars-Mendraz, Peney-le-Jorat, Villars-Tiercelin, Montaubion-Chardonney.</small></div></li>
+        <li><span>3</span><div><h3>Les villages voisins et ceux qui passent</h3><p>Fiche Google à jour, publicité Facebook limitée à quelques kilomètres autour de Sottens, flyer chez vos producteurs partenaires.</p><small>Les pendulaires de la route de Moudon : ouvert jusqu'à 22h, c'est leur argument.</small></div></li>
+        <li><span>4</span><div><h3>Les groupes</h3><p>Entreprises, sociétés de jeunesse, chœurs, clubs de sport : repas de fin d'année et soirées, commandés d'avance pour 10 à 30 personnes.</p><small>Une liste de 40 contacts, préparée par nos soins.</small></div></li>
+      </ol>
+    </div>
+
+    <div class="pitch">
+      <div class="pitch-txt">
+        <h3>Le message aux groupes, déjà écrit.</h3>
+        <p>Court, signé par le chef, avec une seule question. On prépare la liste, le message et les relances ; vous gardez la main sur ce qui part.</p>
+        <ol class="seq">
+          <li><b>Jour 1</b>Message ou e-mail, avec le menu de groupe</li>
+          <li><b>Jour 5</b>Relance courte, une ligne</li>
+          <li><b>Jour 10</b>Un appel, ou un passage à l'épicerie</li>
+        </ol>
+      </div>
+      <div class="mail" role="img" aria-label="Exemple de message à une entreprise locale pour son repas de fin d'année">
+        <p class="mh"><b>À :</b> une entreprise de Jorat-Menthue<br><b>Objet :</b> Votre repas de fin d'année, cuisiné à Sottens</p>
+        <p>Bonjour,</p>
+        <p>Je suis le chef de Poivre et Self, l'épicerie de Sottens. Cette année, je prépare des plats faits maison pour les repas d'équipe : 10 à 30 personnes, à retirer à l'épicerie ou livrés chez vous.</p>
+        <p>Vous organisez quelque chose en décembre&nbsp;?</p>
+        <p class="sg">Le Chef Clot · Poivre et Self</p>
+      </div>
+    </div>
+    <span class="ex">Exemple de message : texte, nombre de personnes et livraison à valider avec vous</span>
+  </div>
+</section>
+
+<!-- 08 marketing et réseaux -->
+<section class="step" id="reseaux" aria-labelledby="t10">
+  <div class="wrap">
+    <p class="kick">08 · Marketing et réseaux sociaux</p>
+    <h2 id="t10">Une épicerie qui s'allume à 6:00, ça se raconte.</h2>
+    <p class="lead">Votre singularité, c'est l'horaire et le chef. On en fait un rendez-vous : le matin, la lumière s'allume ; le lundi, le plat de la semaine ; le soir, l'épicerie ferme. Des vraies photos, des vrais gens du village, pas de publicité criarde.</p>
+    <div class="soc-grid">
+      <div class="phone feed" role="img" aria-label="Exemple de page Facebook ou Instagram de Poivre et Self avec neuf publications">
+        <div class="fh">
+          <img src="img/pastille.png" width="125" height="128" alt="" loading="lazy">
+          <div><b>Poivre et Self</b><small>Épicerie autonome · Sottens</small><p>Ouvert 7/7 de 6h à 22h. Les plats du Chef Clot, faits ici.</p></div>
+        </div>
+        <div class="tiles">
+          <div class="tl ph"><img src="img/tuile-facade.jpg" width="480" height="480" alt="" loading="lazy"></div>
+          <div class="tl t-six"><b>6:00</b><small>Bonjour Sottens.</small></div>
+          <div class="tl ph"><img src="img/tuile-interieur.jpg" width="480" height="480" alt="" loading="lazy"></div>
+          <div class="tl t-sem"><small>Le plat de la semaine</small><b>Lundi,<br>on vous dit tout.</b></div>
+          <div class="tl ph"><img src="img/tuile-pain.jpg" width="480" height="480" alt="" loading="lazy"></div>
+          <div class="tl t-prod"><small>Nos producteurs</small><b>La viande vient de Ropraz.</b></div>
+          <div class="tl t-fete"><small>Menu de fêtes</small><b>Commandes ouvertes le 30.11</b></div>
+          <div class="tl t-avis"><b>« Pris en rentrant à 21h40. »</b><small>Avis client, exemple</small></div>
+          <div class="tl t-22"><b>22:00</b><small>Bonne nuit. À demain 6h.</small></div>
+        </div>
+      </div>
+      <div class="soc-txt">
+        <h3 class="sub">Quatre sujets, qui tournent toute l'année</h3>
+        <ul class="pillars">
+          <li><b>6:00 – 22:00</b>La vie de l'épicerie : la lumière du matin, le frigo qui se remplit, le dernier client du soir.</li>
+          <li><b>Le chef</b>Ses mains, ses gestes, le plat de la semaine en train de cuire. Jamais posé, jamais retouché.</li>
+          <li><b>Les producteurs</b>La boucherie de Ropraz et les produits du coin, avec leur nom et leur visage.</li>
+          <li><b>Le village</b>Les clients, les sociétés, les fêtes de Jorat-Menthue. Vous êtes le lieu où tout le monde passe.</li>
+        </ul>
+        <h3 class="sub">Une semaine type</h3>
+        <ol class="week">
+          <li><b>Lun.</b><span class="ch wa">WhatsApp</span><span class="d">Le plat de la semaine, à toute la liste</span></li>
+          <li><b>Mer.</b><span class="ch fb">Facebook</span><span class="d">Une coulisse : le chef ou un producteur</span></li>
+          <li><b>Ven.</b><span class="ch gg">Google</span><span class="d">Une photo et une actualité sur votre fiche</span></li>
+          <li><b>Sam.</b><span class="ch fb">Facebook</span><span class="d">Une vidéo courte, son réel, sans musique</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="channels">
+      <div><b>Facebook</b><p>Votre page existe déjà : c'est là que sont les habitants. On la remplit chaque semaine, et on relaie dans les groupes des villages.</p></div>
+      <div><b>WhatsApp</b><p>Le canal qui vend : la liste des clients qui veulent le plat de la semaine. On ne l'utilise que pour ça, jamais pour du bruit.</p></div>
+      <div><b>Fiche Google</b><p>Ce que voit celui qui cherche « épicerie Sottens » ou « plats à emporter ». Photos, horaires, avis, réponses à chaque avis.</p></div>
+      <div><b>Instagram</b><p>Dans un deuxième temps, si vous le voulez, pour les 25-45 ans des alentours. Les mêmes contenus, rien de plus à produire.</p></div>
+    </div>
+    <div class="you">
+      <p><b>Votre part :</b> chaque lundi, une photo du frigo et le nom du plat, envoyés par WhatsApp. Le texte, la mise en page, la programmation et les réponses, c'est nous.</p>
+    </div>
+    <span class="ex">Maquette de principe : publications, avis et textes donnés en exemple</span>
+  </div>
+</section>
+
+<!-- plan -->
+<section class="plan" aria-labelledby="t5">
+  <div class="wrap">
+    <p class="kick">Le plan des fêtes, semaine par semaine</p>
+    <h2 id="t5">Commandes ouvertes le 30 novembre.</h2>
+    <ol class="cal">
+      <li><b>16 – 22 nov.</b><div><h3>Votre carte de fêtes et la séance photo</h3><p>On fixe les plats, les prix, les jours de retrait et le nombre maximum par jour. Le photographe vient une demi-journée.</p></div></li>
+      <li><b>23 – 29 nov.</b><div><h3>Commande, Twint et WhatsApp branchés</h3><p>Sur des outils qui existent déjà. Fiche Google mise à jour avec les photos. On teste tout avec vous.</p></div></li>
+      <li class="key"><b>30 nov.</b><div><h3>Ouverture des commandes</h3><p>Affiche et chevalets en place, annonce sur Facebook et WhatsApp.</p></div></li>
+      <li><b>1 – 6 déc.</b><div><h3>Flyers dans les villages</h3><p>Boîtes aux lettres de Jorat-Menthue et des villages voisins.</p></div></li>
+      <li><b>7 – 18 déc.</b><div><h3>Entreprises et sociétés locales</h3><p>Prise de contact, offre de groupe, relance.</p></div></li>
+      <li><b>14 déc.</b><div><h3>Dernier rappel</h3><p>« Commandes ouvertes jusqu'au 20 décembre » à toute la liste WhatsApp.</p></div></li>
+      <li class="key"><b>23, 24, 31 déc.</b><div><h3>Retraits</h3><p>Rappel automatique la veille, message le jour J.</p></div></li>
+      <li><b>Janvier</b><div><h3>Le plat de la semaine démarre</h3><p>Chaque client des fêtes est invité à rejoindre la liste.</p></div></li>
+    </ol>
+    <div class="kpi">
+      <div><b>On mesure</b><p>Le nombre de commandes de fêtes et le panier moyen.</p></div>
+      <div><b>On mesure</b><p>Le nombre d'inscrits à la liste WhatsApp en janvier.</p></div>
+      <div><b>On mesure</b><p>Les vues et les avis de votre fiche Google.</p></div>
+    </div>
+    <div class="need">
+      <p><b>Ce qu'il nous faut de vous :</b> votre carte de fêtes, vos jours de retrait, une demi-journée avec le photographe.</p>
+      <p>Rien à installer pour vos clients : un lien, Twint et WhatsApp, qu'ils ont déjà.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" aria-labelledby="t6">
+  <div class="wrap">
+    <h2 id="t6">On en parle au téléphone ?</h2>
+    <p class="lead">Malik Younes, Nouvelle Ardoise, agence de marketing et de communication pour la restauration et les métiers de bouche.</p>
+    <div class="cta">
+      <a class="btn" href="tel:+41782133868">Appeler Malik · 078 213 38 68</a>
+      <a class="btn alt" href="https://nouvelleardoise.ch">nouvelleardoise.ch</a>
+    </div>
+    <p class="sign">Démo non publiée, réservée à Poivre et Self. Les plats, prix, prénoms et chiffres sont des exemples à remplacer par les vôtres.</p>
+  </div>
+</section>
+</main>
+
+<script>
+(()=>{
+  // 01 commande
+  const items=[...document.querySelectorAll('#items .item')];
+  const slots=[...document.querySelectorAll('#slots button')];
+  const pay=document.getElementById('pay'),total=document.getElementById('total'),hint=document.getElementById('hint');
+  const done=document.getElementById('done'),donetxt=document.getElementById('donetxt');
+  let slot=null;
+  const sum=()=>items.reduce((a,li)=>a+li.dataset.p*+li.querySelector('output').value,0);
+  const refresh=()=>{
+    const t=sum();total.textContent='CHF '+t+'.–';
+    hint.textContent=!t?'Ajoutez un plat':(slot===null?'Choisissez un jour':'Total');
+    pay.disabled=!(t&&slot!==null);
+    pay.textContent=pay.disabled?'Payer avec Twint':'Payer CHF '+t+'.– avec Twint';
+  };
+  items.forEach(li=>{
+    const [m,p]=li.querySelectorAll('button'),o=li.querySelector('output');
+    m.addEventListener('click',()=>{o.value=Math.max(0,+o.value-1);refresh()});
+    p.addEventListener('click',()=>{o.value=Math.min(9,+o.value+1);refresh()});
+  });
+  slots.forEach((b,i)=>b.addEventListener('click',()=>{slots.forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');slot=i;refresh()}));
+  pay.addEventListener('click',()=>{
+    donetxt.textContent='Payé avec Twint. Retrait '+slots[slot].textContent.toLowerCase()+' à l’épicerie. La confirmation arrive sur WhatsApp.';
+    done.classList.add('on');document.getElementById('again').focus({preventScroll:true});
+  });
+  document.getElementById('again').addEventListener('click',()=>{
+    items.forEach(li=>li.querySelector('output').value=0);slots.forEach(x=>x.setAttribute('aria-pressed','false'));slot=null;refresh();done.classList.remove('on');pay.focus({preventScroll:true});
+  });
+  refresh();
+
+  // 02-03 messages qui apparaissent
+  const chats=document.querySelectorAll('.wa-in');
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('play');io.unobserve(e.target)}}),{threshold:.35});
+    chats.forEach(c=>io.observe(c));
+  }else chats.forEach(c=>c.classList.add('play'));
+
+  // 04 vue du chef
+  const data=[
+    {prod:[['Pintade farcie',8],['Gratin dauphinois',10],['Bûche maison',6],['Terrine',5],['Rôti de veau',3]],
+     ord:[['08:00','Famille Rochat','2 pintades, 2 gratins'],['09:30','Sophie M.','1 rôti de veau, 1 bûche'],['11:00','Pierre-Alain B.','1 terrine, 1 bûche'],['14:00','Nadia K.','1 pintade, 1 gratin']]},
+    {prod:[['Pintade farcie',14],['Gratin dauphinois',21],['Bûche maison',17],['Terrine',11],['Rôti de veau',9]],
+     ord:[['08:00','Claire D.','1 pintade, 1 gratin, 1 bûche'],['08:30','Famille Cuendet','2 rôtis de veau, 2 gratins'],['09:00','Jean-Marc P.','1 terrine, 1 bûche'],['10:00','Anne-Lise V.','2 pintades, 1 bûche'],['11:30','Thomas R.','1 rôti de veau, 1 gratin']]},
+    {prod:[['Rôti de veau',11],['Gratin dauphinois',13],['Terrine',9],['Bûche maison',7],['Pintade farcie',4]],
+     ord:[['09:00','Famille Pittet','2 rôtis de veau, 2 gratins'],['10:00','Laura S.','1 terrine, 1 bûche'],['11:00','Michel G.','1 pintade, 1 gratin']]}
+  ];
+  const panel=document.getElementById('panel'),tabs=[...document.querySelectorAll('#tabs button')];
+  const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  const show=d=>{
+    tabs.forEach((t,i)=>t.setAttribute('aria-selected',i===d));
+    const D=data[d],max=Math.max(...D.prod.map(p=>p[1]));
+    panel.innerHTML='<div class="prod"><p class="lbl">À préparer</p>'+D.prod.map(([n,q])=>'<div class="bar"><span>'+esc(n)+'</span><b class="num">× '+q+'</b><i style="--w:'+Math.round(q/max*100)+'%"></i></div>').join('')+'</div><ul class="orders">'+D.ord.map(([h,n,c])=>'<li><span class="h num">'+h+'</span><div><b>'+esc(n)+'</b><small>'+esc(c)+'</small></div><span class="tag">Payé · rappelé</span></li>').join('')+'</ul>';
+  };
+  tabs.forEach((t,i)=>t.addEventListener('click',()=>show(i)));
+  document.getElementById('tabs').addEventListener('keydown',e=>{
+    const i=tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const n=(i+(e.key==='ArrowRight'?1:2))%3;show(n);tabs[n].focus()}
+  });
+  show(1);
+
+  // héro : ouvert maintenant, heure de Sottens
+  try{
+    const f=new Intl.DateTimeFormat('fr-CH',{timeZone:'Europe/Zurich',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+    const tick=()=>{
+      const [h,m]=f.format(new Date()).split(':').map(Number),min=h*60+m,open=min>=360&&min<1320;
+      const live=document.getElementById('live');live.classList.toggle('closed',!open);
+      document.getElementById('liveTxt').textContent=open?'Ouvert en ce moment à Sottens · jusqu’à 22h':'Fermé pour la nuit · réouverture à 6h, et la commande en ligne reste ouverte';
+      const pc=min/1440*100;document.getElementById('dayDot').style.left=pc+'%';
+      document.getElementById('dayFill').style.width=Math.max(0,Math.min(min,1320)-360)/1440*100+'%';
+    };tick();setInterval(tick,30000);
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
