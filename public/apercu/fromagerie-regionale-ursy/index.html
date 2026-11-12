@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="fr-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Fromagerie Régionale à Ursy — aperçu</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour la Fromagerie Régionale à Ursy. Ce n'est pas le site officiel.">
+<meta name="theme-color" content="#241c15">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@1&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/cave-allee.webp">
+<style>
+:root{
+  --paper:#f3eee3;
+  --paper-2:#e9e1d0;
+  --ink:#241c15;
+  --ink-2:#4a3f33;
+  --muted:#6b5f50;
+  --line:#d8ccb4;
+  --rind:#b47326;
+  --rind-dark:#8a5418;
+  --cave:#211a14;
+  --cream:#efe6d4;
+  --cream-2:#c9bca5;
+  --serif:"Libre Caslon Display", "Libre Caslon Text", Georgia, serif;
+  --italic:"Libre Caslon Text", Georgia, serif;
+  --sans:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gutter:20px;
+  --max:1200px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+a[href^="tel:"]{white-space:nowrap}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;letter-spacing:-0.01em;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+em{font-family:var(--italic);font-style:italic}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--rind-dark)}
+:focus-visible{outline:2px solid var(--rind);outline-offset:3px;border-radius:2px}
+.cap{font-size:13px;color:var(--muted);margin-top:10px}
+
+/* Bandeau aperçu */
+.notice{background:var(--ink);color:#d8cfbf;font-size:12.5px;line-height:1.45;text-align:center;padding:8px var(--gutter)}
+.notice strong{color:#fff;font-weight:600}
+
+/* En-tête */
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px var(--gutter);max-width:var(--max);margin:0 auto}
+.brand{text-decoration:none;line-height:1.05}
+.brand b{display:block;font-family:var(--serif);font-weight:400;font-size:21px}
+.brand span{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:999px;font-family:var(--sans);font-weight:600;font-size:15px;text-decoration:none;transition:background-color .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease)}
+.btn svg{width:16px;height:16px;flex:none}
+.btn-solid{background:var(--ink);color:var(--paper);border:1px solid var(--ink)}
+.btn-solid:hover{background:var(--rind-dark);border-color:var(--rind-dark)}
+.btn-line{border:1px solid currentColor}
+.btn-line:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.top .btn{min-height:44px;padding:0 16px;font-size:14px}
+
+/* Hero */
+.hero{padding:6px 0 64px}
+.hero-grid{display:grid;gap:30px}
+.hero-photo{margin:0 var(--gutter);position:relative}
+.hero-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 45%}
+.hero-photo figcaption{position:absolute;left:12px;bottom:12px;font-size:12px;color:#fff;background:rgba(25,19,14,.6);padding:4px 10px;border-radius:999px}
+.hero-text{padding:0 var(--gutter)}
+.hero h1{font-size:clamp(44px,12.4vw,96px);line-height:.98;letter-spacing:-0.02em}
+.hero h1 em{display:block;color:var(--rind-dark);font-size:.62em;line-height:1.15;margin-top:.12em;letter-spacing:-0.01em}
+.hero .lede{font-size:18px;line-height:1.55;margin-top:22px;max-width:36ch;color:var(--ink-2)}
+.hero .actions{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+.status{margin-top:22px;display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--ink-2);min-height:22px}
+.status .dot{width:9px;height:9px;border-radius:50%;background:#a29680;flex:none}
+.status.open .dot{background:#3f7a4a;box-shadow:0 0 0 4px rgba(63,122,74,.16)}
+.status b{font-weight:600;color:var(--ink)}
+
+/* Chiffres */
+.facts{background:var(--cave);color:var(--cream);padding:58px 0}
+.facts .eyebrow{color:#d29a52}
+.facts-intro{font-family:var(--serif);font-size:clamp(26px,6.6vw,40px);line-height:1.2;margin-top:14px;max-width:26ch}
+.facts dl{margin:38px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:0}
+.facts dl div{padding:20px 0 18px;border-top:1px solid rgba(239,230,212,.2)}
+.facts dl div:nth-child(odd){padding-right:14px}
+.facts dt{font-family:var(--serif);font-size:clamp(40px,11vw,68px);line-height:1;letter-spacing:-0.02em;color:#f5ead6}
+.facts dd{margin:8px 0 0;font-size:14px;line-height:1.45;color:var(--cream-2)}
+.facts .note{margin-top:26px;font-size:13.5px;color:#a99c86;max-width:60ch}
+
+/* Sections */
+section.block{padding:80px 0}
+.section-head{display:grid;gap:14px;margin-bottom:40px}
+.section-head h2{font-size:clamp(34px,8.6vw,58px);line-height:1.05}
+.section-head p{color:var(--muted);max-width:56ch}
+
+/* Atouts */
+.points{border-top:1px solid var(--line)}
+.point{display:grid;grid-template-columns:40px 1fr;gap:6px 14px;padding:24px 0;border-bottom:1px solid var(--line)}
+.point .n{font-family:var(--italic);font-style:italic;color:var(--rind-dark);font-size:19px;line-height:1.35}
+.point h3{font-size:25px;line-height:1.2}
+.point p{grid-column:2;color:var(--ink-2)}
+
+/* Fabrication */
+.making{background:var(--paper-2)}
+.making-grid{display:grid;gap:22px}
+.making figure{margin:0}
+.making .f-main img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.making .f-side img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.making .pair{display:grid;grid-template-columns:1fr;gap:12px;max-width:320px}
+.making-text p{color:var(--ink-2);max-width:52ch}
+.making-text p + p{margin-top:14px}
+.quote{font-family:var(--italic);font-style:italic;font-size:clamp(22px,5.6vw,30px);line-height:1.35;color:var(--ink);max-width:28ch;margin:0 0 20px}
+
+/* Fromages */
+.cheeses{display:grid;gap:36px}
+.list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.list li{padding:18px 0;border-bottom:1px solid var(--line);display:grid;gap:3px}
+.list h3{font-size:23px;line-height:1.2;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.list h3 small{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--rind-dark);border:1px solid var(--line);padding:2px 8px;border-radius:999px}
+.list p{color:var(--ink-2);font-size:15.5px}
+.cheese-photo{margin:0}
+.cheese-photo img{width:100%;max-width:432px;aspect-ratio:6/5;object-fit:cover}
+.shop-also{margin-top:22px;font-size:15px;color:var(--muted);max-width:52ch}
+
+/* Plateaux */
+.platters{background:var(--cave);color:var(--cream)}
+.platters .eyebrow{color:#d29a52}
+.platters .section-head p{color:var(--cream-2)}
+.platter-grid{display:grid;gap:30px;align-items:start}
+.platter-photo{margin:0}
+.platter-photo img{width:100%;max-width:618px;aspect-ratio:618/510;object-fit:cover}
+.platters .cap{color:#a99c86}
+.occasions{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.occasions li{border:1px solid rgba(239,230,212,.3);border-radius:999px;padding:6px 14px;font-size:14.5px}
+.order{margin-top:26px;border-top:1px solid rgba(239,230,212,.2)}
+.order div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid rgba(239,230,212,.2);font-size:15.5px}
+.order dt{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#a99c86;padding-top:3px}
+.order dd{margin:0}
+.platters .btn-cream{background:var(--cream);color:var(--cave);border:1px solid var(--cream);margin-top:28px}
+.platters .btn-cream:hover{background:#fff}
+
+/* Spécialités */
+.special{display:grid;gap:28px;align-items:center}
+.special figure{margin:0}
+.special img{width:100%;max-width:480px;aspect-ratio:480/414;object-fit:cover}
+.tags{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.tags li{display:flex;justify-content:space-between;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:22px;line-height:1.25}
+.tags li span{font-family:var(--sans);font-size:13px;color:var(--muted);align-self:center;text-align:right}
+
+/* Galerie */
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gallery figure{margin:0;position:relative;overflow:hidden}
+.gallery img{width:100%;height:100%;object-fit:cover}
+.gallery .g-a{grid-column:span 2;aspect-ratio:16/9}
+.gallery .g-b{grid-column:span 2;aspect-ratio:2/1}
+.gallery .g-sq{aspect-ratio:1/1}
+.gallery figcaption{position:absolute;left:10px;bottom:10px;font-size:12px;color:#fff;background:rgba(25,19,14,.6);padding:3px 9px;border-radius:999px}
+
+/* Infos */
+.visit{background:var(--paper-2)}
+.visit-grid{display:grid;gap:34px}
+.info{margin:0;border-top:1px solid var(--line)}
+.info > div{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:15px 0;border-bottom:1px solid var(--line)}
+.info dt{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.info dd{margin:0;overflow-wrap:anywhere}
+.info a{text-underline-offset:3px;text-decoration-color:var(--line)}
+.hours{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.hours th{text-align:left;font-weight:600;padding:0 12px 6px 0;vertical-align:top;white-space:nowrap}
+.hours td{padding:0 0 6px;color:var(--ink-2)}
+.hours tr.today th,.hours tr.today td{color:var(--rind-dark)}
+.visit .actions{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+.visit figure{margin:0}
+.visit figure img{width:100%;max-width:551px;aspect-ratio:551/415;object-fit:cover}
+.howto{margin-top:20px;color:var(--ink-2);font-size:15.5px;max-width:48ch}
+
+/* Pied */
+footer{background:var(--ink);color:#cfc5b3;padding:48px 0 calc(40px + env(safe-area-inset-bottom));font-size:14px}
+footer .f-name{font-family:var(--serif);font-size:26px;color:#f3eee3;line-height:1.1}
+footer .f-grid{display:grid;gap:20px}
+footer a{color:#f3eee3;text-underline-offset:3px}
+footer .legal{margin-top:30px;padding-top:18px;border-top:1px solid rgba(243,238,227,.15);font-size:12.5px;color:#a59a88}
+
+/* Apparitions */
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  .js .rv{opacity:1;transform:none;transition:none}
+  .btn{transition:none}
+}
+
+/* Bureau */
+@media (min-width: 900px){
+  :root{--gutter:40px}
+  .hero{padding:24px 0 96px}
+  .hero-grid{grid-template-columns:minmax(0,1fr) 440px;align-items:end;gap:64px;max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+  .hero-text{padding:0 0 18px}
+  .hero-photo{margin:0;order:2}
+  .hero h1{font-size:clamp(64px,7vw,100px)}
+  .hero .lede{font-size:19px}
+  .facts{padding:84px 0}
+  .facts dl{grid-template-columns:repeat(4,1fr)}
+  .facts dl div:nth-child(odd){padding-right:0}
+  .facts dl div{padding-right:24px}
+  section.block{padding:112px 0}
+  .section-head{grid-template-columns:1fr 1fr;align-items:end;gap:40px;margin-bottom:56px}
+  .points{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px;border-top:0}
+  .point{border-top:1px solid var(--line);border-bottom:0;grid-template-columns:1fr;padding:28px 0 0}
+  .point p{grid-column:1}
+  .making-grid{grid-template-columns:640px 1fr;gap:48px;align-items:start}
+  .making .pair{grid-template-columns:1fr;max-width:300px}
+  .making-right{display:grid;grid-template-columns:1fr 240px;gap:28px;align-items:start}
+  .making-grid{grid-template-columns:minmax(0,560px) 1fr}
+  .cheeses{grid-template-columns:1fr 360px;gap:64px;align-items:start}
+  .cheese-photo{position:sticky;top:32px}
+  .platter-grid{grid-template-columns:560px 1fr;gap:64px}
+  .special{grid-template-columns:1fr 440px;gap:64px}
+  .special figure{order:2}
+  .gallery{gap:14px}
+  .gallery{grid-template-columns:repeat(4,1fr)}
+  .gallery .g-a,.gallery .g-b,.gallery .g-sq{grid-column:auto;aspect-ratio:4/5}
+  .visit-grid{grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+  footer .f-grid{grid-template-columns:2fr 1fr 1fr}
+}
+@media (min-width: 900px) and (max-width: 1180px){
+  .making-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="notice" role="note"><strong>Aperçu imaginé par Nouvelle Ardoise pour la Fromagerie Régionale à Ursy</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <a class="brand" href="#top" aria-label="Fromagerie Régionale à Ursy, accueil"><b>Fromagerie Régionale</b><span>Ursy · Fribourg</span></a>
+  <a class="btn btn-line" href="tel:+41219071111">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+    Appeler
+  </a>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="h-hero">
+    <div class="hero-grid">
+      <figure class="hero-photo">
+        <img src="img/cave-allee.webp" width="510" height="908" alt="Allée de la cave d'affinage, meules de gruyère sur des rayonnages jusqu'au plafond" fetchpriority="high">
+        <figcaption>La cave, à Ursy</figcaption>
+      </figure>
+      <div class="hero-text">
+        <p class="eyebrow">Fromagerie depuis 2006 · Ursy</p>
+        <h1 id="h-hero">Fromagerie Régionale <em>à Ursy</em></h1>
+        <p class="lede">Gruyère AOP, vacherin fribourgeois AOP et grizzli, produits sur notre site de production à Ursy, et vendus dans notre magasin, sept jours sur sept.</p>
+        <div class="actions">
+          <a class="btn btn-solid" href="tel:+41219071111">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+            021 907 11 11
+          </a>
+          <a class="btn btn-line" href="https://www.google.com/maps/dir/?api=1&amp;destination=Fromagerie+R%C3%A9gionale%2C+Chemin+du+Marais+3%2C+1670+Ursy" target="_blank" rel="noopener">Itinéraire</a>
+        </div>
+        <p class="status" id="status" aria-live="polite"><span class="dot" aria-hidden="true"></span><span id="status-text">Lun – sam 8:30 – 11:30 et 17:00 – 19:00</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="facts" aria-labelledby="h-facts">
+    <div class="wrap">
+      <p class="eyebrow">Le lait du canton</p>
+      <h2 class="facts-intro rv" id="h-facts">Née en 2006 de la fusion de sociétés de fromagerie de Blessens, Mossel, Esmonts, Ursy et Esmonts-Bionnens.</h2>
+      <dl class="rv">
+        <div><dt>27</dt><dd>producteurs du canton de Fribourg</dd></div>
+        <div><dt>4 mio</dt><dd>de litres de lait par an, jusqu'à</dd></div>
+        <div><dt>350 t</dt><dd>de gruyère fabriquées</dd></div>
+        <div><dt>8</dt><dd>dans l'équipe : quatre ouvriers avec CFC et quatre apprentis</dd></div>
+      </dl>
+      <p class="note">Membre de l'association des fromagers romands et de son comité.</p>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="h-why">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Ce qui fait la différence</p>
+          <h2 id="h-why">Fabriqué ici, vendu ici.</h2>
+        </div>
+        <p>Sur le site d'Ursy, nous disposons d'un outil de production et d'un magasin dans lequel nous commercialisons nos produits fromagers.</p>
+      </div>
+      <div class="points">
+        <article class="point rv">
+          <span class="n">i.</span>
+          <h3>Un savoir-faire transmis</h3>
+          <p>Des fromages de haute qualité, faits avec un savoir-faire artisanal et une tradition transmise de génération en génération, en respectant chaque étape d'une marche à suivre stricte.</p>
+        </article>
+        <article class="point rv">
+          <span class="n">ii.</span>
+          <h3>Deux AOP, et le grizzli</h3>
+          <p>Le gruyère AOP et le vacherin fribourgeois AOP. Et, venus récemment étoffer la liste, le grizzli au poivre et le grizzli à l'ail des ours.</p>
+        </article>
+        <article class="point rv">
+          <span class="n">iii.</span>
+          <h3>Ouvert tous les jours</h3>
+          <p>Deux vendeuses vous accueillent au magasin tous les jours de la semaine, et même le week-end. Cartes de crédit acceptées.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block making" aria-labelledby="h-making">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">La fabrication</p>
+          <h2 id="h-making">De la cuve à la cave.</h2>
+        </div>
+        <p>Jusqu'à quatre millions de litres de lait par an passent par la fromagerie d'Ursy. Mifroma, affineur de fromages, est notre acheteur principal.</p>
+      </div>
+      <div class="making-grid">
+        <figure class="f-main rv">
+          <img src="img/cuve.webp" width="1024" height="575" alt="Cuve de fabrication en cuivre remplie de lait en cours de travail" >
+          <figcaption class="cap">En cuve, au début de la fabrication.</figcaption>
+        </figure>
+        <div class="making-right">
+          <div class="making-text rv">
+            <p class="quote">« Fromages de haute qualité et savoir-faire artisanal. »</p>
+            <p>Gruyère doux, mi-salé ou salé, vacherin fribourgeois, mélange de fondue : le lait vient des 27 producteurs fribourgeois réunis par la fromagerie.</p>
+          </div>
+          <div class="pair rv">
+            <figure class="f-side">
+              <img src="img/robot-cave.webp" width="510" height="908" alt="Machine de soin des meules dans la cave, devant les rayonnages de gruyère" >
+              <figcaption class="cap">Le soin des meules en cave.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="h-cheese">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Nos fabrications</p>
+          <h2 id="h-cheese">Ce qui sort de nos cuves.</h2>
+        </div>
+        <p>Les fromages et produits laitiers fabriqués sur place, à Ursy.</p>
+      </div>
+      <div class="cheeses">
+        <div>
+          <ul class="list">
+            <li class="rv"><h3>Gruyère AOP <small>AOP</small></h3><p>Doux, mi-salé ou salé.</p></li>
+            <li class="rv"><h3>Vacherin fribourgeois AOP <small>AOP</small></h3><p>Fabriqué sur place, à Ursy.</p></li>
+            <li class="rv"><h3>Mélange de fondue</h3><p>Moitié-moitié, ou pur vacherin.</p></li>
+            <li class="rv"><h3>Le grizzli <small>Nouveau</small></h3><p>Au poivre, ou à l'ail des ours.</p></li>
+            <li class="rv"><h3>Crème double, beurre maison</h3><p>Avec les yogourts maison et le sérac.</p></li>
+          </ul>
+          <p class="shop-also">Au magasin, nous vendons également les tommes, les fromages à raclette et de nombreux autres fromages, que nous vous invitons à découvrir.</p>
+        </div>
+        <figure class="cheese-photo rv">
+          <img src="img/grizzli.webp" width="432" height="360" alt="Meule de grizzli au poivre, étiquette aux armoiries avec l'ours, Fromagerie régionale CH-1670 Ursy" >
+          <figcaption class="cap">Le grizzli au poivre, fabriqué à Ursy.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block platters" aria-labelledby="h-platters">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Sur commande</p>
+          <h2 id="h-platters">Plateaux de fromages pour les grands jours.</h2>
+        </div>
+        <p>Pour une fête, un mariage ou un banquet : notre sélection de fromages régionaux, personnalisée selon vos souhaits.</p>
+      </div>
+      <div class="platter-grid">
+        <figure class="platter-photo rv">
+          <img src="img/plateau.webp" width="618" height="510" alt="Grand plateau rond de fromages en tranches, avec raisins, tomates cerises et pommes" >
+          <figcaption class="cap">Un plateau préparé à la fromagerie.</figcaption>
+        </figure>
+        <div class="rv">
+          <ul class="occasions" aria-label="Occasions">
+            <li>Banquet</li><li>Mariage</li><li>Anniversaire</li><li>Soirée</li><li>Repas de fête</li>
+          </ul>
+          <dl class="order">
+            <div><dt>Délai</dt><dd>Commander 48 h à l'avance</dd></div>
+            <div><dt>Livraison</dt><dd>Envoi par poste possible</dd></div>
+            <div><dt>Commande</dt><dd>Par téléphone, au <a href="tel:+41219071111">021 907 11 11</a></dd></div>
+          </dl>
+          <a class="btn btn-cream" href="tel:+41219071111">Commander un plateau</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="h-special">
+    <div class="wrap special">
+      <figure class="rv">
+        <img src="img/meringues.webp" width="480" height="414" alt="Rayon du magasin : sachets de meringues et de biscuits, panier d'œufs" >
+        <figcaption class="cap">Le rayon des meringues et biscuits, au magasin.</figcaption>
+      </figure>
+      <div class="rv">
+        <p class="eyebrow">Au magasin aussi</p>
+        <h2 style="font-size:clamp(34px,8.6vw,58px);line-height:1.05;margin:14px 0 26px">Les autres spécialités.</h2>
+        <ul class="tags">
+          <li>Meringues <span>la fameuse</span></li>
+          <li>Moutarde de Bénichon</li>
+          <li>Caramel artisanal</li>
+          <li>Biscuits, pains d’épices</li>
+          <li>Miel</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="h-gallery" style="padding-top:0">
+    <div class="wrap">
+      <h2 id="h-gallery" class="eyebrow" style="font-family:var(--sans);margin-bottom:18px">En images</h2>
+      <div class="gallery">
+        <figure class="g-a rv"><img src="img/cave-rayons.webp" width="510" height="383" alt="Rayonnages de meules de gruyère dans la cave" ><figcaption>La cave à gruyère</figcaption></figure>
+        <figure class="g-sq rv"><img src="img/cave-meules.webp" width="432" height="768" alt="Allée étroite entre deux rayonnages de meules, au fond une palette" ><figcaption>Entre les rayons</figcaption></figure>
+        <figure class="g-sq rv"><img src="img/cuves-inox.webp" width="510" height="908" alt="Cuves en inox de l'atelier de fabrication" ><figcaption>L'atelier</figcaption></figure>
+        <figure class="g-b rv"><img src="img/comptoir.webp" width="552" height="413" alt="Comptoir réfrigéré du magasin avec fromages à la coupe" ><figcaption>Le comptoir du magasin</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block visit" id="visite" aria-labelledby="h-visit">
+    <div class="wrap visit-grid">
+      <div class="rv">
+        <p class="eyebrow">Nous rendre visite</p>
+        <h2 id="h-visit" style="font-size:clamp(34px,8.6vw,58px);line-height:1.05;margin:14px 0 30px">Le magasin, à Ursy.</h2>
+        <dl class="info">
+          <div><dt>Adresse</dt><dd>Fromagerie Régionale à Ursy<br>Chemin du Marais 3<br>1670 Ursy</dd></div>
+          <div><dt>Horaires</dt><dd>
+            <table class="hours" id="hours">
+              <caption class="sr" style="position:absolute;left:-9999px">Horaires d'ouverture</caption>
+              <tr data-days="1,2,3,4,5,6"><th scope="row">Lun – sam</th><td>8:30 – 11:30<br>17:00 – 19:00</td></tr>
+              <tr data-days="0"><th scope="row">Dimanche</th><td>9:00 – 11:00<br>17:30 – 19:00</td></tr>
+            </table>
+          </dd></div>
+          <div><dt>Téléphone</dt><dd><a href="tel:+41219071111">021 907 11 11</a></dd></div>
+          <div><dt>E-mail</dt><dd><a href="mailto:alexandre.tinguely@bluewin.ch">alexandre.tinguely@bluewin.ch</a></dd></div>
+          <div><dt>Accès</dt><dd>Parking · Bus : arrêt La Scie</dd></div>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-solid" href="tel:+41219071111">Appeler le magasin</a>
+          <a class="btn btn-line" href="https://www.google.com/maps/dir/?api=1&amp;destination=Fromagerie+R%C3%A9gionale%2C+Chemin+du+Marais+3%2C+1670+Ursy" target="_blank" rel="noopener">Itinéraire</a>
+        </div>
+      </div>
+      <div class="rv">
+        <figure>
+          <img src="img/batiment.webp" width="551" height="415" alt="La fromagerie vue depuis la route, avec le parking" >
+        </figure>
+        <p class="howto">Nous sommes situés au sud-est d'Ursy. Depuis Ursy, prenez la Route de Vauderens : la Fromagerie Régionale sera sur votre gauche.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <p class="f-name">Fromagerie Régionale à Ursy</p>
+        <p style="margin-top:10px">Famille Tinguely · Chemin du Marais 3, 1670 Ursy</p>
+      </div>
+      <div><p><a href="tel:+41219071111">021 907 11 11</a></p><p>Fax 021 907 21 26</p></div>
+      <div><p>Lun – sam 8:30 – 11:30, 17:00 – 19:00</p><p>Dim 9:00 – 11:00, 17:30 – 19:00</p></div>
+    </div>
+    <p class="legal">Aperçu imaginé par Nouvelle Ardoise pour la Fromagerie Régionale à Ursy · ce n'est pas votre site officiel. Textes et photos tirés de fromagerie-ursy.ch.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  // Ouvert / fermé, à l'heure de Zurich
+  var H={0:[[540,660],[1050,1140]],1:[[510,690],[1020,1140]],2:[[510,690],[1020,1140]],3:[[510,690],[1020,1140]],4:[[510,690],[1020,1140]],5:[[510,690],[1020,1140]],6:[[510,690],[1020,1140]]};
+  function fmt(m){return Math.floor(m/60)+':'+String(m%60).padStart(2,'0')}
+  try{
+    var p=new Intl.DateTimeFormat('fr-CH',{timeZone:'Europe/Zurich',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
+    var o={};p.forEach(function(x){o[x.type]=x.value});
+    var days={'dim.':0,'lun.':1,'mar.':2,'mer.':3,'jeu.':4,'ven.':5,'sam.':6};
+    var d=days[o.weekday];var m=parseInt(o.hour,10)*60+parseInt(o.minute,10);
+    if(d!==undefined&&!isNaN(m)){
+      var s=document.getElementById('status'),t=document.getElementById('status-text'),txt=null;
+      H[d].forEach(function(r){if(m>=r[0]&&m<r[1])txt='<b>Ouvert</b> · jusqu’à '+fmt(r[1])});
+      if(txt){s.classList.add('open')}else{
+        var next=null;H[d].forEach(function(r){if(next===null&&m<r[0])next='aujourd’hui à '+fmt(r[0])});
+        if(!next){next='demain à '+fmt(H[(d+1)%7][0][0])}
+        txt='<b>Fermé</b> · ouvre '+next;
+      }
+      t.innerHTML=txt;
+      document.querySelectorAll('#hours tr').forEach(function(tr){if(tr.dataset.days.split(',').indexOf(String(d))>-1)tr.classList.add('today')});
+    }
+  }catch(e){}
+  // Apparitions douces
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('in')});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

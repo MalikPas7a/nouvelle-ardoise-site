@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="fr-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Le Zanfleuron · Café-restaurant, route du Sanetsch — aperçu</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour l'Auberge du Zanfleuron, café-restaurant de famille sur la route du Sanetsch à Conthey. Ce n'est pas le site officiel.">
+<meta name="theme-color" content="#1b2a23">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hiver-1080.webp" imagesrcset="img/hiver-1080.webp 1080w, img/hiver-720.webp 720w" imagesizes="(min-width: 900px) 56vw, 100vw">
+<style>
+:root{
+  --snow:#f6f4ef;
+  --snow-2:#ece8df;
+  --ink:#17221c;
+  --fir:#1b2a23;
+  --fir-2:#2a3c33;
+  --muted:#5a635d;
+  --line:#d9d4c8;
+  --red:#9a3324;
+  --on-fir:#ece8dc;
+  --on-fir-2:#b8c0b8;
+  --slate:#262b2d;
+  --serif:"Fraunces", Georgia, "Times New Roman", serif;
+  --sans:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gutter:20px;
+  --max:1240px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--snow);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-0.012em;margin:0;text-wrap:balance;font-variation-settings:"opsz" 96}
+p{margin:0;text-wrap:pretty}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:2px}
+
+/* Bandeau aperçu */
+.notice{background:var(--ink);color:#d6d2c6;font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--gutter)}
+.notice strong{color:#fff;font-weight:600}
+
+/* En-tête */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px var(--gutter);max-width:var(--max);margin:0 auto}
+.brand{text-decoration:none;display:flex;flex-direction:column;line-height:1}
+.brand b{font-family:var(--serif);font-weight:500;font-size:23px;letter-spacing:-0.01em}
+.brand b i{font-style:italic;font-weight:400}
+.brand span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:999px;font-family:var(--sans);font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap;transition:background-color .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease)}
+.btn svg{width:16px;height:16px;flex:none}
+.btn-line{border:1px solid currentColor}
+.btn-line:hover{background:var(--ink);color:var(--snow);border-color:var(--ink)}
+.btn-solid{background:var(--red);color:#fff;border:1px solid var(--red)}
+.btn-solid:hover{background:#7f2a1d;border-color:#7f2a1d}
+.top .btn{min-height:44px;padding:0 18px;font-size:14px}
+
+/* Hero */
+.hero-grid{display:grid;gap:28px}
+.hero-photo{margin:0;position:relative;order:-1}
+.hero-photo img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:42% 60%}
+.hero-photo figcaption{position:absolute;left:var(--gutter);bottom:14px;font-size:12px;color:#fff;background:rgba(18,26,22,.6);padding:4px 10px;border-radius:999px}
+.hero-text{padding:0 var(--gutter)}
+.hero h1{font-size:clamp(50px,14.5vw,118px);line-height:.92;letter-spacing:-0.03em;margin-top:14px}
+.hero h1 i{font-style:italic;color:var(--red)}
+.hero .lede{font-family:var(--serif);font-size:20px;line-height:1.45;margin-top:22px;max-width:31ch;color:#26302a}
+.coords{margin-top:22px;font-size:13.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 16px;font-variant-numeric:tabular-nums}
+.coords b{color:var(--ink);font-weight:600}
+.actions{margin-top:24px;display:flex;flex-wrap:wrap;gap:10px}
+
+/* Saisons */
+.seasons{background:var(--fir);color:var(--on-fir);padding:64px 0 60px;margin-top:64px}
+.seasons .eyebrow{color:var(--on-fir-2)}
+.seasons h2{font-size:clamp(32px,8.4vw,58px);line-height:1.04;margin-top:14px;max-width:16ch}
+.year{list-style:none;margin:36px 0 0;padding:0;display:grid;grid-template-columns:repeat(12,1fr);gap:3px}
+.year li{display:flex;flex-direction:column;gap:8px}
+.year li::before{content:"";display:block;height:44px;background:#c9d4cb;border-radius:2px}
+.year li.off::before{background:transparent;border:1px dashed #6f8277}
+.year li.now::before{box-shadow:0 0 0 2px var(--fir),0 0 0 4px #f1d9a8}
+.year span{font-size:11px;color:var(--on-fir-2);text-align:center;letter-spacing:.02em}
+.year li.now span{color:#fff;font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:20px;font-size:13.5px;color:var(--on-fir-2)}
+.legend i{display:inline-block;width:14px;height:10px;border-radius:2px;background:#c9d4cb;margin-right:8px;vertical-align:0}
+.legend i.o{background:transparent;border:1px dashed #6f8277}
+.season-text{display:grid;gap:26px;margin-top:44px}
+.season-text p{color:#d6dcd4;max-width:50ch}
+.word{border-left:2px solid #f1d9a8;padding-left:18px}
+.word small{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-fir-2);margin-bottom:8px}
+.word q{font-family:var(--serif);font-style:italic;font-size:clamp(22px,5.6vw,30px);line-height:1.3;color:#fff;quotes:"« " " »"}
+.word p{margin-top:10px;font-size:14px;color:var(--on-fir-2)}
+
+/* Sections */
+section.block{padding:84px 0}
+.section-head{display:grid;gap:14px;margin-bottom:44px}
+.section-head h2{font-size:clamp(32px,8.4vw,58px);line-height:1.04}
+.section-head p{color:var(--muted);max-width:54ch}
+
+/* Points forts */
+.points{display:grid;border-top:1px solid var(--line)}
+.point{display:grid;align-content:start;grid-template-columns:48px 1fr;gap:6px 14px;padding:26px 0;border-bottom:1px solid var(--line)}
+.point .n{font-family:var(--serif);font-style:italic;color:var(--red);font-size:20px;line-height:1.3}
+.point h3{font-size:25px;line-height:1.2}
+.point p{grid-column:2;color:#39433d}
+
+/* Histoire */
+.story{background:var(--snow-2)}
+.story-grid{display:grid;gap:40px}
+.painting{margin:0}
+.painting img{width:100%;aspect-ratio:1062/561;object-fit:cover;border:10px solid #fff;box-shadow:0 1px 0 var(--line)}
+.painting figcaption{font-size:13px;color:var(--muted);margin-top:12px}
+.timeline{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.timeline li{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:20px 0;border-bottom:1px solid var(--line)}
+.timeline .y{font-family:var(--serif);font-size:26px;line-height:1.1;color:var(--fir-2);font-variant-numeric:lining-nums}
+.timeline p{color:#2f3833}
+.timeline b{font-weight:600}
+.story .after{margin-top:28px;font-family:var(--serif);font-style:italic;font-size:clamp(21px,5.4vw,28px);line-height:1.35;color:var(--fir);max-width:30ch}
+
+/* Salle */
+.room-grid{display:grid;grid-template-columns:3fr 2fr;gap:10px;align-items:end;margin-top:40px}
+.room-grid figure{margin:0}
+.room-grid img{width:100%;object-fit:cover}
+.room-a img{aspect-ratio:4/5}
+.room-b img{aspect-ratio:3/4}
+.figs{display:grid;grid-template-columns:repeat(3,1fr);margin-top:36px;border-top:1px solid var(--ink)}
+.figs div{padding:18px 12px 0 0}
+.figs b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(44px,12vw,80px);line-height:1;letter-spacing:-0.03em}
+.figs span{display:block;font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.35}
+
+/* Ardoise */
+.slate{background:var(--slate);color:#e9e6de;padding:40px 26px;position:relative}
+.slate .eyebrow{color:#a7aba8}
+.slate h2{font-size:clamp(30px,7.8vw,50px);line-height:1.08;margin-top:14px;max-width:18ch}
+.slate p{margin-top:18px;color:#c8cbc6;max-width:46ch}
+.slate .sign{margin-top:26px;padding-top:22px;border-top:1px solid rgba(233,230,222,.18);display:grid;gap:4px}
+.slate .sign small{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#a7aba8}
+.slate .sign span{font-family:var(--serif);font-size:22px;line-height:1.3}
+.slate .actions .btn-line{color:#e9e6de}
+.slate .actions .btn-line:hover{background:#e9e6de;color:var(--slate);border-color:#e9e6de}
+
+/* Galerie */
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gallery figure{margin:0;position:relative;overflow:hidden}
+.gallery img{width:100%;height:100%;object-fit:cover}
+.gallery .g-wide{grid-column:span 2;aspect-ratio:16/9}
+.gallery .g-sq{aspect-ratio:1/1}
+.gallery figcaption{position:absolute;left:10px;bottom:10px;font-size:12px;color:#fff;background:rgba(18,26,22,.6);padding:3px 9px;border-radius:999px}
+
+/* Nous trouver */
+.visit{background:var(--fir);color:var(--on-fir)}
+.visit .eyebrow{color:var(--on-fir-2)}
+.visit .section-head p{color:var(--on-fir-2)}
+.place{display:grid;gap:28px}
+.place figure{margin:0}
+.place img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.place dl{margin:0;display:grid;border-top:1px solid rgba(236,232,220,.2)}
+.place dl div{display:grid;grid-template-columns:104px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid rgba(236,232,220,.2)}
+.place dt{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-fir-2);padding-top:3px}
+.place dd{margin:0;font-size:16px;overflow-wrap:anywhere}
+.place dd a{text-decoration-color:rgba(236,232,220,.4);text-underline-offset:3px}
+.place dd small{display:block;color:var(--on-fir-2);font-size:13.5px}
+.visit .btn-solid{background:var(--on-fir);color:var(--fir);border-color:var(--on-fir)}
+.visit .btn-solid:hover{background:#fff;border-color:#fff}
+.visit .btn-line:hover{background:var(--on-fir);color:var(--fir);border-color:var(--on-fir)}
+
+/* Pied */
+footer{padding:56px 0 40px;font-size:14px;color:var(--muted)}
+.foot{display:grid;gap:24px}
+.foot p{max-width:54ch}
+.foot a{text-underline-offset:3px}
+.foot .legal{border-top:1px solid var(--line);padding-top:18px;font-size:12.5px;max-width:none}
+
+/* Barre d'appel mobile */
+.callbar{position:fixed;left:0;right:0;bottom:0;z-index:10;padding:10px var(--gutter) calc(10px + env(safe-area-inset-bottom));background:var(--snow);border-top:1px solid var(--line);display:flex;gap:10px;transform:translateY(110%);transition:transform .35s var(--ease)}
+.callbar.show{transform:none}
+.callbar .btn{flex:1;min-height:46px;padding:0 14px;font-size:14.5px}
+
+/* Mouvement */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .btn,.callbar{transition:none}
+}
+
+@media (min-width:640px){
+  :root{--gutter:32px}
+  .gallery{grid-template-columns:repeat(3,1fr);gap:14px}
+  .gallery .g-wide{grid-column:span 2;aspect-ratio:16/9}
+  .gallery .g-sq{grid-column:span 1;aspect-ratio:auto}
+  .gallery .g-sq2{aspect-ratio:auto}
+  .year span{font-size:12.5px}
+  .slate{padding:56px 48px}
+}
+@media (min-width:900px){
+  :root{--gutter:48px}
+  .callbar{display:none}
+  .top{padding:22px var(--gutter)}
+  .hero-photo{order:0}
+  .hero-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;align-items:center;padding-left:max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)))}
+  .hero-text{padding:0}
+  .hero h1{font-size:clamp(76px,7vw,104px)}
+  .hero .lede{font-size:23px}
+  .hero-photo img{aspect-ratio:auto;height:min(74vh,640px);min-height:520px;max-width:1080px}
+  .hero-photo figcaption{left:20px;bottom:20px}
+  .seasons{padding:104px 0 96px;margin-top:96px}
+  .year{gap:6px;margin-top:52px}
+  .year li::before{height:64px}
+  .season-text{grid-template-columns:1fr 1fr;gap:64px;margin-top:56px;align-items:start}
+  section.block{padding:128px 0}
+  .section-head{grid-template-columns:5fr 6fr;gap:56px;align-items:end;margin-bottom:64px}
+  .points{grid-template-columns:repeat(3,1fr);gap:48px;border-top:none}
+  .point{grid-template-columns:1fr;border-top:1px solid var(--ink);border-bottom:none;padding-top:22px}
+  .point p{grid-column:1}
+  .point .n{margin-bottom:20px}
+  .story-grid{grid-template-columns:7fr 5fr;gap:72px;align-items:center}
+  .room{display:grid;grid-template-columns:5fr 7fr;gap:72px;align-items:center}
+  .room .section-head{grid-template-columns:1fr;margin-bottom:0;gap:18px}
+  .room-grid{grid-template-columns:7fr 5fr;align-items:end;gap:18px;margin-top:0}
+  .room-b img{aspect-ratio:1/1}
+  .slate{display:grid;grid-template-columns:7fr 5fr;gap:64px;align-items:end;padding:72px 64px}
+  .slate .sign{margin-top:0;border-top:none;padding-top:0;border-left:1px solid rgba(233,230,222,.18);padding-left:40px}
+  .place{grid-template-columns:6fr 5fr;gap:64px;align-items:center}
+  .foot{grid-template-columns:1fr 1fr;align-items:end}
+  .foot .legal{grid-column:span 2}
+}
+</style>
+</head>
+<body>
+
+<div class="notice" role="note">Aperçu imaginé par Nouvelle Ardoise pour <strong>l'Auberge du Zanfleuron</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <a class="brand" href="#" aria-label="Le Zanfleuron, accueil">
+    <b>le <i>Zanfleuron</i></b>
+    <span>Café · Restaurant</span>
+  </a>
+  <a class="btn btn-line" href="tel:+41273463096" aria-label="Appeler le restaurant au 027 346 30 96">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.2 1.8h2.4l1.2 3-1.5 1a8 8 0 0 0 4.9 4.9l1-1.5 3 1.2v2.4a1.4 1.4 0 0 1-1.5 1.4A12.6 12.6 0 0 1 1.8 3.3a1.4 1.4 0 0 1 1.4-1.5Z"/></svg>
+    Appeler
+  </a>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="titre">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow reveal">Route du Sanetsch · Grand-Zour · Conthey</p>
+        <h1 id="titre" class="reveal">L'auberge du<br><i>Zanfleuron</i></h1>
+        <p class="lede reveal">Un café-restaurant de famille au bord de la route du Sanetsch, ouvert tous les jours l'été comme l'hiver.</p>
+        <p class="coords reveal"><span><b>Depuis 1950</b> · trois générations</span><span>46°18'11.7"N 7°18'50.4"E</span></p>
+        <div class="actions reveal">
+          <a class="btn btn-solid" href="tel:+41273463096">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.2 1.8h2.4l1.2 3-1.5 1a8 8 0 0 0 4.9 4.9l1-1.5 3 1.2v2.4a1.4 1.4 0 0 1-1.5 1.4A12.6 12.6 0 0 1 1.8 3.3a1.4 1.4 0 0 1 1.4-1.5Z"/></svg>
+            Réserver · 027 346 30 96
+          </a>
+          <a class="btn btn-line" href="#trouver">Nous trouver</a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src="img/hiver-1080.webp" srcset="img/hiver-1080.webp 1080w, img/hiver-720.webp 720w" sizes="(min-width: 900px) 56vw, 100vw" width="1080" height="565" alt="L'auberge du Zanfleuron sous la neige, fenêtres éclairées, entourée de sapins enneigés." fetchpriority="high">
+        <figcaption>L'auberge en hiver</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="seasons" aria-labelledby="saisons">
+    <div class="wrap">
+      <p class="eyebrow reveal">Deux saisons par an</p>
+      <h2 id="saisons" class="reveal">Tous les jours, onze mois sur douze.</h2>
+      <ol class="year reveal" aria-label="Calendrier d'ouverture">
+        <li data-m="0"><span>jan</span></li>
+        <li data-m="1"><span>fév</span></li>
+        <li data-m="2"><span>mar</span></li>
+        <li data-m="3"><span>avr</span></li>
+        <li data-m="4"><span>mai</span></li>
+        <li data-m="5"><span>juin</span></li>
+        <li data-m="6"><span>juil</span></li>
+        <li data-m="7"><span>août</span></li>
+        <li data-m="8"><span>sep</span></li>
+        <li data-m="9"><span>oct</span></li>
+        <li data-m="10" class="off"><span>nov</span></li>
+        <li data-m="11"><span>déc</span></li>
+      </ol>
+      <p class="legend reveal"><span><i></i>Ouvert tous les jours</span><span><i class="o"></i>Vacances entre les deux saisons</span></p>
+      <div class="season-text">
+        <p class="reveal">Le café-restaurant est ouvert tous les jours du début mai jusqu'à fin octobre. En hiver, de décembre à avril, il est également ouvert tous les jours.</p>
+        <div class="word reveal">
+          <small>Le mot du moment</small>
+          <q>C'est les vacances&nbsp;! On se retrouve tout bientôt pour la saison d'hiver.</q>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="unique">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow reveal">Ce qui fait le Zanfleuron</p>
+        <h2 id="unique" class="reveal">Une maison de famille sur la route du col.</h2>
+      </div>
+      <div class="points">
+        <article class="point reveal">
+          <span class="n">01</span>
+          <h3>La même famille depuis 1950</h3>
+          <p>Construite en 1950 et 1951, l'auberge est aujourd'hui tenue par Sylvianne, troisième génération, et Jean-Bernard Héritier.</p>
+        </article>
+        <article class="point reveal">
+          <span class="n">02</span>
+          <h3>Été comme hiver</h3>
+          <p>Spécialités du terroir, été / hiver&nbsp;: c'est écrit sur l'enseigne. Et l'auberge est ouverte tous les jours, à chacune des deux saisons.</p>
+        </article>
+        <article class="point reveal">
+          <span class="n">03</span>
+          <h3>De la place pour tout le monde</h3>
+          <p>40 places en salle, 52 en terrasse, et une salle de 40 places à réserver pour un groupe.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block story" aria-labelledby="histoire">
+    <div class="wrap story-grid">
+      <figure class="painting reveal">
+        <img src="img/peinture-1062.webp" srcset="img/peinture-1062.webp 1062w, img/peinture-640.webp 640w" sizes="(min-width: 900px) 640px, 100vw" width="1062" height="561" alt="Peinture de l'auberge du Zanfleuron, chalet aux volets rouges devant une forêt de sapins." loading="lazy">
+        <figcaption>L'auberge, en peinture</figcaption>
+      </figure>
+      <div>
+        <p class="eyebrow reveal">Trois générations</p>
+        <h2 id="histoire" class="reveal" style="font-size:clamp(32px,8.4vw,52px);line-height:1.05;margin:14px 0 30px">Une histoire qui se passe de main en main.</h2>
+        <ol class="timeline">
+          <li class="reveal"><span class="y">1950</span><p>Le bâtiment est construit en 1950 et 1951, et exploité par <b>Gabriel et Marthe Liand</b>.</p></li>
+          <li class="reveal"><span class="y">1970</span><p><b>Norbert et Rose Léger-Liand</b> reprennent l'auberge.</p></li>
+          <li class="reveal"><span class="y">2000</span><p><b>Sylvianne</b>, troisième génération, et <b>Jean-Bernard Héritier-Léger</b> prennent les commandes.</p></li>
+        </ol>
+        <p class="after reveal">Au fil des années, la maison s'est transformée pour vous accueillir dans un cadre familial et chaleureux.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="salle">
+    <div class="wrap room">
+      <div>
+        <div class="section-head">
+          <p class="eyebrow reveal">La salle et la terrasse</p>
+          <h2 id="salle" class="reveal">Des nappes, un poêle, des roses sur les tables.</h2>
+          <p class="reveal">Une salle au cadre familial et chaleureux, et une grande terrasse au bord de la route du col.</p>
+        </div>
+        <div class="figs reveal">
+          <div><b>40</b><span>places en salle</span></div>
+          <div><b>52</b><span>places en terrasse</span></div>
+          <div><b>40</b><span>places dans la salle à réserver</span></div>
+        </div>
+      </div>
+      <div class="room-grid">
+        <figure class="room-a reveal"><img src="img/salle-840.webp" srcset="img/salle-840.webp 840w, img/salle-600.webp 600w" sizes="(min-width: 900px) 400px, 100vw" width="840" height="970" alt="La salle du restaurant : tables aux nappes brunes et blanches, chaises en bois, poêle et roses rouges." loading="lazy"></figure>
+        <figure class="room-b reveal"><img src="img/fenetre-600.webp" srcset="img/fenetre-980.webp 980w, img/fenetre-600.webp 600w" sizes="(min-width: 900px) 290px, 100vw" width="600" height="600" alt="Une fenêtre à croisillons en bois garnie de plantes et de fleurs, au soleil." loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="carte" style="padding-bottom:16px">
+    <div class="slate reveal">
+      <div>
+        <p class="eyebrow">La carte</p>
+        <h2 id="carte">La carte d'hiver est en cours d'élaboration.</h2>
+        <p>Elle trouvera sa place ici dès qu'elle sera prête. Pour réserver une table ou la salle de 40 places, un coup de fil suffit.</p>
+        <div class="actions">
+          <a class="btn btn-line" href="tel:+41273463096">Réserver au 027 346 30 96</a>
+        </div>
+      </div>
+      <div class="sign">
+        <small>Sur l'enseigne</small>
+        <span>Café restaurant<br>Spécialités du terroir<br>Été / hiver</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="galerie">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow reveal">Autour de l'auberge</p>
+        <h2 id="galerie" class="reveal">Sapins, neige et route du col.</h2>
+      </div>
+      <div class="gallery">
+        <figure class="g-wide reveal"><img src="img/neige-1060.webp" srcset="img/neige-1060.webp 1060w, img/neige-640.webp 640w" sizes="(min-width: 640px) 66vw, 100vw" width="1060" height="561" alt="L'auberge au toit couvert d'une épaisse couche de neige, motoneiges alignées devant." loading="lazy"><figcaption>Devant l'auberge, en hiver</figcaption></figure>
+        <figure class="g-sq reveal"><img src="img/sentier-600.webp" srcset="img/sentier-1080.webp 1080w, img/sentier-600.webp 600w" sizes="(min-width: 640px) 33vw, 50vw" width="600" height="600" alt="Un chemin enneigé entre les sapins, un poteau coiffé de neige au premier plan." loading="lazy"></figure>
+        <figure class="g-sq g-sq2 reveal"><img src="img/pente-600.webp" srcset="img/pente-1080.webp 1080w, img/pente-600.webp 600w" sizes="(min-width: 640px) 33vw, 50vw" width="600" height="600" alt="Une pente enneigée et une forêt de sapins au soleil." loading="lazy"></figure>
+        <figure class="g-wide g-col reveal"><img src="img/col-1080.webp" srcset="img/col-1080.webp 1080w, img/col-700.webp 700w" sizes="(min-width: 640px) 50vw, 100vw" width="1080" height="600" alt="En été, des motos garées au bord de la route, devant un chalet et la forêt." loading="lazy"><figcaption>L'été, côté route</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block visit" id="trouver" aria-labelledby="trouverh">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow reveal">Nous trouver</p>
+        <h2 id="trouverh" class="reveal">Sur la route du Sanetsch.</h2>
+        <p class="reveal">Réservation appréciée au 027 346 30 96.</p>
+      </div>
+      <div class="place">
+        <figure class="reveal"><img src="img/facade-800.webp" srcset="img/facade-1333.webp 1333w, img/facade-800.webp 800w" sizes="(min-width: 900px) 600px, 100vw" width="800" height="600" alt="La façade de l'auberge en été, avec l'enseigne le Zanfleuron et la terrasse au bord de la route." loading="lazy"></figure>
+        <div class="reveal">
+          <dl>
+            <div><dt>Adresse</dt><dd>Route du Sanetsch<br>Grand-Zour<br>1976 Conthey</dd></div>
+            <div><dt>GPS</dt><dd>46.303252, 7.313976</dd></div>
+            <div><dt>Réserver</dt><dd><a href="tel:+41273463096">027 346 30 96</a></dd></div>
+            <div><dt>Mobile</dt><dd><a href="tel:+41788412121">+41 78 841 21 21</a></dd></div>
+            <div><dt>E-mail</dt><dd><a href="mailto:heritierjeanbernard@gmail.com">heritierjeanbernard@gmail.com</a></dd></div>
+            <div><dt>Ouvert</dt><dd>Tous les jours, de début mai à fin octobre et de décembre à avril</dd></div>
+          </dl>
+          <div class="actions">
+            <a class="btn btn-solid" href="tel:+41273463096">Appeler pour réserver</a>
+            <a class="btn btn-line" href="https://www.google.com/maps/dir/?api=1&amp;destination=46.303252,7.313976" target="_blank" rel="noopener">Itinéraire</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="brand" href="#" aria-label="Le Zanfleuron, haut de page"><b>le <i>Zanfleuron</i></b><span>Café · Restaurant · Conthey</span></a>
+      <p style="margin-top:18px">Sylvianne et Jean-Bernard Héritier, route du Sanetsch, Grand-Zour, 1976 Conthey.</p>
+    </div>
+    <p>Photos de l'auberge&nbsp;: <a href="https://www.instagram.com/lezanfleuron/" target="_blank" rel="noopener">@lezanfleuron sur Instagram</a></p>
+    <p class="legal">Aperçu imaginé par Nouvelle Ardoise pour l'Auberge du Zanfleuron, à partir des textes et des photos de lezanfleuron.ch. Ce n'est pas le site officiel.</p>
+  </div>
+</footer>
+
+<div class="callbar" id="callbar" aria-hidden="true">
+  <a class="btn btn-solid" href="tel:+41273463096" tabindex="-1">Réserver · 027 346 30 96</a>
+  <a class="btn btn-line" href="https://www.google.com/maps/dir/?api=1&amp;destination=46.303252,7.313976" target="_blank" rel="noopener" tabindex="-1">Itinéraire</a>
+</div>
+
+<script>
+(function(){
+  var m=new Date().getMonth();
+  var li=document.querySelector('.year li[data-m="'+m+'"]');
+  if(li){li.classList.add('now');li.setAttribute('aria-current','date');}
+  var els=document.querySelectorAll('.reveal');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});}
+  else{
+    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(e){io.observe(e)});
+  }
+  var bar=document.getElementById('callbar'),hero=document.querySelector('.hero .actions'),foot=document.getElementById('trouver');
+  if('IntersectionObserver' in window&&bar){
+    var past=false,atEnd=false;
+    var upd=function(){var s=past&&!atEnd;bar.classList.toggle('show',s);bar.setAttribute('aria-hidden',s?'false':'true');bar.querySelectorAll('a').forEach(function(a){a.tabIndex=s?0:-1})};
+    new IntersectionObserver(function(en){past=!en[0].isIntersecting&&en[0].boundingClientRect.top<0;upd()}).observe(hero);
+    new IntersectionObserver(function(en){atEnd=en[0].isIntersecting;upd()}).observe(foot);
+  }
+})();
+</script>
+</body>
+</html>

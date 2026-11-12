@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="fr-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Ferme les Tierdzous · Châbles — aperçu</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour la Ferme les Tierdzous, Barbara et Gérard Wyss à Châbles. Ce n'est pas le site officiel.">
+<meta name="theme-color" content="#29402a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/poules-1800.webp" imagesrcset="img/poules-1800.webp 1800w, img/poules-900.webp 900w" imagesizes="(min-width: 900px) 58vw, 100vw">
+<style>
+:root{
+  --paper:#f4f0e5;
+  --paper-2:#ebe4d2;
+  --ink:#1f231c;
+  --green:#29402a;
+  --green-2:#3a5638;
+  --muted:#5b6055;
+  --line:#d8cfb9;
+  --yolk:#e2a531;
+  --yolk-ink:#8a5a0b;
+  --cream:#f1ead8;
+  --serif:"Young Serif", Georgia, "Times New Roman", serif;
+  --sans:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gutter:20px;
+  --max:1240px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:400;letter-spacing:-0.012em;margin:0;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+:focus-visible{outline:2px solid var(--yolk-ink);outline-offset:3px;border-radius:2px}
+
+.notice{background:var(--ink);color:#d8d3c4;font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--gutter)}
+.notice strong{color:#fff;font-weight:600}
+
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px var(--gutter);max-width:var(--max);margin:0 auto}
+.brand{text-decoration:none;display:flex;align-items:center;gap:12px;line-height:1}
+.egg{width:22px;height:28px;flex:none;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--yolk);box-shadow:inset -4px -5px 0 rgba(0,0,0,.08)}
+.brand b{display:block;font-family:var(--serif);font-weight:400;font-size:20px}
+.brand span{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:999px;font-family:var(--sans);font-weight:600;font-size:15px;text-decoration:none;transition:background-color .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease)}
+.btn svg{width:16px;height:16px;flex:none}
+.btn-solid{background:var(--green);color:var(--cream);border:1px solid var(--green)}
+.btn-solid:hover{background:var(--ink);border-color:var(--ink)}
+.btn-line{border:1px solid currentColor}
+.btn-line:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.top .btn{min-height:44px;padding:0 18px;font-size:14px;white-space:nowrap}
+
+/* Hero */
+.hero-grid{display:grid;gap:26px}
+.hero-photo{margin:0;order:-1;position:relative}
+.hero-photo img{width:100%;aspect-ratio:4/3.4;object-fit:cover;object-position:50% 60%}
+.hero-text{padding:0 var(--gutter)}
+.hero h1{font-size:clamp(44px,12.4vw,104px);line-height:.98;letter-spacing:-0.03em}
+.hero h1 span{display:block;font-size:.42em;letter-spacing:0;color:var(--green-2);margin-bottom:.35em}
+.hero .lede{font-size:19px;line-height:1.5;margin-top:22px;max-width:32ch;color:#2c3128}
+.hero .lede b{font-weight:600}
+.hero .where{margin-top:22px;font-size:14px;color:var(--muted)}
+.hero .where b{color:var(--ink);font-weight:600}
+.actions{margin-top:24px;display:flex;flex-wrap:wrap;gap:10px}
+
+/* Chiffres */
+.farm{background:var(--green);color:var(--cream);padding:72px 0 64px;margin-top:64px}
+.farm .eyebrow{color:#b8c3b0}
+.farm h2{font-size:clamp(30px,7.6vw,52px);line-height:1.08;margin-top:14px;max-width:18ch}
+.figures{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(241,234,216,.22)}
+.figures li{padding:20px 0 22px;border-bottom:1px solid rgba(241,234,216,.22)}
+.figures li:nth-child(odd){padding-right:14px}
+.figures li:nth-child(even){padding-left:14px;border-left:1px solid rgba(241,234,216,.22)}
+.figures b{display:block;white-space:nowrap;font-family:var(--serif);font-weight:400;font-size:clamp(38px,11vw,64px);line-height:1;letter-spacing:-0.03em}
+.figures b small{font-size:.42em;letter-spacing:0;margin-left:4px;color:var(--yolk)}
+.figures span{display:block;margin-top:8px;font-size:14.5px;color:#cdd5c6;line-height:1.4}
+.farm-photo{margin:44px 0 0}
+.farm-photo img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.farm-photo figcaption{font-size:13px;color:#b8c3b0;margin-top:10px}
+
+/* Sections */
+section.block{padding:84px 0}
+.section-head{display:grid;gap:14px;margin-bottom:40px}
+.section-head h2{font-size:clamp(32px,8vw,56px);line-height:1.05}
+.section-head p{color:var(--muted);max-width:56ch}
+
+/* Uniques */
+.uniques{display:grid;gap:44px}
+.unique figure{margin:0}
+.unique img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.unique .n{display:block;font-family:var(--serif);color:var(--yolk-ink);font-size:18px;margin:20px 0 6px}
+.unique h3{font-size:26px;line-height:1.18}
+.unique p{color:#3b4036;margin-top:10px}
+
+/* Produits */
+.shop{background:var(--paper-2)}
+.shop-grid{display:grid;gap:44px}
+.products{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.products li{display:grid;grid-template-columns:36px 1fr;gap:2px 12px;padding:18px 0;border-bottom:1px solid var(--line)}
+.products li::before{content:"";width:12px;height:15px;margin-top:9px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--yolk)}
+.products h3{font-size:23px;line-height:1.25}
+.products p{grid-column:2;color:#3b4036;font-size:15.5px}
+.twint{margin-top:26px;display:flex;gap:14px;align-items:flex-start;padding:18px 20px;background:var(--paper);border-left:3px solid var(--yolk)}
+.twint p{font-size:15.5px}
+.twint b{font-weight:600}
+.shelf{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.shelf figure{margin:0}
+.shelf img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.shelf .wide{grid-column:span 2}
+.shelf .side{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
+.shelf .side figcaption{margin:0 0 4px}
+.shelf figcaption{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.4}
+
+/* Revendeurs */
+.resell{display:grid;gap:28px}
+.resell h2{font-size:clamp(28px,7vw,44px);line-height:1.1}
+.resell p{color:#3b4036;max-width:52ch}
+.shops{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.shops li{border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:15px;background:#fbf8f0}
+.resell small{display:block;color:var(--muted);font-size:14px;margin-top:16px}
+
+/* Famille */
+.people{display:grid;gap:0;border-top:1px solid var(--ink)}
+.person{padding:26px 0;border-bottom:1px solid var(--line);display:grid;gap:12px}
+.person h3{font-size:34px;line-height:1.1}
+.person dl{margin:0;display:grid;gap:8px}
+.person dl div{display:grid;grid-template-columns:96px 1fr;gap:12px}
+.person dt{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:4px}
+.person dd{margin:0;color:#2c3128}
+
+/* Galerie */
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gallery figure{margin:0;overflow:hidden;position:relative}
+.gallery img{width:100%;height:100%;object-fit:cover}
+.gallery .g-wide{grid-column:span 2;aspect-ratio:3/2}
+.gallery .g-sq{aspect-ratio:1/1}
+.gallery .g-third{grid-column:span 2;aspect-ratio:3/2}
+.gallery figcaption{position:absolute;left:10px;bottom:10px;font-size:12px;color:#fff;background:rgba(22,28,20,.6);padding:3px 10px;border-radius:999px}
+
+/* Visite */
+.visit{background:var(--green);color:var(--cream)}
+.visit .eyebrow{color:#b8c3b0}
+.visit-grid{display:grid;gap:34px}
+.visit h2{font-size:clamp(32px,8vw,56px);line-height:1.05;margin-top:14px}
+.visit .intro{color:#cdd5c6;margin-top:16px;max-width:44ch;font-size:17px}
+.visit dl{margin:0;display:grid;border-top:1px solid rgba(241,234,216,.22)}
+.visit dl div{display:grid;grid-template-columns:104px 1fr;gap:12px;padding:15px 0;border-bottom:1px solid rgba(241,234,216,.22)}
+.visit dt{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#b8c3b0;padding-top:3px}
+.visit dd{margin:0}
+.visit dd a{text-decoration-color:rgba(241,234,216,.45);text-underline-offset:3px;display:inline-block;padding:3px 0}
+.visit .btn-solid{background:var(--yolk);color:#1f1a0e;border-color:var(--yolk)}
+.visit .btn-solid:hover{background:#f0b947;border-color:#f0b947}
+.visit .btn-line:hover{background:var(--cream);color:var(--green);border-color:var(--cream)}
+.visit figure{margin:0}
+.visit figure img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.visit figcaption{font-size:13px;color:#b8c3b0;margin-top:10px}
+
+footer{padding:56px 0 40px;font-size:14px;color:var(--muted)}
+.foot{display:grid;gap:24px}
+.foot p{max-width:54ch}
+.foot .legal{border-top:1px solid var(--line);padding-top:18px;font-size:12.5px;max-width:none}
+
+/* Mouvement */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .btn{transition:none}
+}
+
+@media (min-width:640px){
+  :root{--gutter:32px}
+  .gallery{gap:14px}
+  .uniques{grid-template-columns:1fr 1fr}
+  .figures{grid-template-columns:repeat(3,1fr)}
+  .figures li:nth-child(n){padding:22px 18px 24px;border-left:1px solid rgba(241,234,216,.22)}
+  .figures li:nth-child(3n+1){padding-left:0;border-left:none}
+}
+@media (min-width:900px){
+  :root{--gutter:48px}
+  .top{padding:22px var(--gutter)}
+  .hero-photo{order:0}
+  .hero-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;align-items:end;padding-left:max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)))}
+  .hero-text{padding:0 0 48px}
+  .hero h1{font-size:clamp(68px,6.6vw,100px)}
+  .hero .lede{font-size:21px}
+  .hero-photo img{aspect-ratio:auto;height:min(76vh,720px);min-height:540px}
+  .farm{padding:110px 0 100px;margin-top:0}
+  .farm-grid{display:grid;grid-template-columns:5fr 6fr;gap:72px;align-items:start}
+  .farm-photo{margin:0}
+  .figures b{font-size:clamp(40px,3.6vw,54px)}
+  .farm-photo img{aspect-ratio:4/3.3}
+  section.block{padding:120px 0}
+  .section-head{grid-template-columns:5fr 6fr;gap:56px;align-items:end;margin-bottom:60px}
+  .uniques{grid-template-columns:repeat(3,1fr);gap:40px}
+  .unique:nth-child(2){margin-top:64px}
+  .shop-grid{grid-template-columns:6fr 5fr;gap:80px;align-items:start}
+  .resell{grid-template-columns:5fr 6fr;gap:72px;align-items:start}
+  .family-grid{display:grid;grid-template-columns:5fr 6fr;gap:72px;align-items:start}
+  .family-grid .section-head{grid-template-columns:1fr;margin:0}
+  .people{grid-template-columns:1fr 1fr;column-gap:40px;border-top:none}
+  .person{border-top:1px solid var(--ink);border-bottom:none}
+  .gallery{grid-template-columns:repeat(3,1fr);grid-template-rows:320px 300px}
+  .gallery .g-wide,.gallery .g-sq,.gallery .g-third{aspect-ratio:auto;grid-column:auto}
+  .gallery .g-wide{grid-column:span 2}
+  .visit-grid{grid-template-columns:5fr 6fr;gap:72px;align-items:center}
+  .foot{grid-template-columns:1fr 1fr;align-items:end}
+  .foot .legal{grid-column:span 2}
+}
+</style>
+</head>
+<body>
+
+<div class="notice" role="note">Aperçu imaginé par Nouvelle Ardoise pour <strong>Ferme les Tierdzous</strong> · ce n’est pas votre site officiel</div>
+
+<header class="top">
+  <a class="brand" href="#" aria-label="Ferme les Tierdzous, accueil">
+    <i class="egg" aria-hidden="true"></i>
+    <span style="margin:0;letter-spacing:0;text-transform:none"><b>Ferme les Tierdzous</b><span>Châbles</span></span>
+  </a>
+  <a class="btn btn-line" href="#venir">Nous trouver</a>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="titre">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow reveal">Barbara et Gérard Wyss · Les Carrons 30</p>
+        <h1 id="titre" class="reveal" style="margin-top:16px"><span>Ferme les</span>Tierdzous</h1>
+        <p class="lede reveal">Tous les jours, des <b>œufs frais plein air avec vue sur le lac</b>. Et à côté, le sirop et les pâtes de Barbara, nos pommes de terre, du jus de pomme et du miel.</p>
+        <p class="where reveal"><b>1474 Châbles</b> · à 5 minutes d’Estavayer</p>
+        <div class="actions reveal">
+          <a class="btn btn-solid" href="https://www.google.com/maps/search/?api=1&amp;query=Les+Carrons+30%2C+1474+Ch%C3%A2bles" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 14.5s5-4.3 5-8.2A5 5 0 0 0 3 6.3c0 3.9 5 8.2 5 8.2Z"/><circle cx="8" cy="6.3" r="1.8"/></svg>
+            Itinéraire
+          </a>
+          <a class="btn btn-line" href="#produits">Ce qu’on trouve au self</a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src="img/poules-1800.webp" srcset="img/poules-1800.webp 1800w, img/poules-900.webp 900w" sizes="(min-width: 900px) 58vw, 100vw" width="1800" height="1350" alt="Poules brunes et blanches en liberté dans le parc de la ferme, au pied des arbres" fetchpriority="high">
+      </figure>
+    </div>
+  </section>
+
+  <section class="farm" aria-labelledby="ferme">
+    <div class="wrap farm-grid">
+      <div>
+        <p class="eyebrow reveal">La ferme</p>
+        <h2 id="ferme" class="reveal">Une exploitation de 33 hectares, entre champs, haies et parc à poules.</h2>
+        <ul class="figures">
+          <li class="reveal"><b>24<small>ha</small></b><span>de terre ouverte</span></li>
+          <li class="reveal"><b>3<small>ha</small></b><span>de parc pour les poules</span></li>
+          <li class="reveal"><b>12 500</b><span>poules pondeuses</span></li>
+          <li class="reveal"><b>~40</b><span>taureaux</span></li>
+          <li class="reveal"><b>~50</b><span>veaux sevrés, jusqu’à env. 200&nbsp;kg</span></li>
+          <li class="reveal"><b>2004</b><span>Gérard reprend le domaine</span></li>
+        </ul>
+      </div>
+      <figure class="farm-photo reveal">
+        <img src="img/domaine-1400.webp" srcset="img/domaine-1400.webp 1400w, img/domaine-800.webp 800w" sizes="(min-width: 900px) 52vw, 100vw" width="1400" height="933" loading="lazy" alt="Vue aérienne du domaine : le poulailler au milieu des prés, une haie, les champs et le lac au loin">
+        <figcaption>Le domaine vu du ciel. Le reste des terres, ce sont des haies et des pâturages.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="uniques">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="uniques" class="reveal">Ce qui fait la ferme</h2>
+        <p class="reveal">Une ferme de famille à Châbles, à 5 minutes d’Estavayer. Ce que vous achetez ici vient d’ici.</p>
+      </div>
+      <div class="uniques">
+        <article class="unique reveal">
+          <figure><img src="img/parc-1200.webp" width="1200" height="900" loading="lazy" alt="Poules blanches et rousses autour d’un abri mobile dans un pré"></figure>
+          <span class="n">01</span>
+          <h3>Des poules dehors, chaque jour</h3>
+          <p>Trois hectares de parc rien que pour elles, avec des abris en plein pré. Les œufs sont frais, tous les jours.</p>
+        </article>
+        <article class="unique reveal">
+          <figure><img src="img/colza-1200.webp" width="1200" height="900" loading="lazy" alt="Le parc à poules en bordure d’un champ de colza en fleur, le village et le lac derrière"></figure>
+          <span class="n">02</span>
+          <h3>Avec vue sur le lac</h3>
+          <p>Le champ de colza, les toits du village et le lac au fond&nbsp;: c’est le décor du parc. D’où nos «&nbsp;œufs plein air avec vue sur le lac&nbsp;».</p>
+        </article>
+        <article class="unique reveal">
+          <figure><img src="img/veaux-1000.webp" width="1000" height="750" loading="lazy" alt="Jeunes veaux bruns dans l’étable, autour du râtelier à foin"></figure>
+          <span class="n">03</span>
+          <h3>Une vraie ferme qui tourne</h3>
+          <p>Cultures, œufs, taureaux et veaux&nbsp;: Gérard, maître-agriculteur depuis 1997, mène l’exploitation qu’il a reprise en 2004.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block shop" id="produits" aria-labelledby="produits-titre">
+    <div class="wrap shop-grid">
+      <div>
+        <p class="eyebrow reveal">Produits de la ferme</p>
+        <h2 id="produits-titre" class="reveal" style="font-size:clamp(32px,8vw,56px);line-height:1.05;margin:14px 0 32px">Ce qu’on vient chercher aux Tierdzous</h2>
+        <ul class="products">
+          <li class="reveal"><h3>Œufs frais plein air</h3><p>Tous les jours, de nos 12&nbsp;500 poules.</p></li>
+          <li class="reveal"><h3>Pommes de terre</h3><p>De différentes sortes.</p></li>
+          <li class="reveal"><h3>Sirop et pâtes</h3><p>Faits à la ferme par Barbara.</p></li>
+          <li class="reveal"><h3>Jus de pomme</h3></li>
+          <li class="reveal"><h3>Miel de Jean</h3></li>
+          <li class="reveal"><h3>Panier cadeau</h3><p>Composé sur demande&nbsp;: il suffit d’appeler Barbara.</p></li>
+        </ul>
+        <div class="twint reveal">
+          <p><b>Dans notre self, vous pouvez payer avec TWINT.</b></p>
+        </div>
+      </div>
+      <div class="shelf">
+        <figure class="wide reveal">
+          <img src="img/self-448.webp" width="448" height="336" loading="lazy" alt="Le self de la ferme : plateaux d’œufs, petit panier et sacs de pommes de terre Charlotte et Agria sur une étagère en bois">
+          <figcaption>Le self&nbsp;: œufs, et pommes de terre Charlotte et Agria.</figcaption>
+        </figure>
+        <figure class="reveal">
+          <img src="img/pates-448.webp" width="448" height="336" loading="lazy" alt="Sachets de pâtes maison de différentes couleurs alignés sur l’étagère du self">
+          <figcaption>Les pâtes maison.</figcaption>
+        </figure>
+        <figure class="reveal">
+          <img src="img/assiette-448.webp" width="448" height="336" loading="lazy" alt="Assiette de pâtes de la ferme : torsades et fusilli de trois couleurs">
+          <figcaption>Trois couleurs, une assiette.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="ailleurs">
+    <div class="wrap resell">
+      <div>
+        <p class="eyebrow reveal">Nos œufs ailleurs</p>
+        <h2 id="ailleurs" class="reveal" style="margin-top:14px">Pas le temps de passer&nbsp;? Nos œufs voyagent un peu.</h2>
+      </div>
+      <div>
+        <p class="reveal">Notre principal acheteur d’œufs est Eico, qui les revend à Migros Fribourg/Neuchâtel. On les trouve aussi chez nos revendeurs de la région&nbsp;:</p>
+        <ul class="shops reveal" style="margin-top:20px">
+          <li>Boulangerie Hauser</li>
+          <li>Volg, Cheyres</li>
+          <li>Landi, Estavayer</li>
+          <li>Boucherie Droux</li>
+        </ul>
+        <small class="reveal">Nos taureaux partent chez Marmy Viande SA, à Estavayer-le-Lac.</small>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Galerie" style="padding-bottom:84px">
+    <div class="wrap">
+      <div class="gallery">
+        <figure class="g-wide reveal"><img src="img/lac-1800.webp" srcset="img/lac-1800.webp 1800w, img/lac-900.webp 900w" sizes="(min-width: 900px) 600px, 100vw" width="1800" height="1200" loading="lazy" alt="Vue aérienne sur le village et le lac depuis les champs de la ferme"><figcaption>La vue sur le lac</figcaption></figure>
+        <figure class="g-sq reveal"><img src="img/mais-1000.webp" width="1000" height="750" loading="lazy" alt="Poules blanches qui picorent l’herbe au bord d’un champ de maïs" style="object-position:40% 50%"></figure>
+        <figure class="g-sq reveal"><img src="img/couchant-1200.webp" width="1200" height="900" loading="lazy" alt="Coucher de soleil orange sur le lac et les toits du village" style="object-position:30% 50%"></figure>
+        <figure class="g-sq reveal"><img src="img/cheval-1000.webp" width="1000" height="750" loading="lazy" alt="Un cheval broute dans le parc, des poules autour, sous les arbres"></figure>
+        <figure class="g-sq reveal"><img src="img/pommes-de-terre-1200.webp" width="1200" height="900" loading="lazy" alt="Rangs de pommes de terre qui sortent de terre dans un champ"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0" aria-labelledby="nous">
+    <div class="wrap family-grid">
+      <div class="section-head">
+        <p class="eyebrow reveal">Nous</p>
+        <h2 id="nous" class="reveal">Barbara, Gérard, et leurs filles Pamela et Daria.</h2>
+      </div>
+      <div class="people">
+        <article class="person reveal">
+          <h3>Barbara</h3>
+          <dl>
+            <div><dt>Parcours</dt><dd>Diplôme de sellière et d’écuyère. Sur l’exploitation depuis 2007.</dd></div>
+            <div><dt>À la ferme</dt><dd>La maison, le jardin, la fabrication du sirop et des pâtes.</dd></div>
+            <div><dt>Hobby</dt><dd>Les enfants, les chevaux et les lapins.</dd></div>
+          </dl>
+        </article>
+        <article class="person reveal">
+          <h3>Gérard</h3>
+          <dl>
+            <div><dt>Parcours</dt><dd>Maître-agriculteur en 1997, locataire dès 1999, reprise du domaine en 2004.</dd></div>
+            <div><dt>À la ferme</dt><dd>Les cultures, l’administration, la production d’œufs, l’engraissement des bœufs.</dd></div>
+            <div><dt>Hobby</dt><dd>Fidèle supporter des SCL Tigers et de YB.</dd></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block visit" id="venir" aria-labelledby="venir-titre">
+    <div class="wrap visit-grid">
+      <div>
+        <p class="eyebrow reveal">Situation</p>
+        <h2 id="venir-titre" class="reveal">Venir à la ferme</h2>
+        <p class="intro reveal">À 5 minutes d’Estavayer, à 15 minutes de Payerne et d’Yverdon.</p>
+        <dl class="reveal" style="margin-top:28px">
+          <div><dt>Adresse</dt><dd>Les Carrons 30<br>1474 Châbles</dd></div>
+          <div><dt>Barbara</dt><dd><a href="tel:+41794050016">079 405 00 16</a></dd></div>
+          <div><dt>Gérard</dt><dd><a href="tel:+41793037671">079 303 76 71</a></dd></div>
+          <div><dt>E-mail</dt><dd><a href="mailto:gerard.wyss@bluewin.ch">gerard.wyss@bluewin.ch</a></dd></div>
+          <div><dt>Paiement</dt><dd>TWINT au self</dd></div>
+        </dl>
+        <div class="actions reveal" style="margin-top:28px">
+          <a class="btn btn-solid" href="https://www.google.com/maps/search/?api=1&amp;query=Les+Carrons+30%2C+1474+Ch%C3%A2bles" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 14.5s5-4.3 5-8.2A5 5 0 0 0 3 6.3c0 3.9 5 8.2 5 8.2Z"/><circle cx="8" cy="6.3" r="1.8"/></svg>
+            Itinéraire
+          </a>
+          <a class="btn btn-line" href="tel:+41794050016">Appeler Barbara</a>
+        </div>
+      </div>
+      <figure class="reveal">
+        <img src="img/poulailler-1000.webp" width="1000" height="750" loading="lazy" alt="Intérieur lumineux du poulailler, poules blanches sur la litière de paille">
+        <figcaption>Le poulailler.</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="brand" href="#"><i class="egg" aria-hidden="true"></i><span style="margin:0;letter-spacing:0;text-transform:none"><b style="color:var(--ink)">Ferme les Tierdzous</b><span>Barbara et Gérard Wyss</span></span></a>
+      <p style="margin-top:18px">Les Carrons 30, 1474 Châbles. Œufs frais plein air, pommes de terre, sirop et pâtes, jus de pomme, miel.</p>
+    </div>
+    <p><a href="tel:+41794050016">079 405 00 16</a> · <a href="tel:+41793037671">079 303 76 71</a><br><a href="mailto:gerard.wyss@bluewin.ch">gerard.wyss@bluewin.ch</a></p>
+    <p class="legal">Aperçu imaginé par Nouvelle Ardoise pour Ferme les Tierdzous · ce n’est pas votre site officiel. Textes et photos tirés de fermelestierdzous.ch.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+  },{rootMargin:'0px 0px -8% 0px',threshold:0.06});
+  els.forEach(function(e,i){
+    if(e.closest('.hero')){e.style.transitionDelay=(i*70)+'ms';}
+    io.observe(e);
+  });
+})();
+</script>
+</body>
+</html>
