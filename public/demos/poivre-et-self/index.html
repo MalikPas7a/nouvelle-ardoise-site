@@ -234,6 +234,44 @@ h1,h2{font-weight:800;letter-spacing:-.025em;line-height:1.04;text-wrap:balance}
 .kpi b{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#c9b9a3}
 .kpi p{color:#efe9dd;margin-top:6px}
 
+
+/* héro v2 */
+.hero-grid{display:grid;gap:clamp(28px,5vw,64px);align-items:center}
+@media (min-width:860px){.hero-grid{grid-template-columns:1fr 440px}}
+.hero .logo{width:min(200px,48vw);margin-bottom:clamp(22px,4vw,36px)}
+.door{display:inline-flex;flex-direction:column;align-items:flex-start;gap:2px;margin-bottom:18px;font-family:Caveat,cursive;line-height:1}
+.door span{font-size:26px;letter-spacing:.06em;text-transform:uppercase;color:var(--brun);font-weight:700}
+.door b{font-family:Manrope,sans-serif;font-weight:800;font-size:clamp(3rem,1.6rem + 4.4vw,4.4rem);letter-spacing:-.045em;line-height:.95;white-space:nowrap}
+.hero h1{font-size:clamp(1.9rem,1.2rem + 2.6vw,3.1rem);max-width:17ch}
+.hero h1 .main{display:block;margin-top:.1em;font-size:1.15em}
+.live{margin-top:26px;max-width:30em}
+.live-s{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
+.live-s i{width:10px;height:10px;border-radius:50%;background:var(--sapin);box-shadow:0 0 0 0 rgba(46,90,70,.5);animation:pulse 2.4s infinite}
+.live.closed .live-s i{background:#a99f90;animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(46,90,70,0)}100%{box-shadow:0 0 0 0 rgba(46,90,70,0)}}
+.dayline{margin-top:12px}
+.day-bar{position:relative;height:8px;border-radius:8px;background:linear-gradient(90deg,var(--ligne) 0 25%,#cfe0d5 25% 91.67%,var(--ligne) 91.67%)}
+.day-bar i{position:absolute;left:25%;top:0;bottom:0;border-radius:8px;background:var(--sapin);width:0}
+.day-bar b{position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--encre);border:3px solid var(--creme);left:0}
+.day-l{position:relative;height:18px;margin-top:6px;font-size:12px;color:var(--gris);font-weight:700}
+.day-l span{position:absolute;transform:translateX(-50%)}
+.day-l span:nth-child(1){left:0;transform:none}.day-l span:nth-child(2){left:25%}.day-l span:nth-child(3){left:91.67%}
+.hero-ph{margin:0;position:relative}
+.hero-ph img{width:100%;border-radius:10px;box-shadow:0 30px 60px -30px rgba(40,30,20,.5)}
+.hero-ph figcaption{margin-top:10px;font-size:13px;color:var(--gris)}
+.toc{list-style:none;padding:0;margin:clamp(32px,5vw,56px) 0 0;display:grid;gap:0 32px}
+@media (min-width:760px){.toc{grid-template-columns:1fr 1fr}}
+.toc a{display:flex;gap:14px;align-items:baseline;text-decoration:none;padding:12px 0;border-top:1px solid var(--ligne);font-weight:600}
+.toc a span{font-size:13px;color:var(--gris);font-weight:700;min-width:1.5em}
+.toc a:hover{color:var(--sapin)}
+.film{background:var(--encre);color:#efe9dd;padding:clamp(56px,8vw,104px) 0}
+.film .kick{color:#c9b9a3}.film h2{font-size:clamp(1.9rem,1.2rem + 3vw,3.1rem);color:#fff;margin-top:10px;max-width:14ch}
+.film .lead{color:#bdb4a6;margin-top:14px;max-width:28em}
+.film-grid{display:grid;gap:32px;align-items:center}
+@media (min-width:860px){.film-grid{grid-template-columns:1fr 360px}}
+.vid{width:min(360px,100%);margin:0 auto}
+.vid video{width:100%;height:auto;border-radius:18px;background:#000;display:block}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .wa-in .msg{opacity:1;transform:none}
@@ -245,11 +283,25 @@ h1,h2{font-weight:800;letter-spacing:-.025em;line-height:1.04;text-wrap:balance}
 <p class="note">Démo préparée pour <b>Poivre et Self</b> par Nouvelle Ardoise. Plats, prix, prénoms et chiffres sont des exemples.</p>
 
 <header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-txt">
+      <img class="logo" src="img/logo-poivre-et-self.png" width="562" height="317" alt="Poivre et Self, Sottens, ouvert 7 jours sur 7">
+      <p class="door" aria-label="Bienvenue, de 6 heures à 22 heures"><span>Bienvenue</span><b class="num">6:00 – 22:00</b></p>
+      <h1>Votre épicerie ne ferme presque jamais. <span class="main">Vos plats non plus.</span></h1>
+      <p class="lead">Les plats du Chef Clot se commandent en 30 secondes sur le téléphone, se paient avec Twint et se retirent à l'épicerie, comme le reste : sans caisse et sans attente.</p>
+      <div class="live" id="live" aria-live="polite">
+        <p class="live-s"><i aria-hidden="true"></i><span id="liveTxt">Ouvert tous les jours de 6h à 22h</span></p>
+        <div class="dayline" aria-hidden="true"><div class="day-bar"><i id="dayFill"></i><b id="dayDot"></b></div><div class="day-l"><span>minuit</span><span>6h</span><span>22h</span></div></div>
+      </div>
+    </div>
+    <figure class="hero-ph">
+      <img src="img/facade-poivre-et-self.jpg" srcset="img/facade-poivre-et-self-440.jpg 440w, img/facade-poivre-et-self.jpg 878w" sizes="(min-width:860px) 440px, 92vw" width="878" height="1024" alt="La façade de Poivre et Self à Sottens : Bienvenue, 6:00 – 22:00, ouverture 7 sur 7" fetchpriority="high">
+      <figcaption>Route de Moudon 3A, Sottens</figcaption>
+    </figure>
+  </div>
   <div class="wrap">
-    <img class="logo" src="img/logo-poivre-et-self.png" width="562" height="317" alt="Poivre et Self, Sottens, ouvert 7 jours sur 7">
-    <h1>Les plats du Chef Clot, commandés <span class="main">en 30 secondes.</span></h1>
-    <p class="lead">Pour les fêtes d'abord, puis chaque semaine. Sans appli à installer et sans caisse, comme votre épicerie. Vos clients commandent et paient sur leur téléphone, WhatsApp s'occupe des confirmations et des rappels, et vous voyez tout, trié par jour de retrait.</p>
-    <ol>
+    <ol class="toc">
+      <li><a href="#film"><span>00</span>Le film de 30 secondes</a></li>
       <li><a href="#commande"><span>01</span>Le client commande et paie avec Twint</a></li>
       <li><a href="#rappels"><span>02</span>Confirmation et rappel sur WhatsApp</a></li>
       <li><a href="#semaine"><span>03</span>Le plat de la semaine, chez vos fidèles</a></li>
@@ -260,6 +312,17 @@ h1,h2{font-weight:800;letter-spacing:-.025em;line-height:1.04;text-wrap:balance}
     </ol>
   </div>
 </header>
+
+<section class="film" id="film" aria-labelledby="t0">
+  <div class="wrap film-grid">
+    <div>
+      <p class="kick">00 · Le film</p>
+      <h2 id="t0">Tout le projet en 30 secondes.</h2>
+      <p class="lead">De 6h du matin au menu de fêtes, avec votre vraie façade et votre vraie épicerie. Sans musique : on lit le texte, le son est coupé.</p>
+    </div>
+    <div class="vid"><video src="video/poivre-et-self.mp4" poster="video/affiche-video.jpg" controls playsinline preload="none" width="1080" height="1920" aria-label="Film de présentation : Poivre et Self, les plats du Chef Clot"></video></div>
+  </div>
+</section>
 
 <main>
 <!-- 01 commande -->
@@ -578,6 +641,18 @@ h1,h2{font-weight:800;letter-spacing:-.025em;line-height:1.04;text-wrap:balance}
     if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const n=(i+(e.key==='ArrowRight'?1:2))%3;show(n);tabs[n].focus()}
   });
   show(1);
+
+  // héro : ouvert maintenant, heure de Sottens
+  try{
+    const f=new Intl.DateTimeFormat('fr-CH',{timeZone:'Europe/Zurich',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+    const tick=()=>{
+      const [h,m]=f.format(new Date()).split(':').map(Number),min=h*60+m,open=min>=360&&min<1320;
+      const live=document.getElementById('live');live.classList.toggle('closed',!open);
+      document.getElementById('liveTxt').textContent=open?'Ouvert en ce moment à Sottens · jusqu’à 22h':'Fermé pour la nuit · réouverture à 6h, et la commande en ligne reste ouverte';
+      const pc=min/1440*100;document.getElementById('dayDot').style.left=pc+'%';
+      document.getElementById('dayFill').style.width=Math.max(0,Math.min(min,1320)-360)/1440*100+'%';
+    };tick();setInterval(tick,30000);
+  }catch(e){}
 })();
 </script>
 </body>
