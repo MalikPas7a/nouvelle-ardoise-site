@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Les Bergers chez Benzine · Spécialités valaisannes à Siviez (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour le Restaurant les Bergers chez Benzine, spécialités valaisannes à Siviez (Nendaz), Route de Siviez 27.">
+<meta name="theme-color" content="#f3eee3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,560;1,9..144,400&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/sentier-960.webp" imagesrcset="img/sentier-960.webp 960w, img/sentier-1920.webp 1920w" imagesizes="(min-width: 900px) 58vw, 100vw">
+<style>
+:root{
+  --creme:#f3eee3;
+  --creme-2:#e9e1d1;
+  --papier:#fbf8f2;
+  --sapin:#1d3329;
+  --sapin-2:#2c4a3c;
+  --texte:#22261f;
+  --doux:#5d5a4f;
+  --ligne:#d6ccb9;
+  --rouge:#b0281f;
+  --rouge-fonce:#8f1f18;
+  --serif:"Fraunces", Georgia, serif;
+  --sans:"Figtree", system-ui, -apple-system, sans-serif;
+  --g:clamp(20px, 5vw, 64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--creme);color:var(--texte);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--rouge);outline-offset:3px;border-radius:2px}
+
+/* bandeau aperçu */
+.apercu{background:var(--sapin);color:#cfd8cf;font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff;font-weight:500}
+
+/* nappe vichy : rappel des nappes de la salle */
+.vichy{height:16px;background:
+  repeating-linear-gradient(90deg, rgba(176,40,31,.5) 0 8px, transparent 8px 16px),
+  repeating-linear-gradient(0deg, rgba(176,40,31,.5) 0 8px, transparent 8px 16px), var(--papier)}
+
+/* entête */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px var(--g);background:rgba(243,238,227,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne)}
+.marque{display:flex;align-items:center;gap:10px;text-decoration:none}
+.marque img{width:38px;height:auto;mix-blend-mode:multiply}
+.marque span{font:560 19px/1 var(--serif);letter-spacing:-.005em;white-space:nowrap}
+.marque em{font-style:italic;font-weight:400;color:var(--rouge)}
+.top nav{display:flex;align-items:center;gap:28px}
+.top nav a.l{font-size:14.5px;text-decoration:none;color:var(--doux);transition:color .2s}
+.top nav a.l:hover{color:var(--texte)}
+.btn-ligne{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1px solid var(--sapin);border-radius:999px;font:500 14.5px/1 var(--sans);text-decoration:none;white-space:nowrap;transition:background .2s,color .2s}
+.btn-ligne:hover{background:var(--sapin);color:var(--creme)}
+@media (max-width:719px){.top nav a.l{display:none}.btn-ligne .long{display:none}.btn-ligne{padding:0 14px;font-size:14px}.marque img{width:32px}}
+@media (max-width:479px){.marque em{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1fr}
+.hero-img{position:relative;height:min(64svh,560px);min-height:360px;overflow:hidden;background:var(--creme-2)}
+.hero-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:42% 50%}
+.alt{position:absolute;left:var(--g);bottom:18px;color:#fff;font:500 12px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.45)}
+.hero-txt{padding:36px var(--g) 52px}
+.sur{font:600 12px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)}
+h1{font:400 clamp(50px, 13.5vw, 112px)/.92 var(--serif);letter-spacing:-.025em;color:var(--sapin);margin:16px 0 20px}
+h1 em{display:block;font-style:italic;font-size:.56em;letter-spacing:-.01em;color:var(--rouge);margin-top:.2em}
+.chapo{font-size:clamp(18px, 1.6vw, 21px);line-height:1.5;color:var(--doux);max-width:34ch}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 26px;border-radius:999px;background:var(--rouge);color:#fff;font:600 16px/1 var(--sans);text-decoration:none;transition:background .2s, transform .15s}
+.btn:hover{background:var(--rouge-fonce)}
+.btn:active{transform:scale(.98)}
+.btn.sec{background:transparent;color:var(--sapin);border:1px solid var(--sapin)}
+.btn.sec:hover{background:var(--sapin);color:var(--creme)}
+@media (max-width:400px){.btn{padding:0 20px;font-size:15px}}
+.note{margin-top:18px;font-size:14.5px;color:var(--doux);font-variant-numeric:tabular-nums}
+@media (min-width:900px){
+  .hero{grid-template-columns:5fr 7fr;min-height:calc(100svh - 104px)}
+  .hero-txt{order:-1;align-self:center;padding:72px var(--g)}
+  .hero-img{height:auto;min-height:600px}
+  h1{font-size:clamp(64px, 6vw, 92px)}
+}
+
+/* sections */
+section{padding:clamp(76px, 11vw, 144px) var(--g)}
+.wrap{max-width:1200px;margin:0 auto}
+h2{font:400 clamp(38px, 6.6vw, 68px)/1.02 var(--serif);letter-spacing:-.02em;color:var(--sapin)}
+h2 em{font-style:italic;color:var(--rouge)}
+
+/* histoire */
+.histoire{background:var(--papier);border-bottom:1px solid var(--ligne)}
+.histoire .wrap{max-width:980px}
+.histoire blockquote{font:400 clamp(30px, 5.4vw, 56px)/1.12 var(--serif);letter-spacing:-.015em;color:var(--sapin);margin-top:22px}
+.histoire blockquote em{color:var(--rouge)}
+.histoire .cols{display:grid;gap:22px;margin-top:40px;color:var(--doux);font-size:17.5px}
+@media (min-width:800px){.histoire .cols{grid-template-columns:1fr 1fr;gap:48px}}
+.histoire .cols b{color:var(--texte);font-weight:600}
+.chiffres{display:flex;flex-wrap:wrap;gap:28px 56px;margin-top:48px;padding-top:28px;border-top:1px solid var(--ligne)}
+.chiffres div{display:flex;flex-direction:column}
+.chiffres strong{font:400 clamp(40px, 6vw, 56px)/1 var(--serif);color:var(--sapin);font-variant-numeric:lining-nums}
+.chiffres span{font-size:14px;color:var(--doux);margin-top:6px}
+
+/* saisons */
+.saisons .grid{display:grid;gap:40px;margin-top:44px}
+@media (min-width:900px){.saisons .grid{grid-template-columns:1fr 1fr;gap:28px}}
+.saison figure{overflow:hidden;border-radius:3px;aspect-ratio:16/9;background:var(--creme-2)}
+.saison figure img{width:100%;height:100%;object-fit:cover}
+.saison .t{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:18px;padding-bottom:10px;border-bottom:1px solid var(--ligne)}
+.saison h3{font:400 28px/1.15 var(--serif);color:var(--sapin)}
+.saison .t span{font:600 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)}
+.saison p{margin-top:12px;color:var(--doux);max-width:44ch}
+
+/* carte */
+.carte{background:var(--sapin);color:#e7e9df}
+.carte .sur{color:#e9a29b}
+.carte h2{color:var(--creme)}
+.carte h2 em{color:#e9a29b}
+.carte .tete{display:grid;gap:36px;margin-bottom:56px}
+.carte .tete p{max-width:46ch;color:#bfc8bc;margin-top:20px}
+.carte .tete figure{overflow:hidden;border-radius:3px;aspect-ratio:1/1;max-width:520px}
+.carte .tete figure img{width:100%;height:100%;object-fit:cover}
+.carte .tete figcaption{font-size:13.5px;color:#a9b4a6;margin-top:10px}
+@media (min-width:900px){.carte .tete{grid-template-columns:7fr 5fr;align-items:end;gap:clamp(48px,7vw,110px)}.carte .tete figure{justify-self:end;width:100%}}
+.carte .cols{display:grid;gap:48px}
+@media (min-width:900px){.carte .cols{grid-template-columns:repeat(3,1fr);gap:56px}}
+.cat h3{font:600 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#bfc8bc;padding-bottom:14px;border-bottom:1px solid #6f8577}
+.plat{padding:18px 0;border-bottom:1px solid #3d5a4c}
+.plat .nom{font:400 22px/1.25 var(--serif);color:var(--creme)}
+.plat p{font-size:15px;color:#b7c1b4;margin-top:4px;max-width:40ch}
+.carte .pied{margin-top:44px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;color:#bfc8bc;font-size:15px}
+.btn.clair{background:var(--creme);color:var(--sapin)}
+.btn.clair:hover{background:#fff}
+
+/* galerie */
+.galerie .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:40px}
+.galerie figure{position:relative;overflow:hidden;border-radius:3px;background:var(--creme-2)}
+.galerie figure img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.galerie figure:hover img{transform:scale(1.03)}
+.galerie figcaption{position:absolute;left:0;right:0;bottom:0;padding:30px 14px 12px;font-size:14px;background:linear-gradient(transparent, rgba(0,0,0,.6));color:#fff}
+.galerie .a{grid-column:1/-1;aspect-ratio:15/8}
+.galerie .b,.galerie .c{aspect-ratio:3/4}
+.galerie .d{grid-column:1/-1;aspect-ratio:4/3}
+.galerie .d img{object-position:50% 30%}
+@media (min-width:900px){
+  .galerie .grid{grid-template-columns:repeat(12,1fr);grid-auto-rows:120px;gap:14px}
+  .galerie .a{grid-column:1/8;grid-row:span 3;aspect-ratio:auto}
+  .galerie .b{grid-column:8/13;grid-row:span 6;aspect-ratio:auto}
+  .galerie .c{grid-column:1/4;grid-row:span 3;aspect-ratio:auto}
+  .galerie .d{grid-column:4/8;grid-row:span 3;aspect-ratio:auto}
+  .galerie .e{grid-column:8/13;grid-row:span 1}
+}
+.galerie .e{grid-column:1/-1;display:flex;align-items:center;font:italic 400 19px/1.35 var(--serif);color:var(--doux);padding:4px 0}
+
+/* événements */
+.events{background:var(--papier);border-top:1px solid var(--ligne);border-bottom:1px solid var(--ligne)}
+.events .wrap{display:grid;gap:28px}
+@media (min-width:900px){.events .wrap{grid-template-columns:6fr 5fr;gap:clamp(48px,7vw,110px);align-items:end}}
+.events p{color:var(--doux);max-width:48ch}
+.events ul{list-style:none;margin-top:22px;border-top:1px solid var(--ligne)}
+.events li{padding:14px 0;border-bottom:1px solid var(--ligne);display:flex;justify-content:space-between;gap:16px}
+.events li span:last-child{color:var(--doux);text-align:right}
+
+/* infos */
+.infos .wrap{display:grid;gap:48px}
+@media (min-width:900px){.infos .wrap{grid-template-columns:6fr 5fr;gap:clamp(48px,7vw,110px);align-items:stretch}}
+.infos dl{margin-top:36px;border-top:1px solid var(--ligne)}
+.infos dl div{display:grid;grid-template-columns:1fr;gap:4px;padding:20px 0;border-bottom:1px solid var(--ligne)}
+@media (min-width:600px){.infos dl div{grid-template-columns:150px 1fr}}
+.infos dt{font:600 12px/1.9 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--doux)}
+.infos dd{font-size:18px}
+.infos dd a{text-decoration:none;border-bottom:1px solid var(--ligne);transition:border-color .2s}
+.infos dd a:hover{border-color:var(--rouge)}
+.infos dd .h{display:flex;justify-content:space-between;max-width:300px;font-variant-numeric:tabular-nums}
+.infos .actions{margin-top:36px}
+.infos figure{position:relative;overflow:hidden;border-radius:3px;aspect-ratio:4/5;background:var(--creme-2)}
+.infos figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.infos .leg{position:absolute;left:0;right:0;bottom:0;padding:30px 14px 12px;font-size:14px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.55))}
+@media (min-width:900px){.infos figure{aspect-ratio:auto;min-height:520px;max-height:640px}}
+
+footer{background:var(--sapin);color:#bfc8bc;padding:56px var(--g) 120px;font-size:14.5px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
+footer .nom{font:400 30px/1.05 var(--serif);color:var(--creme)}
+footer .nom em{color:#e9a29b}
+footer a{text-decoration:none;border-bottom:1px solid #4d6a5b}
+footer .credit{margin-top:32px;font-size:12.5px;color:#9fac9c}
+@media (min-width:900px){footer{padding-bottom:56px}}
+
+/* barre mobile */
+.barre{position:fixed;left:12px;right:12px;bottom:max(12px, env(safe-area-inset-bottom));z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px;border-radius:999px;background:rgba(29,51,41,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transform:translateY(160%);opacity:0;visibility:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .3s,visibility 0s .45s}
+.barre.on{transform:none;opacity:1;visibility:visible;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.barre a{min-height:46px;display:flex;align-items:center;justify-content:center;border-radius:999px;font:600 15px/1 var(--sans);text-decoration:none}
+.barre a:first-child{background:var(--rouge);color:#fff}
+.barre a:last-child{color:var(--creme)}
+@media (min-width:900px){.barre{display:none}}
+
+/* apparitions */
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .rv.vu{opacity:1;transform:none}
+.js .hero-img img{transform:scale(1.035);transition:transform 1.8s cubic-bezier(.2,.7,.2,1)}
+.js .charge .hero-img img{transform:none}
+@media (prefers-reduced-motion: reduce){
+  .js .rv{opacity:1;transform:none;transition:none}
+  .js .hero-img img{transform:none;transition:none}
+  .galerie figure img,.barre{transition:none}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<div class="apercu" role="note">Aperçu imaginé par <strong>Nouvelle Ardoise</strong> pour Les Bergers chez Benzine · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <a class="marque" href="#"><img src="img/logo-184.webp" width="184" height="202" alt=""><span>Les Bergers <em>chez Benzine</em></span></a>
+  <nav aria-label="Navigation principale">
+    <a class="l" href="#carte">Spécialités</a>
+    <a class="l" href="#infos">Horaires &amp; accès</a>
+    <a class="btn-ligne" href="tel:+41272881828"><span class="long">Réserver&nbsp;·&nbsp;</span>027 288 18 28</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" style="padding:0" aria-labelledby="titre">
+    <div class="hero-img">
+      <img src="img/sentier-960.webp" srcset="img/sentier-960.webp 960w, img/sentier-1920.webp 1920w" sizes="(min-width: 900px) 58vw, 100vw" width="1920" height="1280" alt="Chemin de randonnée entre mélèzes et alpages, sommets du val de Nendaz en arrière-plan" fetchpriority="high">
+      <p class="alt">Au départ des randonnées</p>
+    </div>
+    <div class="hero-txt">
+      <p class="sur">Spécialités valaisannes · Siviez (Nendaz)</p>
+      <h1 id="titre">Les Bergers<em>chez Benzine</em></h1>
+      <p class="chapo">De la cuisine traditionnelle à 1730 mètres d’altitude : au pied des pistes l’hiver, au départ des randonnées l’été.</p>
+      <div class="actions">
+        <a class="btn" href="tel:+41272881828">Réserver au 027 288 18 28</a>
+        <a class="btn sec" href="#carte">Nos spécialités</a>
+      </div>
+      <p class="note">Ouvert tous les jours, 8h00 – 23h00 · Route de Siviez&nbsp;27</p>
+    </div>
+  </section>
+  <div class="vichy" aria-hidden="true"></div>
+
+  <section class="histoire" aria-labelledby="t-hist">
+    <div class="wrap">
+      <p class="sur rv" id="t-hist">Depuis plus de 40 ans</p>
+      <blockquote class="rv">Un lieu où les gens du pays rencontrent les touristes <em>dans la bonne humeur.</em></blockquote>
+      <div class="cols">
+        <p class="rv">Restaurant historique, <b>l’un des premiers lieux de restauration de Siviez</b>, les Bergers réunissent depuis plus de quarante ans les locaux et les gens de passage autour des spécialités de la région.</p>
+        <p class="rv">Depuis 2015, <b>Madame Sandra</b> a repris la maison et la fait vivre dans une ambiance chaleureuse et conviviale : une cuisine valaisanne, familiale, dans un décor de chalet.</p>
+      </div>
+      <div class="chiffres rv">
+        <div><strong>1730 m</strong><span>d’altitude, à Siviez</span></div>
+        <div><strong>40 ans</strong><span>et plus, au même endroit</span></div>
+        <div><strong>7 / 7</strong><span>de 8h00 à 23h00</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="saisons" aria-labelledby="t-sais">
+    <div class="wrap">
+      <p class="sur rv">Été comme hiver</p>
+      <h2 id="t-sais" class="rv" style="margin-top:16px">Avant ou après<br><em>la montagne.</em></h2>
+      <div class="grid">
+        <article class="saison rv">
+          <figure><img src="img/hiver-720.webp" srcset="img/hiver-720.webp 720w, img/hiver-1280.webp 1280w" sizes="(min-width: 900px) 48vw, 100vw" width="1280" height="642" loading="lazy" alt="Siviez sous la neige, les chalets au bord des pistes"></figure>
+          <div class="t"><h3>Au bord des pistes</h3><span>Hiver</span></div>
+          <p>Après le ski, on vient se réchauffer à l’intérieur, dans un chaleureux décor de chalet.</p>
+        </article>
+        <article class="saison rv">
+          <figure><img src="img/cabane-960.webp" srcset="img/cabane-960.webp 960w, img/cabane-1920.webp 1920w" sizes="(min-width: 900px) 48vw, 100vw" width="1920" height="800" loading="lazy" alt="Le kiosque en bois de la terrasse, panneaux « Alt. 1730 m » et « Les Bergers Siviez », forêt de sapins derrière"></figure>
+          <div class="t"><h3>Au départ des bisses</h3><span>Été</span></div>
+          <p>Le sentier des bisses part d’ici. Au retour de randonnée, la grande terrasse vous attend.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="carte" id="carte" aria-labelledby="t-carte">
+    <div class="wrap">
+      <div class="tete">
+        <div>
+          <p class="sur rv">Nos spécialités</p>
+          <h2 id="t-carte" class="rv" style="margin-top:16px">Le Valais<br><em>dans l’assiette.</em></h2>
+          <p class="rv">Une cuisine faite maison, préparée selon les saisons et pour toute la famille, à base de fromages et de viandes de la région.</p>
+        </div>
+        <figure class="rv"><img src="img/planchette-720.webp" srcset="img/planchette-720.webp 720w, img/planchette-1400.webp 1400w" sizes="(min-width: 900px) 36vw, 100vw" width="1400" height="1400" loading="lazy" alt="Planchette valaisanne : viande séchée, lard, jambon cru, fromage, ail et une fraise"><figcaption>La planchette valaisanne</figcaption></figure>
+      </div>
+      <div class="cols">
+        <div class="cat rv">
+          <h3>Autour du fromage</h3>
+          <div class="plat"><p class="nom">Raclette à discrétion</p></div>
+          <div class="plat"><p class="nom">Fondue aux trois fromages</p><p>Fromages de la Laiterie de Haute-Nendaz. Nature, à la tomate ou aux bolets.</p></div>
+          <div class="plat"><p class="nom">Croûte au fromage</p><p>Nature ou complète.</p></div>
+        </div>
+        <div class="cat rv">
+          <h3>Du pays</h3>
+          <div class="plat"><p class="nom">Planchette valaisanne</p><p>Petite ou grande.</p></div>
+          <div class="plat"><p class="nom">Salade des alpages</p><p>Salade verte, viande séchée, champignons frais, fromage.</p></div>
+          <div class="plat"><p class="nom">Burger valaisan</p><p>Pur bœuf, viande séchée, fromage à raclette, oignons caramélisés.</p></div>
+        </div>
+        <div class="cat rv">
+          <h3>Et pour tous les goûts</h3>
+          <div class="plat"><p class="nom">Entrecôte Café de Paris</p></div>
+          <div class="plat"><p class="nom">Pizzas &amp; burgers maison</p></div>
+          <div class="plat"><p class="nom">Crêpes maison</p><p>Sucrées, en dessert ou au goûter.</p></div>
+          <div class="plat"><p class="nom">La chasse</p><p>Une fois l’automne arrivé.</p></div>
+        </div>
+      </div>
+      <div class="pied rv">
+        <span>Une sélection de la carte. Demandez les suggestions du moment.</span>
+        <a class="btn clair" href="tel:+41272881828">Réserver une table</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="galerie" aria-labelledby="t-gal">
+    <div class="wrap">
+      <p class="sur rv">À table</p>
+      <h2 id="t-gal" class="rv" style="margin-top:16px">Fait maison,<br><em>servi généreux.</em></h2>
+      <div class="grid">
+        <figure class="a rv"><img src="img/raclette-750.webp" srcset="img/raclette-750.webp 750w, img/raclette-1500.webp 1500w" sizes="(min-width: 900px) 58vw, 100vw" width="1500" height="800" loading="lazy" alt="Assiette de raclette, cornichons, petits maïs et pickles, sur une nappe à carreaux rouges"><figcaption>Raclette</figcaption></figure>
+        <figure class="b rv"><img src="img/tartelettes-720.webp" srcset="img/tartelettes-720.webp 720w, img/tartelettes-1200.webp 1200w" sizes="(min-width: 900px) 40vw, 50vw" width="1200" height="1600" loading="lazy" alt="Tartelettes à la meringue dorée, posées sur une ardoise"><figcaption>Tartelettes meringuées</figcaption></figure>
+        <figure class="c rv"><img src="img/planchette-2-712.webp" width="712" height="712" loading="lazy" alt="Planchette sur rondin de bois : viande séchée, lard, fromage, cornichons et tomate cerise"><figcaption>Planchette du pays</figcaption></figure>
+        <figure class="d rv"><img src="img/tarte-meringuee-600.webp" srcset="img/tarte-meringuee-600.webp 600w, img/tarte-meringuee-1000.webp 1000w" sizes="(min-width: 900px) 32vw, 100vw" width="1000" height="1420" loading="lazy" alt="Tarte recouverte de petites meringues dorées"><figcaption>Tarte meringuée</figcaption></figure>
+        <p class="e rv">Croûtes au fromage, planchettes, burgers maison, fondues, pizzas, raclettes… il y en a pour tous les goûts.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="events" aria-labelledby="t-ev">
+    <div class="wrap">
+      <div>
+        <p class="sur rv">Privatiser le restaurant</p>
+        <h2 id="t-ev" class="rv" style="margin-top:16px">Votre événement,<br><em>sur mesure.</em></h2>
+        <p class="rv" style="margin-top:20px">Entreprise, amis ou famille : le restaurant se privatise, avec un menu composé pour vos convives.</p>
+      </div>
+      <div class="rv">
+        <ul>
+          <li><span>Service</span><span>À l’assiette ou en buffet froid</span></li>
+          <li><span>Menu</span><span>Sur mesure</span></li>
+          <li><span>Demande</span><span><a href="mailto:sandra.larger@yahoo.fr">sandra.larger@yahoo.fr</a></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="infos" id="infos" aria-labelledby="t-infos">
+    <div class="wrap">
+      <div>
+        <p class="sur rv">Nous trouver</p>
+        <h2 id="t-infos" class="rv" style="margin-top:16px">Route de Siviez 27,<br><em>à 1730 mètres.</em></h2>
+        <dl class="rv">
+          <div><dt>Adresse</dt><dd><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Route%20de%20Siviez%2027%2C%201997%20Siviez%20(Nendaz)" target="_blank" rel="noopener">Route de Siviez 27<br>1997 Siviez (Nendaz)</a></dd></div>
+          <div><dt>Horaires</dt><dd><span class="h"><span>Lundi – dimanche</span><span>8h00 – 23h00</span></span></dd></div>
+          <div><dt>Réservations</dt><dd><a href="tel:+41272881828">027 288 18 28</a></dd></div>
+          <div><dt>Écrire</dt><dd><a href="mailto:sandra.larger@yahoo.fr">sandra.larger@yahoo.fr</a></dd></div>
+        </dl>
+        <div class="actions rv">
+          <a class="btn" href="tel:+41272881828">Appeler pour réserver</a>
+          <a class="btn sec" href="https://www.google.com/maps/dir/?api=1&amp;destination=Route%20de%20Siviez%2027%2C%201997%20Siviez%20(Nendaz)" target="_blank" rel="noopener">Itinéraire</a>
+        </div>
+      </div>
+      <figure class="rv"><img src="img/racleuse-696.webp" width="696" height="825" loading="lazy" alt="La salle en bois et sa cheminée, le racloir à raclette et sa demi-meule au premier plan"><figcaption class="leg">La salle, décor de chalet</figcaption></figure>
+    </div>
+  </section>
+</main>
+
+<div class="vichy" aria-hidden="true"></div>
+<footer>
+  <div class="wrap">
+    <div>
+      <p class="nom">Les Bergers<br><em>chez Benzine</em></p>
+      <p style="margin-top:10px">Restaurant de spécialités valaisannes</p>
+    </div>
+    <div>
+      <p>Route de Siviez 27, 1997 Siviez (Nendaz)</p>
+      <p><a href="tel:+41272881828">027 288 18 28</a> · <a href="mailto:sandra.larger@yahoo.fr">sandra.larger@yahoo.fr</a></p>
+      <p style="margin-top:6px"><a href="https://www.facebook.com/Chez-benzine-a-siviez-387978941771115" target="_blank" rel="noopener">Facebook</a></p>
+    </div>
+  </div>
+  <p class="wrap credit">Aperçu imaginé par Nouvelle Ardoise pour Les Bergers chez Benzine · ce n'est pas votre site officiel. Photos et textes : restaurant-les-bergers.ch.</p>
+</footer>
+
+<nav class="barre" aria-label="Actions rapides">
+  <a href="tel:+41272881828">Réserver</a>
+  <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Route%20de%20Siviez%2027%2C%201997%20Siviez%20(Nendaz)" target="_blank" rel="noopener">Itinéraire</a>
+</nav>
+
+<script>
+(function(){
+  var reduit = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  requestAnimationFrame(function(){ document.body.classList.add('charge'); });
+  var els = document.querySelectorAll('.rv');
+  if (reduit || !('IntersectionObserver' in window)) { els.forEach(function(e){ e.classList.add('vu'); }); }
+  else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('vu'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    els.forEach(function(e){ io.observe(e); });
+  }
+  var barre = document.querySelector('.barre'), hero = document.querySelector('.hero');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(en){ barre.classList.toggle('on', !en[0].isIntersecting); }).observe(hero);
+  }
+})();
+</script>
+</body>
+</html>
