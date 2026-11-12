@@ -171,6 +171,69 @@ h1,h2{font-weight:800;letter-spacing:-.025em;line-height:1.04;text-wrap:balance}
 .btn:active{transform:scale(.97)}
 .sign{margin-top:36px;font-size:13px;color:var(--gris);border-top:1px solid var(--ligne);padding-top:18px}
 
+
+/* 05 supports imprimés */
+.plv{display:grid;gap:clamp(22px,4vw,40px);margin-top:clamp(32px,5vw,52px);align-items:end}
+@media (min-width:860px){.plv{grid-template-columns:1.15fr .8fr .9fr}}
+.plv figure{margin:0;container-type:inline-size}
+.plv figcaption{margin-top:14px;font-size:14px;color:var(--gris);max-width:30em}
+.plv figcaption b{display:block;color:var(--encre);font-size:15px;margin-bottom:2px}
+.print{position:relative;border-radius:4px;box-shadow:0 1px 0 rgba(0,0,0,.05),0 24px 40px -24px rgba(40,30,20,.5);overflow:hidden}
+.qr{background:#fff;padding:5%;border-radius:6px;width:30cqw}
+.qr img{width:100%;height:auto}
+.a3{aspect-ratio:297/420;background:var(--encre);color:#f3ede2;padding:9cqw 8cqw;display:flex;flex-direction:column}
+.a3 .pt{width:15cqw;filter:invert(1)}
+.a3 h3{font-size:10.5cqw;font-weight:800;letter-spacing:-.03em;line-height:1;margin-top:8cqw}
+.a3 h3 em{font-family:Caveat,cursive;font-style:normal;font-weight:700;color:#cfe3d6;font-size:1.12em;letter-spacing:0}
+.a3 p{font-size:4.1cqw;color:#c9c1b4;margin-top:5cqw;line-height:1.4}
+.a3 .row{margin-top:auto;display:flex;align-items:flex-end;gap:5cqw}
+.a3 .row p{margin:0;font-size:3.7cqw;color:#f3ede2;font-weight:700}
+.a3 .foot{margin-top:6cqw;padding-top:4cqw;border-top:1px solid #4a443c;font-size:3cqw;color:#a99f90;letter-spacing:.06em;text-transform:uppercase}
+.tent{aspect-ratio:105/148;background:var(--papier);padding:9cqw 9cqw;display:flex;flex-direction:column;border:1px solid var(--ligne)}
+.tent .k{font-size:4.6cqw;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--brun)}
+.tent .dish{font-family:Caveat,cursive;font-weight:700;font-size:15cqw;line-height:.95;margin-top:6cqw;color:var(--encre)}
+.tent .by{font-size:5cqw;color:var(--gris);margin-top:4cqw}
+.tent .row{margin-top:auto;display:flex;gap:5cqw;align-items:flex-end}
+.tent .qr{width:30cqw;padding:0;background:none}
+.tent .row p{font-size:4.6cqw;font-weight:700;line-height:1.3}
+.a6{aspect-ratio:148/105;background:#fff;display:grid;grid-template-columns:1fr 38%;border:1px solid var(--ligne)}
+.a6 .l{padding:7cqw 6cqw;display:flex;flex-direction:column}
+.a6 .l small{font-size:2.8cqw;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sapin)}
+.a6 .l h3{font-size:6.6cqw;font-weight:800;letter-spacing:-.025em;line-height:1.02;margin-top:2.5cqw}
+.a6 .l p{font-size:2.9cqw;color:var(--gris);margin-top:auto;line-height:1.4}
+.a6 .r{background:var(--sapin);color:#fff;padding:6cqw 5cqw;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3cqw;text-align:center}
+.a6 .r .qr{width:22cqw}
+.a6 .r p{font-size:2.9cqw;font-weight:700;line-height:1.25}
+/* 06 photos */
+.shots{list-style:none;padding:0;margin:clamp(28px,4vw,44px) 0 0;display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+@media (min-width:760px){.shots{grid-template-columns:repeat(4,1fr)}}
+.shots li{aspect-ratio:4/5;border:1.5px dashed #c9bca6;border-radius:12px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;background:var(--creme)}
+.shots li span{font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--brun)}
+.shots li b{font-size:15px;line-height:1.25}
+.shots li small{display:block;font-size:12.5px;color:var(--gris);margin-top:4px;font-weight:500}
+.uses{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.uses span{font-size:13px;font-weight:700;border-radius:999px;padding:6px 12px;background:#e4efe8;color:var(--sapin2)}
+/* 07 prospection */
+.cards{display:grid;gap:14px;margin-top:clamp(28px,4vw,44px)}
+@media (min-width:760px){.cards{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--papier);border:1px solid var(--ligne);border-radius:16px;padding:20px}
+.card b{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--brun)}
+.card h3{font-size:1.2rem;font-weight:800;margin:6px 0 8px;letter-spacing:-.01em}
+.card p{color:var(--gris);font-size:.98rem}
+.card p+p{margin-top:8px;color:var(--encre);font-weight:600}
+/* calendrier */
+.cal{list-style:none;padding:0;margin:clamp(28px,4vw,44px) 0 0;display:grid;gap:0}
+.cal li{display:grid;grid-template-columns:7.5em 1fr;gap:16px;padding:16px 0;border-top:1px solid #4a443c}
+.cal li b{font-size:14px;color:#c9b9a3;font-variant-numeric:tabular-nums}
+.cal li h3{font-size:1.1rem;font-weight:800;color:#fff}
+.cal li p{color:#bdb4a6;font-size:.96rem;margin-top:2px}
+.cal li.key b,.cal li.key h3{color:#cfe3d6}
+.kpi{display:grid;gap:12px;margin-top:clamp(28px,4vw,44px)}
+@media (min-width:760px){.kpi{grid-template-columns:repeat(3,1fr)}}
+.kpi div{border:1px solid #4a443c;border-radius:14px;padding:16px}
+.kpi b{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#c9b9a3}
+.kpi p{color:#efe9dd;margin-top:6px}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .wa-in .msg{opacity:1;transform:none}
@@ -191,6 +254,9 @@ h1,h2{font-weight:800;letter-spacing:-.025em;line-height:1.04;text-wrap:balance}
       <li><a href="#rappels"><span>02</span>Confirmation et rappel sur WhatsApp</a></li>
       <li><a href="#semaine"><span>03</span>Le plat de la semaine, chez vos fidèles</a></li>
       <li><a href="#chef"><span>04</span>Le chef voit tout, trié</a></li>
+      <li><a href="#magasin"><span>05</span>Affiche, chevalet et flyer</a></li>
+      <li><a href="#photos"><span>06</span>Les vraies photos</a></li>
+      <li><a href="#prospection"><span>07</span>Les commandes de groupe</a></li>
     </ol>
   </div>
 </header>
@@ -341,16 +407,98 @@ h1,h2{font-weight:800;letter-spacing:-.025em;line-height:1.04;text-wrap:balance}
   </div>
 </section>
 
-<!-- mise en place -->
+<!-- 05 supports imprimés -->
+<section class="step" id="magasin" aria-labelledby="t7">
+  <div class="wrap">
+    <p class="kick">05 · Dans l'épicerie et les villages</p>
+    <h2 id="t7">Pour que tout le monde l'apprenne, pas seulement ceux qui ont Facebook.</h2>
+    <p class="lead">Votre épicerie est ouverte 112 heures par semaine sans personne en caisse : vos affiches font la vente à votre place. Trois supports, aux couleurs de Poivre et Self, avec un QR code qui mène à la commande.</p>
+    <div class="plv">
+      <figure>
+        <div class="print a3" role="img" aria-label="Affiche A3 : Les fêtes, c'est le Chef Clot qui cuisine, avec un QR code de commande">
+          <img class="pt" src="img/pastille.png" width="125" height="128" alt="" loading="lazy">
+          <h3>Les fêtes, c'est le Chef Clot <em>qui cuisine.</em></h3>
+          <p>Menu de fêtes fait maison à Sottens. Retrait à l'épicerie les 23, 24 et 31 décembre.</p>
+          <div class="row"><div class="qr"><img src="img/qr-commande.svg" width="33" height="33" alt="" loading="lazy"></div><p>Scannez, choisissez,<br>payez avec Twint.</p></div>
+          <p class="foot">Poivre et Self · Sottens · 7/7 de 6h à 22h</p>
+        </div>
+        <figcaption><b>Affiche A3, à l'entrée et en vitrine</b>Le premier endroit où vos clients la voient : en entrant faire leurs courses.</figcaption>
+      </figure>
+      <figure>
+        <div class="print tent" role="img" aria-label="Chevalet de frigo : le plat de la semaine, hachis parmentier maison">
+          <p class="k">Le plat de la semaine</p>
+          <p class="dish">Hachis parmentier maison</p>
+          <p class="by">Préparé par le Chef Clot, ici à Sottens.</p>
+          <div class="row"><div class="qr"><img src="img/qr-commande.svg" width="33" height="33" alt="" loading="lazy"></div><p>Recevez-le chaque semaine sur WhatsApp</p></div>
+        </div>
+        <figcaption><b>Chevalet sur le frigo des plats</b>On change le nom du plat chaque semaine, le QR inscrit à la liste WhatsApp.</figcaption>
+      </figure>
+      <figure>
+        <div class="print a6" role="img" aria-label="Flyer A6 pour les boîtes aux lettres : nouveau à Sottens, les plats du Chef Clot à emporter">
+          <div class="l"><small>Nouveau à Sottens</small><h3>Les plats du Chef Clot, à emporter 7 jours sur 7.</h3><p>Poivre et Self · Route de Moudon 3A<br>Ouvert tous les jours de 6h à 22h</p></div>
+          <div class="r"><div class="qr"><img src="img/qr-commande.svg" width="33" height="33" alt="" loading="lazy"></div><p>Menu de fêtes : commandez ici</p></div>
+        </div>
+        <figcaption><b>Flyer dans les boîtes aux lettres</b>Sottens, Villars-Mendraz, Peney-le-Jorat, Villars-Tiercelin, Montaubion et les villages voisins.</figcaption>
+      </figure>
+    </div>
+    <span class="ex">Maquettes de principe : textes, dates et plat à valider avec vous</span>
+  </div>
+</section>
+
+<!-- 06 photos -->
+<section class="step" id="photos" aria-labelledby="t8">
+  <div class="wrap">
+    <p class="kick">06 · Les vraies photos</p>
+    <h2 id="t8">Une demi-journée avec un photographe, pour tout le reste de l'année.</h2>
+    <p class="lead">Les gens achètent ce qu'ils voient. On photographie vos vrais plats, votre chef et votre épicerie, et ces photos servent ensuite partout.</p>
+    <ol class="shots">
+      <li><span>01</span><div><b>Vos plats de fêtes</b><small>Un par un, lumière du jour, comme dans l'assiette</small></div></li>
+      <li><span>02</span><div><b>Le Chef Clot en cuisine</b><small>Les mains, le geste, sans pose</small></div></li>
+      <li><span>03</span><div><b>L'épicerie au petit matin</b><small>Ouverte, lumière allumée, personne en caisse</small></div></li>
+      <li><span>04</span><div><b>Le frigo des plats</b><small>Plein, étiqueté, prêt à être pris</small></div></li>
+      <li><span>05</span><div><b>Vos producteurs</b><small>Les produits du coin, avec leur nom</small></div></li>
+      <li><span>06</span><div><b>Le paiement</b><small>Un client qui paie seul, en deux secondes</small></div></li>
+      <li><span>07</span><div><b>Le village</b><small>La façade, le parking, la route de Moudon</small></div></li>
+      <li><span>08</span><div><b>Le plat de la semaine</b><small>Une première série d'avance pour janvier</small></div></li>
+    </ol>
+    <div class="uses" aria-label="Où les photos servent"><span>Fiche Google</span><span>Page de commande</span><span>Affiche et flyer</span><span>Facebook et WhatsApp</span><span>Site</span></div>
+  </div>
+</section>
+
+<!-- 07 prospection -->
+<section class="step" id="prospection" aria-labelledby="t9">
+  <div class="wrap">
+    <p class="kick">07 · Aller chercher plus loin que le village</p>
+    <h2 id="t9">Les commandes de groupe, en plus des familles.</h2>
+    <p class="lead">En décembre, les entreprises et les sociétés du coin cherchent un repas pour leur équipe ou leur soirée. On les contacte pour vous, avec une offre simple et un lien de commande.</p>
+    <div class="cards">
+      <div class="card"><b>Entreprises du coin</b><h3>Repas de fin d'année</h3><p>Garages, entreprises de construction, fermes, cabinets autour de Sottens et Moudon.</p><p>Plats pour 10 à 30 personnes, retrait ou livraison groupée.</p></div>
+      <div class="card"><b>Sociétés locales</b><h3>Soirées et répétitions</h3><p>Jeunesses, chœurs, clubs de sport, paysannes vaudoises de la commune.</p><p>Un menu « soirée de société » à commander d'avance.</p></div>
+      <div class="card"><b>Commune et partenaires</b><h3>Le relais local</h3><p>Pilier public, bulletin communal, producteurs partenaires qui parlent de vous à leurs clients.</p><p>Gratuit, et au plus près des habitants.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- plan -->
 <section class="plan" aria-labelledby="t5">
   <div class="wrap">
-    <p class="kick">Comment on s'y prend</p>
-    <h2 id="t5">Les commandes de fêtes ouvertes début décembre.</h2>
-    <ol class="weeks">
-      <li><b>Semaine 1</b><h3>Votre carte de fêtes</h3><p>On fixe ensemble les plats, les prix et les jours de retrait. Un photographe vient photographier vos vrais plats.</p></li>
-      <li><b>Semaine 2</b><h3>Commande et WhatsApp</h3><p>On branche la commande, le paiement Twint et les messages automatiques sur des outils qui existent déjà. On teste tout avec vous.</p></li>
-      <li><b>Début décembre</b><h3>On ouvre</h3><p>Lien partagé sur Facebook et WhatsApp, affiche avec QR code dans l'épicerie, fiche Google mise à jour.</p></li>
+    <p class="kick">Le plan des fêtes, semaine par semaine</p>
+    <h2 id="t5">Commandes ouvertes le 30 novembre.</h2>
+    <ol class="cal">
+      <li><b>16 – 22 nov.</b><div><h3>Votre carte de fêtes et la séance photo</h3><p>On fixe les plats, les prix, les jours de retrait et le nombre maximum par jour. Le photographe vient une demi-journée.</p></div></li>
+      <li><b>23 – 29 nov.</b><div><h3>Commande, Twint et WhatsApp branchés</h3><p>Sur des outils qui existent déjà. Fiche Google mise à jour avec les photos. On teste tout avec vous.</p></div></li>
+      <li class="key"><b>30 nov.</b><div><h3>Ouverture des commandes</h3><p>Affiche et chevalets en place, annonce sur Facebook et WhatsApp.</p></div></li>
+      <li><b>1 – 6 déc.</b><div><h3>Flyers dans les villages</h3><p>Boîtes aux lettres de Jorat-Menthue et des villages voisins.</p></div></li>
+      <li><b>7 – 18 déc.</b><div><h3>Entreprises et sociétés locales</h3><p>Prise de contact, offre de groupe, relance.</p></div></li>
+      <li><b>14 déc.</b><div><h3>Dernier rappel</h3><p>« Commandes ouvertes jusqu'au 20 décembre » à toute la liste WhatsApp.</p></div></li>
+      <li class="key"><b>23, 24, 31 déc.</b><div><h3>Retraits</h3><p>Rappel automatique la veille, message le jour J.</p></div></li>
+      <li><b>Janvier</b><div><h3>Le plat de la semaine démarre</h3><p>Chaque client des fêtes est invité à rejoindre la liste.</p></div></li>
     </ol>
+    <div class="kpi">
+      <div><b>On mesure</b><p>Le nombre de commandes de fêtes et le panier moyen.</p></div>
+      <div><b>On mesure</b><p>Le nombre d'inscrits à la liste WhatsApp en janvier.</p></div>
+      <div><b>On mesure</b><p>Les vues et les avis de votre fiche Google.</p></div>
+    </div>
     <div class="need">
       <p><b>Ce qu'il nous faut de vous :</b> votre carte de fêtes, vos jours de retrait, une demi-journée avec le photographe.</p>
       <p>Rien à installer pour vos clients : un lien, Twint et WhatsApp, qu'ils ont déjà.</p>
