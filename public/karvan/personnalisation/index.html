@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Karvan · Personnalisation</title>
+<meta name="description" content="Vos emballages à votre marque : tampon, impression 1 ou 2 couleurs ou univers complet, avec maquette 3D avant toute commande.">
+<meta name="theme-color" content="#1B2440">
+<link rel="icon" href="/demos/karvan/img/karvan-icone.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Noto+Nastaliq+Urdu:wght@500&display=swap">
+<style>
+/* Karvan · direction « maison de négoce » : papier, encre lapis, un seul accent safran, kraft venu des produits.
+   Grille stricte, filets fins, angles droits, pas d'ombre. L'arche du logo sert de cadre 3 fois, pas plus. */
+:root{
+  --papier:#F3EEE4; --lapis:#1B2440; --safran:#C8902E; --safran-texte:#8E6216; --kraft:#B98A55; --blanc:#FFFFFF;
+  --encre-2:#4A5068; --filet:#D9D1C1; --filet-sombre:#353E5C;
+  --f:"Outfit","Helvetica Neue",Arial,sans-serif;
+  --mono:"Geist Mono",ui-monospace,Menlo,monospace;
+  --fa:"Noto Nastaliq Urdu",serif;
+  --g:max(16px,env(safe-area-inset-left,0px));
+  --arche:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 150' preserveAspectRatio='none'%3E%3Cpath d='M0 150V96A117.3 117.3 0 0 1 50 0A117.3 117.3 0 0 1 100 96V150Z'/%3E%3C/svg%3E");
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--papier);color:var(--lapis);font:400 17px/1.6 var(--f);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding-left:var(--g);padding-right:var(--g)}
+.mono{font:500 12px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.m-saf{color:var(--safran-texte)}
+h1,h2,h3{font-family:var(--f);font-weight:600;margin:0;letter-spacing:-.02em;line-height:1.02;text-wrap:balance}
+h1{font-size:clamp(42px,6.2vw,92px)}
+h2{font-size:clamp(34px,4.8vw,72px)}
+h3{font-size:22px;letter-spacing:-.01em;line-height:1.15}
+p{margin:0;max-width:60ch}
+.chapo{font-size:clamp(18px,1.6vw,21px);font-weight:300;color:var(--encre-2)}
+.fa{font-family:var(--fa);font-weight:500;color:var(--safran);line-height:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;font:500 15px/1 var(--f);text-decoration:none;border:1px solid var(--lapis);color:var(--lapis);background:transparent;cursor:pointer;transition:background .2s,color .2s}
+.btn:hover{background:var(--lapis);color:var(--papier)}
+.btn.saf{background:var(--safran);border-color:var(--safran);color:var(--lapis)}
+.btn.saf:hover{background:var(--lapis);border-color:var(--lapis);color:var(--papier)}
+.btn:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--safran);outline-offset:3px}
+.sombre .btn{border-color:var(--papier);color:var(--papier)}
+.sombre .btn:hover{background:var(--papier);color:var(--lapis)}
+.arche{-webkit-mask:var(--arche) center/100% 100% no-repeat;mask:var(--arche) center/100% 100% no-repeat;overflow:hidden}
+.arche img{width:100%;height:100%;object-fit:cover}
+
+/* en-tête */
+@media (max-width:700px){.bandeau .sr{display:none}}
+.bandeau{background:var(--lapis);color:#C9CDDA;text-align:center;padding:8px var(--g)}
+header.nav{position:sticky;top:0;z-index:20;background:var(--papier);border-bottom:1px solid var(--filet)}
+header.nav .wrap{display:flex;align-items:center;gap:28px;height:68px}
+.logo img{height:56px;width:auto;margin-block:-6px}
+header nav{display:flex;gap:26px;margin-left:auto}
+header nav a{text-decoration:none;font-size:15px}
+header nav a:hover,header nav a[aria-current]{color:var(--safran-texte)}
+header.nav .pro{margin-left:0;font-weight:500;color:var(--lapis);text-decoration:none;border:1px solid var(--lapis);padding:10px 16px;min-height:44px;display:inline-flex;align-items:center}
+header.nav .pro:hover{background:var(--lapis);color:var(--papier)}
+header.nav .pro+.btn{margin-left:0}
+@media (max-width:900px){header nav{display:none}header.nav .btn{display:none}header.nav .pro{margin-left:auto}}
+@media (max-width:420px){.logo img{height:48px}}
+
+/* héros */
+.hero .wrap{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;padding-block:64px 56px;align-items:end}
+.hero .txt{grid-column:1/9;display:grid;gap:26px}
+.hero .img{grid-column:9/13;position:relative}
+.hero .img .arche img{mix-blend-mode:multiply}
+.hero .img .arche{aspect-ratio:2/3;background:#E3D7C1}
+.hero .fa{position:absolute;right:-6px;top:-34px;font-size:46px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px}
+@media (prefers-reduced-motion:no-preference){
+  .hero .img .arche{animation:ouvre 1.1s cubic-bezier(.2,.7,.2,1) both .15s}
+  @keyframes ouvre{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-block:40px 40px}.hero .txt,.hero .img{grid-column:auto}.hero .img{max-width:300px;justify-self:center;width:100%;margin-top:40px}.hero .fa{right:-10px;top:-30px;font-size:38px}}
+.preuves{border-block:1px solid var(--filet)}
+.preuves ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr)}
+.preuves li{padding:18px 0;display:flex;gap:10px;align-items:center}
+.preuves li+li{border-left:1px solid var(--filet);padding-left:20px}
+.preuves li::before{content:"";width:10px;height:14px;background:var(--safran);-webkit-mask:var(--arche) center/100% 100%;mask:var(--arche) center/100% 100%;flex:none}
+@media (max-width:860px){.preuves ul{grid-template-columns:1fr 1fr}.preuves li:nth-child(3){border-left:0;padding-left:0}.preuves li:nth-child(n+3){border-top:1px solid var(--filet)}}
+
+/* sections */
+section{padding-block:96px}
+@media (max-width:700px){section{padding-block:64px}}
+.tete{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;margin-bottom:48px;align-items:end}
+.tete>div{grid-column:1/8;display:grid;gap:18px}
+.tete>.droite{grid-column:9/13;justify-self:end}
+@media (max-width:860px){.tete{grid-template-columns:1fr}.tete>div,.tete>.droite{grid-column:auto;justify-self:start}}
+
+/* fiches produits */
+.fiches{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1px;background:var(--filet);border:1px solid var(--filet)}
+.fiche{background:var(--blanc);display:grid;grid-template-rows:auto 1fr;min-width:0}
+.fiche figure{margin:0;aspect-ratio:1;background:#F6F2EA;overflow:hidden}
+.fiche figure img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.fiche:hover figure img{transform:scale(1.03)}
+.fiche .corps{padding:18px 18px 20px;display:grid;gap:10px;align-content:start}
+.fiche .ref{color:var(--safran-texte)}
+.fiche dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font:400 12px/1.5 var(--mono);color:var(--encre-2)}
+.fiche dt{text-transform:uppercase;letter-spacing:.06em}
+.fiche dd{margin:0;text-align:right}
+.ajout{margin-top:6px;min-height:44px;border:1px solid var(--lapis);background:transparent;color:var(--lapis);font:500 13px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;cursor:pointer}
+.ajout[aria-pressed="true"]{background:var(--lapis);color:var(--papier)}
+.filtres{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.filtres button{min-height:44px;padding:0 16px;border:1px solid var(--filet);background:transparent;color:var(--lapis);font:500 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;cursor:pointer}
+.filtres button[aria-pressed="true"]{background:var(--lapis);border-color:var(--lapis);color:var(--papier)}
+@media (max-width:600px){.fiches{grid-template-columns:1fr 1fr}.fiche .corps{padding:12px}.fiche dl{grid-template-columns:1fr}.fiche dd{text-align:left;margin-bottom:4px}.fiche h3{font-size:17px}.ajout{font-size:11px}}
+.note-photo{margin-top:16px;color:var(--encre-2)}
+
+/* histoire */
+.sombre{background:var(--lapis);color:var(--papier)}
+.sombre .chapo{color:#C9CDDA}
+.histoire .grille{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:start}
+.histoire .portrait{grid-column:1/5;position:sticky;top:100px;display:grid;gap:14px}
+.histoire .portrait .arche{aspect-ratio:2/3;background:#26304F;display:grid;place-items:center}
+.ph{display:grid;place-items:center;text-align:center;color:#8E95AE;padding:24px}
+.histoire .texte{grid-column:6/13}
+.temps{display:grid}
+.temps article{display:grid;grid-template-columns:72px 1fr;gap:20px;padding:30px 0;border-top:1px solid var(--filet-sombre)}
+.temps article:last-child{border-bottom:1px solid var(--filet-sombre)}
+.temps .n{font:500 13px/1.6 var(--mono);color:var(--safran)}
+.temps h3{margin-bottom:8px}
+.temps p{color:#C9CDDA}
+.af{color:var(--safran);font-family:var(--mono);font-size:.82em;letter-spacing:.02em}
+.sceau{width:150px;margin-top:40px}
+@media (max-width:860px){.histoire .grille{grid-template-columns:1fr}.histoire .portrait,.histoire .texte{grid-column:auto;position:static}.histoire .portrait{max-width:300px}}
+
+/* personnalisation */
+.compare{position:relative;overflow:hidden;aspect-ratio:3/2;background:#ddd;touch-action:pan-y;user-select:none}
+.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.compare .apres{clip-path:inset(0 0 0 var(--x,50%))}
+.compare .ligne{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;margin-left:-1px;background:var(--papier);pointer-events:none}
+.compare .poignee{position:absolute;top:50%;left:var(--x,50%);width:52px;height:52px;margin:-26px 0 0 -26px;background:var(--papier);display:grid;place-items:center;pointer-events:none;font:500 13px/1 var(--mono);color:var(--lapis)}
+.compare input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:ew-resize}
+.compare:has(input:focus-visible){outline:2px solid var(--safran);outline-offset:4px}
+.tag{position:absolute;top:14px;padding:8px 10px;background:var(--papier);color:var(--lapis);pointer-events:none}
+.tag.d{left:auto;right:14px;background:var(--lapis);color:var(--papier)}
+.tag.g{left:14px}
+.niveaux{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--filet);border:1px solid var(--filet);margin-top:64px}
+.niveaux div{background:var(--papier);padding:30px 26px 34px;display:grid;gap:12px;align-content:start}
+.niveaux div:nth-child(2){background:var(--blanc)}
+.niveaux .n{color:var(--safran-texte)}
+.niveaux p{color:var(--encre-2);font-size:16px}
+@media (max-width:860px){.niveaux{grid-template-columns:1fr}}
+.univers{display:grid;gap:56px;margin-top:96px}
+.univers figure{margin:0;display:grid;gap:12px}
+.univers figcaption{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--filet);padding-top:12px}
+.ouvertes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.ouvertes figure{margin:0;display:grid;gap:10px}
+@media (max-width:700px){.ouvertes{grid-template-columns:1fr}}
+.etapes{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--lapis)}
+.etapes li{padding:22px 20px 0 0;display:grid;gap:10px;align-content:start}
+.etapes .n{font:600 44px/1 var(--f);color:var(--safran)}
+.etapes.e3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:860px){.etapes{grid-template-columns:1fr 1fr;row-gap:28px}.etapes.e3{grid-template-columns:1fr}}
+@media (max-width:600px){.tag{font-size:10px;padding:6px 8px}.tag.d{top:auto;bottom:14px}}
+.plus{margin-top:24px;display:flex;justify-content:center}
+.fiches.court .fiche:nth-child(n+9){display:none}
+.studio{margin-top:72px;display:flex;flex-wrap:wrap;gap:12px 32px;align-items:baseline;justify-content:space-between;border-block:1px solid var(--filet);padding-block:22px}
+
+/* suite + contact */
+.suite{border-top:1px solid var(--filet-sombre);padding-top:28px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;align-items:baseline}
+.contact .grille{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.contact .gauche{grid-column:1/6;display:grid;gap:20px;align-content:start}
+.contact form{grid-column:7/13;display:grid;gap:16px}
+@media (max-width:860px){.contact .grille{grid-template-columns:1fr}.contact .gauche,.contact form{grid-column:auto}}
+label{display:grid;gap:8px}
+input,select,textarea{font:400 17px/1.4 var(--f);color:var(--lapis);background:var(--blanc);border:1px solid var(--filet);border-radius:0;padding:12px 14px;min-height:48px;width:100%}
+textarea{min-height:110px;resize:vertical}
+.demande{background:var(--blanc);border:1px solid var(--filet);padding:14px 16px;font:400 13px/1.6 var(--mono);color:var(--encre-2)}
+.demande b{color:var(--lapis);font-weight:500}
+.merci{display:none;border:1px solid var(--safran);padding:16px;background:var(--blanc)}
+form.ok .merci{display:block}
+footer{background:var(--lapis);color:#C9CDDA}
+footer .wrap{padding-block:56px 32px;display:grid;gap:40px}
+footer .haut{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:space-between;align-items:flex-end}
+footer .haut img{height:56px;width:auto}
+footer .bas{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;border-top:1px solid var(--filet-sombre);padding-top:20px}
+footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
+.flottant{display:none}
+@media (max-width:900px){
+  .flottant{display:flex;position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:30;gap:8px}
+  .flottant .btn{flex:1;background:var(--safran);border-color:var(--safran);color:var(--lapis)}
+  .flottant .btn.wa{flex:0 0 auto;background:var(--lapis);border-color:var(--lapis);color:var(--papier)}
+  body{padding-bottom:80px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .apparait{opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s}
+  .apparait.vu{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bandeau mono">Karvan 01 · Emballages pour la restauration et les commerces<span class="sr"> · Suisse romande</span></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="../" aria-label="Karvan, accueil"><img src="/demos/karvan/img/karvan-logo.svg" alt="Karvan" width="1000" height="360"></a>
+    <nav aria-label="Navigation principale">
+      <a href="../#produits">Produits</a>
+      <a href="./" aria-current="page">Personnalisation</a>
+      <a href="../#histoire">Notre histoire</a>
+      <a href="../#contact">Contact</a>
+    </nav>
+    <a class="pro" href="https://wa.me/33605582600" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn saf" href="../#contact">Demander une offre</a>
+  </div>
+</header>
+
+<main id="haut">
+<section aria-labelledby="t-perso" style="padding-bottom:48px">
+  <div class="wrap">
+    <p class="mono" style="margin-bottom:18px"><a href="../" style="color:inherit">Karvan</a> · Personnalisation</p>
+    <div class="tete">
+      <div><span class="mono m-saf">Personnalisation · la différence Karvan</span><h1 id="t-perso" style="font-size:clamp(38px,6vw,72px);line-height:1;letter-spacing:-.025em;margin:10px 0 0">Votre enseigne, jusque dans le sac.</h1></div>
+      <a class="btn saf droite" href="../#contact">Demander ma maquette</a>
+    </div>
+    <div class="compare apparait" id="cmp">
+      <img src="/demos/karvan/img/avant.webp" width="1800" height="1200" alt="Sac, box et gobelet kraft neutres">
+      <img class="apres" src="/demos/karvan/img/braise.webp" width="1800" height="1200" alt="Les mêmes emballages aux couleurs d'une enseigne">
+      <span class="tag g mono">Avant · neutre</span><span class="tag d mono">Après · votre marque</span>
+      <span class="ligne"></span><span class="poignee" aria-hidden="true">⟷</span>
+      <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après">
+    </div>
+  </div>
+</section>
+<section style="background:var(--blanc);border-block:1px solid var(--filet)">
+  <div class="wrap">
+    <div class="niveaux">
+      <div><span class="mono n">Niveau 1 · Petites quantités</span><h3>Tampon ou étiquette</h3><p>Votre logo sur nos produits neutres en stock. Rapide, sans minimum de fabrication. Idéal pour une ouverture ou un food truck.</p></div>
+      <div><span class="mono n">Niveau 2 · Le cœur de l'offre</span><h3>Impression 1 ou 2 couleurs</h3><p>Logo imprimé directement sur les sacs, box burger, boîtes à pizza, gobelets et papier.</p></div>
+      <div><span class="mono n">Niveau 3 · Signature</span><h3>Création complète</h3><p>Un univers entier : motif, papier imprimé, gamme cohérente. Pour les chaînes et les concepts.</p></div>
+    </div>
+
+    <div class="univers">
+      <figure class="apparait"><img src="/demos/karvan/img/braise.webp" width="1800" height="1200" alt="Concept Braise : sac, box burger et gobelet rouges, monogramme B" loading="lazy"><figcaption class="mono"><span>Concept 01 · Braise · Smash burgers</span><span class="m-saf">Monogramme B · rouge, crème, jaune</span></figcaption></figure>
+      <figure class="apparait"><img src="/demos/karvan/img/sesame.webp" width="1800" height="1200" alt="Concept Sésame : bols et sac bleu électrique, monogramme S" loading="lazy"><figcaption class="mono"><span>Concept 02 · Sésame · Bowls et poké</span><span class="m-saf">Monogramme S · bleu, orange, rose</span></figcaption></figure>
+      <figure class="apparait"><img src="/demos/karvan/img/croute.webp" width="1800" height="1200" alt="Concept Croûte : boîte à pizza et sac noir et jaune" loading="lazy"><figcaption class="mono"><span>Concept 03 · Croûte · Pizza</span><span class="m-saf">Monogramme Ĉ · noir, jaune, damier</span></figcaption></figure>
+    </div>
+
+    <div style="margin-top:96px;display:grid;gap:12px"><span class="mono m-saf">Le détail qu'on filme</span><h2>Imprimé dedans aussi.</h2></div>
+    <div class="ouvertes">
+      <figure class="apparait"><img src="/demos/karvan/img/ouvert-braise.webp" width="1600" height="1600" alt="Box burger Braise ouverte, imprimée à l'intérieur" loading="lazy"><figcaption class="mono">Ouverte · Braise</figcaption></figure>
+      <figure class="apparait"><img src="/demos/karvan/img/ouvert-sesame.webp" width="1600" height="1600" alt="Box Sésame ouverte" loading="lazy"><figcaption class="mono">Ouverte · Sésame</figcaption></figure>
+      <figure class="apparait"><img src="/demos/karvan/img/ouvert-croute.webp" width="1600" height="1600" alt="Boîte à pizza Croûte ouverte : « Mange tant que c'est chaud »" loading="lazy"><figcaption class="mono">Ouverte · Croûte</figcaption></figure>
+    </div>
+
+    <div style="margin-top:96px;display:grid;gap:32px">
+      <h2>Comment ça marche.</h2>
+      <ol class="etapes">
+        <li><span class="n">1</span><h3>Votre logo</h3><p>Vous l'envoyez, ou on le crée avec vous.</p></li>
+        <li><span class="n">2</span><h3>La maquette</h3><p>Vos emballages en 3D, avant toute commande.</p></li>
+        <li><span class="n">3</span><h3>Le bon à tirer</h3><p>Vous validez couleurs et placements.</p></li>
+        <li><span class="n">4</span><h3>Production</h3><p>Fabrication puis livraison chez vous.</p></li>
+      </ol>
+    </div>
+    <div class="studio"><p>Le design est signé <b>Nouvelle Ardoise</b>, agence de communication pour la restauration.</p><span class="mono m-saf">Concepts de démonstration · aucune vraie enseigne</span></div>
+
+    <div class="actions" style="margin-top:40px;display:flex;flex-wrap:wrap;gap:12px"><a class="btn saf" href="../#contact">Demander ma maquette</a><a class="btn" href="../#produits">Voir les produits</a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="haut"><img src="/demos/karvan/img/karvan-logo-inverse.svg" alt="Karvan" width="1000" height="360" loading="lazy"><p class="mono" style="color:#8E95AE">Emballages pour la restauration et les commerces · Suisse romande</p></div>
+    <div class="bas mono"><span>© 2026 Karvan · Genève</span><span>Site par <a href="https://nouvelleardoise.ch">Nouvelle Ardoise</a></span></div>
+  </div>
+</footer>
+
+<div class="flottant"><a class="btn" href="../#contact">Demander ma maquette</a><a class="btn wa" href="https://wa.me/33605582600" target="_blank" rel="noopener" aria-label="Écrire à Jalal sur WhatsApp">WhatsApp</a></div>
+<script>
+const c=document.getElementById('cmp'),rg=c.querySelector('input');rg.addEventListener('input',()=>c.style.setProperty('--x',rg.value+'%'));
+if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target)}}),{rootMargin:'0px 0px -10% 0px'});document.querySelectorAll('.apparait').forEach(el=>io.observe(el))}else document.querySelectorAll('.apparait').forEach(el=>el.classList.add('vu'));
+</script>
+</body>
+</html>

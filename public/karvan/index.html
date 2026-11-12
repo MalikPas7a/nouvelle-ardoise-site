@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="fr" class="nojs">
+<head>
+<script>document.documentElement.className="js"</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Karvan · Emballages pour les pros de l'alimentation</title>
+<meta name="description" content="Karvan, la maison de Jalal : 25 ans d'import-export au service des professionnels de l'alimentation. Emballages en stock, personnalisés à votre marque, devis sur WhatsApp.">
+<meta name="theme-color" content="#1B2440">
+<link rel="icon" href="/demos/karvan/img/karvan-icone.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Noto+Nastaliq+Urdu:wght@500&display=swap">
+<style>
+/* Karvan · direction « maison de négoce » : papier, encre lapis, un seul accent safran, kraft venu des produits.
+   Grille stricte, filets fins, angles droits, pas d'ombre. L'arche du logo sert de cadre 3 fois, pas plus. */
+:root{
+  --papier:#F3EEE4; --lapis:#1B2440; --safran:#C8902E; --safran-texte:#8E6216; --kraft:#B98A55; --blanc:#FFFFFF;
+  --encre-2:#4A5068; --filet:#D9D1C1; --filet-sombre:#353E5C;
+  --f:"Outfit","Helvetica Neue",Arial,sans-serif;
+  --mono:"Geist Mono",ui-monospace,Menlo,monospace;
+  --fa:"Noto Nastaliq Urdu",serif;
+  --g:max(16px,env(safe-area-inset-left,0px));
+  --arche:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 150' preserveAspectRatio='none'%3E%3Cpath d='M0 150V96A117.3 117.3 0 0 1 50 0A117.3 117.3 0 0 1 100 96V150Z'/%3E%3C/svg%3E");
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--papier);color:var(--lapis);font:400 17px/1.6 var(--f);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding-left:var(--g);padding-right:var(--g)}
+.mono{font:500 12px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.m-saf{color:var(--safran-texte)}
+h1,h2,h3{font-family:var(--f);font-weight:600;margin:0;letter-spacing:-.02em;line-height:1.02;text-wrap:balance}
+h1{font-size:clamp(42px,6.2vw,92px)}
+h2{font-size:clamp(34px,4.8vw,72px)}
+h3{font-size:22px;letter-spacing:-.01em;line-height:1.15}
+p{margin:0;max-width:60ch}
+.chapo{font-size:clamp(18px,1.6vw,21px);font-weight:300;color:var(--encre-2)}
+.fa{font-family:var(--fa);font-weight:500;color:var(--safran);line-height:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;font:500 15px/1 var(--f);text-decoration:none;border:1px solid var(--lapis);color:var(--lapis);background:transparent;cursor:pointer;transition:background .2s,color .2s}
+.btn:hover{background:var(--lapis);color:var(--papier)}
+.btn.saf{background:var(--safran);border-color:var(--safran);color:var(--lapis)}
+.btn.saf:hover{background:var(--lapis);border-color:var(--lapis);color:var(--papier)}
+.btn:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--safran);outline-offset:3px}
+.sombre .btn{border-color:var(--papier);color:var(--papier)}
+.sombre .btn:hover{background:var(--papier);color:var(--lapis)}
+.arche{-webkit-mask:var(--arche) center/100% 100% no-repeat;mask:var(--arche) center/100% 100% no-repeat;overflow:hidden}
+.arche img{width:100%;height:100%;object-fit:cover}
+
+/* en-tête */
+@media (max-width:700px){.bandeau .sr{display:none}}
+.bandeau{background:var(--lapis);color:#C9CDDA;text-align:center;padding:8px var(--g)}
+header.nav{position:sticky;top:0;z-index:20;background:var(--papier);border-bottom:1px solid var(--filet)}
+header.nav .wrap{display:flex;align-items:center;gap:28px;height:68px}
+.logo img{height:56px;width:auto;margin-block:-6px}
+header nav{display:flex;gap:26px;margin-left:auto}
+header nav a{text-decoration:none;font-size:15px}
+header nav a:hover,header nav a[aria-current]{color:var(--safran-texte)}
+header.nav .pro{margin-left:0;font-weight:500;color:var(--lapis);text-decoration:none;border:1px solid var(--lapis);padding:10px 16px;min-height:44px;display:inline-flex;align-items:center}
+header.nav .pro:hover{background:var(--lapis);color:var(--papier)}
+header.nav .pro+.btn{margin-left:0}
+@media (max-width:900px){header nav{display:none}header.nav .btn{display:none}header.nav .pro{margin-left:auto}}
+@media (max-width:420px){.logo img{height:48px}}
+
+/* héros */
+.hero .wrap{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;padding-block:64px 56px;align-items:end}
+.hero .txt{grid-column:1/9;display:grid;gap:26px}
+.hero .img{grid-column:9/13;position:relative}
+.hero .img .arche img{mix-blend-mode:multiply}
+.hero .img .arche{aspect-ratio:2/3;background:#E3D7C1}
+.hero .fa{position:absolute;right:-6px;top:-34px;font-size:46px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px}
+@media (prefers-reduced-motion:no-preference){
+  .hero .img .arche{animation:ouvre 1.1s cubic-bezier(.2,.7,.2,1) both .15s}
+  @keyframes ouvre{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-block:40px 40px}.hero .txt,.hero .img{grid-column:auto}.hero .img{max-width:300px;justify-self:center;width:100%;margin-top:40px}.hero .fa{right:-10px;top:-30px;font-size:38px}}
+.preuves{border-block:1px solid var(--filet)}
+.preuves ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr)}
+.preuves li{padding:18px 0;display:flex;gap:10px;align-items:center}
+.preuves li+li{border-left:1px solid var(--filet);padding-left:20px}
+.preuves li::before{content:"";width:10px;height:14px;background:var(--safran);-webkit-mask:var(--arche) center/100% 100%;mask:var(--arche) center/100% 100%;flex:none}
+@media (max-width:860px){.preuves ul{grid-template-columns:1fr 1fr}.preuves li:nth-child(3){border-left:0;padding-left:0}.preuves li:nth-child(n+3){border-top:1px solid var(--filet)}}
+
+/* sections */
+section{padding-block:96px}
+@media (max-width:700px){section{padding-block:64px}}
+.tete{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;margin-bottom:48px;align-items:end}
+.tete>div{grid-column:1/8;display:grid;gap:18px}
+.tete>.droite{grid-column:9/13;justify-self:end}
+@media (max-width:860px){.tete{grid-template-columns:1fr}.tete>div,.tete>.droite{grid-column:auto;justify-self:start}}
+
+/* fiches produits */
+.fiches{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1px;background:var(--filet);border:1px solid var(--filet)}
+.fiche{background:var(--blanc);display:grid;grid-template-rows:auto 1fr;min-width:0}
+.fiche figure{margin:0;aspect-ratio:1;background:#F6F2EA;overflow:hidden}
+.fiche figure img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.fiche:hover figure img{transform:scale(1.03)}
+.fiche .corps{padding:18px 18px 20px;display:grid;gap:10px;align-content:start}
+.fiche .ref{color:var(--safran-texte)}
+.fiche dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font:400 12px/1.5 var(--mono);color:var(--encre-2)}
+.fiche dt{text-transform:uppercase;letter-spacing:.06em}
+.fiche dd{margin:0;text-align:right}
+.ajout{margin-top:6px;min-height:44px;border:1px solid var(--lapis);background:transparent;color:var(--lapis);font:500 13px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;cursor:pointer}
+.ajout[aria-pressed="true"]{background:var(--lapis);color:var(--papier)}
+.filtres{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.filtres button{min-height:44px;padding:0 16px;border:1px solid var(--filet);background:transparent;color:var(--lapis);font:500 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;cursor:pointer}
+.filtres button[aria-pressed="true"]{background:var(--lapis);border-color:var(--lapis);color:var(--papier)}
+@media (max-width:600px){.fiches{grid-template-columns:1fr 1fr}.fiche .corps{padding:12px}.fiche dl{grid-template-columns:1fr}.fiche dd{text-align:left;margin-bottom:4px}.fiche h3{font-size:17px}.ajout{font-size:11px}}
+.note-photo{margin-top:16px;color:var(--encre-2)}
+
+/* histoire */
+.sombre{background:var(--lapis);color:var(--papier)}
+.sombre .chapo{color:#C9CDDA}
+.histoire .grille{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:start}
+.histoire .portrait{grid-column:1/5;position:sticky;top:100px;display:grid;gap:14px}
+.histoire .portrait .arche{aspect-ratio:2/3;background:#26304F;display:grid;place-items:center}
+.ph{display:grid;place-items:center;text-align:center;color:#8E95AE;padding:24px}
+.histoire .texte{grid-column:6/13}
+.temps{display:grid}
+.temps article{display:grid;grid-template-columns:72px 1fr;gap:20px;padding:30px 0;border-top:1px solid var(--filet-sombre)}
+.temps article:last-child{border-bottom:1px solid var(--filet-sombre)}
+.temps .n{font:500 13px/1.6 var(--mono);color:var(--safran)}
+.temps h3{margin-bottom:8px}
+.temps p{color:#C9CDDA}
+.af{color:var(--safran);font-family:var(--mono);font-size:.82em;letter-spacing:.02em}
+.sceau{width:150px;margin-top:40px}
+@media (max-width:860px){.histoire .grille{grid-template-columns:1fr}.histoire .portrait,.histoire .texte{grid-column:auto;position:static}.histoire .portrait{max-width:300px}}
+
+/* personnalisation */
+.compare{position:relative;overflow:hidden;aspect-ratio:3/2;background:#ddd;touch-action:pan-y;user-select:none}
+.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.compare .apres{clip-path:inset(0 0 0 var(--x,50%))}
+.compare .ligne{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;margin-left:-1px;background:var(--papier);pointer-events:none}
+.compare .poignee{position:absolute;top:50%;left:var(--x,50%);width:52px;height:52px;margin:-26px 0 0 -26px;background:var(--papier);display:grid;place-items:center;pointer-events:none;font:500 13px/1 var(--mono);color:var(--lapis)}
+.compare input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:ew-resize}
+.compare:has(input:focus-visible){outline:2px solid var(--safran);outline-offset:4px}
+.tag{position:absolute;top:14px;padding:8px 10px;background:var(--papier);color:var(--lapis);pointer-events:none}
+.tag.d{left:auto;right:14px;background:var(--lapis);color:var(--papier)}
+.tag.g{left:14px}
+.niveaux{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--filet);border:1px solid var(--filet);margin-top:64px}
+.niveaux div{background:var(--papier);padding:30px 26px 34px;display:grid;gap:12px;align-content:start}
+.niveaux div:nth-child(2){background:var(--blanc)}
+.niveaux .n{color:var(--safran-texte)}
+.niveaux p{color:var(--encre-2);font-size:16px}
+@media (max-width:860px){.niveaux{grid-template-columns:1fr}}
+.univers{display:grid;gap:56px;margin-top:96px}
+.univers figure{margin:0;display:grid;gap:12px}
+.univers figcaption{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--filet);padding-top:12px}
+.ouvertes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.ouvertes figure{margin:0;display:grid;gap:10px}
+@media (max-width:700px){.ouvertes{grid-template-columns:1fr}}
+.etapes{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--lapis)}
+.etapes li{padding:22px 20px 0 0;display:grid;gap:10px;align-content:start}
+.etapes .n{font:600 44px/1 var(--f);color:var(--safran)}
+.etapes.e3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:860px){.etapes{grid-template-columns:1fr 1fr;row-gap:28px}.etapes.e3{grid-template-columns:1fr}}
+@media (max-width:600px){.tag{font-size:10px;padding:6px 8px}.tag.d{top:auto;bottom:14px}}
+.plus{margin-top:24px;display:flex;justify-content:center}
+.fiches.court .fiche:nth-child(n+9){display:none}
+.studio{margin-top:72px;display:flex;flex-wrap:wrap;gap:12px 32px;align-items:baseline;justify-content:space-between;border-block:1px solid var(--filet);padding-block:22px}
+
+/* suite + contact */
+.suite{border-top:1px solid var(--filet-sombre);padding-top:28px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;align-items:baseline}
+.contact .grille{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.contact .gauche{grid-column:1/6;display:grid;gap:20px;align-content:start}
+.contact form{grid-column:7/13;display:grid;gap:16px}
+@media (max-width:860px){.contact .grille{grid-template-columns:1fr}.contact .gauche,.contact form{grid-column:auto}}
+label{display:grid;gap:8px}
+input,select,textarea{font:400 17px/1.4 var(--f);color:var(--lapis);background:var(--blanc);border:1px solid #8C8577;border-radius:0;padding:12px 14px;min-height:48px;width:100%}
+textarea{min-height:110px;resize:vertical}
+.demande{background:var(--blanc);border:1px solid var(--filet);padding:14px 16px;font:400 13px/1.6 var(--mono);color:var(--encre-2)}
+.demande b{color:var(--lapis);font-weight:500}
+.merci{display:none;border:1px solid var(--safran);padding:16px;background:var(--blanc)}
+form.ok .merci{display:block}
+.err{display:block;color:#A33A2A;font-size:14px;margin-top:4px}
+[aria-invalid="true"]{border-color:#A33A2A}
+.deux-ch{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media (max-width:520px){.deux-ch{grid-template-columns:1fr}}
+body.saisie .flottant,body.au-contact .flottant{display:none}
+footer{background:var(--lapis);color:#C9CDDA}
+footer .wrap{padding-block:56px 32px;display:grid;gap:40px}
+footer .haut{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:space-between;align-items:flex-end}
+footer .haut img{height:56px;width:auto}
+footer .bas{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;border-top:1px solid var(--filet-sombre);padding-top:20px}
+footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
+.flottant{display:none}
+@media (max-width:900px){
+  .flottant{display:flex;position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:30;gap:8px}
+  .flottant .btn{flex:1;background:var(--safran);border-color:var(--safran);color:var(--lapis)}
+  .flottant .btn.wa{flex:0 0 auto;background:var(--lapis);border-color:var(--lapis);color:var(--papier)}
+  body{padding-bottom:80px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .js .apparait{opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s}
+  .apparait.vu{opacity:1;transform:none}
+}
+.ligne-p{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--filet)}
+.ligne-p:first-of-type{border-top:0}
+.ligne-p .nom{flex:1;min-width:0}
+.ligne-p .qte{display:flex;align-items:center;gap:4px}
+.ligne-p button{width:44px;height:44px;border:1px solid var(--filet);background:var(--papier);color:var(--lapis);font:500 18px/1 var(--f);cursor:pointer}
+.ligne-p output{min-width:3ch;text-align:center;color:var(--lapis);font-weight:500}
+.ligne-p .ret{border:0;background:none;width:auto;padding:0 6px;font:500 12px/1 var(--mono);text-decoration:underline;text-transform:uppercase}
+.contact .gauche a{border-bottom:1px solid var(--safran);text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="bandeau mono">Karvan 01 · Emballages pour la restauration et les commerces<span class="sr"> · Suisse romande</span></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#haut" aria-label="Karvan, accueil"><img src="/demos/karvan/img/karvan-logo.svg" alt="Karvan" width="1000" height="360"></a>
+    <nav aria-label="Navigation principale">
+      <a href="#produits">Produits</a>
+      <a href="personnalisation/">Personnalisation</a>
+      <a href="#histoire">Notre histoire</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="pro" href="https://wa.me/33605582600" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn saf" href="#contact">Demander une offre</a>
+  </div>
+</header>
+
+<main id="haut">
+<section class="hero" style="padding:0" aria-labelledby="t-hero">
+  <div class="wrap">
+    <div class="txt">
+      <span class="mono m-saf">Import · Export depuis 25 ans</span>
+      <h1 id="t-hero">Des emballages choisis par quelqu'un qui connaît la route.</h1>
+      <p class="chapo">25 ans d'import-export au service des restaurants, snacks, boulangeries, traiteurs et commerces suisses. Des produits en stock, un seul interlocuteur, et votre marque imprimée si vous le voulez.</p>
+      <div class="actions">
+        <a class="btn saf" href="#contact">Demander une offre</a>
+        <a class="btn" href="#produits">Voir les produits</a>
+      </div>
+    </div>
+    <div class="img">
+      <span class="fa" lang="fa" aria-hidden="true">کاروان</span>
+      <div class="arche"><img src="/demos/karvan/img/sac-kraft.webp" width="900" height="900" alt="Sac kraft à poignées plates" fetchpriority="high"></div>
+    </div>
+  </div>
+</section>
+
+<div class="preuves"><div class="wrap"><ul class="mono">
+  <li>25 ans d'import-export</li><li>Produits en stock</li><li>Un seul interlocuteur</li><li>Livraison en Suisse</li>
+</ul></div></div>
+
+<section id="produits" aria-labelledby="t-prod">
+  <div class="wrap">
+    <div class="tete">
+      <div><span class="mono m-saf">Disponible maintenant · <span class="nb">34</span> références</span><h2 id="t-prod">Ce qu'on livre cette semaine.</h2></div>
+      <p class="droite chapo">Ajoutez les produits et le nombre de cartons : votre demande part sur le WhatsApp de Jalal.</p>
+    </div>
+    <div class="filtres" role="group" aria-label="Filtrer par famille"></div>
+    <div class="fiches court" id="fiches"></div>
+    <div class="plus"><button class="btn" type="button" id="plus">Voir les <span class="nb">34</span> références</button></div>
+    <p class="note-photo mono">Visuels d'illustration · photos des produits à venir</p>
+  </div>
+</section>
+
+<section id="personnalisation" aria-labelledby="t-perso" style="background:var(--blanc);border-block:1px solid var(--filet)">
+  <div class="wrap">
+    <div class="tete">
+      <div><span class="mono m-saf">Personnalisation · la différence Karvan</span><h2 id="t-perso">Votre enseigne, jusque dans le sac.</h2></div>
+      <p class="droite chapo">Tampon, impression 1 ou 2 couleurs, ou univers complet : vos emballages à votre marque, maquette 3D avant toute commande.</p>
+    </div>
+    <div class="compare apparait" id="cmp">
+      <img src="/demos/karvan/img/avant.webp" width="1800" height="1200" alt="Sac, box et gobelet kraft neutres" loading="lazy">
+      <img class="apres" src="/demos/karvan/img/braise.webp" width="1800" height="1200" alt="Les mêmes emballages aux couleurs d'une enseigne" loading="lazy">
+      <span class="tag g mono">Avant · neutre</span><span class="tag d mono">Après · votre marque</span>
+      <span class="ligne"></span><span class="poignee" aria-hidden="true">⟷</span>
+      <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après">
+    </div>
+    <div class="actions" style="margin-top:28px;display:flex;flex-wrap:wrap;gap:12px">
+      <a class="btn saf" href="personnalisation/">Voir la personnalisation</a>
+      <a class="btn" href="#contact">Demander ma maquette</a>
+    </div>
+  </div>
+</section>
+
+<section id="histoire" class="sombre histoire" aria-labelledby="t-hist">
+  <div class="wrap">
+    <div class="grille">
+      <div class="portrait">
+        <div class="arche" style="display:grid;place-items:center"><img src="/demos/karvan/img/karvan-sceau-inverse.svg" width="150" height="150" alt="Cachet Karvan, import export" loading="lazy" style="width:62%;height:auto;object-fit:contain"></div>
+      </div>
+      <div class="texte">
+        <span class="mono" style="color:var(--safran)">Notre histoire · <span lang="fa" class="fa" style="font-size:20px">کاروان</span> veut dire caravane</span>
+        <h2 id="t-hist" style="margin:18px 0 22px">Une maison de négoce, une parole tenue.</h2>
+        <p class="chapo">Le caravansérail était l'étape des marchands sur les routes du commerce. Karvan relie ceux qui fabriquent et ceux qui servent.</p>
+        <div class="temps" style="margin-top:40px">
+          <article><span class="n">01</span><div><h3>Le départ</h3><p>Jalal grandit en Iran, sur une terre de marchands où une parole donnée vaut un contrat.</p></div></article>
+          <article><span class="n">02</span><div><h3>La route</h3><p>Pendant 25 ans, il importe et exporte. Il apprend à choisir les bons fabricants, à négocier et à livrer à l'heure.</p></div></article>
+          <article><span class="n">03</span><div><h3>La confiance</h3><p>Ses clients le rappellent parce qu'il tient ses promesses.</p></div></article>
+          <article><span class="n">04</span><div><h3>Karvan</h3><p>Aujourd'hui, il met ce savoir-faire au service des pros de l'alimentation : restaurants, snacks, boulangeries, traiteurs. Des emballages de qualité, au juste prix, avec un interlocuteur qui répond.</p></div></article>
+        </div>
+        <div class="suite" style="margin-top:56px"><span class="mono" style="color:var(--safran)">Karvan 01 · Emballages</span><p>D'autres routes arrivent.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="t-trav">
+  <div class="wrap" style="display:grid;gap:32px">
+    <h2 id="t-trav">Travailler avec Karvan.</h2>
+    <ol class="etapes e3">
+      <li><span class="n">1</span><h3>Vous choisissez</h3><p>Les produits et le nombre de cartons, dans la liste ci-dessus.</p></li>
+      <li><span class="n">2</span><h3>Jalal vous fait une offre</h3><p>Sur WhatsApp. Une seule personne, une réponse claire.</p></li>
+      <li><span class="n">3</span><h3>Livraison</h3><p>Chez vous, en Suisse romande.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="contact" class="contact" aria-labelledby="t-contact" style="background:var(--blanc);border-top:1px solid var(--filet)">
+  <div class="wrap grille">
+    <div class="gauche">
+      <span class="mono m-saf">Demander une offre</span>
+      <h2 id="t-contact">Parlez à Jalal.</h2>
+      <p class="chapo">Votre demande arrive directement sur le WhatsApp de Jalal. Il vous répond avec une offre.</p>
+      <p class="mono">WhatsApp <a href="https://wa.me/33605582600" target="_blank" rel="noopener">+33 6 05 58 26 00</a></p>
+    </div>
+    <form id="form" novalidate>
+      <label><span class="mono">Nom</span><input name="nom" autocomplete="name" required></label>
+      <label><span class="mono">Établissement</span><input name="etab" autocomplete="organization" required></label>
+      <label><span class="mono">Localité</span><input name="loc" autocomplete="address-level2" placeholder="ex. Genève, Carouge, Nyon"></label>
+      <div><span class="mono" style="display:block;margin-bottom:8px">Votre demande</span><div class="demande" id="demande" aria-live="polite">Aucun produit ajouté. Ajoutez-les depuis la liste, ou écrivez-les ci-dessous.</div></div>
+      <label><span class="mono">Autre besoin, personnalisation</span><textarea name="msg"></textarea></label>
+      <button class="btn saf" type="submit">Envoyer sur WhatsApp</button>
+      <p class="merci" role="status" tabindex="-1">WhatsApp s'ouvre avec votre demande déjà écrite : il ne reste qu'à appuyer sur Envoyer. Rien ne s'ouvre ? <a id="wa-lien" href="https://wa.me/33605582600" target="_blank" rel="noopener">Ouvrir WhatsApp</a></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="haut"><img src="/demos/karvan/img/karvan-logo-inverse.svg" alt="Karvan" width="1000" height="360" loading="lazy"><p class="mono" style="color:#8E95AE">Emballages pour la restauration et les commerces · Suisse romande</p></div>
+    <div class="bas mono"><span>© 2026 Karvan · Genève</span><span>Site par <a href="https://nouvelleardoise.ch">Nouvelle Ardoise</a></span></div>
+  </div>
+</footer>
+
+<div class="flottant"><a class="btn" href="#contact">Demander une offre</a><a class="btn wa" href="https://wa.me/33605582600" target="_blank" rel="noopener" aria-label="Écrire à Jalal sur WhatsApp">WhatsApp</a></div>
+
+<script>
+/* Vitrine Karvan : catalogue lu dans le tableur publié (onglet « Catalogue », CSV), demande envoyée sur WhatsApp. */
+const NUM='33605582600';
+const CSV_URL=''; // lien « Publier sur le web » de l'onglet Catalogue, en CSV
+const SECOURS=[["BOL-1300", "Bols", "Bol kraft", "1300 ml", "Ø 184 x H 67", "Kraft", "200"], ["BOL-1100", "Bols", "Bol kraft", "1100 ml", "Ø 184", "Kraft", "200"], ["BOL-850", "Bols", "Bol kraft", "850 ml", "Ø 184 x H 47", "Kraft", "200"], ["BOL-750", "Bols", "Bol kraft", "750 ml", "Ø 144 x H 67", "Kraft", "300"], ["BOL-550", "Bols", "Bol kraft", "550 ml", "Ø 144 x H 50", "Kraft", "300"], ["COU-SM", "Bols", "Couvercle pour bol 550 / 750 ml", "", "Ø 144 x H 19", "Transparent", "300"], ["COU-LX", "Bols", "Couvercle pour bol 850 / 1100 / 1300 ml", "", "Ø 184 x H 20", "Transparent", "200"], ["PAP-3040", "Burger", "Papier à burger", "", "300 x 400", "Papier", "1 000"], ["PAP-2530", "Burger", "Papier à burger", "", "250 x 300", "Papier", "1 000"], ["BOX-110", "Burger", "Box à burger", "", "115 x 115 x 90", "Kraft", "100"], ["BOX-90", "Burger", "Petite box à burger", "", "90 x 90 x 70", "Kraft", "700"], ["GOB-30", "Gobelets", "Gobelet", "30 cl / 12 oz", "Ø 78 x H 115", "à confirmer", "2 000"], ["GOB-25", "Gobelets", "Gobelet", "25 cl / 8 oz", "Ø 78 x H 87", "à confirmer", "2 000"], ["GOB-10", "Gobelets", "Gobelet", "10 cl / 4 oz", "Ø 61 x H 60", "à confirmer", "3 000"], ["SAC-L", "Sacs", "Sac kraft à poignées", "", "H 350 x L 330 x P 200", "Kraft", "250"], ["SAC-M", "Sacs", "Sac kraft à poignées", "", "H 290 x L 280 x P 160", "Kraft", "250"], ["SAC-S", "Sacs", "Sac kraft à poignées", "", "H 290 x L 220 x P 120", "Kraft", "250"], ["PIZ-41", "Pizza", "Boîte à pizza", "", "410 x 410 x 40", "Carton kraft", "100"], ["PIZ-33", "Pizza", "Boîte à pizza", "", "330 x 330 x 40", "Carton kraft", "100"], ["PIZ-30", "Pizza", "Boîte à pizza", "", "300 x 300 x 35", "Carton kraft", "100"], ["PIZ-27", "Pizza", "Boîte à pizza", "", "270 x 270 x 35", "Carton kraft", "100"], ["PIZ-26", "Pizza", "Boîte à pizza", "", "260 x 260 x 40", "Carton kraft", "100"], ["PIZ-24", "Pizza", "Boîte à pizza", "", "240 x 240 x 35", "Carton kraft", "100"], ["PIZ-22", "Pizza", "Boîte à pizza", "", "220 x 220 x 35", "Carton kraft", "100"], ["SAU-20", "Sauces", "Barquette à sauce avec couvercle", "20 cc", "55 x 35 x 18", "PET transparent", "2 700"], ["SAU-30", "Sauces", "Barquette à sauce avec couvercle", "30 cc", "46 x 31 x 24", "PET transparent", "2 000"], ["SAU-50", "Sauces", "Barquette à sauce avec couvercle", "50 cc", "62 x 42 x 25", "PET transparent", "2 000"], ["SAU-80", "Sauces", "Barquette à sauce avec couvercle", "80 cc", "60 x 40 x 35", "PET transparent", "2 000"], ["POT-30", "Sauces", "Pot à sauce avec couvercle", "30 cc", "Ø 41 x H 24", "PP", "1 000"], ["SAL-150", "Salades", "Barquette à salade avec couvercle", "150 g", "103 x 85 x 29", "Transparent", "1 000"], ["SAL-250", "Salades", "Barquette à salade avec couvercle", "250 g", "102 x 87 x 40", "Transparent", "1 000"], ["SAL-500", "Salades", "Barquette à salade avec couvercle", "500 g", "100 x 108 x 56", "Transparent", "800"], ["COUG-M", "Gobelets", "Couvercle pour gobelet 10 cl", "taille M", "", "à confirmer", "1 000"], ["COUG-L", "Gobelets", "Couvercle pour gobelet 25 / 30 cl", "taille L", "", "à confirmer", "1 000"]]; // copie du tableur au 12.11.2026, utilisée si le CSV ne répond pas
+const IMG={BOL:'bol-kraft',COU:'couvercle-bol',COUG:'gobelet',PAP:'papier-burger',BOX:'box-burger',GOB:'gobelet',SAC:'sac-kraft',PIZ:'boite-pizza',SAU:'barquette-sauce-pet',POT:'pot-sauce-pp',SAL:'barquette-salade'};
+const IMGF={Bols:'bol-kraft',Burger:'box-burger',Gobelets:'gobelet',Sacs:'sac-kraft',Pizza:'boite-pizza',Sauces:'barquette-sauce-pet',Salades:'barquette-salade'};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const box=document.getElementById('fiches'),fl=document.querySelector('.filtres'),dem=document.getElementById('demande');
+const panier=new Map(); // réf -> cartons
+let P=[],ouvert=false,filtre='Tous';
+function lireCSV(t){const L=[];let r=[],v='',q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){v+='"';i++}else q=false}else v+=c}else if(c=='"')q=true;else if(c==','){r.push(v);v=''}else if(c=='\n'||c=='\r'){if(c=='\r'&&t[i+1]=='\n')i++;r.push(v);L.push(r);r=[];v=''}else v+=c}if(v||r.length){r.push(v);L.push(r)}return L}
+function produits(lignes){return lignes.map(l=>l.map(x=>String(x??'').trim())).filter(l=>/^[A-Z]{2,5}-[A-Z0-9]+$/.test(l[0])).map(([ref,f,des,cap,dim,mat,pcs])=>{
+  const n=Number(String(pcs).replace(/[^\d]/g,''))||0;
+  return {ref,f:f||'Autres',nom:des+(cap?' · '+cap:''),dim:dim?dim.replace(/ x /g,' × ')+' mm':'—',mat:(!mat||/confirmer/i.test(mat))?'—':mat,pcs:n}})}
+const pieces=n=>n.toLocaleString('fr-CH').replace(/ |,/g,' ')+' pièces';
+function image(p){const k=p.ref.split('-')[0];return IMG[k]||IMGF[p.f]||'sac-kraft'}
+function bouton(r){const q=panier.get(r);return q?`Ajouté · ${q} carton${q>1?'s':''}`:'Ajouter à ma demande'}
+function rendre(){
+  const fams=['Tous',...new Set(P.map(p=>p.f))];if(!fams.includes(filtre))filtre='Tous';
+  fl.innerHTML=fams.map(f=>`<button type="button" aria-pressed="${f===filtre}">${esc(f)}</button>`).join('');
+  box.innerHTML=P.map(p=>`<article class="fiche" data-f="${esc(p.f)}"${filtre==='Tous'||p.f===filtre?'':' hidden'}><figure><img src="/demos/karvan/img/${image(p)}.webp" width="900" height="900" alt="" loading="lazy"></figure><div class="corps"><span class="mono ref">${esc(p.ref)}</span><h3>${esc(p.nom)}</h3><dl><dt>Dimensions</dt><dd>${esc(p.dim)}</dd><dt>Matière</dt><dd>${esc(p.mat)}</dd><dt>Carton</dt><dd>${p.pcs?pieces(p.pcs):'—'}</dd></dl><button class="ajout" type="button" aria-pressed="${panier.has(p.ref)}" data-r="${esc(p.ref)}">${bouton(p.ref)}</button></div></article>`).join('');
+  box.classList.toggle('court',filtre==='Tous'&&!ouvert);document.querySelector('.plus').hidden=filtre!=='Tous'||ouvert||P.length<=8;
+  document.querySelectorAll('.nb').forEach(x=>x.textContent=P.length);
+  for(const r of [...panier.keys()])if(!P.some(p=>p.ref===r))panier.delete(r);
+  maj();
+}
+function maj(foc){
+  if(!panier.size){dem.textContent='Aucun produit ajouté. Ajoutez-les depuis la liste, ou écrivez-les ci-dessous.';}
+  else dem.innerHTML=[...panier].map(([r,q])=>{const p=P.find(x=>x.ref===r);return `<div class="ligne-p" data-r="${esc(r)}"><span class="nom"><b>${esc(r)}</b> ${esc(p?p.nom:'')}</span><span class="qte"><button type="button" data-a="moins" aria-label="Un carton de moins, ${esc(r)}">−</button><output aria-label="Cartons ${esc(r)}">${q}</output><button type="button" data-a="plus" aria-label="Un carton de plus, ${esc(r)}">+</button></span><button type="button" class="ret" data-a="ret" aria-label="Retirer ${esc(r)}">Retirer</button></div>`}).join('');
+  box.querySelectorAll('.ajout').forEach(b=>{b.setAttribute('aria-pressed',panier.has(b.dataset.r));b.textContent=bouton(b.dataset.r)});
+  if(foc){const l=dem.querySelector(`.ligne-p[data-r="${CSS.escape(foc[0])}"] [data-a="${foc[1]}"]`);(l||fo.msg).focus()}
+}
+fl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;filtre=b.textContent;rendre();fl.querySelectorAll('button').forEach(x=>{if(x.textContent===filtre)x.focus()})});
+document.getElementById('plus').addEventListener('click',()=>{ouvert=true;rendre();box.querySelector('.fiche:nth-child(9) .ajout')?.focus()});
+box.addEventListener('click',e=>{const b=e.target.closest('.ajout');if(!b)return;const r=b.dataset.r;if(panier.has(r))panier.delete(r);else panier.set(r,1);maj()});
+dem.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const r=b.closest('.ligne-p').dataset.r,a=b.dataset.a;let q=panier.get(r)||0;
+  if(a==='plus')q=Math.min(999,q+1);if(a==='moins')q=q-1;if(a==='ret')q=0;
+  if(q>0){panier.set(r,q);maj([r,a])}else{panier.delete(r);maj(['',''])}});
+const c=document.getElementById('cmp'),rg=c.querySelector('input');rg.addEventListener('input',()=>c.style.setProperty('--x',rg.value+'%'));
+const fo=document.getElementById('form');
+function erreur(ch,t){ch.setAttribute('aria-invalid','true');let m=ch.parentNode.querySelector('.err');if(!m){m=document.createElement('span');m.className='err';m.id='err-'+ch.name;ch.parentNode.appendChild(m);ch.setAttribute('aria-describedby',m.id)}m.textContent=t}
+fo.addEventListener('input',e=>{const ch=e.target;if(ch.getAttribute('aria-invalid')){ch.removeAttribute('aria-invalid');ch.parentNode.querySelector('.err')?.remove();ch.removeAttribute('aria-describedby')}});
+function message(v){const l=['Bonjour Jalal, je souhaite une offre.','','Nom : '+v('nom'),'Établissement : '+v('etab'),'Localité : '+v('loc')];
+  if(panier.size){l.push('','Produits :');for(const [r,q] of panier){const p=P.find(x=>x.ref===r);l.push(`- ${r} · ${p?p.nom+(p.dim!=='—'?' ('+p.dim+')':''):''} · ${q} carton${q>1?'s':''}${p&&p.pcs?' ('+pieces(p.pcs*q)+')':''}`)}}
+  if(v('msg'))l.push('','Message : '+v('msg'));l.push('','(envoyé depuis la vitrine Karvan)');return l.join('\n')}
+fo.addEventListener('submit',e=>{e.preventDefault();fo.classList.remove('ok');fo.querySelectorAll('.err').forEach(x=>x.remove());fo.querySelectorAll('[aria-invalid]').forEach(x=>{x.removeAttribute('aria-invalid');x.removeAttribute('aria-describedby')});
+  const v=n=>fo[n].value.trim(),ko=[];
+  if(!v('nom'))ko.push([fo.nom,'Indiquez votre nom.']);
+  if(!v('etab'))ko.push([fo.etab,'Indiquez le nom de votre établissement.']);
+  if(!v('loc'))ko.push([fo.loc,'Indiquez votre localité, pour la livraison.']);
+  if(!panier.size&&!v('msg'))ko.push([fo.msg,'Ajoutez des produits depuis la liste, ou écrivez votre besoin ici.']);
+  if(ko.length){ko.forEach(([c,t])=>erreur(c,t));ko[0][0].focus();return}
+  const url=`https://wa.me/${NUM}?text=${encodeURIComponent(message(v))}`;
+  document.getElementById('wa-lien').href=url;fo.classList.add('ok');
+  const w=window.open(url,'_blank','noopener');if(!w)fo.querySelector('.merci').focus();});
+document.addEventListener('focusin',e=>{if(e.target.matches('input,textarea,select'))document.body.classList.add('saisie')});
+document.addEventListener('focusout',e=>{if(e.target.matches('input,textarea,select'))document.body.classList.remove('saisie')});
+if('IntersectionObserver' in window){new IntersectionObserver(es=>es.forEach(x=>document.body.classList.toggle('au-contact',x.isIntersecting)),{threshold:.15}).observe(document.getElementById('contact'))}
+if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target)}}),{rootMargin:'0px 0px -10% 0px'});document.querySelectorAll('.apparait').forEach(el=>io.observe(el))}else document.querySelectorAll('.apparait').forEach(el=>el.classList.add('vu'));
+P=produits(SECOURS);rendre();
+if(CSV_URL)fetch(CSV_URL,{cache:'no-store'}).then(r=>r.ok?r.text():Promise.reject()).then(t=>{const n=produits(lireCSV(t));if(n.length>=5){P=n;rendre()}}).catch(()=>{});
+</script>
+</body>
+</html>
