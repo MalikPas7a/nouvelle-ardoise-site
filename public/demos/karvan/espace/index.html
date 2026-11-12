@@ -14,7 +14,7 @@
 <style>
 :root{
   --papier:#F3EEE4; --papier-2:#EBE4D6; --lapis:#1B2440; --safran:#C8902E; --safran-texte:#8E6216; --kraft:#B98A55; --blanc:#FFFFFF;
-  --encre-2:#4A5068; --filet:#D9D1C1; --vert:#2F6B45; --vert-fond:#DCEBDD; --rouge:#A33A2A; --rouge-fond:#F6DCD6; --ambre-fond:#F8E8C8;
+  --encre-2:#4A5068; --filet:#D9D1C1; --bord-champ:#8C8577; --vert:#2F6B45; --vert-fond:#DCEBDD; --rouge:#A33A2A; --rouge-fond:#F6DCD6; --ambre-fond:#F8E8C8;
   --f:"Outfit","Helvetica Neue",Arial,sans-serif; --mono:"Geist Mono",ui-monospace,Menlo,monospace;
   --g:max(16px,env(safe-area-inset-left,0px));
   color-scheme:light;
@@ -34,7 +34,8 @@ h2{font-size:22px}
 h3{font-size:17px}
 p{margin:0}
 .calme{color:var(--encre-2)}
-:focus-visible{outline:2px solid var(--safran);outline-offset:2px}
+:focus-visible{outline:2px solid var(--lapis);outline-offset:2px}
+.barre :focus-visible,.flotte :focus-visible,.barre-fac :focus-visible{outline-color:var(--safran)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border:1px solid var(--lapis);background:transparent;font-weight:500;font-size:15px;transition:background .15s,color .15s;text-decoration:none;white-space:nowrap}
 .btn:hover{background:var(--lapis);color:var(--papier)}
 .btn.plein{background:var(--lapis);color:var(--papier)}
@@ -42,6 +43,8 @@ p{margin:0}
 .btn.saf{background:var(--safran);border-color:var(--safran);color:var(--lapis)}
 .btn.saf:hover{background:#B57F22}
 .btn.petit{min-height:36px;padding:0 12px;font-size:14px}
+@media (pointer:coarse){.btn.petit{min-height:44px}}
+#reinit{padding:6px 4px;min-height:32px}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .btn.lien{border:0;padding:0;min-height:auto;text-decoration:underline;text-underline-offset:3px}
 .btn.lien:hover{background:none;color:var(--safran-texte)}
@@ -68,7 +71,8 @@ body.login .bascule,body.login .qui,body.login .deco,body.login .onglets{display
 .cnx .carte{background:var(--blanc);border:1px solid var(--filet);padding:26px}
 .cnx .carte h2{margin:0 0 16px;font-size:20px;color:var(--lapis)}.cnx .carte h2 .m{display:none}
 .cnx label{display:grid;gap:6px;font-size:14px;margin-bottom:14px}
-.cnx input{font:inherit;padding:12px;border:1px solid var(--filet);background:var(--papier);min-height:46px}
+.cnx input{font:inherit;font-size:16px;padding:12px;border:1px solid var(--bord-champ);background:var(--papier);min-height:46px}
+.cnx .err{color:var(--rouge);font-size:14px;margin:-6px 0 12px}
 .cnx .ou{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--encre-2);margin:22px 0 10px}
 .cnx .comptes{display:grid;gap:10px}
 .cnx .compte{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;background:var(--papier);border:1px solid var(--filet);padding:14px 16px;min-height:56px;font:inherit;color:var(--lapis);cursor:pointer}
@@ -98,17 +102,18 @@ main{max-width:1240px;margin:0 auto;padding:28px var(--g) 120px}
 
 /* catalogue */
 .outils{display:grid;grid-template-columns:1fr auto;gap:12px;margin-bottom:18px}
-.rapide{display:flex;gap:8px;background:var(--blanc);border:1px solid var(--filet);padding:8px}
-.rapide input{flex:1;min-width:0;border:0;background:none;padding:6px 8px;font-family:var(--mono);font-size:15px;text-transform:uppercase}
+.rapide{display:flex;gap:8px;background:var(--blanc);border:1px solid var(--bord-champ);padding:8px}
+.rapide input{flex:1;min-width:0;border:0;background:none;padding:6px 8px;font-family:var(--mono);font-size:16px;text-transform:uppercase}
+.rapide:focus-within{outline:2px solid var(--lapis);outline-offset:2px}
 .rapide input::placeholder{text-transform:none;font-family:var(--f);color:#8A8FA3}
 .rapide input:focus{outline:none}
 .filtres{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:18px}
-.filtres button{border:1px solid var(--filet);background:var(--blanc);padding:7px 12px;font-size:14px;white-space:nowrap;min-height:36px}
+.filtres button{border:1px solid var(--filet);background:var(--blanc);padding:7px 14px;font-size:14px;white-space:nowrap;min-height:44px}
 .filtres button[aria-pressed="true"]{background:var(--lapis);color:var(--papier);border-color:var(--lapis)}
 @media (max-width:700px){.outils{grid-template-columns:1fr}}
 .grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px}
-@media (max-width:560px){.grille{grid-template-columns:1fr 1fr;gap:10px}.prod .corps{padding:10px 10px 12px;gap:4px}.prod h3{font-size:15px}.prod .det{font-size:12.5px}.prod .prix b{font-size:16px}.prod .prix{flex-wrap:wrap;gap:2px 6px}.prod .prix span{font-size:12px}.qte button{width:34px}.qte input{width:34px}.dispo{font-size:12px}.tete .btn{white-space:normal;text-align:center;width:100%;padding:10px 14px}}
-.prod{display:flex;flex-direction:column;background:var(--blanc);border:1px solid var(--filet)}
+@media (max-width:560px){.grille{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.prod .bas{flex-wrap:wrap;gap:6px}.prod .corps{padding:10px 10px 12px;gap:4px}.prod h3{font-size:15px}.prod .det{font-size:12.5px}.prod .prix b{font-size:16px}.prod .prix{flex-wrap:wrap;gap:2px 6px}.prod .prix span{font-size:12px}.qte button{width:40px}.qte input{width:36px}.dispo{font-size:12px}.tete .btn{white-space:normal;text-align:center;width:100%;padding:10px 14px}}
+.prod{display:flex;flex-direction:column;min-width:0;background:var(--blanc);border:1px solid var(--filet)}
 .prod .vis{aspect-ratio:4/3;background:#EFE8DA;display:grid;place-items:center;overflow:hidden}
 .prod .vis img{width:78%;height:auto;mix-blend-mode:multiply}
 .prod .corps{padding:14px 14px 16px;display:grid;gap:6px;flex:1}
@@ -120,9 +125,9 @@ main{max-width:1240px;margin:0 auto;padding:28px var(--g) 120px}
 .prod .prix span{font-size:13px;color:var(--encre-2)}
 .prod .pp{font-size:12.5px;color:var(--encre-2)}
 .prod .bas{display:flex;align-items:center;gap:8px;margin-top:10px}
-.qte{display:inline-flex;align-items:center;border:1px solid var(--filet);height:40px}
-.qte button{width:38px;height:100%;border:0;background:none;font-size:18px}
-.qte input{width:44px;height:100%;border:0;text-align:center;font-family:var(--mono);background:none;-moz-appearance:textfield}
+.qte{display:inline-flex;align-items:center;border:1px solid var(--bord-champ);height:44px}
+.qte button{width:44px;height:100%;border:0;background:none;font-size:18px}
+.qte input{width:44px;height:100%;border:0;text-align:center;font-family:var(--mono);font-size:16px;background:none;-moz-appearance:textfield}
 .qte input::-webkit-outer-spin-button,.qte input::-webkit-inner-spin-button{-webkit-appearance:none}
 .dispo{font-size:12.5px;display:flex;align-items:center;gap:6px}
 .dispo::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--vert)}
@@ -170,7 +175,19 @@ main{max-width:1240px;margin:0 auto;padding:28px var(--g) 120px}
 .tab td{padding:11px 12px;border-bottom:1px solid #EEE8DC;vertical-align:middle}
 .tab tr:last-child td{border-bottom:0}
 .tab .d{text-align:right;font-family:var(--mono);white-space:nowrap}
+.tab td.num{white-space:nowrap}
 .defile{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media (max-width:640px){
+  .tab thead{display:none}
+  .tab,.tab tbody,.tab tr,.tab td{display:block;width:100%}
+  .tab tr{padding:12px 14px;border-bottom:1px solid var(--filet)}
+  .tab tr:last-child{border-bottom:0}
+  .tab td{border:0!important;padding:3px 0;min-width:0!important;text-align:left!important;white-space:normal!important}
+  .tab td[data-l]:not(:empty)::before{content:attr(data-l);display:inline-block;min-width:96px;margin-right:8px;font:500 11px/1.4 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--encre-2)}
+  .tab td:first-child{font-weight:600}
+  .tab td .btn{width:100%;margin-top:8px;white-space:normal}
+  .tab td:empty{display:none}
+}
 .statut{display:inline-block;padding:3px 8px;font-size:12.5px;font-weight:500;white-space:nowrap}
 .s-ok{background:var(--vert-fond);color:var(--vert)}
 .s-att{background:var(--ambre-fond);color:#7A5512}
@@ -211,7 +228,7 @@ button.kpi:hover{border-color:var(--lapis)}
 /* formulaire devis */
 .form{display:grid;gap:14px;max-width:640px}
 .form label{display:grid;gap:6px;font-size:14.5px;font-weight:500}
-.form input,.form select,.form textarea{border:1px solid var(--filet);background:var(--blanc);padding:11px 12px;font-weight:400;min-height:44px;width:100%}
+.form input,.form select,.form textarea{font-size:16px;border:1px solid var(--bord-champ);background:var(--blanc);padding:11px 12px;font-weight:400;min-height:44px;width:100%}
 .form textarea{min-height:110px;resize:vertical}
 .deux-champs{display:grid;grid-template-columns:2fr 1fr;gap:10px}
 .cases{display:flex;flex-wrap:wrap;gap:8px}
@@ -281,6 +298,7 @@ button.kpi:hover{border-color:var(--lapis)}
 "use strict";
 const TVA = 0.081, LIVRAISON = 15, FRANCO = 150, COUT_LOT = 4334.65, AUJ = "2026-11-09";
 const PALIERS = [{min:10, r:.06}, {min:5, r:.03}];
+const r2 = x => Math.round(x * 100) / 100;
 const IMG = { bol:"bol-kraft", couv:"couvercle-bol", pap:"papier-burger", box:"box-burger", gob:"gobelet", sac:"sac-kraft", piz:"boite-pizza", sau:"barquette-sauce-pet", pot:"pot-sauce-pp", sal:"barquette-salade" };
 // ref, famille, nom, détail, pièces/carton, prix HT carton, coût complet carton, cartons reçus (lot 1), image, seuil d'alerte
 const P = [
@@ -341,19 +359,25 @@ const CLE = "karvan-demo-espace";
 let S;
 try { S = JSON.parse(localStorage.getItem(CLE)); } catch (e) { S = null; }
 if (!S || S.v !== 3) S = seed();
+Object.entries(S.valides || {}).forEach(([k, v]) => { if (CLIENTS[k]) Object.assign(CLIENTS[k], v); });
 const save = () => { try { localStorage.setItem(CLE, JSON.stringify(S)); } catch (e) {} };
 
-let mode = "connexion", onglet = "commander", famille = "Tout";
+let mode = "connexion", onglet = "commander", famille = "Tout", attente = null;
 
 // ---------- calculs ----------
 const chf = x => x.toLocaleString("fr-CH", {minimumFractionDigits:2, maximumFractionDigits:2});
 const chf0 = x => Math.round(x).toLocaleString("fr-CH");
-const remise = q => (PALIERS.find(p => q >= p.min) || {r:0}).r;
-const prixU = (ref, q) => PR[ref].prix * (1 - remise(q));
-const totHT = lignes => Object.entries(lignes).reduce((s, [r, q]) => s + prixU(r, q) * q, 0);
+// pas de remise sur les produits vendus sous leur coût complet (« prix de lancement »)
+const lancement = ref => !!(ref && PR[ref] && PR[ref].cout > PR[ref].prix);
+const remise = (q, ref) => lancement(ref) ? 0 : (PALIERS.find(p => q >= p.min) || {r:0}).r;
+const prixU = (ref, q) => r2(PR[ref].prix * (1 - remise(q, ref)));
+// calcul au centime : chaque ligne arrondie, puis la TVA
+const totHT = lignes => r2(Object.entries(lignes).reduce((s, [r, q]) => s + r2(prixU(r, q) * q), 0));
 const coutC = lignes => Object.entries(lignes).reduce((s, [r, q]) => s + PR[r].cout * q, 0);
 const port = ht => ht >= FRANCO || ht === 0 ? 0 : LIVRAISON;
-const totaux = lignes => { const ht = totHT(lignes), p = port(ht), tva = (ht + p) * TVA; return {ht, p, tva, ttc: ht + p + tva}; };
+const totaux = lignes => { const ht = totHT(lignes), p = port(ht), tva = r2((ht + p) * TVA); return {ht, p, tva, ttc: r2(ht + p + tva)}; };
+const numC = n => parseInt(String(n).replace(/\D/g, ""), 10) || 0;
+const recent = (a, b) => b.date.localeCompare(a.date) || numC(b.n) - numC(a.n);
 const sorti = ref => S.commandes.filter(c => c.statut === "livree").reduce((s, c) => s + (c.lignes[ref] || 0), 0);
 const reserve = ref => S.commandes.filter(c => c.statut === "apreparer").reduce((s, c) => s + (c.lignes[ref] || 0), 0);
 const stock = ref => PR[ref].recu - sorti(ref) + S.mouvements.filter(m => m.ref === ref).reduce((s, m) => s + m.q, 0);
@@ -373,7 +397,7 @@ const ONGLETS = {
   admin: [["auj","Aujourd'hui"],["argent","Argent"],["stock","Stock"],["cmd","Commandes et devis"],["clients","Clients"],["prix","Produits et prix"]]
 };
 function badge(id) {
-  if (id === "auj") { const n = S.commandes.filter(c => c.statut === "apreparer").length + S.devis.filter(d => d.statut === "aenvoyer").length + S.commandes.filter(enRetard).length; return n ? `<span class="pastille">${n}</span>` : ""; }
+  if (id === "auj") { const n = S.commandes.filter(c => c.statut === "apreparer").length + S.devis.filter(d => d.statut === "aenvoyer").length + S.commandes.filter(enRetard).length + Object.values(CLIENTS).filter(c => c.statut === "À valider").length; return n ? `<span class="pastille">${n}</span>` : ""; }
   if (id === "stock") { const n = P.filter(p => dispo(p.ref) <= p.alerte).length; return n ? `<span class="pastille rouge">${n}</span>` : ""; }
   if (id === "factures") { const n = S.commandes.filter(c => c.cl === MOI && c.fac && !c.payee).length; return n ? `<span class="pastille">${n}</span>` : ""; }
   return "";
@@ -383,11 +407,11 @@ function vueConnexion() {
     <div>
       <h1 id="tc">Espace pro Karvan</h1>
       <p class="chap">Réservé aux professionnels clients : restaurants, snacks, boulangeries, traiteurs, cafés, épiceries. Vos prix, vos commandes et vos factures au même endroit.</p>
-      <ul class="plus"><li>Prix pro et remises par quantité</li><li>Commande en 1 minute, ou recommande la dernière</li><li>Paiement TWINT, carte ou sur facture à 30 jours</li><li>Factures et devis toujours à portée de main</li></ul>
+      <ul class="plus"><li>Prix pro et remises par quantité</li><li>Commande en 1 minute, ou recommande la dernière</li><li>Paiement TWINT, ou sur facture à 30 jours pour les clients réguliers</li><li>Factures et devis toujours à portée de main</li></ul>
     </div>
     <div class="carte">
       <h2><span class="m">Espace pro · </span>Se connecter</h2>
-      <form data-form="cnx"><label>E-mail<input name="e" type="email" autocomplete="username" placeholder="vous@entreprise.ch"></label>
+      <form data-form="cnx" novalidate><label>E-mail<input name="e" type="email" autocomplete="username" placeholder="vous@entreprise.ch" required aria-describedby="cnx-err"></label><p class="err" id="cnx-err" hidden></p>
       <label>Mot de passe<input name="m" type="password" autocomplete="current-password"></label>
       <button class="btn plein" type="submit" style="width:100%">Se connecter</button></form>
       <p class="ou">Démo · entrer sans mot de passe</p>
@@ -406,6 +430,7 @@ function rendre(focus) {
   $("#qui").innerHTML = mode === "client" ? `Connecté<b>${CLIENTS[MOI].nom}</b>` : `Connecté<b>Jalal · admin</b>`;
   $("#onglets").innerHTML = ONGLETS[mode].map(([id, l]) => `<button role="tab" type="button" data-onglet="${id}" aria-selected="${id === onglet}">${l}${badge(id)}</button>`).join("");
   vue.innerHTML = (VUES[onglet] || (() => ""))();
+  vue.querySelectorAll(".tab").forEach(t => { const th = [...t.querySelectorAll("thead th")].map(x => x.textContent.trim()); t.querySelectorAll("tbody tr").forEach(tr => [...tr.children].forEach((td, i) => { if (th[i]) td.dataset.l = th[i]; })); });
   const sel = document.querySelector('#onglets [aria-selected="true"]'); if (sel) { const bar = $("#onglets"); bar.scrollLeft = Math.max(0, sel.offsetLeft - 16); }
   rendreFlotte();
   if (focus) { window.scrollTo({top:0}); vue.focus({preventScroll:true}); }
@@ -418,7 +443,7 @@ function toast(t) {
 // ---------- vues client ----------
 const VUES = {};
 VUES.commander = () => {
-  const der = S.commandes.filter(c => c.cl === MOI).sort((a, b) => b.date.localeCompare(a.date))[0];
+  const der = S.commandes.filter(c => c.cl === MOI).sort(recent)[0];
   const liste = P.filter(p => famille === "Tout" || p.fam === famille);
   return `
   <div class="tete"><div><p class="mono" style="color:var(--safran-texte)">Bonjour Marco</p><h1>Commander</h1></div>
@@ -429,7 +454,7 @@ VUES.commander = () => {
     <datalist id="refs">${P.map(p => `<option value="${p.ref}">${esc(p.nom)}</option>`).join("")}</datalist>
   </div>
   <div class="filtres" role="group" aria-label="Familles">${FAMS.map(f => `<button type="button" data-fam="${f}" aria-pressed="${f === famille}">${f}</button>`).join("")}</div>
-  <p class="note" style="margin-bottom:14px">Prix HT par carton. Dès 5 cartons d'un même produit : −3 %. Dès 10 : −6 %. Livraison offerte dès ${FRANCO} CHF HT, sinon ${LIVRAISON} CHF.</p>
+  <p class="note" style="margin-bottom:14px">Prix HT par carton. Dès 5 cartons d'un même produit : −3 %. Dès 10 : −6 % (hors prix de lancement). Livraison offerte dès ${FRANCO} CHF HT, sinon ${LIVRAISON} CHF.</p>
   <div class="grille">${liste.map(carteProd).join("")}</div>`;
 };
 function carteProd(p) {
@@ -446,7 +471,7 @@ function carteProd(p) {
       <p class="dispo ${etat[0]}">${etat[1]}</p>
       <div class="bas">
         <div class="qte"><button type="button" data-moins="${p.ref}" aria-label="Retirer un carton de ${esc(p.nom)}">−</button><input type="number" inputmode="numeric" min="0" value="${q}" data-q="${p.ref}" aria-label="Cartons de ${esc(p.nom)}"><button type="button" data-plus="${p.ref}" aria-label="Ajouter un carton de ${esc(p.nom)}" ${d - q <= 0 ? "disabled" : ""}>+</button></div>
-        ${q >= 5 ? `<span class="statut s-ok">−${remise(q) * 100} %</span>` : ""}
+        ${remise(q, p.ref) ? `<span class="statut s-ok">−${remise(q, p.ref) * 100} %</span>` : q >= 5 && lancement(p.ref) ? `<span class="statut s-neutre">Prix de lancement</span>` : ""}
       </div>
     </div></article>`;
 }
@@ -464,13 +489,12 @@ function ouvrirPanier() {
   <aside class="tiroir" role="dialog" aria-modal="true" aria-labelledby="tp">
     <div class="h"><h2 id="tp">Votre commande</h2><button class="fermer" type="button" data-act="fermer" aria-label="Fermer">×</button></div>
     <div class="c">
-      ${lignes.length ? lignes.map(([r, q]) => `<div class="ligne"><div><p class="n">${q} × ${esc(PR[r].nom)}</p><p class="s"><span class="num">${r}</span> · ${chf(prixU(r, q))} CHF le carton${remise(q) ? ` (−${remise(q) * 100} %)` : ""}</p></div><p class="m">${chf(prixU(r, q) * q)}</p></div>`).join("") : `<p class="vide">Panier vide.</p>`}
-      <div class="tot"><span>Total HT</span><span class="num">${chf(t.ht)}</span><span>Livraison</span><span class="num">${t.p ? chf(t.p) : "offerte"}</span><span>TVA 8,1 %</span><span class="num">${chf(t.tva)}</span><span class="gros">Total TTC</span><span class="num gros">${chf(t.ttc)} CHF</span></div>
+      ${lignes.length ? lignes.map(([r, q]) => `<div class="ligne"><div><p class="n">${q} × ${esc(PR[r].nom)}</p><p class="s"><span class="num">${r}</span> · ${chf(prixU(r, q))} CHF le carton${remise(q, r) ? ` (−${remise(q, r) * 100} %)` : ""}</p></div><p class="m">${chf(prixU(r, q) * q)}</p></div>`).join("") : `<p class="vide">Panier vide.</p>`}
+      <div class="tot"><span>Marchandise HT</span><span class="num">${chf(t.ht)}</span><span>Livraison HT</span><span class="num">${t.p ? chf(t.p) : "offerte"}</span><span>TVA 8,1 %</span><span class="num">${chf(t.tva)}</span><span class="gros">Total TTC</span><span class="num gros">${chf(t.ttc)} CHF</span></div>
       ${t.p ? `<p class="alerte">Encore ${chf(FRANCO - t.ht)} CHF HT pour la livraison offerte.</p>` : ""}
       <fieldset class="choix" style="border:0;padding:0"><legend class="mono" style="margin-bottom:8px">Paiement</legend>
         <label><input type="radio" name="paie" value="twint" checked><span>TWINT</span><small>Vous scannez le code, c'est payé tout de suite.</small></label>
-        <label><input type="radio" name="paie" value="carte"><span>Carte bancaire</span><small>Visa, Mastercard, Apple Pay, Google Pay.</small></label>
-        <label><input type="radio" name="paie" value="facture" ${cl.facture ? "" : "disabled"}><span>Sur facture à 30 jours</span><small>${cl.facture ? "Facture QR envoyée à la livraison. Réservé aux comptes validés." : "Disponible après votre 1re commande."}</small></label>
+        <label><input type="radio" name="paie" value="facture" ${cl.facture ? "" : "disabled"}><span>Sur facture à 30 jours</span><small>${cl.facture ? "Facture QR envoyée à la livraison. Réservé aux comptes validés." : "Activée par Jalal pour ses clients réguliers."}</small></label>
       </fieldset>
       <p class="note">Livraison à ${esc(cl.nom)}, ${esc(cl.adr)}, ${esc(cl.ville)}.</p>
     </div>
@@ -479,7 +503,8 @@ function ouvrirPanier() {
   rendreFlotte();
   setTimeout(() => $(".tiroir .fermer")?.focus(), 30);
 }
-function fermerCalque() { $("#calque").innerHTML = ""; rendreFlotte(); }
+function fermerCalque() { if (attente) { clearTimeout(attente); attente = null; toast("Paiement annulé. Rien n'a été débité, votre panier est conservé."); } const ouvert = $("#calque").innerHTML; $("#calque").innerHTML = ""; rendreFlotte(); if (ouvert && retourFocus && document.contains(retourFocus)) retourFocus.focus(); retourFocus = null; }
+let retourFocus = null;
 function valider() {
   const paie = (document.querySelector("input[name=paie]:checked") || {}).value || "twint";
   const t = totaux(S.panier);
@@ -487,13 +512,17 @@ function valider() {
   const corps = paie === "twint"
     ? `<p class="mono">Paiement TWINT</p><h2>${chf(t.ttc)} CHF</h2>${qrSvg(37, "qr")}<p class="calme">Scannez avec l'app TWINT.<br>Dans la démo, le paiement se valide tout seul.</p>`
     : `<p class="mono">Paiement par carte</p><h2>${chf(t.ttc)} CHF</h2><div class="carte" style="width:100%;padding:14px;text-align:left;font-family:var(--mono);font-size:14px;color:var(--encre-2)">4242 4242 4242 4242 · 12/29 · 123</div><p class="calme">Page de paiement sécurisée (Payrexx). Dans la démo, rien n'est débité.</p>`;
-  $("#calque").innerHTML = `<div class="voile"></div><div class="modale" role="dialog" aria-modal="true" aria-label="Paiement"><div class="boite" id="bp">${corps}<p class="note">Validation…</p></div></div>`;
-  setTimeout(() => finaliser(paie), 2200);
+  const fige = {...S.panier};
+  $("#calque").innerHTML = `<div class="voile" data-act="fermer"></div><div class="modale" role="dialog" aria-modal="true" aria-label="Paiement"><div class="boite" id="bp">${corps}<p class="note">Validation…</p><button class="btn" type="button" data-act="fermer">Annuler le paiement</button></div></div>`;
+  setTimeout(() => $("#bp .btn")?.focus(), 30);
+  attente = setTimeout(() => { attente = null; finaliser(paie, fige); }, 2200);
 }
-function finaliser(paie) {
+function finaliser(paie, fige) {
+  const lignes = fige || {...S.panier};
+  if (!Object.keys(lignes).length) { fermerCalque(); toast("Panier vide : aucune commande créée."); return; }
   const n = "C-" + S.num.c++;
-  S.commandes.push({n, cl:MOI, date:AUJ, lignes:{...S.panier}, statut:"apreparer", paie, payee: paie !== "facture", fac:null});
-  const t = totaux(S.panier);
+  S.commandes.push({n, cl:MOI, date:AUJ, lignes, statut:"apreparer", paie, payee: paie !== "facture", fac:null});
+  const t = totaux(lignes);
   S.panier = {}; save();
   $("#calque").innerHTML = `<div class="voile" data-act="fermer"></div><div class="modale" role="dialog" aria-modal="true" aria-labelledby="okt"><div class="boite">
     <div class="ok" aria-hidden="true">✓</div><h2 id="okt">Commande ${n} reçue</h2>
@@ -527,16 +556,16 @@ function tableDevis(liste, admin) {
 const libStatut = c => c.statut === "apreparer" ? `<span class="statut s-att">En préparation</span>` : `<span class="statut s-ok">Livrée</span>`;
 const libPaie = c => c.payee ? `<span class="statut s-ok">Payée</span>` : enRetard(c) ? `<span class="statut s-ko">En retard</span>` : c.fac ? `<span class="statut s-att">À payer avant le ${dfr(echeance(c))}</span>` : `<span class="statut s-neutre">Facture à la livraison</span>`;
 VUES.commandes = () => {
-  const l = S.commandes.filter(c => c.cl === MOI).sort((a, b) => b.date.localeCompare(a.date));
+  const l = S.commandes.filter(c => c.cl === MOI).sort(recent);
   return `<div class="tete"><h1>Mes commandes</h1></div>
   <div class="defile"><table class="tab"><thead><tr><th>N°</th><th>Date</th><th>Contenu</th><th>Livraison</th><th>Paiement</th><th class="d">Total TTC</th><th></th></tr></thead><tbody>
   ${l.map(c => `<tr><td class="num">${c.n}</td><td class="num">${dfr(c.date)}</td><td style="min-width:200px">${Object.entries(c.lignes).map(([r, q]) => `${q} × ${r}`).join(", ")}</td><td>${libStatut(c)}</td><td>${libPaie(c)}</td><td class="d">${chf(totaux(c.lignes).ttc)}</td><td><button class="btn petit" type="button" data-act="recommander" data-n="${c.n}">Recommander</button></td></tr>`).join("")}
   </tbody></table></div>`;
 };
 VUES.factures = () => {
-  const l = S.commandes.filter(c => c.cl === MOI && c.fac).sort((a, b) => b.date.localeCompare(a.date));
+  const l = S.commandes.filter(c => c.cl === MOI && c.fac).sort(recent);
   const du = l.filter(c => !c.payee).reduce((s, c) => s + totaux(c.lignes).ttc, 0);
-  return `<div class="tete"><div><h1>Mes factures</h1><p class="calme" style="margin-top:8px">${du ? `Reste à payer : <b class="num">${chf(du)} CHF</b>. Payez avec la facture QR, en TWINT ou par carte.` : "Tout est payé. Merci !"}</p></div></div>
+  return `<div class="tete"><div><h1>Mes factures</h1><p class="calme" style="margin-top:8px">${du ? `Reste à payer : <b class="num">${chf(du)} CHF</b>. Payez avec la facture QR ou en TWINT.` : "Tout est payé. Merci !"}</p></div></div>
   ${l.length ? `<div class="defile"><table class="tab"><thead><tr><th>Facture</th><th>Date</th><th>Commande</th><th>Échéance</th><th>Statut</th><th class="d">Montant TTC</th><th></th></tr></thead><tbody>
   ${l.map(c => `<tr><td class="num">${c.fac}</td><td class="num">${dfr(c.date)}</td><td class="num">${c.n}</td><td class="num">${dfr(echeance(c))}</td><td>${libPaie(c)}</td><td class="d">${chf(totaux(c.lignes).ttc)}</td>
   <td style="white-space:nowrap"><button class="btn petit" type="button" data-act="facture" data-n="${c.n}">Voir le PDF</button> ${c.payee ? "" : `<button class="btn petit saf" type="button" data-act="payer" data-n="${c.n}">Payer</button>`}</td></tr>`).join("")}
@@ -554,7 +583,7 @@ VUES.auj = () => {
   const taches = [
     ...ap.map(c => `<div class="tache"><span class="ic">CMD</span><div class="t"><b>Préparer ${c.n} · ${esc(CLIENTS[c.cl].nom)}</b><p>${Object.entries(c.lignes).map(([r, q]) => `${q} × ${r}`).join(", ")} · ${c.payee ? "déjà payée" : "sur facture"}</p></div><button class="btn plein petit" type="button" data-act="livrer" data-n="${c.n}">Marquer livrée</button></div>`),
     ...dv.map(d => `<div class="tache"><span class="ic">DEV</span><div class="t"><b>Devis ${d.n} · ${esc(CLIENTS[d.cl].nom)}</b><p>${esc(d.texte)}</p></div><button class="btn petit" type="button" data-act="chiffrer" data-n="${d.n}">Chiffrer et envoyer</button></div>`),
-    ...rt.map(c => `<div class="tache"><span class="ic">€</span><div class="t"><b>Relancer ${esc(CLIENTS[c.cl].nom)} · ${c.fac}</b><p>${chf(totaux(c.lignes).ttc)} CHF, échue le ${dfr(echeance(c))}</p></div><button class="btn petit" type="button" data-act="relancer" data-n="${c.n}">Envoyer un rappel</button></div>`),
+    ...rt.map(c => `<div class="tache"><span class="ic">€</span><div class="t"><b>Relancer ${esc(CLIENTS[c.cl].nom)} · ${c.fac}</b><p>${chf(totaux(c.lignes).ttc)} CHF, échue le ${dfr(echeance(c))}</p></div><span style="display:flex;gap:8px;flex-wrap:wrap">${(S.rappels || {})[c.n] ? `<span class="statut s-neutre">Rappel envoyé le ${dfr(S.rappels[c.n])}</span>` : `<button class="btn petit" type="button" data-act="relancer" data-n="${c.n}">Envoyer un rappel</button>`}<button class="btn petit" type="button" data-act="marquerpayee" data-n="${c.n}">Marquer payée</button></span></div>`),
     ...nv.map(([k, c]) => `<div class="tache"><span class="ic">NEW</span><div class="t"><b>Nouveau compte · ${esc(c.nom)}</b><p>${esc(c.contact)}, ${esc(c.ville)}</p></div><button class="btn petit" type="button" data-act="valcli" data-k="${k}">Valider le compte</button></div>`)
   ];
   return `<div class="tete"><div><p class="mono" style="color:var(--safran-texte)">Lundi 9 novembre</p><h1>Bonjour Jalal</h1></div></div>
@@ -614,11 +643,11 @@ VUES.stock = () => `<div class="tete"><div><h1>Stock</h1><p class="calme" style=
   </tbody></table></div>
   <p class="note" style="margin-top:12px">Valeur totale du stock au coût de revient : <b class="num">${chf(P.reduce((s, p) => s + stock(p.ref) * p.cout, 0))} CHF</b>.</p>`;
 VUES.cmd = () => {
-  const l = S.commandes.slice().sort((a, b) => (a.statut === "apreparer" ? -1 : 1) - (b.statut === "apreparer" ? -1 : 1) || b.date.localeCompare(a.date));
+  const l = S.commandes.slice().sort((a, b) => (a.statut === "apreparer" ? -1 : 1) - (b.statut === "apreparer" ? -1 : 1) || recent(a, b));
   return `<div class="tete"><h1>Commandes et devis</h1></div>
   <section><h2 style="margin-bottom:14px">Commandes</h2><div class="defile"><table class="tab"><thead><tr><th>N°</th><th>Date</th><th>Client</th><th>Contenu</th><th>Livraison</th><th>Paiement</th><th class="d">Total HT</th><th class="d">Marge</th><th></th></tr></thead><tbody>
   ${l.map(c => { const ht = totHT(c.lignes); return `<tr><td class="num">${c.n}</td><td class="num">${dfr(c.date)}</td><td>${esc(CLIENTS[c.cl].nom)}</td><td style="min-width:180px">${Object.entries(c.lignes).map(([r, q]) => `${q} × ${r}`).join(", ")}</td><td>${c.statut === "apreparer" ? `<span class="statut s-att">À préparer</span>` : `<span class="statut s-ok">Livrée</span>`}</td><td>${libPaie(c)}</td><td class="d">${chf(ht)}</td><td class="d">${chf(ht - coutC(c.lignes))}</td>
-  <td style="white-space:nowrap">${c.statut === "apreparer" ? `<button class="btn petit plein" type="button" data-act="livrer" data-n="${c.n}">Marquer livrée</button>` : c.fac ? `<button class="btn petit" type="button" data-act="facture" data-n="${c.n}">Facture</button>` : ""}</td></tr>`; }).join("")}
+  <td style="white-space:nowrap">${c.statut === "apreparer" ? `<button class="btn petit plein" type="button" data-act="livrer" data-n="${c.n}">Marquer livrée</button>` : c.fac ? `<button class="btn petit" type="button" data-act="facture" data-n="${c.n}">Facture</button>${c.payee ? "" : ` <button class="btn petit" type="button" data-act="marquerpayee" data-n="${c.n}">Marquer payée</button>`}` : ""}</td></tr>`; }).join("")}
   </tbody></table></div></section>
   <section class="sect"><h2>Devis</h2>${tableDevis(S.devis, true)}</section>`;
 };
@@ -653,10 +682,10 @@ function voirFacture(n) {
     <div class="ent"><img src="../img/karvan-logo.svg" alt="Karvan" width="1000" height="360"><div style="text-align:right">Karvan · Jalal<br>Genève (adresse à compléter)<br>TVA CHE-000.000.000 (exemple)</div></div>
     <div class="adr"><div><b>Facturé à</b><br>${esc(cl.nom)}<br>${esc(cl.contact)}<br>${esc(cl.adr)}<br>${esc(cl.ville)}</div><div><b>Facture ${c.fac}</b><br>Date : ${dfr(c.date)}<br>Commande : ${c.n}<br>Échéance : ${dfr(echeance(c))}<br>Statut : ${c.payee ? "payée" : "à payer"}</div></div>
     <table><thead><tr><th>Réf.</th><th>Désignation</th><th class="d">Cartons</th><th class="d">Prix HT</th><th class="d">Total HT</th></tr></thead><tbody>
-    ${Object.entries(c.lignes).map(([r, q]) => `<tr><td>${r}</td><td>${esc(PR[r].nom)}${remise(q) ? ` (−${remise(q) * 100} %)` : ""}</td><td class="d">${q}</td><td class="d">${chf(prixU(r, q))}</td><td class="d">${chf(prixU(r, q) * q)}</td></tr>`).join("")}
+    ${Object.entries(c.lignes).map(([r, q]) => `<tr><td>${r}</td><td>${esc(PR[r].nom)}${remise(q, r) ? ` (−${remise(q, r) * 100} %)` : ""}</td><td class="d">${q}</td><td class="d">${chf(prixU(r, q))}</td><td class="d">${chf(prixU(r, q) * q)}</td></tr>`).join("")}
     ${t.p ? `<tr><td></td><td>Livraison</td><td class="d">1</td><td class="d">${chf(t.p)}</td><td class="d">${chf(t.p)}</td></tr>` : ""}
     </tbody></table>
-    <div class="tt"><span>Total HT</span><span class="d">${chf(t.ht + t.p)}</span><span>TVA 8,1 %</span><span class="d">${chf(t.tva)}</span><span class="g">Total TTC CHF</span><span class="g d">${chf(t.ttc)}</span></div>
+    <div class="tt"><span>Total HT, livraison comprise</span><span class="d">${chf(t.ht + t.p)}</span><span>TVA 8,1 %</span><span class="d">${chf(t.tva)}</span><span class="g">Total TTC CHF</span><span class="g d">${chf(t.ttc)}</span></div>
     <div class="qrbill"><div><h4>Récépissé</h4>Compte / Payable à<br>CH00 0000 0000 0000 0000 0 (QR-IBAN d'exemple)<br>Karvan, Genève<br><br>Payable par<br>${esc(cl.nom)}<br><br><b>Montant CHF ${chf(t.ttc)}</b></div>
     <div><h4>Section paiement</h4><div class="qrc">${qrSvg(37, "q")}<div>Référence<br>00 00000 ${c.fac.replace("F-", "")} 00000<br><br>Informations<br>Facture ${c.fac}, commande ${c.n}<br><br><b>Montant CHF ${chf(t.ttc)}</b></div></div><small>Code QR d'exemple, il ne se paie pas.</small></div></div>
     <p class="ex">Facture d'exemple. Dans la version finale, elle est créée par bexio, envoyée par e-mail au client et copiée dans le dossier Drive « Karvan / Factures / ${c.date.slice(0, 7)} ».</p>
@@ -673,33 +702,36 @@ function ajouter(ref, q) {
 }
 function majCarte(ref) {
   const art = document.querySelector(`[data-q="${ref}"]`)?.closest(".prod");
+  const a = document.activeElement, cle = a && art && art.contains(a) ? (a.dataset.plus ? "plus" : a.dataset.moins ? "moins" : a.dataset.q ? "q" : null) : null;
   if (art) { const tmp = document.createElement("div"); tmp.innerHTML = carteProd(PR[ref]); art.replaceWith(tmp.firstElementChild); }
+  if (cle) { let el = document.querySelector(`[data-${cle}="${ref}"]`); if (!el || el.disabled) el = document.querySelector(`[data-q="${ref}"]`); el?.focus(); }
   rendreFlotte();
 }
 document.addEventListener("click", e => {
   const b = e.target.closest("button, [data-act]"); if (!b) return;
   const d = b.dataset;
-  if (d.act === "deco") { mode = "connexion"; history.replaceState(null, "", location.pathname); fermerCalque(); rendre(true); toast("Vous êtes déconnecté."); return; }
+  if (d.act === "deco") { S.panier = {}; save(); mode = "connexion"; history.replaceState(null, "", location.pathname); fermerCalque(); rendre(true); toast("Vous êtes déconnecté."); return; }
   if (d.mode) { mode = d.mode; history.replaceState(null, "", "#" + mode); onglet = mode === "client" ? "commander" : "auj"; fermerCalque(); rendre(true); return; }
-  if (d.onglet) { onglet = d.onglet; rendre(true); return; }
-  if (d.go) { onglet = d.go; rendre(true); return; }
-  if (d.fam) { famille = d.fam; rendre(); return; }
+  if (d.onglet) { onglet = d.onglet; history.pushState(null, "", `#${mode}/${onglet}`); rendre(true); return; }
+  if (d.go) { onglet = d.go; history.pushState(null, "", `#${mode}/${onglet}`); rendre(true); return; }
+  if (d.fam) { famille = d.fam; rendre(); document.querySelector(`[data-fam="${famille}"]`)?.focus(); return; }
   if (d.plus) { ajouter(d.plus, 1); majCarte(d.plus); return; }
   if (d.moins) { ajouter(d.moins, -1); majCarte(d.moins); return; }
   switch (d.act) {
-    case "panier": ouvrirPanier(); break;
+    case "panier": retourFocus = b; history.pushState({calque:1}, "", location.hash || "#client"); ouvrirPanier(); break;
     case "fermer": fermerCalque(); break;
     case "valider": valider(); break;
-    case "voircmd": fermerCalque(); onglet = "commandes"; rendre(true); break;
+    case "voircmd": fermerCalque(); onglet = "commandes"; history.pushState(null, "", `#${mode}/${onglet}`); rendre(true); break;
     case "recommander": { const c = S.commandes.find(o => o.n === d.n); let manque = 0; Object.entries(c.lignes).forEach(([r, q]) => { const avant = S.panier[r] || 0; ajouter(r, q); if ((S.panier[r] || 0) - avant < q) manque++; }); if (onglet !== "commander") { onglet = "commander"; rendre(true); } else rendre(); ouvrirPanier(); if (manque) toast("Certains produits ne sont plus assez en stock : quantités ajustées."); break; }
-    case "livrer": { const c = S.commandes.find(o => o.n === d.n); c.statut = "livree"; c.fac = "F-" + S.num.f++; save(); rendre(); toast(`${c.n} livrée. Facture ${c.fac} envoyée à ${CLIENTS[c.cl].nom}, stock mis à jour.`); break; }
+    case "livrer": { const c = S.commandes.find(o => o.n === d.n); if (!c || c.statut !== "apreparer") break; b.disabled = true; c.statut = "livree"; c.livree = AUJ; c.fac = "F-" + S.num.f++; save(); rendre(); toast(`${c.n} livrée. Facture ${c.fac} envoyée à ${CLIENTS[c.cl].nom}, stock mis à jour.`); break; }
     case "chiffrer": { const dv = S.devis.find(o => o.n === d.n); dv.statut = "envoye"; dv.montant = dv.logo ? 20 * 58.9 + 290 : 20 * 41.4; save(); rendre(); toast(`Devis ${dv.n} envoyé à ${CLIENTS[dv.cl].nom} (${chf(dv.montant)} CHF HT).`); break; }
     case "accepter": { const dv = S.devis.find(o => o.n === d.n); dv.statut = "accepte"; save(); rendre(); toast("Devis accepté. Jalal est prévenu et prépare votre commande."); break; }
-    case "relancer": { const c = S.commandes.find(o => o.n === d.n); toast(`Rappel envoyé à ${CLIENTS[c.cl].nom} avec la facture ${c.fac} et le lien de paiement TWINT.`); break; }
-    case "valcli": CLIENTS[d.k].statut = "Validé"; rendre(); toast(`${CLIENTS[d.k].nom} peut maintenant voir vos prix et commander.`); break;
-    case "facture": voirFacture(d.n); break;
+    case "marquerpayee": { const c = S.commandes.find(o => o.n === d.n); if (!c || c.payee) break; c.payee = true; c.payeeLe = AUJ; save(); rendre(); toast(`${c.fac} marquée payée le ${dfr(AUJ)} (virement QR). Elle sort des relances.`); break; }
+    case "relancer": { const c = S.commandes.find(o => o.n === d.n); S.rappels = S.rappels || {}; S.rappels[c.n] = AUJ; save(); rendre(); toast(`Rappel envoyé à ${CLIENTS[c.cl].nom} avec la facture ${c.fac} et le lien de paiement TWINT.`); break; }
+    case "valcli": CLIENTS[d.k].statut = "Validé"; S.valides = S.valides || {}; S.valides[d.k] = {statut:"Validé", facture:false}; save(); rendre(); toast(`${CLIENTS[d.k].nom} peut maintenant voir vos prix et commander (paiement TWINT ; la facture à 30 jours s'active plus tard, client par client).`); break;
+    case "facture": retourFocus = b; history.pushState({calque:1}, "", location.hash || "#" + mode); voirFacture(d.n); break;
     case "imprimer": window.print(); break;
-    case "payer": { const c = S.commandes.find(o => o.n === d.n); const t = totaux(c.lignes); $("#calque").innerHTML = `<div class="voile"></div><div class="modale" role="dialog" aria-modal="true" aria-label="Paiement"><div class="boite"><p class="mono">Payer ${c.fac} en TWINT</p><h2>${chf(t.ttc)} CHF</h2>${qrSvg(37, "qr")}<p class="note">Validation…</p></div></div>`; setTimeout(() => { c.payee = true; save(); fermerCalque(); rendre(); toast(`Facture ${c.fac} payée. Merci !`); }, 2000); break; }
+    case "payer": { const c = S.commandes.find(o => o.n === d.n); const t = totaux(c.lignes); $("#calque").innerHTML = `<div class="voile"></div><div class="modale" role="dialog" aria-modal="true" aria-label="Paiement"><div class="boite"><p class="mono">Payer ${c.fac} en TWINT</p><h2>${chf(t.ttc)} CHF</h2>${qrSvg(37, "qr")}<p class="note">Validation…</p><button class="btn" type="button" data-act="fermer">Annuler</button></div></div>`; retourFocus = b; setTimeout(() => $(".modale .btn")?.focus(), 30); attente = setTimeout(() => { attente = null; c.payee = true; save(); fermerCalque(); rendre(); toast(`Facture ${c.fac} payée. Merci !`); }, 2000); break; }
     case "arrivage": { const ref = "PIZ-33"; S.mouvements.push({ref, q:20, date:AUJ}); save(); rendre(); toast("Exemple : arrivage de 20 cartons de PIZ-33 ajouté au stock."); break; }
   }
 });
@@ -711,14 +743,20 @@ document.addEventListener("change", e => {
 });
 document.addEventListener("submit", e => {
   const f = e.target.closest("[data-form]"); if (!f) return; e.preventDefault();
-  if (f.dataset.form === "cnx") { mode = /jalal|karvan|admin/i.test(f.e.value) ? "admin" : "client"; onglet = mode === "client" ? "commander" : "auj"; history.replaceState(null, "", "#" + mode); rendre(true); return; }
+  if (f.dataset.form === "cnx") { const err = f.querySelector(".err"); if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(f.e.value.trim())) { err.textContent = "Entrez votre adresse e-mail professionnelle."; err.hidden = false; f.e.setAttribute("aria-invalid", "true"); f.e.focus(); return; } if (!f.m.value) { err.textContent = "Entrez votre mot de passe, ou utilisez un accès démo ci-dessous."; err.hidden = false; f.m.focus(); return; } mode = /jalal|karvan|admin/i.test(f.e.value) ? "admin" : "client"; onglet = mode === "client" ? "commander" : "auj"; history.replaceState(null, "", "#" + mode); rendre(true); return; }
   if (f.dataset.form === "rapide") {
-    const m = f.r.value.trim().toUpperCase().match(/^([A-Z]+-[A-Z0-9]+)\s*[X×]?\s*(\d+)?$/);
-    if (!m || !PR[m[1]]) { toast("Référence inconnue. Exemple : PIZ-33 6"); return; }
-    const q = parseInt(m[2] || "1", 10); ajouter(m[1], q); f.r.value = ""; majCarte(m[1]);
-    toast(`${S.panier[m[1]] || 0} × ${PR[m[1]].nom} dans le panier.`);
+    const brut = f.r.value.trim().toUpperCase().replace(/\s+/g, " ");
+    const m = brut.match(/^([A-Z]+)\s?-?\s?([A-Z0-9]+)(?:\s*[X×]?\s*(-?\S+))?$/);
+    const ref = m && (PR[`${m[1]}-${m[2]}`] ? `${m[1]}-${m[2]}` : null);
+    if (!ref) { toast("Référence inconnue. Exemple : PIZ-33 6"); return; }
+    const q = m[3] === undefined ? 1 : Number(m[3]);
+    if (!Number.isInteger(q) || q < 1 || q > 999) { toast("Quantité invalide : indiquez un nombre de cartons entre 1 et 999."); return; }
+    const avant = S.panier[ref] || 0; ajouter(ref, q); f.r.value = ""; majCarte(ref);
+    if ((S.panier[ref] || 0) - avant < q) { toast(`Seulement ${dispo(ref)} carton${dispo(ref) > 1 ? "s" : ""} disponible${dispo(ref) > 1 ? "s" : ""} : ${S.panier[ref] || 0} dans le panier.`); return; }
+    toast(`${S.panier[ref] || 0} × ${PR[ref].nom} dans le panier.`);
   }
   if (f.dataset.form === "devis") {
+    if (!f.p.value && !f.q.value.trim() && !f.m.value.trim()) { toast("Dites-nous au moins quel produit, quelle quantité ou votre besoin."); f.m.focus(); return; }
     const txt = [f.p.value ? PR[f.p.value].nom : "Plusieurs produits", f.q.value, f.m.value].filter(Boolean).join(" · ");
     S.devis.push({n:"D-" + S.num.d++, cl:MOI, date:AUJ, texte:txt || "Demande de devis", produits:f.p.value, logo:f.logo.checked, statut:"aenvoyer", montant:null});
     save(); rendre(); toast("Demande envoyée. Jalal vous répond sous 24 h.");
@@ -727,9 +765,26 @@ document.addEventListener("submit", e => {
 document.addEventListener("keydown", e => { if (e.key === "Escape" && $("#calque").innerHTML) fermerCalque(); });
 $("#reinit").addEventListener("click", () => { S = seed(); CLIENTS.bosphore.statut = "À valider"; save(); mode = "connexion"; history.replaceState(null, "", location.pathname); onglet = "commander"; famille = "Tout"; fermerCalque(); rendre(true); toast("Démo remise à zéro."); });
 
-const h = location.hash.slice(1);
-if (h === "admin") { mode = "admin"; onglet = "auj"; }
-if (h === "client") { mode = "client"; onglet = "commander"; }
+function lireAdresse() {
+  const [m, o] = location.hash.slice(1).split("/");
+  if (m === "admin" || m === "client") { mode = m; onglet = ONGLETS[m].some(([id]) => id === o) ? o : (m === "client" ? "commander" : "auj"); }
+  else mode = "connexion";
+}
+window.addEventListener("popstate", () => {
+  if ($("#calque").innerHTML) { fermerCalque(); if (history.state && history.state.calque) return; }
+  lireAdresse(); rendre(true);
+});
+// le focus reste dans le panier ou la fenêtre ouverte
+document.addEventListener("keydown", e => {
+  if (e.key !== "Tab" || !$("#calque").innerHTML) return;
+  const f = [...$("#calque").querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])')].filter(el => el.offsetParent !== null);
+  if (!f.length) return;
+  const premier = f[0], dernier = f[f.length - 1];
+  if (!$("#calque").contains(document.activeElement)) { e.preventDefault(); premier.focus(); }
+  else if (e.shiftKey && document.activeElement === premier) { e.preventDefault(); dernier.focus(); }
+  else if (!e.shiftKey && document.activeElement === dernier) { e.preventDefault(); premier.focus(); }
+});
+lireAdresse();
 rendre();
 })();
 </script>
