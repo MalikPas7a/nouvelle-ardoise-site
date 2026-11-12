@@ -272,6 +272,74 @@ h1,h2{font-weight:800;letter-spacing:-.025em;line-height:1.04;text-wrap:balance}
 .vid{width:min(360px,100%);margin:0 auto}
 .vid video{width:100%;height:auto;border-radius:18px;background:#000;display:block}
 
+/* 07 prospection v2 */
+.rings-grid{display:grid;gap:clamp(24px,4vw,48px);margin-top:clamp(28px,4vw,44px);align-items:center}
+@media (min-width:860px){.rings-grid{grid-template-columns:380px 1fr}}
+.rings{margin:0 auto;width:min(380px,100%)}
+.rings svg{width:100%;height:auto;display:block}
+.rings circle{stroke:var(--creme);stroke-width:3}
+.rings .r4{fill:#e8e0d1}.rings .r3{fill:#dfe9e2}.rings .r2{fill:#c4dacb}.rings .r1{fill:#a3c3b0}.rings .r0{fill:var(--sapin)}
+.rings text{text-anchor:middle;font-family:Manrope,sans-serif;font-weight:800}
+.rings .c{fill:#fff;font-size:13px}
+.rings .n{fill:var(--sapin2);font-size:18px}
+.rings .t{fill:var(--sapin2);font-size:13px;letter-spacing:.02em}
+.circles{list-style:none;padding:0;margin:0;display:grid;gap:0}
+.circles li{display:grid;grid-template-columns:2.2em 1fr;gap:12px;padding:16px 0;border-top:1px solid var(--ligne)}
+.circles li>span{width:30px;height:30px;border-radius:50%;background:var(--sapin);color:#fff;font-weight:800;font-size:14px;display:grid;place-items:center}
+.circles h3{font-size:1.1rem;font-weight:800;letter-spacing:-.01em}
+.circles p{color:var(--gris);margin-top:4px}
+.circles small{display:block;margin-top:6px;font-size:13.5px;font-weight:700;color:var(--sapin2)}
+.pitch{display:grid;gap:clamp(22px,4vw,48px);margin-top:clamp(40px,6vw,72px);align-items:center}
+@media (min-width:860px){.pitch{grid-template-columns:1fr 1fr}}
+.pitch h3,.sub{font-size:1.35rem;font-weight:800;letter-spacing:-.015em}
+.pitch-txt>p{color:var(--gris);margin-top:8px;max-width:30em}
+.seq{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:8px}
+.seq li{display:flex;gap:12px;align-items:baseline;font-weight:600}
+.seq b{min-width:4.6em;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--brun)}
+.mail{background:#fff;border:1px solid var(--ligne);border-radius:14px;padding:20px;box-shadow:0 24px 40px -28px rgba(40,30,20,.45);font-size:15px}
+.mail p+p{margin-top:10px}
+.mail .mh{font-size:13px;color:var(--gris);padding-bottom:12px;border-bottom:1px solid var(--ligne);margin-bottom:14px}
+.mail .mh b{color:var(--encre)}
+.mail .sg{font-family:Caveat,cursive;font-size:24px;color:var(--brun);line-height:1.1}
+/* 08 réseaux */
+.soc-grid{display:grid;gap:clamp(28px,5vw,64px);margin-top:clamp(28px,4vw,44px);align-items:start}
+@media (min-width:860px){.soc-grid{grid-template-columns:340px 1fr}}
+.feed{aspect-ratio:auto;padding:44px 0 0;background:#fff}
+.fh{display:flex;gap:12px;padding:0 14px 14px;align-items:flex-start}
+.fh img{width:54px;height:54px;border-radius:50%;object-fit:cover;flex:none;border:1px solid var(--ligne)}
+.fh b{display:block;font-size:15px}
+.fh small{display:block;font-size:12px;color:var(--gris);font-weight:600}
+.fh p{font-size:12.5px;margin-top:4px;line-height:1.35}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.tl{aspect-ratio:1;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:9px;container-type:inline-size}
+.tl.ph{padding:0}.tl img{width:100%;height:100%;object-fit:cover}
+.tl b{font-weight:800;line-height:1.05;letter-spacing:-.02em;font-size:13cqw}
+.tl small{font-size:8.5cqw;font-weight:700;line-height:1.2;margin-top:4px}
+.t-six{background:var(--sapin);color:#fff}.t-six b{font-size:34cqw;letter-spacing:-.05em}
+.t-22{background:var(--encre);color:#efe9dd}.t-22 b{font-size:34cqw;letter-spacing:-.05em}
+.t-sem{background:var(--creme);justify-content:space-between}.t-sem small{color:var(--brun);text-transform:uppercase;letter-spacing:.06em;margin:0}
+.t-prod{background:#e8e0d1;justify-content:space-between}.t-prod small{color:var(--brun);text-transform:uppercase;letter-spacing:.06em;margin:0}
+.t-fete{background:var(--brun);color:#fff;justify-content:space-between}.t-fete small{text-transform:uppercase;letter-spacing:.06em;margin:0;color:#e8dccd}
+.t-avis{background:var(--papier);justify-content:center}.t-avis b{font-family:Caveat,cursive;font-weight:700;font-size:17cqw;letter-spacing:0;line-height:1}.t-avis small{color:var(--gris)}
+.pillars{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:0}
+.pillars li{padding:12px 0;border-top:1px solid var(--ligne);color:var(--gris)}
+.pillars b{display:block;color:var(--encre);font-size:1.02rem}
+.soc-txt .sub+.pillars+.sub{margin-top:clamp(28px,4vw,40px)}
+.week{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:8px}
+.week li{display:grid;grid-template-columns:3em auto 1fr;gap:10px;align-items:center;font-weight:600;font-size:15px}
+.week b{color:var(--brun);font-size:14px}
+.ch{font-size:12px;font-weight:800;border-radius:999px;padding:3px 9px;justify-self:start}
+.ch.wa{background:#d9fdd3;color:#0f5132}.ch.fb{background:#e3ebf8;color:#1d3f7a}.ch.gg{background:#fbe9d6;color:#7a3e0c}
+.channels{display:grid;gap:12px;margin-top:clamp(36px,5vw,56px)}
+@media (min-width:760px){.channels{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.channels{grid-template-columns:repeat(4,1fr)}}
+.channels div{background:var(--creme);border:1px solid var(--ligne);border-radius:16px;padding:18px}
+.channels b{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--sapin2)}
+.channels p{color:var(--gris);margin-top:6px;font-size:.96rem}
+.you{margin-top:20px;padding:18px 20px;border-radius:16px;background:var(--sapin);color:#eef5f0;max-width:46em}
+.you b{color:#fff}
+@media (max-width:420px){.week li{grid-template-columns:2.6em auto;}.week .d{grid-column:1/-1;margin-top:-4px}}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .wa-in .msg{opacity:1;transform:none}
@@ -308,7 +376,8 @@ h1,h2{font-weight:800;letter-spacing:-.025em;line-height:1.04;text-wrap:balance}
       <li><a href="#chef"><span>04</span>Le chef voit tout, trié</a></li>
       <li><a href="#magasin"><span>05</span>Affiche, chevalet et flyer</a></li>
       <li><a href="#photos"><span>06</span>Les vraies photos</a></li>
-      <li><a href="#prospection"><span>07</span>Les commandes de groupe</a></li>
+      <li><a href="#prospection"><span>07</span>La stratégie de prospection</a></li>
+      <li><a href="#reseaux"><span>08</span>Marketing et réseaux sociaux</a></li>
     </ol>
   </div>
 </header>
@@ -531,14 +600,106 @@ h1,h2{font-weight:800;letter-spacing:-.025em;line-height:1.04;text-wrap:balance}
 <!-- 07 prospection -->
 <section class="step" id="prospection" aria-labelledby="t9">
   <div class="wrap">
-    <p class="kick">07 · Aller chercher plus loin que le village</p>
-    <h2 id="t9">Les commandes de groupe, en plus des familles.</h2>
-    <p class="lead">En décembre, les entreprises et les sociétés du coin cherchent un repas pour leur équipe ou leur soirée. On les contacte pour vous, avec une offre simple et un lien de commande.</p>
-    <div class="cards">
-      <div class="card"><b>Entreprises du coin</b><h3>Repas de fin d'année</h3><p>Garages, entreprises de construction, fermes, cabinets autour de Sottens et Moudon.</p><p>Plats pour 10 à 30 personnes, retrait ou livraison groupée.</p></div>
-      <div class="card"><b>Sociétés locales</b><h3>Soirées et répétitions</h3><p>Jeunesses, chœurs, clubs de sport, paysannes vaudoises de la commune.</p><p>Un menu « soirée de société » à commander d'avance.</p></div>
-      <div class="card"><b>Commune et partenaires</b><h3>Le relais local</h3><p>Pilier public, bulletin communal, producteurs partenaires qui parlent de vous à leurs clients.</p><p>Gratuit, et au plus près des habitants.</p></div>
+    <p class="kick">07 · La stratégie de prospection</p>
+    <h2 id="t9">Quatre cercles, du frigo jusqu'aux entreprises.</h2>
+    <p class="lead">On ne cherche pas « du monde » au hasard. On part de ceux qui poussent déjà votre porte, puis on élargit, un cercle après l'autre, avec un message et un support pour chacun.</p>
+    <div class="rings-grid">
+      <figure class="rings" role="img" aria-label="Quatre cercles autour de Poivre et Self : les clients de l'épicerie, Jorat-Menthue, les villages voisins, les groupes">
+        <svg viewBox="0 0 400 400" aria-hidden="true">
+          <circle cx="200" cy="200" r="196" class="r4"/>
+          <circle cx="200" cy="200" r="158" class="r3"/>
+          <circle cx="200" cy="200" r="118" class="r2"/>
+          <circle cx="200" cy="200" r="78" class="r1"/>
+          <circle cx="200" cy="200" r="40" class="r0"/>
+          <text x="200" y="196" class="c">Poivre</text><text x="200" y="212" class="c">et Self</text>
+          <text x="200" y="147" class="n">1</text><text x="200" y="107" class="n">2</text><text x="200" y="67" class="n">3</text><text x="200" y="29" class="n">4</text>
+          <text x="200" y="263" class="t">clients</text>
+          <text x="200" y="303" class="t">Jorat-Menthue</text>
+          <text x="200" y="343" class="t">villages voisins</text>
+          <text x="200" y="381" class="t">groupes</text>
+        </svg>
+      </figure>
+      <ol class="circles">
+        <li><span>1</span><div><h3>Ceux qui viennent déjà faire leurs courses</h3><p>Ils ne savent pas encore que le chef cuisine. Affiche à l'entrée, chevalet sur le frigo, QR code vers la liste WhatsApp.</p><small>Objectif : chaque client de l'épicerie connaît les plats.</small></div></li>
+        <li><span>2</span><div><h3>Les habitants de Jorat-Menthue</h3><p>Flyer dans les boîtes aux lettres, annonce au bulletin et au pilier public, messages dans les groupes Facebook des villages.</p><small>Sottens, Villars-Mendraz, Peney-le-Jorat, Villars-Tiercelin, Montaubion-Chardonney.</small></div></li>
+        <li><span>3</span><div><h3>Les villages voisins et ceux qui passent</h3><p>Fiche Google à jour, publicité Facebook limitée à quelques kilomètres autour de Sottens, flyer chez vos producteurs partenaires.</p><small>Les pendulaires de la route de Moudon : ouvert jusqu'à 22h, c'est leur argument.</small></div></li>
+        <li><span>4</span><div><h3>Les groupes</h3><p>Entreprises, sociétés de jeunesse, chœurs, clubs de sport : repas de fin d'année et soirées, commandés d'avance pour 10 à 30 personnes.</p><small>Une liste de 40 contacts, préparée par nos soins.</small></div></li>
+      </ol>
     </div>
+
+    <div class="pitch">
+      <div class="pitch-txt">
+        <h3>Le message aux groupes, déjà écrit.</h3>
+        <p>Court, signé par le chef, avec une seule question. On prépare la liste, le message et les relances ; vous gardez la main sur ce qui part.</p>
+        <ol class="seq">
+          <li><b>Jour 1</b>Message ou e-mail, avec le menu de groupe</li>
+          <li><b>Jour 5</b>Relance courte, une ligne</li>
+          <li><b>Jour 10</b>Un appel, ou un passage à l'épicerie</li>
+        </ol>
+      </div>
+      <div class="mail" role="img" aria-label="Exemple de message à une entreprise locale pour son repas de fin d'année">
+        <p class="mh"><b>À :</b> une entreprise de Jorat-Menthue<br><b>Objet :</b> Votre repas de fin d'année, cuisiné à Sottens</p>
+        <p>Bonjour,</p>
+        <p>Je suis le chef de Poivre et Self, l'épicerie de Sottens. Cette année, je prépare des plats faits maison pour les repas d'équipe : 10 à 30 personnes, à retirer à l'épicerie ou livrés chez vous.</p>
+        <p>Vous organisez quelque chose en décembre&nbsp;?</p>
+        <p class="sg">Le Chef Clot · Poivre et Self</p>
+      </div>
+    </div>
+    <span class="ex">Exemple de message : texte, nombre de personnes et livraison à valider avec vous</span>
+  </div>
+</section>
+
+<!-- 08 marketing et réseaux -->
+<section class="step" id="reseaux" aria-labelledby="t10">
+  <div class="wrap">
+    <p class="kick">08 · Marketing et réseaux sociaux</p>
+    <h2 id="t10">Une épicerie qui s'allume à 6:00, ça se raconte.</h2>
+    <p class="lead">Votre singularité, c'est l'horaire et le chef. On en fait un rendez-vous : le matin, la lumière s'allume ; le lundi, le plat de la semaine ; le soir, l'épicerie ferme. Des vraies photos, des vrais gens du village, pas de publicité criarde.</p>
+    <div class="soc-grid">
+      <div class="phone feed" role="img" aria-label="Exemple de page Facebook ou Instagram de Poivre et Self avec neuf publications">
+        <div class="fh">
+          <img src="img/pastille.png" width="125" height="128" alt="" loading="lazy">
+          <div><b>Poivre et Self</b><small>Épicerie autonome · Sottens</small><p>Ouvert 7/7 de 6h à 22h. Les plats du Chef Clot, faits ici.</p></div>
+        </div>
+        <div class="tiles">
+          <div class="tl ph"><img src="img/tuile-facade.jpg" width="480" height="480" alt="" loading="lazy"></div>
+          <div class="tl t-six"><b>6:00</b><small>Bonjour Sottens.</small></div>
+          <div class="tl ph"><img src="img/tuile-interieur.jpg" width="480" height="480" alt="" loading="lazy"></div>
+          <div class="tl t-sem"><small>Le plat de la semaine</small><b>Lundi,<br>on vous dit tout.</b></div>
+          <div class="tl ph"><img src="img/tuile-pain.jpg" width="480" height="480" alt="" loading="lazy"></div>
+          <div class="tl t-prod"><small>Nos producteurs</small><b>La viande vient de Ropraz.</b></div>
+          <div class="tl t-fete"><small>Menu de fêtes</small><b>Commandes ouvertes le 30.11</b></div>
+          <div class="tl t-avis"><b>« Pris en rentrant à 21h40. »</b><small>Avis client, exemple</small></div>
+          <div class="tl t-22"><b>22:00</b><small>Bonne nuit. À demain 6h.</small></div>
+        </div>
+      </div>
+      <div class="soc-txt">
+        <h3 class="sub">Quatre sujets, qui tournent toute l'année</h3>
+        <ul class="pillars">
+          <li><b>6:00 – 22:00</b>La vie de l'épicerie : la lumière du matin, le frigo qui se remplit, le dernier client du soir.</li>
+          <li><b>Le chef</b>Ses mains, ses gestes, le plat de la semaine en train de cuire. Jamais posé, jamais retouché.</li>
+          <li><b>Les producteurs</b>La boucherie de Ropraz et les produits du coin, avec leur nom et leur visage.</li>
+          <li><b>Le village</b>Les clients, les sociétés, les fêtes de Jorat-Menthue. Vous êtes le lieu où tout le monde passe.</li>
+        </ul>
+        <h3 class="sub">Une semaine type</h3>
+        <ol class="week">
+          <li><b>Lun.</b><span class="ch wa">WhatsApp</span><span class="d">Le plat de la semaine, à toute la liste</span></li>
+          <li><b>Mer.</b><span class="ch fb">Facebook</span><span class="d">Une coulisse : le chef ou un producteur</span></li>
+          <li><b>Ven.</b><span class="ch gg">Google</span><span class="d">Une photo et une actualité sur votre fiche</span></li>
+          <li><b>Sam.</b><span class="ch fb">Facebook</span><span class="d">Une vidéo courte, son réel, sans musique</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="channels">
+      <div><b>Facebook</b><p>Votre page existe déjà : c'est là que sont les habitants. On la remplit chaque semaine, et on relaie dans les groupes des villages.</p></div>
+      <div><b>WhatsApp</b><p>Le canal qui vend : la liste des clients qui veulent le plat de la semaine. On ne l'utilise que pour ça, jamais pour du bruit.</p></div>
+      <div><b>Fiche Google</b><p>Ce que voit celui qui cherche « épicerie Sottens » ou « plats à emporter ». Photos, horaires, avis, réponses à chaque avis.</p></div>
+      <div><b>Instagram</b><p>Dans un deuxième temps, si vous le voulez, pour les 25-45 ans des alentours. Les mêmes contenus, rien de plus à produire.</p></div>
+    </div>
+    <div class="you">
+      <p><b>Votre part :</b> chaque lundi, une photo du frigo et le nom du plat, envoyés par WhatsApp. Le texte, la mise en page, la programmation et les réponses, c'est nous.</p>
+    </div>
+    <span class="ex">Maquette de principe : publications, avis et textes donnés en exemple</span>
   </div>
 </section>
 
