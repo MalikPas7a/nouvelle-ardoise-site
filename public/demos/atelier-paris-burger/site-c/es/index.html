@@ -813,6 +813,29 @@ footer .liens{font:500 15px var(--sans);letter-spacing:0;text-transform:none}
 .js-rv .mono.vu b::after{clip-path:inset(-1px);transition:clip-path .9s cubic-bezier(.37,0,.63,1) .8s}
 @media (prefers-reduced-motion:no-preference){.js-rv .mono .semis img:nth-child(2n){transition-delay:calc(var(--d) + 1.8s)}}
 @media (prefers-reduced-motion:reduce){.js-rv .mono b::after{transition:none}}
+/* Pop-up des 200 burgers offerts : feuille en bas de l'écran au téléphone, carte centrée à l'ordinateur, comme la commande */
+dialog.pop{margin:auto auto 0;width:min(560px,100%);max-width:100%;max-height:100dvh;overflow:auto;overscroll-behavior:contain;border:0;padding:0;background:var(--merlot);color:var(--peach);border-radius:12px 12px 0 0;box-shadow:0 -20px 60px rgba(0,0,0,.4);opacity:0;transform:translateY(28px);transition:opacity .2s var(--ease),transform .2s var(--ease)}
+dialog.pop:not([open]){display:none}
+dialog.pop::backdrop{background:rgba(18,20,22,.6);opacity:0;transition:opacity .2s}
+dialog.pop.vu{opacity:1;transform:none;transition-duration:.34s}
+dialog.pop.vu::backdrop{opacity:1;transition-duration:.34s}
+.pop-c{position:relative;display:flex;flex-direction:column;align-items:flex-start;padding:30px 24px calc(16px + env(safe-area-inset-bottom))}
+.pop-c::before{content:"";position:absolute;inset:8px 8px 0;border:1px solid rgba(217,145,37,.42);border-bottom:0;border-radius:6px 6px 0 0;pointer-events:none}
+.pop .eye{margin-right:44px;color:var(--peach)}
+.pop h2{margin-top:10px;font-size:30px;line-height:1.05;outline:0}
+.pop h2 .n{display:block;margin:0 0 .07em -.04em;font-size:116px;line-height:.7;letter-spacing:-.02em;color:var(--or)}
+.pop .d{margin-top:14px;max-width:34ch;font-size:16px;line-height:1.5;color:rgba(249,237,220,.92)}
+.pop .btn{align-self:stretch;margin-top:22px;padding:0 12px;text-align:center;line-height:1.25}
+.pop .tard{align-self:center;min-height:44px;margin-top:6px;padding:0 16px;font:600 13px/1 var(--sans-maj);letter-spacing:.14em;text-transform:uppercase;color:var(--peach);text-decoration:underline;text-decoration-color:rgba(249,237,220,.45);text-underline-offset:6px}
+.pop .x{position:absolute;top:10px;right:10px;width:44px;height:44px;font-size:26px;line-height:1;color:var(--peach)}
+.pop :focus-visible{outline-color:var(--or)}
+/* au clavier, l'anneau de focus de « Plus tard » et de la croix est rentré dans le bouton : dehors, il frôlait le bouton or et le filet du cadre */
+.pop .tard:focus-visible{outline-offset:-4px}
+.pop .x:focus-visible{outline-offset:-6px}
+@media (max-width:359px){.pop .btn{font-size:13px;letter-spacing:.08em}}
+@media (hover:hover) and (pointer:fine){.pop .tard:hover{text-decoration-color:currentColor}}
+@media (min-width:861px){dialog.pop{margin:auto;width:min(440px,calc(100% - 48px));border-radius:4px;box-shadow:0 30px 80px rgba(0,0,0,.45);transform:translateY(10px) scale(.97)}.pop-c{padding:40px 38px 24px}.pop-c::before{inset:8px;border-bottom:1px solid rgba(217,145,37,.42);border-radius:2px}}
+@media (prefers-reduced-motion:reduce){dialog.pop,dialog.pop::backdrop,dialog.pop.vu,dialog.pop.vu::backdrop{transition:none}}
 </style><noscript><style>img[data-src]{display:none!important}noscript{display:contents}#film,.film .pause{display:none!important}</style></noscript></head><body>
 <div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menú"><a href="#villes">Nuestras ciudades</a><a href="geneve/#carte">La carta</a><a href="#histoire">Nuestra historia</a></nav><a class="logo" href="./"><img src="../img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, inicio" width="300" height="20"></a><div class="d"><nav class="langs" aria-label="Idioma"><a href="../" hreflang="fr" lang="fr">FR</a><a href="../en/" hreflang="en" lang="en">EN</a><a href="./" hreflang="es" lang="es" aria-current="true">ES</a></nav><a class="btn btn-m" href="commander/">Pedir</a><details class="mmenu"><summary aria-label="Abrir el menú"><span></span><span></span></summary><nav aria-label="Menú móvil"><a href="#villes">Nuestras ciudades</a><a href="geneve/#carte">La carta</a><a href="#histoire">Nuestra historia</a><a href="commander/">Pedir en Ginebra</a><div class="mlangs" role="group" aria-label="Idioma"><a href="../" hreflang="fr" lang="fr">Français</a><a href="../en/" hreflang="en" lang="en">English</a><a href="./" hreflang="es" lang="es" aria-current="true">Español</a></div></nav></details></div></div></header>
 <main>
@@ -841,7 +864,7 @@ footer .liens{font:500 15px var(--sans);letter-spacing:0;text-transform:none}
 <div class="w"><p class="hcompte" aria-hidden="true"><b>01</b><i></i>05</p></div></div></div>
 <div class="w etapes-w"><p class="arch-note">No inventamos la salsa Café de Paris: la servimos. Fotos de archivo de París, créditos al pie de página.</p></div></section>
 </main>
-<footer><div class="logo-pied"><img class="m" src="../img/logo/apb-mark-or.svg" width="72" height="72" alt=""><img class="t" src="../img/logo/apb-logotype.svg" width="260" height="17" alt="Atelier Paris Burger"></div><p class="slog">La hamburguesa con salsa Café de Paris.</p><nav class="liens" aria-label="Pie de página"><a href="#villes">Nuestras ciudades</a><a href="geneve/#carte">La carta</a><a href="#histoire">Nuestra historia</a><a href="commander/">Pedir en Ginebra</a></nav><small>Atelier Paris Burger · Maqueta de Nouvelle Ardoise</small><small>Fotos de archivo: Agence Rol y Agence Meurisse, BnF Gallica (dominio público); Lars Olsson (CC BY-SA 3.0); Todor Atanassov (libre de derechos). Ginebra: Thibaut120094 (CC BY 4.0). Madrid: Carlos Delgado (CC BY-SA 4.0). Vía Wikimedia Commons. Ibiza: foto de la casa (ficha de Google de Atelier Paris Burger Ibiza).</small></footer>
+<footer><div class="logo-pied"><img class="m" src="../img/logo/apb-mark-or.svg" width="72" height="72" alt=""><img class="t" src="../img/logo/apb-logotype.svg" width="260" height="17" alt="Atelier Paris Burger"></div><p class="slog">La hamburguesa con salsa Café de Paris.</p><nav class="liens" aria-label="Pie de página"><a href="#villes">Nuestras ciudades</a><a href="geneve/#carte">La carta</a><a href="#histoire">Nuestra historia</a><a href="commander/">Pedir en Ginebra</a></nav><small>Atelier Paris Burger · Maqueta de Nouvelle Ardoise</small><small>Fotos de archivo: Agence Rol y Agence Meurisse, BnF Gallica (dominio público); Lars Olsson (CC BY-SA 3.0); Todor Atanassov (libre de derechos). Ginebra: Thibaut120094 (CC BY 4.0). Madrid: Carlos Delgado (CC BY-SA 4.0). Vía Wikimedia Commons. Ibiza: foto de la casa (ficha de Google de Atelier Paris Burger Ibiza).</small></footer><dialog class="pop" id="pop" aria-labelledby="pop-t" aria-describedby="pop-d"><div class="pop-c"><p class="eye">Ginebra · 1 de diciembre</p><h2 id="pop-t" tabindex="-1" autofocus><span class="n">200</span> burgers gratis</h2><p class="d" id="pop-d">Para la apertura, uno por persona, con reserva. Reserva el tuyo en 30 segundos.</p><a class="btn btn-or" href="reserver/">Reservar mi burger gratis</a><button type="button" class="tard">Más tarde</button><button type="button" class="x" aria-label="Cerrar">×</button></div></dialog>
 <nav class="barre" aria-label="Acceso rápido"><a class="btn btn-ligne" href="#villes">Nuestras ciudades</a><a class="btn btn-or" href="commander/">Pedir en Ginebra</a></nav>
 <script>
 /* v19 : images hors du premier écran. Elles partent un écran avant d'arriver, une fois la photo du premier écran reçue
@@ -1185,5 +1208,37 @@ function place(m,x,y){var S=m.nextElementSibling,E=S?S.getElementsByTagName('*')
  /* même mouvement que la goutte du bouton or : elle se forme (0,26 s), s'étire (0,14 s), se détache et s'efface en tombant (0,42 s) */
  g.animate([{offset:0,transform:'translateY(-2px) scale(.35)',opacity:0,easing:EASE},{offset:.317,transform:'translateY(0) scale(1)',opacity:1,easing:VAETVIENT},{offset:.488,transform:'translateY(0) scale(.9,1.3)',opacity:1,easing:CHUTE},{offset:.744,opacity:1},{offset:1,transform:'translateY('+c+'px) scale(.9,1.15)',opacity:0}],{duration:820,fill:'both'}).finished.then(ote,ote)})});
 })();
+/* Pop-up des 200 burgers offerts : à l'ouverture du site, une fois par visite, un instant après que le titre a fini de s'ouvrir.
+   Il ne s'ouvre pas si le navigateur ne connaît pas <dialog> ou ne peut pas retenir la visite ; il attend si le menu est ouvert,
+   si la page défile, si elle est en arrière-plan ou en plein écran. Qui est déjà passé par la page Réserver ne le voit pas
+   (c'est relu juste avant d'ouvrir : on peut revenir de Réserver par le bouton Retour, page gardée en mémoire par le navigateur). */
+(function(){var d=document.getElementById('pop');if(!d||typeof d.showModal!=='function')return;
+ var CLE='apb-pop';try{if(sessionStorage.getItem(CLE)==='1')return;sessionStorage.setItem(CLE,'0')}catch(e){return}
+ var calme=matchMedia('(prefers-reduced-motion: reduce)'),mm=document.querySelector('.mmenu'),heros=document.querySelector('.hero'),retour=null,essais=0,pose=false,defile=0;
+ function note(){defile=performance.now()}
+ function titre(){return !!(heros&&heros.getAnimations&&heros.getAnimations({subtree:true}).some(function(a){return a.playState==='running'&&a.effect&&a.effect.getComputedTiming().iterations!==Infinity}))}
+ function gene(){return document.hidden||!!document.querySelector('dialog[open]')||!!(mm&&mm.open)||!!document.fullscreenElement||performance.now()-defile<400}
+ function vu(){try{return sessionStorage.getItem(CLE)==='1'}catch(e){return true}}
+ function ouvre(){if(vu()){removeEventListener('scroll',note);return}
+  if(gene()||(titre()&&++essais<24)){pose=false;setTimeout(ouvre,500);return}
+  if(!pose){pose=true;setTimeout(ouvre,700);return}
+  removeEventListener('scroll',note);try{sessionStorage.setItem(CLE,'1')}catch(e){}
+  retour=document.activeElement;garde('addEventListener');d.showModal();
+  requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.add('vu')})})}
+ function ferme(){if(!d.open)return;d.classList.remove('vu');setTimeout(function(){if(d.open)d.close()},calme.matches?0:200)}
+ d.addEventListener('click',function(e){if(e.target===d||e.target.closest('.x,.tard'))ferme()});
+ d.addEventListener('cancel',function(e){e.preventDefault();ferme()});
+ d.addEventListener('close',function(){d.classList.remove('vu');garde('removeEventListener');if(retour&&retour!==document.body&&retour.focus)retour.focus({preventScroll:true})});
+ /* la page ne défile pas derrière la fenêtre : rien n'est changé à la mise en page, les gestes de défilement sont seulement retenus (le zoom reste libre).
+    Ils sont écoutés sur toute la page, et seulement tant que la fenêtre est ouverte : sur le voile, à côté de la fenêtre, le navigateur ne la laisse pas retenir la molette à elle seule */
+ function fige(e){if(!d.open||e.ctrlKey||(e.touches&&e.touches.length>1))return;if(d.scrollHeight>d.clientHeight+1&&e.target!==d&&d.contains(e.target))return;if(e.cancelable)e.preventDefault()}
+ function garde(m){window[m]('wheel',fige,{passive:false});window[m]('touchmove',fige,{passive:false})}
+ /* au clavier : écouté sur toute la page, car selon le navigateur un clic sur un texte de la fenêtre rend le focus à la page */
+ addEventListener('keydown',function(e){if(!d.open)return;var k=e.key,dans=d.contains(e.target);if(dans&&d.scrollHeight>d.clientHeight+1)return;
+  if(k==='PageUp'||k==='PageDown'||k==='End'||k==='Home'||k==='ArrowUp'||k==='ArrowDown'||((k===' '||k==='Spacebar')&&!(dans&&e.target.closest('button'))))e.preventDefault()});
+ addEventListener('pagehide',function(){if(d.open)d.close()});
+ addEventListener('scroll',note,{passive:true});
+ function arme(){setTimeout(ouvre,calme.matches?1500:3600)}
+ if(document.readyState==='complete')arme();else addEventListener('load',arme)})();
 </script>
 </body></html>
