@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Vieux Villars · Raclette au feu de bois à Villars-sur-Ollon (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour le Vieux Villars, Route des Hôtels 16, 1884 Villars-sur-Ollon.">
+<meta name="theme-color" content="#16100c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&family=Alegreya+Sans+SC:wght@500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/raclette.webp">
+<style>
+:root{
+  --nuit:#16100c;      /* carnotzet */
+  --bois:#241a13;
+  --bois-2:#33261c;
+  --braise:#e39a45;    /* lueur de la cheminée */
+  --braise-2:#f2b46a;
+  --creme:#f3e8d6;     /* pâte de la Combe 23 */
+  --creme-2:#cdbda5;
+  --creme-3:#a8957c;
+  --ligne:rgba(243,232,214,.16);
+  --serif:"Alegreya", Georgia, serif;
+  --sans:"Alegreya Sans", system-ui, -apple-system, sans-serif;
+  --sc:"Alegreya Sans SC", "Alegreya Sans", sans-serif;
+  --g:clamp(20px, 5vw, 64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--nuit);color:var(--creme);font:400 18px/1.6 var(--sans);font-variant-numeric:lining-nums;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--braise-2);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1200px;margin:0 auto}
+
+.apercu{background:#0c0806;color:var(--creme-3);font-size:13px;line-height:1.4;text-align:center;padding:8px var(--g)}
+.apercu strong{color:var(--creme);font-weight:500}
+
+.top{position:absolute;left:0;right:0;z-index:5;padding:18px var(--g)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.marque{font:500 15px/1 var(--sc);letter-spacing:.22em;text-decoration:none;color:var(--creme)}
+.top nav{display:flex;align-items:center;gap:26px}
+.top nav a.l{font-size:16px;text-decoration:none;color:var(--creme);text-shadow:0 1px 10px rgba(0,0,0,.85)}
+.top nav a.l:hover{color:var(--creme);text-decoration:underline;text-underline-offset:5px}
+@media (max-width:799px){.top nav a.l{display:none}}
+.btn-ligne{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1px solid rgba(243,232,214,.6);border-radius:2px;font:500 15px/1 var(--sans);letter-spacing:.04em;text-decoration:none;color:var(--creme);background:rgba(22,16,12,.35);transition:background .2s,border-color .2s}
+.btn-ligne:hover{background:var(--creme);color:var(--nuit);border-color:var(--creme)}
+
+/* hero */
+.hero{position:relative;min-height:min(100svh,900px);display:flex;align-items:flex-end;overflow:hidden}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 40%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,16,12,.55) 0%,rgba(22,16,12,0) 26%,rgba(22,16,12,.15) 50%,rgba(22,16,12,.92) 88%,var(--nuit) 100%)}
+.hero .txt{position:relative;z-index:2;padding:0 var(--g) clamp(40px,7vw,88px);width:100%}
+@media (min-width:960px){
+  .hero{min-height:min(92vh,860px);align-items:center}
+  .hero img{left:auto;width:62%;object-position:50% 45%}
+  .hero::after{background:linear-gradient(90deg,var(--nuit) 38%,rgba(22,16,12,.55) 52%,rgba(22,16,12,0) 70%),linear-gradient(0deg,var(--nuit) 0%,rgba(22,16,12,0) 22%),linear-gradient(180deg,rgba(22,16,12,.75) 0%,rgba(22,16,12,0) 16%)}
+  .hero .txt{padding-top:80px}
+  .chapo{max-width:24ch}
+}
+.lieu{font:500 13px/1.3 var(--sc);letter-spacing:.24em;color:var(--braise-2)}
+h1{font:500 clamp(64px,15vw,184px)/.88 var(--serif);letter-spacing:-.025em;margin:14px 0 18px}
+h1 i{font-weight:400;color:var(--creme-2)}
+.chapo{font:italic 400 clamp(21px,2.4vw,28px)/1.35 var(--serif);max-width:30ch;color:var(--creme)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 26px;border-radius:2px;background:var(--braise);color:#1b120b;font:700 16px/1 var(--sans);letter-spacing:.03em;text-decoration:none;transition:background .2s,transform .15s}
+.btn:hover{background:var(--braise-2)}
+.btn:active{transform:scale(.98)}
+.btn.sec{background:transparent;color:var(--creme);border:1px solid rgba(243,232,214,.55)}
+.btn.sec:hover{background:rgba(243,232,214,.1)}
+.horaire{margin-top:18px;font-size:15px;color:var(--creme-2)}
+
+section{padding:clamp(72px,10vw,136px) var(--g)}
+.eyebrow{font:500 13px/1.3 var(--sc);letter-spacing:.22em;color:var(--braise-2)}
+h2{font:500 clamp(40px,6.4vw,76px)/1.02 var(--serif);letter-spacing:-.015em;margin-top:14px}
+h2 i{font-weight:400}
+
+/* raclette */
+.raclette .wrap{display:grid;gap:44px}
+.raclette .txt p{color:var(--creme-2);max-width:56ch;margin-top:18px}
+.raclette .txt p.lead{font:400 clamp(21px,2.2vw,26px)/1.45 var(--serif);color:var(--creme);margin-top:24px}
+.faits{list-style:none;margin-top:36px;border-top:1px solid var(--ligne)}
+.faits li{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--ligne);font-size:16.5px}
+.faits b{font:500 13px/1.7 var(--sc);letter-spacing:.16em;color:var(--braise-2);font-weight:500}
+.faits span{color:var(--creme-2)}
+.raclette figure img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px}
+.raclette figcaption,.fig-c{margin-top:10px;font-size:14px;color:var(--creme-3)}
+@media (min-width:960px){.raclette .wrap{grid-template-columns:1.1fr .9fr;gap:88px;align-items:center}}
+
+/* fondue */
+.fondue{background:var(--bois)}
+.fondue .wrap{display:grid;gap:44px}
+.fondue figure img{width:100%;aspect-ratio:1150/1000;object-fit:cover;border-radius:2px}
+.fondue .txt p{color:var(--creme-2);max-width:54ch;margin-top:18px}
+.sortes{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.sortes li{border:1px solid var(--ligne);padding:8px 14px;border-radius:2px;font:400 17px/1.2 var(--serif)}
+.sortes li.coeur{border-color:var(--braise);color:var(--braise-2)}
+@media (min-width:960px){.fondue .wrap{grid-template-columns:.95fr 1.05fr;gap:88px;align-items:center}}
+
+/* étages */
+.etages .tete{max-width:760px}
+.etages .tete p{color:var(--creme-2);margin-top:18px;max-width:58ch}
+.trois{list-style:none;display:grid;gap:14px;margin-top:48px}
+.trois li{position:relative;overflow:hidden;border-radius:2px;background:var(--bois)}
+.trois img{width:100%;aspect-ratio:4/3;object-fit:cover;opacity:.92}
+.trois .c{padding:18px 20px 22px}
+.trois .n{font:500 13px/1 var(--sc);letter-spacing:.2em;color:var(--braise-2)}
+.trois h3{font:500 26px/1.15 var(--serif);margin-top:10px}
+.trois p{color:var(--creme-2);font-size:16px;margin-top:6px}
+@media (min-width:760px){.trois{grid-template-columns:repeat(3,1fr)}}
+
+/* équipe */
+.equipe{background:var(--bois)}
+.equipe .wrap{display:grid;gap:44px}
+.equipe figure img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px}
+.equipe blockquote{font:italic 400 clamp(26px,3.4vw,40px)/1.28 var(--serif);margin-top:20px;max-width:24ch}
+.equipe p{color:var(--creme-2);margin-top:22px;max-width:52ch}
+.noms{list-style:none;margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:18px 24px;max-width:460px}
+.noms b{display:block;font:500 21px/1.2 var(--serif)}
+.noms span{font-size:15px;color:var(--creme-3)}
+@media (min-width:960px){.equipe .wrap{grid-template-columns:.9fr 1.1fr;gap:88px;align-items:center}}
+
+/* galerie */
+.galerie{padding-top:clamp(64px,8vw,104px)}
+.gal{display:grid;grid-template-columns:1fr;gap:8px;margin-top:28px}
+.gal img{width:100%;height:100%;object-fit:cover;aspect-ratio:1;border-radius:2px}
+.gal .l img{aspect-ratio:1070/670}
+.gal figcaption{margin-top:10px;font-size:14px;color:var(--creme-3)}
+@media (min-width:900px){.gal{grid-template-columns:1.6fr 1fr;gap:12px;align-items:start}.gal img{aspect-ratio:auto}}
+
+/* infos */
+.infos{border-top:1px solid var(--ligne)}
+.infos .wrap{display:grid;gap:48px}
+.blocs{display:grid;gap:30px}
+.bloc h3{font:500 13px/1.3 var(--sc);letter-spacing:.2em;color:var(--braise-2)}
+.bloc p{margin-top:10px;font:400 21px/1.4 var(--serif)}
+.bloc p small{display:block;font:400 15px/1.5 var(--sans);color:var(--creme-3);margin-top:6px}
+.bloc a{text-underline-offset:5px;text-decoration-color:rgba(243,232,214,.35)}
+.infos .actions{margin-top:8px}
+@media (min-width:900px){.infos .wrap{grid-template-columns:1fr 1.1fr;gap:88px}.blocs{grid-template-columns:1fr 1fr}}
+
+footer{padding:40px var(--g) 48px;border-top:1px solid var(--ligne);color:var(--creme-3);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+/* apparitions */
+.r{opacity:1}
+@media (prefers-reduced-motion: no-preference){
+  .js .r{opacity:0;transform:translateY(18px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+  .js .r.vu{opacity:1;transform:none}
+  .hero img{animation:lent 14s ease-out both}
+  @keyframes lent{from{transform:scale(1.06)}to{transform:scale(1)}}
+}
+</style>
+</head>
+<body>
+<div class="apercu">Aperçu imaginé par Nouvelle Ardoise pour <strong>le Vieux Villars</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="marque" href="#">Vieux Villars</a>
+    <nav aria-label="Navigation principale">
+      <a class="l" href="#raclette">La raclette</a>
+      <a class="l" href="#fondue">La fondue</a>
+      <a class="l" href="#maison">La maison</a>
+      <a class="l" href="#infos">Infos</a>
+      <a class="btn-ligne" href="https://bookings.zenchef.com/results?rid=381581&amp;pid=1001" rel="noopener">Réserver</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-label="Accueil" style="padding:0">
+  <img src="img/raclette.webp" width="1500" height="1000" alt="Le racleur fait couler la raclette sur une assiette de pommes de terre, cornichons et petits oignons">
+  <div class="txt wrap">
+    <p class="lieu">Villars-sur-Ollon · Route des Hôtels 16</p>
+    <h1>Vieux <i>Villars</i></h1>
+    <p class="chapo">Spécialités suisses et classiques revisités, avec une raclette au feu de bois servie au carnotzet, à côté de la cheminée.</p>
+    <div class="actions">
+      <a class="btn" href="https://bookings.zenchef.com/results?rid=381581&amp;pid=1001" rel="noopener">Réserver une table</a>
+      <a class="btn sec" href="tel:+41244952525">024 495 25 25</a>
+    </div>
+    <p class="horaire">Ouvert tous les soirs, sauf le mardi</p>
+  </div>
+</section>
+
+<section class="raclette" id="raclette">
+  <div class="wrap">
+    <div class="txt r">
+      <p class="eyebrow">La spécialité de la maison</p>
+      <h2>La raclette <i>au feu de bois</i></h2>
+      <p class="lead">Une demi-meule de Combe 23, placée devant la cheminée pour qu'elle révèle sa pâte crémeuse. Le racleur vous sert, assiette après assiette.</p>
+      <p>Ce fromage est produit depuis 75 ans par une famille obwaldienne. Son séjour en grotte humide lui a valu un prix de meilleure raclette suisse. Recommandée par le Gault&amp;Millau, la raclette se sert exclusivement dans le carnotzet.</p>
+      <ul class="faits">
+        <li><b>Réservation</b><span>Sur réservation, dès deux personnes. Précisez-le en réservant.</span></li>
+        <li><b>Où</b><span>Au carnotzet, à côté de la cheminée.</span></li>
+        <li><b>Bon à savoir</b><span>Le fromage est pasteurisé, une précision utile aux femmes enceintes.</span></li>
+      </ul>
+    </div>
+    <figure class="r">
+      <img src="img/viande-sechee.webp" width="980" height="1000" loading="lazy" alt="Viande séchée servie sur une planche en forme de Suisse, avec pain et cornichons">
+      <figcaption>Sur la planche, la Suisse en entier.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="fondue" id="fondue">
+  <div class="wrap">
+    <figure class="r">
+      <img src="img/fondue.webp" width="1150" height="1000" loading="lazy" alt="Un convive trempe son pain dans un caquelon de fondue">
+    </figure>
+    <div class="txt r">
+      <p class="eyebrow">Plat phare des Alpes</p>
+      <h2>La fondue <i>moitié-moitié</i></h2>
+      <p>Vacherin fribourgeois et gruyère, un mélange secrètement préparé par Eric, le laitier du village. Elle se décline pour varier les plaisirs.</p>
+      <ul class="sortes" aria-label="Les fondues">
+        <li>Moitié-moitié</li>
+        <li>Aux bolets</li>
+        <li>À la tomate</li>
+        <li>Aux piments</li>
+        <li class="coeur">Chèvre-brebis, coup de cœur</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="etages" id="maison">
+  <div class="wrap">
+    <div class="tete r">
+      <p class="eyebrow">Un restaurant typique et familial</p>
+      <h2>Trois étages, <i>trois ambiances</i></h2>
+      <p>En réservant, dites-nous l'ambiance que vous souhaitez : on vous installe à l'étage qui vous ressemble.</p>
+    </div>
+    <ul class="trois">
+      <li class="r"><img src="img/hublots.webp" width="1500" height="1000" loading="lazy" alt="Salle boisée avec hublots et table ronde"><div class="c"><span class="n">1er étage</span><h3>Calme et moderne</h3></div></li>
+      <li class="r"><img src="img/lutin.webp" width="1500" height="1000" loading="lazy" alt="Un lutin en laine assis sur une poutre devant un mur de pierre"><div class="c"><span class="n">À l'étage</span><h3>Animé</h3></div></li>
+      <li class="r"><img src="img/enseigne.webp" width="1500" height="1000" loading="lazy" alt="L'enseigne Vieux Villars en bois, éclairée par une lampe"><div class="c"><span class="n">Carnotzet</span><h3>Typique, à côté de la cheminée</h3></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="equipe">
+  <div class="wrap">
+    <figure class="r">
+      <img src="img/escalier-oka.webp" width="1200" height="1200" loading="lazy" alt="Deux personnes assises dans l'escalier en bois avec Oka, le bouvier bernois">
+    </figure>
+    <div class="r">
+      <p class="eyebrow">La maison</p>
+      <blockquote>Une équipe soudée et indépendante.</blockquote>
+      <p>Le Vieux Villars, c'est un patron, Jonny, sa compagne Chloé et Oka, leur bouvier bernois, entourés de leurs fidèles collaborateurs.</p>
+      <ul class="noms">
+        <li><b>Jonny &amp; Chloé</b><span>La maison</span></li>
+        <li><b>Oka</b><span>Bouvier bernois</span></li>
+        <li><b>Elena &amp; Alexandre</b><span>En salle</span></li>
+        <li><b>Adrien</b><span>En cuisine</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="galerie" aria-label="Galerie">
+  <div class="wrap">
+    <p class="eyebrow r">À la carte aussi</p>
+    <div class="gal">
+      <figure class="l r"><img src="img/filets-perche.webp" width="1070" height="670" loading="lazy" alt="Une assiette de poisson, légumes et frites servie à table"><figcaption>Et des classiques revisités, à la carte.</figcaption></figure>
+      <figure class="r"><img src="img/marqueterie.webp" width="1500" height="1000" loading="lazy" alt="Marqueterie en bois au sol"><figcaption>Le bois, jusque dans le sol.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="infos" id="infos">
+  <div class="wrap">
+    <div class="r">
+      <p class="eyebrow">Venir au Vieux Villars</p>
+      <h2>À ce soir, <i>près du feu</i></h2>
+      <div class="actions">
+        <a class="btn" href="https://bookings.zenchef.com/results?rid=381581&amp;pid=1001" rel="noopener">Réserver en ligne</a>
+        <a class="btn sec" href="https://www.google.com/maps/search/?api=1&amp;query=Route+des+H%C3%B4tels+16+1884+Villars-sur-Ollon" rel="noopener">Itinéraire</a>
+      </div>
+    </div>
+    <div class="blocs r">
+      <div class="bloc"><h3>Adresse</h3><p>Route des Hôtels 16<br>1884 Villars-sur-Ollon</p></div>
+      <div class="bloc"><h3>Horaires</h3><p>Tous les soirs<small>Fermé le mardi</small></p></div>
+      <div class="bloc"><h3>Téléphone</h3><p><a href="tel:+41244952525">+41 24 495 25 25</a><small>Plus de 6 personnes sans disponibilité en ligne : écrivez-nous sur WhatsApp.</small></p></div>
+      <div class="bloc"><h3>Autres demandes</h3><p><a href="mailto:info@vieuxvillars.ch">info@vieuxvillars.ch</a><small><a href="https://shop.zenchef.com/?active-collection=vouchers&amp;collections=vouchers&amp;shop-id=sh_02b9b1c1-b3d0-474a-8417-013317a1d311&amp;language=fr" rel="noopener">Offrir un bon cadeau</a></small></p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Vieux Villars · Route des Hôtels 16 · 1884 Villars-sur-Ollon</span>
+    <span>Aperçu non officiel, photos et textes du site vieuxvillars.ch</span>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+(function(){
+  var els=document.querySelectorAll('.r');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('vu')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

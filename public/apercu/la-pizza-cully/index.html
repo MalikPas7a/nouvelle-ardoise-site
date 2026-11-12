@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>La Pizza · Pizzeria à Cully, in famiglia dal 1957 (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour La Pizza, pizzeria familiale à Cully, Route de Lausanne 16.">
+<meta name="theme-color" content="#f5eee3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/pizza-lac.webp">
+<style>
+:root{
+  --carta:#f5eee3;       /* papier de la carte */
+  --carta-2:#ece2d2;
+  --rosso:#c7321f;       /* rouge du logo, assombri pour le contraste */
+  --rosso-vif:#e8442f;
+  --bruno:#3b2a21;       /* brun du texte de la carte */
+  --bruno-2:#5e4a3e;
+  --ligne:#dccdb7;
+  --cond:"Archivo", "Arial Narrow", sans-serif;
+  --serif:"Newsreader", Georgia, serif;
+  --g:clamp(20px, 5vw, 64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--carta);color:var(--bruno);font:400 17px/1.6 var(--cond);font-variation-settings:"wdth" 100;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--rosso);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 var(--g)}
+
+.apercu{background:var(--bruno);color:#e3d6c4;font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff;font-weight:600}
+
+/* titres façon carte : capitales étroites, filets rouges */
+.cap{font-family:var(--cond);font-weight:800;font-variation-settings:"wdth" 68;text-transform:uppercase;letter-spacing:.005em;line-height:.9}
+.filet{border-top:3px solid var(--rosso);border-bottom:3px solid var(--rosso);padding:.12em 0 .02em}
+.sur{font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--rosso)}
+
+/* entête */
+.top{position:sticky;top:0;z-index:20;background:rgba(245,238,227,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--ligne)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:10px;padding-bottom:10px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--rosso)}
+.logo b{font:800 22px/.86 var(--cond);font-variation-settings:"wdth" 70;text-transform:uppercase;letter-spacing:.01em}
+.logo span{font-size:10.5px;line-height:1.25;letter-spacing:.14em;text-transform:uppercase;font-weight:600;border-left:1px solid currentColor;padding-left:10px}
+.top nav{display:flex;align-items:center;gap:24px}
+.top nav a.l{font-size:15px;font-weight:500;text-decoration:none;color:var(--bruno-2)}
+.top nav a.l:hover{color:var(--rosso)}
+@media (max-width:820px){.top nav a.l{display:none}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;background:var(--rosso);color:#fff;border:2px solid var(--rosso);border-radius:4px;font:700 15px/1 var(--cond);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background .2s ease, color .2s ease, transform .15s ease}
+.btn:hover{background:#a92816;border-color:#a92816}
+.btn:active{transform:scale(.97)}
+.btn.sec{background:transparent;color:var(--rosso)}
+.btn.sec:hover{background:var(--rosso);color:#fff}
+.btn.petit{min-height:42px;padding:0 16px;font-size:13.5px}
+
+/* hero */
+.hero{padding:clamp(28px,5vw,64px) 0 clamp(48px,7vw,96px)}
+.hero .wrap{display:grid;gap:clamp(28px,5vw,64px);align-items:center}
+@media (min-width:900px){.hero .wrap{grid-template-columns:1.05fr .95fr}}
+.hero h1{font-size:clamp(84px,19vw,200px);color:var(--rosso);margin:16px 0 18px}
+.hero h1 small{display:block;font-size:.3em;white-space:nowrap;color:var(--bruno);letter-spacing:.02em;margin-top:.18em}
+.chapo{font-size:clamp(19px,2.2vw,23px);line-height:1.45;max-width:30ch}
+.chapo em{font-family:var(--serif);font-style:italic;font-size:1.08em}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.modes{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:26px;font-size:13.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--bruno-2)}
+.modes li{list-style:none;display:flex;align-items:center;gap:8px}
+.modes li::before{content:"";width:7px;height:7px;background:var(--rosso);border-radius:50%}
+.hero figure{position:relative}
+.hero figure img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px}
+.hero figcaption{position:absolute;left:14px;bottom:14px;background:var(--carta);padding:7px 12px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:2px}
+
+/* dal 1957 */
+.storia{background:var(--bruno);color:#f3e9da;padding:clamp(56px,8vw,112px) 0}
+.storia .wrap{display:grid;gap:clamp(32px,5vw,72px);align-items:center}
+@media (min-width:900px){.storia .wrap{grid-template-columns:.9fr 1.1fr}}
+.storia .photos{position:relative;padding-bottom:18%}
+.storia .photos .archive{width:86%;filter:grayscale(1) contrast(1.05);border:10px solid #f3e9da;border-bottom-width:36px;transform:rotate(-2deg)}
+.storia .photos .archive-l{position:absolute;left:22px;bottom:calc(18% + 10px);font:italic 500 15px/1 var(--serif);color:var(--bruno);transform:rotate(-2deg)}
+.storia .photos .auj{position:absolute;right:0;bottom:0;width:46%;border:8px solid #f3e9da;transform:rotate(3deg)}
+.storia .sur{color:var(--rosso-vif)}
+.storia h2{font-size:clamp(64px,11vw,128px);color:#fff;margin:14px 0 24px}
+.storia blockquote{font:italic 400 clamp(21px,2.4vw,27px)/1.45 var(--serif);max-width:34ch}
+.storia .sign{margin-top:20px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#d8c6ae}
+
+/* trois points */
+.points{padding:clamp(56px,8vw,104px) 0 clamp(24px,4vw,40px)}
+.points ol{list-style:none;display:grid;gap:0;border-top:1px solid var(--ligne)}
+@media (min-width:900px){.points ol{grid-template-columns:repeat(3,1fr);border-top:0}}
+.points li{padding:26px 0;border-bottom:1px solid var(--ligne);display:grid;grid-template-columns:auto 1fr;gap:6px 18px}
+@media (min-width:900px){.points li{padding:8px 28px 8px 0;border-bottom:0;border-right:1px solid var(--ligne);margin-right:28px}.points li:last-child{border-right:0;margin-right:0}}
+.points .n{font:800 44px/.9 var(--cond);font-variation-settings:"wdth" 68;color:var(--rosso);grid-row:span 2}
+.points h3{font:700 20px/1.2 var(--cond);font-variation-settings:"wdth" 85;text-transform:uppercase;letter-spacing:.02em}
+.points p{color:var(--bruno-2);font-size:16px}
+
+/* carte */
+.carte{padding:clamp(48px,7vw,96px) 0}
+.carte .tete{display:grid;gap:18px;margin-bottom:clamp(28px,4vw,48px)}
+@media (min-width:900px){.carte .tete{grid-template-columns:1fr 1fr;align-items:end}}
+.carte h2{font-size:clamp(56px,9vw,104px);color:var(--rosso)}
+.carte .tete p{color:var(--bruno-2);max-width:46ch}
+.colonnes{display:grid;gap:clamp(32px,4vw,56px)}
+@media (min-width:900px){.colonnes{grid-template-columns:1fr 1fr 1fr}}
+.colonnes h3{font-size:clamp(30px,3.4vw,40px);color:var(--rosso);text-align:center;margin-bottom:6px}
+.colonnes .soustitre{text-align:center;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--bruno-2);margin:10px 0 0}
+.plats{list-style:none}
+.plats li{text-align:center;padding:14px 4px;border-bottom:1px solid var(--ligne)}
+.plats b{display:block;font:700 15.5px/1.3 var(--cond);font-variation-settings:"wdth" 90;letter-spacing:.06em;text-transform:uppercase}
+.plats b i{font:italic 500 15px var(--serif);text-transform:none;letter-spacing:0;color:var(--rosso)}
+.plats span{display:block;font-size:15px;color:var(--bruno-2);line-height:1.45;margin-top:3px}
+.colonnes figure img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:3px;margin-top:22px}
+.colonnes figcaption{font-size:13px;color:var(--bruno-2);margin-top:8px;text-align:center}
+.carte .bas{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:clamp(32px,4vw,48px);justify-content:center;text-align:center}
+.carte .bas p{font-size:14.5px;color:var(--bruno-2)}
+
+/* épizzerie */
+.epi{background:var(--carta-2);padding:clamp(56px,8vw,104px) 0}
+.epi .wrap{display:grid;gap:clamp(28px,5vw,64px);align-items:center}
+@media (min-width:900px){.epi .wrap{grid-template-columns:1fr 1fr}}
+.epi h2{font-size:clamp(52px,8vw,96px);color:var(--rosso);margin:12px 0 22px}
+.epi ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}
+.epi ul li{border:1.5px solid var(--bruno);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600;letter-spacing:.04em}
+.epi .four{font:italic 400 20px/1.5 var(--serif)}
+.epi .seule img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:3px}
+
+/* galerie */
+.galerie{padding:clamp(56px,8vw,104px) 0}
+.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media (min-width:900px){.gal{grid-template-columns:1fr 1fr 1fr;gap:14px}}
+.gal figure{position:relative;overflow:hidden;border-radius:3px}
+.gal img{width:100%;height:100%;aspect-ratio:1/1;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.gal figure:hover img{transform:scale(1.03)}
+.gal figcaption{position:absolute;left:8px;bottom:8px;background:var(--carta);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:2px}
+.gal .haut{aspect-ratio:3/4}
+@media (min-width:900px){.gal .haut{grid-row:span 2;aspect-ratio:auto}}
+.gal .haut img{aspect-ratio:auto;position:absolute;inset:0}
+.gal .haut{min-height:100%}
+
+/* infos */
+.infos{background:var(--rosso);color:#fff;padding:clamp(56px,8vw,104px) 0}
+.infos .wrap{display:grid;gap:clamp(32px,5vw,64px)}
+@media (min-width:900px){.infos .wrap{grid-template-columns:1.1fr .9fr;align-items:start}}
+.infos h2{font-size:clamp(60px,10vw,120px)}
+.infos .tel{display:inline-block;font:800 clamp(38px,6vw,64px)/1 var(--cond);font-variation-settings:"wdth" 70;text-decoration:none;margin:22px 0 8px;border-bottom:3px solid rgba(255,255,255,.5)}
+.infos .tel:hover{border-color:#fff}
+.infos .actions .btn{background:#fff;color:var(--rosso);border-color:#fff}
+.infos .actions .btn:hover{background:var(--carta)}
+.infos .actions .btn.sec{background:transparent;color:#fff;border-color:#fff}
+.infos .actions .btn.sec:hover{background:#fff;color:var(--rosso)}
+.infos dl{display:grid;gap:22px}
+.infos dt{font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#ffd9d1}
+.infos dd{font-size:18px;line-height:1.5;margin-top:4px}
+.infos dd small{display:block;font-size:13.5px;color:#ffe3dc;margin-top:4px}
+
+footer{background:var(--bruno);color:#d8c6ae;padding:32px 0 40px;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;align-items:center}
+footer a{color:#f3e9da}
+footer .rs{display:flex;gap:18px}
+
+/* apparitions douces */
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.js .rv{opacity:1;transform:none;transition:none}.gal img{transition:none}}
+</style>
+</head>
+<body>
+<div class="apercu" role="note">Aperçu imaginé par Nouvelle Ardoise pour <strong>La Pizza</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="La Pizza, retour en haut"><b>La-<br>Pizza.ch</b><span>In famiglia<br>dal 1957</span></a>
+    <nav aria-label="Navigation principale">
+      <a class="l" href="#carte">La carte</a>
+      <a class="l" href="#storia">Dal 1957</a>
+      <a class="l" href="#infos">Horaires</a>
+      <a class="btn petit" href="tel:+41217991814">Appeler</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="titre">
+    <div class="wrap">
+      <div class="rv">
+        <p class="sur">Votre pizzeria à Cully</p>
+        <h1 id="titre" class="cap">La Pizza<small>in famiglia dal 1957</small></h1>
+        <p class="chapo">Les saveurs et les valeurs <em>tout italiennes</em> de Mario, Route de Lausanne&nbsp;16, au cœur de Lavaux.</p>
+        <div class="actions">
+          <a class="btn" href="tel:+41217991814">Appeler · 021 799 18 14</a>
+          <a class="btn sec" href="#carte">Voir la carte</a>
+        </div>
+        <ul class="modes" aria-label="Formules">
+          <li>Sur place</li><li>À l'emporter</li><li>À domicile</li>
+        </ul>
+      </div>
+      <figure class="rv">
+        <img src="img/pizza-lac.webp" width="1320" height="1622" alt="Une pizza au jambon cru, roquette et mozzarella tenue au-dessus du lac Léman, montagnes en arrière-plan" fetchpriority="high">
+        <figcaption>Une pizza, le Léman</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="storia" id="storia" aria-labelledby="t-storia">
+    <div class="wrap">
+      <div class="photos rv">
+        <img class="archive" src="img/famille-1960.webp" width="640" height="480" loading="lazy" alt="Photo de famille en noir et blanc des années 1960, autour d'une table dans la pizzeria">
+        <span class="archive-l">La famille, vers 1960</span>
+        <img class="auj" src="img/mary-luce.webp" width="1080" height="1351" loading="lazy" alt="Mary-Luce Boand Colombini souriante, une pizza à la main, dans la salle aux chaises jaunes">
+      </div>
+      <div class="rv">
+        <p class="sur">À table depuis 1957</p>
+        <h2 id="t-storia" class="cap">Dal 1957</h2>
+        <blockquote>« La pizza, les Napolitains l'ont inventée, les Toscans l'ont enrichie, Sophia Loren l'a sublimée, Azzario Colombini l'a apprêtée dans la première pizzeria de Suisse, la mythique “Chez Mario” ouverte en 1957 à Lausanne. Depuis 2017, la famille Colombini affiche fièrement les saveurs et les valeurs tout italiennes de Mario. »</blockquote>
+        <p class="sign">Mary-Luce Boand Colombini</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="points" aria-label="Ce qui fait La Pizza">
+    <div class="wrap">
+      <ol>
+        <li class="rv"><span class="n">01</span><h3>La mitica di Mario</h3><p>La Siciliana, jambon cuit, poivrons, œuf dur et olives noires : la recette de Chez Mario, toujours à la carte.</p></li>
+        <li class="rv"><span class="n">02</span><h3>Suisse &amp; Italie</h3><p>Tomates San Marzano, mozzarella fior di latte, bufala, Grana Padano. Les produits viennent de Suisse et d'Italie.</p></li>
+        <li class="rv"><span class="n">03</span><h3>Livrée dans Lavaux</h3><p>Bourg-en-Lavaux, Lutry, Treytorrens, Rivaz, Saint-Saphorin, Puidoux-Gare et Chexbres.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="carte" id="carte" aria-labelledby="t-carte">
+    <div class="wrap">
+      <div class="tete rv">
+        <div><p class="sur">Nos spécialités</p><h2 id="t-carte" class="cap">La carte</h2></div>
+        <p>Pizzas rouges, pizzas blanches sans sauce tomate et pizpaninis. Quelques-unes de la carte, qui rendent hommage au cinéma et à la chanson italienne. Faites-nous part de vos allergies.</p>
+      </div>
+      <div class="colonnes">
+        <div class="rv">
+          <h3 class="cap filet">Pizzas rouges</h3>
+          <ul class="plats">
+            <li><b>Siciliana <i>la mitica di Mario</i></b><span>Tomates San Marzano, mozzarella fior de latte, jambon cuit, poivrons, œuf dur, olives noires</span></li>
+            <li><b>Sophia Loren</b><span>Tomates San Marzano, mozzarella fior de latte, salami piquant, ricotta, basilic</span></li>
+            <li><b>Marcello Mastroianni</b><span>Tomates San Marzano, mozzarella fior di latte, saucisse piquante nduja, basilic</span></li>
+            <li><b>Tricolore</b><span>Tomates San Marzano, pesto, stracciatella di burrata, basilic</span></li>
+          </ul>
+          <figure><img src="img/pizza-pesto.webp" width="1125" height="1105" loading="lazy" alt="Pizza au pesto vert et à la sauce tomate, vue de près"><figcaption>Pesto et San Marzano</figcaption></figure>
+        </div>
+        <div class="rv">
+          <h3 class="cap filet">Pizzas blanches</h3>
+          <p class="soustitre">Sans sauce tomate</p>
+          <ul class="plats">
+            <li><b>Pino Daniele</b><span>Mozzarella fior di latte, mozzarella de buffle, tomates cherry, copeaux de Grana Padano, roquette</span></li>
+            <li><b>Forza Azzuri</b><span>Mozzarella fior di latte, mozzarella fumée, pesto Genovese, tomates cherry, basilic</span></li>
+            <li><b>Ortolana</b><span>Mozzarella de buffle, champignons, aubergines, poivrons, artichauts, courgettes</span></li>
+          </ul>
+          <figure><img src="img/pizza-champignons.webp" width="1125" height="1158" loading="lazy" alt="Pizza aux champignons et oignons sur une table en marbre"><figcaption>Sortie du four</figcaption></figure>
+        </div>
+        <div class="rv">
+          <h3 class="cap filet">Pizpaninis</h3>
+          <ul class="plats">
+            <li><b>Parma</b><span>Jambon cru, mozzarella de buffle, tomates fraîches, roquette, huile d'olive</span></li>
+            <li><b>Genova</b><span>Pesto, mozzarella de buffle, tomates fraîches, huile d'olive</span></li>
+            <li><b>Plateaux d'antipasti toscans</b><span>Charcuterie, fromages, légumes marinés, olives, accompagnés de focaccia</span></li>
+          </ul>
+          <figure><img src="img/pizpanini.webp" width="1320" height="1314" loading="lazy" alt="Deux pizpaninis dorés garnis de jambon cru et de roquette"><figcaption>Le pizpanini</figcaption></figure>
+        </div>
+      </div>
+      <div class="bas rv">
+        <a class="btn sec" href="https://la-pizza.ch/wp-content/uploads/2024/08/carte-2024-ete.pdf" target="_blank" rel="noopener">Toute la carte</a>
+        <p>Pizzas végétariennes et piquantes signalées sur la carte · suppléments au choix</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="epi" aria-labelledby="t-epi">
+    <div class="wrap">
+      <div class="rv">
+        <p class="sur">À emporter chez soi</p>
+        <h2 id="t-epi" class="cap">L'épizzerie</h2>
+        <p>Pour refaire l'Italie à la maison, La Pizza vend aussi ce qu'elle utilise en cuisine.</p>
+        <ul>
+          <li>Farine Caputo</li><li>Pâtes Martelli</li><li>Coulis de tomates DOP</li><li>Pâtons à pizza frais</li><li>Fonds de pizzas précuits</li><li>Douceurs</li>
+        </ul>
+        <p class="four">La pizza artisanale précuite : dans votre four à 250°, temps de cuisson 7 à 10 minutes.</p>
+      </div>
+      <figure class="seule rv"><img src="img/antipasti.webp" width="1320" height="1319" loading="lazy" alt="Plateau d'antipasti : salami, jambon, copeaux de fromage, tomates cerises et légumes marinés"></figure>
+    </div>
+  </section>
+
+  <section class="galerie" aria-label="Galerie">
+    <div class="wrap">
+      <div class="gal">
+        <figure class="haut rv"><img src="img/facade.webp" width="1400" height="1924" loading="lazy" alt="La façade vitrée de La Pizza avec le logo rouge La-Pizza.ch"><figcaption>Route de Lausanne 16</figcaption></figure>
+        <figure class="haut rv"><img src="img/salle.webp" width="1400" height="1867" loading="lazy" alt="La salle lumineuse aux chaises jaunes et grandes baies vitrées"><figcaption>La salle</figcaption></figure>
+        <figure class="rv"><img src="img/tiramisu.webp" width="916" height="887" loading="lazy" alt="Une plaque de tiramisus maison en pots, saupoudrés de cacao"><figcaption>Tiramisu maison</figcaption></figure>
+        <figure class="rv"><img src="img/dal-1957.webp" width="640" height="480" loading="lazy" alt="« Dal 1957 » écrit à la main dans la farine"><figcaption>Dal 1957</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="infos" id="infos" aria-labelledby="t-infos">
+    <div class="wrap">
+      <div class="rv">
+        <h2 id="t-infos" class="cap">Commandez,<br>nous livrons</h2>
+        <a class="tel" href="tel:+41217991814">021 799 18 14</a>
+        <div class="actions">
+          <a class="btn" href="tel:+41217991814">Appeler</a>
+          <a class="btn sec" href="https://www.google.com/maps/place/la-pizza.ch/@46.4912271,6.7455028,17z" target="_blank" rel="noopener">Itinéraire</a>
+        </div>
+      </div>
+      <dl class="rv">
+        <div><dt>Adresse</dt><dd>Route de Lausanne 16<br>1096 Cully</dd></div>
+        <div><dt>Horaires</dt><dd>Du mercredi au dimanche<br>11 h – 14 h · 18 h – 21 h<small>Sur place, à l'emporter, à domicile</small></dd></div>
+        <div><dt>Livraison à domicile</dt><dd>Bourg-en-Lavaux, Lutry, Treytorrens, Rivaz, Saint-Saphorin, Puidoux-Gare, Chexbres</dd></div>
+        <div><dt>Écrire</dt><dd><a href="mailto:colombini@la-pizza.ch">colombini@la-pizza.ch</a></dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>La Pizza · in famiglia dal 1957 · <em>Grazie mille amici cari</em></p>
+    <p class="rs"><a href="https://www.instagram.com/lapizza.ch/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/colombinis/" target="_blank" rel="noopener">Facebook</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var d=document.documentElement; d.classList.add('js');
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('vu')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

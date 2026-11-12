@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Phở Vietnam · Cuisine vietnamienne à Fribourg (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour Phở Vietnam, cuisine vietnamienne, Boulevard de Pérolles 71, 1700 Fribourg.">
+<meta name="theme-color" content="#a44445">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,400;0,500;1,400&family=Be+Vietnam+Pro:wght@400;500;600&display=swap&subset=vietnamese" rel="stylesheet">
+<link rel="preload" as="image" href="img/r-pho-bo.webp">
+<style>
+:root{
+  --laque:#a44445;       /* le rouge exact des photos de la maison */
+  --laque-f:#7e2f31;
+  --riz:#f6efe3;         /* papier de riz */
+  --riz-2:#ece2d0;
+  --encre:#21160f;
+  --encre-2:#5b4a3e;
+  --or:#e2bd76;
+  --ligne:#dccdb6;
+  --serif:"Noto Serif Display", Georgia, serif;
+  --sans:"Be Vietnam Pro", system-ui, -apple-system, sans-serif;
+  --g:clamp(20px, 5vw, 72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--riz);color:var(--encre);font:400 17px/1.62 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto}
+.apercu{background:var(--encre);color:#d8c9b5;font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff;font-weight:500}
+
+.top{background:var(--laque);color:var(--riz)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px var(--g)}
+@media (min-width:1344px){.top .wrap{padding-left:0;padding-right:0}}
+.marque{font:500 22px/1 var(--serif);text-decoration:none}
+.marque small{font:500 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;margin-left:10px;opacity:.8}
+@media (max-width:420px){.marque small{display:none}}
+.top nav{display:flex;align-items:center;gap:26px;font-size:15px}
+.top nav a.l{text-decoration:none;opacity:.92}
+.top nav a.l:hover{text-decoration:underline;text-underline-offset:4px}
+@media (max-width:799px){.top nav a.l{display:none}}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 22px;border-radius:2px;font:500 15px/1 var(--sans);text-decoration:none;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.btn-riz{background:var(--riz);color:var(--laque-f);border:1px solid var(--riz)}
+.btn-riz:hover{background:var(--or);border-color:var(--or);color:var(--encre)}
+.btn-ligne-riz{border:1px solid rgba(246,239,227,.7);color:var(--riz)}
+.btn-ligne-riz:hover{background:var(--riz);color:var(--laque-f)}
+.btn-laque{background:var(--laque);color:var(--riz);border:1px solid var(--laque)}
+.btn-laque:hover{background:var(--laque-f);border-color:var(--laque-f)}
+.btn-ligne{border:1px solid var(--encre);color:var(--encre)}
+.btn-ligne:hover{background:var(--encre);color:var(--riz)}
+
+/* hero : le bol posé sur la laque */
+.hero{background:var(--laque);color:var(--riz);overflow:hidden}
+.hero .wrap{display:grid;padding:28px var(--g) 0}
+@media (min-width:1344px){.hero .wrap{padding-left:0;padding-right:0}}
+.sur{font:600 12px/1.3 var(--sans);letter-spacing:.18em;text-transform:uppercase}
+.hero .sur{color:var(--or)}
+.hero h1{font:400 clamp(112px,36vw,300px)/.82 var(--serif);letter-spacing:-.04em;margin:18px 0 0 -.04em}
+.hero .sous{font:italic 400 clamp(22px,3vw,34px)/1.2 var(--serif);margin-top:10px}
+.hero p.intro{max-width:36ch;margin-top:20px;color:#f3e3d8;font-size:17px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.hero figure{margin:36px calc(var(--g) * -1) 0}
+.hero figure img{width:100%;max-width:1280px;margin:0 auto;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(180deg,transparent,#000 8%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(180deg,transparent,#000 8%);mask-composite:intersect}
+@media (min-width:960px){
+  .hero .wrap{grid-template-columns:1fr 1.15fr;gap:32px;align-items:end;padding-top:56px}
+  .hero .texte{padding-bottom:72px}
+  .hero figure{margin:0 calc(var(--g) * -1) 0 0}
+}
+
+section{padding:clamp(64px,10vw,124px) var(--g)}
+@media (min-width:1344px){section{padding-left:0;padding-right:0}}
+h2{font:400 clamp(38px,6vw,68px)/1.02 var(--serif);letter-spacing:-.02em;margin:12px 0 20px}
+h2 em{font-style:italic}
+.lead{font:400 clamp(19px,2vw,23px)/1.5 var(--serif);max-width:40ch}
+
+/* cuisine */
+.cuisine .sur{color:var(--laque)}
+.cuisine .wrap{display:grid;gap:44px}
+@media (min-width:900px){.cuisine .wrap{grid-template-columns:.9fr 1.1fr;gap:80px}}
+.trois{list-style:none;border-top:1px solid var(--ligne)}
+.trois li{display:grid;grid-template-columns:auto 1fr;gap:4px 20px;padding:22px 0;border-bottom:1px solid var(--ligne)}
+.trois .n{grid-row:1/3;font:400 15px/1.9 var(--sans);color:var(--laque)}
+.trois b{font:400 30px/1.15 var(--serif)}
+.trois span{color:var(--encre-2);font-size:16px}
+.maison{margin-top:24px;font-size:15px;color:var(--encre-2);max-width:52ch}
+
+/* table en images */
+.table{background:var(--laque);color:var(--riz)}
+.table .sur{color:var(--or)}
+.table .lead{color:#f3e3d8}
+.bols{display:grid;grid-template-columns:1fr 1fr;gap:28px 12px;margin-top:44px}
+@media (min-width:900px){.bols{grid-template-columns:repeat(4,1fr);gap:48px 20px}}
+.bol img{width:100%;aspect-ratio:16/10;object-fit:contain;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}
+.bol b{display:block;font:400 clamp(20px,2.2vw,26px)/1.15 var(--serif);margin-top:6px}
+.bol span{display:block;font-size:14px;color:#efd9cf;margin-top:4px}
+
+/* bois */
+.bois{padding-top:0;background:var(--laque)}
+.bande{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (min-width:900px){.bande{grid-template-columns:repeat(4,1fr);gap:16px;max-width:1200px;margin:0 auto}}
+.bande img{width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:2px}
+
+/* événements */
+.events .wrap{display:grid;gap:40px}
+@media (min-width:900px){.events .wrap{grid-template-columns:1fr 1fr;gap:80px;align-items:center}}
+.events .sur{color:var(--laque)}
+.chiffre{font:400 clamp(96px,16vw,180px)/.85 var(--serif);color:var(--laque);letter-spacing:-.04em}
+.chiffre small{display:block;font:500 13px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--encre-2);margin-top:14px}
+.fondue{text-decoration:none;display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center;margin-top:28px;padding:16px;background:var(--laque);color:var(--riz);border-radius:2px}
+.fondue img{width:120px;aspect-ratio:1;object-fit:cover}
+.fondue b{display:block;font:400 22px/1.2 var(--serif)}
+.fondue span{font-size:14px;color:#f3e3d8}
+
+/* infos */
+.infos{background:var(--riz-2)}
+.infos .wrap{display:grid;gap:44px}
+@media (min-width:900px){.infos .wrap{grid-template-columns:1.1fr 1fr 1fr;gap:56px}}
+.infos h3{font:600 12px/1.3 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--laque);margin-bottom:14px}
+.horaires{width:100%;border-collapse:collapse;font-size:16px}
+.horaires td{padding:9px 0;border-bottom:1px solid var(--ligne);vertical-align:top}
+.horaires td+td{text-align:right}
+.horaires .ferme td{color:var(--encre-2)}
+.adresse{font:400 25px/1.35 var(--serif)}
+.tel{display:block;font:400 30px/1.3 var(--serif);text-decoration:none}
+.tel:hover{color:var(--laque)}
+.note{font-size:15px;color:var(--encre-2);margin-top:14px;max-width:40ch}
+.infos .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+
+footer{background:var(--encre);color:#cdbfae;padding:32px var(--g) 40px;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between}
+footer b{font:500 20px/1 var(--serif);color:var(--riz)}
+
+.barre{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;display:flex;gap:8px;transition:transform .35s ease,opacity .35s ease}
+.barre a{flex:1;min-height:50px;box-shadow:0 6px 20px rgba(40,10,10,.25)}
+.js .barre{transform:translateY(140%);opacity:0;pointer-events:none}
+.js .barre.vue{transform:none;opacity:1;pointer-events:auto}
+@media (min-width:800px){.barre{display:none}}
+@media (max-width:799px){footer{padding-bottom:110px}}
+
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.js .rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .rv{opacity:1;transform:none;transition:none}.barre{transition:none}}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<div class="apercu" role="note">Aperçu imaginé par Nouvelle Ardoise pour <strong>Phở Vietnam</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="marque" href="#">Phở Vietnam<small>Fribourg</small></a>
+    <nav aria-label="Navigation principale">
+      <a class="l" href="#cuisine">Notre cuisine</a>
+      <a class="l" href="#table">La carte</a>
+      <a class="l" href="#infos">Horaires</a>
+      <a class="btn btn-ligne-riz" href="tel:+41264221748">Réserver</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding:0">
+  <div class="wrap">
+    <div class="texte">
+      <p class="sur">Cuisine vietnamienne · Pérolles 71</p>
+      <h1>Phở</h1>
+      <p class="sous">la soupe tonkinoise, et tout le Vietnam autour</p>
+      <p class="intro">Des bols de phở, des crêpes bánh xèo et le bún bò Huế épicé, préparés maison au boulevard de Pérolles.</p>
+      <div class="actions">
+        <a class="btn btn-riz" href="tel:+41264221748">Réserver une table</a>
+        <a class="btn btn-ligne-riz" href="#table">Voir la carte</a>
+      </div>
+    </div>
+    <figure>
+      <img src="img/r-pho-bo.webp" alt="Bol de phở bò : soupe de bœuf aux épices et nouilles de riz, avec herbes fraîches, citron vert et piment" width="1280" height="720" fetchpriority="high">
+    </figure>
+  </div>
+</section>
+
+<section class="cuisine" id="cuisine">
+  <div class="wrap">
+    <div class="rv">
+      <p class="sur">Notre cuisine</p>
+      <h2>Trois classiques <em>du Vietnam</em></h2>
+      <p class="lead">Une cuisine de mets traditionnels, avec des produits faits maison et les saveurs du Vietnam.</p>
+    </div>
+    <div class="rv">
+      <ul class="trois">
+        <li><span class="n">01</span><b>Phở</b><span>La soupe tonkinoise, bouillon de bœuf aux épices et nouilles de riz.</span></li>
+        <li><span class="n">02</span><b>Bánh xèo</b><span>Les crêpes vietnamiennes, mangées principalement avec des salades.</span></li>
+        <li><span class="n">03</span><b>Bún bò Huế</b><span>La soupe épicée de la ville de Huế, très appréciée.</span></li>
+      </ul>
+      <p class="maison">Tout est fait maison, à part les sauces, le riz, les nouilles et les feuilles de riz.</p>
+    </div>
+  </div>
+</section>
+
+<section class="table" id="table">
+  <div class="wrap">
+    <div class="rv">
+      <p class="sur">La carte en images</p>
+      <h2>À table, <em>bol par bol</em></h2>
+      <p class="lead">Quelques plats de la carte, photographiés dans la maison.</p>
+    </div>
+    <div class="bols">
+      <figure class="bol rv"><img src="img/r-bun-bo-hue.webp" alt="Bún bò Huế, soupe épicée de bœuf" width="1280" height="720" loading="lazy"><figcaption><b>Bún bò Huế</b><span>Soupe épicée de bœuf de Huế</span></figcaption></figure>
+      <figure class="bol rv"><img src="img/r-canard-orange.webp" alt="Canard à l'orange, riz et sauce aux agrumes" width="1280" height="720" loading="lazy"><figcaption><b>Canard à l'orange</b></figcaption></figure>
+      <figure class="bol rv"><img src="img/r-bun-bo-xao-cha-gio.webp" alt="Bún bò xào chả giò dans un bol, baguettes posées dessus" width="1280" height="720" loading="lazy"><figcaption><b>Bún bò xào chả giò</b><span>Vermicelles de riz, bœuf à la citronnelle et nem</span></figcaption></figure>
+      <figure class="bol rv"><img src="img/r-canard-laque.webp" alt="Canard laqué tranché sur salade" width="1280" height="720" loading="lazy"><figcaption><b>Canard laqué</b></figcaption></figure>
+      <figure class="bol rv"><img src="img/r-hu-tieu.webp" alt="Hủ tiếu, soupe de crevettes et porc aux nouilles de riz" width="1280" height="720" loading="lazy"><figcaption><b>Hủ tiếu</b><span>Soupe de crevettes et porc, nouilles de riz</span></figcaption></figure>
+      <figure class="bol rv"><img src="img/r-bun-chao-tom.webp" alt="Bún chạo tôm, quenelles de crevettes sur canne à sucre" width="1280" height="720" loading="lazy"><figcaption><b>Bún chạo tôm</b><span>Quenelles de crevettes sur canne à sucre</span></figcaption></figure>
+      <figure class="bol rv"><img src="img/r-crevettes-poivre-vert.webp" alt="Crevettes au poivre vert et gros sel, riz et piment" width="1280" height="720" loading="lazy"><figcaption><b>Crevettes au poivre vert</b><span>et gros sel</span></figcaption></figure>
+      <figure class="bol rv"><img src="img/r-salade-papaye.webp" alt="Salade de papaye en dôme sur assiette blanche" width="1280" height="720" loading="lazy"><figcaption><b>Salade de papaye</b></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="bois" aria-label="Autres plats de la maison">
+  <div class="bande">
+    <img class="rv" src="img/bun-bo-xao.webp" alt="Bol de bún bò xào aux carottes et cacahuètes, baguettes" width="550" height="440" loading="lazy">
+    <img class="rv" src="img/banh-xeo.webp" alt="Bánh xèo sur assiette carrée, herbes et sauce" width="550" height="440" loading="lazy">
+    <img class="rv" src="img/bo-luc-lac.webp" alt="Bœuf sauté, riz et crudités sur table en bois" width="550" height="440" loading="lazy">
+    <img class="rv" src="img/marmite.webp" alt="Plat mijoté en marmite, bol de riz au piment" width="550" height="440" loading="lazy">
+  </div>
+</section>
+
+<section class="events" id="evenements">
+  <div class="wrap">
+    <div class="rv">
+      <p class="sur">Repas de fête &amp; événements privés</p>
+      <h2>Votre repas d'entreprise <em>ou d'anniversaire</em></h2>
+      <p class="lead">Soirées à thème et événements privés, à tout moment de l'année.</p>
+      <a class="fondue" href="tel:+41264221748">
+        <img src="img/r-fondue.webp" alt="Fondue vietnamienne : assiette de fines tranches de viande" width="1280" height="720" loading="lazy">
+        <span><b>Fondue vietnamienne</b><span>Uniquement sur réservation</span></span>
+      </a>
+    </div>
+    <div class="rv">
+      <p class="chiffre">50<small>personnes au maximum</small></p>
+    </div>
+  </div>
+</section>
+
+<section class="infos" id="infos">
+  <div class="wrap">
+    <div class="rv">
+      <h3>Horaires</h3>
+      <table class="horaires">
+        <tr><td>Lundi</td><td>10h30 – 14h30<br>le soir fermé</td></tr>
+        <tr><td>Mardi à samedi</td><td>10h30 – 14h30<br>17h00 – 23h00</td></tr>
+        <tr class="ferme"><td>Dimanche</td><td>Fermé</td></tr>
+      </table>
+      <p class="note">Deux menus du jour à midi, sur place ou à l'emporter, et le soir à l'emporter. Merci de signaler vos allergies ou intolérances.</p>
+    </div>
+    <div class="rv">
+      <h3>Adresse</h3>
+      <p class="adresse">Boulevard de Pérolles 71<br>1700 Fribourg</p>
+      <div class="actions"><a class="btn btn-ligne" href="https://www.google.com/maps/search/?api=1&amp;query=Pho+Vietnam+Boulevard+de+P%C3%A9rolles+71+Fribourg" rel="noopener">Itinéraire</a></div>
+    </div>
+    <div class="rv">
+      <h3>Réservation</h3>
+      <a class="tel" href="tel:+41264221748">026 422 17 48</a>
+      <p class="note" style="margin-top:6px"><a href="mailto:denis.corpataux@me.com">denis.corpataux@me.com</a></p>
+      <div class="actions"><a class="btn btn-laque" href="tel:+41264221748">Appeler pour réserver</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>Phở Vietnam</b>
+    <span>Boulevard de Pérolles 71 · 1700 Fribourg</span>
+    <span>Aperçu non officiel, imaginé par Nouvelle Ardoise. Textes et photos : phovietnam.ch.</span>
+  </div>
+</footer>
+
+<div class="barre">
+  <a class="btn btn-laque" href="tel:+41264221748">Appeler</a>
+  <a class="btn btn-ligne" style="background:var(--riz)" href="https://www.google.com/maps/search/?api=1&amp;query=Pho+Vietnam+Boulevard+de+P%C3%A9rolles+71+Fribourg" rel="noopener">Itinéraire</a>
+</div>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('on')})}
+  else{var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});els.forEach(function(e){io.observe(e)})}
+  var b=document.querySelector('.barre'),h=document.querySelector('.hero');
+  function f(){b.classList.toggle('vue',h.getBoundingClientRect().bottom<0)}
+  addEventListener('scroll',f,{passive:true});f();
+})();
+</script>
+</body>
+</html>

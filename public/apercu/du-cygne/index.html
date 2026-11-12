@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Hôtel-Restaurant du Cygne · Les Charbonnières, Vallée de Joux (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour l'Hôtel-Restaurant du Cygne, Rue du Mont d'Or 7, 1343 Les Charbonnières.">
+<meta name="theme-color" content="#f3f1ec">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/escargots.webp">
+<style>
+:root{
+  --neige:#f3f1ec;       /* nappe et neige */
+  --neige-2:#e8e4db;
+  --lac:#22343f;         /* le lac en hiver */
+  --lac-2:#3d5260;
+  --lac-3:#6c7d88;
+  --sapin:#2f4034;
+  --cuivre:#a4572a;      /* la tasse du velouté, les feuilles d'automne */
+  --cuivre-clair:#c97a45;
+  --ligne:#d5cfc2;
+  --serif:"Newsreader", Georgia, serif;
+  --sans:"Schibsted Grotesk", system-ui, -apple-system, sans-serif;
+  --g:clamp(20px, 5vw, 72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--neige);color:var(--lac);font:400 17px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cuivre);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1220px;margin:0 auto;padding:0 var(--g)}
+
+.apercu{background:var(--lac);color:#b9c4cb;font-size:12.5px;line-height:1.45;text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff;font-weight:500}
+
+.top{position:sticky;top:0;z-index:20;background:rgba(243,241,236,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
+.logo{text-decoration:none;line-height:1.05}
+.logo b{display:block;font:500 23px/1 var(--serif);letter-spacing:-.005em}
+.logo span{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--lac-3);margin-top:5px}
+.top nav{display:flex;align-items:center;gap:28px}
+.top nav a.l{font-size:15px;text-decoration:none;color:var(--lac-2)}
+.top nav a.l:hover{color:var(--lac);text-decoration:underline;text-underline-offset:4px}
+@media (max-width:860px){.top nav a.l{display:none}}
+@media (max-width:480px){.logo span .loc{display:none}}
+@media (max-width:600px){.horaires td{display:block;padding:0!important;border:0!important;text-align:left!important}.horaires tr{display:block;padding:10px 0;border-bottom:1px solid var(--ligne)}.horaires td:first-child{font-weight:500}}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;font:500 15px/1 var(--sans);text-decoration:none;white-space:nowrap;transition:background-color .2s ease,color .2s ease,border-color .2s ease}
+.btn-plein{background:var(--lac);color:var(--neige)}
+.btn-plein:hover{background:var(--sapin)}
+.btn-ligne{border:1px solid var(--lac);color:var(--lac)}
+.btn-ligne:hover{background:var(--lac);color:var(--neige)}
+.top .btn{min-height:44px;padding:0 18px;font-size:14px}
+
+/* hero */
+.hero .wrap{display:grid;gap:36px;padding-top:36px;padding-bottom:72px}
+.lieu{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--cuivre)}
+h1{font:400 clamp(46px,11.5vw,108px)/.95 var(--serif);letter-spacing:-.025em;margin:16px 0 22px}
+h1 em{font-style:italic;font-weight:300}
+.lead{font:400 clamp(20px,2.4vw,24px)/1.45 var(--serif);color:var(--lac-2);max-width:30ch}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero figure{position:relative}
+.hero figure img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:2px}
+.hero figcaption{margin-top:10px;font-size:13.5px;color:var(--lac-3)}
+@media (min-width:900px){
+  .hero .wrap{grid-template-columns:6fr 5fr;align-items:center;gap:72px;padding-top:72px;padding-bottom:110px}
+  .hero figure img{aspect-ratio:4/5}
+}
+
+section{padding:96px 0}
+.sur{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--cuivre);margin-bottom:16px}
+.titre{font:400 clamp(34px,6vw,60px)/1.05 var(--serif);letter-spacing:-.02em}
+.titre em{font-style:italic;font-weight:300}
+
+/* vallée */
+.vallee{position:relative;padding:0;color:#fff;background:var(--lac)}
+.vallee img{width:100%;height:clamp(420px,72vh,760px);object-fit:cover}
+.vallee .txt{position:absolute;inset:auto 0 0 0;padding:200px 0 48px;background:linear-gradient(to top,rgba(20,32,40,.92) 0%,rgba(20,32,40,.7) 55%,rgba(20,32,40,0))}
+.vallee .titre{max-width:16ch}
+.vallee p{max-width:52ch;margin-top:16px;color:#dfe6ea;font-size:17px}
+.vallee .sur{color:#e9b48e}
+
+/* points */
+.points .grid{display:grid;gap:0;margin-top:44px;border-top:1px solid var(--ligne)}
+.point{padding:28px 0;border-bottom:1px solid var(--ligne);display:grid;grid-template-columns:72px 1fr;gap:16px;align-items:start}
+.point .n{font:300 44px/1 var(--serif);color:var(--cuivre)}
+.point h3{font:500 21px/1.25 var(--serif);margin-bottom:6px}
+.point p{color:var(--lac-2);max-width:52ch}
+@media (min-width:900px){
+  .points .head{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:end}
+  .points .grid{grid-template-columns:repeat(3,1fr);gap:48px;border-top:0}
+  .point{grid-template-columns:1fr;border-bottom:0;border-top:1px solid var(--lac);padding-top:22px}
+}
+.points .intro{color:var(--lac-2);margin-top:16px;max-width:46ch}
+
+/* carte */
+.carte{background:var(--neige-2)}
+.carte .grid{display:grid;gap:48px;margin-top:44px}
+@media (min-width:960px){.carte .grid{grid-template-columns:1.05fr 1fr;gap:80px;align-items:start}}
+.rub+.rub{margin-top:36px}
+.rub h3{font:500 13px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--cuivre);padding-bottom:12px;border-bottom:1px solid var(--lac)}
+.rub ul{list-style:none}
+.rub li{padding:15px 0;border-bottom:1px solid var(--ligne);font:400 21px/1.35 var(--serif)}
+.rub li span{display:block;font:400 15px/1.5 var(--sans);color:var(--lac-3);margin-top:4px}
+.carte .acc{margin-top:22px;font-size:15px;color:var(--lac-2)}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.photos figure{overflow:hidden;border-radius:2px}
+.photos img{width:100%;height:100%;object-fit:cover}
+.photos .p1{grid-column:1 / -1;aspect-ratio:3/2}
+.photos .p2,.photos .p3{aspect-ratio:3/4}
+.photos figcaption{font-size:13.5px;color:var(--lac-3);grid-column:1 / -1;margin-top:2px}
+
+/* couple */
+.couple .grid{display:grid;gap:40px;align-items:center}
+@media (min-width:900px){.couple .grid{grid-template-columns:1fr 1fr;gap:80px}}
+.couple p{color:var(--lac-2);max-width:54ch}
+.couple p+p{margin-top:14px}
+.couple .duo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.couple .duo img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:2px}
+.couple .duo img:last-child{margin-top:48px}
+.couple .lien{display:inline-block;margin-top:22px;color:var(--cuivre);text-underline-offset:4px;font-weight:500}
+
+/* avis */
+.avis{background:var(--lac);color:var(--neige)}
+.avis .sur{color:#e9b48e}
+.avis .grid{display:grid;gap:36px;margin-top:40px}
+@media (min-width:900px){.avis .grid{grid-template-columns:1.3fr 1fr 1fr;gap:56px}}
+.avis blockquote p{font:300 italic clamp(21px,2.4vw,25px)/1.45 var(--serif)}
+.avis blockquote footer{margin-top:16px;font-size:14px;letter-spacing:.06em;color:#a9b6be}
+
+/* infos */
+.infos .grid{display:grid;gap:48px}
+@media (min-width:900px){.infos .grid{grid-template-columns:1fr 1fr;gap:80px}}
+.infos dl{display:grid;gap:26px;margin-top:34px}
+.infos dt{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--cuivre);margin-bottom:6px}
+.infos dd{font-size:17.5px;line-height:1.6}
+.infos dd a{text-decoration:none;border-bottom:1px solid var(--ligne)}
+.infos dd a:hover{border-color:var(--cuivre)}
+.infos dd small{display:block;font-size:14px;color:var(--lac-3);margin-top:4px}
+.infos .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.horaires{width:100%;border-collapse:collapse;font-size:16px}
+.horaires td{padding:9px 0;border-bottom:1px solid var(--ligne);vertical-align:top}
+.horaires td:last-child{text-align:right;color:var(--lac-2)}
+.hotel{margin-top:40px;padding-top:28px;border-top:1px solid var(--lac)}
+.hotel h3{font:500 24px/1.2 var(--serif);margin-bottom:10px}
+.hotel p{color:var(--lac-2)}
+
+footer.pied{border-top:1px solid var(--ligne);padding:36px 0 calc(36px + env(safe-area-inset-bottom));font-size:14px;color:var(--lac-3)}
+footer.pied .wrap{display:flex;flex-wrap:wrap;gap:10px 32px;justify-content:space-between}
+
+.barre{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(243,241,236,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--ligne);transform:translateY(110%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.barre.on{transform:none}
+.barre .btn{flex:1;min-height:46px;padding:0 12px}
+@media (min-width:860px){.barre{display:none}}
+
+.rv{opacity:0;transform:translateY(16px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}.barre{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="apercu">Aperçu imaginé par Nouvelle Ardoise pour <strong>l'Hôtel-Restaurant du Cygne</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#"><b>Le Cygne</b><span>Hôtel-Restaurant<span class="loc"> · Les Charbonnières</span></span></a>
+    <nav aria-label="Navigation principale">
+      <a class="l" href="#carte">La carte de chasse</a>
+      <a class="l" href="#couple">Lea &amp; Marc</a>
+      <a class="l" href="#infos">Horaires</a>
+      <a class="btn btn-plein" href="tel:+41218411281">Réserver</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding:0">
+  <div class="wrap">
+    <div>
+      <p class="lieu">Les Charbonnières · Vallée de Joux</p>
+      <h1>Le <em>Cygne</em></h1>
+      <p class="lead">Une cuisine régionale, variée et créative, avec des produits de saison et du marché.</p>
+      <div class="actions">
+        <a class="btn btn-plein" href="tel:+41218411281">Réserver une table</a>
+        <a class="btn btn-ligne" href="#carte">La carte de chasse</a>
+      </div>
+    </div>
+    <figure>
+      <img src="img/escargots.webp" width="1200" height="1081" alt="Escargots gratinés dans leur poêlon, dés de tomate et oignon nouveau" fetchpriority="high">
+    </figure>
+  </div>
+</section>
+
+<section class="vallee">
+  <img src="img/lac-hiver.webp" width="1920" height="1280" alt="Lac de la Vallée de Joux en hiver, brume sur les forêts et sculpture dans l'eau" loading="lazy">
+  <div class="txt">
+    <div class="wrap rv">
+      <p class="sur">Loin de l'agitation citadine</p>
+      <h2 class="titre">Face à la Dent de Vaulion <em>et au lac Brenet</em></h2>
+      <p>Aux Charbonnières, le berceau du fameux Vacherin Mont d'Or, un hôtel voué à la nature et à la tranquillité, au cœur de la Vallée de Joux.</p>
+    </div>
+  </div>
+</section>
+
+<section class="points">
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <p class="sur">Le restaurant</p>
+        <h2 class="titre">Un regain <em>de nouveauté</em></h2>
+      </div>
+      <p class="intro">Marc aime revisiter d'anciens plats et leur donner « sa » touche personnelle. Chaque jour est propice aux propositions du marché ou des fournisseurs de la région.</p>
+    </div>
+    <div class="grid">
+      <div class="point rv"><span class="n">40</span><div><h3>Places au restaurant</h3><p>Avec des propositions qui changent selon le marché et les fournisseurs de la région.</p></div></div>
+      <div class="point rv"><span class="n">40</span><div><h3>Places en salle à manger</h3><p>Repas d'entreprise, d'anniversaire ou de mariage : chaque événement est étudié avec vous.</p></div></div>
+      <div class="point rv"><span class="n">20</span><div><h3>Places en terrasse</h3><p>Au plaisir de vous y accueillir, face au calme de la Vallée.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="carte" id="carte">
+  <div class="wrap">
+    <p class="sur rv">Cet automne</p>
+    <h2 class="titre rv">La carte <em>de chasse</em></h2>
+    <div class="grid">
+      <div>
+        <div class="rub rv">
+          <h3>La chasse</h3>
+          <ul>
+            <li>Civet de sanglier façon grand-mère</li>
+            <li>Noisettes de chevreuil</li>
+            <li>Entrecôte de cerf<span>Sauce chasse</span></li>
+            <li>Selle de chevreuil désossée</li>
+          </ul>
+          <p class="acc">Accompagnée de chou rouge braisé, choux de Bruxelles, poire et marrons. Au choix : frites maison, spätzli à la betterave maison ou nouilles.</p>
+        </div>
+        <div class="rub rv">
+          <h3>Pour commencer</h3>
+          <ul>
+            <li>Terrine de chasse maison<span>Chutney de courge</span></li>
+            <li>Velouté aux cèpes</li>
+          </ul>
+        </div>
+        <div class="rub rv">
+          <h3>Et aussi</h3>
+          <ul>
+            <li>Filets de perches meunière<span>Frites, sauce tartare</span></li>
+            <li>Tartelette à la courge<span>Plat végétarien · chou rouge braisé, spätzli à la betterave</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="photos rv">
+        <figure class="p1"><img src="img/poisson.webp" width="1200" height="792" alt="Filets de perches meunière, frites, sauce tartare et citron" loading="lazy"></figure>
+        <figure class="p2"><img src="img/soupe.webp" width="1200" height="809" alt="Velouté orangé servi dans une tasse en grès" loading="lazy"></figure>
+        <figure class="p3"><img src="img/filet.webp" width="768" height="1024" alt="Pièce de viande rosée au romarin, petits légumes et sauce" loading="lazy"></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="couple" id="couple">
+  <div class="wrap grid">
+    <div class="rv">
+      <p class="sur">Lea Blunschi &amp; Marc Rochat</p>
+      <h2 class="titre">Une même passion <em>pour l'accueil</em></h2>
+      <p style="margin-top:22px">Marc a passé toute sa jeunesse aux Charbonnières. Après un apprentissage de cuisinier au Café du Lac au Pont, il a parfait sa formation dans plusieurs grands restaurants de Suisse alémanique.</p>
+      <p>C'est là qu'il a rencontré Lea, cuisinière puis pâtissière de formation, passée par deux ans de gestion à l'école hôtelière de Zurich. Désormais, ils réalisent leur rêve, ici.</p>
+      <p class="lien">À écouter : Lea et Marc dans le podcast « Bille en tête » sur RTS.</p>
+    </div>
+    <div class="duo rv">
+      <img src="img/automne.webp" width="1600" height="1067" alt="La Vallée de Joux en automne, forêts rousses au bord de l'eau" loading="lazy">
+      <img src="img/foret.webp" width="1400" height="933" alt="Sentier en forêt dans la Vallée de Joux" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="avis">
+  <div class="wrap">
+    <p class="sur rv">Ils sont venus</p>
+    <div class="grid">
+      <blockquote class="rv"><p>« La cuisson du canard était parfaite tout comme son jus et j'ai même apprécié les épinards frais. L'accueil était adorable. »</p><footer>Yan C.</footer></blockquote>
+      <blockquote class="rv"><p>« Une nourriture sensationnelle, régionale et fraîchement préparée. Nous reviendrons certainement bientôt. »</p><footer>Brigitte R.</footer></blockquote>
+      <blockquote class="rv"><p>« Un grand chef cuisinier, service impeccable, avec le sourire de la patronne. »</p><footer>Bernard M.</footer></blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="infos" id="infos">
+  <div class="wrap grid">
+    <div class="rv">
+      <p class="sur">Venir au Cygne</p>
+      <h2 class="titre">Réservez <em>votre table</em></h2>
+      <dl>
+        <div><dt>Adresse</dt><dd>Rue du Mont d'Or 7<br>1343 Les Charbonnières · Vallée de Joux</dd></div>
+        <div><dt>Téléphone et e-mail</dt><dd><a href="tel:+41218411281">021 841 12 81</a><br><a href="mailto:info@du-cygne.ch">info@du-cygne.ch</a></dd></div>
+      </dl>
+      <div class="actions">
+        <a class="btn btn-plein" href="tel:+41218411281">Appeler pour réserver</a>
+        <a class="btn btn-ligne" href="https://www.google.com/maps/search/?api=1&amp;query=Rue+du+Mont+d'Or+7+1343+Les+Charbonni%C3%A8res" target="_blank" rel="noopener">Itinéraire</a>
+      </div>
+    </div>
+    <div class="rv">
+      <p class="sur">Horaires d'hiver · dès fin octobre</p>
+      <table class="horaires">
+        <tr><td>Lundi et mardi</td><td>Fermé</td></tr>
+        <tr><td>Mercredi à vendredi</td><td>8h30 – 14h00 · 16h30 – 22h30</td></tr>
+        <tr><td>Samedi</td><td>8h30 – 14h30 · 17h00 – 23h00</td></tr>
+        <tr><td>Dimanche</td><td>9h00 – 15h30</td></tr>
+      </table>
+      <div class="hotel">
+        <h3>L'Hôtel du Cygne</h3>
+        <p>Pour s'éloigner du stress, organiser un séminaire pour votre société ou un atelier pour votre club, au milieu d'une nature unique.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="pied">
+  <div class="wrap">
+    <span>Hôtel-Restaurant du Cygne · Lea Blunschi &amp; Marc Rochat</span>
+    <span>Aperçu imaginé par Nouvelle Ardoise · photos et textes issus de du-cygne.ch</span>
+  </div>
+</footer>
+
+<div class="barre" id="barre">
+  <a class="btn btn-plein" href="tel:+41218411281">Réserver</a>
+  <a class="btn btn-ligne" href="#carte">La carte</a>
+</div>
+
+<script>
+(function(){
+  var reduit = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.rv');
+  if (reduit || !('IntersectionObserver' in window)) { els.forEach(function(e){e.classList.add('vu')}); }
+  else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('vu'); io.unobserve(en.target); } });
+    }, {rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(e){ io.observe(e); });
+  }
+  var barre = document.getElementById('barre');
+  var onScroll = function(){ barre.classList.toggle('on', window.scrollY > 520); };
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+})();
+</script>
+</body>
+</html>
