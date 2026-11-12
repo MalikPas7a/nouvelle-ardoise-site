@@ -625,7 +625,7 @@ const chf=n=>n.toFixed(2).replace('.',',')+' CHF';
 const prix=(k,court)=>pnum(k)!==null?chf(pnum(k)):(court?'':'Prix en magasin');
 const pxh=k=>`<span class="px${pnum(k)===null?' na':''}">${prix(k)}</span>`;
 const L1=v=>(Math.round(v*10)/10).toString().replace('.',',')+' L';
-const hm=x=>{const t=Math.round(x*12)/12,H=Math.floor(t+1e-6),M=Math.round((t-H)*60);return H+' h'+(M?' '+String(M).padStart(2,'0'):'');};
+const hm=x=>{const t=((Math.round(x*12)/12)%24+24)%24,H=Math.floor(t+1e-6),M=Math.round((t-H)*60);return H+' h'+(M?' '+String(M).padStart(2,'0'):'');};
 const pname=k=>(NUTRI[k]||P[k]).n, pmarq=k=>(NUTRI[k]||P[k]).m;
 
 /* ---------- État ---------- */
@@ -645,7 +645,7 @@ const H0=()=>HIKES[S.hike];
 
 /* ---------- Tenue ---------- */
 function tenue(){
- const H=H0()||{cot:'T2',alt:1800},t=S.temp,f=S.profil==='f',pl=S.pluie!=='non',sx=f?'f':'h';
+ const H=H0()||{cot:'T2',alt:1800},t=S.temp-(plan().deNuit?4:0),f=S.profil==='f',pl=S.pluie!=='non',sx=f?'f':'h';
  const L=[];
  let sh,why;
  if(f){ if(t<=0){sh='chaussure-neige-nh500-f';why='Neige possible au sommet : bottes chaudes, imperméables, semelle accrocheuse.';} else if(H.cot==='T1'&&!pl&&t>5){sh='chaussure-mh500-f';why='Sentier facile et sec : légère et accrocheuse.';} else {sh='chaussure-sh500-f';why=H.cot!=='T1'?'Terrain de montagne : la tige montante tient la cheville.':'Pluie ou froid : tige montante et membrane imperméable.';} }
@@ -682,17 +682,21 @@ function tenue(){
 }
 
 /* ---------- Heure de départ et coucher du soleil (Genève) ---------- */
-function sunset(d){const lat=46.2*Math.PI/180,lon=6.15,n=Math.round((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())-Date.UTC(d.getFullYear(),0,0))/864e5),g=2*Math.PI/365*(n-1);
+function sun(d){const lat=46.2*Math.PI/180,lon=6.15,n=Math.round((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())-Date.UTC(d.getFullYear(),0,0))/864e5),g=2*Math.PI/365*(n-1);
  const eq=229.18*(.000075+.001868*Math.cos(g)-.032077*Math.sin(g)-.014615*Math.cos(2*g)-.040849*Math.sin(2*g));
  const dec=.006918-.399912*Math.cos(g)+.070257*Math.sin(g)-.006758*Math.cos(2*g)+.000907*Math.sin(2*g)-.002697*Math.cos(3*g)+.00148*Math.sin(3*g);
  const ha=Math.acos(Math.cos(90.833*Math.PI/180)/(Math.cos(lat)*Math.cos(dec))-Math.tan(lat)*Math.tan(dec));
- const utc=(720-4*(lon-ha*180/Math.PI)-eq)/60;
+ const hd=ha*180/Math.PI,up=(720-4*(lon+hd)-eq)/60,dn=(720-4*(lon-hd)-eq)/60;
  const mid=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate(),12));let off=1;
  try{const z=new Date(mid.toLocaleString('en-US',{timeZone:'Europe/Zurich'})),u=new Date(mid.toLocaleString('en-US',{timeZone:'UTC'}));off=Math.round((z-u)/36e5);}catch(e){}
- return utc+off;}
-function plan(){const H=H0(),h=H?dureeH(H):5,pause=.5+Math.round(h*.1*4)/4,tot=h+pause,ss=sunset(DAYS[S.day]);
+ return {sr:up+off,ss:dn+off};}
+const sunset=d=>sun(d).ss;
+function plan(){const H=H0(),h=H?dureeH(H):5,pause=.5+Math.round(h*.1*4)/4,tot=h+pause,{sr,ss}=sun(DAYS[S.day]);
  const auto=borne(Math.floor((ss-1-tot)*2)/2,6,9),dep=S.dep??auto,ret=dep+tot;
- return {h,pause,tot,ss,auto,dep,ret,nuit:ret>ss,juste:ret>ss-1&&ret<=ss};}
+ // heures passées dans le noir : avant le lever, après le coucher, jusqu'au lendemain
+ const ov=(a,b)=>Math.max(0,Math.min(ret,b)-Math.max(dep,a)),noir=ov(-99,sr)+ov(ss,24+sr)+ov(24+ss,99);
+ const nuit=noir>.08,juste=!nuit&&(ret>ss-1||dep<sr+.5);
+ return {h,pause,tot,sr,ss,auto,dep,ret,noir,nuit,juste,deNuit:noir>=1};}
 
 /* ---------- Nutrition (méthode du calculateur et du guide) ---------- */
 function nutrition(){
@@ -705,7 +709,7 @@ function nutrition(){
  const gT=gH*h,eau=eauH*h/1000;
  const pack=[{id:'8809670',q:Math.max(1,Math.ceil(gT*.5/15)),u:'Une par heure de montée'},{id:'8774306',q:1,u:Math.max(1,Math.round(gT*.3/17))+' poignées à la pause'},{id:'8928081',q:Math.max(1,Math.round(gT*.2/9)),u:'Au sommet et pour la descente'}];
  if(sodH) pack.push({id:'8872028',q:1,u:Math.max(1,Math.round(eau/0.5))+' doses de 7 g, une par 500 ml'});
- const tot=plan(),tot6=tot.dep<7;if(tot6)pack.unshift({id:'8811823',q:2,u:'Dans la voiture : départ avant 7 h'});
+ const tot=plan(),tot6=tot.dep>=4.5&&tot.dep<7;if(tot6)pack.unshift({id:'8811823',q:2,u:'Dans la voiture : départ avant 7 h'});
  const alt=[{id:'8750962',q:1,u:'Dans l\'heure qui suit le retour'}];if(!tot6)alt.unshift({id:'8811823',q:2,u:'Le petit-déjeuner, 1 h 30 avant le départ'});
  if(S.temp<=6){alt.push({id:'8738177',q:Math.max(2,Math.round(h)),u:'Reste tendre au froid'},{id:'8408734',q:2,u:'Ne gèle pas, se mange ganté'});}
  else alt.push({id:'8408734',q:2,u:'La bouchée de la montée'});
@@ -725,9 +729,9 @@ function waterPlan(E){
 const OFFRES={housse:['housse-10-20','housse-20-40'],baton:['baton-mh100','baton-mt500'],frontale:['frontale-onnight','frontale','frontale-hl500']};
 const OLBL={'housse-10-20':'10-20 L','housse-20-40':'20-40 L','baton-mh100':'Confort','baton-mt500':'Léger','frontale-onnight':'80 lm','frontale':'200 lm','frontale-hl500':'300 lm'};
 function accessoires(){
- const H=H0()||{dplus:900,cot:'T2'},h=H0()?dureeH(H):5,t=S.temp,L=P[S.bag]?P[S.bag].L:22,A=[],PL=plan(),nuit=PL.nuit||PL.juste;
+ const H=H0()||{dplus:900,cot:'T2'},h=H0()?dureeH(H):5,t=S.temp,L=P[S.bag]?P[S.bag].L:22,A=[],PL=plan(),nuit=PL.nuit;
  const rc=(f,k,ok,u)=>{const c=S.acc[f];A.push({f,k:(OFFRES[f]&&c)?c:k,rk:k,rec:!!ok,u});};
- rc('frontale',nuit?'frontale-hl500':'frontale',nuit||h>=5||H.cot==='T3',nuit?'Retour près de la nuit : 300 lumens pour la descente':'Si la descente s\'allonge : on ne sait jamais');
+ rc('frontale',nuit?'frontale-hl500':'frontale',nuit||PL.juste||h>=5||H.cot==='T3',PL.deNuit?'Sortie de nuit : 300 lumens, rechargeable, autonomie pour toute la marche':nuit?'Une partie de la marche dans le noir : 300 lumens pour voir le sentier':PL.juste?'Marge courte avec la nuit : on ne part pas sans':'Si la descente s\'allonge : on ne sait jamais');
  rc('housse',L<=20?'housse-10-20':'housse-20-40',S.pluie!=='non','Le sac et la polaire restent au sec');
  rc('baton',S.profil==='f'||level()===0?'baton-mh100':'baton-mt500',H.dplus>=800||level()===0,H.dplus>=800?'Une paire : la descente fatigue les genoux':'Pour la stabilité');
  rc('casquette','casquette',t>=10&&S.pluie==='non','Le soleil tape plus fort en altitude');
@@ -814,8 +818,8 @@ function renderPanel(){
    <div class="row"><span>Pluie</span>${seg('pluie',[['non','Non'],['averses','Averses'],['pluie','Pluie']])}</div>
    <div class="row"><span>Vent</span>${seg('vent',[['calme','Calme'],['vente','Venté']])}</div>
    <small>${wx.src==='live'?'Prévision Open-Meteo pour '+dayLabel()+', modifiable.':'Prévision indisponible : valeurs d\'exemple, modifiables.'}</small>`}</div>
-  ${(()=>{const PL=plan();let o='';for(let x=5;x<=14;x+=.5)o+=`<option value="${x}"${x===PL.dep?' selected':''}>${hm(x)}${x===PL.auto?' · conseil':''}</option>`;
-   return `<div class="wx dep"><div class="row" style="margin-top:0"><span>Heure de départ</span><select id="dep" aria-label="Heure de départ">${o}</select></div><small>Retour vers <b>${hm(PL.ret)}</b> : ${hfmt(PL.h)} de marche et ${hfmt(PL.pause)} de pauses. Coucher du soleil à ${hm(PL.ss)}.</small>${PL.nuit?`<div class="fitnote f3">Retour après le coucher du soleil : pars plus tôt, ou la frontale passe dans le sac.</div>`:PL.juste?`<div class="fitnote f2">Moins d'une heure de marge avant la nuit : la frontale passe dans le sac.</div>`:''}</div>`;})()}
+  ${(()=>{const PL=plan();let o='';for(let x=0;x<=23.5;x+=.5)o+=`<option value="${x}"${x===PL.dep?' selected':''}>${hm(x)}${x===PL.auto?' · conseil':''}</option>`;
+   return `<div class="wx dep"><div class="row" style="margin-top:0"><span>Heure de départ</span><select id="dep" aria-label="Heure de départ">${o}</select></div><small>Retour vers <b>${hm(PL.ret)}${PL.ret>=24?' (le lendemain)':''}</b> : ${hfmt(PL.h)} de marche et ${hfmt(PL.pause)} de pauses. Soleil : lever ${hm(PL.sr)}, coucher ${hm(PL.ss)}.</small>${PL.deNuit?`<div class="fitnote f3"><b>${PL.noir>=PL.tot*.5?'Sortie de nuit':PL.dep<PL.sr?'Départ dans le noir':'Fin de sortie dans le noir'} :</b> environ ${hfmt(PL.noir)} dans le noir. Frontale de 300 lumens chargée à fond, une couche chaude de plus car il fait environ 4 °C de moins, un sentier que tu connais de jour, et quelqu'un prévenu de ton heure de retour.</div>`:PL.nuit?`<div class="fitnote f3">Environ ${Math.round(PL.noir*60/5)*5} min de marche dans le noir${PL.dep<PL.sr?', avant le lever du soleil':', après le coucher du soleil'} : la frontale est indispensable.</div>`:PL.juste?`<div class="fitnote f2">Moins d'une heure de marge avec la nuit : la frontale passe dans le sac.</div>`:''}</div>`;})()}
   <a class="go" href="#tenue">Habiller pour cette sortie ↓</a>
   <p class="muted" style="font-size:12px;margin-top:10px;text-align:center">≈ ${fmt(N.kcal)} kcal · ${lfmt(N.eau)} d'eau à prévoir</p>`;
  }
@@ -837,7 +841,7 @@ let lastLayers='';
 function renderTenue(){
  const H=H0(),L=tenue(),pl={non:'Sec',averses:'Averses',pluie:'Pluie'}[S.pluie];
  $('meteo').innerHTML=H?`${H.nom}<span class="sep">·</span><b>${S.temp} °C</b> au sommet<span class="sep">·</span>${pl}${S.vent==='vente'?' · venté':''}`:`Exemple<br><b>${S.temp} °C</b> · ${pl}`;
- $('ctxT').innerHTML=H?[H.nom,H.cot,S.temp+' °C au sommet',pl,'Départ '+hm(plan().dep),S.profil==='f'?'Rayon femme':'Rayon homme'].map(x=>`<span>${x}</span>`).join(''):'<span>Choisis d\'abord une sortie sur la carte : en attendant, exemple à 8 °C.</span>';
+ $('ctxT').innerHTML=H?[H.nom,H.cot,S.temp+' °C au sommet',pl,'Départ '+hm(plan().dep)+(plan().deNuit?' · de nuit, 4 °C de moins':''),S.profil==='f'?'Rayon femme':'Rayon homme'].map(x=>`<span>${x}</span>`).join(''):'<span>Choisis d\'abord une sortie sur la carte : en attendant, exemple à 8 °C.</span>';
  $('layers').innerHTML=L.map((l,i)=>{const p=P[l.p],isRec=l.p===l.rec;return `<article class="layer" data-i="${i}"><div class="main"><div class="ph"><img src="${IMG+l.p}.webp" alt="${p.n}" loading="lazy"></div><div><div class="k">${l.k}</div><h3>${p.n}</h3><p>${p.m} · ${isRec?l.why:'Ton choix. Le conseil : '+P[l.rec].n+'.'}</p>${pxh(l.p)}<span class="pill${l.sac?' g':''}">${l.txt}</span></div></div>
   <div class="alts"><span>Choisir :</span>${l.alts.map(a=>`<button class="alt${a===l.p?' on':''}${a===l.rec?' rec':''}" data-l="${l.id}" data-a="${a}" title="${P[a].n}"><img src="${IMG+a}.webp" alt="${P[a].n}" loading="lazy"></button>`).join('')}<button class="add" data-add="tenue:${l.id}" data-k="${l.p}">Ajouter</button></div></article>`;}).join('');
  $('tCount').textContent=L.length+' pièces, de la tête aux pieds';
@@ -860,13 +864,23 @@ function renderNutri(){
  $('nG').textContent=N.gH?N.gH+' g/h':'Pas besoin';$('nG2').textContent=N.gH?'≈ '+fmt(N.gT)+' g sur '+hfmt(hr):'Sortie courte';
  $('nS').textContent=N.sodH?N.sodH+' mg/h':'Le repas suffit';$('nS2').textContent=N.sodH?'Électrolytes dans la gourde':'Pas de transpiration forte';
  const PL=plan(),dep=PL.dep,som=dep+hr*.58+.25,ret=PL.ret;
- const pdj=dep<7?['Avant '+hm(dep),'PETIT-DÉJEUNER','Départ tôt : un verre d\'eau et un fruit, puis deux barres petit-déjeuner dans la voiture. Une collation à la première pause.']
-  :[hm(dep-1.5),'PETIT-DÉJEUNER','Complet, 1 h 30 avant de partir : pain ou flocons, un fruit, une boisson chaude.'];
- const midi=som>=11.5&&som<=14;
+ const d24=x=>((x%24)+24)%24,dp=d24(dep),sm=d24(som),rt=d24(ret);
+ const pdj=dp<4.5?['Avant '+hm(dep),'EN-CAS','Départ de nuit : un en-cas léger et une boisson chaude, puis une barre toutes les heures.']
+  :dp<7?['Avant '+hm(dep),'PETIT-DÉJEUNER','Départ tôt : un verre d\'eau et un fruit, puis deux barres petit-déjeuner dans la voiture. Une collation à la première pause.']
+  :dp<11?[hm(dep-1.5),'PETIT-DÉJEUNER','Complet, 1 h 30 avant de partir : pain ou flocons, un fruit, une boisson chaude.']
+  :dp<15?[hm(dep-2),'DÉJEUNER','Un vrai repas 2 h avant : féculents, un peu de protéines, pas trop gras.']
+  :dp<19?[hm(dep-1),'COLLATION','Une collation consistante 1 h avant : pain, fromage, fruit. Le dîner se prend au sommet ou au retour.']
+  :[hm(dep-1.5),'DÎNER','Un dîner léger 1 h 30 avant : pâtes ou riz, pas trop gras, facile à digérer.'];
+ const st=Math.abs(som-PL.sr)<=.5?'Le lever du soleil au sommet : une boisson chaude, une barre, et la doudoune pendant qu\'on regarde.':Math.abs(som-PL.ss)<=.5?'Le coucher du soleil au sommet : une collation, la doudoune, et on redescend frontale prête.':sm>=11.5&&sm<=14?'Le pique-nique : pain, fromage, fruits, 30 minutes.'
+  :sm>=18.5&&sm<21.5?'Le dîner au sommet : un sandwich consistant et une soupe chaude dans la gourde isotherme.'
+  :(sm>=21.5||sm<5)?'De nuit : une boisson chaude et une barre, on ne s\'attarde pas au froid.'
+  :sm<11.5?'Trop tôt pour le repas : une collation salée, pain et fromage. Le pique-nique attend la descente.':'Hors des heures de repas : une collation salée et sucrée, puis on redescend.';
+ const rtt=(rt>=22||rt<5)?'Avant de dormir : beaucoup d\'eau, et une collation légère si tu as faim.'
+  :rt>=19?'Retour tard : un repas chaud et simple dès l\'arrivée.':'Le soir, un vrai repas avec des féculents.';
  const T=[pdj,['Dès '+hm(dep),'EN MONTANT',`Toutes les heures : une barre ou une poignée d'abricots, ${r50(N.eauH)} ml d'eau.`],
-  [hm(som),'SOMMET',midi?'Le pique-nique : pain, fromage, fruits, 30 minutes.':som<11.5?'Trop tôt pour le repas : une collation salée, pain et fromage. Le pique-nique attend la descente.':'Tard pour un vrai repas : une collation salée et sucrée, puis on redescend.'],
+  [hm(som),'SOMMET',st],
   ['Descente','TENIR','De l\'eau et une barre aux oléagineux : la descente use aussi.'],
-  [hm(ret),'RETOUR',`Dans l'heure : la barre protéinée et un grand verre d'eau. ${ret>=19?'Retour tard : un repas chaud et simple dès l\'arrivée.':'Le soir, un vrai repas avec des féculents.'}${PL.nuit?' Retour après la nuit tombée : frontale indispensable.':''}`]];
+  [hm(ret),'RETOUR',`Dans l'heure : la barre protéinée et un grand verre d'eau. ${rtt}${(PL.ret>PL.ss&&PL.ret<24+PL.sr)?' Frontale allumée jusqu\'à la voiture.':''}`]];
  $('tl').innerHTML=T.map((x,i)=>`<div><i>${i+1}</i><em>${x[1]}</em><b>${x[0]}</b><span>${x[2]}</span></div>`).join('');
  $('rule').innerHTML=`<b>Le guide :</b> « La randonnée se nourrit à l'assiette plus qu'au sachet : du vrai, du salé, de l'eau. » On boit avant d'avoir soif, on mange à chaque pause, même courte, et on remplit la gourde à chaque source.${N.sodH?' Avec cette chaleur, des électrolytes dans chaque litre.':''}`;
  $('nutGrid').innerHTML=N.pack.map(x=>cardHTML(x,'nut:'+x.id,'Nutrition',true,true)).join('');
