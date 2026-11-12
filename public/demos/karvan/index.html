@@ -1,6 +1,7 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="nojs">
 <head>
+<script>document.documentElement.className="js"</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -171,12 +172,16 @@ section{padding-block:96px}
 .contact form{grid-column:7/13;display:grid;gap:16px}
 @media (max-width:860px){.contact .grille{grid-template-columns:1fr}.contact .gauche,.contact form{grid-column:auto}}
 label{display:grid;gap:8px}
-input,select,textarea{font:400 17px/1.4 var(--f);color:var(--lapis);background:var(--blanc);border:1px solid var(--filet);border-radius:0;padding:12px 14px;min-height:48px;width:100%}
+input,select,textarea{font:400 17px/1.4 var(--f);color:var(--lapis);background:var(--blanc);border:1px solid #8C8577;border-radius:0;padding:12px 14px;min-height:48px;width:100%}
 textarea{min-height:110px;resize:vertical}
 .demande{background:var(--blanc);border:1px solid var(--filet);padding:14px 16px;font:400 13px/1.6 var(--mono);color:var(--encre-2)}
 .demande b{color:var(--lapis);font-weight:500}
 .merci{display:none;border:1px solid var(--safran);padding:16px;background:var(--blanc)}
 form.ok .merci{display:block}
+.err{display:block;color:#A33A2A;font-size:14px;margin-top:4px}
+[aria-invalid="true"]{border-color:#A33A2A}
+.deux-ch{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media (max-width:520px){.deux-ch{grid-template-columns:1fr}}
+body.saisie .flottant,body.au-contact .flottant{display:none}
 footer{background:var(--lapis);color:#C9CDDA}
 footer .wrap{padding-block:56px 32px;display:grid;gap:40px}
 footer .haut{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:space-between;align-items:flex-end}
@@ -191,7 +196,7 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
   body{padding-bottom:80px}
 }
 @media (prefers-reduced-motion:no-preference){
-  .apparait{opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s}
+  .js .apparait{opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s}
   .apparait.vu{opacity:1;transform:none}
 }
 </style>
@@ -316,11 +321,13 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
     <form id="form" novalidate>
       <label><span class="mono">Nom</span><input name="nom" autocomplete="name" required></label>
       <label><span class="mono">Établissement</span><input name="etab" autocomplete="organization" required></label>
-      <label><span class="mono">Téléphone</span><input name="tel" type="tel" autocomplete="tel" required></label>
+      <div class="deux-ch"><label><span class="mono">E-mail</span><input name="mail" type="email" autocomplete="email" inputmode="email"></label>
+      <label><span class="mono">Téléphone</span><input name="tel" type="tel" autocomplete="tel"></label></div>
+      <label><span class="mono">Localité</span><input name="loc" autocomplete="address-level2" placeholder="ex. Genève, Carouge, Nyon"></label>
       <div><span class="mono" style="display:block;margin-bottom:8px">Votre demande</span><div class="demande" id="demande">Aucun produit ajouté. Ajoutez-les depuis la liste, ou écrivez-les ci-dessous.</div></div>
       <label><span class="mono">Message, quantités, personnalisation</span><textarea name="msg"></textarea></label>
       <button class="btn saf" type="submit">Envoyer ma demande</button>
-      <p class="merci">Maquette : le formulaire sera relié à l'adresse de Jalal à la mise en ligne.</p>
+      <p class="merci" role="status" tabindex="-1">Merci, votre demande est prête. Maquette : à la mise en ligne, elle part directement chez Jalal, qui vous répond.</p>
     </form>
   </div>
 </section>
@@ -357,7 +364,23 @@ const dem=document.getElementById('demande');
 function maj(){dem.innerHTML=panier.size?'<b>'+panier.size+' produit'+(panier.size>1?'s':'')+' :</b> '+[...panier].join(' · '):'Aucun produit ajouté. Ajoutez-les depuis la liste, ou écrivez-les ci-dessous.'}
 box.addEventListener('click',e=>{const b=e.target.closest('.ajout');if(!b)return;const r=b.dataset.r;if(panier.has(r)){panier.delete(r);b.setAttribute('aria-pressed','false');b.textContent='Ajouter à ma demande'}else{panier.add(r);b.setAttribute('aria-pressed','true');b.textContent='Ajouté ✓'}maj()});
 const c=document.getElementById('cmp'),rg=c.querySelector('input');rg.addEventListener('input',()=>c.style.setProperty('--x',rg.value+'%'));
-document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();e.target.classList.add('ok')});
+const fo=document.getElementById('form');
+function erreur(ch,t){ch.setAttribute('aria-invalid','true');let m=ch.parentNode.querySelector('.err');if(!m){m=document.createElement('span');m.className='err';m.id='err-'+ch.name;ch.parentNode.appendChild(m);ch.setAttribute('aria-describedby',m.id)}m.textContent=t}
+fo.addEventListener('input',e=>{const ch=e.target;if(ch.getAttribute('aria-invalid')){ch.removeAttribute('aria-invalid');ch.parentNode.querySelector('.err')?.remove();ch.removeAttribute('aria-describedby')}});
+fo.addEventListener('submit',e=>{e.preventDefault();fo.classList.remove('ok');fo.querySelectorAll('.err').forEach(x=>x.remove());fo.querySelectorAll('[aria-invalid]').forEach(x=>{x.removeAttribute('aria-invalid');x.removeAttribute('aria-describedby')});
+const v=n=>fo[n].value.trim(),ko=[];
+if(!v('nom'))ko.push([fo.nom,'Indiquez votre nom.']);
+if(!v('etab'))ko.push([fo.etab,'Indiquez le nom de votre établissement.']);
+if(v('mail')&&!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v('mail')))ko.push([fo.mail,'Cette adresse e-mail ne semble pas complète.']);
+if(!v('mail')&&!v('tel'))ko.push([fo.mail,'Laissez un e-mail ou un téléphone pour que Jalal vous réponde.']);
+if(v('tel')&&v('tel').replace(/\D/g,'').length<9)ko.push([fo.tel,'Ce numéro semble trop court.']);
+if(!v('loc'))ko.push([fo.loc,'Indiquez votre localité, pour la livraison.']);
+if(!panier.size&&!v('msg'))ko.push([fo.msg,'Ajoutez des produits depuis la liste, ou écrivez votre besoin ici.']);
+if(ko.length){ko.forEach(([c,t])=>erreur(c,t));ko[0][0].focus();return}
+fo.classList.add('ok');fo.querySelector('.merci').focus?.()});
+document.addEventListener('focusin',e=>{if(e.target.matches('input,textarea,select'))document.body.classList.add('saisie')});
+document.addEventListener('focusout',e=>{if(e.target.matches('input,textarea,select'))document.body.classList.remove('saisie')});
+if('IntersectionObserver' in window){new IntersectionObserver(es=>es.forEach(x=>document.body.classList.toggle('au-contact',x.isIntersecting)),{threshold:.15}).observe(document.getElementById('contact'))}
 if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target)}}),{rootMargin:'0px 0px -10% 0px'});document.querySelectorAll('.apparait').forEach(el=>io.observe(el))}else document.querySelectorAll('.apparait').forEach(el=>el.classList.add('vu'));
 </script>
 </body>
