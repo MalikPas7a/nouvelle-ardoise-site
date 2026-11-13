@@ -897,47 +897,71 @@ dialog.pop.vu::backdrop{opacity:1;transition-duration:.34s}
  .hero .sceau{top:0}
  .hero .cta{margin-top:26px}
 }
-/* Piste 4, la fenêtre se referme (idée de Malik du 13.11.2026) : départ de la piste 2. La sauce versée, un volet de la couleur du mur descend de haut en bas ;
-   son ourlet est le double filet d'or, son hublot rond (cerclé du même double filet) vient se poser sur le burger. Le volet est un seul élément déplacé par transform :
-   le mur est un fond en dégradé percé d'un rond (aucun découpage recalculé pendant le défilement). Profondeur : ombre de l'ourlet sur la photo, ombre intérieure du hublot.
-   Au téléphone le filet du haut est un élément à part : il s'efface quand le ruban prend sa place.
-   Toutes les tailles sont posées par la feuille de style (unités de conteneur : le cadre de la photo), dès le premier affichage : le script ne fait que les lire, il ne déplace
-   aucune boîte. Sans ces unités (Safari avant 16), sans script ou en mouvement réduit, rien de tout cela n'existe : la page reste en pleine hauteur, comme la piste 2. */
+/* Piste 5, l'écrin scellé (l'essai 4 refait le 13.11.2026 au soir, après le retour de Malik). Départ de la piste 2. La sauce versée, la fermeture se joue seule :
+   1. le volet : un panneau lie de vin, charnière en haut du cadre, se rabat vers nous de haut en bas et couvre toute la photo. Un seul élément tourné en perspective
+      (transform) ; sa tranche dorée est un deuxième élément, tourné à angle droit au bout du panneau par la même formule (aucun contexte 3D imbriqué : plus sûr sur Safari) ;
+      la scène s'assombrit dessous (un voile, opacity) ; un reflet passe sur sa laque pendant qu'il tourne.
+   2. le ruban : satin doré, rendu 3D calculé à l'avance (30 images dessinées sur un canevas), ses deux pans arrivent en vrillant et se tendent.
+   3. le médaillon : le sceau s'efface à sa jointure, le médaillon doré en relief (rendu 3D, 14 images où la lumière passe d'un côté à l'autre) part de sa place, vient vers nous
+      en grandissant, puis se pose au centre sur le ruban ; éclat de lumière à l'impact, reflet qui file le long du ruban. Au repos la lumière passe lentement sur lui.
+   Le script ne change que transform et opacity. Sans script, en mouvement réduit, avant Safari 16.4 ou si l'ouverture n'est pas épinglée, rien de tout cela n'existe :
+   la page reste en pleine hauteur, comme la piste 2. Les seules tailles posées par le script (diamètre du médaillon, échelle du ruban) concernent des éléments
+   hors flux et masqués (visibility) à ce moment-là : aucune boîte visible de la page ne bouge. */
 .hero .arche{isolation:isolate}
-.hero .arche .vue{position:absolute;inset:0}
-.hero .arche .volet,.hero .arche canvas.satin,.hero .sceau .ombre,.hero .arche-w .filet{display:none}
-@supports (width:1cqw){
- .hero .arche{container-type:size}
- /* la vue : une boîte 5:4 qui couvre le cadre (même image visible qu'avec inset:0), pour que l'image entière existe quand elle recule dans le hublot */
- .hero .arche .vue{inset:auto;left:50%;top:50%;width:max(100cqw,125cqh);height:max(100cqh,80cqw);translate:-50% -50%}
- /* --d : diamètre du hublot. --dy : le hublot est posé un peu sous le milieu du cadre, pour que ce soit l'ensemble « sceau + médaillon » qui soit centré
-    (le sceau dépasse au-dessus du hublot de 46 % de sa taille, le double cercle de 9 px en dessous). Au téléphone il reste 10 px d'air au-dessus du sceau et sous le cercle. */
- .hero .arche .volet,.hero .arche canvas.satin{--d:min(calc(100cqh - 120px),560px,44vw);--dy:19px}
- @media (min-width:1921px) and (min-height:900px){.hero .arche .volet,.hero .arche canvas.satin{--d:min(calc(100cqh - 120px),max(560px,calc(30vw - 16px)),800px)}}
- @media (max-width:860px){.hero .arche .volet,.hero .arche canvas.satin{--d:min(calc(100cqh - 60px),calc(100vw - 2*var(--g) - 12px));--dy:11px}}
- @media (prefers-reduced-motion:no-preference){
-  html.ouv4 .hero .arche .vue{will-change:transform}
-  html.ouv4 .hero .arche .volet{display:block;position:absolute;z-index:3;left:0;right:0;top:0;height:100%;pointer-events:none;transform:translate3d(0,calc(-100% - 48px),0);will-change:transform;
-   background:radial-gradient(circle at 50% calc(50% + var(--dy)),transparent calc(var(--d)/2 - .5px),var(--fond) calc(var(--d)/2 + .5px));
-   box-shadow:0 1px 0 var(--or),0 8px 0 var(--fond),0 9px 0 rgba(217,145,37,.7),0 30px 34px -8px rgba(12,2,5,.6)}
-  html.ouv4 .hero .arche .hublot{position:absolute;left:50%;top:calc(50% + var(--dy));translate:-50% -50%;width:var(--d);height:var(--d);border-radius:50%;
-   box-shadow:inset 0 16px 28px -8px rgba(12,2,5,.75),0 0 0 1px var(--or),0 0 0 8px var(--fond),0 0 0 9px rgba(217,145,37,.7)}
-  html.ouv4 .hero .sceau .ombre{display:block;position:absolute;z-index:-1;inset:0;border-radius:50%;box-shadow:0 14px 26px rgba(12,2,5,.6);opacity:0;rotate:calc(var(--s,0)*-120deg);pointer-events:none}
-  /* le ruban : son axe (à 44 px du haut de son cadre de 112 px) passe par le haut du hublot */
-  html.ouv4 .hero .arche canvas.satin{display:block;position:absolute;z-index:4;inset:auto;left:0;top:calc((100cqh - var(--d))/2 + var(--dy) - 44px);width:100%;height:112px;object-fit:fill;transform-origin:50% 44px;pointer-events:none}
- }
+.hero .arche .ecrin,.hero .arche-w .med{display:none}
+@media (prefers-reduced-motion:no-preference){
+ html.ouv5 .hero .arche .ecrin{display:block;position:absolute;inset:0;z-index:3;overflow:hidden;pointer-events:none;visibility:hidden;container-type:size}
+ html.ouv5 .hero .arche .ecrin.on{visibility:visible}
+ .hero .ecrin .nuit{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,2,5,.96),rgba(12,2,5,.62));opacity:0;will-change:opacity}
+ .hero .ecrin .volet,.hero .ecrin .tr{position:absolute;left:0;right:0;top:0;transform-origin:50% 0;opacity:0;will-change:transform,opacity}
+ .hero .ecrin .volet{height:100%;transform:perspective(1200px) rotateX(84deg);
+  background:radial-gradient(120% 95% at 50% 42%,rgba(18,2,6,0) 50%,rgba(18,2,6,.5)),radial-gradient(130% 100% at 20% 0,rgba(255,190,165,.12),rgba(255,190,165,0) 60%),#5f0c1f}
+ /* le double filet d'or de la maison, en retrait sur le volet */
+ .hero .ecrin .volet::before,.hero .ecrin .volet::after{content:"";position:absolute;pointer-events:none}
+ .hero .ecrin .volet::before{inset:12px;inset:clamp(12px,2.6cqw,20px);border:1px solid var(--or)}
+ .hero .ecrin .volet::after{inset:19px;inset:calc(clamp(12px,2.6cqw,20px) + 7px);border:1px solid rgba(217,145,37,.7)}
+ .hero .ecrin .volet .omb,.hero .ecrin .volet .lum{position:absolute;inset:0;opacity:0;will-change:opacity}
+ /* au repos, une lueur large et très douce traverse la laque du volet, en phase avec la lumière du médaillon */
+ .hero .ecrin .volet .bal{position:absolute;top:-2%;bottom:-2%;left:-45%;width:90%;background:linear-gradient(90deg,rgba(255,214,190,0),rgba(255,214,190,.035) 28%,rgba(255,214,190,.075) 50%,rgba(255,214,190,.035) 72%,rgba(255,214,190,0));opacity:0;will-change:transform,opacity}
+ .hero .ecrin .volet .omb{background:#190308}
+ .hero .ecrin .volet .lum{background:linear-gradient(180deg,rgba(255,222,200,0) 4%,rgba(255,222,200,.24) 48%,rgba(255,222,200,0) 96%)}
+ /* la tranche du volet : 14 px d'or, à angle droit du panneau, visible tant qu'il est incliné (de dos, donc masquée, quand il est presque à plat) */
+ .hero .ecrin .tr{height:14px;-webkit-backface-visibility:hidden;backface-visibility:hidden;background:linear-gradient(180deg,#f9e0a0,#e3a03a 38%,#D99125 60%,#84500f)}
+ /* le ruban : son axe (à 66 px du haut de son cadre de 150 px) passe par le milieu du volet */
+ .hero .ecrin canvas.satin{position:absolute;left:0;top:calc(50% - 66px);width:100%;height:150px;transform-origin:50% 66px;pointer-events:none}
+ /* le reflet qui file le long du ruban à l'impact du médaillon */
+ .hero .ecrin .glint{position:absolute;left:0;right:0;top:calc(50% - 17px*var(--ech,1));height:calc(34px*var(--ech,1));overflow:hidden}
+ .hero .ecrin .glint i,.hero .ecrin .glint b{position:absolute;top:0;bottom:0;left:50%;opacity:0;will-change:transform,opacity}
+ .hero .ecrin .glint i{width:34%;margin-left:-17%;background:linear-gradient(90deg,rgba(255,246,220,0),rgba(255,246,220,.8) 50%,rgba(255,246,220,0))}
+ /* au repos : la lumière qui passe sur le médaillon passe aussi sur le satin */
+ .hero .ecrin .glint b{width:46%;margin-left:-23%;background:linear-gradient(90deg,rgba(255,244,214,0),rgba(255,244,214,.5) 50%,rgba(255,244,214,0))}
+ /* le médaillon : centré sur le cadre ; le script le fait partir de la place du sceau */
+ html.ouv5 .hero .arche-w .med{display:block;position:absolute;z-index:6;left:50%;top:50%;width:var(--dm,150px);height:var(--dm,150px);margin:calc(var(--dm,150px)/-2) 0 0 calc(var(--dm,150px)/-2);pointer-events:none;visibility:hidden;opacity:0;will-change:transform,opacity}
+ html.ouv5 .hero .arche-w .med.on{visibility:visible}
+ /* l'image rendue laisse 3,5 % de marge autour de la pièce : le canevas dépasse d'autant, pour que la pièce ait exactement le diamètre voulu */
+ .hero .med canvas{position:absolute;left:-3.76%;top:-3.76%;width:107.52%;height:107.52%}
+ .hero .med .omb,.hero .med .omb2{position:absolute;inset:2.5%;border-radius:50%;will-change:opacity}
+ .hero .med .omb{box-shadow:0 calc(var(--dm,150px)*.04) calc(var(--dm,150px)*.09) rgba(12,2,5,.66);opacity:0}
+ .hero .med .omb2{box-shadow:0 calc(var(--dm,150px)*.17) calc(var(--dm,150px)*.2) rgba(12,2,5,.5);opacity:0}
+ /* l'éclat sur la face de la pièce, à l'instant où elle se pose */
+ .hero .med .feu{position:absolute;inset:1.2%;border-radius:50%;background:radial-gradient(circle at 40% 34%,rgba(255,251,238,.95),rgba(255,238,196,.6) 42%,rgba(255,226,160,0) 76%);opacity:0;will-change:opacity}
+ .hero .med .eclat{position:absolute;inset:-62%;border-radius:50%;background:radial-gradient(circle closest-side,rgba(255,242,208,.95) 0,rgba(255,224,152,.5) 36%,rgba(255,214,140,0) 72%);opacity:0;transform:scale(.5);will-change:transform,opacity}
 }
-@media (max-width:860px){
- .hero .arche{box-shadow:0 1px 0 var(--or),0 8px 0 var(--fond),0 9px 0 rgba(217,145,37,.7)}
- .hero .arche-w .filet{display:block;position:absolute;z-index:1;left:0;right:0;top:-9px;height:9px;box-sizing:border-box;border-top:1px solid rgba(217,145,37,.7);border-bottom:1px solid var(--or);pointer-events:none}
+/* La bande « Smash · Burger · Baguette · Sauce Café de Paris » défile seule, sans s'arrêter (retour de Malik du 13.11.2026 : « elle devrait défiler dans tous les cas,
+   qu'on scrolle ou pas »). Le défilement de la page la pousse en plus dans le même sens (script). Vitesse constante (linear), une seule propriété : transform.
+   Rien en mouvement réduit. Sans script : même défilement, d'un quart de sa longueur (les quatre copies du texte) en 22 secondes. */
+@keyframes bandeFile{to{transform:translate3d(calc(-1*var(--bw,25%)),0,0)}}
+@media (prefers-reduced-motion:no-preference){
+ .ruban .rang{will-change:transform}
+ .ruban .piste{animation:bandeFile var(--bt,22s) linear infinite}
+ .ruban.pause .piste{animation-play-state:paused}
 }
-@media (max-width:860px) and (prefers-reduced-motion:no-preference){.hero .arche-w .filet{animation:archeFond 1.5s cubic-bezier(.2,.7,.1,1) backwards}}
 /* v22 essai ouverture : fin */
-</style><noscript><style>img[data-src]{display:none!important}noscript{display:contents}#film,.film .pause{display:none!important}</style></noscript><script>document.documentElement.className+=' ouv4'</script></head><body>
+</style><noscript><style>img[data-src]{display:none!important}noscript{display:contents}#film,.film .pause{display:none!important}</style></noscript><script>document.documentElement.className+=' ouv5'</script></head><body>
 <div class="store" aria-hidden="true"></div><header class="bandeau"><div class="w"><nav class="g" aria-label="Menu"><a href="#villes">Nos villes</a><a href="geneve/#carte">La carte</a><a href="#histoire">Notre histoire</a></nav><a class="logo" href="./"><img src="../../communs/img/logo/apb-logotype-merlot.svg" alt="Atelier Paris Burger, accueil" width="300" height="20"></a><div class="d"><nav class="langs" aria-label="Langue"><a href="./" hreflang="fr" lang="fr" aria-current="true">FR</a><a href="en/" hreflang="en" lang="en">EN</a><a href="es/" hreflang="es" lang="es">ES</a></nav><a class="btn btn-m" href="../site-c/commander/">Commander</a><details class="mmenu"><summary aria-label="Ouvrir le menu"><span></span><span></span></summary><nav aria-label="Menu mobile"><a href="#villes">Nos villes</a><a href="geneve/#carte">La carte</a><a href="#histoire">Notre histoire</a><a href="../site-c/commander/">Commander à Genève</a><div class="mlangs" role="group" aria-label="Langue"><a href="./" hreflang="fr" lang="fr" aria-current="true">Français</a><a href="en/" hreflang="en" lang="en">English</a><a href="es/" hreflang="es" lang="es">Español</a></div></nav></details></div></div></header>
 <main>
 <div class="couv" id="couv"><section class="hero" aria-labelledby="t-ouv"><div class="txt"><nav class="langs langs-m" aria-label="Langue"><a href="./" hreflang="fr" lang="fr" aria-current="true">FR</a><a href="en/" hreflang="en" lang="en">EN</a><a href="es/" hreflang="es" lang="es">ES</a></nav><p class="eye"><span class="eye-a">Sauce Café de Paris · </span>Depuis plus de 40 ans</p><h1 id="t-ouv">Le burger à la <span class="trempe" data-g="2" data-s="0,2,3,4"><span class="mot">sauce</span><span class="nappe" aria-hidden="true" data-t="sauce"><span class="sonde"></span></span><span class="gouttes" aria-hidden="true"><svg class="gte" viewBox="0 0 12 16" aria-hidden="true" focusable="false"><path d="M6 0C6 0 .4 7 .4 10.4a5.6 5.6 0 0 0 11.2 0C11.6 7 6 0 6 0Z"/></svg></span></span> Café de Paris</h1><p class="sous">Coupé en deux, posé dans la sauce, trempé jusqu’à la dernière bouchée. À Genève, Madrid et Ibiza.</p><div class="cta"><a class="btn btn-or" href="../site-c/commander/">Commander</a><a class="btn btn-ligne" href="geneve/#carte">Voir la carte</a></div><nav class="vchoix" aria-label="Choisir sa ville"><span>Votre ville</span><a href="geneve/">Genève <small>01.12</small></a><a href="#v-ibiza">Ibiza</a><a href="#v-madrid">Madrid <small>livraison</small></a></nav></div>
-<div class="arche-w"><span class="sceau" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="47"/><circle class="i" cx="50" cy="50" r="41"/></svg><img src="../../communs/img/logo/apb-mark-or.svg" width="48" height="48" alt=""><i class="ombre"></i><span class="lueur"><i></i></span></span><i class="filet" aria-hidden="true"></i><figure class="arche"><div class="vue"><picture><source media="(max-width:860px)" srcset="../../communs/img/couv-haut-m.webp" width="800" height="640"><img class="photo" src="../../communs/img/couv-sauce-d.webp" width="1345" height="1076" alt="Une main gantée tient une moitié de burger nappée de sauce Café de Paris au-dessus d’un saucier, la sauce coule" fetchpriority="high"></picture><canvas class="seq" aria-hidden="true"></canvas></div><div class="volet" aria-hidden="true"><i class="hublot"></i></div><canvas class="satin" aria-hidden="true"></canvas></figure></div></section></div>
+<div class="arche-w"><span class="sceau" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="47"/><circle class="i" cx="50" cy="50" r="41"/></svg><img src="../../communs/img/logo/apb-mark-or.svg" width="48" height="48" alt=""><span class="lueur"><i></i></span></span><figure class="arche"><picture><source media="(max-width:860px)" srcset="../../communs/img/couv-haut-m.webp" width="800" height="640"><img class="photo" src="../../communs/img/couv-sauce-d.webp" width="1345" height="1076" alt="Une main gantée tient une moitié de burger nappée de sauce Café de Paris au-dessus d’un saucier, la sauce coule" fetchpriority="high"></picture><canvas class="seq" aria-hidden="true"></canvas><div class="ecrin" aria-hidden="true"><i class="nuit"></i><div class="volet"><i class="omb"></i><i class="lum"></i><i class="bal"></i></div><i class="tr"></i><canvas class="satin"></canvas><div class="glint"><i></i><i></i><b></b></div></div></figure><span class="med" aria-hidden="true"><i class="eclat"></i><i class="omb2"></i><i class="omb"></i><canvas></canvas><i class="feu"></i></span></div></section></div>
 <div class="ruban" aria-hidden="true"><div class="rang"><div class="piste"><span>Smash</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Burger</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Baguette</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span class="o">Sauce Café de Paris</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Smash</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Burger</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Baguette</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span class="o">Sauce Café de Paris</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Smash</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Burger</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Baguette</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span class="o">Sauce Café de Paris</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Smash</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Burger</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span>Baguette</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""><span class="o">Sauce Café de Paris</span><img src="../../communs/img/logo/apb-mark-or.svg" width="22" height="22" alt=""></div></div></div>
 <section class="sig" aria-labelledby="sig-t"><div class="w"><p class="eye">La signature</p><h2 id="sig-t">Trois façons de tremper</h2><div class="grille">
 <a class="p" href="geneve/#p-smash"><div class="sc"><img class="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20820%20250'/%3E" data-src="../../communs/img/d-smash-160-m.webp" width="820" height="250" alt="" decoding="async"><noscript><img class="" src="../../communs/img/d-smash-160-m.webp" width="820" height="250" alt="" loading="lazy" decoding="async"></noscript></div><h3>Le smash</h3><p>Un, deux ou trois steaks smashés, avec frites et sauce.</p><span class="lien">Voir le smash</span></a>
@@ -1144,10 +1168,7 @@ EV.forEach(function(n){addEventListener(n,demarre,{passive:true})});
 function apres(){setTimeout(demarre,1500)}if(document.readyState==='complete')apres();else addEventListener('load',apres);
 })();
 
-/* v16 : la bande glisse doucement, seulement quand on défile la page */
-(function(){var r=document.querySelector('.ruban .piste');if(!r||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-var w=1,fr=0;function mes(){w=r.scrollWidth/4||1;f()}function f(){fr=0;var y=r.parentNode.getBoundingClientRect().top;if(y>innerHeight+50||y<-150)return;r.style.transform='translate3d('+(-(((innerHeight-y)*.35)%w+w)%w).toFixed(1)+'px,0,0)'}
-addEventListener('scroll',function(){if(!fr)fr=requestAnimationFrame(f)},{passive:true});addEventListener('resize',mes);mes()})();
+/* v16 : la bande ne glissait que pendant le défilement de la page ; dans cet essai elle défile seule (script à la fin de la page) */
 
 /* v12 : monogrammes et histoire horizontale */
 (function(){var m=/[?&]fond=(noir|vin)/.exec(location.search);if(m)document.documentElement.dataset.fond=m[1]})();
@@ -1340,62 +1361,113 @@ function place(m,x,y){var S=m.nextElementSibling,E=S?S.getElementsByTagName('*')
 </script>
 <script>
 /* v22 essai ouverture (script) : début */
-/* Piste 4 : tout est lié à la position de la page dans l'épinglage (p de 0 à 1), donc réversible, et rien ne tourne quand la page est arrêtée.
-   0 à 0,50 la sauce (script du burger) ; 0,46 à 0,72 le volet descend ; 0,72 à 0,88 l'image recule dans le hublot jusqu'au cadrage du médaillon ;
-   0,72 à 0,93 les deux pans du ruban arrivent ; 0,78 à 0,95 le sceau quitte sa jointure et vient se poser en haut du hublot, sur le ruban (il se soulève en chemin :
-   ombre portée, puis se repose, et garde une ombre légère : il est posé sur le ruban) ; au téléphone le filet du haut s'efface de 0,80 à 0,93 ; de 0,95 à 1 plus rien ne bouge.
-   Le script ne change que transform, translate, scale et opacity. Sans unités de conteneur (Safari avant 16) ou si le hublot ne se dessine pas, la piste se retire :
-   la page reste en pleine hauteur. */
+/* Piste 5, l'écrin scellé. La fermeture n'est pas liée au défilement image par image : elle part quand la sauce est versée (moitié de l'épinglage) et se joue seule,
+   sur une horloge c en secondes ; quand on remonte (sous 44 % de l'épinglage) elle se rejoue à l'envers, 1,7 fois plus vite.
+   0 à 0,80 s le volet tombe (lent puis rapide, comme un couvercle) et rebondit jusqu'à 1,06 s ; 0,80 à 1,60 s les deux pans du ruban arrivent ; 1,15 à 1,72 s le médaillon quitte
+   la place du sceau et vient vers nous ; 1,72 à 1,86 s il se pose ; de 1,86 à 2,5 s éclat de lumière et reflet le long du ruban. Ensuite la lumière passe lentement sur le médaillon
+   (14 images en aller-retour, fondues l'une dans l'autre), seulement tant que l'ouverture est à l'écran.
+   Si les images du ruban ou du médaillon ne sont pas encore arrivées, l'horloge attend au bon endroit (volet fermé, puis ruban posé) au lieu de sauter.
+   Le script ne change que transform et opacity (et dessine sur deux canevas). */
 (function(){var H=document.documentElement,couv=document.querySelector('.couv'),hero=couv&&couv.querySelector('.hero'),w=hero&&hero.querySelector('.arche-w'),a=w&&w.querySelector('.arche'),band=document.querySelector('.bandeau'),
-vue=a&&a.querySelector('.vue'),vo=a&&a.querySelector('.volet'),hu=vo&&vo.querySelector('.hublot'),sc=w&&w.querySelector('.sceau'),om=sc&&sc.querySelector('.ombre'),cs=a&&a.querySelector('canvas.satin'),ph=vue&&vue.querySelector('img.photo'),fi=w&&w.querySelector('.filet');
-function fin(){H.classList.remove('ouv4');W=0;if(vue)vue.style.transform='';if(sc){sc.style.translate='';sc.style.scale=''}if(fi)fi.style.opacity=''}
-var W=0,Hr=0,d=0,cy=0,K=1,tau=0,dx=0,dy=0,tx='-50%',ty='-50%',fr=0,der=-1;
-if(!vue||!vo||!hu||!sc||!om||!cs||!ph||!fi||!(window.CSS&&CSS.supports&&CSS.supports('width','1cqw'))||matchMedia('(prefers-reduced-motion: reduce)').matches)return fin();
+ec=a&&a.querySelector('.ecrin'),nu=ec&&ec.querySelector('.nuit'),vo=ec&&ec.querySelector('.volet'),ob=vo&&vo.querySelector('.omb'),lu=vo&&vo.querySelector('.lum'),tr=ec&&ec.querySelector('.tr'),cs=ec&&ec.querySelector('canvas.satin'),
+gl=ec&&ec.querySelector('.glint'),g1=gl&&gl.firstChild,g2=g1&&g1.nextSibling,gb=gl&&gl.lastChild,ba=vo&&vo.querySelector('.bal'),sc=w&&w.querySelector('.sceau'),me=w&&w.querySelector('.med'),mc=me&&me.querySelector('canvas'),mo=me&&me.querySelector('.omb'),mo2=me&&me.querySelector('.omb2'),
+ml=me&&me.querySelector('.eclat'),mf=me&&me.querySelector('.feu'),ph=a&&a.querySelector('img.photo'),W=0;
+function fin(){H.classList.remove('ouv5');W=0;if(sc)sc.style.opacity='';if(ec)ec.classList.remove('on');if(me)me.classList.remove('on')}
+if(!nu||!ob||!lu||!ba||!tr||!cs||!g2||!gb||gb===g2||!sc||!mc||!mo||!mo2||!ml||!mf||!ph||matchMedia('(prefers-reduced-motion: reduce)').matches||!matchMedia('(width>=0px)').matches)return fin();
 try{
-/* Le ruban : 30 images calculées à l'avance (rendu 3D), dessinées sur un canevas et jouées par le défilement, comme le burger. Deux séries : téléphone (520 px de ruban, 3 points par px)
-   et écrans larges (1040 px, 2 points par px). Le cadre est centré sur le sceau ; il n'est agrandi que si l'écran est plus large que lui. Les images sont demandées après le premier geste. */
-var NS=30,si=[],sok=[],scur=-2,sx=cs.getContext('2d'),sdir='',cw=520,ech=1,t0=0,lance=0,sfr=0,se=0;
-function sload(i){if(si[i]!==undefined)return;si[i]=null;var g=new Image(),moi=sdir;g.onload=function(){var q=g.decode?g.decode():Promise.resolve(),f=function(){if(moi!==sdir)return;si[i]=g;sok[i]=1;scur=-2;skick()};q.then(f,f)};g.src=sdir+(i<10?'0':'')+i+'.webp'}
-function slance(){if(lance)return;lance=1;var i0=Math.floor(t0*(NS-1));[8,4,2,1].forEach(function(s){for(var i=NS-1;i>=i0;i-=s)sload(i)})}
-function skick(){if(!sfr)sfr=requestAnimationFrame(sdraw)}
-function sdraw(){sfr=0;if(!W)return;if(se<=0){if(scur!==-1){sx.clearRect(0,0,cs.width,cs.height);scur=-1}return}
+var D1=.8,RB=.26,R0=.8,R1=1.6,M0=1.15,M1=1.72,M2=1.86,DUR=2.5,Hr=0,dm=150,PP=1200,dx0=0,dy0=0,s0=.44,c=0,cder=-1,cib=0,vu=1,fr=0,fe=0,tl=0,eon=0,prem=1,phz=0,phr=.5,pair=0,kl=0;
+/* Le ruban : 30 images (rendu 3D), deux séries : téléphone (cadre de 520 px, 2,5 points par px) et écrans larges (1040 px, 2 points par px, agrandi 1,3 fois au moins).
+   Le médaillon : 14 images, la lumière passe de gauche à droite ; deux séries aussi : 528 px dès que la pièce occupe plus de 380 points d'écran (iPhone à 3 points par px,
+   grands écrans à 2), 352 px sinon. Tout est demandé après le premier geste, en priorité basse (le burger passe d'abord). */
+var NS=30,si=[],sok=[],ser=[],scur=-2,sx=cs.getContext('2d'),sdir='',cw=520,ech=1,t0=0,lance=0,se=0,NM=14,mi=[],mok=[],nmok=0,mx=mc.getContext('2d'),mdir='',mder=-1;
+function charge(T,ok,er,dir,i,m){if(T[i]!==undefined)return;T[i]=null;var g=new Image(),f=function(e){if(dir!==(m?mdir:sdir))return;if(e===1)er[i]=1;else{T[i]=g;ok[i]=1;if(m){nmok++;mder=-1}else scur=-2}cder=-1;kick()};
+ try{g.fetchPriority='low'}catch(x){}g.onload=function(){var q=g.decode?g.decode():Promise.resolve();q.then(f,f)};g.onerror=function(){f(1)};g.src=dir+(i<10?'0':'')+i+'.webp'}
+function slance(){if(lance)return;lance=1;var i0=Math.floor(t0*(NS-1)),i;[8,4].forEach(function(s){for(i=NS-1;i>=i0;i-=s)charge(si,sok,ser,sdir,i,0)});charge(mi,mok,[],mdir,0,1);charge(mi,mok,[],mdir,NM-1,1);
+ [2,1].forEach(function(s){for(i=NS-1;i>=i0;i-=s)charge(si,sok,ser,sdir,i,0)});for(i=1;i<NM-1;i++)charge(mi,mok,[],mdir,i,1)}
+/* le ruban peut partir quand une image sur quatre est là (ou en erreur : il part alors sans elle) */
+function spret(){for(var i=NS-1,i0=Math.floor(t0*(NS-1));i>=i0;i-=4)if(!sok[i]&&!ser[i])return 0;return 1}
+function borne(){return !spret()?R0:!nmok?M0:DUR}
+function sdraw(){if(se<=0){if(scur!==-1){sx.clearRect(0,0,cs.width,cs.height);scur=-1}return}
  var i=Math.round((t0+(1-t0)*se)*(NS-1));while(i<NS-1&&!sok[i])i++;if(!sok[i]||i===scur||!cs.width)return;scur=i;
  var lw=cw*cs.width/W;sx.clearRect(0,0,cs.width,cs.height);sx.drawImage(si[i],(cs.width-lw)/2,0,lw,cs.height)}
-function seg(p,a,b){return Math.min(1,Math.max(0,(p-a)/(b-a)))}
-function io(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
-/* le décalage de départ du sceau (translate de la feuille de style), en % de sa taille ou en px */
-var LP=/^-?[0-9.]+(%|px)$/;function part(v,n){return /%$/.test(v)?parseFloat(v)/100*n:parseFloat(v)||0}
+function mproche(n){for(var d=0;d<NM;d++){if(mok[n-d])return n-d;if(mok[n+d])return n+d}return -1}
+/* la lumière sur le médaillon : la position phz (0 à 1, un aller-retour) donne une image entre 0 et 13 ; deux images voisines sont fondues (somme pondérée exacte) */
+function mdraw(){if(c<M0||!nmok||!mc.width)return;var pos=(NM-1)*(.5-.5*Math.cos(2*Math.PI*phz)),q=Math.round(pos*24);if(q===mder)return;
+ var i=Math.min(NM-2,Math.floor(pos)),f=pos-i,j=i+1,L=mc.width;if(!mok[i]||!mok[j]){i=j=mproche(Math.round(pos));f=0;if(i<0)return}
+ mder=q;mx.globalCompositeOperation='source-over';mx.globalAlpha=1;mx.clearRect(0,0,L,L);
+ if(f<.02)mx.drawImage(mi[i],0,0,L,L);else if(f>.98)mx.drawImage(mi[j],0,0,L,L);
+ else{mx.globalAlpha=1-f;mx.drawImage(mi[i],0,0,L,L);mx.globalCompositeOperation='lighter';mx.globalAlpha=f;mx.drawImage(mi[j],0,0,L,L);mx.globalCompositeOperation='source-over';mx.globalAlpha=1}}
+function seg(x,a,b){return Math.min(1,Math.max(0,(x-a)/(b-a)))}
+function io3(x){return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2}
+function out3(x){return 1-Math.pow(1-x,3)}
 function prog(){var t=couv.offsetHeight-hero.offsetHeight;return t>0&&H.classList.contains('seqon')?Math.min(1,Math.max(0,((band?band.offsetHeight:0)-couv.getBoundingClientRect().top)/t)):0}
-function mesure(){if(!H.classList.contains('ouv4'))return;W=a.clientWidth;Hr=a.clientHeight;var ih=vue.offsetHeight;d=hu.offsetWidth;if(!W||!Hr||!ih||d<40)return fin();
- /* le centre du hublot dans le cadre (la feuille de style le pose un peu sous le milieu) */
- cy=parseFloat(getComputedStyle(hu).top);if(!(cy>0))cy=Hr/2;
- /* le recul de l'image : à la fin, sa hauteur entière tient dans le hublot (cadrage du médaillon), centrée sur lui */
- K=(d+2)/(ih*1.18);tau=.0516*ih*K+cy-Hr/2;
- /* le trajet du sceau : de sa place de départ au haut du hublot (même décalage que sur l'arche : 4 % sous le filet) */
- sc.style.translate='';var t=(getComputedStyle(sc).translate||'').split(' ');tx=LP.test(t[0]||'')?t[0]:'0px';ty=LP.test(t[1]||'')?t[1]:'0px';
- var sw=sc.offsetWidth,sh=sc.offsetHeight,x0=sc.offsetLeft+sw/2+part(tx,sw),y0=sc.offsetTop+sh/2+part(ty,sh);
- dx=a.offsetLeft+W/2-x0;dy=a.offsetTop+cy-d/2+sh*.04-y0;
- /* le ruban : série, échelle, et l'image à partir de laquelle ses bouts entrent dans le cadre */
- var large=W>520,dir=(ph.getAttribute('src')||'').replace(/[^\/]*$/,'')+(large?'satin/':'satin-m/');cw=large?1040:520;ech=Math.max(1,W/cw);
- t0=Math.max(0,1-Math.pow(Math.min(1,(W/(2*ech)+16)/556),1/2.2));
- if(dir!==sdir){sdir=dir;si=[];sok=[];scur=-2}
- /* seules les images où le ruban est dans le cadre sont demandées (sur un téléphone, les dix premières ne se voient jamais) ; après un changement de taille, celles qui manquent */
+function rendu(){var on=c>0?1:0;if(on!==eon){eon=on;ec.classList.toggle('on',!!on);me.classList.toggle('on',!!on);if(!on){me.style.opacity=0;sc.style.opacity=''}}
+ if(!on)return;
+ /* le volet : angle de 84 degrés (presque à l'horizontale, vers nous) à 0 (fermé), puis un rebond de 4 degrés qui s'éteint */
+ var e=Math.pow(seg(c,0,D1),2.4),u=seg(c,D1,D1+RB),ang=84*(1-e)+(u>0&&u<1?4.5*Math.sin(Math.PI*Math.sqrt(u))*(1-u):0),P='perspective('+PP+'px) rotateX('+ang.toFixed(2)+'deg)',o=seg(c,0,.08).toFixed(3);
+ vo.style.transform=P;tr.style.transform=P+' translateY('+(Hr-.5).toFixed(1)+'px) rotateX(-90deg)';vo.style.opacity=o;tr.style.opacity=o;
+ nu.style.opacity=Math.min(1,e*1.15).toFixed(3);lu.style.opacity=Math.sin(Math.PI*Math.min(1,e*1.1)).toFixed(3);ob.style.opacity=(.55*(1-e)).toFixed(3);
+ /* le ruban */
+ se=out3(seg(c,R0,R1));sdraw();
+ /* le médaillon : part de la place et de la taille du sceau, grandit en venant vers nous (ombre portée loin), puis se pose (ombre courte) et s'enfonce d'un rien */
+ var m=seg(c,M0,M1),pr=seg(c,M1,M2),em=io3(m),es=out3(m),s=s0+(1.16-s0)*es-.16*pr*pr-.018*Math.sin(Math.PI*seg(c,M2,M2+.24));
+ me.style.transform='translate3d('+(dx0*(1-em)).toFixed(1)+'px,'+(dy0*(1-em)).toFixed(1)+'px,0) scale('+s.toFixed(4)+')';
+ me.style.opacity=seg(c,M0,M0+.07).toFixed(3);sc.style.opacity=(1-seg(c,M0+.01,M0+.11)).toFixed(3);mo2.style.opacity=(es*(1-pr)).toFixed(3);mo.style.opacity=pr.toFixed(3);
+ /* deux éclats autour du médaillon : un petit quand le sceau devient médaillon, un grand à l'impact (celui-là seulement en fermant), avec un éclat sur la face de la pièce
+    et un reflet qui file le long du ruban vers les deux bords */
+ var f=seg(c,M2,M2+.6),f0=seg(c,M0,M0+.34),g=seg(c,M2+.02,M2+.64),A=0,E=.5,d=0;
+ if(cib&&f>0&&f<1){A=f<.12?f/.12:Math.pow(1-(f-.12)/.88,2);E=.5+1.1*out3(f)}else if(f0>0&&f0<1){A=.85*(f0<.2?f0/.2:Math.pow(1-(f0-.2)/.8,2));E=.45+.75*out3(f0)}
+ ml.style.opacity=A.toFixed(3);ml.style.transform='scale('+E.toFixed(3)+')';
+ mf.style.opacity=(cib&&f>0&&f<.7?.78*(f<.08?f/.08:Math.pow(1-(f-.08)/.62,1.6)):0).toFixed(3);
+ if(cib&&g>0&&g<1){d=dm*.3+out3(g)*W*.7;A=Math.sin(Math.PI*g).toFixed(3);g1.style.opacity=A;g2.style.opacity=A;g1.style.transform='translate3d('+d.toFixed(1)+'px,0,0)';g2.style.transform='translate3d('+(-d).toFixed(1)+'px,0,0)'}else{g1.style.opacity=0;g2.style.opacity=0}}
+/* au repos : la même lumière passe sur le satin et sur la laque du volet (elle s'installe après l'impact) */
+function lum(){var k=seg(c,M2+.3,DUR);if(!k&&!kl)return;kl=k;var x=.5-.5*Math.cos(2*Math.PI*phz);
+ gb.style.opacity=(.55*k).toFixed(3);gb.style.transform='translate3d('+((x-.5)*W*.92).toFixed(1)+'px,0,0)';ba.style.opacity=k.toFixed(3);ba.style.transform='translate3d('+(x*W).toFixed(1)+'px,0,0) skewX(-14deg)'}
+function kick(){if(!fr)fr=requestAnimationFrame(tick)}
+function tick(now){fr=0;if(!W)return;
+ /* au repos (fermé, lumière seule) : une image sur deux suffit */
+ if(cib&&vu&&c>=DUR&&(pair^=1))return kick();
+ var dt=Math.min(.05,Math.max(0,(now-tl)/1000))||0,b=borne(),pm=c;tl=now;
+ if(!vu)c=cib?b:0;else if(cib){if(c>b)c=b;else if(c<b)c=Math.min(b,c+dt)}else if(c>0)c=Math.max(0,c-dt*1.7);
+ /* la lumière : elle traverse le médaillon pendant son trajet, puis va et vient en 6,4 secondes ; à la réouverture elle revient d'où elle est */
+ if(c>=M2)phz=pm<M2?.5:(phz+dt/6.4)%1;else if(cib)phz=.5*seg(c,M0,M2);else{if(pm>=M2)phr=phz<.5?phz:1-phz;phz=phr*seg(c,M0,M2)}
+ if(c!==cder){cder=c;rendu()}mdraw();lum();
+ if(vu&&((cib&&c<b)||(!cib&&c>0)||c>=M0))kick()}
+function etat(){fe=0;if(!W)return;var p=prog();if(p>.06)slance();var v=cib?p>=.44:p>=.5;
+ /* page ouverte ou rechargée au milieu : l'écrin est déjà fermé, sans rejouer la chute du volet */
+ if(prem){prem=0;if(v)c=DUR}cib=v?1:0;kick()}
+function mesure(){if(!H.classList.contains('ouv5'))return;W=a.clientWidth;Hr=a.clientHeight;if(!W||Hr<100)return fin();
+ dm=Math.round(Math.max(92,Math.min(.5*Hr,.42*W,240)));w.style.setProperty('--dm',dm+'px');PP=Math.round(Math.max(900,3.4*Hr));
+ /* le trajet du médaillon : du centre du sceau au centre du cadre */
+ var A=a.getBoundingClientRect(),S=sc.getBoundingClientRect();dx0=S.left+S.width/2-A.left-A.width/2;dy0=S.top+S.height/2-A.top-A.height/2;s0=sc.offsetWidth/dm;
+ var large=W>520,base=(ph.getAttribute('src')||'').replace(/[^\/]*$/,''),dir=base+(large?'ruban-or/':'ruban-or-m/');cw=large?1040:520;ech=large?Math.max(1.3,W/1040):1;ec.style.setProperty('--ech',ech.toFixed(3));
+ /* l'image à partir de laquelle les bouts du ruban entrent dans le cadre : celles d'avant ne sont jamais demandées */
+ t0=Math.max(0,1-Math.pow(Math.min(1,(W/(2*ech)+40)/556),1/2.2));
+ var besoin=Math.round(dm*1.0752*Math.min(3,devicePixelRatio||1)),gm=besoin>380,md=base+(gm?'medaille/':'medaille-m/'),mw=Math.min(besoin,gm?528:352);
+ if(dir!==sdir){sdir=dir;si=[];sok=[];ser=[]}if(md!==mdir){mdir=md;mi=[];mok=[];nmok=0}
  if(lance){lance=0;slance()}
- var dp=Math.min(large?2:3,devicePixelRatio||1),lc=Math.round(W*dp),hc=Math.round(112*dp);if(cs.width!==lc||cs.height!==hc){cs.width=lc;cs.height=hc}scur=-2;
- cs.style.transform=ech>1?'scale('+ech.toFixed(4)+')':'';
- der=-1;pose()}
-function pose(){fr=0;if(!W)return;var p=prog();if(p===der)return;der=p;
- var e1=io(seg(p,.46,.72)),e2=io(seg(p,.72,.88)),e3=io(seg(p,.78,.95)),q=e3*Math.PI/2,l=Math.sin(Math.PI*e3);
- vo.style.transform='translate3d(0,'+(-(1-e1)*(Hr+48)).toFixed(1)+'px,0)';
- vue.style.transform='translate3d(0,'+(tau*e2).toFixed(2)+'px,0) scale('+(1+(K-1)*e2).toFixed(4)+')';
- sc.style.translate='calc('+tx+' + '+(dx*(1-Math.cos(q))).toFixed(1)+'px) calc('+ty+' + '+(dy*Math.sin(q)).toFixed(1)+'px)';
- sc.style.scale=(1+.1*l).toFixed(4);om.style.opacity=Math.max(l,.45*e3).toFixed(3);fi.style.opacity=(1-seg(p,.8,.93)).toFixed(3);
- if(p>.05)slance();se=seg(p,.72,.93);skick()}
-addEventListener('scroll',function(){if(!fr)fr=requestAnimationFrame(pose)},{passive:true});
+ var dp=Math.min(large?2:2.5,devicePixelRatio||1),lc=Math.round(W*dp),hc=Math.round(150*dp);if(cs.width!==lc||cs.height!==hc){cs.width=lc;cs.height=hc}scur=-2;
+ if(mc.width!==mw){mc.width=mw;mc.height=mw}mder=-1;
+ cs.style.transform=ech>1?'scale('+ech.toFixed(4)+')':'';cder=-1;etat()}
+addEventListener('scroll',function(){if(!fe)fe=requestAnimationFrame(etat)},{passive:true});
 addEventListener('resize',mesure);addEventListener('load',mesure);
 /* le cadre peut changer de taille sans que la fenêtre change (polices reçues, barre d'adresse) : on reprend alors les mesures */
 if(window.ResizeObserver)new ResizeObserver(function(){mesure()}).observe(a);
+/* hors de l'écran : plus rien ne tourne, l'horloge va droit à son état final */
+if(window.IntersectionObserver)new IntersectionObserver(function(l){vu=l[l.length-1].isIntersecting?1:0;kick()}).observe(w);
 mesure()}catch(x){fin()}})();
+/* La bande défile seule (feuille de style). Ici : la longueur exacte d'une copie du texte (le défilement boucle sans saut), des copies en plus sur les écrans très larges,
+   la poussée du défilement de la page (dans le même sens, sur l'enveloppe de la bande), la pause quand la bande est hors de l'écran. Rien en mouvement réduit. */
+(function(){var b=document.querySelector('.ruban'),g=b&&b.querySelector('.rang'),r=g&&g.querySelector('.piste');if(!r||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+var n=r.children.length/4,w=0,fr=0,vu=1;if(n<1||n!==Math.floor(n))return;
+function mes(){var x=r.children[n].getBoundingClientRect().left-r.children[0].getBoundingClientRect().left;if(!(x>40))return;w=x;
+ var k=Math.ceil(innerWidth/w)+2,i;while(r.children.length<k*n)for(i=0;i<n;i++)r.appendChild(r.children[i].cloneNode(true));
+ b.style.setProperty('--bw',w.toFixed(2)+'px');b.style.setProperty('--bt',(w/(innerWidth<861?40:54)).toFixed(2)+'s');f()}
+function f(){fr=0;if(vu&&w)g.style.transform='translate3d('+(-((scrollY*.35)%w)).toFixed(1)+'px,0,0)'}
+addEventListener('scroll',function(){if(!fr)fr=requestAnimationFrame(f)},{passive:true});addEventListener('resize',mes);addEventListener('load',mes);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(mes);
+if(window.IntersectionObserver)new IntersectionObserver(function(l){vu=l[l.length-1].isIntersecting?1:0;b.classList.toggle('pause',!vu);f()}).observe(b);
+mes()})();
 /* Reflet de dorure sur le sceau pendant le défilement : une passe tous les 300 px, éteinte dès que la page s'arrête */
 (function(){var l=document.querySelector('.hero .sceau .lueur'),b=l&&l.firstChild;
 if(!b||matchMedia('(prefers-reduced-motion: reduce)').matches||!matchMedia('(width>=0px)').matches)return;
