@@ -148,24 +148,33 @@ section.s{padding:110px 0 90px;position:relative}
 /* tenue */
 .dress{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start}
 .stage{position:sticky;top:70px;border-radius:28px;overflow:hidden;height:min(80vh,740px);min-height:460px;background:#f6f6f6}
-.look{position:absolute;inset:52px 0 0 0;display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:1fr 1fr auto;gap:6px;padding:6px}
-.tile{position:relative;margin:0;border-radius:22px;overflow:hidden;background:#f6f6f6}
-.t-top{grid-row:1/3}
+.look{position:absolute;inset:52px 0 0 0;display:flex;flex-direction:column;gap:6px;padding:6px}
+.lrow{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:6px;flex:1 1 0;min-height:0}
+.lrow[hidden]{display:none}
+.r-tete{flex:.62 1 0}.r-haut{flex:1.35 1 0}.r-bas{flex:1 1 0}
+.tile{position:relative;margin:0;border-radius:18px;overflow:hidden;background:#fff}
 .tile .ph{position:absolute;inset:0}
-.tile .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.t-top .ph img{object-position:50% 28%}.t-pant .ph img{object-position:50% 40%}.t-shoe .ph img{object-fit:contain;padding:8%}
-.tile .ph img.in{animation:lookIn .7s cubic-bezier(.2,.7,.2,1) both}
-.tile .ph img.out{animation:lookOut .45s ease both}
-@keyframes lookIn{from{opacity:0;transform:scale(1.04) translateY(10px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+.tile .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 28%}
+.t-shoe .ph img,.t-socks .ph img,.t-tete .ph img,.t-mains .ph img{object-fit:contain;padding:7% 7% 22%}
+.t-pant .ph img{object-position:50% 45%}
+.tile .ph img.in{animation:lookIn .6s cubic-bezier(.2,.7,.2,1) both}
+.tile .ph img.out{animation:lookOut .4s ease both}
+.cap b i{font-style:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.r-tete .tile .ph{right:auto;width:44%}.r-tete .t-tete .ph img,.r-tete .t-mains .ph img{padding:8%}.r-tete .cap{left:44%;bottom:auto;top:50%;transform:translateY(-40%)}
+@keyframes lookIn{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:none}}
 @keyframes lookOut{to{opacity:0}}
-.cap{position:absolute;left:10px;bottom:10px;right:10px;color:#141414;font-size:13px;line-height:1.25;pointer-events:none}
-.cap span{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#141414;color:#fff;border-radius:999px;padding:3px 8px;margin-bottom:4px}
-.cap b{display:block;background:rgba(255,255,255,.88);backdrop-filter:blur(6px);border-radius:10px;padding:6px 9px;width:fit-content;max-width:100%;font-weight:650}
-.under{grid-column:1/3;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-right:120px}
-.chip{margin:0;flex:0 0 auto;display:flex;align-items:center;gap:8px;background:#fff;border-radius:16px;padding:6px 12px 6px 6px;max-width:240px;color:#141414;font-size:12.5px;line-height:1.25}
-.chip img{width:44px;height:44px;border-radius:11px;object-fit:cover;background:#f6f6f6}
-.chip span{display:block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#5a5d6e}
-.chip.sac span{color:#2d6a3e}
+.tile .bd{position:absolute;top:7px;right:7px;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:#141414;color:#fff;white-space:nowrap}
+.tile .bd.s{background:#1f8a4c}
+.cap{position:absolute;left:7px;bottom:7px;right:7px;color:#141414;font-size:12px;line-height:1.25;pointer-events:none}
+.cap span{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.92);color:var(--bleu);border-radius:999px;padding:3px 8px}
+.cap b{display:block;margin-top:3px;background:rgba(255,255,255,.9);border-radius:9px;padding:4px 7px;width:fit-content;max-width:100%;font-weight:650}
+.focus{position:absolute;inset:6px;z-index:3;margin:0;border-radius:22px;background:#fff;overflow:hidden;transform-origin:0 0;box-shadow:0 24px 60px rgba(20,22,50,.22);display:flex;flex-direction:column}
+.focus .fph{flex:1;min-height:0;position:relative}
+.focus .fph img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:4%}
+.focus figcaption{padding:12px 18px 18px;color:#141414}
+.focus span{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--bleu)}
+.focus b{display:block;font-size:20px;line-height:1.2;margin-top:3px;letter-spacing:-.01em}
+.focus em{font-style:normal;color:#5a5d6e;font-size:14px}
 .stage .tag{background:#141414;color:#fff}
 .stage .hud{top:12px;left:14px;right:14px;align-items:center}
 .stage .hud .glass{background:none;backdrop-filter:none;color:#141414;padding:0;font-size:13px;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
@@ -173,6 +182,7 @@ section.s{padding:110px 0 90px;position:relative}
 .stage .hud .glass br{display:none}
 .stage .hud .glass .sep{margin:0 6px;color:#9a9caa}
 @media (max-width:520px){.stage .hud .tag{display:none}.stage .hud .glass{text-align:left;font-size:12.5px}}
+@media (max-width:620px){.cap b{display:none}.tile .bd{font-size:9px;padding:2px 6px;top:5px;right:5px}.cap span{font-size:9.5px;padding:2px 6px}.focus b{font-size:17px}}
 .stage .hud{position:absolute;left:18px;top:18px;right:18px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
 .glass{background:rgba(5,6,15,.55);backdrop-filter:blur(8px);border-radius:14px;padding:10px 14px;font-size:14px}
 .glass b{font-size:18px}
@@ -299,6 +309,50 @@ footer.f{padding:48px 0 64px;color:var(--gris);font-size:13px}
  section.s{padding:84px 0 70px}
 }
 @media (max-width:420px){.wrap{padding:0 16px}.seg button{padding:7px 10px;font-size:13px}input[type=range]{width:120px}.water{grid-template-columns:1fr}.water .need{margin:0 auto}}
+/* v3 : prix, offres, départ, sac rangé */
+.px{display:block;font-size:13.5px;font-weight:700;color:#141414;margin:0 0 8px}
+.px.na{color:#8a8da0;font-weight:600;font-size:12.5px}
+.layer .px{margin:6px 0 0}
+.bagc .px{margin:4px 0 0}
+.offres{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:6px;margin:0 0 10px}
+.of{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 3px 5px;border-radius:12px;border:2px solid #e6e7ee;background:#fff;font-size:11px;line-height:1.2;color:#141414;position:relative;text-align:center}
+.of img{width:42px;height:42px;object-fit:contain}
+.of.on{border-color:var(--bleu);background:#f4f5ff}
+.of.rec:after{content:"";position:absolute;top:4px;right:4px;width:8px;height:8px;border-radius:50%;background:var(--vert);border:2px solid #fff}
+.of em{font-style:normal;font-weight:700;font-size:11px}
+.wx select{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:7px 10px;font:inherit;font-weight:700;font-size:15px}
+.wx select option{color:#141414}
+.wx.dep small b{color:#fff}
+.total{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:2px solid #141414}
+.total b{font-size:24px;letter-spacing:-.02em}
+.total span{font-size:13px;color:#6a6d80}
+.drawer .total{margin:0 0 12px;padding-top:0;border:0}
+.stage.bagv{height:auto;min-height:0;max-height:calc(100vh - 90px);overflow:auto;padding:58px 12px 14px;color:#141414;scrollbar-width:thin}
+.bagtop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:stretch}
+.bagph{aspect-ratio:1;border-radius:20px;background:#fff;overflow:hidden}
+.bagph img{width:100%;height:100%;object-fit:contain;transition:opacity .3s}
+.bagv .gauge{position:static;background:#fff;backdrop-filter:none;color:#141414;border-radius:20px;padding:16px;display:flex;flex-direction:column;justify-content:center}
+.bagv .gauge .t{font-size:13px;color:#5a5d6e;align-items:baseline}
+.bagv .gauge .t b{font-size:30px;color:#141414;letter-spacing:-.02em}
+.bagv .gauge .bar{background:#e8e9f1;height:12px}
+.bagv .gauge.over .t b{color:#c0392b}
+#gTxt{font-weight:700;margin-top:10px;font-size:15px;line-height:1.3}
+.gs{font-size:12.5px;color:#5a5d6e;margin-top:4px;line-height:1.35}
+.zones{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+.zone{background:#fff;border-radius:18px;padding:12px}
+.zh{display:grid;grid-template-columns:26px 1fr auto;gap:10px;align-items:center}
+.zh svg{width:26px;height:32px;color:#141414}
+.zh b{display:block;font-size:14px;line-height:1.2}
+.zh span{display:block;font-size:12px;color:#5a5d6e;line-height:1.25}
+.zh em{font-style:normal;font-weight:800;font-size:14px;color:var(--bleu);white-space:nowrap}
+.zone ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}
+.zone li{display:grid;grid-template-columns:26px 1fr auto;gap:7px;align-items:center;font-size:12.5px;line-height:1.25}
+.zone li img,.zone li i{width:26px;height:26px;border-radius:8px;object-fit:cover;background:#eef0f5;display:block}
+.zone li em{font-style:normal;color:#5a5d6e;font-variant-numeric:tabular-nums;white-space:nowrap}
+.zone li small{color:var(--vert);font-weight:700;font-size:11px}
+.znote{font-size:12px;color:#6a6d80;margin:10px 4px 0}
+@media (max-width:900px){.stage.bagv{position:relative;top:0;height:auto;max-height:none;min-height:0}}
+@media (max-width:520px){.zones{grid-template-columns:1fr}.bagv .gauge{padding:12px}.bagv .gauge .t b{font-size:24px}#gTxt{font-size:13.5px}}
 </style>
 </head>
 <body>
@@ -336,7 +390,7 @@ footer.f{padding:48px 0 64px;color:var(--gris);font-size:13px}
 <section class="intro" id="intro">
   <div class="stage3d" id="stage3d">
     <canvas id="glmap" aria-label="Relief 3D du Léman au Mont-Blanc"></canvas>
-    <div class="lab" id="labMB"><div>Mont-Blanc<br><b>4 808 m</b></div><i></i></div>
+    <div class="lab" id="labMB"><div>Mont-Blanc<br><b>4 806 m</b></div><i></i></div>
     <div class="lab shop" id="labGE"><div>Decathlon Les Cygnes<br><b>Genève</b></div><i></i></div>
     <div id="pins"></div>
     <div class="ov o1" data-a="-1" data-b=".13"><div class="wrap">
@@ -346,7 +400,7 @@ footer.f{padding:48px 0 64px;color:var(--gris);font-size:13px}
       <div class="scrollhint"><i></i>Fais défiler pour décoller</div>
     </div></div>
     <div class="ov o2" data-a=".2" data-b=".42"><div class="wrap">
-      <div class="big">4 808 m</div>
+      <div class="big">4 806 m</div>
       <p>Le Mont-Blanc. Ce relief est le vrai, mesuré par satellite, du Léman jusqu'aux glaciers.</p>
     </div></div>
     <div class="ov o3" data-a=".5" data-b=".72"><div class="wrap">
@@ -364,19 +418,13 @@ footer.f{padding:48px 0 64px;color:var(--gris);font-size:13px}
     <div class="head">
       <span class="lbl">02 · La tenue</span>
       <h2>Habillé couche par couche.</h2>
-      <p>Le conseil part du terrain et de la météo au sommet. Pour chaque couche, la recommandation est marquée d'un point vert : on peut en choisir une autre, la tenue suit.</p>
+      <p>Le conseil part du terrain et de la météo au sommet. Toutes les pièces sont visibles, de la tête aux pieds, marquées « sur soi » ou « dans le sac ». Le conseil a un point vert ; on peut en choisir une autre, la tenue suit.</p>
       <div class="ctx" id="ctxT"></div>
     </div>
     <div class="dress">
       <div class="stage" id="stage">
-        <div class="look" id="look" aria-label="La tenue portée, en photos">
-          <figure class="tile t-top" data-slot="top"><div class="ph"></div><figcaption class="cap"></figcaption></figure>
-          <figure class="tile t-pant" data-slot="pant"><div class="ph"></div><figcaption class="cap"></figcaption></figure>
-          <figure class="tile t-shoe" data-slot="shoe"><div class="ph"></div><figcaption class="cap"></figcaption></figure>
-          <div class="under" id="lookUnder"></div>
-        </div>
-        <div class="hud"><span class="tag">La tenue portée</span><div class="glass" id="meteo"></div></div>
-        <button class="replay" id="replay">↻ Revoir</button>
+        <div class="look" id="look" aria-label="La tenue de la tête aux pieds, en photos"></div>
+        <div class="hud"><span class="tag">De la tête aux pieds</span><div class="glass" id="meteo"></div></div>
       </div>
       <div>
         <div class="layers" id="layers"></div>
@@ -416,13 +464,17 @@ footer.f{padding:48px 0 64px;color:var(--gris);font-size:13px}
     <div class="head">
       <span class="lbl">04 · Le sac</span>
       <h2>Choisis-le, remplis-le.</h2>
-      <p>Le sac se voit en transparence : chaque article ajouté y prend sa place, la jauge dit s'il reste de la marge. Les couches qu'on ne porte pas, l'eau et le pique-nique y sont déjà.</p>
+      <p>Chaque article a son volume une fois rangé et sa place dans le sac, comme le ferait un vendeur. La jauge compte tout ce qui part, plus 25 % de vide : un sac ne se remplit jamais au litre près.</p>
     </div>
     <div class="packer">
-      <div class="stage" id="bagStage">
-        <canvas id="glbag" aria-label="Sac à dos 3D en transparence"></canvas>
-        <div class="hud"><span class="tag" style="background:rgba(5,6,15,.45)">Sac en transparence</span><div class="glass" id="bagName"></div></div>
-        <div class="gauge" id="gauge"><div class="t"><span id="gTxt">–</span><b id="gPct">–</b></div><div class="bar"><i id="gBar"></i></div></div>
+      <div class="stage bagv" id="bagStage">
+        <div class="hud"><span class="tag">Le sac et son rangement</span><div class="glass" id="bagName"></div></div>
+        <div class="bagtop">
+          <div class="bagph"><img id="bagImg" alt=""></div>
+          <div class="gauge" id="gauge"><div class="t"><span>Rempli à</span><b id="gPct">–</b></div><div class="bar"><i id="gBar"></i></div><p id="gTxt"></p><p class="gs" id="gSub"></p></div>
+        </div>
+        <div class="zones" id="zones"></div>
+        <p class="znote">Volumes une fois rangés : relevés sur les fiches produit ou estimés, à confirmer en rayon avec un sac test.</p>
       </div>
       <div>
         <div class="subh" style="margin-top:0"><h3>1 · Le sac</h3><p id="bagAdv"></p></div>
@@ -445,12 +497,13 @@ footer.f{padding:48px 0 64px;color:var(--gris);font-size:13px}
       <h2>Prêt pour samedi.</h2>
       <div class="summary" id="summary"></div>
       <div id="recapLines"></div>
+      <div class="total" id="total"></div>
       <div class="actions">
         <button class="btn p" id="valid">Valider avec le vendeur</button>
         <button class="btn s" id="send">Recevoir la liste sur mon téléphone</button>
         <button class="btn s" id="essai">Réserver un essayage</button>
       </div>
-      <p class="note">Démonstration : aucun prix affiché, rien n'est commandé. Les produits viennent du catalogue Decathlon en ligne ; la disponibilité en Suisse, les tailles et le stock se vérifient en magasin, avec le vendeur.</p>
+      <p class="note">Démonstration : rien n'est commandé. Prix en francs suisses relevés chez Decathlon Suisse ; « prix en magasin » tant qu'un prix reste à confirmer. Les produits viennent du catalogue Decathlon en ligne ; la disponibilité en Suisse, les tailles et le stock se vérifient en magasin, avec le vendeur.</p>
     </div>
   </div>
 </section>
@@ -461,7 +514,7 @@ footer.f{padding:48px 0 64px;color:var(--gris);font-size:13px}
 <aside class="drawer" id="drawer" aria-label="Panier">
   <header><b>Ton panier</b><button id="closeD" aria-label="Fermer">×</button></header>
   <div class="dl" id="drawerLines"></div>
-  <footer><a class="go" href="#recap" id="toRecap">Voir le récapitulatif</a></footer>
+  <footer><div class="total" id="total2"></div><a class="go" href="#recap" id="toRecap">Voir le récapitulatif</a></footer>
 </aside>
 <div class="toast" id="toast"><img alt=""><span></span></div>
 
@@ -501,26 +554,26 @@ const P={
  'pantalon-nh500v-h':{n:'Pantalon chaud déperlant ventilé NH500',m:'Quechua',c:[[.10,.13,.22],[.10,.13,.22],[.06,.06,.07]]},
  'pantalon-nh500-f':{n:'Pantalon chaud déperlant NH500',m:'Quechua',c:[[.07,.07,.08],[.07,.07,.08],[.05,.05,.06]]},
  'short-travel900-h':{n:'Short de randonnée Travel 900',m:'Forclaz',c:[[.55,.45,.30],[.55,.45,.30],[.45,.37,.25]],court:1},
- 'polaire-mh500-h':{n:'Polaire zippée MH500',m:'Quechua',c:[[.32,.40,.36],[.07,.07,.08]],v:2.2},
- 'polaire-mh500-f':{n:'Polaire zippée MH500',m:'Quechua',c:[[.78,.13,.17],[.85,.30,.32]],v:2.2},
- 'polaire-mh100-h':{n:'Polaire légère MH100',m:'Quechua',c:[[.17,.25,.42]],v:1.6},
- 'polaire-mh120-h':{n:'Polaire zippée MH120',m:'Quechua',c:[[.07,.07,.08]],v:1.8},
- 'polaire-mh120-f':{n:'Polaire zippée MH120',m:'Quechua',c:[[.62,.63,.66]],v:1.8},
- 'polaire-mh500w-h':{n:'Polaire chaude déperlante MH500',m:'Quechua',c:[[.10,.25,.27],[.06,.06,.07]],v:2.8},
- 'doudoune-mt100-h':{n:'Doudoune à capuche MT100',m:'Simond',c:[[.08,.10,.18]],v:3,g:'down'},
- 'veste-mh500-h':{n:'Veste imperméable respirante MH500',m:'Quechua',c:[[.26,.38,.34]],v:1.3},
- 'veste-mh500-f':{n:'Veste imperméable légère MH500',m:'Quechua',c:[[.08,.29,.32]],v:1.1},
- 'softshell-mt500-h':{n:'Veste softshell coupe-vent MT500',m:'Forclaz',c:[[.06,.06,.07]],v:1.6,g:'soft'},
- 'doudoune-mt500-h':{n:'Doudoune en duvet MT500',m:'Simond',v:3,g:'down'},
- 'doudoune-mt900-h':{n:'Doudoune à capuche en duvet MT900',m:'Simond',v:5,g:'down'},
- 'doudoune-mt500-f':{n:'Doudoune à capuche en duvet MT500 Wilder',m:'Simond',v:3,g:'down'},
- 'doudoune-mt900-f':{n:'Doudoune à capuche en duvet MT900',m:'Simond',v:5,g:'down'},
- 'polaire-sherpa-nh900-h':{n:'Polaire sherpa chaude NH900',m:'Quechua',v:3},
- 'polaire-sherpa-nh900-f':{n:'Polaire sherpa chaude NH900',m:'Quechua',v:3},
- 'veste-nh500-h':{n:'Veste chaude imperméable NH500',m:'Quechua',v:3},
- 'veste-nh500-f':{n:'Veste chaude imperméable NH500',m:'Quechua',v:3},
- 'parka-nh900-h':{n:'Parka chaude imperméable NH900',m:'Quechua',v:6},
- 'parka-nh900-f':{n:'Parka chaude imperméable NH900',m:'Quechua',v:6},
+ 'polaire-mh500-h':{n:'Polaire zippée MH500',m:'Quechua',c:[[.32,.40,.36],[.07,.07,.08]],v:3},
+ 'polaire-mh500-f':{n:'Polaire zippée MH500',m:'Quechua',c:[[.78,.13,.17],[.85,.30,.32]],v:3},
+ 'polaire-mh100-h':{n:'Polaire légère MH100',m:'Quechua',c:[[.17,.25,.42]],v:2},
+ 'polaire-mh120-h':{n:'Polaire zippée MH120',m:'Quechua',c:[[.07,.07,.08]],v:2.5},
+ 'polaire-mh120-f':{n:'Polaire zippée MH120',m:'Quechua',c:[[.62,.63,.66]],v:2.5},
+ 'polaire-mh500w-h':{n:'Polaire chaude déperlante MH500',m:'Quechua',c:[[.10,.25,.27],[.06,.06,.07]],v:3.5},
+ 'doudoune-mt100-h':{n:'Doudoune à capuche MT100',m:'Simond',c:[[.08,.10,.18]],v:2.5,g:'down'},
+ 'veste-mh500-h':{n:'Veste imperméable respirante MH500',m:'Quechua',c:[[.26,.38,.34]],v:1.5},
+ 'veste-mh500-f':{n:'Veste imperméable légère MH500',m:'Quechua',c:[[.08,.29,.32]],v:1.3},
+ 'softshell-mt500-h':{n:'Veste softshell coupe-vent MT500',m:'Forclaz',c:[[.06,.06,.07]],v:2,g:'soft'},
+ 'doudoune-mt500-h':{n:'Doudoune en duvet MT500',m:'Simond',v:3.5,g:'down'},
+ 'doudoune-mt900-h':{n:'Doudoune à capuche en duvet MT900',m:'Simond',v:6,g:'down'},
+ 'doudoune-mt500-f':{n:'Doudoune à capuche en duvet MT500 Wilder',m:'Simond',v:3.5,g:'down'},
+ 'doudoune-mt900-f':{n:'Doudoune à capuche en duvet MT900',m:'Simond',v:6,g:'down'},
+ 'polaire-sherpa-nh900-h':{n:'Polaire sherpa chaude NH900',m:'Quechua',v:4.5},
+ 'polaire-sherpa-nh900-f':{n:'Polaire sherpa chaude NH900',m:'Quechua',v:4.5},
+ 'veste-nh500-h':{n:'Veste chaude imperméable NH500',m:'Quechua',v:4},
+ 'veste-nh500-f':{n:'Veste chaude imperméable NH500',m:'Quechua',v:4},
+ 'parka-nh900-h':{n:'Parka chaude imperméable NH900',m:'Quechua',v:7},
+ 'parka-nh900-f':{n:'Parka chaude imperméable NH900',m:'Quechua',v:7},
  'pantalon-neige-nh500-h':{n:'Pantalon chaud de randonnée neige NH500',m:'Quechua'},
  'pantalon-neige-nh500-f':{n:'Pantalon chaud de randonnée neige NH500',m:'Quechua'},
  'chaussure-neige-nh500-h':{n:'Chaussures chaudes imperméables neige NH500 Mid',m:'Quechua'},
@@ -537,13 +590,20 @@ const P={
  'housse-20-40':{n:'Housse de pluie pour sac 20 à 40 L',m:'Forclaz',v:.35},
  'baton-mh100':{n:'Bâton confort MH100',m:'Quechua',v:0},
  'baton-mt500':{n:'Bâton de randonnée MT500',m:'Forclaz',v:0},
- 'frontale':{n:'Frontale rechargeable Trek 100',m:'Forclaz',v:.2},
- 'casquette':{n:'Casquette ventilée MT500',m:'Quechua',v:.35},
- 'bonnet-mt500':{n:'Bonnet mérinos MT500',m:'Simond',v:.3},
- 'gants-mt500':{n:'Gants chauds tactiles MT500',m:'Simond',v:.3},
- 'tour-cou':{n:'Tour de cou mérinos Trek 500',m:'Simond',v:.1},
- 'chaussettes':{n:'Chaussettes mérinos SH500, 2 paires',m:'Quechua',v:.4},
+ 'frontale':{n:'Frontale rechargeable Trek 100, 200 lumens',m:'Forclaz',v:0.2},
+ 'casquette':{n:'Casquette ventilée MT500',m:'Quechua',v:0.3},
+ 'bonnet-mt500':{n:'Bonnet mérinos MT500',m:'Simond',v:0.3},
+ 'gants-mt500':{n:'Gants chauds tactiles MT500',m:'Simond',v:0.3},
+ 'tour-cou':{n:'Tour de cou mérinos Trek 500',m:'Simond',v:0.1},
+ 'chaussettes':{n:'Chaussettes mérinos SH500, 2 paires',m:'Quechua',v:0.4},
  'patchs':{n:'Patchs de réparation textile',m:'Decathlon',v:.05},
+ 'frontale-onnight':{n:'Frontale ONNIGHT 100, 80 lumens, à piles',m:'Forclaz',v:.15},
+ 'frontale-hl500':{n:'Frontale rechargeable HL500, 300 lumens',m:'Simond',v:.25},
+ 'chaussettes-hike500':{n:'Chaussettes de randonnée Hike 500, 2 paires',m:'Quechua',v:.3},
+ 'chaussettes-sh100':{n:'Chaussettes chaudes de randonnée neige NH100 Mid',m:'Quechua',v:.35},
+ 'gants-polaire':{n:'Gants polaire de trek MT500',m:'Forclaz',v:.2},
+ 'moufles-mt900':{n:'Moufles coupe-vent convertibles MT900',m:'Simond',v:.5},
+ 'bonnet-wedze':{n:'Bonnet réversible Rider 500',m:'Wedze',v:.25},
 };
 const NUTRI={
  '8809670':{n:'Barre de céréales',m:'Decathlon',g:15,v:.05,d:'Cinq céréales complètes, 15 g de glucides, 80 kcal : la barre de la poche de veste.'},
@@ -558,10 +618,18 @@ const NUTRI={
  '8808584':{n:'ISO en dosettes',m:'Decathlon',v:.4,d:'18 dosettes de 38 g : une par gourde, sans peser dans le sac.'},
 };
 const pimg=k=>IMG+(NUTRI[k]?'nutri-'+k:k)+'.webp';
+/* prix CHF : data/prix.json, rempli depuis le Sheet de Malik ; jamais de prix étranger */
+let PRIX={};
+const pnum=k=>typeof PRIX[k]==='number'?PRIX[k]:null;
+const chf=n=>n.toFixed(2).replace('.',',')+' CHF';
+const prix=(k,court)=>pnum(k)!==null?chf(pnum(k)):(court?'':'Prix en magasin');
+const pxh=k=>`<span class="px${pnum(k)===null?' na':''}">${prix(k)}</span>`;
+const L1=v=>(Math.round(v*10)/10).toString().replace('.',',')+' L';
+const hm=x=>{const t=((Math.round(x*12)/12)%24+24)%24,H=Math.floor(t+1e-6),M=Math.round((t-H)*60);return H+' h'+(M?' '+String(M).padStart(2,'0'):'');};
 const pname=k=>(NUTRI[k]||P[k]).n, pmarq=k=>(NUTRI[k]||P[k]).m;
 
 /* ---------- État ---------- */
-const S={profil:'h',freq:1,dp:1,allure:'moderee',poids:72,lvlSet:false,hike:-1,panel:'niveau',day:0,temp:8,pluie:'averses',vent:'calme',wx:null,ch:{},bag:null,touchedBag:false};
+const S={profil:'h',freq:1,dp:1,allure:'moderee',poids:72,lvlSet:false,hike:-1,panel:'niveau',day:0,temp:8,pluie:'averses',vent:'calme',wx:null,ch:{},bag:null,touchedBag:false,dep:null,acc:{}};
 const CART=new Map(); // clé → {k:produit, q, grp, pack}
 let HIKES=[];
 
@@ -577,7 +645,7 @@ const H0=()=>HIKES[S.hike];
 
 /* ---------- Tenue ---------- */
 function tenue(){
- const H=H0()||{cot:'T2',alt:1800},t=S.temp,f=S.profil==='f',pl=S.pluie!=='non',sx=f?'f':'h';
+ const H=H0()||{cot:'T2',alt:1800},t=S.temp-(plan().deNuit?4:0),f=S.profil==='f',pl=S.pluie!=='non',sx=f?'f':'h';
  const L=[];
  let sh,why;
  if(f){ if(t<=0){sh='chaussure-neige-nh500-f';why='Neige possible au sommet : bottes chaudes, imperméables, semelle accrocheuse.';} else if(H.cot==='T1'&&!pl&&t>5){sh='chaussure-mh500-f';why='Sentier facile et sec : légère et accrocheuse.';} else {sh='chaussure-sh500-f';why=H.cot!=='T1'?'Terrain de montagne : la tige montante tient la cheville.':'Pluie ou froid : tige montante et membrane imperméable.';} }
@@ -601,9 +669,34 @@ function tenue(){
  else if(S.vent==='vente'||t<=8){ve=f?'veste-mh100-f':'softshell-mt500-h';vw=S.vent==='vente'?'Vent sur les crêtes : coupe-vent et respirante.':'Frais au sommet : une coupe-vent pour les pauses.';}
  else {ve=f?'veste-mh100-f':'softshell-mt500-h';vw='Beau temps : elle reste dans le sac, au cas où.';porte=false;}
  L.push({id:'veste',g:'rain',k:'Troisième couche · pluie et vent',rec:ve,why:vw,txt:porte?'Portée':'Dans le sac',sac:!porte,alts:f?['veste-mh500-f','veste-mh100-f','veste-nh500-f','parka-nh900-f']:['veste-mh500-h','softshell-mt500-h','veste-nh500-h','parka-nh900-h']});
- L.forEach(l=>{const c=S.ch[l.id];l.p=(c&&l.alts.includes(c))?c:l.rec;if(l.id==='veste')l.g=P[l.p].g||'rain';if(l.id==='down'||l.id==='fleece')l.g=P[l.p].g||'fleece';});
+ const so=t<=-3?'chaussettes-sh100':t<=8?'chaussettes':'chaussettes-hike500';
+ L.push({id:'socks',g:'socks',k:'Chaussettes · au chaud, sans ampoule',rec:so,why:t<=-3?'Grand froid : chaussettes épaisses et hautes, le pied reste au chaud.':t<=8?'La laine mérinos garde le pied chaud et sec, même mouillée.':'Renforts aux zones de frottement : pas d\'ampoule à la descente.',txt:'Sur soi',sac:false,alts:['chaussettes-hike500','chaussettes','chaussettes-sh100']});
+ if(t<=8){
+  L.push({id:'tete',g:'head',k:'Tête · la chaleur s\'en va par là',rec:'bonnet-mt500',why:t<=0?'Sous 0 °C : porté dès le départ.':'Frais au sommet : il attend la pause en haut du sac.',txt:t<=0?'Sur soi':'Dans le sac',sac:t>0,alts:['bonnet-mt500','bonnet-wedze']});
+  const mn=t<=-3?'moufles-mt900':'gants-mt500';
+  L.push({id:'mains',g:'hand',k:'Mains · au chaud, téléphone en main',rec:mn,why:t<=-3?'Grand froid : moufles coupe-vent, les doigts se réchauffent ensemble.':'Chauds et tactiles : le téléphone reste utilisable.',txt:t<=0?'Sur soi':'Dans le sac',sac:t>0,alts:['gants-polaire','gants-mt500','moufles-mt900']});
+ }
+ const ORD=['tete','base','fleece','down','veste','mains','pant','socks','shoe'];L.sort((a,b)=>ORD.indexOf(a.id)-ORD.indexOf(b.id));
+ L.forEach(l=>{if(l.txt==='Portée'||l.txt==='Portée aux pauses')l.txt=l.txt.replace('Portée','Sur soi');const c=S.ch[l.id];l.p=(c&&l.alts.includes(c))?c:l.rec;if(l.id==='veste')l.g=P[l.p].g||'rain';if(l.id==='down'||l.id==='fleece')l.g=P[l.p].g||'fleece';});
  return L;
 }
+
+/* ---------- Heure de départ et coucher du soleil (Genève) ---------- */
+function sun(d){const lat=46.2*Math.PI/180,lon=6.15,n=Math.round((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())-Date.UTC(d.getFullYear(),0,0))/864e5),g=2*Math.PI/365*(n-1);
+ const eq=229.18*(.000075+.001868*Math.cos(g)-.032077*Math.sin(g)-.014615*Math.cos(2*g)-.040849*Math.sin(2*g));
+ const dec=.006918-.399912*Math.cos(g)+.070257*Math.sin(g)-.006758*Math.cos(2*g)+.000907*Math.sin(2*g)-.002697*Math.cos(3*g)+.00148*Math.sin(3*g);
+ const ha=Math.acos(Math.cos(90.833*Math.PI/180)/(Math.cos(lat)*Math.cos(dec))-Math.tan(lat)*Math.tan(dec));
+ const hd=ha*180/Math.PI,up=(720-4*(lon+hd)-eq)/60,dn=(720-4*(lon-hd)-eq)/60;
+ const mid=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate(),12));let off=1;
+ try{const z=new Date(mid.toLocaleString('en-US',{timeZone:'Europe/Zurich'})),u=new Date(mid.toLocaleString('en-US',{timeZone:'UTC'}));off=Math.round((z-u)/36e5);}catch(e){}
+ return {sr:up+off,ss:dn+off};}
+const sunset=d=>sun(d).ss;
+function plan(){const H=H0(),h=H?dureeH(H):5,pause=.5+Math.round(h*.1*4)/4,tot=h+pause,{sr,ss}=sun(DAYS[S.day]);
+ const auto=borne(Math.floor((ss-1-tot)*2)/2,6,9),dep=S.dep??auto,ret=dep+tot;
+ // heures passées dans le noir : avant le lever, après le coucher, jusqu'au lendemain
+ const ov=(a,b)=>Math.max(0,Math.min(ret,b)-Math.max(dep,a)),noir=ov(-99,sr)+ov(ss,24+sr)+ov(24+ss,99);
+ const nuit=noir>.08,juste=!nuit&&(ret>ss-1||dep<sr+.5);
+ return {h,pause,tot,sr,ss,auto,dep,ret,noir,nuit,juste,deNuit:noir>=1};}
 
 /* ---------- Nutrition (méthode du calculateur et du guide) ---------- */
 function nutrition(){
@@ -616,7 +709,8 @@ function nutrition(){
  const gT=gH*h,eau=eauH*h/1000;
  const pack=[{id:'8809670',q:Math.max(1,Math.ceil(gT*.5/15)),u:'Une par heure de montée'},{id:'8774306',q:1,u:Math.max(1,Math.round(gT*.3/17))+' poignées à la pause'},{id:'8928081',q:Math.max(1,Math.round(gT*.2/9)),u:'Au sommet et pour la descente'}];
  if(sodH) pack.push({id:'8872028',q:1,u:Math.max(1,Math.round(eau/0.5))+' doses de 7 g, une par 500 ml'});
- const alt=[{id:'8811823',q:2,u:'Le petit-déjeuner, une heure avant'},{id:'8750962',q:1,u:'Au retour, avant le repas'}];
+ const tot=plan(),tot6=tot.dep>=4.5&&tot.dep<7;if(tot6)pack.unshift({id:'8811823',q:2,u:'Dans la voiture : départ avant 7 h'});
+ const alt=[{id:'8750962',q:1,u:'Dans l\'heure qui suit le retour'}];if(!tot6)alt.unshift({id:'8811823',q:2,u:'Le petit-déjeuner, 1 h 30 avant le départ'});
  if(S.temp<=6){alt.push({id:'8738177',q:Math.max(2,Math.round(h)),u:'Reste tendre au froid'},{id:'8408734',q:2,u:'Ne gèle pas, se mange ganté'});}
  else alt.push({id:'8408734',q:2,u:'La bouchée de la montée'});
  if(h>=6) alt.push({id:'8599146',q:1,u:'La barre moelleuse du sommet'});
@@ -632,18 +726,21 @@ function waterPlan(E){
   if(bag.poche===2){out.items=E>2.05?[['gourde-08',1]]:[];out.txt='La poche à eau de 2 l de ton sac fait l\'essentiel'+(E>2.05?', une gourde de 0,8 l pour le reste.':'.');}
   else{out.items=[['gourde-1l',1],['gourde-08',1]];if(E>1.95)out.items[0][1]=E>2.6?2:1;out.txt='Au-dessus de 2 l, la poche à eau devient plus pratique : on boit sans s\'arrêter. '+(bag.poche===1?'Ton sac a le compartiment : une poche de 2 l en rayon, ou les gourdes ci-dessous.':'Le sac MH500 22 L a un compartiment pour elle, le Kiprun 20+5 L l\'a incluse ; sinon, deux gourdes.');}}
  return out;}
+const OFFRES={housse:['housse-10-20','housse-20-40'],baton:['baton-mh100','baton-mt500'],frontale:['frontale-onnight','frontale','frontale-hl500']};
+const OLBL={'housse-10-20':'10-20 L','housse-20-40':'20-40 L','baton-mh100':'Confort','baton-mt500':'Léger','frontale-onnight':'80 lm','frontale':'200 lm','frontale-hl500':'300 lm'};
 function accessoires(){
- const H=H0()||{dplus:900,cot:'T2'},h=H0()?dureeH(H):5,t=S.temp,L=P[S.bag]?P[S.bag].L:22,A=[];
- const rc=(k,ok,u)=>A.push({k,rec:!!ok,u});
- rc(L<=20?'housse-10-20':'housse-20-40',S.pluie!=='non','Le sac et la polaire restent au sec');
- rc(S.profil==='f'||level()===0?'baton-mh100':'baton-mt500',H.dplus>=800||level()===0,H.dplus>=800?'Une paire : la descente fatigue les genoux':'Pour la stabilité');
- rc('frontale',h>=5||H.cot==='T3','Si la descente s\'allonge : on ne sait jamais');
- rc('casquette',t>=10&&S.pluie==='non','Le soleil tape plus fort en altitude');
- rc('bonnet-mt500',t<=6,'Froid au sommet');rc('gants-mt500',t<=6,'Les mains au chaud, téléphone utilisable');
- rc('tour-cou',t<=10||S.vent==='vente','Contre le vent sur les crêtes');
- rc('chaussettes',S.pluie!=='non'||h>=6,'Une paire sèche pour le retour');
- rc('patchs',false,'Un accroc sur la veste, réparé en 30 secondes');
+ const H=H0()||{dplus:900,cot:'T2'},h=H0()?dureeH(H):5,t=S.temp,L=P[S.bag]?P[S.bag].L:22,A=[],PL=plan(),nuit=PL.nuit;
+ const rc=(f,k,ok,u)=>{const c=S.acc[f];A.push({f,k:(OFFRES[f]&&c)?c:k,rk:k,rec:!!ok,u});};
+ rc('frontale',nuit?'frontale-hl500':'frontale',nuit||PL.juste||h>=5||H.cot==='T3',PL.deNuit?'Sortie de nuit : 300 lumens, rechargeable, autonomie pour toute la marche':nuit?'Une partie de la marche dans le noir : 300 lumens pour voir le sentier':PL.juste?'Marge courte avec la nuit : on ne part pas sans':'Si la descente s\'allonge : on ne sait jamais');
+ rc('housse',L<=20?'housse-10-20':'housse-20-40',S.pluie!=='non','Le sac et la polaire restent au sec');
+ rc('baton',S.profil==='f'||level()===0?'baton-mh100':'baton-mt500',H.dplus>=800||level()===0,H.dplus>=800?'Une paire : la descente fatigue les genoux':'Pour la stabilité');
+ rc('casquette','casquette',t>=10&&S.pluie==='non','Le soleil tape plus fort en altitude');
+ rc('tour-cou','tour-cou',t<=10||S.vent==='vente','Contre le vent sur les crêtes');
+ rc('chaussettes','chaussettes',S.pluie!=='non'||h>=6,'Une paire sèche pour le retour');
+ rc('patchs','patchs',false,'Un accroc sur la veste, réparé en 30 secondes');
  return A;}
+function offHTML(a){if(!OFFRES[a.f])return '';
+ return `<div class="offres">${OFFRES[a.f].map(o=>`<button class="of${o===a.k?' on':''}${o===a.rk?' rec':''}" data-f="${a.f}" data-o="${o}" title="${P[o].n}"><img src="${IMG+o}.webp" alt="" loading="lazy"><span>${OLBL[o]}</span>${pnum(o)!==null?`<em>${prix(o)}</em>`:''}</button>`).join('')}</div>`;}
 
 /* ---------- Panier ---------- */
 function cartAdd(key,k,q,grp,pack,silent){CART.set(key,{k,q,grp,pack});if(!silent)toast(k);renderCart();}
@@ -652,13 +749,16 @@ let tT;function toast(k){const t=$('toast');t.querySelector('img').src=pimg(k);t
 const GRP=['Tenue','Sac','Eau','Équipement','Nutrition'];
 function linesHTML(rm){if(!CART.size)return '<p class="empty">Rien pour l\'instant. Ajoute la tenue, le sac et ce qu\'on emporte au fil du parcours.</p>';
  return GRP.map(g=>{const it=[...CART].filter(([,v])=>v.grp===g);if(!it.length)return '';
-  return `<div class="cgrp">${g}</div><div class="lines">${it.map(([key,v])=>`<div class="line"><img src="${pimg(v.k)}" alt="" loading="lazy"><div><b>${pname(v.k)}</b><span>${pmarq(v.k)} · ×${v.q}</span></div>${rm?`<button data-rm="${key}" aria-label="Retirer">×</button>`:''}</div>`).join('')}</div>`;}).join('');}
+  return `<div class="cgrp">${g}</div><div class="lines">${it.map(([key,v])=>`<div class="line"><img src="${pimg(v.k)}" alt="" loading="lazy"><div><b>${pname(v.k)}</b><span>${pmarq(v.k)} · ×${v.q} · ${pnum(v.k)!==null?chf(pnum(v.k)*v.q):'prix en magasin'}</span></div>${rm?`<button data-rm="${key}" aria-label="Retirer">×</button>`:''}</div>`).join('')}</div>`;}).join('');}
 function renderCart(){
  $('cartn').textContent=[...CART.values()].reduce((s,v)=>s+v.q,0);
  $('drawerLines').innerHTML=linesHTML(true);$('recapLines').innerHTML=linesHTML(true);
  document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{const key=b.dataset.rm;cartDel(key);if(key==='sac')S.bag=S.bag;renderAll();});
  const H=H0(),wx=['Sec','Averses','Pluie'][['non','averses','pluie'].indexOf(S.pluie)];
- $('summary').innerHTML=(H?[H.nom,dayLabel(),S.temp+' °C au sommet',wx,hfmt(dureeH(H))+' de marche',LVL[level()].n]:['Choisis d\'abord ta sortie']).map(x=>`<span>${x}</span>`).join('');
+ $('summary').innerHTML=(H?[H.nom,dayLabel(),'Départ '+hm(plan().dep),S.temp+' °C au sommet',wx,hfmt(dureeH(H))+' de marche',LVL[level()].n]:['Choisis d\'abord ta sortie']).map(x=>`<span>${x}</span>`).join('');
+ const vs=[...CART.values()],ok=vs.filter(v=>pnum(v.k)!==null),tot=ok.reduce((s,v)=>s+pnum(v.k)*v.q,0),miss=vs.length-ok.length;
+ const tt=vs.length?`<b>${ok.length?chf(tot):'Total à venir'}</b><span>${miss?(ok.length?'+ ':'')+miss+' article'+(miss>1?'s':'')+' au prix en magasin':'Total du panier, en francs suisses'}</span>`:'';
+ $('total').innerHTML=tt;$('total2').innerHTML=tt;
  refreshButtons();if(window.packBag)window.packBag();}
 $('cartbtn').onclick=()=>{$('drawer').classList.add('open');$('veil').classList.add('on');};
 const closeD=()=>{$('drawer').classList.remove('open');$('veil').classList.remove('on');};
@@ -718,12 +818,15 @@ function renderPanel(){
    <div class="row"><span>Pluie</span>${seg('pluie',[['non','Non'],['averses','Averses'],['pluie','Pluie']])}</div>
    <div class="row"><span>Vent</span>${seg('vent',[['calme','Calme'],['vente','Venté']])}</div>
    <small>${wx.src==='live'?'Prévision Open-Meteo pour '+dayLabel()+', modifiable.':'Prévision indisponible : valeurs d\'exemple, modifiables.'}</small>`}</div>
+  ${(()=>{const PL=plan();let o='';for(let x=0;x<=23.5;x+=.5)o+=`<option value="${x}"${x===PL.dep?' selected':''}>${hm(x)}${x===PL.auto?' · conseil':''}</option>`;
+   return `<div class="wx dep"><div class="row" style="margin-top:0"><span>Heure de départ</span><select id="dep" aria-label="Heure de départ">${o}</select></div><small>Retour vers <b>${hm(PL.ret)}${PL.ret>=24?' (le lendemain)':''}</b> : ${hfmt(PL.h)} de marche et ${hfmt(PL.pause)} de pauses. Soleil : lever ${hm(PL.sr)}, coucher ${hm(PL.ss)}.</small>${PL.deNuit?`<div class="fitnote f3"><b>${PL.noir>=PL.tot*.5?'Sortie de nuit':PL.dep<PL.sr?'Départ dans le noir':'Fin de sortie dans le noir'} :</b> environ ${hfmt(PL.noir)} dans le noir. Frontale de 300 lumens chargée à fond, une couche chaude de plus car il fait environ 4 °C de moins, un sentier que tu connais de jour, et quelqu'un prévenu de ton heure de retour.</div>`:PL.nuit?`<div class="fitnote f3">Environ ${Math.round(PL.noir*60/5)*5} min de marche dans le noir${PL.dep<PL.sr?', avant le lever du soleil':', après le coucher du soleil'} : la frontale est indispensable.</div>`:PL.juste?`<div class="fitnote f2">Moins d'une heure de marge avec la nuit : la frontale passe dans le sac.</div>`:''}</div>`;})()}
   <a class="go" href="#tenue">Habiller pour cette sortie ↓</a>
   <p class="muted" style="font-size:12px;margin-top:10px;text-align:center">≈ ${fmt(N.kcal)} kcal · ${lfmt(N.eau)} d'eau à prévoir</p>`;
  }
  const st=b.scrollTop;b.innerHTML=h;if(S.panel==='detail')b.scrollTop=st;
  b.querySelectorAll('.seg').forEach(g=>g.querySelectorAll('button').forEach(x=>x.onclick=()=>{const k=g.dataset.k,v=x.dataset.v;S[k]=isNaN(+v)||k==='profil'||k==='allure'?v:+v;if(k==='freq'||k==='dp')S.lvlSet=true;if(k==='day'){meteo();return;}renderAll();}));
  const pd=$('poids');if(pd)pd.oninput=e=>{S.poids=+e.target.value;$('poidsOut').textContent=S.poids+' kg';};
+ const dq=$('dep');if(dq)dq.onchange=e=>{const v=+e.target.value;S.dep=v===plan().auto?null:v;renderAll();};
  const tp=$('temp');if(tp){tp.oninput=e=>{S.temp=+e.target.value;$('tempOut').textContent=S.temp+' °C';};tp.onchange=()=>renderAll();}
  b.querySelectorAll('.hk').forEach(x=>x.onclick=()=>selectHike(+x.dataset.i));
  const tl=$('toList'),tl2=$('toList2'),tv=$('toLvl');
@@ -731,17 +834,17 @@ function renderPanel(){
  if(tl2)tl2.onclick=()=>{S.panel='liste';renderAll();};
  if(tv)tv.onclick=()=>{S.panel='niveau';renderAll();};
 }
-function selectHike(i){S.hike=i;S.panel='detail';S.wx={load:true};$('pbody').scrollTop=0;if(window.flyTo)window.flyTo(i);renderAll();meteo();}
+function selectHike(i){S.hike=i;S.dep=null;S.panel='detail';S.wx={load:true};$('pbody').scrollTop=0;if(window.flyTo)window.flyTo(i);renderAll();meteo();}
 
 /* ---------- Sections ---------- */
 let lastLayers='';
 function renderTenue(){
  const H=H0(),L=tenue(),pl={non:'Sec',averses:'Averses',pluie:'Pluie'}[S.pluie];
  $('meteo').innerHTML=H?`${H.nom}<span class="sep">·</span><b>${S.temp} °C</b> au sommet<span class="sep">·</span>${pl}${S.vent==='vente'?' · venté':''}`:`Exemple<br><b>${S.temp} °C</b> · ${pl}`;
- $('ctxT').innerHTML=H?[H.nom,H.cot,S.temp+' °C au sommet',pl,S.profil==='f'?'Rayon femme':'Rayon homme'].map(x=>`<span>${x}</span>`).join(''):'<span>Choisis d\'abord une sortie sur la carte : en attendant, exemple à 8 °C.</span>';
- $('layers').innerHTML=L.map((l,i)=>{const p=P[l.p],isRec=l.p===l.rec;return `<article class="layer" data-i="${i}"><div class="main"><div class="ph"><img src="${IMG+l.p}.webp" alt="${p.n}" loading="lazy"></div><div><div class="k">${l.k}</div><h3>${p.n}</h3><p>${p.m} · ${isRec?l.why:'Ton choix. Le conseil : '+P[l.rec].n+'.'}</p><span class="pill${l.sac?'':' g'}">${l.txt}</span></div></div>
+ $('ctxT').innerHTML=H?[H.nom,H.cot,S.temp+' °C au sommet',pl,'Départ '+hm(plan().dep)+(plan().deNuit?' · de nuit, 4 °C de moins':''),S.profil==='f'?'Rayon femme':'Rayon homme'].map(x=>`<span>${x}</span>`).join(''):'<span>Choisis d\'abord une sortie sur la carte : en attendant, exemple à 8 °C.</span>';
+ $('layers').innerHTML=L.map((l,i)=>{const p=P[l.p],isRec=l.p===l.rec;return `<article class="layer" data-i="${i}"><div class="main"><div class="ph"><img src="${IMG+l.p}.webp" alt="${p.n}" loading="lazy"></div><div><div class="k">${l.k}</div><h3>${p.n}</h3><p>${p.m} · ${isRec?l.why:'Ton choix. Le conseil : '+P[l.rec].n+'.'}</p>${pxh(l.p)}<span class="pill${l.sac?' g':''}">${l.txt}</span></div></div>
   <div class="alts"><span>Choisir :</span>${l.alts.map(a=>`<button class="alt${a===l.p?' on':''}${a===l.rec?' rec':''}" data-l="${l.id}" data-a="${a}" title="${P[a].n}"><img src="${IMG+a}.webp" alt="${P[a].n}" loading="lazy"></button>`).join('')}<button class="add" data-add="tenue:${l.id}" data-k="${l.p}">Ajouter</button></div></article>`;}).join('');
- $('tCount').textContent=L.length+' pièces, de la chaussure à la veste';
+ $('tCount').textContent=L.length+' pièces, de la tête aux pieds';
  document.querySelectorAll('.alt').forEach(b=>b.onclick=()=>{S.ch[b.dataset.l]=b.dataset.a;const key='tenue:'+b.dataset.l;if(CART.has(key))CART.get(key).k=b.dataset.a;renderAll();});
  document.querySelectorAll('[data-add^="tenue:"]').forEach(b=>b.onclick=()=>{const key=b.dataset.add;if(CART.has(key))cartDel(key);else cartAdd(key,b.dataset.k,1,'Tenue',false);});
  // la tenue du panier suit les choix
@@ -753,15 +856,31 @@ function renderTenue(){
 $('addTenue').onclick=()=>{tenue().forEach(l=>cartAdd('tenue:'+l.id,l.p,1,'Tenue',false,true));toast(tenue()[0].p);};
 
 function cardHTML(x,key,grp,pack,rec){const it=NUTRI[x.id||x.k]||P[x.id||x.k],k=x.id||x.k;
- return `<div class="card"><div class="ph"><img src="${pimg(k)}" alt="${it.n}" loading="lazy"></div>${x.q?`<span class="qn">×${x.q}</span>`:''}${rec?'<span class="rc">Conseil</span>':''}<b>${it.n}</b><span class="u">${it.m} · ${x.u||it.d||''}</span><button class="add" data-add="${key}" data-k="${k}" data-q="${x.q||1}" data-g="${grp}" data-p="${pack?1:0}">Ajouter</button></div>`;}
+ return `<div class="card"><div class="ph"><img src="${pimg(k)}" alt="${it.n}" loading="lazy"></div>${x.q?`<span class="qn">×${x.q}</span>`:''}${rec?'<span class="rc">Conseil</span>':''}<b>${it.n}</b><span class="u">${it.m} · ${x.u||it.d||''}</span>${x.off||''}${pxh(k)}<button class="add" data-add="${key}" data-k="${k}" data-q="${x.q||1}" data-g="${grp}" data-p="${pack?1:0}">Ajouter</button></div>`;}
 function renderNutri(){
  const N=nutrition(),H=H0(),hr=N.h;
  $('nK').textContent=fmt(N.kcal)+' kcal';$('nK2').textContent=fmt(N.kcalH)+' kcal par heure, '+LVL[level()].n.toLowerCase()+', '+S.poids+' kg';
  $('nE').textContent=lfmt(N.eau);$('nE2').textContent=fmt(N.eauH)+' ml par heure à '+S.temp+' °C';
  $('nG').textContent=N.gH?N.gH+' g/h':'Pas besoin';$('nG2').textContent=N.gH?'≈ '+fmt(N.gT)+' g sur '+hfmt(hr):'Sortie courte';
  $('nS').textContent=N.sodH?N.sodH+' mg/h':'Le repas suffit';$('nS2').textContent=N.sodH?'Électrolytes dans la gourde':'Pas de transpiration forte';
- const dep=8,som=dep+hr*.58,ret=dep+hr+.5,hh=x=>{const H=Math.floor(x),M=Math.round((x-H)*4)*15;return H+(M===60?1:0)+' h'+(M%60?' '+String(M%60).padStart(2,'0'):'');};
- const T=[['7 h','PETIT-DÉJEUNER','Complet, sans se presser. Deux barres petit-déjeuner si on part tôt.'],['Dès 8 h','EN MONTANT',`Toutes les heures : une barre ou une poignée d'abricots, ${r50(N.eauH)} ml d'eau.`],[hh(som),'SOMMET','Le pique-nique : pain, fromage, fruits, 30 minutes.'],['Descente','TENIR','De l\'eau et une barre aux oléagineux : la descente use aussi.'],['Soir','RÉCUPÉRER','Un repas chaud, beaucoup d\'eau. La barre protéinée au retour.']];
+ const PL=plan(),dep=PL.dep,som=dep+hr*.58+.25,ret=PL.ret;
+ const d24=x=>((x%24)+24)%24,dp=d24(dep),sm=d24(som),rt=d24(ret);
+ const pdj=dp<4.5?['Avant '+hm(dep),'EN-CAS','Départ de nuit : un en-cas léger et une boisson chaude, puis une barre toutes les heures.']
+  :dp<7?['Avant '+hm(dep),'PETIT-DÉJEUNER','Départ tôt : un verre d\'eau et un fruit, puis deux barres petit-déjeuner dans la voiture. Une collation à la première pause.']
+  :dp<11?[hm(dep-1.5),'PETIT-DÉJEUNER','Complet, 1 h 30 avant de partir : pain ou flocons, un fruit, une boisson chaude.']
+  :dp<15?[hm(dep-2),'DÉJEUNER','Un vrai repas 2 h avant : féculents, un peu de protéines, pas trop gras.']
+  :dp<19?[hm(dep-1),'COLLATION','Une collation consistante 1 h avant : pain, fromage, fruit. Le dîner se prend au sommet ou au retour.']
+  :[hm(dep-1.5),'DÎNER','Un dîner léger 1 h 30 avant : pâtes ou riz, pas trop gras, facile à digérer.'];
+ const st=Math.abs(som-PL.sr)<=.5?'Le lever du soleil au sommet : une boisson chaude, une barre, et la doudoune pendant qu\'on regarde.':Math.abs(som-PL.ss)<=.5?'Le coucher du soleil au sommet : une collation, la doudoune, et on redescend frontale prête.':sm>=11.5&&sm<=14?'Le pique-nique : pain, fromage, fruits, 30 minutes.'
+  :sm>=18.5&&sm<21.5?'Le dîner au sommet : un sandwich consistant et une soupe chaude dans la gourde isotherme.'
+  :(sm>=21.5||sm<5)?'De nuit : une boisson chaude et une barre, on ne s\'attarde pas au froid.'
+  :sm<11.5?'Trop tôt pour le repas : une collation salée, pain et fromage. Le pique-nique attend la descente.':'Hors des heures de repas : une collation salée et sucrée, puis on redescend.';
+ const rtt=(rt>=22||rt<5)?'Avant de dormir : beaucoup d\'eau, et une collation légère si tu as faim.'
+  :rt>=19?'Retour tard : un repas chaud et simple dès l\'arrivée.':'Le soir, un vrai repas avec des féculents.';
+ const T=[pdj,['Dès '+hm(dep),'EN MONTANT',`Toutes les heures : une barre ou une poignée d'abricots, ${r50(N.eauH)} ml d'eau.`],
+  [hm(som),'SOMMET',st],
+  ['Descente','TENIR','De l\'eau et une barre aux oléagineux : la descente use aussi.'],
+  [hm(ret),'RETOUR',`Dans l'heure : la barre protéinée et un grand verre d'eau. ${rtt}${(PL.ret>PL.ss&&PL.ret<24+PL.sr)?' Frontale allumée jusqu\'à la voiture.':''}`]];
  $('tl').innerHTML=T.map((x,i)=>`<div><i>${i+1}</i><em>${x[1]}</em><b>${x[0]}</b><span>${x[2]}</span></div>`).join('');
  $('rule').innerHTML=`<b>Le guide :</b> « La randonnée se nourrit à l'assiette plus qu'au sachet : du vrai, du salé, de l'eau. » On boit avant d'avoir soif, on mange à chaque pause, même courte, et on remplit la gourde à chaque source.${N.sodH?' Avec cette chaleur, des électrolytes dans chaque litre.':''}`;
  $('nutGrid').innerHTML=N.pack.map(x=>cardHTML(x,'nut:'+x.id,'Nutrition',true,true)).join('');
@@ -771,29 +890,60 @@ function renderNutri(){
 }
 $('addNut').onclick=()=>{nutrition().pack.forEach(x=>cartAdd('nut:'+x.id,x.id,x.q,'Nutrition',true,true));toast('8809670');};
 
-function bagNeed(){ // volume en litres de ce qui part dans le sac
- const it=[];tenue().filter(l=>l.sac).forEach(l=>it.push({k:l.p,v:P[l.p].v||1.5,src:'Tenue'}));
- it.push({k:'pique',v:2.5,src:'Pique-nique'});
- for(const [key,v] of CART){if(!v.pack)continue;const p=NUTRI[v.k]||P[v.k];const vol=(p.v??.2)*(NUTRI[v.k]?v.q:v.q);if(vol>0)it.push({k:v.k,v:vol,src:key,q:v.q});}
+const FIXE=[{k:'pique',n:'Pique-nique pour une personne',v:3,z:'dos'},{k:'trousse',n:'Trousse de secours',v:.8,z:'haut'},{k:'papiers',n:'Téléphone, papiers, clés',v:.3,z:'poches'}];
+const ZT={down:'fond',fleece:'fond',rain:'haut',soft:'haut',head:'haut',hand:'haut'};
+const ZA={housse:'haut',frontale:'poches',casquette:'haut','tour-cou':'haut',chaussettes:'fond',patchs:'poches',baton:'dehors'};
+const sumV=a=>a.reduce((s,i)=>s+i.v,0);
+// mode 'panier' : ce qui part vraiment (jauge) ; mode 'conseil' : ce que le vendeur conseille (choix du sac)
+function bagItems(mode){
+ const it=[],N=nutrition(),W=waterPlan(N.eau),bag=P[S.bag]||{};
+ tenue().filter(l=>l.sac).forEach(l=>it.push({k:l.p,n:P[l.p].n,v:P[l.p].v??1,z:ZT[l.g]||'haut'}));
+ FIXE.forEach(f=>it.push({...f}));
+ const eauC=[...CART].filter(([key])=>key.startsWith('eau:'));
+ if(W.poche&&bag.poche===2)it.push({k:'poche',n:'Poche à eau du sac, pleine',v:2.2,z:'dos'});
+ if(mode==='panier'&&eauC.length)eauC.forEach(([,v])=>it.push({k:v.k,n:P[v.k].n,v:P[v.k].v*v.q,q:v.q,z:'dos'}));
+ else W.items.forEach(([k,q])=>it.push({k,n:P[k].n,v:P[k].v*q,q,z:'dos',conseil:mode==='panier'}));
+ if(mode==='panier'){for(const [key,v] of CART){
+   if(key.startsWith('acc:')){const f=key.slice(4);it.push({k:v.k,n:P[v.k].n,v:(P[v.k].v||0)*(f==='baton'?1:v.q),q:v.q,z:ZA[f]||'haut'});}
+   else if(key.startsWith('nut:')&&v.pack){const p=NUTRI[v.k];it.push({k:v.k,n:p.n,v:(p.v??.1)*v.q,q:v.q,z:p.v>=.3?'haut':'poches'});}}}
+ else{accessoires().filter(a=>a.rec).forEach(a=>it.push({k:a.k,n:P[a.k].n,v:P[a.k].v||0,z:ZA[a.f]||'haut'}));
+  N.pack.forEach(x=>{const p=NUTRI[x.id];it.push({k:x.id,n:p.n,v:(p.v??.1)*x.q,q:x.q,z:p.v>=.3?'haut':'poches'});});}
  return it;}
-function recBag(){const N=nutrition(),E=N.eau,base=tenue().filter(l=>l.sac).reduce((s,l)=>s+(P[l.p].v||1.5),0)+2.5+Math.min(2.6,E*1.25)+1.2+(S.temp<=6?1:0);
- const need=base*1.15;const order=['sac-arpenaz-20l','sac-mh500-22l','sac-mh500-25l','sac-mh500-38l'];
+function recBag(){const E=nutrition().eau,need=Math.max(sumV(bagItems('conseil')),sumV(bagItems('panier')))*1.25;
+ const order=['sac-arpenaz-20l','sac-mh500-22l','sac-mh500-25l','sac-mh500-38l'];
  let r=order.find(k=>P[k].L>=need)||'sac-mh500-38l';if(E>1.85&&P[r].L<=22)r='sac-mh500-22l';if(r==='sac-arpenaz-20l'&&(H0()&&H0().cot!=='T1'))r='sac-mh500-22l';return {r,need};}
+const pic=hl=>`<svg viewBox="0 0 34 42" aria-hidden="true"><rect x="6" y="4" width="22" height="35" rx="7" fill="none" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/>${hl}</svg>`,BL='#3643ba';
+const ZONES=[['haut','En haut','Ce qu\'on sort vite',pic(`<rect x="9" y="7" width="16" height="8" rx="3" fill="${BL}"/>`)],
+ ['dos','Contre le dos','Le lourd, bien calé',pic(`<rect x="9" y="16" width="16" height="11" rx="3" fill="${BL}"/>`)],
+ ['fond','Au fond','Ce qui ne sert qu\'au sommet',pic(`<rect x="9" y="28" width="16" height="8" rx="3" fill="${BL}"/>`)],
+ ['poches','Dans les poches','À portée de main en marchant',pic(`<rect x="1" y="19" width="5" height="13" rx="2" fill="${BL}"/><rect x="28" y="19" width="5" height="13" rx="2" fill="${BL}"/>`)],
+ ['dehors','À l\'extérieur','Fixé sur le côté du sac',pic(`<line x1="31" y1="1" x2="31" y2="41" stroke="${BL}" stroke-width="3" stroke-linecap="round"/>`)]];
+function drawBag(){
+ if(!S.bag)return;const b=P[S.bag],it=bagItems('panier'),vol=sumV(it),tot=vol*1.25,pct=tot/b.L,im=$('bagImg');
+ if(im.dataset.k!==S.bag){im.dataset.k=S.bag;im.src=IMG+S.bag+'.webp';im.alt=b.n;}
+ $('bagName').innerHTML=`${b.m} <b>${b.L} L</b>`;
+ $('gauge').classList.toggle('over',pct>1);$('gBar').style.width=Math.min(100,pct*100)+'%';$('gPct').textContent=Math.round(pct*100)+' %';
+ $('gTxt').textContent=pct>1?`Trop plein : ${L1(tot)} pour ${b.L} L, prends plus grand`:`${L1(tot)} sur ${b.L} L`;
+ $('gSub').textContent=`${L1(vol)} d'affaires, plus 25 % de vide : un sac ne se remplit jamais au litre près.`;
+ $('zones').innerHTML=ZONES.map(([z,t,d,svg])=>{const zi=it.filter(i=>i.z===z);if(!zi.length)return '';
+  return `<div class="zone"><div class="zh">${svg}<div><b>${t}</b><span>${d}</span></div><em>${z==='dehors'?'0 L':L1(sumV(zi))}</em></div><ul>${zi.map(i=>`<li>${(P[i.k]||NUTRI[i.k])?`<img src="${pimg(i.k)}" alt="" loading="lazy">`:'<i></i>'}<span>${i.n}${i.q>1?' ×'+i.q:''}${i.conseil?' <small>conseillé</small>':''}</span><em>${z==='dehors'?'fixés':L1(i.v)}</em></li>`).join('')}</ul></div>`;}).join('');}
+window.packBag=drawBag;
 function renderSac(){
  const R=recBag();if(!S.touchedBag){S.bag=R.r;}
  if(CART.has('sac'))CART.get('sac').k=S.bag;
  const BAGS=['sac-arpenaz-20l','sac-mh500-22l','sac-mh500-25l','sac-poche-2l','sac-mh500-38l'];
- $('bags').innerHTML=BAGS.map(k=>`<button class="bagc${k===S.bag?' on':''}" data-b="${k}"><div class="ph"><img src="${IMG+k}.webp" alt="${P[k].n}" loading="lazy"></div>${k===R.r?'<span class="rc">Conseil</span>':''}<b>${P[k].n}</b><span>${P[k].m} · ${P[k].d}</span></button>`).join('');
+ $('bags').innerHTML=BAGS.map(k=>`<button class="bagc${k===S.bag?' on':''}" data-b="${k}"><div class="ph"><img src="${IMG+k}.webp" alt="${P[k].n}" loading="lazy"></div>${k===R.r?'<span class="rc">Conseil</span>':''}<b>${P[k].n}</b><span>${P[k].m} · ${P[k].d}</span>${pxh(k)}</button>`).join('');
  $('bags').querySelectorAll('.bagc').forEach(b=>b.onclick=()=>{S.bag=b.dataset.b;S.touchedBag=true;cartAdd('sac',S.bag,1,'Sac',false);renderAll();});
- $('bagAdv').innerHTML=`Pour ce que tu emportes, il faut environ <b>${Math.round(R.need)} litres</b> : le conseil est le ${P[R.r].n.replace('Sac à dos ','')}. ${CART.has('sac')?'':'Touche un sac pour le mettre au panier.'}`;
- $('bagName').innerHTML=`${P[S.bag].m}<br><b>${P[S.bag].L} L</b>`;
+ $('bagAdv').innerHTML=`Pour ce que tu emportes, il faut environ <b>${Math.round(R.need)} litres</b>, vide compris : le conseil est le ${P[R.r].n.replace('Sac à dos ','')}. ${CART.has('sac')?'':'Touche un sac pour le mettre au panier.'}`;
  const N=nutrition(),W=waterPlan(N.eau);
  $('wNeed').textContent=lfmt(N.eau);
  $('wTxt').innerHTML=`Le besoin calculé plus haut : <b>${fmt(N.eauH)} ml par heure</b> pendant ${hfmt(N.h)}, à ${S.temp} °C. ${W.txt}`;
  $('wSmall').textContent=W.poche&&P[S.bag].poche!==2?'Poche à eau seule : référence suisse à confirmer avec le vendeur, elle n\'est pas dans le catalogue en ligne consulté.':'Une source ou une buvette sur le parcours permet de porter moins.';
  const recW=new Map(W.items);
  $('waterGrid').innerHTML=['gourde-08','gourde-1l'].map(k=>cardHTML({k,q:recW.get(k)||1,u:recW.has(k)?(k==='gourde-1l'?'1 l, garde l\'eau fraîche ou le thé chaud':'0,8 l, se manie d\'une main'):'Au choix'},'eau:'+k,'Eau',true,recW.has(k))).join('');
- $('accGrid').innerHTML=accessoires().sort((a,b)=>b.rec-a.rec).map(a=>cardHTML({k:a.k,q:a.k.startsWith('baton')?2:1,u:a.u},'acc:'+a.k,'Équipement',true,a.rec)).join('');
+ $('accGrid').innerHTML=accessoires().sort((a,b)=>b.rec-a.rec).map(a=>cardHTML({k:a.k,q:a.f==='baton'?2:1,u:a.u,off:offHTML(a)},'acc:'+a.f,'Équipement',true,a.rec)).join('');
+ $('accGrid').querySelectorAll('.of').forEach(b=>b.onclick=()=>{S.acc[b.dataset.f]=b.dataset.o;const key='acc:'+b.dataset.f;if(CART.has(key))CART.get(key).k=b.dataset.o;renderAll();});
+ drawBag();
 }
 function refreshButtons(){document.querySelectorAll('[data-add]').forEach(b=>{const on=CART.has(b.dataset.add);b.classList.toggle('in',on);b.textContent=on?'✓ Dans le panier':'Ajouter';
  if(!b.dataset.add.startsWith('tenue:'))b.onclick=()=>{const key=b.dataset.add;if(CART.has(key))cartDel(key);else cartAdd(key,b.dataset.k,+b.dataset.q,b.dataset.g,b.dataset.p==='1');};});
@@ -820,6 +970,7 @@ async function chargeSuivi(url,k){const r=await fetch(url),n=+r.headers.get('con
  const rd=r.body.getReader(),ch=[];let got=0;for(;;){const {done,value}=await rd.read();if(done)break;ch.push(value);got+=value.length;LD.set(k,got/n);}
  LD.done(k);return new Blob(ch);}
 HIKES=await fetch('data/randos.json').then(r=>r.json());LD.done('data');
+PRIX=await fetch('data/prix.json').then(r=>r.ok?r.json():{}).catch(()=>({}));
 const relImg=new Image();relImg.src=URL.createObjectURL(await chargeSuivi('data/relief.png','relief'));await relImg.decode();
 const RN=1024,ALT=new Float32Array(RN*RN);
 {const c=document.createElement('canvas');c.width=c.height=RN;const g=c.getContext('2d',{willReadFrequently:true});g.drawImage(relImg,0,0);const d=g.getImageData(0,0,RN,RN).data;for(let i=0;i<RN*RN;i++)ALT[i]=d[i*4]*256+d[i*4+1];}
@@ -920,107 +1071,49 @@ function ll2px(lat,lon){const n=2**11*256,x=(lon+180)/360*n,r=lat*Math.PI/180,y=
   requestAnimationFrame(loop);}
 })();
 
-/* ---------- La tenue en vraies photos ---------- */
+/* ---------- La tenue de la tête aux pieds, en vraies photos ---------- */
 (function look(){
  const box=$('stage'),grid=$('look'),calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
- const ROLE={shoe:'Pieds',pant:'Jambes',base:'1re couche',fleece:'2e couche',down:'Doudoune',rain:'3e couche',soft:'3e couche'};
- let avant={},seen=false,pending=null;
- function tile(slot,l,i,change,delay){
-  let el=grid.querySelector(`[data-slot="${slot}"]`);
-  if(!l){if(el)el.hidden=true;return;}
-  el.hidden=false;const p=P[l.p];
-  el.querySelector('.cap').innerHTML=`<span>${ROLE[l.g]||''}</span><b>${p.n}</b>`;
-  const old=el.querySelector('img:not(.out)');
-  if(old&&old.dataset.p===l.p)return;
-  const im=new Image();im.src=IMG+l.p+'.webp';im.alt=p.n;im.dataset.p=l.p;im.decoding='async';
-  if(change&&!calm){im.className='in';im.style.animationDelay=delay+'s';}
-  if(old){old.classList.add('out');old.style.animationDelay=delay+'s';setTimeout(()=>old.remove(),(delay+.7)*1000);}
-  el.querySelector('.ph').appendChild(im);
- }
+ const ROLE={head:'Tête',hand:'Mains',base:'1re couche',fleece:'2e couche',down:'Doudoune',rain:'3e couche',soft:'3e couche',pant:'Jambes',socks:'Chaussettes',shoe:'Pieds'};
+ const ROWS=[['r-tete',['tete','mains']],['r-haut',['base','fleece','down','veste']],['r-bas',['pant','socks','shoe']]];
+ grid.innerHTML=ROWS.map(([c])=>`<div class="lrow ${c}"></div>`).join('');
+ const tiles=new Map();let avant=null,seen=false,pending=null,ov=null,ovT=0;
+ function mk(id){const f=document.createElement('figure');f.className='tile t-'+id;f.dataset.id=id;f.innerHTML='<div class="ph"></div><span class="bd"></span><figcaption class="cap"><span></span><b><i></i></b></figcaption>';tiles.set(id,f);return f;}
+ function setImg(f,l,anim,delay){const ph=f.querySelector('.ph'),old=ph.querySelector('img:not(.out)');if(old&&old.dataset.p===l.p)return;
+  const im=new Image();im.src=IMG+l.p+'.webp';im.alt=P[l.p].n;im.dataset.p=l.p;im.decoding='async';
+  if(anim&&!calm){im.className='in';im.style.animationDelay=delay+'s';}
+  if(old){if(calm)old.remove();else{old.classList.add('out');old.style.animationDelay=delay+'s';setTimeout(()=>old.remove(),(delay+.6)*1000);}}
+  ph.appendChild(im);}
+ // la pièce changée passe en grand 2 s, puis rejoint sa case
+ function focus(l){
+  if(ov){ov.remove();ov=null;clearTimeout(ovT);}
+  const f=tiles.get(l.id);if(!f)return;
+  const me=document.createElement('figure');me.className='focus';ov=me;
+  me.innerHTML=`<div class="fph"><img src="${IMG+l.p}.webp" alt=""></div><figcaption><span>${ROLE[l.g]||''} · ${l.sac?'dans le sac':'sur soi'}</span><b>${P[l.p].n}</b><em>${P[l.p].m}</em></figcaption>`;
+  grid.appendChild(me);
+  me.animate([{opacity:0,transform:'scale(.96)'},{opacity:1,transform:'none'}],{duration:320,easing:'cubic-bezier(.2,.7,.2,1)'});
+  ovT=setTimeout(()=>{if(ov!==me)return;const a=f.getBoundingClientRect(),b=me.getBoundingClientRect();
+   const go=me.animate([{transform:'none',opacity:1},{transform:`translate(${a.left-b.left}px,${a.top-b.top}px) scale(${a.width/b.width},${a.height/b.height})`,opacity:0}],{duration:520,easing:'cubic-bezier(.6,0,.25,1)',fill:'forwards'});
+   go.onfinish=()=>{me.remove();if(ov===me)ov=null;f.animate([{boxShadow:'inset 0 0 0 3px #3643ba'},{boxShadow:'inset 0 0 0 3px rgba(54,67,186,0)'}],{duration:1100,easing:'ease-out'});};},2000);}
  window.dressMQ=(L,anim=true)=>{
   if(!seen){pending=[L,anim];return;}
-  const worn=L.filter(l=>!l.sac),sac=L.filter(l=>l.sac);
-  const hauts=['down','rain','soft','fleece','base'].map(g=>worn.find(l=>l.g===g)).filter(Boolean);
-  const top=hauts[0],dessous=hauts.slice(1);
-  const slots={top,pant:worn.find(l=>l.g==='pant'),shoe:worn.find(l=>l.g==='shoe')};
-  let n=0;const delays={};
-  for(const k in slots){const l=slots[k],change=anim&&l&&avant[k]!==l.p;delays[k]=change?(n++)*.18:0;tile(k,l,0,change,delays[k]);}
-  avant={};for(const k in slots)if(slots[k])avant[k]=slots[k].p;
-  const chip=(l,cls)=>`<figure class="chip ${cls}"><img src="${IMG+l.p}.webp" alt="" loading="lazy"><figcaption><span>${cls==='sac'?'Dans le sac':'Portée aussi · '+ROLE[l.g]}</span>${P[l.p].n}</figcaption></figure>`;
-  $('lookUnder').innerHTML=dessous.map(l=>chip(l,'sous')).join('')+sac.map(l=>chip(l,'sac')).join('');
+  const by={};L.forEach(l=>by[l.id]=l);
+  const first=!avant,chg=first?[]:L.filter(l=>!avant[l.id]||avant[l.id].p!==l.p);
+  const solo=!calm&&chg.length>0&&chg.length<=2;let n=0;
+  for(const [c,ids] of ROWS){const row=grid.querySelector('.'+c),here=ids.filter(id=>by[id]);row.hidden=!here.length;
+   [...row.children].forEach(x=>{if(!here.includes(x.dataset.id))x.remove();});
+   for(const id of here){const l=by[id],f=tiles.get(id)||mk(id);row.appendChild(f);
+    f.querySelector('.cap span').textContent=ROLE[l.g]||'';f.querySelector('.cap b i').textContent=P[l.p].n;
+    const bd=f.querySelector('.bd'),nt=l.sac?'Dans le sac':'Sur soi';
+    if(!calm&&bd.textContent&&bd.textContent!==nt)bd.animate([{transform:'scale(1.3)'},{transform:'none'}],{duration:420,easing:'cubic-bezier(.2,.7,.2,1)'});
+    bd.textContent=nt;bd.classList.toggle('s',!!l.sac);
+    const stag=anim&&(first||(!solo&&chg.includes(l)));
+    setImg(f,l,stag,stag?(n++)*.07:0);}}
+  if(solo)focus(chg[0]);
+  avant={};L.forEach(l=>avant[l.id]={p:l.p,sac:l.sac});
   document.querySelectorAll('.layer').forEach(e=>e.classList.add('on'));
  };
- $('replay').onclick=()=>{avant={};grid.querySelectorAll('.ph img').forEach(i=>i.remove());seen=true;window.dressMQ(tenue(),true);};
  visible(box,v=>{if(v&&!seen){seen=true;window.dressMQ(...(pending||[tenue(),true]));pending=null;}});
-})();
-
-/* ---------- Sac 3D en transparence ---------- */
-(function sac3d(){
- const cv=$('glbag'),box=$('bagStage');
- const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
- R.setPixelRatio(Math.min(devicePixelRatio,lowPower?1.5:2));R.outputColorSpace=THREE.SRGBColorSpace;
- const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(32,1,.05,30);
- scene.add(new THREE.HemisphereLight(0xe6ebff,0x20243a,1.6));const dl=new THREE.DirectionalLight(0xffffff,1.6);dl.position.set(2,3,4);scene.add(dl);
- const floor=new THREE.Mesh(new THREE.CircleGeometry(3,96),new THREE.ShaderMaterial({transparent:true,depthWrite:false,
-  vertexShader:'varying vec2 vU;void main(){vU=position.xy;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
-  fragmentShader:'varying vec2 vU;void main(){float r=length(vU);vec3 c=mix(vec3(.10,.11,.2),vec3(.027,.03,.05),smoothstep(0.,1.4,r));float ring=exp(-pow((r-.42)/.008,2.))*.9+exp(-pow((r-.42)/.06,2.))*.12;c+=vec3(.25,.3,1.)*ring;gl_FragColor=vec4(c,1.-smoothstep(1.4,3.,r));}'}));
- floor.rotation.x=-Math.PI/2;scene.add(floor);
- const root=new THREE.Group();scene.add(root);
- const XU={uCol:{value:new THREE.Color(.5,.6,1)},uH:{value:.5},uT:{value:0},uOver:{value:0}};
- const xray=new THREE.ShaderMaterial({uniforms:XU,transparent:true,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,
-  vertexShader:'varying vec3 vN;varying vec3 vV;varying float vY;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);vY=position.y;gl_Position=projectionMatrix*mv;}',
-  fragmentShader:'uniform vec3 uCol;uniform float uH;uniform float uT;uniform float uOver;varying vec3 vN;varying vec3 vV;varying float vY;void main(){float f=pow(1.-abs(dot(vN,vV)),2.);float y=vY/uH;float rings=1.-smoothstep(.0,.035,abs(fract(y*9.)-.5)-.465+.0);float scan=exp(-pow((y-fract(uT*.22)*1.3+.1)*10.,2.));vec3 col=mix(uCol,vec3(1.,.45,.35),uOver);vec3 c=col*(.10+f*1.1+scan*.5)+vec3(.6,.7,1.)*rings*.10;gl_FragColor=vec4(c,1.);}'});
- function roundedBox(w,h,d,r,s=10){const g=new THREE.BoxGeometry(w,h,d,s,s,s),p=g.attributes.position,v=new THREE.Vector3(),inn=new THREE.Vector3(w/2-r,h/2-r,d/2-r);
-  for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i);const c=new THREE.Vector3(borne(v.x,-inn.x,inn.x),borne(v.y,-inn.y,inn.y),borne(v.z,-inn.z,inn.z));const o=v.clone().sub(c);if(o.length()>1e-6)o.setLength(r);v.copy(c).add(o);p.setXYZ(i,v.x,v.y,v.z);}
-  g.computeVertexNormals();return g;}
- let bagG=new THREE.Group();root.add(bagG);let dims={w:.3,h:.46,d:.19};
- function buildBag(L,col){root.remove(bagG);bagG=new THREE.Group();root.add(bagG);
-  const k=Math.cbrt(L/22);dims={w:.31*k,h:.47*k,d:.2*k};XU.uH.value=dims.h;XU.uCol.value.setRGB(...col);
-  const body=new THREE.Mesh(roundedBox(dims.w,dims.h,dims.d,.06*k),xray);body.position.y=dims.h/2;bagG.add(body);
-  const lid=new THREE.Mesh(roundedBox(dims.w*.92,.07*k,dims.d*.95,.03*k,6),xray);lid.position.y=dims.h+.02*k;bagG.add(lid);
-  const pk=new THREE.Mesh(roundedBox(dims.w*.7,dims.h*.42,.05*k,.025*k,6),xray);pk.position.set(0,dims.h*.3,dims.d/2+.025*k);bagG.add(pk);
-  for(const s of[-1,1]){const c=new THREE.CatmullRomCurve3([new THREE.Vector3(s*dims.w*.22,dims.h*.92,-dims.d/2),new THREE.Vector3(s*dims.w*.28,dims.h*.8,-dims.d/2-.07*k),new THREE.Vector3(s*dims.w*.32,dims.h*.4,-dims.d/2-.06*k),new THREE.Vector3(s*dims.w*.42,dims.h*.08,-dims.d/2-.01)]);
-   bagG.add(new THREE.Mesh(new THREE.TubeGeometry(c,24,.014*k,6),xray));}
-  const hip=new THREE.Mesh(new THREE.TorusGeometry(dims.w*.62,.012*k,6,40,Math.PI),xray);hip.rotation.x=Math.PI/2;hip.position.set(0,dims.h*.1,-dims.d*.2);hip.scale.set(1,.9,1);bagG.add(hip);
-  bagG.scale.setScalar(.01);growT=performance.now();fit();}
- let growT=0;
- // objets dans le sac
- const TL=new THREE.TextureLoader(),texC={};
- const getTex=k=>{if(k==='pique')return null;if(!texC[k]){const t=TL.load(pimg(k));t.colorSpace=THREE.SRGBColorSpace;texC[k]=t;}return texC[k];};
- const side=new THREE.MeshStandardMaterial({color:0xe9ebf3,roughness:.6}),picMat=new THREE.MeshStandardMaterial({color:0xc9a77a,roughness:.8});
- let items=new Map();const itemsG=new THREE.Group();root.add(itemsG);
- function makeItem(it){const s=Math.cbrt(it.v/1000);let w=s*1.3,h=s*1.05,d=s*.75;
-  const f=Math.min(1,dims.w*.92/w,dims.d*.9/d);w*=f;d*=f;h*=1/Math.max(f,.5);
-  const t=getTex(it.k);const front=t?new THREE.MeshStandardMaterial({map:t,roughness:.5}):picMat;
-  const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),[side,side,side,side,front,side]);m.userData={w,h,d,born:performance.now(),from:dims.h+.5};itemsG.add(m);return m;}
- window.packBag=function(){
-  if(!S.bag)return;const b=P[S.bag];
-  if(bagG.userData.key!==S.bag){buildBag(b.L,b.col);bagG.userData.key=S.bag;}
-  const need=bagNeed();const keys=new Set();
-  need.forEach((it,i)=>{const id=it.src+'|'+it.k+'|'+Math.round(it.v*100);keys.add(id);if(!items.has(id)){items.set(id,makeItem(it));}});
-  for(const [id,m] of items)if(!keys.has(id)){itemsG.remove(m);items.delete(id);}
-  // rangement en couches
-  let x=0,z=0,y=0,rowD=0,layH=0;const W2=dims.w*.9,D2=dims.d*.86;
-  for(const [id,m] of items){const u=m.userData;
-   if(x+u.w>W2&&x>0){x=0;z+=rowD;rowD=0;}
-   if(z+u.d>D2&&z>0){z=0;x=0;y+=layH;layH=0;rowD=0;}
-   u.tx=-W2/2+x+u.w/2;u.ty=.02+y+u.h/2;u.tz=-D2/2+z+u.d/2;x+=u.w+.006;rowD=Math.max(rowD,u.d+.006);layH=Math.max(layH,u.h+.006);}
-  const vol=need.reduce((s,i)=>s+i.v,0),pct=vol/b.L;
-  XU.uOver.value=pct>1?1:0;$('gauge').classList.toggle('over',pct>1);
-  $('gBar').style.width=Math.min(100,pct*100)+'%';$('gPct').textContent=Math.round(pct*100)+' %';
-  $('gTxt').textContent=pct>1?`Trop plein : ${lfmt(vol).replace(' l',' L')} pour ${b.L} L, prends plus grand`:`${(Math.round(vol*10)/10).toString().replace('.',',')} L sur ${b.L} L · ${items.size} articles`;};
- function fit(){const tf=Math.tan(cam.fov*Math.PI/360),hh=dims.h*1.12;const dist=Math.max(hh/tf,hh*.9/(tf*cam.aspect))*1.05;cam.position.set(dist*.55,dims.h*1.15,dist*.85);controls.target.set(0,dims.h*.5,0);}
- const controls=new OrbitControls(cam,cv);cv.style.touchAction='';controls.enableDamping=true;controls.enablePan=false;controls.enableZoom=false;controls.minPolarAngle=.6;controls.maxPolarAngle=1.6;controls.autoRotate=true;controls.autoRotateSpeed=.8;
- function size(){const w=box.clientWidth,h=box.clientHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();fit();}
- new ResizeObserver(size).observe(box);size();
- let on=false,tourne=false;visible(box,v=>{on=v;if(v){window.packBag();if(!tourne){tourne=true;requestAnimationFrame(loop);}}});
- const bounce=x=>{const n=7.5625,d=2.75;if(x<1/d)return n*x*x;if(x<2/d)return n*(x-=1.5/d)*x+.75;if(x<2.5/d)return n*(x-=2.25/d)*x+.9375;return n*(x-=2.625/d)*x+.984375;};
- function loop(now){if(!on){tourne=false;return;}XU.uT.value=now/1000;
-  const g=borne((now-growT)/700,0,1);bagG.scale.setScalar(.01+.99*(1-Math.pow(1-g,3)));
-  for(const m of itemsG.children){const u=m.userData;if(u.tx===undefined)continue;const k=borne((now-u.born-150)/900,0,1),e=bounce(k);
-   m.position.set(u.tx,u.from+(u.ty-u.from)*e,u.tz);m.rotation.z=(1-k)*.6;m.rotation.y=(1-k)*.8;
-   if(!u.settled&&k>=1)u.settled=1;else if(!u.settled&&k===0)m.position.y=u.from;}
-  controls.update();R.render(scene,cam);requestAnimationFrame(loop);}
 })();
 
 renderAll();onScroll();
