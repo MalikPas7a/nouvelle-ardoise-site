@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="fr-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mes RDV du 13 novembre</title>
+</head>
+<body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,700;1,800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout : une colonne de lecture, barre de sections collante, chaque document = une ligne numérotée cliquable */
+:root{
+  --bg:#f3f4f9; --surface:#ffffff; --fg:#141632; --muted:#5b5f7d; --line:#dcdfee;
+  --accent:#3643ba; --accent-soft:#e6e8fa; --warn:#9a5b00; --warn-soft:#fff3dc;
+  --b-claude:#6b3fa0; --b-claude-bg:#f1eafa; --b-google:#126b3a; --b-google-bg:#e4f4ea; --b-pub:#33507a; --b-pub-bg:#e6eef8;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1024; --surface:#181a36; --fg:#eceefe; --muted:#a3a7c8; --line:#2c2f55;
+  --accent:#8d97ff; --accent-soft:#252a5c; --warn:#ffc46b; --warn-soft:#3a2c12;
+  --b-claude:#d3b8ff; --b-claude-bg:#33244d; --b-google:#8fe0b0; --b-google-bg:#173726; --b-pub:#a9c6f0; --b-pub-bg:#1d2c45; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1024; --surface:#181a36; --fg:#eceefe; --muted:#a3a7c8; --line:#2c2f55;
+  --accent:#8d97ff; --accent-soft:#252a5c; --warn:#ffc46b; --warn-soft:#3a2c12;
+  --b-claude:#d3b8ff; --b-claude-bg:#33244d; --b-google:#8fe0b0; --b-google-bg:#173726; --b-pub:#a9c6f0; --b-pub-bg:#1d2c45; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:760px;margin:0 auto}
+header.top{padding-block:28px 12px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(34px,8vw,52px);line-height:1;margin:6px 0 10px;text-wrap:balance}
+.lead{color:var(--muted);margin:0;max-width:62ch}
+nav.jump{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:8px;overflow-x:auto;padding-block:10px;margin-bottom:8px;border-bottom:1px solid var(--line);scrollbar-width:none}
+nav.jump a{flex:none;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:14px;font-weight:600;white-space:nowrap}
+nav.jump a:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--muted);margin:14px 0 4px}
+.legend span{display:flex;align-items:center;gap:6px}
+section{padding-top:30px;scroll-margin-top:64px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-bottom:4px}
+h2{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(28px,6vw,38px);line-height:1.05;margin:0}
+.when{font-weight:700;color:var(--accent);font-size:15px}
+.sub{color:var(--muted);margin:2px 0 14px;font-size:15px}
+.todo{background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:12px 14px;margin:0 0 14px;font-size:15px}
+.todo b{color:var(--warn)}
+.todo ul{margin:6px 0 0;padding-left:18px}
+ol.docs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+ol.docs>li{counter-increment:n}
+ol.docs{counter-reset:n}
+a.doc{display:grid;grid-template-columns:34px 1fr auto;gap:4px 12px;align-items:start;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 14px;transition:border-color .15s}
+a.doc:hover{border-color:var(--accent)}
+a.doc::before{content:counter(n);grid-row:1 / span 2;font-family:var(--display);font-style:italic;font-weight:800;font-size:26px;line-height:1;color:var(--accent);padding-top:2px}
+.ul a.doc::before,.noindex a.doc::before{content:"•"}
+.doc .t{font-weight:700;min-width:0}
+.doc .d{grid-column:2 / span 2;color:var(--muted);font-size:14px;min-width:0}
+.doc .go{color:var(--accent);font-weight:700;font-size:18px;line-height:1.2}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.02em;border-radius:6px;padding:2px 7px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+.bc{color:var(--b-claude);background:var(--b-claude-bg)}
+.bg{color:var(--b-google);background:var(--b-google-bg)}
+.bp{color:var(--b-pub);background:var(--b-pub-bg)}
+.bl{color:var(--accent);background:var(--accent-soft)}
+.missing{border:1px dashed var(--line);border-radius:12px;padding:12px 14px;color:var(--muted);font-size:14px;margin-top:10px}
+.missing b{color:var(--fg)}
+h3{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:22px 0 10px}
+video{width:100%;border-radius:12px;background:#000;display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.grid button{all:unset;cursor:pointer;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)}
+.grid img{width:100%;aspect-ratio:2481/3509;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:var(--surface)}
+.grid.phone img{aspect-ratio:1170/1992}
+.lb{position:fixed;inset:0;z-index:20;background:rgba(8,9,24,.92);display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 10px) max(10px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 10px) max(10px,env(safe-area-inset-left,0px))}
+.lb .bar{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#fff;font-weight:600;padding-bottom:8px}
+.lb .bar div{display:flex;gap:8px}
+.lb button{all:unset;cursor:pointer;color:#fff;background:rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;font-weight:700}
+.lb .img{flex:1;min-height:0;overflow:auto;display:flex;justify-content:center;align-items:flex-start}
+.lb img{max-width:100%;height:auto;border-radius:6px}
+.lb[hidden]{display:none}
+.say{background:var(--accent-soft);border-radius:10px;padding:10px 12px;margin:0 0 10px;font-size:15px}
+.copy{display:flex;gap:8px;margin-top:8px}.copy input{flex:1;min-width:0;font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg)}.copy button{font:inherit;font-weight:700;border:0;border-radius:8px;padding:8px 12px;background:var(--accent);color:var(--surface);cursor:pointer}
+footer{margin-top:40px;color:var(--muted);font-size:13px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">Vendredi 13 novembre 2026</div>
+  <h1>Mes RDV du 13 novembre</h1>
+  <p class="lead">Tous les documents, dans l'ordre où tu les montres. Tape une ligne, elle s'ouvre dans un nouvel onglet.</p>
+  <div class="legend">
+    <span><i class="badge bc">claude.ai</i> s'ouvre avec ton compte perso, pas avec un compte Decathlon</span>
+    <span><i class="badge bg">Google</i> à ton nom pastamo.ch : partage-le avant si l'autre doit l'ouvrir</span>
+    <span><i class="badge bp">Public</i> s'ouvre partout</span>
+    <span><i class="badge bl">Sur cette page</i> se lit ici, sans quitter la page</span>
+  </div>
+</header>
+
+<nav class="jump" aria-label="Sections">
+  <a href="#morgane">Morgane · nutrition</a>
+  <a href="#jose">José · rando 14 h</a>
+  <a href="#cockpit">Cockpit personal shopping</a>
+  <a href="#demos">Démos par sport</a>
+  <a href="#b2b">Projet B2B</a>
+</nav>
+
+<!-- ===================== MORGANE ===================== -->
+<section id="morgane">
+  <div class="sec-head"><h2>Morgane · livre nutrition</h2><span class="when">Heure non notée</span></div>
+  <p class="sub">But : valider la roadmap jusqu'à l'impression et prendre les décisions D1 à D8.</p>
+  <div class="todo"><b>Avant le RDV</b>
+    <ul><li>Partage le Sheet de relecture en Éditeur à Morgane et à Maud. Vérifié le 12 nov. à minuit : seuls tes deux comptes (pastamo.ch et decathlon.com) y ont accès.</li><li>Ouvre-le avec ton compte decathlon.com si tu présentes depuis le poste du magasin : il y a accès.</li></ul>
+  </div>
+  <ol class="docs">
+    <li><a class="doc" href="https://claude.ai/artifact/6pa62ttYQQwrURAajG6Rwt" target="_blank" rel="noopener">
+      <span class="t">Le guide « Bien nourrir l'effort » v3.10<span class="badge bc">claude.ai</span></span><span class="go">↗</span>
+      <span class="d">40 pages, 193 produits, 27 marques. Page avec le bouton « Télécharger le PDF » : ouvre le PDF et partage ton écran.</span></a></li>
+    <li><a class="doc" href="https://claude.ai/artifact/MKJWfTqxP4ssHT69Wh9kte" target="_blank" rel="noopener">
+      <span class="t">Les livrets corrigés : Fitness v8 et 1:0.8 v2<span class="badge bc">claude.ai</span></span><span class="go">↗</span>
+      <span class="d">Corrections de Maud du 6 nov. Ils suivront le guide une fois la v3.11 faite.</span></a></li>
+    <li><a class="doc" href="https://docs.google.com/spreadsheets/d/1hjvqRkg8r83EBHfDxys805CRwZ_4TH_4SfZyWgX6wXY/edit#gid=5" target="_blank" rel="noopener">
+      <span class="t">La roadmap jusqu'à l'impression<span class="badge bg">Google</span></span><span class="go">↗</span>
+      <span class="d">Onglet « Roadmap » : 31 étapes avec Gantt. Contenu figé le 20 nov., imprimeur le 27 nov., test aux Cygnes le 4 déc., bilan le 18 déc., tirage FR et DE en janvier.</span></a></li>
+    <li><a class="doc" href="https://docs.google.com/spreadsheets/d/1hjvqRkg8r83EBHfDxys805CRwZ_4TH_4SfZyWgX6wXY/edit#gid=5" target="_blank" rel="noopener">
+      <span class="t">Les décisions D1 à D8, à remplir avec elle<span class="badge bg">Google</span></span><span class="go">↗</span>
+      <span class="d">Même onglet, sous le Gantt.</span></a></li>
+    <li><a class="doc" href="https://docs.google.com/spreadsheets/d/1hjvqRkg8r83EBHfDxys805CRwZ_4TH_4SfZyWgX6wXY/edit#gid=1" target="_blank" rel="noopener">
+      <span class="t">Ce que Maud tranche le 13 nov.<span class="badge bg">Google</span></span><span class="go">↗</span>
+      <span class="d">Onglet « À trancher » : 4 questions, puis « Précisions » (10) et « Étiquettes » (5 photos à faire par toi).</span></a></li>
+    <li><a class="doc" href="https://claude.ai/artifact/RK4Wzs7CUYYWHXgyS3GSdt" target="_blank" rel="noopener">
+      <span class="t">Si on en parle : le calculateur nutrition<span class="badge bc">claude.ai</span></span><span class="go">↗</span>
+      <span class="d">Calé sur la grille de Maud du livre. Complément magasin, pas un doublon de celui de Decathlon Health.</span></a></li>
+  </ol>
+  <div class="missing"><b>À ne pas ouvrir :</b> le site de présentation du guide est resté en v3.5, plus ancien que le PDF.</div>
+</section>
+
+<!-- ===================== JOSÉ ===================== -->
+<section id="jose">
+  <div class="sec-head"><h2>José Antonio · randonnée 2027</h2><span class="when">14 h</span></div>
+  <p class="sub">Le déroulé en trois temps. Lance chaque étape depuis cette page, dans l'ordre.</p>
+  <div class="todo"><b>Avant 14 h</b>
+    <ul>
+      <li>La démo en ligne est toujours la version du 10 nov. : l'heure de départ et la sortie de nuit n'y sont pas, faute de « publie » dans le fil rando. Ne promets pas ces deux points en direct.</li>
+      <li>Ouvre la démo une fois sur ton téléphone avant le RDV : je ne peux pas l'ouvrir d'ici, le réseau la bloque.</li>
+    </ul>
+  </div>
+
+  <h3>Étape 1 · Le cockpit personal shopping, en vidéo <span class="badge bl">Sur cette page</span></h3>
+  <p class="say"><b>Ce que tu dis :</b> « Aujourd'hui, le client passe d'un outil à l'autre. Je propose un seul parcours : un profil, Arion qui mesure, le rayon qui équipe, la nutrition, la rando, puis un suivi qui dure. La randonnée en est une brique. »</p>
+  <video controls preload="metadata" playsinline src="ps-v3.mp4"></video>
+  <p class="sub" style="margin-top:6px">« Sous le même toit », 48 s, version du 13 nov.</p>
+
+  <h3>Étape 2 · La démo rando, José la pilote lui-même</h3>
+  <p class="say"><b>Ce que tu dis :</b> « Voici la brique randonnée. Ouvre le lien sur ton téléphone ou ton ordinateur et choisis une sortie : tu vois la tenue, l'eau, l'énergie, le sac et le panier se construire. » Colle-lui le lien dans le chat de la visio.</p>
+  <ol class="docs"><li><a class="doc" href="https://nouvelleardoise.ch/demos/rando-askblki8xuho/" target="_blank" rel="noopener">
+    <span class="t">La démo en direct<span class="badge bp">Public, sans compte</span></span><span class="go">↗</span>
+    <span class="d">nouvelleardoise.ch/demos/rando-askblki8xuho · page publique, hors du plan du site. Carte 3D, 20 randos, météo du jour, tenue, sac, nutrition, panier.</span></a></li></ol>
+  <div class="copy"><input id="demoUrl" readonly value="https://nouvelleardoise.ch/demos/rando-askblki8xuho/" aria-label="Lien de la démo"><button type="button" id="copyDemo">Copier le lien</button></div>
+  <p class="sub" style="margin-top:6px">Si la démo rame en visio : passe aux captures du prototype dans la liste de secours plus bas.</p>
+
+  <h3>Étape 3 · En option, pour finir : le B2B <span class="badge bl">Sur cette page</span></h3>
+  <p class="say"><b>Ce que tu dis :</b> « Le même parcours sert aussi les clubs, les écoles et les entreprises. C'est le poste que je vise en 2027. »</p>
+  <video controls preload="metadata" playsinline src="film-v9.mp4"></video>
+  <p class="sub" style="margin-top:6px">Film v9 « démonstration », sans chiffres engageants : les cas sont marqués comme exemples fictifs.</p>
+
+  <h3>Secours et suite, si José creuse</h3>
+  <div class="noindex"><ol class="docs">
+    <li><a class="doc" href="https://drive.google.com/file/d/1h0n3NY7TvAaQ14R9Nw9otHkxqDfGwHbD/view" target="_blank" rel="noopener">
+      <span class="t">La roadmap en une image<span class="badge bg">Google</span></span><span class="go">↗</span>
+      <span class="d">Pour ouvrir : cadrage fin novembre, pilote aux Cygnes en avril et mai 2027, bilan en juin.</span></a></li>
+    <li><a class="doc" href="https://nouvelleardoise.ch/demos/rando-askblki8xuho/" target="_blank" rel="noopener">
+      <span class="t">La démo en direct<span class="badge bp">Public</span></span><span class="go">↗</span>
+      <span class="d">Carte 3D, 20 randos, météo du jour, tenue, sac, nutrition, panier. Page cachée, hors du plan du site.</span></a></li>
+    <li><a class="doc" href="https://drive.google.com/drive/folders/1Ttz3RJeEqmYTGREYIBK6kwfPaWjs1foR" target="_blank" rel="noopener">
+      <span class="t">Les 10 captures du prototype, en secours<span class="badge bg">Google</span></span><span class="go">↗</span>
+      <span class="d">Si la démo rame en visio : intro Mont-Blanc, carte, départ, tenue, nutrition, sac, panier.</span></a></li>
+    <li><a class="doc" href="https://docs.google.com/document/d/1T9klXALVgDom2y_TsKOAli9QGsaiuU4MbEoHkAtYGkQ/edit" target="_blank" rel="noopener">
+      <span class="t">La roadmap détaillée<span class="badge bg">Google</span></span><span class="go">↗</span>
+      <span class="d">Catalogue suisse (bloquant), IT et hébergement, partenaire parcours, licence météo, calendrier, puis les cinq questions à poser à José.</span></a></li>
+    <li><a class="doc" href="https://docs.google.com/spreadsheets/d/1xXURDh7dET1XShdQomLNRWUM8ElvlbkP0bCYHzIIroE/edit" target="_blank" rel="noopener">
+      <span class="t">Le suivi des 24 tâches<span class="badge bg">Google</span></span><span class="go">↗</span>
+      <span class="d">Qui porte quoi, dates, statut en couleur. Filtre déjà posé pour trier par chantier ou par personne.</span></a></li>
+    <li><a class="doc" href="https://drive.google.com/drive/folders/1xjDovMv8WvsOa0QKli6JWZMaRWQLI5jj" target="_blank" rel="noopener">
+      <span class="t">Les audits, si José creuse<span class="badge bg">Google</span></span><span class="go">↗</span>
+      <span class="d">Audit avant le RDV (défis et questions) et audit tenue, départ, sac, litres, offres et prix.</span></a></li>
+  </ol></div>
+</section>
+
+<!-- ===================== COCKPIT ===================== -->
+<section id="cockpit">
+  <div class="sec-head"><h2>Le cockpit personal shopping</h2></div>
+  <p class="sub">L'appli du vendeur pendant le rendez-vous : un seul profil client pour les trois sports, un panier commun, la fiche vendeur et ce qui part au CRM. Exemple fictif : Julie.</p>
+  <ol class="docs">
+    <li><a class="doc" href="https://claude.ai/artifact/DQCgtdEnmBMnwMYpysvzjR" target="_blank" rel="noopener">
+      <span class="t">Ouvrir le cockpit « Mon personal shopping »<span class="badge bc">claude.ai</span></span><span class="go">↗</span>
+      <span class="d">Montre dans l'ordre : le profil de Julie, le running et la nutrition qui se remplissent tout seuls, le panier coché, la fiche vendeur, l'accord du client, le cas d'affaires, puis la partie B2B.</span></a></li>
+  </ol>
+</section>
+
+<!-- ===================== DÉMOS ===================== -->
+<section id="demos">
+  <div class="sec-head"><h2>Démos par sport</h2></div>
+  <p class="sub">Le personal shopping sur trois sports. Exemple fictif : Julie, un semi en 12 semaines et des randos l'été.</p>
+  <ol class="docs">
+    <li><a class="doc" href="https://claude.ai/artifact/DQCgtdEnmBMnwMYpysvzjR" target="_blank" rel="noopener">
+      <span class="t">Le cockpit, si tu veux y revenir<span class="badge bc">claude.ai</span></span><span class="go">↗</span>
+      <span class="d">Le même que ci-dessus : la démo running s'ouvre depuis lui.</span></a></li>
+    <li><a class="doc" href="https://claude.ai/artifact/DQCgtdEnmBMnwMYpysvzjR" target="_blank" rel="noopener">
+      <span class="t">Running : la maquette de conseil<span class="badge bc">claude.ai</span></span><span class="go">↗</span>
+      <span class="d">Dans le cockpit. Elle reprend le profil de Julie.</span></a></li>
+    <li><a class="doc" href="https://claude.ai/artifact/RK4Wzs7CUYYWHXgyS3GSdt" target="_blank" rel="noopener">
+      <span class="t">Nutrition : le calculateur<span class="badge bc">claude.ai</span></span><span class="go">↗</span>
+      <span class="d">Huit sports, grammages par heure, pack de produits du rayon, feuille de route.</span></a></li>
+    <li><a class="doc" href="https://nouvelleardoise.ch/demos/rando-askblki8xuho/" target="_blank" rel="noopener">
+      <span class="t">Randonnée : la démo en direct<span class="badge bp">Public</span></span><span class="go">↗</span>
+      <span class="d">La même que pour José.</span></a></li>
+  </ol>
+  <div class="missing"><b>Lien manquant :</b> la maquette running n'a pas d'adresse à elle seule. Elle s'ouvre seulement depuis le cockpit personal shopping.</div>
+</section>
+
+
+<!-- ===================== B2B ===================== -->
+<section id="b2b">
+  <div class="sec-head"><h2>Projet B2B 2027</h2></div>
+  <p class="sub">Métier B2B, mission personal shopping, en renfort des relais B2B en place.</p>
+  <h3>1 · Le film v9 <span class="badge bl">Sur cette page</span></h3>
+  <video id="film" controls preload="metadata" playsinline src="film-v9.mp4"></video>
+  <p class="sub" style="margin-top:6px">Version « démonstration » du 13 nov., sans chiffres engageants, allégée pour le téléphone.</p>
+  <h3>2 · Le kit de proposition, 8 planches <span class="badge bl">Sur cette page</span></h3>
+  <div class="grid" data-group="kit">
+    <button type="button" data-src="kit/01_methode.png" data-label="La méthode"><img src="thumbs/01_methode.jpg" alt="Planche méthode" loading="lazy">La méthode</button>
+    <button type="button" data-src="kit/02_ecole_1.png" data-label="École 1/2"><img src="thumbs/02_ecole_1.jpg" alt="Planche école 1" loading="lazy">École 1/2</button>
+    <button type="button" data-src="kit/02_ecole_2.png" data-label="École 2/2"><img src="thumbs/02_ecole_2.jpg" alt="Planche école 2" loading="lazy">École 2/2</button>
+    <button type="button" data-src="kit/03_club_1.png" data-label="Club 1/2"><img src="thumbs/03_club_1.jpg" alt="Planche club 1" loading="lazy">Club 1/2</button>
+    <button type="button" data-src="kit/03_club_2.png" data-label="Club 2/2"><img src="thumbs/03_club_2.jpg" alt="Planche club 2" loading="lazy">Club 2/2</button>
+    <button type="button" data-src="kit/04_entreprise_1.png" data-label="Entreprise 1/2"><img src="thumbs/04_entreprise_1.jpg" alt="Planche entreprise 1" loading="lazy">Entreprise 1/2</button>
+    <button type="button" data-src="kit/04_entreprise_2.png" data-label="Entreprise 2/2"><img src="thumbs/04_entreprise_2.jpg" alt="Planche entreprise 2" loading="lazy">Entreprise 2/2</button>
+    <button type="button" data-src="kit/05_plan_90_jours.png" data-label="Plan 90 jours"><img src="thumbs/05_plan_90_jours.jpg" alt="Planche plan 90 jours" loading="lazy">Plan 90 jours</button>
+  </div>
+  <p class="sub" style="margin-top:8px">Kit du 15 oct. Les prix en gris sont estimés, pas encore relevés en magasin.</p>
+  <h3>3 · Pour aller plus loin</h3>
+  <div class="noindex"><ol class="docs">
+    <li><a class="doc" href="https://claude.ai/artifact/6AkQFHJNtdrWBZzuTheCqz" target="_blank" rel="noopener">
+      <span class="t">Personal shopping sous le même toit : questions ouvertes<span class="badge bc">claude.ai</span></span><span class="go">↗</span>
+      <span class="d">Liaison entre les outils sans API, ce qui reste à décider.</span></a></li>
+    <li><a class="doc" href="https://drive.google.com/drive/folders/1jmLTc26BhEsinDqzgcOgPd3wlU46yJFT" target="_blank" rel="noopener">
+      <span class="t">Tes photos « Projet B2B »<span class="badge bg">Google</span></span><span class="go">↗</span>
+      <span class="d">Stands de courses, groupes de coureurs, animations nutrition.</span></a></li>
+  </ol></div>
+  <div class="missing"><b>Pas encore fait :</b> les slides qui suivent le film (méthode, services, cibles, KPI). Elles attendent ton avis sur le film et la validation des trois chiffres.</div>
+</section>
+
+<footer>Page mise à jour le 13 nov. 2026 à 13 h 30 pour le RDV avec José.</footer>
+</div>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Image en grand">
+  <div class="bar"><span id="lbLabel"></span><div><button type="button" id="lbPrev" aria-label="Précédente">‹</button><button type="button" id="lbNext" aria-label="Suivante">›</button><button type="button" id="lbClose">Fermer</button></div></div>
+  <div class="img"><img id="lbImg" alt=""></div>
+</div>
+
+<script>
+(function(){
+  var lb=document.getElementById('lb'),img=document.getElementById('lbImg'),lab=document.getElementById('lbLabel');
+  var list=[],i=0;
+  function show(){img.src=list[i].dataset.src;img.alt=list[i].dataset.label;lab.textContent=list[i].dataset.label+' · '+(i+1)+'/'+list.length;}
+  document.querySelectorAll('.grid button').forEach(function(b){
+    b.addEventListener('click',function(){list=Array.prototype.slice.call(b.parentNode.querySelectorAll('button'));i=list.indexOf(b);show();lb.hidden=false;document.getElementById('lbClose').focus();});
+  });
+  function close(){lb.hidden=true;img.removeAttribute('src');}
+  document.getElementById('lbClose').onclick=close;
+  document.getElementById('lbPrev').onclick=function(){i=(i-1+list.length)%list.length;show();};
+  document.getElementById('lbNext').onclick=function(){i=(i+1)%list.length;show();};
+  document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')document.getElementById('lbNext').click();if(e.key==='ArrowLeft')document.getElementById('lbPrev').click();});
+})();
+</script>
+<script>
+(function(){var b=document.getElementById('copyDemo'),i=document.getElementById('demoUrl');if(!b)return;b.addEventListener('click',function(){var done=function(){b.textContent='Copié';setTimeout(function(){b.textContent='Copier le lien'},1500)};try{navigator.clipboard.writeText(i.value).then(done,function(){i.select()})}catch(e){i.select()}});})();
+</script>
+
+</body>
+</html>
