@@ -813,7 +813,7 @@ footer .liens{font:500 15px var(--sans);letter-spacing:0;text-transform:none}
 .js-rv .mono.vu b::after{clip-path:inset(-1px);transition:clip-path .9s cubic-bezier(.37,0,.63,1) .8s}
 @media (prefers-reduced-motion:no-preference){.js-rv .mono .semis img:nth-child(2n){transition-delay:calc(var(--d) + 1.8s)}}
 @media (prefers-reduced-motion:reduce){.js-rv .mono b::after{transition:none}}
-/* Pop-up des 200 burgers offerts : feuille en bas de l'écran au téléphone, carte centrée à l'ordinateur, comme la commande */
+/* Pop-up des 200 burgers à 2 francs : feuille en bas de l'écran au téléphone, carte centrée à l'ordinateur, comme la commande */
 dialog.pop{margin:auto auto 0;width:min(560px,100%);max-width:100%;max-height:100dvh;overflow:auto;overscroll-behavior:contain;border:0;padding:0;background:var(--merlot);color:var(--peach);border-radius:12px 12px 0 0;box-shadow:0 -20px 60px rgba(0,0,0,.4);opacity:0;transform:translateY(28px);transition:opacity .2s var(--ease),transform .2s var(--ease)}
 dialog.pop:not([open]){display:none}
 dialog.pop::backdrop{background:rgba(18,20,22,.6);opacity:0;transition:opacity .2s}
@@ -822,8 +822,8 @@ dialog.pop.vu::backdrop{opacity:1;transition-duration:.34s}
 .pop-c{position:relative;display:flex;flex-direction:column;align-items:flex-start;padding:30px 24px calc(16px + env(safe-area-inset-bottom))}
 .pop-c::before{content:"";position:absolute;inset:8px 8px 0;border:1px solid rgba(217,145,37,.42);border-bottom:0;border-radius:6px 6px 0 0;pointer-events:none}
 .pop .eye{margin-right:44px;color:var(--peach)}
-.pop h2{margin-top:10px;font-size:30px;line-height:1.05;outline:0}
-.pop h2 .n{display:block;margin:0 0 .07em -.04em;font-size:116px;line-height:.7;letter-spacing:-.02em;color:var(--or)}
+.pop h2{margin-top:10px;font-size:30px;line-height:1.05;outline:0;font-variant-numeric:lining-nums}
+.pop h2 .n{display:block;margin:0 0 .07em -.04em;font-size:116px;line-height:.7;letter-spacing:-.02em;color:var(--or);font-variant-numeric:normal}
 .pop .d{margin-top:14px;max-width:34ch;font-size:16px;line-height:1.5;color:rgba(249,237,220,.92)}
 .pop .btn{align-self:stretch;margin-top:22px;padding:0 12px;text-align:center;line-height:1.25}
 .pop .tard{align-self:center;min-height:44px;margin-top:6px;padding:0 16px;font:600 13px/1 var(--sans-maj);letter-spacing:.14em;text-transform:uppercase;color:var(--peach);text-decoration:underline;text-decoration-color:rgba(249,237,220,.45);text-underline-offset:6px}
@@ -864,7 +864,7 @@ dialog.pop.vu::backdrop{opacity:1;transition-duration:.34s}
 <div class="w"><p class="hcompte" aria-hidden="true"><b>01</b><i></i>05</p></div></div></div>
 <div class="w etapes-w"><p class="arch-note">We did not invent Café de Paris sauce: we serve it. Archive photos of Paris, credits at the bottom of the page.</p></div></section>
 </main>
-<footer><div class="logo-pied"><img class="m" src="../img/logo/apb-mark-or.svg" width="72" height="72" alt=""><img class="t" src="../img/logo/apb-logotype.svg" width="260" height="17" alt="Atelier Paris Burger"></div><p class="slog">The burger with Café de Paris sauce.</p><nav class="liens" aria-label="Footer"><a href="#villes">Our cities</a><a href="geneve/#carte">Menu</a><a href="#histoire">Our story</a><a href="commander/">Order in Geneva</a></nav><small>Atelier Paris Burger · Mock-up by Nouvelle Ardoise</small><small>Archive photos: Agence Rol and Agence Meurisse, BnF Gallica (public domain); Lars Olsson (CC BY-SA 3.0); Todor Atanassov (copyright-free). Geneva: Thibaut120094 (CC BY 4.0). Madrid: Carlos Delgado (CC BY-SA 4.0). Via Wikimedia Commons. Ibiza: house photo (Atelier Paris Burger Ibiza Google listing).</small></footer><dialog class="pop" id="pop" aria-labelledby="pop-t" aria-describedby="pop-d"><div class="pop-c"><p class="eye">Geneva · 1 December</p><h2 id="pop-t" tabindex="-1" autofocus><span class="n">200</span> free burgers</h2><p class="d" id="pop-d">For the opening, one per person, by reservation. Book yours in 30 seconds.</p><a class="btn btn-or" href="reserver/">Book my free burger</a><button type="button" class="tard">Later</button><button type="button" class="x" aria-label="Close">×</button></div></dialog>
+<footer><div class="logo-pied"><img class="m" src="../img/logo/apb-mark-or.svg" width="72" height="72" alt=""><img class="t" src="../img/logo/apb-logotype.svg" width="260" height="17" alt="Atelier Paris Burger"></div><p class="slog">The burger with Café de Paris sauce.</p><nav class="liens" aria-label="Footer"><a href="#villes">Our cities</a><a href="geneve/#carte">Menu</a><a href="#histoire">Our story</a><a href="commander/">Order in Geneva</a></nav><small>Atelier Paris Burger · Mock-up by Nouvelle Ardoise</small><small>Archive photos: Agence Rol and Agence Meurisse, BnF Gallica (public domain); Lars Olsson (CC BY-SA 3.0); Todor Atanassov (copyright-free). Geneva: Thibaut120094 (CC BY 4.0). Madrid: Carlos Delgado (CC BY-SA 4.0). Via Wikimedia Commons. Ibiza: house photo (Atelier Paris Burger Ibiza Google listing).</small></footer><dialog class="pop" id="pop" aria-labelledby="pop-t" aria-describedby="pop-d"><div class="pop-c"><p class="eye">Geneva · 1 December</p><h2 id="pop-t" tabindex="-1" autofocus><span class="n">200</span> burgers at&nbsp;2&nbsp;francs</h2><p class="d" id="pop-d">For the opening, one per person, by reservation. Book yours in 30 seconds.</p><a class="btn btn-or" href="reserver/">Book my 2-franc burger</a><button type="button" class="tard">Later</button><button type="button" class="x" aria-label="Close">×</button></div></dialog>
 <nav class="barre" aria-label="Quick access"><a class="btn btn-ligne" href="#villes">Our cities</a><a class="btn btn-or" href="commander/">Order in Geneva</a></nav>
 <script>
 /* v19 : images hors du premier écran. Elles partent un écran avant d'arriver, une fois la photo du premier écran reçue
@@ -1208,7 +1208,7 @@ function place(m,x,y){var S=m.nextElementSibling,E=S?S.getElementsByTagName('*')
  /* même mouvement que la goutte du bouton or : elle se forme (0,26 s), s'étire (0,14 s), se détache et s'efface en tombant (0,42 s) */
  g.animate([{offset:0,transform:'translateY(-2px) scale(.35)',opacity:0,easing:EASE},{offset:.317,transform:'translateY(0) scale(1)',opacity:1,easing:VAETVIENT},{offset:.488,transform:'translateY(0) scale(.9,1.3)',opacity:1,easing:CHUTE},{offset:.744,opacity:1},{offset:1,transform:'translateY('+c+'px) scale(.9,1.15)',opacity:0}],{duration:820,fill:'both'}).finished.then(ote,ote)})});
 })();
-/* Pop-up des 200 burgers offerts : à l'ouverture du site, une fois par visite, un instant après que le titre a fini de s'ouvrir.
+/* Pop-up des 200 burgers à 2 francs : à l'ouverture du site, une fois par visite, un instant après que le titre a fini de s'ouvrir.
    Il ne s'ouvre pas si le navigateur ne connaît pas <dialog> ou ne peut pas retenir la visite ; il attend si le menu est ouvert,
    si la page défile, si elle est en arrière-plan ou en plein écran. Qui est déjà passé par la page Réserver ne le voit pas
    (c'est relu juste avant d'ouvrir : on peut revenir de Réserver par le bouton Retour, page gardée en mémoire par le navigateur). */
