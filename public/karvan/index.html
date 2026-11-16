@@ -6,7 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Karvan · Emballages pour les pros de l'alimentation</title>
-<meta name="description" content="Karvan, la maison de Jalal : 25 ans d'import-export au service des professionnels de l'alimentation. Emballages en stock, personnalisés à votre marque, devis sur WhatsApp.">
+<meta name="description" content="Karvan, la maison de Jalal : 25 ans d'import-export. Emballages en stock pour restaurants et commerces, personnalisés à votre marque, devis rapide.">
+<link rel="canonical" href="https://nouvelleardoise.ch/karvan/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Karvan · Emballages pour les pros de l'alimentation">
+<meta property="og:description" content="Karvan, la maison de Jalal : 25 ans d'import-export. Emballages en stock pour restaurants et commerces, personnalisés à votre marque, devis rapide.">
+<meta property="og:image" content="https://nouvelleardoise.ch/karvan/og-karvan.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1B2440">
 <link rel="icon" href="/demos/karvan/img/karvan-icone.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -111,7 +119,7 @@ section{padding-block:96px}
 .filtres{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
 .filtres button{min-height:44px;padding:0 16px;border:1px solid var(--filet);background:transparent;color:var(--lapis);font:500 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;cursor:pointer}
 .filtres button[aria-pressed="true"]{background:var(--lapis);border-color:var(--lapis);color:var(--papier)}
-@media (max-width:600px){.fiches{grid-template-columns:1fr 1fr}.fiche .corps{padding:12px}.fiche dl{grid-template-columns:1fr}.fiche dd{text-align:left;margin-bottom:4px}.fiche h3{font-size:17px}.ajout{font-size:11px}}
+@media (max-width:600px){.fiches{grid-template-columns:1fr 1fr}.fiche .corps{padding:12px}.fiche dl{grid-template-columns:1fr}.fiche dd{text-align:left;margin-bottom:4px}.fiche h3{font-size:17px}.ajout{font-size:12px;letter-spacing:.03em}}
 .note-photo{margin-top:16px;color:var(--encre-2)}
 
 /* histoire */
@@ -160,7 +168,7 @@ section{padding-block:96px}
 .etapes .n{font:600 44px/1 var(--f);color:var(--safran)}
 .etapes.e3{grid-template-columns:repeat(3,1fr)}
 @media (max-width:860px){.etapes{grid-template-columns:1fr 1fr;row-gap:28px}.etapes.e3{grid-template-columns:1fr}}
-@media (max-width:600px){.tag{font-size:10px;padding:6px 8px}.tag.d{top:auto;bottom:14px}}
+@media (max-width:600px){.tag{font-size:12px;padding:6px 8px}.tag.d{top:auto;bottom:14px}}
 .plus{margin-top:24px;display:flex;justify-content:center}
 .fiches.court .fiche:nth-child(n+9){display:none}
 .studio{margin-top:72px;display:flex;flex-wrap:wrap;gap:12px 32px;align-items:baseline;justify-content:space-between;border-block:1px solid var(--filet);padding-block:22px}
@@ -210,7 +218,7 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
 .fiche.rupture figure{position:relative}
 .fiche.rupture figure img{filter:grayscale(1);opacity:.55}
 .fiche.rupture h3,.fiche.rupture .ref{color:#9E2A22}
-.badge-rupture{position:absolute;top:12px;left:12px;z-index:1;background:#B3261E;color:#fff;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:7px 9px}
+.badge-rupture{position:absolute;top:12px;left:12px;z-index:1;background:#B3261E;color:#fff;font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:7px 9px}
 .fiche.rupture .ajout,.fiche.rupture .ajout:hover{background:#FBE9E7;color:#9E2A22;border-color:#E8B4AE;cursor:not-allowed}
 .bandeau{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;padding-inline:var(--g) calc(var(--g) + 76px)}
 .langues{position:absolute;inset-inline-end:var(--g);top:50%;transform:translateY(-50%);z-index:40}
@@ -235,6 +243,9 @@ html[data-langue="hi"] :is(.mono,.ajout,.filtres button,.fiche dt,.fiche dd,.ret
 html[data-langue="zh"] :is(.mono,.ajout,.filtres button,.fiche dt,.fiche dd,.ret,.badge-rupture,.tag,.err){font-family:var(--mono),"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif}
 html:is([data-langue="ar"],[data-langue="fa"],[data-langue="hi"],[data-langue="zh"]) :is(.mono,.ajout,.filtres button,.fiche dt,.fiche dd,.ret,.badge-rupture,.tag,.err,h1,h2,h3){letter-spacing:0!important;text-transform:none}
 html:is([data-langue="ar"],[data-langue="fa"]) .ref{direction:ltr;unicode-bidi:isolate}
+@media (max-width:700px){.langues>button{min-height:44px}}
+.logo{display:inline-flex;align-items:center;min-height:44px}
+footer .bas a{display:inline-block;padding-block:13px;margin-block:-13px}
 .piege{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;margin:-1px;padding:0;border:0}
 </style>
 </head>
@@ -351,7 +362,7 @@ html:is([data-langue="ar"],[data-langue="fa"]) .ref{direction:ltr;unicode-bidi:i
       <span class="mono m-saf">Demander une offre</span>
       <h2 id="t-contact">Parlez à Jalal.</h2>
       <p class="chapo">Votre demande arrive chez Jalal par e-mail et sur WhatsApp. Il vous répond avec une offre.</p>
-      <p class="mono">WhatsApp <a href="https://wa.me/33605582600" target="_blank" rel="noopener">+33 6 05 58 26 00</a></p>
+      <p class="mono">WhatsApp <a href="https://wa.me/33605582600" target="_blank" rel="noopener">+33 6 05 58 26 00</a> · <a href="tel:+33605582600">Appeler</a></p>
     </div>
     <form id="form" novalidate>
       <label><span class="mono">Nom</span><input name="nom" autocomplete="name" required></label>

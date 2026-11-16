@@ -125,6 +125,7 @@ const D={
 "Cachet Karvan, import export":["Karvan seal, import export","ختم كارفان، استيراد وتصدير","Karvan mührü, ithalat ihracat","مهر کاروان، واردات و صادرات","Karvan 印章，进出口","Karvan मुहर, आयात निर्यात","Sigillo Karvan, import export"],
 "Écrire à Jalal sur WhatsApp":["Message Jalal on WhatsApp","راسل جلال على واتساب","Jalal'e WhatsApp'tan yazın","به جلال در واتس‌اپ پیام دهید","在 WhatsApp 上联系 Jalal","WhatsApp पर जलाल को लिखें","Scrivi a Jalal su WhatsApp"],
 "ex. Genève, Carouge, Nyon":["e.g. Geneva, Carouge, Nyon","مثلًا: جنيف، كاروج، نيون","örn. Cenevre, Carouge, Nyon","مثلاً ژنو، کاروژ، نیون","例如：日内瓦、卡鲁日、尼翁","जैसे जिनेवा, कारूज, न्यों","es. Ginevra, Carouge, Nyon"],
+"Appeler":["Call","اتصل","Ara","تماس تلفنی","致电","कॉल करें","Chiama"],
 "Langue":["Language","اللغة","Dil","زبان","语言","भाषा","Lingua"]
 };
 const MOTS={ // morceaux pour les règles
@@ -168,7 +169,7 @@ function appliquer(c,garder){
  const h=document.documentElement;h.lang=lang;h.dir=x.rtl?'rtl':'ltr';h.dataset.langue=lang;
  document.title=tr("Karvan · Emballages pour les pros de l'alimentation");
  traduire(document.body);
- const b=document.querySelector('.langues>button');if(b){b.querySelector('img').src='/karvan/drapeaux/'+x.f+'.svg';b.querySelector('span').textContent=x.c.toUpperCase();b.setAttribute('aria-label',tr('Langue')+' : '+x.n)}
+ const b=document.querySelector('.langues>button');if(b){b.querySelector('img').src='/karvan/drapeaux/'+x.f+'.svg';b.querySelector('span').textContent=x.c.toUpperCase();b.setAttribute('aria-label',x.c.toUpperCase()+', '+tr('Langue')+' : '+x.n)}
  document.querySelectorAll('.langues li button').forEach(e=>e.setAttribute('aria-current',e.dataset.l===lang?'true':'false'));
  if(garder){try{localStorage.setItem('karvan-langue',lang)}catch(_){}
   const u=new URL(location.href);if(lang==='fr')u.searchParams.delete('lang');else u.searchParams.set('lang',lang);history.replaceState(null,'',u)}
