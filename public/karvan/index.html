@@ -212,7 +212,30 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
 .fiche.rupture h3,.fiche.rupture .ref{color:#9E2A22}
 .badge-rupture{position:absolute;top:12px;left:12px;z-index:1;background:#B3261E;color:#fff;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:7px 9px}
 .fiche.rupture .ajout,.fiche.rupture .ajout:hover{background:#FBE9E7;color:#9E2A22;border-color:#E8B4AE;cursor:not-allowed}
-.piege{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.bandeau{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;padding-inline:var(--g) calc(var(--g) + 76px)}
+.langues{position:absolute;inset-inline-end:var(--g);top:50%;transform:translateY(-50%);z-index:40}
+.langues>button{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:4px 8px;background:transparent;color:#F3EEE4;border:1px solid rgba(243,238,228,.35);font:500 12px/1 var(--mono);letter-spacing:.06em;cursor:pointer}
+.langues>button:hover,.langues>button[aria-expanded="true"]{border-color:#F3EEE4}
+.langues img{width:20px;height:15px;object-fit:cover;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+.langues ul{position:absolute;inset-inline-end:0;top:calc(100% + 6px);margin:0;padding:6px;list-style:none;background:var(--papier);border:1px solid var(--filet);box-shadow:0 12px 32px rgba(27,36,64,.16);min-width:184px}
+.langues li button{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:0 10px;background:none;border:0;color:var(--lapis);font:500 15px/1.2 var(--f);text-align:start;cursor:pointer}
+.langues li button:hover,.langues li button:focus-visible{background:#EAE3D5}
+.langues li button[aria-current="true"]{box-shadow:inset 3px 0 0 var(--safran)}
+[dir="rtl"] .langues li button[aria-current="true"]{box-shadow:inset -3px 0 0 var(--safran)}
+html[data-langue="ar"] body,html[data-langue="ar"] h1,html[data-langue="ar"] h2,html[data-langue="ar"] h3,html[data-langue="ar"] .btn,html[data-langue="ar"] input,html[data-langue="ar"] textarea{font-family:"Noto Sans Arabic",var(--f)}
+html[data-langue="fa"] body,html[data-langue="fa"] h1,html[data-langue="fa"] h2,html[data-langue="fa"] h3,html[data-langue="fa"] .btn,html[data-langue="fa"] input,html[data-langue="fa"] textarea{font-family:Vazirmatn,var(--f)}
+html[data-langue="hi"] body,html[data-langue="hi"] h1,html[data-langue="hi"] h2,html[data-langue="hi"] h3,html[data-langue="hi"] .btn{font-family:"Noto Sans Devanagari",var(--f)}
+html[data-langue="zh"] body,html[data-langue="zh"] h1,html[data-langue="zh"] h2,html[data-langue="zh"] h3,html[data-langue="zh"] .btn{font-family:var(--f),"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif}
+html[data-langue="ar"] .mono,html[data-langue="fa"] .mono,html[data-langue="hi"] .mono,html[data-langue="zh"] .mono{letter-spacing:0;text-transform:none}
+html[data-langue="ar"] h1,html[data-langue="ar"] h2,html[data-langue="fa"] h1,html[data-langue="fa"] h2,html[data-langue="hi"] h1,html[data-langue="hi"] h2{line-height:1.35;letter-spacing:0}
+[dir="rtl"] .fiche dd{text-align:left}
+html[data-langue="ar"] :is(.mono,.ajout,.filtres button,.fiche dt,.fiche dd,.ret,.badge-rupture,.tag,.err,.langues>button){font-family:"Noto Sans Arabic",var(--mono)}
+html[data-langue="fa"] :is(.mono,.ajout,.filtres button,.fiche dt,.fiche dd,.ret,.badge-rupture,.tag,.err,.langues>button){font-family:Vazirmatn,var(--mono)}
+html[data-langue="hi"] :is(.mono,.ajout,.filtres button,.fiche dt,.fiche dd,.ret,.badge-rupture,.tag,.err){font-family:"Noto Sans Devanagari",var(--mono)}
+html[data-langue="zh"] :is(.mono,.ajout,.filtres button,.fiche dt,.fiche dd,.ret,.badge-rupture,.tag,.err){font-family:var(--mono),"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif}
+html:is([data-langue="ar"],[data-langue="fa"],[data-langue="hi"],[data-langue="zh"]) :is(.mono,.ajout,.filtres button,.fiche dt,.fiche dd,.ret,.badge-rupture,.tag,.err,h1,h2,h3){letter-spacing:0!important;text-transform:none}
+html:is([data-langue="ar"],[data-langue="fa"]) .ref{direction:ltr;unicode-bidi:isolate}
+.piege{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;margin:-1px;padding:0;border:0}
 </style>
 </head>
 <body>
@@ -260,7 +283,7 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
   <div class="wrap">
     <div class="tete">
       <div><span class="mono m-saf">Disponible maintenant · <span class="nb">34</span> références</span><h2 id="t-prod">Ce qu'on livre cette semaine.</h2></div>
-      <p class="droite chapo">Ajoutez les produits et le nombre de cartons : votre demande part sur le WhatsApp de Jalal.</p>
+      <p class="droite chapo">Ajoutez les produits et le nombre de cartons : votre demande part directement chez Jalal.</p>
     </div>
     <div class="filtres" role="group" aria-label="Filtrer par famille"></div>
     <div class="fiches court" id="fiches"></div>
@@ -316,7 +339,7 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
     <h2 id="t-trav">Travailler avec Karvan.</h2>
     <ol class="etapes e3">
       <li><span class="n">1</span><h3>Vous choisissez</h3><p>Les produits et le nombre de cartons, dans la liste ci-dessus.</p></li>
-      <li><span class="n">2</span><h3>Jalal vous fait une offre</h3><p>Sur WhatsApp. Une seule personne, une réponse claire.</p></li>
+      <li><span class="n">2</span><h3>Jalal vous fait une offre</h3><p>Par e-mail ou WhatsApp. Une seule personne, une réponse claire.</p></li>
       <li><span class="n">3</span><h3>Livraison</h3><p>Chez vous, en Suisse romande.</p></li>
     </ol>
   </div>
@@ -376,20 +399,21 @@ function image(p){const k=p.ref.split('-')[0];return IMG[k]||IMGF[p.f]||'sac-kra
 function bouton(r){const q=panier.get(r);return q?`Ajouté · ${q} carton${q>1?'s':''}`:'Ajouter à ma demande'}
 function rendre(){
   const fams=['Tous',...new Set(P.map(p=>p.f))];if(!fams.includes(filtre))filtre='Tous';
-  fl.innerHTML=fams.map(f=>`<button type="button" aria-pressed="${f===filtre}">${esc(f)}</button>`).join('');
+  fl.innerHTML=fams.map(f=>`<button type="button" data-v="${esc(f)}" aria-pressed="${f===filtre}">${esc(f)}</button>`).join('');
   box.innerHTML=P.map(p=>`<article class="fiche${p.rupture?' rupture':''}" data-f="${esc(p.f)}"${filtre==='Tous'||p.f===filtre?'':' hidden'}><figure>${p.rupture?'<span class="badge-rupture">En rupture</span>':''}<img src="/demos/karvan/img/${image(p)}.webp" width="900" height="900" alt="" loading="lazy"></figure><div class="corps"><span class="mono ref">${esc(p.ref)}</span><h3>${esc(p.nom)}</h3><dl><dt>Dimensions</dt><dd>${esc(p.dim)}</dd><dt>Matière</dt><dd>${esc(p.mat)}</dd><dt>Carton</dt><dd>${p.pcs?pieces(p.pcs):'—'}</dd></dl>${p.rupture?'<button class="ajout" type="button" disabled aria-disabled="true">En rupture de stock</button>':`<button class="ajout" type="button" aria-pressed="${panier.has(p.ref)}" data-r="${esc(p.ref)}">${bouton(p.ref)}</button>`}</div></article>`).join('');
   box.classList.toggle('court',filtre==='Tous'&&!ouvert);document.querySelector('.plus').hidden=filtre!=='Tous'||ouvert||P.length<=8;
   document.querySelectorAll('.nb').forEach(x=>x.textContent=P.length);
   for(const r of [...panier.keys()])if(!P.some(p=>p.ref===r&&!p.rupture))panier.delete(r);
-  maj();
+  maj();window.KarvanLangue&&KarvanLangue.traduire(document.body);
 }
 function maj(foc){
   if(!panier.size){dem.textContent='Aucun produit ajouté. Ajoutez-les depuis la liste, ou écrivez-les ci-dessous.';}
   else dem.innerHTML=[...panier].map(([r,q])=>{const p=P.find(x=>x.ref===r);return `<div class="ligne-p" data-r="${esc(r)}"><span class="nom"><b>${esc(r)}</b> ${esc(p?p.nom:'')}</span><span class="qte"><button type="button" data-a="moins" aria-label="Un carton de moins, ${esc(r)}">−</button><output aria-label="Cartons ${esc(r)}">${q}</output><button type="button" data-a="plus" aria-label="Un carton de plus, ${esc(r)}">+</button></span><button type="button" class="ret" data-a="ret" aria-label="Retirer ${esc(r)}">Retirer</button></div>`}).join('');
-  box.querySelectorAll('.ajout[data-r]').forEach(b=>{b.setAttribute('aria-pressed',panier.has(b.dataset.r));b.textContent=bouton(b.dataset.r)});
+  box.querySelectorAll('.ajout[data-r]').forEach(b=>{b.setAttribute('aria-pressed',panier.has(b.dataset.r));b.textContent=bouton(b.dataset.r)});window.KarvanLangue&&KarvanLangue.traduire(box);
+  window.KarvanLangue&&KarvanLangue.traduire(dem);
   if(foc){const l=dem.querySelector(`.ligne-p[data-r="${CSS.escape(foc[0])}"] [data-a="${foc[1]}"]`);(l||fo.msg).focus()}
 }
-fl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;filtre=b.textContent;rendre();fl.querySelectorAll('button').forEach(x=>{if(x.textContent===filtre)x.focus()})});
+fl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;filtre=b.dataset.v;rendre();fl.querySelectorAll('button').forEach(x=>{if(x.dataset.v===filtre)x.focus()})});
 document.getElementById('plus').addEventListener('click',()=>{ouvert=true;rendre();box.querySelector('.fiche:nth-child(9) .ajout')?.focus()});
 box.addEventListener('click',e=>{const b=e.target.closest('.ajout');if(!b||b.disabled||!b.dataset.r)return;const r=b.dataset.r;if(panier.has(r))panier.delete(r);else panier.set(r,1);maj()});
 dem.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const r=b.closest('.ligne-p').dataset.r,a=b.dataset.a;let q=panier.get(r)||0;
@@ -397,7 +421,7 @@ dem.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return
   if(q>0){panier.set(r,q);maj([r,a])}else{panier.delete(r);maj(['',''])}});
 const c=document.getElementById('cmp'),rg=c.querySelector('input');rg.addEventListener('input',()=>c.style.setProperty('--x',rg.value+'%'));
 const fo=document.getElementById('form');
-function erreur(ch,t){ch.setAttribute('aria-invalid','true');let m=ch.parentNode.querySelector('.err');if(!m){m=document.createElement('span');m.className='err';m.id='err-'+ch.name;ch.parentNode.appendChild(m);ch.setAttribute('aria-describedby',m.id)}m.textContent=t}
+function erreur(ch,t){ch.setAttribute('aria-invalid','true');let m=ch.parentNode.querySelector('.err');if(!m){m=document.createElement('span');m.className='err';m.id='err-'+ch.name;ch.parentNode.appendChild(m);ch.setAttribute('aria-describedby',m.id)}m.textContent=t;window.KarvanLangue&&KarvanLangue.traduire(m.parentNode)}
 fo.addEventListener('input',e=>{const ch=e.target;if(ch.getAttribute('aria-invalid')){ch.removeAttribute('aria-invalid');ch.parentNode.querySelector('.err')?.remove();ch.removeAttribute('aria-describedby')}});
 function message(v){const l=['Bonjour Jalal, je souhaite une offre.','','Nom : '+v('nom'),'Établissement : '+v('etab'),'Localité : '+v('loc')];if(v('tel'))l.push('Téléphone : '+v('tel'));if(v('mail'))l.push('E-mail : '+v('mail'));
   if(panier.size){l.push('','Produits :');for(const [r,q] of panier){const p=P.find(x=>x.ref===r);l.push(`- ${r} · ${p?p.nom+(p.dim!=='—'?' ('+p.dim+')':''):''} · ${q} carton${q>1?'s':''}${p&&p.pcs?' ('+pieces(p.pcs*q)+')':''}`)}}
@@ -425,5 +449,6 @@ if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.fo
 P=produits(SECOURS);rendre();
 if(CSV_URL)fetch(CSV_URL,{cache:'no-store'}).then(r=>r.ok?r.text():Promise.reject()).then(t=>{const n=produits(lireCSV(t));if(n.length>=5){P=n;rendre()}}).catch(()=>{});
 </script>
+<script src="/karvan/langues.js"></script>
 </body>
 </html>
