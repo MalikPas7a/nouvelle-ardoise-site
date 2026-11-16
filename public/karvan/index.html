@@ -207,6 +207,7 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
 .ligne-p output{min-width:3ch;text-align:center;color:var(--lapis);font-weight:500}
 .ligne-p .ret{border:0;background:none;width:auto;padding:0 6px;font:500 12px/1 var(--mono);text-decoration:underline;text-transform:uppercase}
 .contact .gauche a{border-bottom:1px solid var(--safran);text-decoration:none}
+.piege{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 </style>
 </head>
 <body>
@@ -321,17 +322,20 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
     <div class="gauche">
       <span class="mono m-saf">Demander une offre</span>
       <h2 id="t-contact">Parlez à Jalal.</h2>
-      <p class="chapo">Votre demande arrive directement sur le WhatsApp de Jalal. Il vous répond avec une offre.</p>
+      <p class="chapo">Votre demande arrive chez Jalal par e-mail et sur WhatsApp. Il vous répond avec une offre.</p>
       <p class="mono">WhatsApp <a href="https://wa.me/33605582600" target="_blank" rel="noopener">+33 6 05 58 26 00</a></p>
     </div>
     <form id="form" novalidate>
       <label><span class="mono">Nom</span><input name="nom" autocomplete="name" required></label>
       <label><span class="mono">Établissement</span><input name="etab" autocomplete="organization" required></label>
       <label><span class="mono">Localité</span><input name="loc" autocomplete="address-level2" placeholder="ex. Genève, Carouge, Nyon"></label>
+      <div class="deux-ch"><label><span class="mono">E-mail (pour recevoir une copie)</span><input name="mail" type="email" autocomplete="email" inputmode="email" spellcheck="false"></label>
+      <label><span class="mono">Téléphone</span><input name="tel" type="tel" autocomplete="tel"></label></div>
+      <label class="piege" aria-hidden="true">Site<input name="site" tabindex="-1" autocomplete="off"></label>
       <div><span class="mono" style="display:block;margin-bottom:8px">Votre demande</span><div class="demande" id="demande" aria-live="polite">Aucun produit ajouté. Ajoutez-les depuis la liste, ou écrivez-les ci-dessous.</div></div>
       <label><span class="mono">Autre besoin, personnalisation</span><textarea name="msg"></textarea></label>
-      <button class="btn saf" type="submit">Envoyer sur WhatsApp</button>
-      <p class="merci" role="status" tabindex="-1">WhatsApp s'ouvre avec votre demande déjà écrite : il ne reste qu'à appuyer sur Envoyer. Rien ne s'ouvre ? <a id="wa-lien" href="https://wa.me/33605582600" target="_blank" rel="noopener">Ouvrir WhatsApp</a></p>
+      <button class="btn saf" type="submit">Envoyer ma demande</button>
+      <p class="merci" role="status" tabindex="-1">Votre demande part chez Jalal par e-mail, en PDF. WhatsApp s'ouvre aussi avec la demande déjà écrite : il ne reste qu'à appuyer sur Envoyer. Rien ne s'ouvre ? <a id="wa-lien" href="https://wa.me/33605582600" target="_blank" rel="noopener">Ouvrir WhatsApp</a></p>
     </form>
   </div>
 </section>
@@ -347,7 +351,8 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
 <div class="flottant"><a class="btn" href="#contact">Demander une offre</a><a class="btn wa" href="https://wa.me/33605582600" target="_blank" rel="noopener" aria-label="Écrire à Jalal sur WhatsApp">WhatsApp</a></div>
 
 <script>
-/* Vitrine Karvan : catalogue lu dans le tableur publié (onglet « Catalogue », CSV), demande envoyée sur WhatsApp. */
+/* Vitrine Karvan : catalogue lu dans le tableur publié (onglet « Catalogue », CSV), demande envoyée par e-mail en PDF (script Google) et sur WhatsApp. */
+const ENVOI_URL=''; // adresse de l'application Web Apps Script « Karvan · demandes » (vide = WhatsApp seul)
 const NUM='33605582600';
 const CSV_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vTQ582Ud05wEYvG_Z0B-TR7oHoVKs-qFbgGLvbv3ROvJBF2sWWrPJGzVVlFGkjAkirXDaG8cvIIRKJ4/pub?gid=0&single=true&output=csv'; // lien « Publier sur le web » de l'onglet Catalogue, en CSV
 const SECOURS=[["BOL-1300", "Bols", "Bol kraft", "1300 ml", "Ø 184 x H 67", "Kraft", "200"], ["BOL-1100", "Bols", "Bol kraft", "1100 ml", "Ø 184", "Kraft", "200"], ["BOL-850", "Bols", "Bol kraft", "850 ml", "Ø 184 x H 47", "Kraft", "200"], ["BOL-750", "Bols", "Bol kraft", "750 ml", "Ø 144 x H 67", "Kraft", "300"], ["BOL-550", "Bols", "Bol kraft", "550 ml", "Ø 144 x H 50", "Kraft", "300"], ["COU-SM", "Bols", "Couvercle pour bol 550 / 750 ml", "", "Ø 144 x H 19", "Transparent", "300"], ["COU-LX", "Bols", "Couvercle pour bol 850 / 1100 / 1300 ml", "", "Ø 184 x H 20", "Transparent", "200"], ["PAP-3040", "Burger", "Papier à burger", "", "300 x 400", "Papier", "1 000"], ["PAP-2530", "Burger", "Papier à burger", "", "250 x 300", "Papier", "1 000"], ["BOX-110", "Burger", "Box à burger", "", "115 x 115 x 90", "Kraft", "100"], ["BOX-90", "Burger", "Petite box à burger", "", "90 x 90 x 70", "Kraft", "700"], ["GOB-30", "Gobelets", "Gobelet", "30 cl / 12 oz", "Ø 78 x H 115", "à confirmer", "2 000"], ["GOB-25", "Gobelets", "Gobelet", "25 cl / 8 oz", "Ø 78 x H 87", "à confirmer", "2 000"], ["GOB-10", "Gobelets", "Gobelet", "10 cl / 4 oz", "Ø 61 x H 60", "à confirmer", "3 000"], ["SAC-L", "Sacs", "Sac kraft à poignées", "", "H 350 x L 330 x P 200", "Kraft", "250"], ["SAC-M", "Sacs", "Sac kraft à poignées", "", "H 290 x L 280 x P 160", "Kraft", "250"], ["SAC-S", "Sacs", "Sac kraft à poignées", "", "H 290 x L 220 x P 120", "Kraft", "250"], ["PIZ-41", "Pizza", "Boîte à pizza", "", "410 x 410 x 40", "Carton kraft", "100"], ["PIZ-33", "Pizza", "Boîte à pizza", "", "330 x 330 x 40", "Carton kraft", "100"], ["PIZ-30", "Pizza", "Boîte à pizza", "", "300 x 300 x 35", "Carton kraft", "100"], ["PIZ-27", "Pizza", "Boîte à pizza", "", "270 x 270 x 35", "Carton kraft", "100"], ["PIZ-26", "Pizza", "Boîte à pizza", "", "260 x 260 x 40", "Carton kraft", "100"], ["PIZ-24", "Pizza", "Boîte à pizza", "", "240 x 240 x 35", "Carton kraft", "100"], ["PIZ-22", "Pizza", "Boîte à pizza", "", "220 x 220 x 35", "Carton kraft", "100"], ["SAU-20", "Sauces", "Barquette à sauce avec couvercle", "20 cc", "55 x 35 x 18", "PET transparent", "2 700"], ["SAU-30", "Sauces", "Barquette à sauce avec couvercle", "30 cc", "46 x 31 x 24", "PET transparent", "2 000"], ["SAU-50", "Sauces", "Barquette à sauce avec couvercle", "50 cc", "62 x 42 x 25", "PET transparent", "2 000"], ["SAU-80", "Sauces", "Barquette à sauce avec couvercle", "80 cc", "60 x 40 x 35", "PET transparent", "2 000"], ["POT-30", "Sauces", "Pot à sauce avec couvercle", "30 cc", "Ø 41 x H 24", "PP", "1 000"], ["SAL-150", "Salades", "Barquette à salade avec couvercle", "150 g", "103 x 85 x 29", "Transparent", "1 000"], ["SAL-250", "Salades", "Barquette à salade avec couvercle", "250 g", "102 x 87 x 40", "Transparent", "1 000"], ["SAL-500", "Salades", "Barquette à salade avec couvercle", "500 g", "100 x 108 x 56", "Transparent", "800"], ["COUG-M", "Gobelets", "Couvercle pour gobelet 10 cl", "taille M", "", "à confirmer", "1 000"], ["COUG-L", "Gobelets", "Couvercle pour gobelet 25 / 30 cl", "taille L", "", "à confirmer", "1 000"]]; // copie du tableur au 12.11.2026, utilisée si le CSV ne répond pas
@@ -389,16 +394,22 @@ const c=document.getElementById('cmp'),rg=c.querySelector('input');rg.addEventLi
 const fo=document.getElementById('form');
 function erreur(ch,t){ch.setAttribute('aria-invalid','true');let m=ch.parentNode.querySelector('.err');if(!m){m=document.createElement('span');m.className='err';m.id='err-'+ch.name;ch.parentNode.appendChild(m);ch.setAttribute('aria-describedby',m.id)}m.textContent=t}
 fo.addEventListener('input',e=>{const ch=e.target;if(ch.getAttribute('aria-invalid')){ch.removeAttribute('aria-invalid');ch.parentNode.querySelector('.err')?.remove();ch.removeAttribute('aria-describedby')}});
-function message(v){const l=['Bonjour Jalal, je souhaite une offre.','','Nom : '+v('nom'),'Établissement : '+v('etab'),'Localité : '+v('loc')];
+function message(v){const l=['Bonjour Jalal, je souhaite une offre.','','Nom : '+v('nom'),'Établissement : '+v('etab'),'Localité : '+v('loc')];if(v('tel'))l.push('Téléphone : '+v('tel'));if(v('mail'))l.push('E-mail : '+v('mail'));
   if(panier.size){l.push('','Produits :');for(const [r,q] of panier){const p=P.find(x=>x.ref===r);l.push(`- ${r} · ${p?p.nom+(p.dim!=='—'?' ('+p.dim+')':''):''} · ${q} carton${q>1?'s':''}${p&&p.pcs?' ('+pieces(p.pcs*q)+')':''}`)}}
   if(v('msg'))l.push('','Message : '+v('msg'));l.push('','(envoyé depuis la vitrine Karvan)');return l.join('\n')}
+function envoyer(v){if(!ENVOI_URL)return;
+  const lignes=[...panier].map(([r,q])=>{const p=P.find(x=>x.ref===r);return {ref:r,nom:p?p.nom:'',dim:p?p.dim:'',cartons:q,pieces:p&&p.pcs?p.pcs*q:0}});
+  const d={nom:v('nom'),etab:v('etab'),loc:v('loc'),mail:v('mail'),tel:v('tel'),msg:v('msg'),site:fo.site.value,lignes};
+  try{fetch(ENVOI_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d),keepalive:true}).catch(()=>{})}catch(_){}}
 fo.addEventListener('submit',e=>{e.preventDefault();fo.classList.remove('ok');fo.querySelectorAll('.err').forEach(x=>x.remove());fo.querySelectorAll('[aria-invalid]').forEach(x=>{x.removeAttribute('aria-invalid');x.removeAttribute('aria-describedby')});
   const v=n=>fo[n].value.trim(),ko=[];
   if(!v('nom'))ko.push([fo.nom,'Indiquez votre nom.']);
   if(!v('etab'))ko.push([fo.etab,'Indiquez le nom de votre établissement.']);
   if(!v('loc'))ko.push([fo.loc,'Indiquez votre localité, pour la livraison.']);
+  if(v('mail')&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('mail')))ko.push([fo.mail,'Vérifiez votre adresse e-mail.']);
   if(!panier.size&&!v('msg'))ko.push([fo.msg,'Ajoutez des produits depuis la liste, ou écrivez votre besoin ici.']);
   if(ko.length){ko.forEach(([c,t])=>erreur(c,t));ko[0][0].focus();return}
+  envoyer(v);
   const url=`https://wa.me/${NUM}?text=${encodeURIComponent(message(v))}`;
   document.getElementById('wa-lien').href=url;fo.classList.add('ok');
   const w=window.open(url,'_blank','noopener');if(!w)fo.querySelector('.merci').focus();});
