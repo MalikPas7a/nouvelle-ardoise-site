@@ -207,6 +207,11 @@ footer a{text-decoration:none;border-bottom:1px solid var(--safran)}
 .ligne-p output{min-width:3ch;text-align:center;color:var(--lapis);font-weight:500}
 .ligne-p .ret{border:0;background:none;width:auto;padding:0 6px;font:500 12px/1 var(--mono);text-decoration:underline;text-transform:uppercase}
 .contact .gauche a{border-bottom:1px solid var(--safran);text-decoration:none}
+.fiche.rupture figure{position:relative}
+.fiche.rupture figure img{filter:grayscale(1);opacity:.55}
+.fiche.rupture h3,.fiche.rupture .ref{color:#9E2A22}
+.badge-rupture{position:absolute;top:12px;left:12px;z-index:1;background:#B3261E;color:#fff;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:7px 9px}
+.fiche.rupture .ajout,.fiche.rupture .ajout:hover{background:#FBE9E7;color:#9E2A22;border-color:#E8B4AE;cursor:not-allowed}
 .piege{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 </style>
 </head>
@@ -363,30 +368,30 @@ const box=document.getElementById('fiches'),fl=document.querySelector('.filtres'
 const panier=new Map(); // réf -> cartons
 let P=[],ouvert=false,filtre='Tous';
 function lireCSV(t){const L=[];let r=[],v='',q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){v+='"';i++}else q=false}else v+=c}else if(c=='"')q=true;else if(c==','){r.push(v);v=''}else if(c=='\n'||c=='\r'){if(c=='\r'&&t[i+1]=='\n')i++;r.push(v);L.push(r);r=[];v=''}else v+=c}if(v||r.length){r.push(v);L.push(r)}return L}
-function produits(lignes){return lignes.map(l=>l.map(x=>String(x??'').trim())).filter(l=>/^[A-Z]{2,5}-[A-Z0-9]+$/.test(l[0])).map(([ref,f,des,cap,dim,mat,pcs])=>{
+function produits(lignes){return lignes.map(l=>l.map(x=>String(x??'').trim())).filter(l=>/^[A-Z]{2,5}-[A-Z0-9]+$/.test(l[0])).map(([ref,f,des,cap,dim,mat,pcs,dispo])=>{
   const n=Number(String(pcs).replace(/[^\d]/g,''))||0;
-  return {ref,f:f||'Autres',nom:des+(cap?' · '+cap:''),dim:dim?dim.replace(/ x /g,' × ')+' mm':'—',mat:(!mat||/confirmer/i.test(mat))?'—':mat,pcs:n}})}
+  return {ref,f:f||'Autres',nom:des+(cap?' · '+cap:''),dim:dim?dim.replace(/ x /g,' × ')+' mm':'—',mat:(!mat||/confirmer/i.test(mat))?'—':mat,pcs:n,rupture:/rupture/i.test(dispo||'')}})}
 const pieces=n=>n.toLocaleString('fr-CH').replace(/ |,/g,' ')+' pièces';
 function image(p){const k=p.ref.split('-')[0];return IMG[k]||IMGF[p.f]||'sac-kraft'}
 function bouton(r){const q=panier.get(r);return q?`Ajouté · ${q} carton${q>1?'s':''}`:'Ajouter à ma demande'}
 function rendre(){
   const fams=['Tous',...new Set(P.map(p=>p.f))];if(!fams.includes(filtre))filtre='Tous';
   fl.innerHTML=fams.map(f=>`<button type="button" aria-pressed="${f===filtre}">${esc(f)}</button>`).join('');
-  box.innerHTML=P.map(p=>`<article class="fiche" data-f="${esc(p.f)}"${filtre==='Tous'||p.f===filtre?'':' hidden'}><figure><img src="/demos/karvan/img/${image(p)}.webp" width="900" height="900" alt="" loading="lazy"></figure><div class="corps"><span class="mono ref">${esc(p.ref)}</span><h3>${esc(p.nom)}</h3><dl><dt>Dimensions</dt><dd>${esc(p.dim)}</dd><dt>Matière</dt><dd>${esc(p.mat)}</dd><dt>Carton</dt><dd>${p.pcs?pieces(p.pcs):'—'}</dd></dl><button class="ajout" type="button" aria-pressed="${panier.has(p.ref)}" data-r="${esc(p.ref)}">${bouton(p.ref)}</button></div></article>`).join('');
+  box.innerHTML=P.map(p=>`<article class="fiche${p.rupture?' rupture':''}" data-f="${esc(p.f)}"${filtre==='Tous'||p.f===filtre?'':' hidden'}><figure>${p.rupture?'<span class="badge-rupture">En rupture</span>':''}<img src="/demos/karvan/img/${image(p)}.webp" width="900" height="900" alt="" loading="lazy"></figure><div class="corps"><span class="mono ref">${esc(p.ref)}</span><h3>${esc(p.nom)}</h3><dl><dt>Dimensions</dt><dd>${esc(p.dim)}</dd><dt>Matière</dt><dd>${esc(p.mat)}</dd><dt>Carton</dt><dd>${p.pcs?pieces(p.pcs):'—'}</dd></dl>${p.rupture?'<button class="ajout" type="button" disabled aria-disabled="true">En rupture de stock</button>':`<button class="ajout" type="button" aria-pressed="${panier.has(p.ref)}" data-r="${esc(p.ref)}">${bouton(p.ref)}</button>`}</div></article>`).join('');
   box.classList.toggle('court',filtre==='Tous'&&!ouvert);document.querySelector('.plus').hidden=filtre!=='Tous'||ouvert||P.length<=8;
   document.querySelectorAll('.nb').forEach(x=>x.textContent=P.length);
-  for(const r of [...panier.keys()])if(!P.some(p=>p.ref===r))panier.delete(r);
+  for(const r of [...panier.keys()])if(!P.some(p=>p.ref===r&&!p.rupture))panier.delete(r);
   maj();
 }
 function maj(foc){
   if(!panier.size){dem.textContent='Aucun produit ajouté. Ajoutez-les depuis la liste, ou écrivez-les ci-dessous.';}
   else dem.innerHTML=[...panier].map(([r,q])=>{const p=P.find(x=>x.ref===r);return `<div class="ligne-p" data-r="${esc(r)}"><span class="nom"><b>${esc(r)}</b> ${esc(p?p.nom:'')}</span><span class="qte"><button type="button" data-a="moins" aria-label="Un carton de moins, ${esc(r)}">−</button><output aria-label="Cartons ${esc(r)}">${q}</output><button type="button" data-a="plus" aria-label="Un carton de plus, ${esc(r)}">+</button></span><button type="button" class="ret" data-a="ret" aria-label="Retirer ${esc(r)}">Retirer</button></div>`}).join('');
-  box.querySelectorAll('.ajout').forEach(b=>{b.setAttribute('aria-pressed',panier.has(b.dataset.r));b.textContent=bouton(b.dataset.r)});
+  box.querySelectorAll('.ajout[data-r]').forEach(b=>{b.setAttribute('aria-pressed',panier.has(b.dataset.r));b.textContent=bouton(b.dataset.r)});
   if(foc){const l=dem.querySelector(`.ligne-p[data-r="${CSS.escape(foc[0])}"] [data-a="${foc[1]}"]`);(l||fo.msg).focus()}
 }
 fl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;filtre=b.textContent;rendre();fl.querySelectorAll('button').forEach(x=>{if(x.textContent===filtre)x.focus()})});
 document.getElementById('plus').addEventListener('click',()=>{ouvert=true;rendre();box.querySelector('.fiche:nth-child(9) .ajout')?.focus()});
-box.addEventListener('click',e=>{const b=e.target.closest('.ajout');if(!b)return;const r=b.dataset.r;if(panier.has(r))panier.delete(r);else panier.set(r,1);maj()});
+box.addEventListener('click',e=>{const b=e.target.closest('.ajout');if(!b||b.disabled||!b.dataset.r)return;const r=b.dataset.r;if(panier.has(r))panier.delete(r);else panier.set(r,1);maj()});
 dem.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const r=b.closest('.ligne-p').dataset.r,a=b.dataset.a;let q=panier.get(r)||0;
   if(a==='plus')q=Math.min(999,q+1);if(a==='moins')q=q-1;if(a==='ret')q=0;
   if(q>0){panier.set(r,q);maj([r,a])}else{panier.delete(r);maj(['',''])}});
