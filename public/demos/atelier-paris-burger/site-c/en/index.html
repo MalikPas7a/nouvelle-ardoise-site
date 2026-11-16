@@ -854,7 +854,7 @@ dialog.pop.vu::backdrop{opacity:1;transition-duration:.34s}
 @keyframes lgl{from{background-position:100% 0,0 0}to{background-position:0 0,0 0}}
 @media (prefers-reduced-motion:reduce){.arche .ferme{display:none}}
 
-/* v23 : « On te sert ». L'ouverture prend tout l'écran : le serveur arrive, pose le plat, la caméra recule sur la vraie photo (au défilement) */
+/* v23 : « On te sert ». L'ouverture prend tout l'écran : le serveur arrive et pose le plat, la prise finit sur la vraie photo en plan large (au défilement) */
 .hero.imm{display:block!important;height:calc(100vh - var(--band));height:calc(100svh - var(--band));min-height:0!important;padding:0!important;background:#120609;overflow:hidden}
 .hero.imm .arche-w{position:absolute;inset:0;display:block}
 .hero.imm .arche{position:absolute;inset:0;width:auto;height:auto!important;min-height:0;max-width:none;aspect-ratio:auto;margin:0!important;border-radius:0;box-shadow:none;background:#120609;animation:none!important}
@@ -1054,7 +1054,7 @@ addEventListener('resize',m);addEventListener('load',m);m()})();
    Repli : la photo fixe HD reste si mouvement réduit, économie de données, 2G, écran trop bas, image lente ou en erreur */
 (function(){var cv=document.querySelector('.arche canvas.seq'),couv=document.querySelector('.couv'),hero=couv&&couv.querySelector('.hero'),ph=cv&&cv.parentNode.querySelector('img.photo');if(!cv||!hero||!ph)return;
 var c=navigator.connection||{};if(matchMedia('(prefers-reduced-motion: reduce)').matches||c.saveData||/(^|-)2g$/.test(c.effectiveType||''))return;
-var M=matchMedia('(max-width:860px)').matches,B=(ph.getAttribute('src')||'').replace(/[^\/]*$/,''),dir=B+'serveur/',N=85,st=1,im=[],ok=[],H=document.documentElement,ctx=cv.getContext('2d'),fr=0,cur=-1,lw=0,sh=0,go=false,band=document.querySelector('.bandeau');
+var M=matchMedia('(max-width:860px)').matches,B=(ph.getAttribute('src')||'').replace(/[^\/]*$/,''),dir=B+'serveur/',N=61,st=1,im=[],ok=[],H=document.documentElement,ctx=cv.getContext('2d'),fr=0,cur=-1,lw=0,sh=0,go=false,band=document.querySelector('.bandeau');
 function src(i){return dir+(i<10?'0':'')+i+'.webp'}
 function load(i,cb){if(im[i]!==undefined)return;im[i]=null;var g=new Image();
  g.onload=function(){var d=g.decode?g.decode():Promise.resolve();d.then(function(){return window.createImageBitmap?createImageBitmap(g):g}).then(function(bm){im[i]=bm;ok[i]=1;if(cb)cb();kick()},function(){im[i]=g;ok[i]=1;if(cb)cb();kick()})};
