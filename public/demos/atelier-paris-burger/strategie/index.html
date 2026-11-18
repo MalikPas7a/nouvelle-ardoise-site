@@ -60,6 +60,7 @@ section{padding:72px 0 0}
 .bulles{display:flex;gap:12px;padding:2px 14px 14px;overflow-x:auto;scrollbar-width:none}
 .bulles::-webkit-scrollbar{display:none}
 .bulle{flex:none;width:64px;text-align:center;background:none;border:0;color:#f5f5f5;font:inherit;font-size:11px;padding:0;cursor:pointer}
+span.bulle{cursor:default}
 .bulle i{display:block;width:62px;height:62px;border-radius:50%;padding:2px;background:linear-gradient(135deg,#D99125,#7F0F28);margin:0 auto 5px}
 .bulle img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid #0c0c0d}
 .bulle:focus-visible i{outline:2px solid #fff;outline-offset:2px}
@@ -159,11 +160,11 @@ dialog::backdrop{background:rgba(12,3,6,.86)}
 
 <p class="kicker" style="margin-top:44px">Ouverture · Genève, face au Jet d'eau</p>
 <h1 style="margin-top:0">Le plan Instagram de l'ouverture.</h1>
-<p class="lead">Du <b>19 novembre au 6 décembre</b>, une publication tous les deux jours pour arriver à l'ouverture du <b>mardi 1er décembre</b> avec une file d'attente. Touchez une vidéo pour la regarder.</p>
+<p class="lead">Du <b>lundi 23 novembre au 6 décembre</b>, une publication presque chaque jour pour arriver à l'ouverture du <b>mardi 1er décembre</b> avec une file d'attente. Touchez une vidéo pour la regarder.</p>
 
 <div class="chiffres">
  <div><b id="jx">J-13</b><span>avant l'ouverture</span></div>
- <div><b>5</b><span>réels prêts</span></div>
+ <div><b>3</b><span>réels prêts</span></div>
  <div><b>3</b><span>réseaux, la même vidéo</span></div>
  <div><b>600.-</b><span>de publicité sur 10 jours</span></div>
 </div>
@@ -174,7 +175,7 @@ dialog::backdrop{background:rgba(12,3,6,.86)}
    <p class="kicker">1 · Votre profil</p>
    <h2>Ce que verra un client le 1er décembre.</h2>
    <p>Les <b>bulles à la une</b> répondent aux quatre questions qu'on vous posera : quand, quoi, combien, où. Elles restent en haut du profil, même quand les stories ont disparu.</p>
-   <p>La grille se lit de bas en haut : les trois posts de la bannière partent en premier, puis un réel tous les deux jours. Le nom du compte reste à confirmer avec vous.</p>
+   <p>La grille se lit de bas en haut : les trois posts de la bannière partent en premier, puis un réel presque chaque jour. Le nom du compte reste à confirmer avec vous.</p>
    <ul class="legende">
     <li><b>Ouverture</b> le réel du sceau, la date</li>
     <li><b>La carte</b> burgers et smash, 17.- à 29.-</li>
@@ -193,21 +194,24 @@ dialog::backdrop{background:rgba(12,3,6,.86)}
    <div class="bulles">
     <button class="bulle" data-v="sceau"><i><img src="m/hl-ouverture.jpg" alt=""></i>Ouverture</button>
     <button class="bulle" data-v="histoire"><i><img src="m/hl-carte.jpg" alt=""></i>La carte</button>
-    <button class="bulle" data-v="offre"><i><img src="m/hl-offre.jpg" alt=""></i>2 francs</button>
+    <span class="bulle"><i><img src="m/hl-offre.jpg" alt=""></i>2 francs</span>
     <button class="bulle" data-v="sceau"><i><img src="m/hl-adresse.jpg" alt=""></i>Adresse</button>
-    <button class="bulle" data-v="baguette"><i><img src="m/baguette.jpg" alt="" style="object-position:50% 40%"></i>Baguette</button>
+    <span class="bulle"><i><img src="m/hl-baguette.jpg" alt=""></i>Baguette</span>
    </div>
    <div class="tabs"><span class="on">Publications</span><span>Réels</span><span>Identifié</span></div>
    <div class="grille">
     <div class="case vide"><p>3.12<br>Merci Genève</p></div>
-    <div class="case vide"><p>1.12<br>Jour J, filmé sur place</p></div>
-    <button class="case" data-v="offre"><img src="m/offre.jpg" alt="Réel 200 burgers à 2 francs"><svg class="rl" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg><span class="d">26.11</span></button>
-    <button class="case" data-v="fabrication"><img src="m/fabrication.jpg" alt="Réel La fabrication"><svg class="rl" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg><span class="d">24.11</span></button>
-    <button class="case" data-v="histoire"><img src="m/histoire.jpg" alt="Réel La sauce Café de Paris"><svg class="rl" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg><span class="d">22.11</span></button>
-    <button class="case" data-v="sceau"><img src="m/sceau.jpg" alt="Réel Genève, préparez-vous"><svg class="rl" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg><span class="d">20.11</span></button>
-    <div class="case"><img src="m/banniere-1.jpg" alt=""><span class="d">19.11</span></div>
-    <div class="case"><img src="m/banniere-2.jpg" alt=""><span class="d">19.11</span></div>
-    <div class="case"><img src="m/banniere-3.jpg" alt=""><span class="d">19.11</span></div>
+    <div class="case"><img src="m/photo-coupe.jpg" alt="Post photo : le burger coupé dans la sauce"><span class="d">2.12</span></div>
+    <div class="case vide"><p>1.12<br>Jour J, shooting de Roméo</p></div>
+    <div class="case vide"><p>29.11<br>La carte, en carrousel</p></div>
+    <div class="case vide"><p>28.11<br>200 burgers à 2 francs, réel en préparation</p></div>
+    <button class="case" data-v="fabrication"><img src="m/fabrication.jpg" alt="Réel La fabrication"><svg class="rl" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg><span class="d">27.11</span></button>
+    <div class="case"><img src="m/photo-entier.jpg" alt="Post photo : le burger entier dans la sauce"><span class="d">26.11</span></div>
+    <button class="case" data-v="histoire"><img src="m/histoire.jpg" alt="Réel La sauce Café de Paris"><svg class="rl" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg><span class="d">25.11</span></button>
+    <button class="case" data-v="sceau"><img src="m/sceau.jpg" alt="Réel Genève, préparez-vous"><svg class="rl" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg><span class="d">24.11</span></button>
+    <div class="case"><img src="m/banniere-1.jpg" alt=""><span class="d">23.11</span></div>
+    <div class="case"><img src="m/banniere-2.jpg" alt=""><span class="d">23.11</span></div>
+    <div class="case"><img src="m/banniere-3.jpg" alt=""><span class="d">23.11</span></div>
    </div>
   </div></div>
  </div>
@@ -215,21 +219,24 @@ dialog::backdrop{background:rgba(12,3,6,.86)}
 
 <section id="calendrier">
  <p class="kicker">2 · Le calendrier</p>
- <h2>Un rendez-vous tous les deux jours.</h2>
+ <h2>Huit jours pour faire monter l'attente.</h2>
  <p class="lead">On commence par intriguer, on raconte, on montre, et l'offre arrive en dernier pour créer l'urgence. Chaque publication part à 10h.</p>
  <ol class="cal">
-  <li class="jour"><div class="dt"><b>19.11</b><span>jeudi · J-12</span></div><div class="vign"><img src="m/banniere-2.jpg" alt=""></div><div class="tx"><h3>La bannière en trois posts</h3><p>Le profil a l'air fini avant le premier réel.</p></div><span class="etat ok">Prêt</span></li>
-  <li class="jour"><div class="dt"><b>20.11</b><span>vendredi · J-11</span></div><button class="vign" data-v="sceau" aria-label="Regarder le réel Genève, préparez-vous"><img src="m/sceau.jpg" alt=""><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button><div class="tx"><h3>« Genève, préparez-vous. »</h3><p>Le teaser : la ville, la sirène, le sceau. On annonce sans tout dire.</p></div><span class="etat ok">Prêt</span></li>
-  <li class="jour"><div class="dt"><b>22.11</b><span>dimanche · J-9</span></div><button class="vign" data-v="histoire" aria-label="Regarder le réel de la sauce"><img src="m/histoire.jpg" alt=""><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button><div class="tx"><h3>La sauce Café de Paris, 40 ans</h3><p>Pourquoi ce burger est unique : on le trempe entier.</p></div><span class="etat ok">Prêt</span></li>
-  <li class="jour"><div class="dt"><b>24.11</b><span>mardi · J-7</span></div><button class="vign" data-v="fabrication" aria-label="Regarder le réel La fabrication"><img src="m/fabrication.jpg" alt=""><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button><div class="tx"><h3>La fabrication</h3><p>La plancha, le fromage, la coupe, la sauce. La publicité démarre ce jour-là.</p></div><span class="etat ok">Prêt</span></li>
-  <li class="jour"><div class="dt"><b>26.11</b><span>jeudi · J-5</span></div><button class="vign" data-v="offre" aria-label="Regarder le réel 200 burgers à 2 francs"><img src="m/offre.jpg" alt=""><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button><div class="tx"><h3>200 burgers à 2 francs</h3><p>Un par personne, sur réservation. Sort dès que la réservation en ligne fonctionne.</p></div><span class="etat att">Attend la réservation</span></li>
-  <li class="jour"><div class="dt"><b>28.11</b><span>samedi · J-3</span></div><div class="vign vide"><span>Carrousel</span></div><div class="tx"><h3>La carte</h3><p>Burgers et smash : 80 g 17.-, 160 g 23.-, 240 g 29.-. On répond à « c'est combien ? ».</p></div><span class="etat att">À faire</span></li>
+  <li class="jour"><div class="dt"><b>23.11</b><span>lundi · J-8</span></div><div class="vign"><img src="m/banniere-2.jpg" alt=""></div><div class="tx"><h3>La bannière en trois posts</h3><p>Le profil a l'air fini avant le premier réel.</p></div><span class="etat ok">Prêt</span></li>
+  <li class="jour"><div class="dt"><b>24.11</b><span>mardi · J-7</span></div><button class="vign" data-v="sceau" aria-label="Regarder le réel Genève, préparez-vous"><img src="m/sceau.jpg" alt=""><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button><div class="tx"><h3>« Genève, préparez-vous. »</h3><p>Le teaser : la ville, la sirène, le sceau. On annonce sans tout dire.</p></div><span class="etat ok">Prêt</span></li>
+  <li class="jour"><div class="dt"><b>25.11</b><span>mercredi · J-6</span></div><button class="vign" data-v="histoire" aria-label="Regarder le réel de la sauce"><img src="m/histoire.jpg" alt=""><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button><div class="tx"><h3>La sauce Café de Paris, 40 ans</h3><p>Pourquoi ce burger est unique : on le trempe entier.</p></div><span class="etat ok">Prêt</span></li>
+  <li class="jour"><div class="dt"><b>26.11</b><span>jeudi · J-5</span></div><div class="vign"><img src="m/photo-entier.jpg" alt=""></div><div class="tx"><h3>Post photo : entier dans la sauce</h3><p>Une photo du shooting, en plein cadre. Le burger qu'on trempe entier.</p></div><span class="etat att">À créer</span></li>
+  <li class="jour"><div class="dt"><b>27.11</b><span>vendredi · J-4</span></div><button class="vign" data-v="fabrication" aria-label="Regarder le réel La fabrication"><img src="m/fabrication.jpg" alt=""><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button><div class="tx"><h3>La fabrication</h3><p>La plancha, le fromage, la coupe, la sauce. La publicité démarre ce jour-là.</p></div><span class="etat ok">Prêt</span></li>
+  <li class="jour"><div class="dt"><b>28.11</b><span>samedi · J-3</span></div><div class="vign vide"><span>Réel</span></div><div class="tx"><h3>200 burgers à 2 francs</h3><p>Un par personne, sur réservation. Le réel est en préparation, il sort dès que la réservation en ligne fonctionne.</p></div><span class="etat att">En préparation</span></li>
+  <li class="jour"><div class="dt"><b>29.11</b><span>dimanche · J-2</span></div><div class="vign vide"><span>Carrousel</span></div><div class="tx"><h3>La carte</h3><p>Burgers et smash : 80 g 17.-, 160 g 23.-, 240 g 29.-. On répond à « c'est combien ? ».</p></div><span class="etat att">À faire</span></li>
   <li class="jour"><div class="dt"><b>30.11</b><span>lundi · J-1</span></div><div class="vign vide"><span>Story</span></div><div class="tx"><h3>« Demain. »</h3><p>Dernier rappel la veille, avec le compte à rebours.</p></div><span class="etat att">À faire</span></li>
-  <li class="jour"><div class="dt"><b>1.12</b><span>mardi · Jour J</span></div><div class="vign vide"><span>À filmer</span></div><div class="tx"><h3>L'ouverture en direct</h3><p>La file, le premier burger servi, vous derrière le comptoir. Stories toute la journée.</p></div><span class="etat film">À filmer</span></li>
+  <li class="jour"><div class="dt"><b>1.12</b><span>mardi · Jour J</span></div><div class="vign vide"><span>À filmer</span></div><div class="tx"><h3>L'ouverture en direct</h3><p>Shooting de Roméo : la file, le premier burger servi, vous derrière le comptoir. Stories toute la journée.</p></div><span class="etat film">À filmer</span></li>
+  <li class="jour"><div class="dt"><b>2.12</b><span>mercredi · J+1</span></div><div class="vign"><img src="m/photo-coupe.jpg" alt=""></div><div class="tx"><h3>Post photo : la coupe</h3><p>Le burger coupé, la sauce qui coule. Pour ceux qui ont raté l'ouverture.</p></div><span class="etat att">À créer</span></li>
   <li class="jour"><div class="dt"><b>3.12</b><span>jeudi · J+2</span></div><div class="vign vide"><span>À filmer</span></div><div class="tx"><h3>Merci Genève</h3><p>Les vidéos de vos premiers clients, la preuve que ça a marché.</p></div><span class="etat film">À filmer</span></li>
+  <li class="jour"><div class="dt"><b>4.12</b><span>vendredi · J+3</span></div><div class="vign"><img src="m/photo-baguette.jpg" alt=""></div><div class="tx"><h3>Carrousel photo : la baguette</h3><p>Tartinée de Café de Paris, la viande tranchée fine, les frites dedans.</p></div><span class="etat att">À créer</span></li>
   <li class="jour"><div class="dt"><b>6.12</b><span>dimanche · J+5</span></div><div class="vign vide"><span>Post</span></div><div class="tx"><h3>Avis Google et fidélité</h3><p>On transforme l'ouverture en habitude : une carte de fidélité pour faire revenir.</p></div><span class="etat att">À faire</span></li>
  </ol>
- <p class="lead" style="margin-top:18px">En option : le réel de la <b>baguette</b>, à placer le 29.11 si vous voulez la mettre en avant dès l'ouverture. <button class="vign" data-v="baguette" style="display:inline-block;width:auto;height:auto;aspect-ratio:auto;background:none;color:var(--or);font:inherit;font-weight:600;text-decoration:underline;padding:0">Voir le réel baguette</button></p>
+ <p class="lead" style="margin-top:18px">Les posts photos sont faits avec le reste du shooting de Roméo : uniquement de vraies photos de vos burgers.</p>
 </section>
 
 <section id="reseaux">
@@ -250,7 +257,7 @@ dialog::backdrop{background:rgba(12,3,6,.86)}
  <div class="budget">
   <div class="carte"><b>300.-</b><h3>sur Instagram et Facebook</h3><p>Un seul budget Meta pour les deux réseaux, soit 30.- par jour.</p></div>
   <div class="carte"><b>300.-</b><h3>sur TikTok</h3><p>Le public le plus jeune, soit 30.- par jour.</p></div>
-  <div class="carte"><b>600.-</b><h3>au total, du 24.11 au 3.12</h3><p>On pousse le sceau jusqu'au 25.11, puis l'offre à 2 francs.</p></div>
+  <div class="carte"><b>600.-</b><h3>au total, du 24.11 au 3.12</h3><p>On pousse le sceau jusqu'au 27.11, puis la fabrication et l'offre dès qu'elle sort.</p></div>
  </div>
  <div class="frise" aria-label="Jours de publicité du 21 novembre au 3 décembre">
   <span>21</span><span>22</span><span>23</span><span class="pub">24</span><span class="pub">25</span><span class="pub">26</span><span class="pub">27</span><span class="pub">28</span><span class="pub">29</span><span class="pub">30</span><span class="j">1.12</span><span class="pub">2</span><span class="pub">3</span>
@@ -260,13 +267,10 @@ dialog::backdrop{background:rgba(12,3,6,.86)}
 
 <section id="vous">
  <p class="kicker">5 · De votre côté</p>
- <h2>Ce qu'il nous faut avant jeudi.</h2>
+ <h2>Ce qu'il nous faut avant lundi.</h2>
  <ul class="liste">
-  <li><div>La date du mardi 1er décembre, confirmée<span>Toutes les publications sont calées dessus.</span></div></li>
-  <li><div>Le nom de vos comptes Instagram, TikTok et Facebook<span>Et votre accord pour publier en collaboration.</span></div></li>
-  <li><div>La réservation en ligne en état de marche avant le 26.11<span>Sinon le réel de l'offre attend : on ne renvoie personne vers une page qui n'enregistre rien.</span></div></li>
-  <li><div>Quelqu'un pour filmer le jour J<span>Un téléphone suffit : la file, le premier burger, vous au comptoir.</span></div></li>
-  <li><div>Les photos à ajouter<span>La carte en carrousel, et peut-être la baguette.</span></div></li>
+  <li><div>Votre adresse e-mail<span>Pour créer les comptes Instagram, TikTok et Facebook d'Atelier Paris Burger.</span></div></li>
+  <li><div>Le jour J avec Roméo<span>Notre photographe filme l'ouverture : la file, le premier burger, vous au comptoir.</span></div></li>
  </ul>
 </section>
 
@@ -286,11 +290,9 @@ dialog::backdrop{background:rgba(12,3,6,.86)}
 <script>
 (function(){
  var V={
-  sceau:["Genève, préparez-vous.","Publication le 20.11 · 15 s"],
-  histoire:["La sauce Café de Paris","Publication le 22.11 · 15 s"],
-  fabrication:["La fabrication","Publication le 24.11"],
-  offre:["200 burgers à 2 francs","Dès que la réservation fonctionne"],
-  baguette:["La baguette","En option, le 29.11"]
+  sceau:["Genève, préparez-vous.","Publication le 24.11 · 15 s"],
+  histoire:["La sauce Café de Paris","Publication le 25.11 · 15 s"],
+  fabrication:["La fabrication","Publication le 27.11"]
  };
  var d=document.getElementById('lecteur'),v=document.getElementById('lv');
  function ouvrir(k){if(!V[k])return;v.src='m/'+k+'.mp4';v.poster='m/'+k+'.jpg';document.getElementById('lt').textContent=V[k][0];document.getElementById('lp').textContent=V[k][1];d.showModal();var p=v.play();if(p&&p.catch)p.catch(function(){});}
