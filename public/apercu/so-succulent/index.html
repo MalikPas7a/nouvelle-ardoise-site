@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>So Succulent To Go · Bakery maison à Genève (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour So Succulent To Go : granolas, brioches au levain, cookies, scones et financiers faits maison, sur commande à Genève.">
+<meta name="theme-color" content="#f6efe4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/brioche-cannelle-800.webp" imagesrcset="img/brioche-cannelle-800.webp 800w, img/brioche-cannelle.webp 2000w" imagesizes="100vw">
+<style>
+:root{
+  --creme:#f6efe4;
+  --creme-2:#efe4d3;
+  --encre:#2a2119;
+  --gris:#6a5d50;
+  --sauge:#2f4d3c;
+  --sauge-fonce:#223a2d;
+  --sauge-clair:#c9d6c4;
+  --caramel:#b8692c;
+  --ligne:#ddd0bc;
+  --serif:"DM Serif Display", Georgia, serif;
+  --sans:"Figtree", system-ui, -apple-system, sans-serif;
+  --g:clamp(20px, 5vw, 72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--creme);color:var(--encre);font:400 17px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--caramel);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto}
+.apercu{background:var(--encre);color:#d3c6b5;font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff;font-weight:600}
+
+.top{padding:16px var(--g)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.marque{text-decoration:none;font:400 24px/1 var(--serif);letter-spacing:-.01em}
+.marque i{font-style:italic;color:var(--caramel)}
+.top nav{display:flex;align-items:center;gap:26px;font-size:15px;font-weight:500}
+.top nav a.l{text-decoration:none;color:var(--gris)}
+.top nav a.l:hover{color:var(--encre)}
+@media (max-width:820px){.top nav a.l{display:none}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border-radius:999px;font:600 15px/1 var(--sans);text-decoration:none;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.btn-plein{background:var(--sauge);color:#fff;border:1px solid var(--sauge)}
+.btn-plein:hover{background:var(--sauge-fonce);border-color:var(--sauge-fonce)}
+.btn-ligne{border:1px solid var(--encre);color:var(--encre)}
+.btn-ligne:hover{background:var(--encre);color:var(--creme)}
+
+.sur{font:600 12px/1.3 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--caramel)}
+
+/* hero */
+.hero .texte{padding:24px var(--g) 36px;max-width:calc(1240px + 2 * var(--g))}
+.hero figure{max-width:calc(1240px + 2 * var(--g));margin:0 auto}
+@media (min-width:700px){.hero figure{padding:0 var(--g)}.hero figure img{border-radius:6px}}
+.hero h1{font:400 clamp(60px,14vw,168px)/.9 var(--serif);letter-spacing:-.03em;margin-top:14px}
+.hero h1 em{color:var(--caramel);display:block}
+.hero .bas{display:grid;gap:22px;margin-top:22px}
+.hero .phrase{font:400 clamp(18px,1.8vw,21px)/1.55 var(--sans);max-width:44ch;color:#3e3329}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px}
+@media (min-width:960px){.hero .bas{grid-template-columns:1fr auto;align-items:end;gap:60px}}
+.hero figure img{width:100%;aspect-ratio:4/3;object-fit:cover}
+@media (min-width:700px){.hero figure img{aspect-ratio:2000/1055}}
+
+section{padding:clamp(72px,10vw,128px) var(--g)}
+h2{font:400 clamp(40px,5.6vw,70px)/1.02 var(--serif);letter-spacing:-.02em;margin:12px 0 20px}
+h2 em{color:var(--caramel)}
+.lead{font:400 clamp(19px,2vw,23px)/1.5 var(--serif);max-width:40ch}
+
+/* histoire */
+.histoire .wrap{display:grid;gap:44px}
+@media (min-width:960px){.histoire .wrap{grid-template-columns:.8fr 1.2fr;gap:88px;align-items:center}}
+.histoire img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:6px}
+.histoire .txt>p:not(.sur):not(.lead){max-width:54ch;color:#4a3e33;margin-top:16px}
+.valeurs{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.valeurs span{font:500 14px/1 var(--sans);padding:10px 14px;border-radius:999px;background:var(--sauge-clair);color:var(--sauge-fonce)}
+
+/* produits */
+.produits{background:#fffaf2;border-top:1px solid var(--ligne);border-bottom:1px solid var(--ligne)}
+.produits .entete{display:grid;gap:12px}
+@media (min-width:960px){.produits .entete{grid-template-columns:1fr 1fr;gap:60px;align-items:end}}
+.liste{display:grid;gap:48px;margin-top:56px}
+@media (min-width:760px){.liste{grid-template-columns:1fr 1fr;gap:56px 32px}}
+@media (min-width:1100px){.liste{grid-template-columns:repeat(3,1fr)}}
+.prod img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px}
+.prod .tete{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:18px;border-bottom:1px solid var(--ligne);padding-bottom:10px}
+.prod h3{font:400 30px/1.1 var(--serif)}
+.prod .prix{font:500 14px/1.3 var(--sans);color:var(--gris);white-space:nowrap}
+.prod p{margin-top:12px;color:#4a3e33;font-size:16px}
+.prod .saveurs{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.prod .saveurs span{font-size:13px;border:1px solid var(--ligne);border-radius:999px;padding:4px 11px}
+.prod.texte{display:flex;flex-direction:column;justify-content:center;background:var(--sauge);color:#eef2ea;border-radius:6px;padding:32px}
+.prod.texte h3{font-size:36px}
+.prod.texte p{color:#d7e2d3}
+.prod.texte .saveurs span{border-color:#56705f}
+.produits .note{margin-top:44px;font-size:15px;color:var(--gris);max-width:70ch}
+
+/* commander */
+.etapes{counter-reset:e;list-style:none;display:grid;gap:0;margin-top:48px;border-top:1px solid var(--ligne)}
+@media (min-width:960px){.etapes{grid-template-columns:repeat(4,1fr);gap:32px;border-top:none}}
+.etapes li{counter-increment:e;padding:24px 0;border-bottom:1px solid var(--ligne)}
+@media (min-width:960px){.etapes li{border-bottom:none;border-top:2px solid var(--encre);padding-top:20px}}
+.etapes li::before{content:counter(e);display:block;font:400 48px/1 var(--serif);color:var(--caramel);margin-bottom:12px}
+.etapes b{display:block;font:600 18px/1.3 var(--sans);margin-bottom:6px}
+.etapes span{color:#4a3e33;font-size:16px}
+.delai{margin-top:40px;display:grid;gap:18px;background:var(--creme-2);border-radius:6px;padding:28px}
+@media (min-width:960px){.delai{grid-template-columns:1fr auto;align-items:center;padding:32px 40px}}
+.delai p{font:400 21px/1.4 var(--serif);max-width:52ch}
+.delai .actions{display:flex;flex-wrap:wrap;gap:12px}
+
+/* galerie */
+.galerie{padding-top:0}
+.duo{display:grid;gap:12px}
+@media (min-width:760px){.duo{grid-template-columns:1.4fr 1fr;gap:16px}}
+.duo img{width:100%;height:100%;object-fit:cover;border-radius:6px;aspect-ratio:4/3}
+@media (min-width:760px){.duo img{aspect-ratio:auto;max-height:560px}}
+
+/* contact */
+.contact{background:var(--sauge);color:#eef2ea}
+.contact .wrap{display:grid;gap:44px}
+@media (min-width:960px){.contact .wrap{grid-template-columns:1.2fr 1fr 1fr;gap:60px}}
+.contact h2 em{color:#e9b98a}
+.contact h3{font:600 12px/1.3 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:#b6c8b7;margin-bottom:14px}
+.contact .grand{font:400 28px/1.3 var(--serif);color:#fff}
+.contact a.grand{text-decoration:none}
+.contact p.n{color:#d7e2d3;margin-top:10px;font-size:15px;max-width:40ch}
+.contact .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.contact .btn-plein{background:#fff;color:var(--sauge-fonce);border-color:#fff}
+.contact .btn-plein:hover{background:var(--creme);border-color:var(--creme)}
+.contact .btn-ligne{border-color:rgba(255,255,255,.55);color:#fff}
+.contact .btn-ligne:hover{background:#fff;color:var(--sauge-fonce)}
+
+footer{background:var(--encre);color:#bcae9c;padding:32px var(--g) 40px;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;align-items:baseline}
+footer b{font:400 22px/1 var(--serif);color:#fff}
+
+.barre{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;display:flex;gap:8px;transition:transform .35s ease,opacity .35s ease}
+.barre a{flex:1;min-height:50px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.barre .btn-ligne{background:var(--creme)}
+.js .barre{transform:translateY(140%);opacity:0;pointer-events:none}
+.js .barre.vue{transform:none;opacity:1;pointer-events:auto}
+@media (min-width:820px){.barre{display:none}}
+@media (max-width:819px){footer{padding-bottom:110px}}
+
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.js .rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .rv{opacity:1;transform:none;transition:none}.barre{transition:none}}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<div class="apercu" role="note">Aperçu imaginé par Nouvelle Ardoise pour <strong>So Succulent To Go</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="marque" href="#">So Succulent <i>To Go</i></a>
+    <nav aria-label="Navigation principale">
+      <a class="l" href="#produits">Les douceurs</a>
+      <a class="l" href="#commander">Comment commander</a>
+      <a class="l" href="#contact">Contact</a>
+      <a class="btn btn-plein" href="https://www.sosucculent.ch/boutique" rel="noopener">Commander</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding:0">
+  <div class="wrap texte">
+    <p class="sur">Granolas &amp; bakery maison · Genève et environs</p>
+    <h1>Handbaked <em>with love</em></h1>
+    <div class="bas">
+      <p class="phrase">Des douceurs artisanales faites maison, pensées pour accompagner vos journées bien remplies : à emporter, à offrir, à recevoir chez soi.</p>
+      <div class="actions">
+        <a class="btn btn-plein" href="https://www.sosucculent.ch/boutique" rel="noopener">Passer commande</a>
+        <a class="btn btn-ligne" href="#produits">Voir les douceurs</a>
+      </div>
+    </div>
+  </div>
+  <figure>
+    <img src="img/brioche-cannelle-800.webp" srcset="img/brioche-cannelle-800.webp 800w, img/brioche-cannelle.webp 2000w" sizes="100vw" alt="Brioche roulée à la cannelle, dorée et nappée de sirop, vue de près" width="2000" height="1055" fetchpriority="high">
+  </figure>
+</section>
+
+<section class="histoire">
+  <div class="wrap">
+    <img class="rv" src="img/marie-800.webp" srcset="img/marie-800.webp 533w, img/marie.webp 950w" sizes="(min-width: 960px) 36vw, 100vw" alt="Marie, en tablier vert, tranche une brioche maison dans sa cuisine" width="950" height="1425" loading="lazy">
+    <div class="txt rv">
+      <p class="sur">So Succulent To Go, c'est quoi ?</p>
+      <h2>La suite d'un café-boutique <em>genevois</em></h2>
+      <p class="lead">So Succulent était apprécié pour ses créations artisanales maison, son soin du détail et son amour du bon goût.</p>
+      <p>So Succulent To Go en est la continuité naturelle, désormais exclusivement sur commande : une version plus intime, plus essentielle, centrée sur le produit et le goût.</p>
+      <p>Tout commence par le produit : des ingrédients choisis avec attention, une fabrication artisanale en petites quantités, et des alternatives vegan ou sans gluten lorsque cela a du sens.</p>
+      <div class="valeurs"><span>Fait maison</span><span>Petites quantités</span><span>Préparé à la demande</span><span>Vegan ou sans gluten selon les recettes</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="produits" id="produits">
+  <div class="wrap">
+    <div class="entete rv">
+      <div><p class="sur">Nos produits</p><h2>Des scones… <em>(oooh, ces scones !)</em></h2></div>
+      <p class="lead">Des granolas scandaleusement gourmands, des brioches au levain, des cookies aussi beaux que bons, et des financiers.</p>
+    </div>
+    <div class="liste">
+      <article class="prod rv">
+        <img src="img/brioche-coupee-800.webp" srcset="img/brioche-coupee-800.webp 800w, img/brioche-coupee.webp 2000w" sizes="(min-width: 960px) 40vw, 100vw" alt="Brioche au levain tranchée sur une planche, tenue par deux mains" width="800" height="533" loading="lazy">
+        <div class="tete"><h3>Brioches au levain</h3><span class="prix">CHF 5.– à 40.–</span></div>
+        <p>Entière pour 8 personnes, ou individuelles dès 6 pièces.</p>
+        <div class="saveurs"><span>Fleur d'oranger</span><span>Cannelle</span><span>Pistache</span></div>
+      </article>
+      <article class="prod rv">
+        <img src="img/cookies-800.webp" srcset="img/cookies-800.webp 800w, img/cookies.webp 2000w" sizes="(min-width: 960px) 40vw, 100vw" alt="Grands cookies aux pépites de chocolat et pistaches sur une grille" width="800" height="600" loading="lazy">
+        <div class="tete"><h3>Cookies</h3><span class="prix">CHF 24.– à 45.–</span></div>
+        <p>Croustillants à l'extérieur, fondants à cœur. En sachet de 6 ou 12.</p>
+        <div class="saveurs"><span>Véritable</span><span>Matcha</span><span>Super chunky</span><span>Édition spéciale</span></div>
+      </article>
+      <article class="prod rv">
+        <img src="img/scones-800.webp" srcset="img/scones-800.webp 800w, img/scones.webp 950w" sizes="(min-width: 960px) 40vw, 100vw" alt="Scones dorés empilés sur une grille" width="800" height="653" loading="lazy">
+        <div class="tete"><h3>Scones</h3><span class="prix">CHF 24.– à 45.–</span></div>
+        <p>Un grand classique de la bakery, parfait avec du beurre, de la confiture ou nature.</p>
+        <div class="saveurs"><span>Nature</span><span>Cranberries</span></div>
+      </article>
+      <article class="prod rv">
+        <img src="img/financiers-800.webp" srcset="img/financiers-800.webp 800w, img/financiers.webp 1100w" sizes="(min-width: 960px) 40vw, 100vw" alt="Financiers dorés alignés sur une grille" width="800" height="489" loading="lazy">
+        <div class="tete"><h3>Financiers</h3><span class="prix">CHF 12.– à 20.–</span></div>
+        <p>Moelleux, fondants, délicatement parfumés. En sachet de 6 ou 12.</p>
+        <div class="saveurs"><span>Amande</span><span>Noisette &amp; noix</span><span>Citron</span></div>
+      </article>
+      <article class="prod rv">
+        <img src="img/granola-four-800.webp" srcset="img/granola-four-800.webp 671w, img/granola-four.webp 850w" sizes="(min-width: 960px) 40vw, 100vw" alt="Marie sort une plaque de granola maison du four" width="671" height="800" loading="lazy" style="object-position:50% 70%">
+        <div class="tete"><h3>Granola maison</h3><span class="prix">CHF 18.– à 34.–</span></div>
+        <p>Flocons d'avoine et d'épeautre, oléagineux choisis, sirop d'érable. En 500 g ou 1 kg.</p>
+        <div class="saveurs"><span>Cannelle</span><span>Noix de coco</span><span>Salé</span><span>Édition limitée</span></div>
+      </article>
+      <div class="prod texte rv">
+        <h3>Et chaque semaine…</h3>
+        <p>Des créations spéciales peuvent être proposées en quantités limitées. Les commandes ouvrent ponctuellement : pour ne rien manquer, suivez @sosucculent_togo.</p>
+        <div class="saveurs"><span>Éditions limitées</span><span>Au fil des saisons</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="commander" id="commander">
+  <div class="wrap">
+    <div class="rv">
+      <p class="sur">Comment commander ?</p>
+      <h2>Envie de vous <em>faire plaisir ?</em></h2>
+    </div>
+    <ol class="etapes">
+      <li class="rv"><b>Passez votre commande</b><span>Via Instagram, WhatsApp ou directement en ligne sur la boutique.</span></li>
+      <li class="rv"><b>Attendez la confirmation</b><span>Marie revient vers vous pour valider la commande et préciser le retrait ou la livraison.</span></li>
+      <li class="rv"><b>Recevez un lien de paiement</b><span>Par email. La commande est confirmée dès réception du paiement.</span></li>
+      <li class="rv"><b>Récupérez ou faites-vous livrer</b><span>Click &amp; collect à Genève et en France voisine, ou livraison, frais selon zone.</span></li>
+    </ol>
+    <div class="delai rv">
+      <p>Prévoyez 48 heures : chaque commande est préparée à la demande, pour garantir fraîcheur et qualité.</p>
+      <div class="actions"><a class="btn btn-plein" href="https://www.sosucculent.ch/boutique" rel="noopener">Ouvrir la boutique</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="rv">
+      <p class="sur" style="color:#e9b98a">Nous contacter</p>
+      <h2>Genève <em>&amp; France voisine</em></h2>
+      <p class="n">L'adresse exacte de retrait ou de livraison est précisée lors de la confirmation de commande.</p>
+    </div>
+    <div class="rv">
+      <h3>Téléphone et email</h3>
+      <a class="grand" href="tel:+41782634294">078 263 42 94</a>
+      <p class="n"><a href="mailto:hello@sosucculent.ch">hello@sosucculent.ch</a></p>
+      <div class="actions"><a class="btn btn-plein" href="https://www.sosucculent.ch/boutique" rel="noopener">Commander en ligne</a></div>
+    </div>
+    <div class="rv">
+      <h3>Instagram</h3>
+      <a class="grand" href="https://www.instagram.com/sosucculent_togo/" rel="noopener">@sosucculent_togo</a>
+      <p class="n">Les produits du moment et l'ouverture des commandes.</p>
+      <div class="actions"><a class="btn btn-ligne" href="https://www.instagram.com/sosucculent_togo/" rel="noopener">Suivre</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>So Succulent To Go</b>
+    <span>Sur commande · Genève et environs</span>
+    <span>Aperçu non officiel, imaginé par Nouvelle Ardoise. Textes et photos : sosucculent.ch.</span>
+  </div>
+</footer>
+
+<div class="barre">
+  <a class="btn btn-plein" href="https://www.sosucculent.ch/boutique" rel="noopener">Commander</a>
+  <a class="btn btn-ligne" href="tel:+41782634294">Appeler</a>
+</div>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('on')})}
+  else{var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});els.forEach(function(e){io.observe(e)})}
+  var b=document.querySelector('.barre'),h=document.querySelector('.hero');
+  function f(){b.classList.toggle('vue',h.getBoundingClientRect().bottom<0)}
+  addEventListener('scroll',f,{passive:true});f();
+})();
+</script>
+</body>
+</html>
