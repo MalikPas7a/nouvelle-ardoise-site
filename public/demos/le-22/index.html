@@ -144,6 +144,19 @@ input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px
 .of.rec{background:var(--night);border-color:var(--night);color:#e8eef0}.of.rec h3,.of.rec .px,.of.rec li b{color:#fff}.of.rec .pt{color:var(--gold-l)}.of.rec li{color:#d5dfe2}.of.rec .px small{color:#b7c6ca}.of.rec li::before{background:var(--gold-l)}
 .of .badge{position:absolute;top:-13px;right:22px;background:var(--gold);color:#fff;font-size:.74rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:7px 12px;border-radius:20px}
 .mo{display:grid;gap:10px;margin-top:22px}@media(min-width:760px){.mo{grid-template-columns:repeat(3,1fr)}}.mo div{border:1px solid var(--line);border-radius:16px;padding:16px 18px;background:#fff;color:var(--text);font-size:.95rem}.mo b{display:flex;justify-content:space-between;color:var(--ink);font-size:1.05rem;margin-bottom:4px}.mo .r{border:2px solid var(--gold)}
+/* audit */
+.au{margin-top:44px;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.au-h,.au-r{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:16px 22px}
+.au-h{background:var(--night);color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.au-h span:last-child{color:var(--gold-l)}
+.au-r{border-top:1px solid var(--line);font-size:.98rem;line-height:1.5}.au-r b{display:block;color:var(--ink);font-weight:800;margin-bottom:2px}.au-r>div:first-child{color:var(--soft)}.au-r>div:last-child{color:var(--text)}.au-r>div:last-child b{color:#6d5019}
+@media(max-width:700px){.au-h{display:none}.au-r{grid-template-columns:1fr;gap:10px}.au-r>div:first-child::before{content:"Ce qui existe";display:block;font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:4px}.au-r>div:last-child{border-left:3px solid var(--gold);padding-left:14px}}
+/* équipe */
+.team{display:grid;gap:14px;margin-top:48px}@media(min-width:760px){.team{grid-template-columns:repeat(2,1fr)}}
+.mb{border-radius:22px;padding:28px 26px;background:#ffffff0d;border:1px solid #ffffff24;display:flex;flex-direction:column;gap:10px}
+.mb small{font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-l)}.mb h3{font-family:"DM Serif Display",serif;font-weight:400;font-size:1.9rem;line-height:1.05;color:#fff}.mb p{color:#d5dfe2;font-size:1rem}
+.mb.lead-m{background:var(--gold-l);border-color:var(--gold-l)}.mb.lead-m small{color:#5a4214}.mb.lead-m h3{color:var(--ink)}.mb.lead-m p{color:#2c3437}
+@media(min-width:760px){.mb.lead-m{grid-column:1/-1}}
+.how{display:grid;gap:10px;margin-top:28px}@media(min-width:760px){.how{grid-template-columns:repeat(3,1fr)}}.how div{border-top:2px solid #ffffff33;padding-top:14px;color:#d5dfe2;font-size:.98rem}.how b{display:block;color:#fff;font-size:1.02rem;margin-bottom:4px}
 /* fin */
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:58px;padding:16px 30px;border-radius:40px;background:var(--gold-l);color:var(--ink);font-weight:800;font-size:1.05rem;text-decoration:none;margin-top:32px;transition:transform .15s ease-out}.btn:active{transform:scale(.97)}.btn:focus-visible{outline:3px solid #fff;outline-offset:4px}
 .end .chefs{border-radius:24px;overflow:hidden;background:var(--slate)}.end .chefs img{width:100%;height:auto;display:block}
@@ -177,11 +190,22 @@ input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px
 <div class="facts">
 <div class="fact rv"><span class="tag ok">Acquis</span><span class="n">2</span><p>articles de presse : GaultMillau et 24 heures, qui écrit que Le 22 « succède avec brio à la Stella ».</p></div>
 <div class="fact rv d1"><span class="tag ok">Acquis</span><span class="n">Zenchef</span><p>La réservation en ligne fonctionne. On ne la remplace pas : on lui amène du monde.</p></div>
-<div class="fact rv d2"><span class="tag todo">À construire</span><span class="n">198</span><p>abonnés et 5 publications sur Instagram. Personne ne voit encore vos assiettes.</p></div>
-<div class="fact rv d3"><span class="tag todo">À construire</span><span class="n">0</span><p>photo de plat sur votre site. Une seule vraie photo de produit : les rougets en cave.</p></div>
+<div class="fact rv d2"><span class="tag ok">Acquis</span><span class="n">4,6</span><p>sur Google, avec 14 avis. Les clients aiment : il faut maintenant que Pully le voie.</p></div>
+<div class="fact rv d3"><span class="tag todo">À construire</span><span class="n">235</span><p>abonnés et 10 publications sur Instagram. Et aucune photo de plat sur votre site.</p></div>
 </div>
 <div class="alert rv"><h3>Un détail qui fausse vos chiffres</h3><p>Le bouton « Réserver » de votre site part vers Zenchef avec l’étiquette <code>utm_source=chatgpt.com</code>. Vos réservations venues du site risquent d’être comptées comme venant de ChatGPT. On le corrige en deux minutes.</p></div>
-<p class="note">Relevé le 5 novembre 2026 sur 22-resto.ch, instagram.com/22.resto, 24heures.ch et GaultMillau.</p>
+<h3 class="h3s rv" style="margin-top:64px">Le petit audit : ce qu’on ajoute à ce que vous avez déjà</h3>
+<p class="lead rv" style="max-width:60ch;margin-top:14px">Vous avez déjà fait beaucoup en deux mois. On ne refait pas, on part de là.</p>
+<div class="au rv">
+<div class="au-h"><span>Ce qui existe</span><span>Ce qu’on ajoute</span></div>
+<div class="au-r"><div><b>Plats du jour sur le site</b>Mis à jour chaque semaine, en texte.</div><div><b>Vus partout, en image</b>Story, publication Instagram et post Google chaque lundi, avec la photo du plat.</div></div>
+<div class="au-r"><div><b>Bon cadeau en ligne</b>Bien fait, mais il faut aller le chercher.</div><div><b>Mis en avant avant Noël</b>Visuel, story, publicité locale et rappel dans les messages Zenchef.</div></div>
+<div class="au-r"><div><b>Carnotzet privatisable</b>Une phrase sur la page Réserver.</div><div><b>Une vraie page « Groupes et fêtes »</b>Photos, capacité, formules, demande en un clic. Et les entreprises autour, contactées une à une.</div></div>
+<div class="au-r"><div><b>La carte</b>Deux fichiers Google Drive à ouvrir.</div><div><b>Une carte lisible sur le site</b>Rapide sur téléphone, et lue par Google et par les assistants comme ChatGPT quand on leur demande où manger à Pully.</div></div>
+<div class="au-r"><div><b>Fiche Google 4,6 sur 14 avis</b>Un avis à 2 sur 5 fin octobre.</div><div><b>Une réponse à chaque avis</b>Photos du shooting, plat du jour publié, bouton Réserver relié à Zenchef.</div></div>
+<div class="au-r"><div><b>Instagram, 10 publications</b>Une publication annonce « 7 jours sur 7 », alors que vous fermez dimanche et lundi.</div><div><b>Un rythme et un seul discours</b>Trois publications par semaine, mêmes horaires partout : site, Google, Instagram.</div></div>
+</div>
+<p class="note">Relevé le 22 novembre 2026 sur 22-resto.ch, instagram.com/22.resto, Google Maps, 24heures.ch et GaultMillau.</p>
 </div></section>
 
 <section class="sec dark" id="photos"><div class="wrap">
@@ -204,7 +228,7 @@ input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px
 <section class="sec" id="semaine"><div class="wrap">
 <p class="kick rv"><b>03</b> Le menu de la semaine</p>
 <h2 class="rv d1">Vos plats du jour,<br><span class="gold">partout, chaque lundi.</span></h2>
-<p class="lead rv d2">Vos plats du jour sont votre meilleure publicité pour les midis. On en fait un rendez-vous : un seul envoi de votre part, publié partout.</p>
+<p class="lead rv d2">Vous les publiez déjà sur votre site, chaque semaine. C’est votre meilleure publicité pour les midis : on les fait voir partout, en image, à partir d’un seul envoi de votre part.</p>
 <div class="steps">
 <div class="step rv"><span class="num">1</span><h3>Lundi matin, vous envoyez</h3><p>Les plats de la semaine et une photo par WhatsApp. Deux minutes.</p></div>
 <div class="step rv d1"><span class="num">2</span><h3>On met en forme</h3><p>Story animée (la vidéo est plus bas), publication Instagram, page du site, post Google. Aux couleurs du 22.</p></div>
@@ -214,7 +238,7 @@ input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px
 <div class="rv d1"><p class="lab">La même semaine sur votre site</p>
 <div class="browser"><div class="top"><i></i><i></i><i></i><span class="url">22-resto.ch/plats-du-jour</span></div>
 <div class="site"><div class="hd"><span class="lg" style="color:var(--slate)"><i></i><span>LE</span><b>22</b><i></i></span><nav>CARTE · PLATS DU JOUR · RÉSERVER</nav></div>
-<p class="sub" style="margin-top:22px">Semaine du 10 novembre · midi</p><h4>Plats du jour</h4>
+<p class="sub" style="margin-top:22px">Semaine du 24 novembre · midi</p><h4>Plats du jour</h4>
 <div class="days">
 <div class="day"><img src="photos/caldeirada-s.webp" alt="" loading="lazy" width="800" height="533"><div><small>Mardi</small><b>Caldeirada de la mer</b></div></div>
 <div class="day"><img src="photos/steak-s.webp" alt="" loading="lazy" width="800" height="533"><div><small>Mercredi</small><b>Bœuf maturé au grill</b></div></div>
@@ -225,7 +249,7 @@ input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px
 <div class="feedwrap">
 <div class="rv"><h3 style="font-size:1.6rem;font-family:'DM Serif Display',serif;font-weight:400">Votre Instagram dans un mois</h3><p class="lead" style="font-size:1.08rem">Un rythme simple : les plats du jour, vos produits, votre équipe, les nouvelles du 22. Trois publications par semaine et des stories, toujours dans votre style.</p><div class="pills"><span>3 publications / semaine</span><span>stories du midi</span><span>réponses aux messages</span></div></div>
 <div class="feed rv d1" aria-label="Exemple de grille Instagram">
-<div class="tx n">22</div><img src="photos/steak-feu-s.webp" alt="" loading="lazy"><div class="tx s">Plats du jour<small>Semaine du 10.11</small></div>
+<div class="tx n">22</div><img src="photos/steak-feu-s.webp" alt="" loading="lazy"><div class="tx s">Plats du jour<small>Semaine du 24.11</small></div>
 <img src="photos/service-s.webp" alt="" loading="lazy"><div class="tx c">La Stella est devenue Le 22<small>Grand’Rue 22</small></div><div class="tx n">Bon cadeau<small>Noël 2026</small></div>
 <div class="tx s">Fêtes d’entreprise<small>Réservez votre date</small></div><img src="photos/poulpe-feu-s.webp" alt="" loading="lazy"><img src="photos/chef-grill-s.webp" alt="" loading="lazy">
 </div>
@@ -302,7 +326,7 @@ input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px
 <li><b>Un message à votre nom</b>Court, signé Gilberto et Tiago, avec votre offre groupe.</li>
 <li><b>Relance à J+5, appel à J+10</b>Chaque réponse est notée et vous est transmise le jour même.</li>
 </ul>
-<p class="note">En 6 semaines, environ 300 entreprises contactées. Les repas de décembre se réservent tôt : on vise aussi les repas de janvier et les déjeuners d’affaires toute l’année.</p>
+<p class="note">D’ici fin janvier, environ 300 entreprises contactées. Beaucoup de repas de décembre sont déjà calés : on vise aussi les repas d’équipe de janvier et les déjeuners d’affaires toute l’année.</p>
 </div>
 <div class="rv d1">
 <div class="crm"><div class="crm-h">Liste « Bienvenue à Pully » <span>exemple</span></div>
@@ -346,12 +370,12 @@ input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px
 <div><span>Réservations Zenchef</span><b>71</b><i class="up">+9 vs S5</i></div>
 <div><span>Dont venues de nos actions</span><b>23</b><i>32 % · Google, Instagram, pub, entreprises</i></div>
 <div><span>Clics sur « Réserver »</span><b>248</b><i>site, Google, Instagram</i></div>
-<div><span>Abonnés Instagram</span><b>612</b><i class="up">départ : 198 le 5 nov.</i></div>
+<div><span>Abonnés Instagram</span><b>612</b><i class="up">départ : 235 le 22 nov.</i></div>
 </div>
 <div class="dg">
 <div class="pn"><h4>Réservations par semaine, selon la provenance</h4><svg viewBox="0 0 380 196" role="img" aria-label="Réservations par semaine et par provenance"><g class="gr"><line x1="28" x2="366" y1="160.0" y2="160.0"/><text x="24" y="164.0" text-anchor="end">0</text><line x1="28" x2="366" y1="110.0" y2="110.0"/><text x="24" y="114.0" text-anchor="end">25</text><line x1="28" x2="366" y1="60.0" y2="60.0"/><text x="24" y="64.0" text-anchor="end">50</text><line x1="28" x2="366" y1="10.0" y2="10.0"/><text x="24" y="14.0" text-anchor="end">75</text></g><rect x="34" y="72.0" width="36" height="88.0" fill="#5d6f74"/><rect x="34" y="64.0" width="36" height="8.0" fill="#e2c27f"/><rect x="34" y="60.0" width="36" height="4.0" fill="#8fb7c0"/><rect x="34" y="60.0" width="36" height="0.0" fill="#d9774b"/><text x="52.0" y="178" text-anchor="middle">S1</text><text x="52.0" y="54.0" text-anchor="middle" class="v">50</text><rect x="92" y="70.0" width="36" height="90.0" fill="#5d6f74"/><rect x="92" y="58.0" width="36" height="12.0" fill="#e2c27f"/><rect x="92" y="50.0" width="36" height="8.0" fill="#8fb7c0"/><rect x="92" y="48.0" width="36" height="2.0" fill="#d9774b"/><text x="110.0" y="178" text-anchor="middle">S2</text><text x="110.0" y="42.0" text-anchor="middle" class="v">56</text><rect x="150" y="74.0" width="36" height="86.0" fill="#5d6f74"/><rect x="150" y="58.0" width="36" height="16.0" fill="#e2c27f"/><rect x="150" y="44.0" width="36" height="14.0" fill="#8fb7c0"/><rect x="150" y="42.0" width="36" height="2.0" fill="#d9774b"/><text x="168.0" y="178" text-anchor="middle">S3</text><text x="168.0" y="36.0" text-anchor="middle" class="v">59</text><rect x="208" y="72.0" width="36" height="88.0" fill="#5d6f74"/><rect x="208" y="54.0" width="36" height="18.0" fill="#e2c27f"/><rect x="208" y="36.0" width="36" height="18.0" fill="#8fb7c0"/><rect x="208" y="32.0" width="36" height="4.0" fill="#d9774b"/><text x="226.0" y="178" text-anchor="middle">S4</text><text x="226.0" y="26.0" text-anchor="middle" class="v">64</text><rect x="266" y="74.0" width="36" height="86.0" fill="#5d6f74"/><rect x="266" y="54.0" width="36" height="20.0" fill="#e2c27f"/><rect x="266" y="38.0" width="36" height="16.0" fill="#8fb7c0"/><rect x="266" y="36.0" width="36" height="2.0" fill="#d9774b"/><text x="284.0" y="178" text-anchor="middle">S5</text><text x="284.0" y="30.0" text-anchor="middle" class="v">62</text><rect x="324" y="64.0" width="36" height="96.0" fill="#5d6f74"/><rect x="324" y="42.0" width="36" height="22.0" fill="#e2c27f"/><rect x="324" y="22.0" width="36" height="20.0" fill="#8fb7c0"/><rect x="324" y="18.0" width="36" height="4.0" fill="#d9774b"/><text x="342.0" y="178" text-anchor="middle">S6</text><text x="342.0" y="12.0" text-anchor="middle" class="v">71</text></svg>
 <div class="lgd"><span><i style="background:#5d6f74"></i>Habitués, téléphone, sans étiquette</span><span><i style="background:#e2c27f"></i>Fiche Google</span><span><i style="background:#8fb7c0"></i>Instagram et pub</span><span><i style="background:#d9774b"></i>Entreprises</span></div></div>
-<div class="pn"><h4>Abonnés Instagram</h4><svg viewBox="0 0 380 176" role="img" aria-label="Abonnés Instagram, de 198 à 612"><path d="M30.0 113.2 L83.3 106.2 L136.7 96.3 L190.0 86.7 L243.3 72.0 L296.7 57.5 L350.0 36.3 L350.0 150 L30.0 150 Z" fill="#e2c27f22"/><path d="M30.0 113.2 L83.3 106.2 L136.7 96.3 L190.0 86.7 L243.3 72.0 L296.7 57.5 L350.0 36.3" fill="none" stroke="#e2c27f" stroke-width="3" stroke-linejoin="round"/><circle cx="30.0" cy="113.2" r="4" fill="#121a1d" stroke="#e2c27f" stroke-width="2"/><circle cx="83.3" cy="106.2" r="4" fill="#121a1d" stroke="#e2c27f" stroke-width="2"/><circle cx="136.7" cy="96.3" r="4" fill="#121a1d" stroke="#e2c27f" stroke-width="2"/><circle cx="190.0" cy="86.7" r="4" fill="#121a1d" stroke="#e2c27f" stroke-width="2"/><circle cx="243.3" cy="72.0" r="4" fill="#121a1d" stroke="#e2c27f" stroke-width="2"/><circle cx="296.7" cy="57.5" r="4" fill="#121a1d" stroke="#e2c27f" stroke-width="2"/><circle cx="350.0" cy="36.3" r="4" fill="#121a1d" stroke="#e2c27f" stroke-width="2"/><text x="38.0" y="103.2" class="v">198</text><text x="344.0" y="24.3" text-anchor="end" class="v">612</text><g class="gr"><text x="30.0" y="170" text-anchor="middle">Départ</text><text x="83.3" y="170" text-anchor="middle">S1</text><text x="136.7" y="170" text-anchor="middle">S2</text><text x="190.0" y="170" text-anchor="middle">S3</text><text x="243.3" y="170" text-anchor="middle">S4</text><text x="296.7" y="170" text-anchor="middle">S5</text><text x="350.0" y="170" text-anchor="middle">S6</text></g></svg><p class="pn-n">3 publications par semaine, stories du midi, pub « Voisins ».</p></div>
+<div class="pn"><h4>Abonnés Instagram</h4><svg viewBox="0 0 380 176" role="img" aria-label="Abonnés Instagram, de 235 à 612"><path d="M30.0 113.2 L83.3 106.2 L136.7 96.3 L190.0 86.7 L243.3 72.0 L296.7 57.5 L350.0 36.3 L350.0 150 L30.0 150 Z" fill="#e2c27f22"/><path d="M30.0 113.2 L83.3 106.2 L136.7 96.3 L190.0 86.7 L243.3 72.0 L296.7 57.5 L350.0 36.3" fill="none" stroke="#e2c27f" stroke-width="3" stroke-linejoin="round"/><circle cx="30.0" cy="113.2" r="4" fill="#121a1d" stroke="#e2c27f" stroke-width="2"/><circle cx="83.3" cy="106.2" r="4" fill="#121a1d" stroke="#e2c27f" stroke-width="2"/><circle cx="136.7" cy="96.3" r="4" fill="#121a1d" stroke="#e2c27f" stroke-width="2"/><circle cx="190.0" cy="86.7" r="4" fill="#121a1d" stroke="#e2c27f" stroke-width="2"/><circle cx="243.3" cy="72.0" r="4" fill="#121a1d" stroke="#e2c27f" stroke-width="2"/><circle cx="296.7" cy="57.5" r="4" fill="#121a1d" stroke="#e2c27f" stroke-width="2"/><circle cx="350.0" cy="36.3" r="4" fill="#121a1d" stroke="#e2c27f" stroke-width="2"/><text x="38.0" y="103.2" class="v">235</text><text x="344.0" y="24.3" text-anchor="end" class="v">612</text><g class="gr"><text x="30.0" y="170" text-anchor="middle">Départ</text><text x="83.3" y="170" text-anchor="middle">S1</text><text x="136.7" y="170" text-anchor="middle">S2</text><text x="190.0" y="170" text-anchor="middle">S3</text><text x="243.3" y="170" text-anchor="middle">S4</text><text x="296.7" y="170" text-anchor="middle">S5</text><text x="350.0" y="170" text-anchor="middle">S6</text></g></svg><p class="pn-n">3 publications par semaine, stories du midi, pub « Voisins ».</p></div>
 </div>
 <div class="dg">
 <div class="pn"><h4>Entreprises, depuis le début</h4>
@@ -401,18 +425,36 @@ input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px
 
 <section class="sec dark" id="plan"><div class="wrap">
 <p class="kick rv"><b>10</b> Le plan</p>
-<h2 class="rv d1">Huit semaines, jusqu’au 31 décembre.</h2>
+<h2 class="rv d1">Cinq semaines, jusqu’au 31 décembre.</h2>
 <div class="weeks">
 <div class="wk rv"><small>Semaine 1</small><b>Les bases</b><p>Shooting photo, fiche Google, lien Zenchef corrigé.</p></div>
 <div class="wk rv d1"><small>Semaine 2</small><b>Les fêtes</b><p>Page groupes, bons cadeaux, vidéo de lancement.</p></div>
 <div class="wk rv d2"><small>Chaque lundi</small><b>Le menu</b><p>Plats du jour : story, Instagram, site, Google.</p></div>
-<div class="wk rv d3"><small>Semaines 2 à 7</small><b>Pub et entreprises</b><p>Campagne ciblée et prospection, suivies chaque semaine.</p></div>
+<div class="wk rv d3"><small>Semaines 2 à 5</small><b>Pub et entreprises</b><p>Campagne ciblée et prospection, suivies chaque semaine.</p></div>
 <div class="wk rv"><small>31 décembre</small><b>Le bilan</b><p>Réservations par source, appels, bons cadeaux, groupes.</p></div>
 </div>
 </div></section>
 
+<section class="sec dark" id="equipe"><div class="wrap">
+<p class="kick rv"><b>11</b> Qui on est</p>
+<h2 class="rv d1">Nouvelle Ardoise.<br><span class="gold">Un interlocuteur, des métiers.</span></h2>
+<p class="lead rv d2">Une agence de marketing et de communication pour la restauration. Pas une grande structure : Malik pilote, et chaque métier est confié à un indépendant spécialisé qui ne fait que ça.</p>
+<div class="team">
+<div class="mb lead-m rv"><small>Stratégie · votre interlocuteur</small><h3>Malik Younes</h3><p>De longues années dans le commerce de détail, à vendre en magasin et en ligne, puis entrepreneur : il fait grandir Pasta Mo’, une marque de restauration en Suisse romande. Il sait ce qui fait venir un client et ce qui le fait revenir. C’est lui qui construit votre plan, suit les chiffres et vous rend des comptes chaque semaine.</p></div>
+<div class="mb rv"><small>Développement</small><h3>Le site et les outils</h3><p>Un développeur expérimenté construit votre site, rapide sur téléphone, relié à Zenchef, et le tableau de bord qui réunit vos chiffres.</p></div>
+<div class="mb rv d1"><small>Marketing et publicité</small><h3>Les campagnes</h3><p>Un spécialiste de la publicité en ligne gère vos campagnes Instagram, Facebook, TikTok et Google : ciblage, budget, suivi de chaque franc.</p></div>
+<div class="mb rv"><small>Photographie culinaire</small><h3>Vos vraies assiettes</h3><p>Des photographes spécialisés dans la cuisine, choisis selon votre lieu et vos plats. Jamais d’image de plat créée par ordinateur.</p></div>
+<div class="mb rv d1"><small>Vidéo et motion design</small><h3>Les images qui bougent</h3><p>Les vidéos courtes pour Instagram, TikTok et la publicité, montées avec vos photos, sans musique, lisibles sans le son.</p></div>
+</div>
+<div class="how">
+<div class="rv"><b>Un seul numéro</b>Vous parlez à Malik. Il coordonne le reste.</div>
+<div class="rv d1"><b>Un retour chaque lundi</b>Ce qui a marché, ce qu’on arrête, chiffres à l’appui.</div>
+<div class="rv d2"><b>Sans engagement de durée</b>Le suivi mensuel continue tant qu’il vous rapporte.</div>
+</div>
+</div></section>
+
 <section class="sec paper" id="offres"><div class="wrap">
-<p class="kick rv"><b>11</b> Les offres</p>
+<p class="kick rv"><b>12</b> Les offres</p>
 <h2 class="rv d1">Trois façons de lancer Le 22.</h2>
 <p class="lead rv d2">Chaque offre reprend tout ce que contient la précédente. Prix en CHF, paiement unique : 50 % au départ, 50 % à la livraison.</p>
 <div class="offers">
@@ -435,7 +477,7 @@ input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px
 <div>
 <p class="kick rv">Et maintenant</p>
 <h2 class="rv d1">On commence par les fêtes.</h2>
-<p class="lead rv d2">Le shooting et la fiche Google peuvent être faits la semaine prochaine. Le reste se décide avec vous, chiffres en main.</p>
+<p class="lead rv d2">Le lien Réserver et la fiche Google peuvent être repris dès votre accord, le shooting se cale avec vous selon les services. Le reste se décide ensemble, chiffres en main.</p>
 <a class="btn rv d3" href="https://wa.me/41782133868?text=Bonjour%20Malik%2C%20on%20a%20regard%C3%A9%20le%20plan%20pour%20Le%2022." target="_blank" rel="noopener">Écrire à Malik sur WhatsApp</a>
 <p class="note" style="color:#e6eef0">078 213 38 68 · nouvelleardoise.ch</p>
 </div>
