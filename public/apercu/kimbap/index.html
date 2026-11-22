@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Kimbap · Cuisine coréenne à Morges (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour Kimbap, cuisine coréenne et sushi à Morges, Promenade de l'Eglantine 1.">
+<meta name="theme-color" content="#f7f1e6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/kimbap-boite-800.webp" imagesrcset="img/kimbap-boite-800.webp 800w, img/kimbap-boite.webp 1280w" imagesizes="(min-width: 960px) 50vw, 100vw">
+<style>
+:root{
+  --riz:#f7f1e6;
+  --blanc:#fffdf8;
+  --encre:#1f1a17;
+  --gris:#6a605a;
+  --rouge:#d03f25;
+  --rouge-2:#ad3119;
+  --nori:#1d2a22;
+  --sesame:#e9b949;
+  --ligne:#e4d9c6;
+  --serif:"Young Serif", Georgia, serif;
+  --sans:"Outfit", system-ui, sans-serif;
+  --g:clamp(20px, 5vw, 72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--riz);color:var(--encre);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rouge);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto}
+.apercu{background:var(--nori);color:#c7cfc9;font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff;font-weight:600}
+
+.top{padding:16px var(--g)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.marque{text-decoration:none;display:flex;align-items:baseline;gap:8px;font:400 26px/1 var(--serif);color:var(--encre)}
+.marque span{font:500 15px/1 var(--sans);color:var(--rouge)}
+.top nav{display:flex;align-items:center;gap:26px;font-size:15px;font-weight:500}
+.top nav a.l{text-decoration:none;color:var(--gris)}
+.top nav a.l:hover{color:var(--rouge)}
+@media (max-width:820px){.top nav a.l{display:none}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:12px;font:600 15.5px/1 var(--sans);text-decoration:none;white-space:nowrap;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.btn:active{transform:scale(.98)}
+.btn-rouge{background:var(--rouge);color:#fff;border:2px solid var(--rouge)}
+.btn-rouge:hover{background:var(--rouge-2);border-color:var(--rouge-2)}
+.btn-ligne{border:2px solid var(--encre);color:var(--encre)}
+.btn-ligne:hover{background:var(--encre);color:var(--riz)}
+
+.sur{font:600 13px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--rouge)}
+h2{font:400 clamp(34px,5vw,62px)/1.06 var(--serif);letter-spacing:-.01em;margin-top:12px}
+
+/* hero */
+.hero{padding:8px var(--g) clamp(56px,8vw,96px)}
+.hero .wrap{display:grid;gap:30px}
+.hero h1{font:400 clamp(72px,10vw,140px)/.9 var(--serif);letter-spacing:-.03em;margin-top:14px}
+.hero h1 .ko{display:block;font:500 clamp(18px,1.6vw,22px)/1 var(--sans);letter-spacing:.3em;color:var(--rouge);margin-top:16px}
+.hero .phrase{font-size:clamp(18px,1.7vw,21px);max-width:38ch;margin-top:22px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero .horaire{margin-top:26px;font-size:15px;color:var(--gris);display:flex;flex-wrap:wrap;gap:6px 18px}
+.hero .horaire b{color:var(--encre);font-weight:600}
+.hero figure img{width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:18px}
+@media (min-width:960px){.hero{padding-top:28px}.hero .wrap{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:56px;align-items:center}.hero figure img{aspect-ratio:1280/1003}}
+
+/* trois façons */
+.facons{background:var(--nori);color:#eef0ea;padding:clamp(56px,8vw,96px) var(--g)}
+.facons ul{list-style:none;display:grid;gap:0}
+.facons li{display:grid;grid-template-columns:44px 1fr;gap:4px 14px;padding:22px 0;border-bottom:1px solid #34443a}
+.facons li:last-child{border-bottom:0}
+.facons .n{font:400 26px/1.2 var(--serif);color:var(--sesame)}
+.facons h3{font:600 20px/1.3 var(--sans)}
+.facons p{grid-column:2;color:#bfc8c1;font-size:16px}
+@media (min-width:900px){.facons ul{grid-template-columns:repeat(3,1fr);gap:48px}.facons li{border-bottom:0;padding:0}}
+
+/* carte */
+.carte{padding:clamp(72px,10vw,128px) var(--g)}
+.carte .tete{display:grid;gap:14px}
+.carte .tete p{color:var(--gris);max-width:46ch}
+@media (min-width:900px){.carte .tete{grid-template-columns:1fr 1fr;align-items:end;gap:48px}}
+.rubriques{display:grid;gap:56px;margin-top:52px}
+.rub{display:grid;gap:24px}
+.rub figure img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px}
+.rub h3{font:400 clamp(30px,3vw,40px)/1.1 var(--serif);display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.rub .menu{font-size:14.5px;color:var(--gris);margin-top:8px}
+.rub .menu b{color:var(--rouge);font-weight:600}
+.rub ul{list-style:none;margin-top:16px;border-top:2px solid var(--encre)}
+.rub li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--ligne)}
+.rub li span:last-child{font-weight:600;font-variant-numeric:tabular-nums}
+.rub li small{color:var(--gris);font-size:14px;margin-left:6px}
+@media (min-width:960px){.rub{grid-template-columns:1fr 1.1fr;gap:56px;align-items:start}.rub:nth-child(even) figure{order:2}}
+.carte .origine{margin-top:44px;font-size:15px;color:var(--gris)}
+
+/* traiteur */
+.traiteur{background:var(--blanc);padding:clamp(72px,10vw,128px) var(--g)}
+.traiteur .haut{display:grid;gap:36px}
+.traiteur .intro p{margin-top:16px;max-width:48ch;color:var(--gris)}
+.formules{list-style:none;margin-top:28px;border-top:2px solid var(--encre)}
+.formules li{padding:14px 0;border-bottom:1px solid var(--ligne)}
+.formules b{font-weight:600}
+.formules span{color:var(--gris)}
+.traiteur .buffet img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:14px}
+@media (min-width:960px){.traiteur .haut{grid-template-columns:1.1fr 1fr;gap:72px;align-items:center}}
+.bande{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:clamp(40px,6vw,64px)}
+.bande figure img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px}
+.bande figcaption{font-size:14px;font-weight:500;margin-top:8px}
+.bande figcaption span{display:block;color:var(--gris);font-weight:400}
+@media (min-width:900px){.bande{grid-template-columns:repeat(4,1fr);gap:16px}}
+.traiteur .livr{margin-top:36px;font-size:15.5px;color:var(--gris)}
+
+/* lieu */
+.lieu{padding:clamp(72px,10vw,128px) var(--g)}
+.lieu .wrap{display:grid;gap:40px}
+.lieu .photos{display:grid;grid-template-columns:1fr;gap:10px}
+.lieu .photos img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:14px}
+.lieu p.lead{margin-top:16px;color:var(--gris);max-width:44ch}
+.horaires{list-style:none;margin-top:26px;border-top:2px solid var(--encre)}
+.horaires li{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--ligne)}
+.horaires li span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.lieu .adresse{font:400 24px/1.3 var(--serif);margin-top:26px}
+.lieu .tel{font:400 30px/1.2 var(--serif);text-decoration:none;display:inline-block;margin-top:6px}
+.lieu .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+@media (min-width:960px){.lieu .wrap{grid-template-columns:1fr 1.15fr;gap:72px;align-items:center}}
+
+footer{background:var(--nori);color:#a9b4ac;padding:32px var(--g);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;align-items:baseline}
+footer .marque{color:#fff;font-size:20px}
+
+.barre{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;display:flex;gap:8px;transition:transform .35s ease,opacity .35s ease}
+.barre .btn{flex:1;box-shadow:0 6px 18px rgba(31,26,23,.18)}
+.barre .btn-ligne{background:var(--riz)}
+.js .barre{transform:translateY(140%);opacity:0;pointer-events:none}
+.js .barre.vue{transform:none;opacity:1;pointer-events:auto}
+@media (min-width:820px){.barre{display:none}}
+@media (max-width:819px){footer{padding-bottom:110px}}
+
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.js .rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .rv{opacity:1;transform:none;transition:none}.barre{transition:none}}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<div class="apercu">Aperçu imaginé par Nouvelle Ardoise pour <strong>Kimbap</strong> · ce n'est pas votre site officiel</div>
+<header class="top">
+  <div class="wrap">
+    <a class="marque" href="#">Kimbap <span lang="ko">김밥</span></a>
+    <nav aria-label="Navigation principale">
+      <a class="l" href="#carte">Carte</a>
+      <a class="l" href="#traiteur">Traiteur</a>
+      <a class="l" href="#lieu">Nous trouver</a>
+      <a class="btn btn-ligne" href="tel:+41212170277">Commander</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="sur">Cuisine coréenne & sushi · Morges</p>
+      <h1>Kimbap<span class="ko" lang="ko">김밥</span></h1>
+      <p class="phrase">Kimbap, bibimbap, spécialités coréennes et sushis, préparés avec soin. Sur place, à emporter, ou en traiteur pour vos événements.</p>
+      <div class="actions">
+        <a class="btn btn-rouge" href="tel:+41212170277">Commander par téléphone</a>
+        <a class="btn btn-ligne" href="#carte">Voir la carte</a>
+      </div>
+      <p class="horaire"><span><b>Lun. – ven.</b> 11 h 30 – 14 h, 17 h 30 – 19 h 30</span><span><b>Sam.</b> 11 h 30 – 14 h 30</span></p>
+    </div>
+    <figure><img src="img/kimbap-boite-800.webp" srcset="img/kimbap-boite-800.webp 800w, img/kimbap-boite.webp 1280w" sizes="(min-width: 960px) 50vw, 100vw" alt="Boîte de kimbap coupés en tranches : riz, algue, carotte, œuf et légumes" width="1280" height="1003" fetchpriority="high"></figure>
+  </div>
+</section>
+
+<section class="facons">
+  <div class="wrap">
+    <ul>
+      <li class="rv"><span class="n">1</span><h3>À emporter</h3><p>Appelez, puis venez chercher sur place. Livraison sur demande.</p></li>
+      <li class="rv"><span class="n">2</span><h3>En ligne ou Uber Eats</h3><p>Commandez en ligne ; livraison gratuite dès 150 CHF.</p></li>
+      <li class="rv"><span class="n">3</span><h3>Sur place</h3><p>Une salle claire et calme, dans le quartier de l’Églantine.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="carte" id="carte">
+  <div class="wrap">
+    <div class="tete">
+      <div><p class="sur rv">La carte</p><h2 class="rv">Du riz, des légumes,<br>et beaucoup de soin</h2></div>
+      <p class="rv">En menu, ajoutez une soupe ou des raviolis pour 3 CHF, les deux pour 5 CHF. Prix en francs.</p>
+    </div>
+    <div class="rubriques">
+      <article class="rub rv">
+        <figure><img src="img/plateau-kimbap-800.webp" srcset="img/plateau-kimbap-800.webp 800w, img/plateau-kimbap.webp 1280w" sizes="(min-width: 960px) 40vw, 100vw" alt="Grand plateau de rouleaux de kimbap tranchés" width="1280" height="807" loading="lazy"></figure>
+        <div>
+          <h3>Kimbap</h3>
+          <p class="menu">Riz, riz noir, quinoa, feuille d’algue, carotte, radis, concombre, poivron, œuf, huile de sésame.</p>
+          <ul>
+            <li><span>Bœuf</span><span>17</span></li>
+            <li><span>Porc piquant</span><span>17</span></li>
+            <li><span>Crevette panée</span><span>17</span></li>
+            <li><span>Tofu fumé</span><span>16</span></li>
+            <li><span>Galette de poisson <small>eomuk</small></span><span>16</span></li>
+            <li><span>Thon mayo</span><span>16</span></li>
+            <li><span>Bâtonnet de poulet</span><span>16</span></li>
+            <li><span>Végétarien</span><span>15</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="rub rv">
+        <figure><img src="img/bibimbap-bols-800.webp" srcset="img/bibimbap-bols-800.webp 600w, img/bibimbap-bols.webp 1280w" sizes="(min-width: 960px) 40vw, 100vw" alt="Bols de bibimbap : riz, carotte, œuf, salade, poivron et bœuf" width="1280" height="1707" loading="lazy"></figure>
+        <div>
+          <h3>Bibimbap</h3>
+          <p class="menu">Riz, riz noir, quinoa, salade mélangée, carotte, brocoli, concombre, poivron, œuf, huile de sésame.</p>
+          <ul>
+            <li><span>Bœuf</span><span>20</span></li>
+            <li><span>Porc piquant</span><span>20</span></li>
+            <li><span>Tofu fumé</span><span>20</span></li>
+            <li><span>Thon mayo</span><span>19</span></li>
+            <li><span>Galette de poisson</span><span>19</span></li>
+            <li><span>Végétarien</span><span>17</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="rub rv">
+        <figure><img src="img/dolsot-800.webp" srcset="img/dolsot-800.webp 800w, img/dolsot.webp 1280w" sizes="(min-width: 960px) 40vw, 100vw" alt="Dolsot bibimbap dans un bol en pierre, œuf au plat, avec soupe et sauce" width="1280" height="1002" loading="lazy"></figure>
+        <div>
+          <h3>Dolsot</h3>
+          <p class="menu">Le bibimbap servi dans un bol en pierre, <b>avec soupe</b>. Deux raviolis en plus : 3 CHF.</p>
+          <ul>
+            <li><span>Bœuf, porc piquant, galette de poisson</span><span>25</span></li>
+            <li><span>Thon mayo, tofu fumé</span><span>25</span></li>
+            <li><span>Végétarien</span><span>23</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="rub rv">
+        <figure><img src="img/bol-nouilles-800.webp" srcset="img/bol-nouilles-800.webp 800w, img/bol-nouilles.webp 1280w" sizes="(min-width: 960px) 40vw, 100vw" alt="Bol de nouilles garni d’algues et de sauce, sur un plateau" width="1280" height="1003" loading="lazy"></figure>
+        <div>
+          <h3>Plats chauds</h3>
+          <ul>
+            <li><span>Saumon teriyaki</span><span>22</span></li>
+            <li><span>Poulet mayo</span><span>19</span></li>
+            <li><span>Poulet curry</span><span>19</span></li>
+            <li><span>Udon</span><span>18</span></li>
+            <li><span>Curry udon</span><span>18</span></li>
+          </ul>
+          <h3 style="margin-top:28px;font-size:26px">Petits plats</h3>
+          <ul>
+            <li><span>Dakgangjeong <small>poulet frit, 250 à 300 g</small></span><span>14</span></li>
+            <li><span>Raviolis gunmandu <small>5 pièces</small></span><span>10</span></li>
+            <li><span>Japchae</span><span>8</span></li>
+            <li><span>Kimchi <small>150 g</small></span><span>6</span></li>
+            <li><span>Salade d’algue</span><span>6</span></li>
+            <li><span>Soupe miso</span><span>5</span></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+    <p class="origine rv">Origine de la viande : Suisse.</p>
+  </div>
+</section>
+
+<section class="traiteur" id="traiteur">
+  <div class="wrap">
+    <div class="haut">
+      <div class="intro">
+        <p class="sur rv">Traiteur coréen</p>
+        <h2 class="rv">Pour vos équipes<br>et vos événements</h2>
+        <p class="rv">Des repas fraîchement préparés pour les déjeuners d’entreprise, réunions, séminaires et fêtes privées : anniversaires, Noël, Halloween…</p>
+        <ul class="formules rv">
+          <li><b>Korean Lunch Box</b> <span>· repas individuels pour les équipes</span></li>
+          <li><b>Korean Sharing</b> <span>· assortiment à partager</span></li>
+          <li><b>Korean Buffet</b> <span>· pour les événements et grands groupes</span></li>
+          <li><b>Formule personnalisée</b> <span>· selon vos envies et votre budget</span></li>
+        </ul>
+        <div class="rv" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:26px">
+          <a class="btn btn-rouge" href="mailto:info@kimbap.ch?subject=Demande%20traiteur">Demander une offre</a>
+          <a class="btn btn-ligne" href="tel:+41212170277">021 217 02 77</a>
+        </div>
+      </div>
+      <figure class="buffet rv"><img src="img/buffet-800.webp" srcset="img/buffet-800.webp 670w, img/buffet.webp 1086w" sizes="(min-width: 960px) 40vw, 100vw" alt="Long buffet dressé : plateaux de kimbap, sushis, tomates cerises et mandarines" width="1086" height="1297" loading="lazy"></figure>
+    </div>
+    <div class="bande">
+      <figure class="rv"><img src="img/lunch-box-800.webp" srcset="img/lunch-box-800.webp 800w, img/lunch-box.webp 1280w" sizes="(min-width: 960px) 40vw, 100vw" alt="Lunch box : riz, bœuf, omelette roulée, légumes et soupe miso" width="1280" height="719" loading="lazy"><figcaption>Lunch box<span>Repas individuel pour les équipes</span></figcaption></figure>
+      <figure class="rv"><img src="img/dakgangjeong-800.webp" srcset="img/dakgangjeong-800.webp 800w, img/dakgangjeong.webp 1280w" sizes="(min-width: 960px) 40vw, 100vw" alt="Bac de poulet frit à la sauce pimentée et sésame" width="1280" height="807" loading="lazy"><figcaption>Dakgangjeong<span>Poulet frit, sauce pimentée</span></figcaption></figure>
+      <figure class="rv"><img src="img/japchae-800.webp" srcset="img/japchae-800.webp 800w, img/japchae.webp 1280w" sizes="(min-width: 960px) 40vw, 100vw" alt="Bac de japchae, nouilles de patate douce et omelette" width="1280" height="807" loading="lazy"><figcaption>Japchae<span>Nouilles de patate douce</span></figcaption></figure>
+      <figure class="rv"><img src="img/raviolis-800.webp" srcset="img/raviolis-800.webp 800w, img/raviolis.webp 1280w" sizes="(min-width: 960px) 40vw, 100vw" alt="Bac de raviolis végétariens dorés" width="1280" height="807" loading="lazy"><figcaption>Raviolis<span>Végétariens, frits</span></figcaption></figure>
+    </div>
+    <p class="livr rv">Livraison à Morges, ou en dehors de Morges sur accord préalable.</p>
+  </div>
+</section>
+
+<section class="lieu" id="lieu">
+  <div class="wrap">
+    <div>
+      <p class="sur rv">Nous trouver</p>
+      <h2 class="rv">Une pause au calme,<br>à l’Églantine</h2>
+      <p class="lead rv">Un cadre moderne, lumineux et épuré, où tradition et modernité se rejoignent.</p>
+      <ul class="horaires rv">
+        <li><span>Lundi – vendredi</span><span>11 h 30 – 14 h<br>17 h 30 – 19 h 30</span></li>
+        <li><span>Samedi</span><span>11 h 30 – 14 h 30</span></li>
+      </ul>
+      <p class="adresse rv">Promenade de l’Eglantine 1<br>1110 Morges</p>
+      <a class="tel rv" href="tel:+41212170277">021 217 02 77</a>
+      <div class="actions rv">
+        <a class="btn btn-rouge" href="tel:+41212170277">Appeler</a>
+        <a class="btn btn-ligne" href="https://www.google.com/maps/search/?api=1&query=Kimbap+Promenade+de+l%27Eglantine+1+1110+Morges">Itinéraire</a>
+        <a class="btn btn-ligne" href="mailto:info@kimbap.ch">info@kimbap.ch</a>
+      </div>
+    </div>
+    <div class="photos">
+      <figure class="rv"><img src="img/salle-800.webp" srcset="img/salle-800.webp 800w, img/salle.webp 1280w" sizes="(min-width: 960px) 40vw, 100vw" alt="Salle du restaurant : tables blanches, grande baie vitrée sur le quartier" width="1280" height="739" loading="lazy"></figure>
+      <figure class="rv"><img src="img/bol-saumon-800.webp" srcset="img/bol-saumon-800.webp 600w, img/bol-saumon.webp 1280w" sizes="(min-width: 960px) 40vw, 100vw" alt="Bol de saumon cru, avocat, chou rouge et concombre" width="1280" height="1707" loading="lazy" style="aspect-ratio:16/10;object-position:50% 45%"></figure>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="marque">Kimbap</span>
+    <span>Promenade de l’Eglantine 1 · 1110 Morges</span>
+    <span>Aperçu non officiel, imaginé par Nouvelle Ardoise. Textes, carte et photos : kimbap.ch.</span>
+  </div>
+</footer>
+
+<div class="barre" aria-label="Actions rapides">
+  <a class="btn btn-ligne" href="#carte">Carte</a>
+  <a class="btn btn-rouge" href="tel:+41212170277">Appeler</a>
+</div>
+
+<script>
+(function(){var els=document.querySelectorAll('.rv');if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('on')})}else{var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});els.forEach(function(e){io.observe(e)})}var b=document.querySelector('.barre'),h=document.querySelector('.hero');function f(){b.classList.toggle('vue',h.getBoundingClientRect().bottom<0)}addEventListener('scroll',f,{passive:true});f();})();
+</script>
+</body>
+</html>

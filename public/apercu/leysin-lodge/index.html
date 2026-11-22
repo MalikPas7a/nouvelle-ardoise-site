@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Leysin Lodge · Chalets sur les pistes à Leysin (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour Leysin Lodge, village de vacances de 20 chalets sur les pistes, Rte de Plan-Praz 6, 1854 Leysin.">
+<meta name="theme-color" content="#f5f4ef">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hiver-chalets-800.webp" imagesrcset="img/hiver-chalets-800.webp 800w, img/hiver-chalets.webp 2048w" imagesizes="100vw">
+<style>
+:root{
+  --neige:#f5f4ef;
+  --blanc:#ffffff;
+  --encre:#17231d;
+  --gris:#58625c;
+  --foret:#1f3d2f;
+  --foret-2:#15291f;
+  --bois:#a24a25;
+  --ciel:#cfe0ea;
+  --ligne:#dcdad1;
+  --titre:"Archivo", system-ui, sans-serif;
+  --texte:"Source Serif 4", Georgia, serif;
+  --g:clamp(20px, 5vw, 72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--neige);color:var(--encre);font:400 18px/1.6 var(--texte);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--bois);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto}
+.apercu{background:var(--foret-2);color:#b9c6bd;font:400 12.5px/1.4 var(--titre);text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff;font-weight:600}
+
+.top{position:absolute;top:0;left:0;right:0;z-index:5;padding:18px var(--g)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.marque{text-decoration:none;font:800 19px/1 var(--titre);font-stretch:75%;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.top nav{display:flex;align-items:center;gap:26px;font:500 15px/1 var(--titre)}
+.top nav a.l{text-decoration:none;color:#fff;opacity:.88}
+.top nav a.l:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+@media (max-width:820px){.top nav a.l{display:none}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:4px;font:600 15px/1 var(--titre);letter-spacing:.01em;text-decoration:none;white-space:nowrap;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.btn:active{transform:scale(.98)}
+.btn-bois{background:var(--bois);color:#fff;border:2px solid var(--bois)}
+.btn-bois:hover{background:#8a3c1c;border-color:#8a3c1c}
+.btn-blanc{border:2px solid rgba(255,255,255,.85);color:#fff}
+.btn-blanc:hover{background:#fff;color:var(--encre)}
+.btn-ligne{border:2px solid var(--foret);color:var(--foret)}
+.btn-ligne:hover{background:var(--foret);color:#fff}
+
+.sur{font:600 13px/1.3 var(--titre);letter-spacing:.16em;text-transform:uppercase;color:var(--bois)}
+h2{font:700 clamp(36px,5.6vw,68px)/1 var(--titre);font-stretch:80%;letter-spacing:-.01em;text-transform:uppercase;color:var(--foret);margin-top:14px}
+
+/* hero */
+.hero{position:relative;min-height:min(100svh,940px);display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--foret-2);color:#fff}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,30,22,.5) 0%,rgba(15,30,22,0) 20%,rgba(15,30,22,0) 42%,rgba(15,30,22,.82) 86%)}
+.hero .texte{position:relative;z-index:2;padding:0 var(--g) clamp(36px,6vw,80px);width:100%}
+.hero .sur{color:#f1d9c4}
+.hero h1{font:800 clamp(64px,13vw,184px)/.86 var(--titre);font-stretch:70%;text-transform:uppercase;letter-spacing:-.005em;margin-top:14px}
+.hero .phrase{font:400 clamp(18px,1.8vw,22px)/1.5 var(--texte);max-width:40ch;margin-top:22px;color:#eef1ec}
+.hero .phrase em{font-style:italic}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+@media (max-width:640px){.hero{min-height:auto}.hero img{position:relative;height:auto;aspect-ratio:4/5;object-position:38% 50%}.hero::after{background:linear-gradient(180deg,rgba(15,30,22,.55) 0%,rgba(15,30,22,0) 18%)}.hero .texte{padding-top:30px}}
+
+/* repères */
+.reperes{padding:clamp(72px,10vw,128px) var(--g)}
+.reperes ol{list-style:none;display:grid;gap:0;margin-top:40px;border-top:2px solid var(--foret)}
+.reperes li{display:grid;align-content:start;grid-template-columns:56px 1fr;gap:4px 16px;padding:26px 0;border-bottom:1px solid var(--ligne)}
+.reperes .n{font:700 15px/1.5 var(--titre);color:var(--bois);font-variant-numeric:tabular-nums}
+.reperes h3{font:700 24px/1.15 var(--titre);font-stretch:85%;text-transform:uppercase;color:var(--foret)}
+.reperes p{grid-column:2;color:var(--gris);max-width:52ch}
+@media (min-width:960px){.reperes ol{grid-template-columns:repeat(3,1fr);gap:0 48px;border-top:0}.reperes li{grid-template-columns:1fr;border-top:2px solid var(--foret);border-bottom:0;padding-top:22px}.reperes p{grid-column:1}}
+
+/* chalets */
+.chalets{background:var(--blanc);padding:clamp(72px,10vw,128px) var(--g)}
+.chalets .haut{display:grid;gap:40px}
+.chalets .photo img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.chalets .chiffres{display:flex;flex-wrap:wrap;gap:10px 28px;margin:26px 0 8px;font:600 15px/1.3 var(--titre);color:var(--foret)}
+.chalets .chiffres b{display:block;font:800 40px/1 var(--titre);font-stretch:75%}
+.chalets .intro p{margin-top:16px;max-width:56ch}
+.versions{display:grid;gap:16px;margin-top:28px}
+.versions div{border-left:3px solid var(--bois);padding:4px 0 4px 18px}
+.versions h3{font:700 18px/1.2 var(--titre);text-transform:uppercase;letter-spacing:.04em;color:var(--foret)}
+.versions p{font-size:16.5px;color:var(--gris);margin-top:4px}
+@media (min-width:960px){.chalets .haut{grid-template-columns:1.15fr 1fr;gap:72px;align-items:center}.versions{grid-template-columns:1fr 1fr}}
+.trio{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:clamp(40px,6vw,72px)}
+.trio figure:first-child{grid-row:span 2}
+.trio img{width:100%;height:100%;object-fit:cover}
+.trio figure:first-child img{aspect-ratio:2/3}
+.trio figure:not(:first-child) img{aspect-ratio:3/2}
+@media (min-width:960px){.trio{grid-template-columns:1fr 1.5fr 1.5fr}.trio figure:first-child{grid-row:auto}.trio figure img{aspect-ratio:auto!important;height:420px}}
+.equip{margin-top:clamp(40px,6vw,64px);display:grid;gap:28px}
+.equip h3{font:700 15px/1.3 var(--titre);letter-spacing:.14em;text-transform:uppercase;color:var(--bois)}
+.equip ul{list-style:none;columns:2;column-gap:28px;margin-top:12px;font-size:16.5px}
+.equip li{break-inside:avoid;padding:8px 0;border-bottom:1px solid var(--ligne)}
+@media (min-width:960px){.equip{grid-template-columns:1fr 2fr;gap:72px}.equip ul{columns:3}}
+
+/* saisons */
+.saisons{padding:clamp(72px,10vw,128px) var(--g)}
+.saisons .duo{display:grid;gap:56px;margin-top:44px}
+.saison img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.saison h3{font:800 clamp(30px,3.6vw,44px)/1 var(--titre);font-stretch:75%;text-transform:uppercase;color:var(--foret);margin-top:22px;display:flex;align-items:baseline;gap:14px}
+.saison h3 small{font:600 14px/1 var(--titre);font-stretch:100%;letter-spacing:.1em;color:var(--bois)}
+.saison p{margin-top:12px;max-width:54ch}
+.saison ul{list-style:none;margin-top:16px;font-size:16.5px;color:var(--gris)}
+.saison li{padding:7px 0 7px 18px;position:relative}
+.saison li::before{content:"";position:absolute;left:0;top:17px;width:8px;height:2px;background:var(--bois)}
+@media (min-width:960px){.saisons .duo{grid-template-columns:1fr 1fr;gap:56px}}
+
+/* galerie */
+.galerie{padding:0 var(--g) clamp(72px,10vw,128px)}
+.galerie .grille{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:36px}
+.galerie img{width:100%;height:100%;object-fit:cover;aspect-ratio:1/1}
+.galerie .large{grid-column:span 2}
+.galerie .large img{aspect-ratio:16/9}
+.galerie figcaption{font:500 13px/1.3 var(--titre);color:var(--gris);margin-top:8px}
+@media (min-width:960px){.galerie .grille{grid-template-columns:repeat(4,1fr)}.galerie .large{grid-column:span 2;grid-row:span 2}.galerie .large img{aspect-ratio:auto;height:100%}.galerie img{aspect-ratio:4/3}}
+
+/* infos */
+.infos{background:var(--foret);color:#e9efe9;padding:clamp(72px,10vw,128px) var(--g)}
+.infos h2{color:#fff}
+.infos .sur{color:#f1c9ad}
+.infos .wrap{display:grid;gap:44px}
+.infos .bloc h3{font:600 13px/1.3 var(--titre);letter-spacing:.16em;text-transform:uppercase;color:#f1c9ad;margin-bottom:12px}
+.infos .bloc p{font-size:17px;color:#d5dfd7;max-width:44ch}
+.infos .bloc p+p{margin-top:10px}
+.infos .tel{font:700 clamp(30px,3.4vw,40px)/1.1 var(--titre);font-stretch:80%;color:#fff;text-decoration:none;display:inline-block}
+.infos .mail{color:#fff;font-size:17px}
+.infos .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.infos .btn-ligne{border-color:#fff;color:#fff}
+.infos .btn-ligne:hover{background:#fff;color:var(--foret)}
+@media (min-width:960px){.infos .wrap{grid-template-columns:1.2fr 1fr 1fr;gap:60px}}
+
+footer{background:var(--foret-2);color:#9fb0a5;padding:32px var(--g);font:400 14px/1.6 var(--titre)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;align-items:baseline}
+footer .marque{font-size:15px}
+
+.barre{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(245,244,239,.96);border-top:1px solid var(--ligne);transform:translateY(110%);transition:transform .3s ease}
+.barre.vue{transform:none;visibility:visible}
+.barre:not(.vue){visibility:hidden;transition:transform .3s ease,visibility 0s .3s}
+.barre .btn{flex:1}
+@media (min-width:820px){.barre{display:none}}
+@media (max-width:819px){footer{padding-bottom:110px}}
+
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .rv{opacity:1;transform:none;transition:none}.barre{transition:none}}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<div class="apercu">Aperçu imaginé par Nouvelle Ardoise pour <strong>Leysin Lodge</strong> · ce n'est pas votre site officiel</div>
+<main>
+<section class="hero">
+  <header class="top">
+    <div class="wrap">
+      <a class="marque" href="#">Leysin Lodge</a>
+      <nav aria-label="Navigation principale">
+        <a class="l" href="#chalets">Chalets</a>
+        <a class="l" href="#saisons">Hiver et été</a>
+        <a class="l" href="#infos">Accès</a>
+        <a class="btn btn-blanc" href="https://www.leysinlodge.ch/fr">Réserver</a>
+      </nav>
+    </div>
+  </header>
+  <img src="img/hiver-chalets-800.webp" srcset="img/hiver-chalets-800.webp 800w, img/hiver-chalets.webp 2048w" sizes="100vw" alt="Les chalets du Leysin Lodge sous la neige, au soleil, face à la vallée" width="2048" height="1364" fetchpriority="high">
+  <div class="texte wrap">
+    <p class="sur">Village de vacances · Leysin, Alpes vaudoises</p>
+    <h1>Leysin Lodge</h1>
+    <p class="phrase">Vingt chalets sur les pistes de ski, à 400 mètres du départ des télécabines. Un avantage unique dans la station : <em>le ski out.</em></p>
+    <div class="actions">
+      <a class="btn btn-bois" href="https://www.leysinlodge.ch/fr">Réserver un chalet</a>
+      <a class="btn btn-blanc" href="tel:+41244941120">024 494 11 20</a>
+    </div>
+  </div>
+</section>
+
+<section class="reperes">
+  <div class="wrap">
+    <p class="sur rv">Pourquoi ici</p>
+    <h2 class="rv">En famille, entre amis<br>ou pour le sport</h2>
+    <ol>
+      <li class="rv"><span class="n">01</span><h3>Skis aux pieds</h3><p>Le départ du domaine se fait à ski depuis votre chalet, par la télécabine de la Berneuse ou le télésiège d’Aï. Les débutants apprennent à Plan-Praz, juste à côté.</p></li>
+      <li class="rv"><span class="n">02</span><h3>Bagages en motoneige</h3><p>En hiver, vos bagages sont acheminés du parking au chalet en motoneige, pendant les heures d’arrivée et de départ. En été, on dépose les bagages en voiture.</p></li>
+      <li class="rv"><span class="n">03</span><h3>Pensé pour les groupes</h3><p>Une cuisine professionnelle et un réfectoire de 50 places, à utiliser en gestion autonome.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="chalets" id="chalets">
+  <div class="wrap">
+    <div class="haut">
+      <figure class="photo rv"><img src="img/sejour-cheminee-800.webp" srcset="img/sejour-cheminee-800.webp 800w, img/sejour-cheminee.webp 1600w" sizes="(min-width: 960px) 40vw, 100vw" alt="Séjour d’un chalet avec cheminée, canapé et coin repas, boiseries claires" width="1600" height="1066" loading="lazy"></figure>
+      <div class="intro">
+        <p class="sur rv">Les chalets</p>
+        <h2 class="rv">Trois pièces,<br>une cheminée</h2>
+        <div class="chiffres rv"><span><b>49 m²</b>par chalet</span><span><b>6</b>personnes au plus</span><span><b>2</b>chambres</span></div>
+        <p class="rv">Idéal pour quatre personnes, chaque chalet peut accueillir jusqu’à six. Un grand séjour avec cuisine ouverte et salle à manger, une cheminée pour les soirées chaleureuses, et un grand balcon meublé qui surplombe toute la vallée.</p>
+        <div class="versions rv">
+          <div><h3>Chalet Standard</h3><p>Une chambre à lits jumeaux, une chambre à lits superposés, un canapé-lit au salon.</p></div>
+          <div><h3>Chalet Cosy</h3><p>Rénové dans un esprit chalet : boiseries sablées, parquet dans toutes les pièces, cuisine moderne.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="trio">
+      <figure class="rv"><img src="img/lits-superposes-800.webp" srcset="img/lits-superposes-800.webp 533w, img/lits-superposes.webp 1200w" sizes="(min-width: 960px) 40vw, 100vw" alt="Chambre avec lits superposés en bois" width="1200" height="1800" loading="lazy"></figure>
+      <figure class="rv"><img src="img/chambre-800.webp" srcset="img/chambre-800.webp 800w, img/chambre.webp 1600w" sizes="(min-width: 960px) 40vw, 100vw" alt="Chambre à lits jumeaux, murs en bois et fenêtre" width="1600" height="1066" loading="lazy"></figure>
+      <figure class="rv"><img src="img/cuisine-800.webp" srcset="img/cuisine-800.webp 800w, img/cuisine.webp 1600w" sizes="(min-width: 960px) 40vw, 100vw" alt="Cuisine équipée avec fenêtre sur le pré" width="1600" height="1066" loading="lazy"></figure>
+    </div>
+    <div class="equip">
+      <div class="rv"><h3>Dans chaque chalet</h3><p style="margin-top:12px;font-size:16.5px;color:var(--gris);max-width:34ch">Linge de lit et serviettes de bain fournis. Le reste se demande à la réception.</p></div>
+      <ul class="rv">
+        <li>Cuisine équipée</li><li>Machine Nespresso</li><li>Caquelon à fondue</li>
+        <li>Four à raclette sur demande</li><li>Balcon et chaises longues</li><li>Douche</li>
+        <li>TV gratuite</li><li>Wi-Fi gratuit</li><li>Buanderie</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="saisons" id="saisons">
+  <div class="wrap">
+    <p class="sur rv">Leysin</p>
+    <h2 class="rv">Deux saisons,<br>un même versant</h2>
+    <div class="duo">
+      <article class="saison rv">
+        <img src="img/berneuse-800.webp" srcset="img/berneuse-800.webp 800w, img/berneuse.webp 1600w" sizes="(min-width: 960px) 40vw, 100vw" alt="Sommet enneigé de la Berneuse et son restaurant tournant" width="1600" height="1064" loading="lazy">
+        <h3>Hiver <small>1300 – 2200 m</small></h3>
+        <p>Le domaine Leysin – Les Mosses – La Lécherette offre 100 km de pistes, sur un versant exposé sud et très ensoleillé. Les enfants de moins de 6 ans skient gratuitement.</p>
+        <ul>
+          <li>Snowpark et half-pipe</li>
+          <li>Tobogganing Park et son looping</li>
+          <li>Le Kuklos, restaurant tournant à 2048 m</li>
+        </ul>
+      </article>
+      <article class="saison rv">
+        <img src="img/aiguille-ete-800.webp" srcset="img/aiguille-ete-800.webp 800w, img/aiguille-ete.webp 1600w" sizes="(min-width: 960px) 40vw, 100vw" alt="Prairies vertes et sommets rocheux au-dessus de Leysin en été" width="1600" height="1066" loading="lazy">
+        <h3>Été <small>Par tous les temps</small></h3>
+        <p>Vélo de route, VTT et descente, trekking, deux via ferrata, parapente. Et quand il pleut, les centres sportifs : natation, escalade, tennis, patin à glace.</p>
+        <ul>
+          <li>Une ancienne étape de coupe du monde de vélo de descente</li>
+          <li>Tennis sur terre battue et beach-volley</li>
+          <li>Squash, fitness et natation en intérieur</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="galerie">
+  <div class="wrap">
+    <p class="sur rv">Autour des chalets</p>
+    <div class="grille">
+      <figure class="large rv"><img src="img/terrasse-vue-800.webp" srcset="img/terrasse-vue-800.webp 800w, img/terrasse-vue.webp 1600w" sizes="(min-width: 960px) 40vw, 100vw" alt="Table du balcon face aux sommets enneigés, ciel bleu" width="1600" height="1066" loading="lazy"><figcaption>Le balcon, face à la vallée</figcaption></figure>
+      <figure class="rv"><img src="img/balcon-ete-800.webp" srcset="img/balcon-ete-800.webp 800w, img/balcon-ete.webp 1600w" sizes="(min-width: 960px) 40vw, 100vw" alt="Façade d’un chalet avec son balcon, en été" width="1600" height="1066" loading="lazy"></figure>
+      <figure class="rv"><img src="img/place-de-jeux-800.webp" srcset="img/place-de-jeux-800.webp 800w, img/place-de-jeux.webp 1600w" sizes="(min-width: 960px) 40vw, 100vw" alt="Place de jeux en bois avec toboggan, dans le pré" width="1600" height="1066" loading="lazy"></figure>
+      <figure class="rv"><img src="img/cabane-800.webp" srcset="img/cabane-800.webp 800w, img/cabane.webp 1600w" sizes="(min-width: 960px) 40vw, 100vw" alt="Petite cabane verte et table de pique-nique sous les sapins" width="1600" height="1066" loading="lazy"></figure>
+      <figure class="rv"><img src="img/alpage-800.webp" srcset="img/alpage-800.webp 800w, img/alpage.webp 1600w" sizes="(min-width: 960px) 40vw, 100vw" alt="Chalets d’alpage en pierre sous une falaise" width="1600" height="1059" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<section class="infos" id="infos">
+  <div class="wrap">
+    <div class="bloc">
+      <p class="sur rv">Contact et accès</p>
+      <h2 class="rv">Rte de Plan-Praz 6<br>1854 Leysin</h2>
+      <div class="actions rv">
+        <a class="btn btn-bois" href="https://www.leysinlodge.ch/fr">Réserver</a>
+        <a class="btn btn-ligne" href="https://www.google.com/maps/search/?api=1&query=Leysin+Lodge+Rte+de+Plan-Praz+6+1854+Leysin">Itinéraire</a>
+      </div>
+    </div>
+    <div class="bloc rv">
+      <h3>Téléphone et e-mail</h3>
+      <a class="tel" href="tel:+41244941120">024 494 11 20</a>
+      <p style="margin-top:8px"><a class="mail" href="mailto:info@leysinlodge.ch">info@leysinlodge.ch</a></p>
+      <h3 style="margin-top:32px">Parking</h3>
+      <p>Gratuit pour les hôtes, environ 400 m avant les chalets. Une place par chalet.</p>
+    </div>
+    <div class="bloc rv">
+      <h3>Arrivée</h3>
+      <p>De 16 h à 18 h à la réception : enregistrement et remise des clés.</p>
+      <p>Après 18 h, le chalet reste ouvert avec la clé à l’intérieur ; son numéro est inscrit devant la réception.</p>
+      <h3 style="margin-top:32px">Départ</h3>
+      <p>En hiver, transport des bagages en motoneige de 8 h à 10 h.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="marque">Leysin Lodge</span>
+    <span>Rte de Plan-Praz 6 · 1854 Leysin</span>
+    <span>Aperçu non officiel, imaginé par Nouvelle Ardoise. Textes et photos : leysinlodge.ch.</span>
+  </div>
+</footer>
+
+<div class="barre" aria-label="Actions rapides">
+  <a class="btn btn-ligne" href="tel:+41244941120">Appeler</a>
+  <a class="btn btn-bois" href="https://www.leysinlodge.ch/fr">Réserver</a>
+</div>
+
+<script>
+(function(){var els=document.querySelectorAll('.rv');if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('on')})}else{var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});els.forEach(function(e){io.observe(e)})}var b=document.querySelector('.barre'),h=document.querySelector('.hero');function f(){b.classList.toggle('vue',h.getBoundingClientRect().bottom<0)}addEventListener('scroll',f,{passive:true});f();})();
+</script>
+</body>
+</html>
