@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>GoblinLab · Impression 3D de matériel de jeu, Orges (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour GoblinLab, atelier d'impression 3D de matériel de jeu de rôle à Orges (VD).">
+<meta name="theme-color" content="#131214">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#131214; --ink-2:#1c1a1e; --line:#2e2b31;
+  --bone:#ecebe7; --bone-2:#b9b6b0; --mute:#8d8a85;
+  --studio:#d4d3d2; --acid:#c9e05a; --acid-ink:#1b2005;
+  --serif:"IM Fell English", Georgia, serif;
+  --sans:"Work Sans", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, monospace;
+  --gut:20px; --max:1240px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{background:var(--ink);color:var(--bone);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--acid);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+
+.apercu{background:var(--acid);color:var(--acid-ink);font:500 12px/1.45 var(--mono);text-align:center;padding:8px var(--gut);letter-spacing:.01em}
+
+header{border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.mark{font:400 26px/1 var(--serif);text-decoration:none;letter-spacing:-.01em}
+.mark i{color:var(--acid);font-style:italic}
+nav ul{display:flex;gap:22px;list-style:none}
+nav a{font:500 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;text-decoration:none;color:var(--bone-2);padding:10px 0}
+nav a:hover{color:var(--bone)}
+nav li.hide-sm{display:none}
+
+.label{font:500 11.5px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--mute)}
+.label b{color:var(--acid);font-weight:500}
+
+/* HERO */
+.hero{padding:36px 0 56px}
+.hero-grid{display:grid;gap:32px}
+.hero h1{font:400 clamp(40px,11vw,84px)/.98 var(--serif);letter-spacing:-.02em;margin:18px 0 22px;text-wrap:balance}
+.hero h1 em{font-style:italic;color:var(--acid)}
+.hero p.lead{font-size:17px;color:var(--bone-2);max-width:34ch}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 22px;border-radius:2px;font:600 15px/1 var(--sans);text-decoration:none;transition:background-color .2s ease, color .2s ease, transform .2s ease}
+.btn-acid{background:var(--acid);color:var(--acid-ink)}
+.btn-acid:hover{background:#d8ec74}
+.btn-line{border:1px solid #4a464e;color:var(--bone)}
+.btn-line:hover{border-color:var(--bone-2)}
+.btn:active{transform:scale(.98)}
+
+.vitrine{position:relative;background:var(--studio);border-radius:2px;overflow:hidden}
+.vitrine img{width:100%;height:100%;object-fit:cover}
+.hero .vitrine{aspect-ratio:4/5}
+.hero .vitrine img{object-position:50% 62%}
+.tag{position:absolute;left:12px;bottom:12px;background:var(--ink);color:var(--bone);font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:9px 11px}
+.tag b{color:var(--acid);font-weight:500;margin-right:8px}
+
+/* POINTS */
+.points{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.points ol{list-style:none;display:grid}
+.points li{padding:30px 0;border-bottom:1px solid var(--line)}
+.points li:last-child{border-bottom:0}
+.points h2{font:400 28px/1.1 var(--serif);margin:10px 0 10px}
+.points p{color:var(--bone-2);max-width:42ch}
+
+/* BESTIAIRE */
+section{scroll-margin-top:16px}
+.sec{padding:72px 0}
+.sec-head{display:grid;gap:14px;margin-bottom:36px}
+.sec-head h2{font:400 clamp(34px,8.5vw,64px)/1 var(--serif);letter-spacing:-.015em;text-wrap:balance}
+.sec-head h2 em{font-style:italic;color:var(--acid)}
+.sec-head p{color:var(--bone-2);max-width:46ch}
+.bestiaire{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.piece figure{margin:0}
+.piece .vitrine{aspect-ratio:2/3}
+.piece figcaption{display:flex;justify-content:space-between;gap:8px;padding:12px 2px 0;align-items:baseline}
+.piece .nom{font:400 19px/1.15 var(--serif)}
+.piece .no{font:500 11px/1 var(--mono);color:var(--mute);letter-spacing:.06em;white-space:nowrap}
+.piece.big{grid-column:1 / -1}
+.piece.big .vitrine{aspect-ratio:4/5}
+
+/* SUR MESURE */
+.mesure{background:var(--bone);color:var(--ink)}
+.mesure .label{color:#6c6963}
+.mesure .label b{color:#55651a}
+.mesure .sec-head h2 em{color:#55651a}
+.mesure .sec-head p{color:#3d3a40}
+.mesure-grid{display:grid;gap:36px}
+.etapes{list-style:none;counter-reset:e}
+.etapes li{counter-increment:e;display:grid;grid-template-columns:44px 1fr;gap:4px 12px;padding:22px 0;border-top:1px solid #cfccc5}
+.etapes li::before{content:counter(e,decimal-leading-zero);font:500 12px/1.9 var(--mono);color:#55651a;grid-row:span 2}
+.etapes h3{font:400 23px/1.2 var(--serif)}
+.etapes p{color:#3d3a40;font-size:15.5px}
+.mesure .vitrine{aspect-ratio:1190/921;background:#c9c8c8}
+.mesure .note{margin-top:22px;font:400 13px/1.5 var(--mono);color:#55524d}
+.mesure .btn-acid{background:var(--ink);color:var(--bone)}
+.mesure .btn-acid:hover{background:#2b282e}
+
+/* GALERIE */
+.galerie{display:grid;gap:12px}
+.galerie .g1{aspect-ratio:1034/881}
+.galerie .g2{aspect-ratio:1181/1359}
+
+/* CONTACT */
+.contact{border-top:1px solid var(--line)}
+.contact-grid{display:grid;gap:36px}
+.contact h2{font:400 clamp(36px,9vw,72px)/1 var(--serif);letter-spacing:-.015em;text-wrap:balance}
+.contact h2 em{font-style:italic;color:var(--acid)}
+dl.infos{display:grid;gap:0}
+dl.infos div{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:16px 0;border-top:1px solid var(--line)}
+dl.infos dt{font:500 11.5px/1.7 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--mute)}
+dl.infos dd{color:var(--bone)}
+dl.infos dd a{text-underline-offset:3px;text-decoration-color:#5a565e}
+dl.infos dd a:hover{text-decoration-color:var(--acid)}
+.pause{margin-top:22px;padding:16px 18px;border:1px dashed #4a464e;color:var(--bone-2);font-size:15px}
+.pause strong{color:var(--bone);font-weight:600}
+
+footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--mute);font:400 12.5px/1.6 var(--mono)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.btn{transition:none}}
+
+@media (min-width:760px){
+  :root{--gut:40px}
+  nav li.hide-sm{display:block}
+  .hero{padding:64px 0 88px}
+  .hero-grid{grid-template-columns:1.3fr .8fr;align-items:end;gap:56px}
+  .hero .vitrine{aspect-ratio:3/4}
+  .points ol{grid-template-columns:repeat(3,1fr);gap:40px}
+  .points li{border-bottom:0;padding:40px 0}
+  .sec{padding:112px 0}
+  .sec-head{grid-template-columns:1fr 1fr;align-items:end;gap:40px;margin-bottom:56px}
+  .bestiaire{grid-template-columns:repeat(4,1fr);gap:16px}
+  .piece.big{grid-column:span 2;grid-row:span 2}
+  .piece.big .vitrine{aspect-ratio:auto;height:calc(100% - 44px)}
+  .piece.big figure{height:100%}
+  .mesure-grid{grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+  .galerie{grid-template-columns:1.25fr 1fr;gap:16px;align-items:stretch}
+  .galerie .vitrine{aspect-ratio:auto;height:560px}
+  .contact-grid{grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+}
+</style>
+</head>
+<body>
+<div class="apercu" role="note">Aperçu imaginé par Nouvelle Ardoise pour GoblinLab · ce n'est pas votre site officiel</div>
+
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#top" aria-label="GoblinLab, accueil">Goblin<i>Lab</i></a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="#pieces">Pièces</a></li>
+        <li><a href="#sur-mesure">Sur mesure</a></li>
+        <li class="hide-sm"><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="label"><b>Impression 3D</b> · Orges, canton de Vaud</p>
+        <h1>Tours à dés, potions et <em>créatures</em>, imprimées au cœur du canton de Vaud.</h1>
+        <p class="lead">GoblinLab imprime du matériel de jeu de rôle et des accessoires décoratifs, et réalise vos pièces sur mesure grâce à l'impression à la demande.</p>
+        <div class="ctas">
+          <a class="btn btn-acid" href="mailto:contact@goblinlab.ch?subject=Demande%20d'impression">Demander une impression</a>
+          <a class="btn btn-line" href="#pieces">Voir les pièces</a>
+        </div>
+      </div>
+      <div class="vitrine rv">
+        <img src="img/mimique-violette.webp" width="1200" height="1800" alt="Tour à dés Mimique imprimée en filament violet irisé, des dés colorés à ses pieds" fetchpriority="high">
+        <span class="tag"><b>Nº 01</b>Mimique</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="points" aria-label="Ce qui fait GoblinLab">
+    <div class="wrap">
+      <ol>
+        <li class="rv">
+          <p class="label"><b>01</b> · Depuis juillet 2024</p>
+          <h2>Trois amis, une même passion</h2>
+          <p>Créée par trois passionnés de technologie et de jeu, avec une idée simple : rendre les résultats de l'impression 3D accessibles à tous.</p>
+        </li>
+        <li class="rv">
+          <p class="label"><b>02</b> · Artistes du monde entier</p>
+          <h2>Dessinées ailleurs, imprimées ici</h2>
+          <p>Les modèles de la boutique sont conçus par plusieurs artistes internationaux avec lesquels GoblinLab collabore, puis imprimés dans le canton de Vaud.</p>
+        </li>
+        <li class="rv">
+          <p class="label"><b>03</b> · Sur demande</p>
+          <h2>Votre idée, en volume</h2>
+          <p>Un coloris dont vous rêvez, un modèle vu sur internet, une pièce de meuble cassée : l'équipe peut le modéliser et l'imprimer.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="pieces">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="label"><b>Le bestiaire</b> · tours et potions à dés</p>
+          <h2 style="margin-top:14px">Il n'y a pas que votre personnage qui mérite le <em>meilleur équipement</em>.</h2>
+        </div>
+        <p>Une tour à dés, une boîte ou une potion à dés pour des parties encore plus fun. Et en plus, ça fait joli sur la table.</p>
+      </div>
+      <div class="bestiaire">
+        <div class="piece big rv"><figure>
+          <div class="vitrine"><img src="img/candy-machine.webp" width="1200" height="1800" loading="lazy" alt="Candy Machine, distributeur de dés imprimé en filament rose et vert"></div>
+          <figcaption><span class="nom">Candy Machine</span><span class="no">Nº 02</span></figcaption>
+        </figure></div>
+        <div class="piece rv"><figure>
+          <div class="vitrine"><img src="img/baba-yaga.webp" width="500" height="749" loading="lazy" alt="Tour à dés Baba Yaga, maison sur pattes de poule imprimée en noir"></div>
+          <figcaption><span class="nom">Baba Yaga</span><span class="no">Nº 03</span></figcaption>
+        </figure></div>
+        <div class="piece rv"><figure>
+          <div class="vitrine"><img src="img/kraken.webp" width="500" height="749" loading="lazy" alt="Kraken imprimé en 3D enroulé autour d'une tour, dés bleus au pied"></div>
+          <figcaption><span class="nom">Kraken</span><span class="no">Nº 04</span></figcaption>
+        </figure></div>
+        <div class="piece rv"><figure>
+          <div class="vitrine"><img src="img/cthulhu.webp" width="500" height="749" loading="lazy" alt="Cthulhu imprimé en 3D en filament sombre, entouré de dés verts"></div>
+          <figcaption><span class="nom">Cthulhu</span><span class="no">Nº 05</span></figcaption>
+        </figure></div>
+        <div class="piece rv"><figure>
+          <div class="vitrine"><img src="img/mimique-verte.webp" width="500" height="749" loading="lazy" alt="Mimique imprimée en filament vert et bronze, un dé rouge entre les dents"></div>
+          <figcaption><span class="nom">Mimique bronze</span><span class="no">Nº 06</span></figcaption>
+        </figure></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec mesure" id="sur-mesure">
+    <div class="wrap mesure-grid">
+      <div>
+        <p class="label"><b>Impression à la demande</b></p>
+        <div class="sec-head" style="grid-template-columns:1fr;margin:14px 0 8px">
+          <h2>Un modèle <em>unique</em> qui répond à vos envies.</h2>
+        </div>
+        <ol class="etapes">
+          <li><h3>Le coloris dont vous rêvez</h3><p>Un modèle vous plaît mais pas dans cette couleur, ou vous l'avez vu en ligne sans le trouver sur le site : GoblinLab peut l'imprimer pour vous.</p></li>
+          <li><h3>Une pièce précise</h3><p>Une pièce de meuble cassée, un projet de décoration pour un événement, un objet introuvable : l'équipe le modélise.</p></li>
+          <li><h3>À taille humaine</h3><p>Quelques humains et quelques machines. Pour une grande quantité ou une date précise, comme un anniversaire, écrivez bien en avance.</p></li>
+        </ol>
+        <div class="ctas"><a class="btn btn-acid" href="mailto:contact@goblinlab.ch?subject=Impression%20%C3%A0%20la%20demande">Écrire à l'atelier</a></div>
+      </div>
+      <div>
+        <div class="vitrine rv"><img src="img/chapeaux-de-des.webp" width="1190" height="921" loading="lazy" alt="Quatre chapeaux de sorcier imprimés en 3D, dont un posé sur un dé à vingt faces jaune"></div>
+        <p class="note">Chapeaux de sorcier pour dés, imprimés dans plusieurs filaments.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="galerie-titre">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="label"><b>L'atelier</b> · sorties d'imprimante</p>
+          <h2 id="galerie-titre" style="margin-top:14px">Des détails qui <em>font joli</em> sur la table.</h2>
+        </div>
+      </div>
+      <div class="galerie">
+        <div class="vitrine g1 rv"><img src="img/boite-potion.webp" width="1034" height="881" loading="lazy" alt="Boîte à dés en forme de fiole à oreilles de chat, imprimée en gris métallisé"></div>
+        <div class="vitrine g2 rv"><img src="img/potion-acide.webp" width="1181" height="1359" loading="lazy" alt="Potion d'acide imprimée en violet, renversée, laissant rouler des dés et un petit crâne"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec contact" id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="label"><b>Contact</b></p>
+        <h2 style="margin-top:14px">Une idée à <em>matérialiser</em>&nbsp;? Écrivez-nous.</h2>
+        <div class="ctas">
+          <a class="btn btn-acid" href="mailto:contact@goblinlab.ch">contact@goblinlab.ch</a>
+        </div>
+        <p class="pause"><strong>À savoir :</strong> les commandes directes sur le site sont en pause. L'impression à la demande reste pleinement disponible.</p>
+      </div>
+      <dl class="infos">
+        <div><dt>Atelier</dt><dd>GoblinLab SNC<br>Chemin du Pré-Fleuri 7<br>1430 Orges, Vaud</dd></div>
+        <div><dt>E-mail</dt><dd><a href="mailto:contact@goblinlab.ch">contact@goblinlab.ch</a></dd></div>
+        <div><dt>Instagram</dt><dd><a href="https://instagram.com/goblin_lab_" rel="noopener">@goblin_lab_</a></dd></div>
+        <div><dt>TikTok</dt><dd><a href="https://www.tiktok.com/@goblin_lab_" rel="noopener">@goblin_lab_</a></dd></div>
+        <div><dt>Langues</dt><dd>Français, English</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>GoblinLab · Impression 3D · Orges (VD)</span>
+    <span>Gobelins sont passés par là.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

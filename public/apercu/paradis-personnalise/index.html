@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Paradis Personnalisé · Cadeaux sur mesure, Prilly (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour Paradis Personnalisé : mugs, paniers, ballons et coffrets personnalisés, Prilly (VD).">
+<meta name="theme-color" content="#f7efe8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Karla:ital,wght@0,400;0,500;0,700;1,400&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f7efe8; --paper-2:#f1e3da; --white:#fffdfb;
+  --ink:#2b1a21; --ink-2:#5b4650; --rasp:#a8285c; --rasp-2:#8d1f4c; --blush:#efd3d9; --line:#e2cfc6;
+  --serif:"Gloock", Georgia, serif; --sans:"Karla", system-ui, sans-serif; --hand:"Caveat", cursive;
+  --gut:20px; --max:1200px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--rasp);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+
+.apercu{background:var(--ink);color:#f6e7ec;font:500 12.5px/1.45 var(--sans);text-align:center;padding:8px var(--gut)}
+
+header .bar{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.mark{font:400 22px/1 var(--serif);text-decoration:none;letter-spacing:-.005em}
+.mark span{color:var(--rasp)}
+.top-cta{font:700 14px/1 var(--sans);text-decoration:none;color:var(--rasp);padding:12px 0;border-bottom:1.5px solid currentColor}
+
+.kicker{font:700 12px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--rasp)}
+.hand{font:500 24px/1.1 var(--hand);color:var(--rasp)}
+
+/* HERO */
+.hero{padding:20px 0 64px}
+.hero-grid{display:grid;gap:36px}
+.hero h1{font:400 clamp(44px,12.5vw,86px)/.98 var(--serif);letter-spacing:-.02em;margin:16px 0 20px;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--rasp)}
+.lead{font-size:18px;color:var(--ink-2);max-width:36ch}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 24px;border-radius:999px;font:700 16px/1 var(--sans);text-decoration:none;transition:background-color .2s ease,transform .2s ease,border-color .2s ease}
+.btn-main{background:var(--rasp);color:#fff}
+.btn-main:hover{background:var(--rasp-2)}
+.btn-ghost{border:1.5px solid var(--ink);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--rasp);color:var(--rasp)}
+.btn:active{transform:scale(.98)}
+
+.carte{background:var(--white);border-radius:6px;box-shadow:0 1px 0 var(--line),0 18px 40px -28px rgba(80,30,50,.35);position:relative}
+.hero-visuel{position:relative;padding:0 6px}
+.hero-visuel .carte{padding:18px;transform:rotate(-1.2deg)}
+.hero-visuel .carte img{aspect-ratio:1/1;object-fit:cover;width:100%}
+.etiquette{position:absolute;right:-2px;bottom:-22px;background:var(--blush);padding:12px 18px 12px 28px;border-radius:4px;transform:rotate(2.5deg);font:500 24px/1 var(--hand);color:var(--rasp-2)}
+.etiquette::before{content:"";position:absolute;left:11px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:var(--paper)}
+
+/* ETAPES */
+.etapes-sec{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.etapes-sec .wrap{padding-top:56px;padding-bottom:56px}
+.etapes-sec h2{font:400 clamp(30px,7.5vw,48px)/1.05 var(--serif);margin:12px 0 30px;text-wrap:balance;max-width:20ch}
+.etapes{list-style:none;display:grid;gap:0;counter-reset:n}
+.etapes li{counter-increment:n;display:grid;grid-template-columns:52px 1fr;gap:4px 14px;padding:20px 0;border-top:1px dashed var(--line)}
+.etapes li::before{content:counter(n);font:400 40px/1 var(--serif);color:var(--rasp);grid-row:span 2}
+.etapes h3{font:700 18px/1.3 var(--sans)}
+.etapes p{color:var(--ink-2);font-size:16px}
+.envoi{margin-top:24px;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:15px;color:var(--ink-2)}
+.envoi b{color:var(--ink)}
+
+/* CREATIONS */
+.sec{padding:72px 0}
+.sec-head{margin-bottom:32px;display:grid;gap:12px}
+.sec-head h2{font:400 clamp(34px,8.5vw,64px)/1.02 var(--serif);letter-spacing:-.015em;text-wrap:balance;max-width:16ch}
+.sec-head p{color:var(--ink-2);max-width:44ch}
+.creations{display:grid;gap:28px}
+.crea .carte{padding:12px}
+.crea .carte img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:3px}
+.crea h3{font:400 24px/1.15 var(--serif);margin:16px 0 6px}
+.crea p{color:var(--ink-2);font-size:16px}
+
+.crea-deco .deco{background:var(--rasp);color:#fff;border-radius:6px;padding:28px 24px;height:100%;display:flex;flex-direction:column;gap:12px;min-height:280px}
+.crea-deco .kicker{color:#f8cfdd}
+.crea-deco h3{margin:0;font-size:30px;color:#fff}
+.crea-deco p{color:#fbe6ee}
+.crea-deco .btn-main{background:#fff;color:var(--rasp-2);margin-top:auto;align-self:flex-start}
+.crea-deco .btn-main:hover{background:var(--blush)}
+/* MUGS */
+.mugs{background:var(--blush)}
+.mugs .wrap{padding-top:64px;padding-bottom:64px;display:grid;gap:32px}
+.mugs h2{font:400 clamp(32px,8vw,56px)/1.03 var(--serif);text-wrap:balance;margin:12px 0 14px}
+.mugs p{color:#4b343e;max-width:40ch}
+.mugs-photos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mugs-photos img{border-radius:4px;aspect-ratio:4/5;object-fit:cover;width:100%}
+.mugs-photos figure:nth-child(2){margin-top:40px}
+
+/* LUCIANA */
+.histoire .wrap{max-width:860px}
+.histoire blockquote{font:400 clamp(28px,6.6vw,46px)/1.15 var(--serif);letter-spacing:-.01em;margin:16px 0 26px;text-wrap:balance}
+.histoire blockquote em{font-style:normal;color:var(--rasp)}
+.histoire p{color:var(--ink-2);margin-bottom:14px;max-width:60ch}
+.histoire .sign{margin-top:18px}
+
+/* GALERIE */
+.galerie{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.galerie .carte{padding:8px}
+.galerie img{aspect-ratio:1/1;object-fit:cover;width:100%;border-radius:2px}
+
+/* CONTACT */
+.contact{background:var(--ink);color:#f7ece8}
+.contact .wrap{padding-top:72px;padding-bottom:72px;display:grid;gap:40px}
+.contact .kicker{color:#f0a9c3}
+.contact h2{font:400 clamp(36px,9vw,68px)/1.02 var(--serif);text-wrap:balance;margin:12px 0 18px}
+.contact p{color:#dccbd0;max-width:40ch}
+.contact .btn-main{background:#f0a9c3;color:var(--ink)}
+.contact .btn-main:hover{background:#f6c3d5}
+.contact .btn-ghost{border-color:#7b6570;color:#f7ece8}
+.contact .btn-ghost:hover{border-color:#f0a9c3;color:#f0a9c3}
+dl.infos div{display:grid;grid-template-columns:104px 1fr;gap:12px;padding:15px 0;border-top:1px solid #47343d}
+dl.infos dt{font:700 12px/1.9 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#b49aa5}
+dl.infos dd{min-width:0;overflow-wrap:anywhere}
+.contact .wrap>*{min-width:0}
+dl.infos dd a{text-underline-offset:3px;text-decoration-color:#7b6570}
+dl.infos dd a:hover{text-decoration-color:#f0a9c3}
+
+footer{background:var(--ink);color:#b49aa5;border-top:1px solid #47343d;font-size:14px}
+footer .wrap{padding-top:24px;padding-bottom:36px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 24px}
+footer .hand{color:#f0a9c3;font-size:22px}
+
+.rv{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.btn{transition:none}}
+
+@media (min-width:760px){
+  :root{--gut:40px}
+  .hero{padding:40px 0 104px}
+  .hero-grid{grid-template-columns:1.1fr .9fr;align-items:center;gap:64px}
+  .etapes-sec .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;padding-top:88px;padding-bottom:88px}
+  .etapes-sec h2{margin-bottom:0}
+  .sec{padding:112px 0}
+  .sec-head{grid-template-columns:1fr 1fr;align-items:end;gap:48px;margin-bottom:56px}
+  .creations{grid-template-columns:repeat(3,1fr);gap:40px 28px}
+  .crea:nth-child(3n+2){transform:translateY(32px)}
+  .crea:nth-child(3n+2).rv:not(.in){transform:translateY(46px)}
+  .mugs .wrap{grid-template-columns:1fr 1fr;align-items:center;gap:64px;padding-top:96px;padding-bottom:96px}
+  .galerie{grid-template-columns:repeat(4,1fr);gap:20px}
+  .contact .wrap{grid-template-columns:1fr 1fr;gap:64px;padding-top:104px;padding-bottom:104px;align-items:start}
+}
+</style>
+</head>
+<body>
+<div class="apercu" role="note">Aperçu imaginé par Nouvelle Ardoise pour Paradis Personnalisé · ce n'est pas votre site officiel</div>
+
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#top">Paradis <span>Personnalisé</span></a>
+    <a class="top-cta" href="#contact">Contact</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="kicker">Cadeaux personnalisés · Prilly, Vaud</p>
+        <h1>Un cadeau n'est jamais <em>juste un objet.</em></h1>
+        <p class="lead">Mugs, t-shirts, puzzles, paniers, ballons et coffrets, créés sur mesure par Paradis Personnalisé pour faire plaisir.</p>
+        <div class="ctas">
+          <a class="btn btn-main" href="https://wa.me/41797953802">Écrire sur WhatsApp</a>
+          <a class="btn btn-ghost" href="#creations">Voir les créations</a>
+        </div>
+      </div>
+      <div class="hero-visuel rv">
+        <div class="carte"><img src="img/ballon-princesse-melinda.webp" width="1200" height="1200" alt="Ballon transparent rempli de mini ballons à cœurs, personnalisé « Princesse Melinda », avec ourson et fleurs roses" fetchpriority="high"></div>
+        <span class="etiquette">Bienvenue Melinda</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="etapes-sec" aria-labelledby="etapes-titre">
+    <div class="wrap">
+      <div>
+        <p class="kicker">Comment ça marche</p>
+        <h2 id="etapes-titre">Vous racontez, Luciana crée, vous validez.</h2>
+      </div>
+      <div>
+        <ol class="etapes">
+          <li><h3>Envoyez vos idées</h3><p>Vos photos, textes ou idées, par e-mail ou via WhatsApp.</p></li>
+          <li><h3>Recevez un aperçu</h3><p>Une prévisualisation vous est envoyée pour validation.</p></li>
+          <li><h3>On imprime</h3><p>L'impression et la finalisation commencent uniquement après votre confirmation.</p></li>
+        </ol>
+        <p class="envoi"><span><b>Expédition</b> en 2 à 5 jours ouvrables</span><span><b>Livraison</b> rapide en Suisse</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="creations">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="kicker">Les créations</p>
+          <h2 style="margin-top:12px">Paniers, ballons et coffrets, faits sur mesure.</h2>
+        </div>
+        <p>Pour un anniversaire, une fête, une baby shower, un départ à la retraite ou un cadeau de fin d'année pour les entreprises. Devis gratuit sur demande.</p>
+      </div>
+      <div class="creations">
+        <article class="crea rv">
+          <div class="carte"><img src="img/panier-personnalise.webp" width="1200" height="1200" loading="lazy" alt="Panier garni emballé de rose, avec ourson en roses, fleurs et douceurs"></div>
+          <h3>Panier personnalisé</h3>
+          <p>Un panier garni décoré avec soin, composé de douceurs et de créations personnalisées.</p>
+        </article>
+        <article class="crea rv">
+          <div class="carte"><img src="img/gateau-de-couches.webp" width="1200" height="1200" loading="lazy" alt="Gâteau de couches bleu surmonté de deux girafes en peluche"></div>
+          <h3>Gâteau de couches</h3>
+          <p>L'incontournable de la baby shower, décoré d'accessoires et de peluches, selon vos envies.</p>
+        </article>
+        <article class="crea rv">
+          <div class="carte"><img src="img/ballon-fete-maman.webp" width="1200" height="1200" loading="lazy" alt="Panier avec ballon cœur rouge « Bonne Fête Maman », peluche et fleurs rouges"></div>
+          <h3>Panier avec ballon</h3>
+          <p>Une création festive et colorée, idéale pour les anniversaires, les surprises et les événements joyeux.</p>
+        </article>
+        <article class="crea rv">
+          <div class="carte"><img src="img/panier-naissance-louise.webp" width="1200" height="1200" loading="lazy" alt="Panier de naissance au prénom de Louise, garni de soins pour bébé, d'un lapin au crochet et de roses"></div>
+          <h3>Pour une naissance</h3>
+          <p>Douceurs et cadeaux personnalisés pour bébé, à offrir lors d'une baby shower.</p>
+        </article>
+        <article class="crea rv">
+          <div class="carte"><img src="img/box-roses.webp" width="933" height="1400" loading="lazy" alt="Boîte ronde rose garnie d'un bouquet de roses roses" style="object-position:50% 40%"></div>
+          <h3>Arrangement floral</h3>
+          <p>Fleurs artificielles ou stabilisées, personnalisées avec un prénom, un message ou un thème.</p>
+        </article>
+        <article class="crea crea-deco rv">
+          <div class="deco">
+            <p class="kicker">Sur commande</p>
+            <h3>Décoration événementielle</h3>
+            <p>Des décorations personnalisées pour une baby shower, un anniversaire, un baptême ou une fête privée.</p>
+            <a class="btn btn-main" href="mailto:paradispersonnalise@outlook.com?subject=Demande%20de%20devis">Demander un devis gratuit</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="mugs" aria-labelledby="mugs-titre">
+    <div class="wrap">
+      <div>
+        <p class="kicker">Mugs, t-shirts, puzzles</p>
+        <h2 id="mugs-titre">Des objets simples, rendus uniques.</h2>
+        <p>Un prénom, une photo, un message : chaque mug, chaque t-shirt est personnalisé à partir de ce que vous envoyez, puis validé avec vous avant l'impression.</p>
+      </div>
+      <div class="mugs-photos">
+        <figure class="rv"><img src="img/mug-thank-you.webp" width="1184" height="1400" loading="lazy" alt="Mug blanc imprimé « Thank you » à l'intérieur, entouré de roses"></figure>
+        <figure class="rv"><img src="img/mug-happy-birthday.webp" width="1181" height="1400" loading="lazy" alt="Mug blanc imprimé « Happy Birthday » à l'intérieur"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec histoire" aria-labelledby="histoire-titre">
+    <div class="wrap">
+      <p class="kicker" id="histoire-titre">L'histoire</p>
+      <blockquote>« Un cadeau peut transmettre de l'amour, faire naître un sourire ou garder vivant <em>un souvenir précieux.</em> »</blockquote>
+      <p>Luciana a créé Paradis Personnalisé avec l'envie de donner du sens aux petites choses. Chaque mug, chaque t-shirt, chaque panier est pensé comme une émotion à partager.</p>
+      <p>Rien n'est produit au hasard : tout est fait avec soin, passion et amour du détail. Parce que derrière chaque cadeau se cache une histoire.</p>
+      <p class="hand sign">Luciana</p>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-titre">
+    <div class="wrap">
+      <div>
+        <p class="kicker">Contact</p>
+        <h2 id="contact-titre">Racontez-nous votre idée de cadeau.</h2>
+        <p>Envoyez vos photos, textes ou idées : vous recevez une prévisualisation avant toute impression.</p>
+        <div class="ctas">
+          <a class="btn btn-main" href="https://wa.me/41797953802">Écrire sur WhatsApp</a>
+          <a class="btn btn-ghost" href="tel:+41797953802">Appeler</a>
+        </div>
+      </div>
+      <dl class="infos">
+        <div><dt>Téléphone</dt><dd><a href="tel:+41797953802">+41 79 795 38 02</a></dd></div>
+        <div><dt>E-mail</dt><dd><a href="mailto:paradispersonnalise@outlook.com">paradispersonnalise<wbr>@outlook.com</a></dd></div>
+        <div><dt>Adresse</dt><dd>Av. de la Rapille 7<br>1007 Prilly VD</dd></div>
+        <div><dt>Réseaux</dt><dd>@Paradispersonnalise<br>Instagram, Facebook, TikTok</dd></div>
+        <div><dt>Envoi</dt><dd>Expédition en 2 à 5 jours ouvrables</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Paradis Personnalisé · Prilly</span>
+    <span class="hand">Fait avec amour en Suisse</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>DecoBrassus · Cristiana Lopes, angleuse-perleuse au Brassus (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour DecoBrassus, Cristiana Lopes, anglage et décoration horlogère au Brassus.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nuit:#11141b; --nuit-2:#181c26; --drap:#1d2230;
+  --or:#c8a35a; --or-clair:#e3c98f; --ivoire:#ece6da; --gris:#a7a39a; --trait:rgba(236,230,218,.14);
+  --g:20px; --max:1240px;
+  --serif:"Cormorant Garamond",Georgia,serif; --sans:"Manrope",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--nuit);color:var(--ivoire);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--g)}
+
+.apercu{background:#0a0c10;color:var(--gris);font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--g);border-bottom:1px solid var(--trait)}
+.apercu strong{color:var(--ivoire);font-weight:500}
+
+header.top{position:absolute;left:0;right:0;z-index:5}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.marque{text-decoration:none;font-family:var(--serif);font-size:22px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.marque span{color:var(--or)}
+.top nav{display:flex;gap:28px;align-items:center;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.top nav a.lien{text-decoration:none;color:var(--gris);display:none}
+.top nav a.lien:hover{color:var(--ivoire)}
+.btn-trait{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1px solid var(--or);color:var(--or-clair);text-decoration:none;font-size:13px;letter-spacing:.08em;text-transform:uppercase;transition:background .25s,color .25s}
+.btn-trait:hover{background:var(--or);color:var(--nuit)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--nuit)}
+.hero picture{display:block;position:relative;height:min(68svh,560px)}
+.hero picture img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.hero picture::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,20,27,.6) 0%,rgba(17,20,27,0) 24%,rgba(17,20,27,0) 62%,var(--nuit) 100%)}
+.hero-txt{position:relative;z-index:2;padding:0 var(--g) 56px;width:100%;max-width:var(--max);margin:-36px auto 0}
+.surtitre{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--or)}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(52px,15vw,112px);line-height:.95;letter-spacing:-.01em;margin:14px 0 18px}
+.hero h1 em{font-style:italic;color:var(--or-clair)}
+.hero p.chapo{max-width:34ch;color:#d8d2c6;font-size:17px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn-plein{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;background:var(--or);color:var(--nuit);text-decoration:none;font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;transition:background .25s}
+.btn-plein:hover{background:var(--or-clair)}
+
+/* manifeste */
+.manifeste{padding:88px 0 72px}
+.manifeste blockquote{font-family:var(--serif);font-size:clamp(32px,7.4vw,64px);line-height:1.08;font-weight:400;max-width:18ch}
+.manifeste blockquote em{color:var(--or-clair)}
+.manifeste .source{margin-top:22px;color:var(--gris);font-size:14px}
+.reperes{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:56px;border-top:1px solid var(--trait)}
+.reperes div{padding:22px 0 22px;border-bottom:1px solid var(--trait)}
+.reperes div:nth-child(odd){padding-right:14px;border-right:1px solid var(--trait)}
+.reperes div:nth-child(even){padding-left:16px}
+.reperes b{display:block;font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.1;color:var(--or-clair)}
+.reperes span{display:block;margin-top:6px;font-size:14px;color:var(--gris);line-height:1.45}
+
+/* savoir-faire */
+.savoir{padding:24px 0 96px}
+.savoir-grid{display:grid;gap:40px}
+.savoir figure img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.savoir figcaption{font-size:13px;color:var(--gris);margin-top:10px}
+.label{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--or)}
+.savoir h2,.galerie h2,.portrait h2,.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,7vw,56px);line-height:1.05;margin:12px 0 18px}
+.savoir p.intro{color:#cfc9bd;max-width:52ch}
+ol.gestes{list-style:none;margin-top:30px;border-top:1px solid var(--trait);counter-reset:g}
+ol.gestes li{counter-increment:g;display:grid;grid-template-columns:44px 1fr;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--trait);font-family:var(--serif);font-size:22px;line-height:1.25}
+ol.gestes li::before{content:counter(g,decimal-leading-zero);font-family:var(--sans);font-size:12px;letter-spacing:.1em;color:var(--or)}
+.matieres{margin-top:28px;font-size:15px;color:var(--gris)}
+.matieres strong{color:var(--ivoire);font-weight:500}
+
+/* galerie */
+.galerie{padding:96px 0;background:var(--nuit-2)}
+.galerie .tete{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:34px}
+.galerie .tete p{color:var(--gris);max-width:40ch;font-size:15px}
+.mosaique{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mosaique figure{overflow:hidden;background:var(--drap)}
+.mosaique img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.mosaique figure:hover img{transform:scale(1.03)}
+.m-a{grid-column:1/-1;aspect-ratio:16/10}
+.m-b,.m-c{aspect-ratio:1/1}
+.m-d{grid-column:1/-1;aspect-ratio:16/9}
+.m-e,.m-f{aspect-ratio:4/5}
+
+/* portrait */
+.portrait{padding:100px 0}
+.portrait-grid{display:grid;gap:36px}
+.portrait img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 20%}
+.portrait p{color:#cfc9bd;margin-top:14px;max-width:56ch}
+.portrait .signature{font-family:var(--serif);font-style:italic;font-size:26px;color:var(--or-clair);margin-top:26px}
+
+/* contact */
+.contact{padding:96px 0 110px;border-top:1px solid var(--trait);background:radial-gradient(ellipse at 50% 0%,#1c2130 0%,var(--nuit) 70%)}
+.contact .lead{color:#cfc9bd;max-width:46ch;margin-bottom:36px}
+.coord{display:grid;gap:0;border-top:1px solid var(--trait);margin-bottom:38px}
+.coord div{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--trait)}
+.coord dt{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--or);padding-top:4px}
+.coord dd{font-size:17px}
+.coord a{text-decoration:none;border-bottom:1px solid var(--trait)}
+.coord a:hover{border-color:var(--or)}
+.contact .actions{display:flex;flex-wrap:wrap;gap:12px}
+.contact .confid{margin-top:26px;font-size:14px;color:var(--gris)}
+
+footer{border-top:1px solid var(--trait);padding:30px 0 40px;font-size:13px;color:var(--gris)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between}
+footer .marque{font-size:17px;color:var(--ivoire)}
+
+/* apparitions */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.vu{opacity:1;transform:none}
+.hero .rv{transition-duration:1.2s}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.mosaique img{transition:none}}
+
+:focus-visible{outline:2px solid var(--or-clair);outline-offset:3px}
+
+@media (min-width:760px){
+  :root{--g:40px}
+  .top nav a.lien{display:inline}
+  .reperes{grid-template-columns:repeat(4,1fr)}
+  .reperes div{padding:26px 22px!important;border-right:1px solid var(--trait)}
+  .reperes div:first-child{padding-left:0!important}
+  .reperes div:last-child{border-right:0}
+  .mosaique{grid-template-columns:repeat(6,1fr);gap:10px}
+  .m-a{grid-column:1/5;grid-row:1/3;aspect-ratio:auto}
+  .m-b{grid-column:5/7}
+  .m-c{grid-column:5/7}
+  .m-d{grid-column:1/3;aspect-ratio:4/3}
+  .m-e{grid-column:3/5;aspect-ratio:4/3}
+  .m-f{grid-column:5/7;aspect-ratio:4/3}
+}
+@media (min-width:1024px){
+  .hero{min-height:760px;display:flex;align-items:center}
+  .hero picture{position:absolute;top:0;bottom:0;right:0;left:38%;height:auto}
+  .hero picture::after{background:linear-gradient(90deg,var(--nuit) 0%,rgba(17,20,27,0) 30%),linear-gradient(0deg,var(--nuit) 0%,rgba(17,20,27,0) 18%),linear-gradient(180deg,rgba(17,20,27,.5) 0%,rgba(17,20,27,0) 20%)}
+  .hero picture img{object-position:50% 50%}
+  .hero-txt{margin:0 auto;padding-top:68px;padding-bottom:0}
+  .hero h1{font-size:104px}
+  .savoir-grid{grid-template-columns:5fr 6fr;gap:80px;align-items:start}
+  .savoir figure{position:sticky;top:40px}
+  .portrait-grid{grid-template-columns:5fr 6fr;gap:80px;align-items:center}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+  ol.gestes{columns:2;column-gap:40px}
+  ol.gestes li{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="apercu" role="note">Aperçu imaginé par Nouvelle Ardoise pour <strong>DecoBrassus</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="marque" href="#">Deco<span>Brassus</span></a>
+    <nav aria-label="Navigation principale">
+      <a class="lien" href="#savoir-faire">Savoir-faire</a>
+      <a class="lien" href="#portrait">Portrait</a>
+      <a class="btn-trait" href="#contact">Me contacter</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-label="Accueil">
+  <picture>
+    <source media="(min-width:1024px)" srcset="img/platine-or.webp">
+    <img src="img/platine-or-portrait.webp" width="1080" height="1350" alt="Platine dorée ajourée, entièrement perlée à la main, posée sur un drap bleu nuit" fetchpriority="high">
+  </picture>
+  <div class="hero-txt">
+    <p class="surtitre rv">Décoration horlogère · Le Brassus</p>
+    <h1 class="rv">Cristiana<br><em>Lopes</em></h1>
+    <p class="chapo rv">Angleuse et perleuse d'exception, au service de l'art du détail, de la précision et de l'excellence haut de gamme.</p>
+    <div class="actions rv">
+      <a class="btn-plein" href="mailto:decobrassus@hotmail.com">Parler de votre projet</a>
+      <a class="btn-trait" href="#savoir-faire">Le savoir-faire</a>
+    </div>
+  </div>
+</section>
+
+<section class="manifeste">
+  <div class="wrap">
+    <blockquote class="rv">Faire de la finition <em>un art à part entière.</em></blockquote>
+    <p class="source rv">Cristiana Lopes, fondatrice de DecoBrassus</p>
+    <div class="reperes rv">
+      <div><b>Depuis 2008</b><span>au service de l'anglage manuel à la lime</span></div>
+      <div><b>Pièce unique</b><span>petite et moyenne série</span></div>
+      <div><b>Or &amp; titane</b><span>métaux traditionnels, précieux ou techniques</span></div>
+      <div><b>Confidentiel</b><span>chaque mandat traité en toute discrétion</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="savoir" id="savoir-faire">
+  <div class="wrap savoir-grid">
+    <figure class="rv">
+      <img src="img/cristiana-socle.webp" width="1366" height="1669" loading="lazy" alt="Platine dorée en cours de perlage, posée sur un socle gravé « Cristiana »">
+      <figcaption>Une platine sur le socle gravé de l'atelier.</figcaption>
+    </figure>
+    <div>
+      <p class="label rv">Savoir-faire</p>
+      <h2 class="rv">Révéler la beauté de chaque composant</h2>
+      <p class="intro rv">Les finitions horlogères d'exception soulignent l'architecture du mouvement et lui donnent sa personnalité propre, son caractère et toute sa profondeur.</p>
+      <ol class="gestes rv">
+        <li>Anglage main à la lime</li>
+        <li>Anglage plat et bercé</li>
+        <li>Coins rentrants</li>
+        <li>Anglage au micromoteur</li>
+        <li>Perlage manuel</li>
+        <li>Étirage des flancs au cabron ou pointe diamant</li>
+        <li>Satinage</li>
+        <li>Moulurage</li>
+        <li>Cerclage</li>
+        <li>Poli bloqué, poli noir</li>
+      </ol>
+      <p class="matieres rv"><strong>Matériaux :</strong> maillechort, titane, acier, inox, laiton, aluminium, acier damassé, or jaune, gris ou rose.</p>
+    </div>
+  </div>
+</section>
+
+<section class="galerie" aria-labelledby="t-galerie">
+  <div class="wrap">
+    <div class="tete">
+      <div>
+        <p class="label rv">Atelier</p>
+        <h2 id="t-galerie" class="rv">Le relief, jusque dans les arêtes</h2>
+      </div>
+      <p class="rv">Surfaces, arêtes et volumes, travaillés à la main, pièce après pièce.</p>
+    </div>
+    <div class="mosaique">
+      <figure class="m-a rv"><img src="img/perlage-outil.webp" width="1600" height="1010" loading="lazy" alt="Pièce d'acier ajourée tenue dans un outil, au-dessus d'une plaque perforée"></figure>
+      <figure class="m-b rv"><img src="img/arabesque.webp" width="1366" height="1371" loading="lazy" alt="Disque doré satiné, découpé en arabesques"></figure>
+      <figure class="m-c rv"><img src="img/micromoteur.webp" width="1000" height="1000" loading="lazy" alt="Anglage au micromoteur sur une pièce maintenue dans une plaque perforée"></figure>
+      <figure class="m-d rv"><img src="img/pont-or.webp" width="1366" height="768" loading="lazy" alt="Pont doré perlé, serti de rubis, sur drap bleu nuit"></figure>
+      <figure class="m-e rv"><img src="img/mains-nb.webp" width="1000" height="1000" loading="lazy" alt="Mains au travail sur un composant, en noir et blanc"></figure>
+      <figure class="m-f rv"><img src="img/roues.webp" width="1366" height="768" loading="lazy" alt="Deux roues d'horlogerie en acier satiné"></figure>
+    </div>
+  </div>
+</section>
+
+<section class="portrait" id="portrait">
+  <div class="wrap portrait-grid">
+    <img class="rv" src="img/cristiana.webp" width="1080" height="1350" loading="lazy" alt="Portrait de Cristiana Lopes en blouse blanche, loupe d'horloger au front">
+    <div>
+      <p class="label rv">Portrait</p>
+      <h2 class="rv">La précision du geste</h2>
+      <p class="rv">Spécialisée dans l'anglage manuel et les perlages décoratifs, Cristiana Lopes sublime chaque composante avec une attention absolue portée aux moindres détails.</p>
+      <p class="rv">Fondatrice de DecoBrassus, elle met son expertise au service de maisons, d'ateliers et de projets d'exception, attachée aux grands savoir-faire de la tradition horlogère.</p>
+      <p class="signature rv">Rigueur, sensibilité et passion.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <p class="label rv">Contact</p>
+      <h2 class="rv">Un projet à sublimer ?</h2>
+      <p class="lead rv">Une création d'exception, un composant à magnifier, en pièce unique ou en petite série : parlons de votre projet.</p>
+    </div>
+    <div>
+      <dl class="coord rv">
+        <div><dt>E-mail</dt><dd><a href="mailto:decobrassus@hotmail.com">decobrassus@hotmail.com</a></dd></div>
+        <div><dt>Téléphone</dt><dd><a href="tel:+41798902740">+41 79 890 27 40</a></dd></div>
+        <div><dt>Atelier</dt><dd>Rue de la Gare 22<br>1348 Le Brassus VD</dd></div>
+      </dl>
+      <div class="actions rv">
+        <a class="btn-plein" href="mailto:decobrassus@hotmail.com">Écrire à Cristiana</a>
+        <a class="btn-trait" href="tel:+41798902740">Appeler</a>
+      </div>
+      <p class="confid rv">Chaque mandat et demande d'information est traité en toute confidentialité.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="marque">Deco<span style="color:var(--or)">Brassus</span></span>
+    <span>Cristiana Lopes · Angleuse, perleuse · Le Brassus</span>
+    <span>Aperçu non officiel, imaginé par Nouvelle Ardoise. Textes et photos : decobrassus.ch.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('vu')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

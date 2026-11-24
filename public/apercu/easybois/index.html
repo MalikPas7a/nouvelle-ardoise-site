@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Easybois · Menuiserie &amp; ébénisterie sur mesure à Echallens (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour Easybois Sàrl, menuiserie et ébénisterie sur mesure à Echallens, canton de Vaud.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papier:#f2ece2;
+  --papier-2:#e8dfd1;
+  --noyer:#2a1c13;
+  --noyer-2:#4a3526;
+  --chene:#9a5426;
+  --trait:#cdbfa9;
+  --gris:#6b5a4b;
+  --serif:"Newsreader", Georgia, serif;
+  --sans:"Work Sans", system-ui, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--papier);color:var(--noyer);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+@media(min-width:900px){.wrap{padding:0 48px}}
+
+/* bandeau aperçu */
+.apercu{background:var(--noyer);color:#e9dfcf;font-size:12.5px;line-height:1.4;text-align:center;padding:8px 16px;letter-spacing:.01em}
+.apercu strong{font-weight:600;color:#fff}
+
+/* en-tête */
+header.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;border-bottom:1px solid var(--trait)}
+.marque{display:flex;flex-direction:column;text-decoration:none;line-height:1.1}
+.marque b{font-family:var(--serif);font-weight:500;font-size:26px;letter-spacing:-.01em}
+.marque span{font-size:11.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--gris);margin-top:4px}
+nav.liens{display:none;gap:28px;font-size:14.5px}
+nav.liens a{text-decoration:none;color:var(--noyer-2)}
+nav.liens a:hover{color:var(--chene)}
+@media(min-width:900px){nav.liens{display:flex}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:2px;font-weight:500;font-size:15px;text-decoration:none;transition:background .2s ease,color .2s ease,border-color .2s ease}
+.btn-plein{background:var(--noyer);color:var(--papier)}
+.btn-plein:hover{background:var(--chene)}
+.btn-trait{border:1px solid var(--noyer);color:var(--noyer)}
+.btn-trait:hover{background:var(--noyer);color:var(--papier)}
+.btn-petit{min-height:44px;padding:0 16px;font-size:14px}
+.btn:focus-visible,a:focus-visible{outline:2px solid var(--chene);outline-offset:3px}
+
+/* hero */
+.hero{padding-top:36px;padding-bottom:56px}
+.hero-grille{display:grid;gap:28px}
+.surtitre{font-size:12px;text-transform:uppercase;letter-spacing:.16em;color:var(--chene);font-weight:600;display:flex;align-items:center;gap:12px}
+.surtitre::before{content:"";width:28px;height:1px;background:currentColor}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,10.5vw,84px);line-height:1;letter-spacing:-.025em;margin:18px 0 20px;text-wrap:balance}
+h1 em{font-style:italic;color:var(--chene)}
+.hero p.lead{font-size:18px;max-width:40ch;color:var(--noyer-2)}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero-photo{position:relative}
+.hero-photo img{width:100%;aspect-ratio:960/625;object-fit:cover}
+.legende{font-size:13px;color:var(--gris);margin-top:10px;display:flex;justify-content:space-between;gap:12px}
+.legende i{font-family:var(--serif);font-size:15px;color:var(--noyer)}
+@media(min-width:900px){
+  .hero{padding-top:64px;padding-bottom:96px}
+  .hero-grille{grid-template-columns:1fr 1.25fr;align-items:center;gap:56px}
+}
+
+/* cote : la règle de mesure */
+.cote{display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-bottom:28px}
+.cote::before,.cote::after{content:"";flex:1;height:9px;border-left:1px solid var(--trait);border-right:1px solid var(--trait);background:linear-gradient(var(--trait),var(--trait)) center/100% 1px no-repeat}
+.cote::before{max-width:40px}
+
+/* trois engagements */
+.engagements{border-top:1px solid var(--trait);border-bottom:1px solid var(--trait)}
+.engagements .wrap{display:grid}
+.eng{padding:28px 0;border-bottom:1px solid var(--trait)}
+.eng:last-child{border-bottom:0}
+.eng .pc{font-family:var(--serif);font-size:44px;line-height:1;letter-spacing:-.02em}
+.eng .pc small{font-size:.5em;vertical-align:.7em;margin-left:2px}
+.eng h3{font-family:var(--serif);font-weight:400;font-style:italic;font-size:22px;color:var(--chene);margin:4px 0 8px}
+.eng p{color:var(--noyer-2);max-width:38ch}
+@media(min-width:900px){
+  .engagements .wrap{grid-template-columns:repeat(3,1fr)}
+  .eng{padding:44px 36px 48px;border-bottom:0;border-left:1px solid var(--trait)}
+  .eng:first-child{border-left:0;padding-left:0}
+}
+
+section{padding:72px 0}
+@media(min-width:900px){section{padding:112px 0}}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,7.5vw,60px);line-height:1.04;letter-spacing:-.02em;text-wrap:balance;max-width:16ch}
+h2 em{font-style:italic;color:var(--chene)}
+.intro{color:var(--noyer-2);max-width:52ch;margin-top:18px;font-size:17px}
+
+/* créations atelier */
+.creations-grille{display:grid;gap:36px;margin-top:44px}
+.piece figure{margin:0}
+.piece img{width:100%;object-fit:cover}
+.piece figcaption{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-top:1px solid var(--noyer);margin-top:14px;padding-top:10px}
+.piece figcaption b{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.2}
+.piece figcaption span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);white-space:nowrap}
+.p1 img{aspect-ratio:4/5}
+.p2 img{aspect-ratio:4/5}
+.p3 img{aspect-ratio:4/3}
+.duo{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
+.duo img{aspect-ratio:3/4;height:100%}
+@media(min-width:900px){
+  .creations-grille{grid-template-columns:repeat(12,1fr);gap:40px 32px;align-items:start}
+  .p1{grid-column:1 / span 5}
+  .p2{grid-column:7 / span 6;margin-top:120px}
+  .p3{grid-column:1 / span 12}
+  .p3 .duo{grid-template-columns:1.6fr 1fr}
+  .p3 .duo img{aspect-ratio:auto;max-height:560px}
+}
+
+/* chantiers */
+.chantiers{background:var(--noyer);color:#efe6d8}
+.chantiers h2 em{color:#d99a62}
+.chantiers .intro{color:#cbbba5}
+.chantiers .cote{color:#a8957c}
+.chantiers .cote::before,.chantiers .cote::after{border-color:#5d4634;background:linear-gradient(#5d4634,#5d4634) center/100% 1px no-repeat}
+.liste-chantiers{margin-top:48px;list-style:none;border-top:1px solid #4d3a2c}
+.chantier{display:grid;gap:18px;padding:28px 0;border-bottom:1px solid #4d3a2c}
+.chantier .num{font-family:var(--serif);font-style:italic;color:#d99a62;font-size:18px}
+.chantier h3{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.15;margin:2px 0 8px}
+.chantier p{color:#cbbba5;max-width:46ch}
+.chantier .photos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.chantier .photos img{width:100%;aspect-ratio:1;object-fit:cover}
+.chantier .photos.une{grid-template-columns:1fr}
+.chantier .photos.une img{aspect-ratio:16/7}
+@media(min-width:900px){
+  .chantier{grid-template-columns:70px 1fr 1.15fr;gap:40px;padding:40px 0;align-items:start}
+  .chantier .photos img{aspect-ratio:4/5}
+  .chantier .photos.une img{aspect-ratio:16/7}
+}
+
+/* à deux */
+.adeux-grille{display:grid;gap:36px}
+.adeux-grille img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.citation{font-family:var(--serif);font-size:clamp(24px,5vw,34px);line-height:1.3;letter-spacing:-.01em;margin:24px 0;text-wrap:pretty}
+.citation em{color:var(--chene)}
+.duo-noms{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px;border-top:1px solid var(--trait);padding-top:20px}
+.duo-noms b{font-family:var(--serif);font-weight:500;font-size:22px;display:block}
+.duo-noms p{font-size:15px;color:var(--noyer-2);margin-top:4px}
+@media(min-width:900px){.adeux-grille{grid-template-columns:1fr 1.1fr;gap:80px;align-items:center}}
+
+/* savoir-faire */
+.savoir{background:var(--papier-2)}
+.savoir-grille{display:grid;gap:0;margin-top:44px;border-top:1px solid var(--noyer)}
+.sf{padding:26px 0;border-bottom:1px solid var(--trait)}
+.sf h3{font-family:var(--serif);font-weight:400;font-size:26px;display:flex;gap:14px;align-items:baseline}
+.sf h3 small{font-family:var(--sans);font-size:12px;color:var(--chene);letter-spacing:.1em;font-weight:600}
+.sf p{color:var(--noyer-2);margin-top:8px;max-width:48ch}
+@media(min-width:900px){
+  .savoir-grille{grid-template-columns:repeat(3,1fr);gap:0 40px;border-top:0}
+  .sf{border-top:1px solid var(--noyer);border-bottom:0;padding-top:28px}
+}
+
+/* contact */
+.contact-grille{display:grid;gap:40px}
+.contact h2{max-width:14ch}
+.infos{list-style:none;border-top:1px solid var(--noyer)}
+.infos li{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--trait);font-size:16px}
+.infos li span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);padding-top:3px}
+.infos a{text-decoration-color:var(--trait);text-underline-offset:4px}
+.infos a:hover{color:var(--chene)}
+.contact .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.contact .note{margin-top:22px;font-family:var(--serif);font-style:italic;font-size:19px;color:var(--noyer-2);max-width:40ch}
+@media(min-width:900px){.contact-grille{grid-template-columns:1fr 1fr;gap:80px;align-items:start}}
+
+footer{border-top:1px solid var(--trait);padding:28px 0 40px;font-size:13px;color:var(--gris)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+
+/* apparition douce */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}.btn{transition:none}}
+</style>
+</head>
+<body>
+<div class="apercu" role="note">Aperçu imaginé par Nouvelle Ardoise pour <strong>Easybois</strong> · ce n'est pas votre site officiel</div>
+
+<div class="wrap">
+  <header class="top">
+    <a class="marque" href="#">
+      <b>Easybois</b>
+      <span>Menuiserie · Ébénisterie</span>
+    </a>
+    <nav class="liens" aria-label="Navigation">
+      <a href="#creations">Créations</a>
+      <a href="#chantiers">Chantiers</a>
+      <a href="#atelier">À propos</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-plein btn-petit" href="tel:+41774096355">077 409 63 55</a>
+  </header>
+</div>
+
+<main>
+  <div class="wrap hero">
+    <div class="hero-grille">
+      <div>
+        <p class="surtitre">Echallens · canton de Vaud</p>
+        <h1>Menuiserie &amp; ébénisterie <em>sur mesure</em></h1>
+        <p class="lead">De la conception à la réalisation, nous vous accompagnons dans la création de meubles et d’aménagements sur mesure, adaptés à vos envies et à votre intérieur.</p>
+        <div class="actions">
+          <a class="btn btn-plein" href="#contact">Parlons de votre projet</a>
+          <a class="btn btn-trait" href="#chantiers">Voir les chantiers</a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src="img/table-chene-massif.webp" width="960" height="625" alt="Table en chêne massif à piètement croisé, réalisée par Easybois" fetchpriority="high">
+        <figcaption class="legende"><i>Table en chêne massif</i><span>Création atelier</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="engagements">
+    <div class="wrap">
+      <div class="eng rv">
+        <div class="pc">100<small>%</small></div>
+        <h3>créativité</h3>
+        <p>Vous avez une idée ? Nous l’imaginons avec vous et la réalisons sur mesure, selon vos envies et vos besoins.</p>
+      </div>
+      <div class="eng rv">
+        <div class="pc">100<small>%</small></div>
+        <h3>régional</h3>
+        <p>Nous privilégions les partenaires et entreprises du canton de Vaud, pour un travail local et des relations à taille humaine.</p>
+      </div>
+      <div class="eng rv">
+        <div class="pc">100<small>%</small></div>
+        <h3>à l’écoute</h3>
+        <p>Création, rénovation, réparation ou restauration : nous vous conseillons et recherchons la solution adaptée à votre projet.</p>
+      </div>
+    </div>
+  </div>
+
+  <section id="creations">
+    <div class="wrap">
+      <p class="cote">Nos créations</p>
+      <h2 class="rv">Imaginées avec vous, <em>façonnées</em> à l’atelier</h2>
+      <p class="intro rv">Quelques-unes de nos créations en bois réalisées sur mesure dans notre atelier, à partir des idées et des envies de nos clients.</p>
+
+      <div class="creations-grille">
+        <div class="piece p1 rv">
+          <figure>
+            <img src="img/paroi-occultante.webp" width="1200" height="1799" alt="Paroi occultante à lames de bois verticales, posée du sol au plafond" loading="lazy">
+            <figcaption><b>Paroi occultante</b><span>Sur mesure</span></figcaption>
+          </figure>
+        </div>
+        <div class="piece p2 rv">
+          <figure>
+            <img src="img/chene-veinage.webp" width="1200" height="1799" alt="Plateau en chêne massif, veinage et fentes naturelles du bois" loading="lazy">
+            <figcaption><b>Table en chêne massif</b><span>Détail du plateau</span></figcaption>
+          </figure>
+        </div>
+        <div class="piece p3 rv">
+          <figure>
+            <div class="duo">
+              <img src="img/table-plot-boucher.webp" width="1200" height="900" alt="Table de cuisine en bois façon plot de boucher, avec plateau amovible" loading="lazy">
+              <img src="img/plot-boucher-poignee.webp" width="1200" height="900" alt="Détail du tiroir avec poignée en cuir" loading="lazy">
+            </div>
+            <figcaption><b>Table de cuisine façon plot de boucher</b><span>Tiroir, poignée cuir</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="chantiers" class="chantiers">
+    <div class="wrap">
+      <p class="cote">Les chantiers</p>
+      <h2 class="rv">Créer, restaurer, <em>redonner vie</em></h2>
+      <p class="intro rv">Quelques-uns de nos chantiers réalisés dans le canton de Vaud : aménagements sur mesure, rénovations, transformations et travaux de menuiserie et d’ébénisterie.</p>
+
+      <ol class="liste-chantiers">
+        <li class="chantier rv">
+          <div class="num">01</div>
+          <div>
+            <h3>Création sur mesure d’une armoire murale</h3>
+            <p>Conception et réalisation sur mesure d’une armoire murale pour une chambre parentale.</p>
+          </div>
+          <div class="photos">
+            <img src="img/armoire-sur-mesure.webp" width="1200" height="900" alt="Armoire murale sur mesure ouverte, penderie et tiroirs blancs" loading="lazy">
+            <img src="img/armoire-sur-mesure-fermee.webp" width="1200" height="900" alt="Armoire murale sur mesure fermée, portes coulissantes façon bois" loading="lazy">
+          </div>
+        </li>
+        <li class="chantier rv">
+          <div class="num">02</div>
+          <div>
+            <h3>Restauration complète d’une armoire murale</h3>
+            <p>Restauration complète d’une ancienne armoire murale en noyer, afin de redonner tout son éclat au bois tout en préservant son caractère d’origine.</p>
+          </div>
+          <div class="photos">
+            <img src="img/armoire-noyer-fermee.webp" width="1200" height="1600" alt="Armoire murale en noyer restaurée, portes fermées" loading="lazy">
+            <img src="img/armoire-noyer.webp" width="1200" height="1600" alt="Armoire murale en noyer restaurée, portes ouvertes sur les étagères" loading="lazy">
+          </div>
+        </li>
+        <li class="chantier rv">
+          <div class="num">03</div>
+          <div>
+            <h3>Rénovation d’un établi</h3>
+            <p>Rénovation d’un ancien établi en bois, en préservant les marques du temps et les détails qui font tout son caractère.</p>
+          </div>
+          <div class="photos">
+            <img src="img/etabli.webp" width="1200" height="1600" alt="Ancien établi en bois rénové, avec sa presse" loading="lazy">
+            <img src="img/etabli-plateau.webp" width="900" height="1200" alt="Plateau de l’établi, marques du temps préservées" loading="lazy">
+          </div>
+        </li>
+        <li class="chantier rv">
+          <div class="num">04</div>
+          <div>
+            <h3>Rénovation d’une ancienne table</h3>
+            <p>Redressage, ponçage et vernissage complet de cette ancienne table en bois afin de lui redonner tout son éclat tout en préservant son caractère d’origine.</p>
+          </div>
+          <div class="photos une">
+            <img src="img/table-ancienne.webp" width="1200" height="491" alt="Ancienne table demi-lune en bois, plateau poncé et verni" loading="lazy">
+          </div>
+        </li>
+        <li class="chantier rv">
+          <div class="num">05</div>
+          <div>
+            <h3>Rénovation d’une table à desserte</h3>
+            <p>Rénovation et remise en état d’une ancienne table desserte, avec restauration du bois et des finitions afin de préserver son caractère d’origine.</p>
+          </div>
+          <div class="photos une">
+            <img src="img/table-desserte.webp" width="1200" height="491" alt="Table à desserte ancienne, bois foncé restauré" loading="lazy">
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="atelier">
+    <div class="wrap adeux-grille">
+      <img class="rv" src="img/table-chene-pied.webp" width="1200" height="1799" alt="Piètement croisé d’une table en chêne massif réalisée par Easybois" loading="lazy">
+      <div class="rv">
+        <p class="cote">Nous, c’est Damien et Gwendoline</p>
+        <h2>Un projet <em>à deux</em></h2>
+        <p class="citation">Un rêve qui aura mis près de dix ans à se concrétiser : en octobre 2024, nous avons créé <em>Easybois Sàrl</em>.</p>
+        <p class="intro">Avec une idée simple : proposer un travail soigné, des réalisations adaptées à chaque projet et une relation directe et humaine avec nos clients.</p>
+        <div class="duo-noms">
+          <div><b>Damien</b><p>Travaux, réalisations et créations. Minutieux, attentif aux détails et aux finitions.</p></div>
+          <div><b>Gwendoline</b><p>Gestion et suivi des projets, du premier contact jusqu’à leur réalisation.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="savoir">
+    <div class="wrap">
+      <p class="cote">Notre savoir-faire</p>
+      <h2 class="rv">Du meuble neuf au <em>petit réglage</em></h2>
+      <div class="savoir-grille">
+        <div class="sf rv">
+          <h3><small>I</small>Sur mesure</h3>
+          <p>Meubles et aménagements sur mesure. Nous choisissons avec vous les essences de bois et les autres matières : placage, métal, verre, cuir.</p>
+        </div>
+        <div class="sf rv">
+          <h3><small>II</small>Restauration</h3>
+          <p>Nous redonnons vie à vos meubles anciens, abîmés ou endommagés : structures réparées, parties manquantes reconstituées, finitions retravaillées.</p>
+        </div>
+        <div class="sf rv">
+          <h3><small>III</small>Menuiserie</h3>
+          <p>Réglage de portes et fenêtres, réparations, ajustements, remplacement de quincaillerie : nous intervenons chez les particuliers, même pour les petits travaux.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap contact-grille">
+      <div class="rv">
+        <p class="cote">Contact</p>
+        <h2>Un projet ? <em>Parlons-en.</em></h2>
+        <p class="note">Envoyez-nous quelques photos et une description de votre besoin, nous vous répondrons volontiers.</p>
+        <div class="actions">
+          <a class="btn btn-plein" href="tel:+41774096355">Appeler</a>
+          <a class="btn btn-trait" href="https://wa.me/41774096355">Écrire sur WhatsApp</a>
+        </div>
+      </div>
+      <ul class="infos rv">
+        <li><span>Téléphone</span><a href="tel:+41774096355">+41 77 409 63 55</a></li>
+        <li><span>E-mail</span><a href="mailto:contact@easybois.ch">contact@easybois.ch</a></li>
+        <li><span>Adresse</span><a href="https://maps.google.com/?q=Chemin+de+la+Clopette+21,+1040+Echallens">Ch. de la Clopette 21<br>1040 Echallens</a></li>
+        <li><span>Instagram</span><a href="https://instagram.com/easybois">@easybois</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Easybois Sàrl · Menuiserie &amp; ébénisterie sur mesure · Echallens</span>
+    <span>Aperçu non officiel, imaginé par Nouvelle Ardoise. Textes et photos : easybois.ch.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('vu')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
