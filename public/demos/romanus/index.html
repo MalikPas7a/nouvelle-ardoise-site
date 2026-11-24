@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0d0a07">
+<title>Romanus · Pâtes dans la meule · Montreux</title>
+<meta name="description" content="Pâtes fraîches mélangées sous vos yeux dans une meule de Gruyère AOP affiné 13 mois. Place Gourmande, Marché de Noël de Montreux.">
+<meta property="og:title" content="Romanus, les pâtes dans la meule">
+<meta property="og:description" content="La Carbruyère et la carbonara au guanciale, Place Gourmande, Montreux Noël.">
+<meta property="og:image" content="https://nouvelleardoise.ch/demos/romanus/img/carbruyere.jpg">
+<link rel="canonical" href="https://nouvelleardoise.ch/demos/romanus/">
+<link rel="preload" href="fonts/bodoni-moda-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/work-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Bodoni Moda";src:url(fonts/bodoni-moda-latin-standard-normal.woff2) format("woff2");font-weight:400 900;font-display:swap}
+@font-face{font-family:"Bodoni Moda";src:url(fonts/bodoni-moda-latin-standard-italic.woff2) format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
+@font-face{font-family:"Work Sans";src:url(fonts/work-sans-latin-wght-normal.woff2) format("woff2");font-weight:300 700;font-display:swap}
+:root{--night:#0d0a07;--night-2:#16110c;--ink:#f3ebdd;--soft:#bfb29d;--gold:#c9a757;--gold-d:#9c7f3c;--line:#2c241a;--pad:clamp(20px,5vw,64px);--max:1180px}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--night);color:var(--ink);font:400 17px/1.65 "Work Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img,video{display:block;max-width:100%}h1,h2,h3,p,figure,ul{margin:0}ul{padding:0;list-style:none}a{color:inherit}
+h1,h2,h3,.serif{font-family:"Bodoni Moda",Didot,Georgia,serif;font-weight:400;letter-spacing:-.01em}
+h1{font-size:clamp(3rem,1.8rem + 5.6vw,6.4rem);line-height:.98}
+h2{font-size:clamp(2.2rem,1.5rem + 3.2vw,4rem);line-height:1.02}
+h3{font-size:1.75rem;line-height:1.1}
+em{font-style:italic;color:var(--gold)}h1 em{white-space:nowrap}
+.wrap{max-width:var(--max);margin:auto;padding-inline:var(--pad)}
+.sec{padding-block:clamp(72px,12vw,150px)}
+.kick{display:flex;align-items:center;gap:14px;font-size:.76rem;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:26px}
+.kick::before{content:"";width:28px;height:1px;background:currentColor}
+.lead{font-size:clamp(1.05rem,1rem + .3vw,1.22rem);color:var(--soft);max-width:44ch;margin-top:22px;font-weight:300}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border:1px solid var(--gold);color:var(--night);background:var(--gold);text-decoration:none;font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;transition:background .25s,color .25s}
+.btn:hover{background:transparent;color:var(--gold)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:#ffffff40}.btn.ghost:hover{border-color:var(--gold);color:var(--gold)}
+a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+/* barre */
+.bar{position:fixed;inset:0 0 auto;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:18px var(--pad);transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+.bar.solid{background:#0d0a07e6;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--line)}
+.mark{font-family:"Bodoni Moda",serif;font-size:1.05rem;letter-spacing:.42em;text-decoration:none;color:var(--ink);display:inline-block;padding:10px 0}
+.bar nav{display:flex;gap:26px;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase}
+.bar nav a{text-decoration:none;color:var(--soft);padding:12px 0}.bar nav a:hover{color:var(--gold)}
+@media(max-width:720px){.bar nav a:not(.ig){display:none}}
+/* hero */
+.hero{position:relative;min-height:100svh;display:grid;align-items:end;overflow:hidden}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0d0a0799 0%,#0d0a0700 22%,#0d0a0733 34%,#0d0a07d9 52%,#0d0a07 74%)}
+.hero .in{position:relative;z-index:2;padding:0 var(--pad) clamp(40px,8vh,72px);width:100%}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:.9rem;color:var(--soft)}
+.hero .meta span+span::before{content:"·";margin-right:18px;color:var(--gold)}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+@media(min-width:960px){
+ .hero{grid-template-columns:1.1fr .9fr;align-items:center;padding:120px var(--pad) 80px;gap:56px;max-width:var(--max);margin:auto}
+ .hero::after{display:none}
+ .hero .in{padding:0}
+ .hero .frame{position:relative;aspect-ratio:9/16;max-height:78vh;justify-self:end;width:100%;max-width:420px;border:1px solid var(--line)}
+ .hero .frame::before{content:"";position:absolute;inset:-12px;border:1px solid #c9a75733;pointer-events:none}
+}
+@media(max-width:959px){.hero .frame{position:absolute;inset:0}
+ .hero .lead{font-size:1rem;margin-top:16px;max-width:34ch}
+ .hero .meta{font-size:.84rem;gap:6px 12px;margin-top:16px}.hero .meta span+span::before{margin-right:12px}
+ .hero .ctas{margin-top:24px}.hero .ctas .btn{flex:1;padding:0 14px;letter-spacing:.12em}
+ .hide-s{display:none}}
+@media(min-width:960px){h1{font-size:clamp(3.4rem,2rem + 3.4vw,5.4rem)}}
+/* geste */
+.steps{display:grid;gap:clamp(36px,4vw,48px);margin-top:clamp(48px,7vw,80px)}
+@media(min-width:820px){.steps{grid-template-columns:repeat(3,1fr)}.steps figure{aspect-ratio:4/5}.steps li:nth-child(2){margin-top:72px}}
+.steps figure{aspect-ratio:1/1;overflow:hidden;border:1px solid var(--line);background:var(--night-2)}
+.steps img{width:100%;height:100%;object-fit:cover}
+.steps .n{display:block;font-family:"Bodoni Moda",serif;font-style:italic;color:var(--gold);font-size:1.1rem;margin:22px 0 6px}
+.steps p{color:var(--soft);font-size:.98rem;max-width:32ch;margin-top:8px;font-weight:300}
+/* carte */
+.carte{background:var(--night-2);border-block:1px solid var(--line)}
+.two{display:grid;gap:clamp(48px,7vw,96px);align-items:center}
+@media(min-width:900px){.two{grid-template-columns:.9fr 1.1fr}}
+.dish{padding:34px 0;border-top:1px solid var(--line)}.dish:last-child{border-bottom:1px solid var(--line)}
+.dish .tag{font-family:"Bodoni Moda",serif;font-style:italic;font-size:1rem;color:var(--gold);margin-bottom:8px;display:block}
+.dish p{color:var(--soft);margin-top:12px;max-width:46ch;font-weight:300}
+.plate{aspect-ratio:4/5;overflow:hidden;border:1px solid var(--line);max-width:460px}
+.plate img{width:100%;height:100%;object-fit:cover;object-position:50% 60%}
+.cap{font-family:"Bodoni Moda",serif;font-style:italic;font-size:.95rem;color:#a39680;margin-top:14px}
+/* trouver */
+.find{display:grid;gap:clamp(40px,6vw,80px);align-items:center}
+@media(min-width:900px){.find{grid-template-columns:1fr 1fr}}
+.info{margin-top:36px;display:grid;gap:0}
+.info div{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:16px 0;border-top:1px solid var(--line)}
+.info dt{font-family:"Bodoni Moda",serif;font-style:italic;font-size:1.05rem;color:var(--gold)}
+.info dd{margin:0;color:var(--ink)}
+.chalet{aspect-ratio:4/5;overflow:hidden;border:1px solid var(--line)}
+.chalet img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+/* prive */
+.prive{position:relative;overflow:hidden;text-align:center}
+.prive .bg{position:absolute;inset:0;background:url(img/vapeur.webp) 50% 40%/cover;opacity:.28}
+.prive::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,#0d0a0766 0%,#0d0a07 75%)}
+.prive .wrap{position:relative;z-index:2;max-width:760px}
+.prive .kick{justify-content:center}.prive .kick::after{content:"";width:28px;height:1px;background:currentColor}
+.prive .lead{margin-inline:auto}
+.prive .ctas{margin-top:36px;display:flex;justify-content:center}
+/* pied */
+footer{border-top:1px solid var(--line);padding:48px var(--pad) calc(48px + env(safe-area-inset-bottom));font-size:.85rem;color:#a39680}
+footer .wrap{padding:0;display:flex;flex-wrap:wrap;gap:16px 40px;justify-content:space-between;align-items:center}
+footer .mark{font-size:.9rem}
+footer a{color:var(--soft)}
+/* révélations */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.on{opacity:1;transform:none}
+.no-js .rv{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.btn{transition:none}}
+</style>
+</head>
+<body class="no-js">
+
+<header class="bar" id="bar">
+  <a class="mark" href="#top" aria-label="Romanus, retour en haut">ROMANUS</a>
+  <nav aria-label="Navigation">
+    <a href="#geste">Le geste</a>
+    <a href="#carte">La carte</a>
+    <a href="#trouver">Nous trouver</a>
+    <a class="ig" href="https://www.instagram.com/romanuspasta/" rel="noopener">Instagram</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero" aria-label="Romanus">
+    <div class="frame">
+      <img class="poster" src="img/meule.webp" alt="" width="720" height="1280">
+      <video id="film" muted playsinline loop preload="metadata" poster="img/meule.webp" aria-label="La préparation des pâtes dans la meule de Gruyère, au chalet Romanus">
+        <source src="video/meule-720.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="in">
+      <p class="kick">Montreux Noël<span class="hide-s"> · Place Gourmande</span></p>
+      <h1>Les pâtes,<br><em>dans la meule.</em></h1>
+      <p class="lead">Des pâtes fraîches mélangées sous vos yeux dans une meule de Gruyère AOP affiné 13 mois.</p>
+      <p class="meta"><span>Jusqu'au 24 décembre</span><span>Place Gourmande</span></p>
+      <div class="ctas">
+        <a class="btn" href="#trouver">Nous trouver</a>
+        <a class="btn ghost" href="#carte">La carte</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="geste" aria-labelledby="t-geste">
+    <div class="wrap">
+      <p class="kick rv">Le geste</p>
+      <h2 id="t-geste" class="rv">Tout se joue<br>devant le comptoir.</h2>
+      <ol class="steps" style="list-style:none;padding:0;margin-bottom:0">
+        <li class="rv">
+          <figure><img src="img/meule.webp" alt="La meule de Gruyère ouverte, prête à recevoir les pâtes" width="720" height="1280" loading="lazy"></figure>
+          <span class="n">I.</span>
+          <h3>La meule</h3>
+          <p>Un Gruyère AOP affiné 13 mois, de la Fromagerie du Haut Jorat.</p>
+        </li>
+        <li class="rv">
+          <figure><img src="img/melange.webp" alt="Les mezze maniche fraîches mélangées à la cuillère dans la meule" width="720" height="1280" loading="lazy"></figure>
+          <span class="n">II.</span>
+          <h3>Le mélange</h3>
+          <p>Les pâtes fraîches, encore fumantes, tournées dans le fromage.</p>
+        </li>
+        <li class="rv">
+          <figure><img src="img/gruyere.webp" alt="Une dernière cuillère de Gruyère sur le bol de pâtes" width="720" height="1280" loading="lazy"></figure>
+          <span class="n">III.</span>
+          <h3>Le service</h3>
+          <p>Servi tout de suite, dans votre bol, sur le marché.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec carte" id="carte" aria-labelledby="t-carte">
+    <div class="wrap two">
+      <div class="rv">
+        <figure class="plate"><img src="img/carbruyere.webp" alt="La Carbruyère : pâtes au Gruyère et lardons dorés, sur fond de marché de Noël" width="720" height="1280" loading="lazy"></figure>
+        <p class="cap">La Carbruyère, au chalet</p>
+      </div>
+      <div>
+        <p class="kick rv">La carte</p>
+        <h2 id="t-carte" class="rv">Deux recettes.<br><em>Rome et la Gruyère.</em></h2>
+        <div style="margin-top:44px">
+          <article class="dish rv">
+            <span class="tag">Création Romanus</span>
+            <h3>La Carbruyère</h3>
+            <p>Mezze maniche rigate fraîches, Gruyère AOP affiné 13 mois, jaunes d'œufs suisses et lardons suisses bien dorés. La carbonara, version suisse.</p>
+          </article>
+          <article class="dish rv">
+            <span class="tag">La tradition</span>
+            <h3>Carbonara au guanciale</h3>
+            <p>La recette romaine, pour ceux qui préfèrent l'originale.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="trouver" aria-labelledby="t-trouver">
+    <div class="wrap find">
+      <div>
+        <p class="kick rv">Nous trouver</p>
+        <h2 id="t-trouver" class="rv">Cherchez l'enseigne<br><em style="white-space:nowrap">«&nbsp;Pâtes dans la Meule&nbsp;».</em></h2>
+        <dl class="info rv">
+          <div><dt>Où</dt><dd>Place Gourmande, Marché de Noël de Montreux, sur les quais</dd></div>
+          <div><dt>Quand</dt><dd>Jusqu'au 24 décembre 2026, aux horaires du marché</dd></div>
+          <div><dt>Suivre</dt><dd><a href="https://www.instagram.com/romanuspasta/" rel="noopener" style="display:inline-block;padding:10px 0;margin:-10px 0">@romanuspasta</a></dd></div>
+        </dl>
+        <div style="margin-top:34px;display:flex;flex-wrap:wrap;gap:12px" class="rv"><a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=46.431303852239,6.91076978109777" rel="noopener">Itinéraire</a><a class="btn ghost" href="https://www.montreuxnoel.com/" rel="noopener">Plan du marché</a></div>
+      </div>
+      <figure class="chalet rv"><img src="img/chalet.webp" alt="Le chalet Romanus et son enseigne « Pâtes dans la Meule », la nuit" width="720" height="1280" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="sec prive" aria-labelledby="t-prive">
+    <div class="bg" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="kick rv">Après le marché</p>
+      <h2 id="t-prive" class="rv">La meule<br><em>chez vous.</em></h2>
+      <p class="lead rv">Mariage, fête d'entreprise, anniversaire : le spectacle de la meule pour vos invités. Écrivez-nous pour en parler.</p>
+      <div class="ctas rv"><a class="btn" href="https://ig.me/m/romanuspasta" rel="noopener">Écrire à Romanus</a></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="mark" href="#top">ROMANUS</a>
+    <p>Images : vidéo <a href="https://www.instagram.com/cameavisual/" rel="noopener">@cameavisual</a> pour Romanus</p>
+    <p>Maquette proposée par <a href="https://nouvelleardoise.ch/">Nouvelle Ardoise</a></p>
+  </div>
+</footer>
+
+<script>
+document.body.classList.remove('no-js');
+const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const bar=document.getElementById('bar');
+const onS=()=>bar.classList.toggle('solid',scrollY>40);addEventListener('scroll',onS,{passive:true});onS();
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%3)*80+'ms';io.observe(el)});
+const v=document.getElementById('film');
+if(!rm){v.play().catch(()=>{});}else{v.removeAttribute('autoplay');}
+</script>
+</body>
+</html>
