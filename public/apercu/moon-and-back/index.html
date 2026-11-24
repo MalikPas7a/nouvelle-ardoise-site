@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Moon and Back Décoration · Vevey (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour Moon and Back Décoration, décoratrice de mariages et d'événements à Vevey, partout en Suisse romande.">
+<meta name="theme-color" content="#f4ece1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/fauteuils-rotin-arbre.webp">
+<style>
+:root{
+  --lin:#f4ece1;
+  --sable:#e8dccb;
+  --cacao:#3b2a21;
+  --cacao-2:#5e4a3e;
+  --taupe:#7d6a5d;
+  --ligne:#d9cab5;
+  --terre:#a2583f;   /* terre cuite des coussins, seul accent */
+  --serif:"Bodoni Moda", "Didot", Georgia, serif;
+  --sans:"Jost", system-ui, -apple-system, sans-serif;
+  --g:clamp(20px, 5vw, 72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--lin);color:var(--cacao);font:400 17px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--terre);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1200px;margin:0 auto}
+.sur{font:500 12px/1.4 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--taupe)}
+
+.apercu{background:var(--cacao);color:#d8c9b8;font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff8ef;font-weight:500}
+
+.top{padding:0 var(--g);border-bottom:1px solid var(--ligne)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+.marque{display:flex;align-items:center;gap:10px;text-decoration:none}
+.marque svg{width:22px;height:22px;flex:none}
+.marque b{font:italic 400 22px/1 var(--serif)}
+.top nav{display:flex;align-items:center;gap:28px}
+.top nav a.l{font-size:15px;text-decoration:none;color:var(--cacao-2)}
+.top nav a.l:hover{text-decoration:underline;text-underline-offset:5px}
+@media (max-width:820px){.top nav a.l{display:none}}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 26px;border-radius:999px;background:var(--cacao);color:var(--lin);font:500 16px/1 var(--sans);letter-spacing:.02em;text-decoration:none;transition:background .2s,transform .15s;white-space:nowrap}
+.btn:hover{background:#523b2f}
+.btn:active{transform:scale(.98)}
+.btn.sec{background:transparent;color:var(--cacao);border:1px solid var(--taupe)}
+.btn.sec:hover{background:var(--sable)}
+.btn.petit{min-height:44px;padding:0 18px;font-size:15px}
+
+/* hero */
+.hero{padding:36px var(--g) 80px}
+.hero .wrap{display:grid;gap:36px}
+h1{font:400 clamp(46px, 12.5vw, 104px)/.95 var(--serif);letter-spacing:-.02em;margin:16px 0 22px}
+h1 em{font-style:italic;color:var(--terre)}
+.chapo{font-size:clamp(17px,1.5vw,19px);max-width:40ch;color:var(--cacao-2)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.arche{border-radius:999px 999px 4px 4px;overflow:hidden}
+.arche img{width:100%;height:100%;object-fit:cover}
+.hero figure{max-width:520px;width:100%;justify-self:center}
+.hero .arche{aspect-ratio:3/4.1}
+.hero figcaption{margin-top:12px;font-size:14px;color:var(--taupe);text-align:center}
+@media (min-width:900px){
+  .hero{padding-top:64px}
+  .hero .wrap{grid-template-columns:1.15fr 1fr;align-items:center;gap:72px}
+  h1{font-size:clamp(64px,6.2vw,92px)}
+}
+
+section{padding:clamp(72px, 10vw, 128px) var(--g)}
+h2{font:400 clamp(36px, 6vw, 64px)/1.02 var(--serif);letter-spacing:-.015em;max-width:16ch}
+h2 em{font-style:italic;color:var(--terre)}
+
+/* promesse */
+.promesse{background:var(--sable)}
+.promesse .wrap{display:grid;gap:44px}
+.points{list-style:none;display:grid;gap:0;border-top:1px solid var(--ligne)}
+.points li{padding:24px 0;border-bottom:1px solid var(--ligne);display:grid;grid-template-columns:44px 1fr;gap:4px 14px}
+.points i{font:italic 400 26px/1 var(--serif);color:var(--terre);padding-top:2px}
+.points h3{font:500 18px/1.35 var(--sans)}
+.points p{grid-column:2;color:var(--cacao-2);font-size:16px}
+.citation{font:italic 400 clamp(24px,3vw,34px)/1.3 var(--serif);max-width:22ch}
+@media (min-width:900px){.promesse .wrap{grid-template-columns:1fr 1fr;gap:96px;align-items:start}}
+
+/* ambiances */
+.ambiances .tete{display:grid;gap:18px}
+.themes{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.themes span{border:1px solid var(--ligne);border-radius:999px;padding:7px 15px;font-size:14.5px;color:var(--cacao-2);background:#f8f2ea}
+.mosaique{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:48px}
+.mosaique figure{overflow:hidden;border-radius:3px}
+.mosaique img{width:100%;height:100%;object-fit:cover}
+.mosaique .h{grid-column:1/-1;aspect-ratio:3/2}
+.mosaique .v{aspect-ratio:2/3}
+.mosaique figcaption{display:none}
+@media (min-width:900px){
+  .ambiances .tete{grid-template-columns:1fr 1fr;align-items:end;gap:64px}
+  .mosaique{grid-template-columns:repeat(4,1fr);grid-auto-flow:dense;gap:14px}
+  .mosaique .h{grid-column:span 2}
+  .mosaique .v{grid-row:span 2;aspect-ratio:auto}
+  .mosaique .h{aspect-ratio:3/2}
+  .mosaique figure:last-child{display:none}
+}
+
+/* sur mesure */
+.mesure{background:var(--cacao);color:var(--lin)}
+.mesure .sur{color:#bfa996}
+.mesure h2{color:#fff8ef}
+.mesure h2 em{color:#e3a184}
+.mesure .wrap{display:grid;gap:44px}
+.mesure p.txt{color:#e5d8c9;max-width:48ch;margin-top:20px}
+.mesure ul{list-style:none;margin-top:28px;border-top:1px solid #5e4a3e}
+.mesure li{padding:14px 0;border-bottom:1px solid #5e4a3e;display:flex;gap:14px;align-items:baseline}
+.mesure li::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#e3a184;transform:translateY(-2px)}
+.mesure .duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
+.mesure .duo .arche{aspect-ratio:2/3}
+.mesure .duo figure:last-child{transform:translateY(36px)}
+.mesure .btn{background:var(--lin);color:var(--cacao);margin-top:32px}
+.mesure .btn:hover{background:#fff}
+@media (min-width:900px){.mesure .wrap{grid-template-columns:1.1fr 1fr;gap:88px;align-items:center}}
+
+/* lac */
+.lac{padding:0}
+.lac figure{position:relative}
+.lac img{width:100%;aspect-ratio:3/2;object-fit:cover;max-height:78vh}
+.lac figcaption{padding:16px var(--g) 0;font-size:14px;color:var(--taupe);max-width:1200px;margin:0 auto}
+@media (min-width:900px){.lac .wrap{padding:0 var(--g)}.lac img{border-radius:3px}}
+
+/* contact */
+.contact .wrap{display:grid;gap:44px}
+.coord{border-top:1px solid var(--ligne);margin-top:32px}
+.coord div{padding:18px 0;border-bottom:1px solid var(--ligne)}
+.coord dt{font:500 12px/1.4 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--taupe);margin-bottom:4px}
+.coord dd{font:400 clamp(19px,5vw,24px)/1.3 var(--serif);overflow-wrap:anywhere}
+.coord a{text-decoration:none}
+.coord a:hover{text-decoration:underline;text-underline-offset:5px}
+.contact figure .arche{aspect-ratio:3/4;max-width:440px;margin:0 auto}
+@media (min-width:900px){.contact .wrap{grid-template-columns:1.2fr 1fr;gap:88px;align-items:center}}
+footer{border-top:1px solid var(--ligne);padding:26px var(--g) 40px;font-size:14px;color:var(--taupe)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+.rv{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<div class="apercu">Aperçu imaginé par Nouvelle Ardoise pour <strong>Moon and Back Décoration</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="marque" href="#" aria-label="Moon and Back Décoration, accueil">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3.2a9 9 0 1 0 5.3 13.6A7.4 7.4 0 0 1 15.5 3.2Z" fill="none" stroke="#a2583f" stroke-width="1.4"/></svg>
+      <b>Moon and Back</b>
+    </a>
+    <nav aria-label="Navigation principale">
+      <a class="l" href="#ambiances">Ambiances</a>
+      <a class="l" href="#sur-mesure">Sur mesure</a>
+      <a class="l" href="#contact">Contact</a>
+      <a class="btn petit" href="mailto:moonandbackmariage@gmail.com">Écrire</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="sur">Décoration de mariage · Vevey</p>
+        <h1>Une ambiance qui vous <em>ressemble.</em></h1>
+        <p class="chapo">Décoratrice pour vos événements de toutes sortes, je vous accompagne dans vos choix avec toute mon attention, dans la douceur et la sérénité.</p>
+        <div class="actions">
+          <a class="btn" href="mailto:moonandbackmariage@gmail.com?subject=Notre%20mariage">Parler de votre mariage</a>
+          <a class="btn sec" href="tel:+41788587255">078 858 72 55</a>
+        </div>
+      </div>
+      <figure>
+        <div class="arche"><img src="img/fauteuils-rotin-arbre.webp" width="1067" height="1600" alt="Deux fauteuils en rotin, tapis et macramé installés sous un grand arbre pour une cérémonie" fetchpriority="high"></div>
+        <figcaption>Fauteuils en rotin sous le grand arbre</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="promesse">
+    <div class="wrap">
+      <div>
+        <p class="sur">Ma façon de travailler</p>
+        <p class="citation rv" style="margin-top:18px">« Donner à vos moments précieux cette ambiance qui vous ressemble. »</p>
+      </div>
+      <ol class="points">
+        <li class="rv"><i>i</i><h3>Je vous accompagne</h3><p>Dans vos choix et vos prises de décision, avec toute mon attention.</p></li>
+        <li class="rv"><i>ii</i><h3>Dans la douceur</h3><p>Une préparation dans la douceur et la sérénité, à chaque étape.</p></li>
+        <li class="rv"><i>iii</i><h3>Partout en Suisse romande</h3><p>Basée à Vevey, je me déplace volontiers dans toute la Suisse romande.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="ambiances" id="ambiances">
+    <div class="wrap">
+      <div class="tete">
+        <div>
+          <p class="sur">La galerie</p>
+          <h2 style="margin-top:14px" class="rv">Bohème, romantique ou <em>champêtre chic.</em></h2>
+        </div>
+        <div>
+          <p style="color:var(--cacao-2);max-width:46ch">Pampas, rotin, bougies et fleurs séchées : quelques décors imaginés pour des mariages, des séances photo et des anniversaires.</p>
+          <div class="themes" aria-label="Ambiances de la galerie" style="margin-top:16px">
+            <span>Bohème</span><span>Romantique</span><span>Champêtre chic</span><span>Bohème chic</span><span>Boho moon</span><span>Mini sessions</span>
+          </div>
+        </div>
+      </div>
+      <div class="mosaique">
+        <figure class="h rv"><img src="img/bureau-valises.webp" width="1600" height="1067" alt="Table ancienne, valises vintage, bougies et pampas pour l'accueil des invités" loading="lazy"></figure>
+        <figure class="v rv"><img src="img/coin-rotin-bougies.webp" width="1067" height="1600" alt="Coin salon en rotin avec plaids, paniers et bougies dans l'herbe" loading="lazy"></figure>
+        <figure class="v rv"><img src="img/chapeau-fleuri.webp" width="816" height="1224" alt="Chapeau orné de fleurs séchées posé sur un tabouret en rotin" loading="lazy"></figure>
+        <figure class="h rv"><img src="img/table-basse-coussins.webp" width="1224" height="816" alt="Table basse dressée sur palettes, coussins et pampas dans un jardin" loading="lazy"></figure>
+        <figure class="h rv"><img src="img/grange-rotin.webp" width="1224" height="816" alt="Fauteuil en rotin, pampas et paniers dans une grange en bois" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="mesure" id="sur-mesure">
+    <div class="wrap">
+      <div>
+        <p class="sur">Le sur mesure</p>
+        <h2 style="margin-top:14px">Vous savez ce que vous <em>voulez ?</em></h2>
+        <p class="txt">Un thème original, une formule qui vous intéresse, ou simplement un détail en plus : le sur mesure est pour vous. Je prends contact avec vous pour comprendre vos désirs, puis je vous fais une offre sur mesure.</p>
+        <ul>
+          <li>Un thème original, rien qu'à vous</li>
+          <li>Une prestation avec fleuriste</li>
+          <li>La recherche d'un autre prestataire</li>
+          <li>Ou même celle d'une photographe</li>
+        </ul>
+        <a class="btn" href="mailto:moonandbackmariage@gmail.com?subject=Demande%20sur%20mesure">Demander une offre sur mesure</a>
+      </div>
+      <div class="duo">
+        <figure class="rv"><div class="arche"><img src="img/macrame-grange.webp" width="816" height="1224" alt="Grand macramé suspendu sur une paroi de grange, guirlande d'ampoules" loading="lazy"></div></figure>
+        <figure class="rv"><div class="arche"><img src="img/bouquet-fleurs-sechees.webp" width="816" height="1224" alt="Grande composition de fleurs séchées et de roses pâles" loading="lazy"></div></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="lac" aria-label="Décor au bord du lac">
+    <div class="wrap">
+      <figure class="rv">
+        <img src="img/couronne-plage.webp" width="1224" height="816" alt="Couronne de branches et de fleurs séchées posée sur une plage de sable, roseaux et lac en arrière-plan" loading="lazy">
+        <figcaption>Une couronne de fleurs séchées sur la plage, entre roseaux et lac.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div>
+        <p class="sur">Contact</p>
+        <h2 style="margin-top:14px" class="rv">Parlons de votre <em>jour.</em></h2>
+        <p style="color:var(--cacao-2);max-width:44ch;margin-top:18px">Racontez-moi votre date, votre lieu et l'ambiance dont vous rêvez. Je vous réponds avec plaisir.</p>
+        <dl class="coord">
+          <div><dt>E-mail</dt><dd><a href="mailto:moonandbackmariage@gmail.com">moonandbackmariage@gmail.com</a></dd></div>
+          <div><dt>Téléphone</dt><dd><a href="tel:+41788587255">078 858 72 55</a></dd></div>
+          <div><dt>Basée à</dt><dd>Vevey · toute la Suisse romande</dd></div>
+        </dl>
+        <div class="actions">
+          <a class="btn" href="mailto:moonandbackmariage@gmail.com?subject=Notre%20mariage">Écrire un e-mail</a>
+          <a class="btn sec" href="tel:+41788587255">Appeler</a>
+        </div>
+      </div>
+      <figure class="rv"><div class="arche"><img src="img/rotin-pampa-lac.webp" width="1224" height="816" alt="Dossier en rotin orné de pampas, au bord du lac" loading="lazy" style="object-position:62% 50%"></div></figure>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Moon and Back Décoration · Vevey</span>
+    <span>Aperçu Nouvelle Ardoise, non officiel</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('vu')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target);}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
