@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Rucher Rosie · Cours d'apiculture biodynamique dans le Jura (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour Rucher Rosie : cours d'apiculture avec Rosie Blanche, au rucher pavillon de Roche-d'Or et au verger de Boncourt, Jura.">
+<meta name="theme-color" content="#f8f1e2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/miel.webp">
+<style>
+:root{
+  --cire:#f8f1e2;
+  --cire-2:#f0e4cc;
+  --miel:#d79b2f;
+  --miel-clair:#f1c86a;
+  --brun:#2c2418;
+  --brun-2:#54473a;
+  --brun-3:#7d6e5d;
+  --sapin:#26382c;
+  --sapin-2:#3b5243;
+  --ligne:#dfcfae;
+  --serif:"Young Serif", Georgia, serif;
+  --sans:"Public Sans", system-ui, -apple-system, sans-serif;
+  --g:clamp(20px, 5vw, 64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--cire);color:var(--brun);font:400 17px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brun);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1180px;margin:0 auto}
+
+.apercu{background:var(--brun);color:#d9cdb6;font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff;font-weight:500}
+
+.top{position:sticky;top:0;z-index:20;background:rgba(248,241,226,.93);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px var(--g)}
+@media (min-width:1260px){.top .wrap{padding:12px 0}}
+.logo{text-decoration:none;font:400 22px/1 var(--serif);letter-spacing:.02em;text-transform:uppercase}
+.logo span{color:var(--miel)}
+.top nav{display:flex;align-items:center;gap:26px}
+.top nav a.l{font-size:15px;text-decoration:none;color:var(--brun-2)}
+.top nav a.l:hover{color:var(--brun);text-decoration:underline;text-underline-offset:4px}
+@media (max-width:819px){.top nav a.l{display:none}}
+.pill{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;background:var(--miel-clair);font:600 15px/1 var(--sans);text-decoration:none;white-space:nowrap;transition:background .2s}
+.pill:hover{background:#f5d488}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 26px;border-radius:999px;background:var(--brun);color:var(--cire);font:600 16px/1 var(--sans);text-decoration:none;transition:background .2s,transform .15s}
+.btn:hover{background:#43372a}
+.btn:active{transform:scale(.98)}
+.btn.sec{background:transparent;color:var(--brun);border:1px solid var(--brun-3)}
+.btn.sec:hover{border-color:var(--brun);background:var(--cire-2)}
+.btn.miel{background:var(--miel-clair);color:var(--brun)}
+.btn.miel:hover{background:#f5d488}
+
+.sur{font:600 12px/1.3 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--brun-3)}
+.sur b{color:var(--miel);font-weight:600}
+
+/* hero */
+.hero{padding:26px var(--g) 72px}
+.hero .wrap{display:grid;gap:34px}
+h1{font:400 clamp(46px, 12vw, 96px)/.98 var(--serif);letter-spacing:-.02em;margin:16px 0 22px}
+h1 em{font-style:normal;color:var(--miel)}
+.chapo{font-size:clamp(18px, 1.8vw, 20px);max-width:38ch;color:var(--brun-2)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.hero figure{position:relative;max-width:500px;width:100%;justify-self:center}
+.hero figure img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 40%;border-radius:4px}
+.hero figure .etiquette{position:absolute;right:-8px;top:24px;background:var(--sapin);color:#e9e2cc;font:500 13px/1.35 var(--sans);padding:12px 16px;max-width:190px;border-radius:2px}
+.hero figure .etiquette b{display:block;font:400 18px/1.2 var(--serif);color:#fff;margin-bottom:2px}
+.chiffres{display:flex;flex-wrap:wrap;gap:12px 32px;margin-top:34px;padding-top:22px;border-top:1px solid var(--ligne)}
+.chiffres div{font-size:14px;color:var(--brun-3);line-height:1.35}
+.chiffres b{display:block;font:400 26px/1.1 var(--serif);color:var(--brun)}
+@media (min-width:900px){
+  .hero{padding:56px var(--g) 104px}
+  .hero .wrap{grid-template-columns:1.2fr 1fr;align-items:center;gap:64px}
+  .hero figure .etiquette{right:-28px}
+}
+
+section{padding:clamp(72px, 10vw, 128px) var(--g)}
+h2{font:400 clamp(36px, 6vw, 58px)/1.04 var(--serif);letter-spacing:-.015em}
+h3{font:400 25px/1.2 var(--serif)}
+.intro{max-width:58ch;color:var(--brun-2);margin-top:18px}
+
+/* au rucher */
+.recit{background:var(--sapin);color:#e7e1cc}
+.recit .wrap{display:grid;gap:40px}
+.recit img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:4px;max-width:600px}
+.recit blockquote p{font:400 clamp(23px, 2.7vw, 31px)/1.42 var(--serif);color:#fbf6e6}
+.recit blockquote p + p{margin-top:20px;font:400 18px/1.6 var(--sans);color:#cfd3c2}
+.recit .sur{color:#b8c2ad}
+@media (min-width:900px){.recit .wrap{grid-template-columns:1fr 1.1fr;align-items:center;gap:80px}}
+
+/* lieux */
+.lieux .liste{display:grid;gap:44px;margin-top:48px}
+.lieu{display:grid;gap:20px;align-content:start}
+.lieu .img{width:100%;max-width:280px;aspect-ratio:4/3;object-fit:cover;border-radius:4px}
+.lieu small{display:block;font:600 12px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--miel);margin-bottom:6px}
+.lieu p{color:var(--brun-2);margin-top:8px}
+@media (min-width:900px){
+  .lieux .liste{grid-template-columns:repeat(3,1fr);gap:40px}
+}
+
+/* garantie */
+.garantie{background:var(--cire-2)}
+.garantie .wrap{display:grid;gap:40px}
+.points{list-style:none;margin-top:30px;border-top:1px solid var(--ligne)}
+.points li{padding:16px 0 16px 34px;border-bottom:1px solid var(--ligne);position:relative;color:var(--brun-2)}
+.points li::before{content:"";position:absolute;left:4px;top:24px;width:12px;height:12px;background:var(--miel);clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%)}
+.garantie .demeter{width:220px;margin-top:30px;mix-blend-mode:multiply}
+.garantie .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.garantie .duo img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:4px}
+.garantie .duo img:last-child{margin-top:48px}
+@media (min-width:900px){.garantie .wrap{grid-template-columns:1.15fr .85fr;align-items:center;gap:80px}}
+
+/* equipe */
+.equipe .wrap{display:grid;gap:40px}
+.personne{display:grid;gap:22px}
+.personne img{width:100%;max-width:300px;aspect-ratio:4/5;object-fit:cover;border-radius:4px}
+.personne p{color:var(--brun-2);margin-top:10px}
+.personne small{display:block;font:600 12px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--brun-3);margin-top:4px}
+.autre{border-top:1px solid var(--ligne);padding-top:28px;margin-top:36px}
+@media (min-width:900px){
+  .equipe .wrap{grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+  .personne{grid-template-columns:300px 1fr;align-items:end;gap:36px}
+  .equipe .tete{grid-column:1/-1}
+  .equipe .bloc{grid-column:1/-1;display:grid;grid-template-columns:1.4fr 1fr;gap:80px;align-items:end}
+  .autre{border-top:0;border-left:1px solid var(--ligne);padding:0 0 0 40px;margin-top:0}
+}
+
+/* galerie */
+.galerie{padding-top:0}
+.galerie .mur{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.galerie .mur img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px}
+@media (min-width:900px){.galerie .mur{grid-template-columns:repeat(3,1fr);gap:18px}.galerie .mur img:nth-child(2){margin-top:60px}}
+@media (max-width:899px){.galerie .mur img:first-child{grid-column:span 2;aspect-ratio:3/2}}
+
+/* contact */
+.contact{background:var(--brun);color:#e6dcc6}
+.contact .wrap{display:grid;gap:36px}
+.contact h2{color:#fff}
+.contact .intro{color:#cbbfa6}
+.coord{list-style:none;border-top:1px solid rgba(255,255,255,.16)}
+.coord li{display:flex;justify-content:space-between;gap:20px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.16);flex-wrap:wrap}
+.coord span{color:#b4a78e;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+.coord a{color:#fff;text-decoration-color:var(--miel);text-underline-offset:4px}
+@media (min-width:900px){.contact .wrap{grid-template-columns:1fr 1fr;gap:80px;align-items:center}}
+
+footer{background:var(--brun);color:#a99c84;padding:0 var(--g) 56px;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.12);padding-top:28px}
+
+.rv{opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.vu{opacity:1;transform:none}
+.no-js .rv{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body class="no-js">
+<div class="apercu" role="note">Aperçu imaginé par Nouvelle Ardoise pour <strong>Rucher Rosie</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#">Rucher <span>Rosie</span></a>
+    <nav aria-label="Navigation principale">
+      <a class="l" href="#ruchers">Les ruchers</a>
+      <a class="l" href="#biodynamie">Biodynamie</a>
+      <a class="l" href="#equipe">L'équipe</a>
+      <a class="pill" href="#contact">Réserver un cours</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="titre">
+  <div class="wrap">
+    <div>
+      <p class="sur">Cours d'apiculture · <b>Jura</b></p>
+      <h1 id="titre">Prendre soin des abeilles avec <em>douceur</em> et patience</h1>
+      <p class="chapo">Rosie Blanche, apicultrice à Roche-d'Or, fait évoluer l'apiculture vers plus de respect pour les abeilles, et vous emmène au rucher le temps d'un cours.</p>
+      <div class="actions">
+        <a class="btn" href="mailto:rosie@rucher-rosie.ch?subject=R%C3%A9server%20un%20cours">Réserver un cours</a>
+        <a class="btn sec" href="tel:+41797266528">079 726 65 28</a>
+      </div>
+      <div class="chiffres">
+        <div><b>+ de 10 ans</b>d'apiculture</div>
+        <div><b>2 ruchers</b>Roche-d'Or et Boncourt</div>
+        <div><b>Demeter</b>en reconversion depuis 2024</div>
+      </div>
+    </div>
+    <figure class="rv">
+      <img src="img/miel.webp" width="1400" height="2097" alt="Pot de miel crémeux en forme d'ourson, étiquette Mini Rosie, dans une lumière chaude">
+      <figcaption class="etiquette"><b>Mini Rosie</b>Le miel du rucher</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="recit" aria-labelledby="t-recit">
+  <div class="wrap">
+    <img class="rv" src="img/coquelicot-abeille.webp" width="1200" height="800" alt="Abeille qui butine un coquelicot dans une prairie" loading="lazy">
+    <div class="rv">
+      <p class="sur" id="t-recit">Au rucher</p>
+      <blockquote style="margin-top:18px">
+        <p>«&nbsp;Chaque journée au rucher est un moment unique : le pic noir chante, et sous le tilleul la brise apporte de la fraîcheur aux chaudes journées d'été.&nbsp;»</p>
+        <p>Après avoir enfilé la combinaison, on ouvre une ruche et on goûte le miel encore chaud à même le cadre. Se mettre au service de ses abeilles, c'est une façon d'habiter le monde.</p>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="lieux" id="ruchers" aria-labelledby="t-lieux">
+  <div class="wrap">
+    <div class="rv">
+      <h2 id="t-lieux">Où se passent les cours</h2>
+      <p class="intro">Tout est organisé pour que votre cours soit à la fois un moment d'apprentissage et de détente.</p>
+    </div>
+    <div class="liste">
+      <article class="lieu rv">
+        <img class="img" src="img/rucher-hiver.webp" width="567" height="425" alt="Le rucher pavillon Bürki rose sous la neige, à l'orée de la forêt" loading="lazy">
+        <div><small>Roche-d'Or</small><h3>Le Rucher Rosie</h3><p>Un ancien rucher pavillon Bürki, rénové en 2025 avec des méthodes anciennes de construction. Entre prairie et forêt protégée, loin du tumulte.</p></div>
+      </article>
+      <article class="lieu rv">
+        <img class="img" src="img/rucher-verger.webp" width="567" height="425" alt="Petit rucher en bois avec ruches colorées dans un verger en fleurs" loading="lazy">
+        <div><small>Boncourt</small><h3>Le Rucher du Verger fleuri</h3><p>Un petit rucher Bürki ouvert de 6 ruches Bürki et 3 Dadant, dans un verger villageois, avec un jardinet de plantes médicinales pour le soin des abeilles.</p></div>
+      </article>
+      <article class="lieu rv">
+        <img class="img" src="img/miellerie.webp" width="1134" height="850" alt="Salle de cours de la miellerie, lumineuse, avec table et chaises" loading="lazy">
+        <div><small>Salle de cours</small><h3>La miellerie</h3><p>Attenante au verger, dans une ancienne ferme rénovée en 2025 : un espace pratique, chaleureux et inspirant.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="garantie" id="biodynamie" aria-labelledby="t-garantie">
+  <div class="wrap">
+    <div class="rv">
+      <p class="sur">Garantie de qualité</p>
+      <h2 id="t-garantie" style="margin-top:12px">Une apiculture biodynamique</h2>
+      <p class="intro">Une apiculture exigeante, qui respecte profondément les abeilles et porte attention à tout ce qui les entoure.</p>
+      <ul class="points">
+        <li>Les abeilles ne mangent que leur miel.</li>
+        <li>Leur processus de reproduction est respecté.</li>
+        <li>Elles construisent leur propre cire, et les interventions sont limitées.</li>
+        <li>Les cycles lunaires sont pris en compte, et des soins aux plantes sont apportés.</li>
+      </ul>
+      <img class="demeter" src="img/demeter.webp" width="1400" height="677" alt="Label Demeter Suisse, en reconversion" loading="lazy">
+    </div>
+    <figure class="duo rv">
+      <img src="img/enfumoir.webp" width="960" height="1200" alt="Enfumoir fumant posé sur l'établi du rucher" loading="lazy">
+      <img src="img/pavillon-interieur.webp" width="960" height="1200" alt="Intérieur boisé du rucher pavillon : table, chaise et panier d'herbes" loading="lazy">
+    </figure>
+  </div>
+</section>
+
+<section class="equipe" id="equipe" aria-labelledby="t-equipe">
+  <div class="wrap">
+    <div class="tete rv"><h2 id="t-equipe">L'équipe</h2></div>
+    <div class="bloc">
+      <div class="personne rv">
+        <img src="img/rosie.webp" width="720" height="900" alt="Rosie Blanche, souriante, accoudée à une table du rucher" loading="lazy">
+        <div>
+          <h3>Rosie Blanche</h3>
+          <small>Apicultrice</small>
+          <p>Plus de 10 ans d'apiculture, en formation pour le brevet fédéral suisse. Vulgarisatrice pour la section apicole de sa région, formée pour enseigner auprès de la Société Romande d'Apiculture. Photographe HES et auteure aux éditions Favre.</p>
+        </div>
+      </div>
+      <div class="autre rv">
+        <h3>Claudine Miserez</h3>
+        <small style="display:block;font:600 12px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--brun-3);margin-top:4px">Herboriste diplômée</small>
+        <p style="color:var(--brun-2);margin-top:10px">Elle cultive et transforme ses plantes médicinales dans sa petite ferme La Rochette. Herbe sauvage ou rose cultivée : les plantes sont son domaine.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="t-contact">
+  <div class="wrap">
+    <div class="rv">
+      <h2 id="t-contact">Réserver un cours</h2>
+      <p class="intro">Pour toute information ou pour réserver un cours, écrivez à Rosie : réponse dans les plus brefs délais.</p>
+      <div class="actions"><a class="btn miel" href="mailto:rosie@rucher-rosie.ch?subject=R%C3%A9server%20un%20cours">Écrire à Rosie</a></div>
+    </div>
+    <ul class="coord rv">
+      <li><span>E-mail</span><a href="mailto:rosie@rucher-rosie.ch">rosie@rucher-rosie.ch</a></li>
+      <li><span>Téléphone</span><a href="tel:+41797266528">+41 79 726 65 28</a></li>
+      <li><span>Ruchers</span><b style="font-weight:400;color:#fff">Roche-d'Or et Boncourt, Jura</b></li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Rucher Rosie sàrl · Jura, Suisse</div>
+    <div>Aperçu non officiel, imaginé par Nouvelle Ardoise. Textes et photos : rucher-rosie.ch.</div>
+  </div>
+</footer>
+
+<script>
+document.body.classList.remove('no-js');
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('vu')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target);}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

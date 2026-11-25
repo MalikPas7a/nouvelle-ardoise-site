@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Freelon · Nids de frelons asiatiques (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour Freelon, intervention sur les nids de frelons asiatiques et de guêpes depuis Moutier.">
+<meta name="theme-color" content="#f1ece0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..500&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/nid-automne.webp">
+<style>
+:root{
+  --papier:#f1ece0;      /* carnet de terrain */
+  --papier-2:#e6dfcf;
+  --encre:#1d1b17;
+  --gris:#5c574c;
+  --ambre:#c9761a;       /* thorax du frelon */
+  --ambre-clair:#e9a13b;
+  --sapin:#24382c;       /* forêts du Jura */
+  --ligne:#cfc6b2;
+  --serif:"Newsreader", Georgia, serif;
+  --cond:"Barlow Condensed", "Arial Narrow", sans-serif;
+  --sans:"Barlow", system-ui, -apple-system, sans-serif;
+  --g:clamp(16px, 5vw, 64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--papier);color:var(--encre);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ambre);outline-offset:3px}
+.wrap{max-width:1220px;margin:0 auto}
+
+.apercu{background:var(--encre);color:#bdb6a6;font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff;font-weight:500}
+
+.top{position:sticky;top:0;z-index:20;background:rgba(241,236,224,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px var(--g)}
+@media (min-width:1320px){.top .wrap{padding:10px 0}}
+.marque{text-decoration:none;display:flex;align-items:baseline;gap:8px}
+.marque b{font:700 24px/1 var(--cond);letter-spacing:.04em;text-transform:uppercase}
+.marque b i{font-style:normal;color:var(--ambre)}
+.marque span{font:500 13px/1 var(--cond);letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+@media (max-width:400px){.marque span{display:none}}
+.top nav{display:flex;align-items:center;gap:26px}
+.top nav a.l{font-size:15px;text-decoration:none;color:var(--gris)}
+.top nav a.l:hover{color:var(--encre);text-decoration:underline;text-underline-offset:4px}
+@media (max-width:860px){.top nav a.l{display:none}}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 24px;border-radius:4px;background:var(--encre);color:#fff;font:600 16px/1 var(--sans);text-decoration:none;transition:background .2s,transform .15s}
+.btn:hover{background:#3a362e}
+.btn:active{transform:scale(.98)}
+.btn.ambre{background:var(--ambre);color:#fff}
+.btn.ambre:hover{background:#a95f10}
+.btn.sec{background:transparent;color:var(--encre);border:1px solid var(--encre)}
+.btn.sec:hover{background:var(--papier-2)}
+.btn.petit{min-height:44px;padding:0 16px;font-size:15px}
+.etiq{font:600 13px/1.3 var(--cond);letter-spacing:.14em;text-transform:uppercase;color:var(--ambre)}
+
+/* hero */
+.hero{padding:28px var(--g) 72px}
+.hero .wrap{display:grid;gap:30px}
+h1{font:500 clamp(42px, 9.5vw, 92px)/.98 var(--serif);font-variation-settings:"opsz" 72;letter-spacing:-.025em;margin:14px 0 20px}
+h1 em{font-style:italic;color:var(--ambre)}
+.chapo{max-width:46ch;color:var(--gris);font-size:18px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.saison{margin-top:22px;display:inline-flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid var(--ligne);border-radius:4px;font-size:15px;color:var(--gris)}
+.saison b{font:700 15px/1 var(--cond);letter-spacing:.08em;text-transform:uppercase;color:var(--encre)}
+.hero figure{position:relative}
+.hero figure img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px}
+.hero figcaption{margin-top:10px;font:italic 400 15px/1.4 var(--serif);color:var(--gris)}
+@media (min-width:920px){
+  .hero{padding:56px var(--g) 104px}
+  .hero .wrap{grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
+}
+
+section{padding:clamp(72px, 10vw, 124px) var(--g)}
+h2{font:500 clamp(34px, 5.6vw, 60px)/1.02 var(--serif);font-variation-settings:"opsz" 72;letter-spacing:-.02em;margin-top:12px}
+h2 em{font-style:italic;color:var(--ambre)}
+
+/* offre */
+.offre{border-top:1px solid var(--ligne)}
+.offre .grille{display:grid;gap:0;margin-top:44px;border-top:2px solid var(--encre)}
+.offre article{padding:26px 0;border-bottom:1px solid var(--ligne);display:grid;gap:8px}
+.offre .n{font:700 15px/1 var(--cond);letter-spacing:.1em;color:var(--ambre)}
+.offre h3{font:500 26px/1.15 var(--serif)}
+.offre p{color:var(--gris);max-width:48ch}
+@media (min-width:860px){
+  .offre .grille{grid-template-columns:repeat(3,1fr);gap:0 40px}
+  .offre article{border-bottom:0;padding-top:28px}
+}
+
+/* hauteurs */
+.hauteurs{background:var(--sapin);color:#dfe5dc}
+.hauteurs h2{color:#fff}
+.hauteurs h2 em{color:var(--ambre-clair)}
+.hauteurs .etiq{color:var(--ambre-clair)}
+.hauteurs .wrap{display:grid;gap:44px}
+.hauteurs p.intro{margin-top:18px;max-width:46ch;color:#b8c4b9}
+.regle{list-style:none;position:relative;border-left:2px solid var(--ambre-clair);margin-left:6px}
+.regle li{position:relative;display:grid;grid-template-columns:110px 1fr auto;align-items:baseline;gap:12px;padding:14px 0 14px 22px;border-bottom:1px dashed rgba(223,229,220,.22)}
+.regle li::before{content:"";position:absolute;left:-2px;top:26px;width:14px;height:2px;background:var(--ambre-clair)}
+.regle b{font:700 30px/1 var(--cond);color:#fff;letter-spacing:.01em}
+.regle span{font-size:15.5px;color:#b8c4b9}
+.regle i{font:600 15px/1 var(--cond);font-style:normal;letter-spacing:.06em;color:var(--ambre-clair);white-space:nowrap}
+.hauteurs .note{margin-top:18px;font-size:14px;color:#9fae9f;max-width:52ch}
+.hauteurs figure img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:4px}
+@media (min-width:920px){.hauteurs .wrap{grid-template-columns:1fr 1.05fr .8fr;gap:56px;align-items:start}}
+@media (max-width:919px){.hauteurs figure{display:none}}
+@media (max-width:400px){.regle li{grid-template-columns:84px 1fr auto;gap:8px}.regle b{font-size:26px}}
+
+/* formation */
+.formation .wrap{display:grid;gap:44px}
+.formation p.txt{color:var(--gris);max-width:50ch;margin-top:18px}
+.cours{list-style:none;margin-top:28px;display:grid;gap:12px}
+.cours li{padding:16px 18px;background:var(--papier-2);border-radius:4px}
+.cours b{display:block;font:600 19px/1.25 var(--sans)}
+.cours span{display:block;margin-top:4px;color:var(--gris);font-size:15.5px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.duo img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:4px}
+.duo .large{grid-column:span 2}
+.duo .large img{aspect-ratio:16/9}
+@media (min-width:920px){.formation .wrap{grid-template-columns:1fr 1.05fr;gap:72px;align-items:start}}
+
+/* galerie */
+.galerie{padding-top:0}
+.planche{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:36px}
+.planche figure img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:4px}
+.planche figcaption{margin-top:6px;font:italic 400 14.5px/1.3 var(--serif);color:var(--gris)}
+@media (min-width:860px){.planche{grid-template-columns:repeat(4,1fr);gap:14px}}
+
+/* contact */
+.contact{background:var(--encre);color:#d9d3c4}
+.contact .wrap{display:grid;gap:44px}
+.contact h2{color:#fff}
+.contact h2 em{color:var(--ambre-clair)}
+.contact .etiq{color:var(--ambre-clair)}
+.contact dl{display:grid;gap:22px}
+.contact dt{font:600 13px/1.3 var(--cond);letter-spacing:.14em;text-transform:uppercase;color:#9c9584;margin-bottom:4px}
+.contact dd{font:400 23px/1.35 var(--serif);color:#fff}
+.contact dd a{text-decoration:none}
+.contact dd a:hover{text-decoration:underline;text-underline-offset:4px}
+.btn.clair{background:#fff;color:var(--encre)}
+.btn.clair:hover{background:var(--papier-2)}
+.btn.ligne{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5)}
+.btn.ligne:hover{background:rgba(255,255,255,.08)}
+@media (min-width:920px){.contact .wrap{grid-template-columns:1.1fr 1fr;gap:80px;align-items:start}}
+
+footer{background:#13120f;color:#8f8879;padding:32px var(--g);font-size:13.5px}
+footer .wrap{display:grid;gap:10px}
+@media (min-width:920px){footer .wrap{grid-template-columns:1fr auto}}
+
+.r{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.r.vu{opacity:1;transform:none}
+.no-js .r{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.r{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body class="no-js">
+<div class="apercu" role="note">Aperçu imaginé par Nouvelle Ardoise pour <strong>Freelon</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="marque" href="#"><b>Free<i>lon</i></b><span>Moutier · Jura</span></a>
+    <nav aria-label="Navigation principale">
+      <a class="l" href="#offre">Interventions</a>
+      <a class="l" href="#hauteurs">Hauteurs</a>
+      <a class="l" href="#formation">Formation</a>
+      <a class="btn ambre petit" href="tel:+41772360007">Appeler</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="titre">
+  <div class="wrap">
+    <div>
+      <p class="etiq">Frelons asiatiques &amp; guêpes · Jura suisse</p>
+      <h1 id="titre">Protéger les abeilles <em>face au frelon asiatique</em></h1>
+      <p class="chapo">Neutralisation et extraction de nids de frelons asiatiques et de guêpes, pour un équilibre harmonieux entre l'homme et l'environnement. Nous intervenons en Suisse, et aussi loin que possible.</p>
+      <div class="actions">
+        <a class="btn ambre" href="tel:+41772360007">Appeler le 077 236 00 07</a>
+        <a class="btn sec" href="https://wa.me/41772360007" rel="noopener">Écrire sur WhatsApp</a>
+      </div>
+      <p class="saison"><b>Saison frelon</b> d'août à novembre</p>
+    </div>
+    <figure>
+      <img src="img/nid-automne.webp" width="1050" height="1400" alt="Intervenant en combinaison de protection, encordé dans un arbre aux feuilles d'automne, sous un grand nid de frelons" fetchpriority="high">
+      <figcaption>Intervention sur un nid en hauteur.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="offre" id="offre" aria-labelledby="t-offre">
+  <div class="wrap">
+    <div class="r">
+      <p class="etiq">Ce que nous proposons</p>
+      <h2 id="t-offre">Des apiculteurs passionnés <em>contre le frelon</em></h2>
+    </div>
+    <div class="grille r">
+      <article><span class="n">01</span><h3>Intervention</h3><p>La neutralisation et l'extraction de nids de frelons asiatiques (Vespa velutina) et de guêpes, par des désinfestateurs certifiés.</p></article>
+      <article><span class="n">02</span><h3>Équipement</h3><p>Des fournitures d'intervention pour moyenne à haute hauteur, des solutions fonctionnelles, durables et évolutives, et de la location.</p></article>
+      <article><span class="n">03</span><h3>Formation</h3><p>Des formations de A à Z liées au Vespa velutina nigrithorax, pour les professionnels du métier et ses nouveaux initiés.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="hauteurs" id="hauteurs" aria-labelledby="t-haut">
+  <div class="wrap">
+    <div class="r">
+      <p class="etiq">Traitement guêpes et frelons</p>
+      <h2 id="t-haut">De la portée de bras <em>à plus de 30&nbsp;m</em></h2>
+      <p class="intro">Pour une intervention rapide et efficace, contactez-nous par téléphone ou WhatsApp.</p>
+      <div class="actions"><a class="btn ambre" href="tel:+41772360007">077 236 00 07</a></div>
+    </div>
+    <div class="r">
+      <ol class="regle">
+        <li><b>30 m +</b><span>Au-delà de 30 mètres</span></li>
+        <li><b>22 m</b><span>Jusqu'à 22 mètres</span></li>
+        <li><b>16 m</b><span>Jusqu'à 16 mètres</span></li>
+        <li><b>11 m</b><span>Jusqu'à 11 mètres</span></li>
+        <li><b>6 m</b><span>Jusqu'à 6 mètres</span></li>
+        <li><b>Bras</b><span>Nid non visible</span></li>
+        <li><b>Bras</b><span>À portée de bras</span></li>
+      </ol>
+      <p class="note">La destruction de tous les insectes ne peut pas être garantie selon la configuration.</p>
+    </div>
+    <figure class="r"><img src="img/perche-haute.webp" width="803" height="1400" loading="lazy" alt="Perches télescopiques déployées très haut dans le ciel lors d'un exercice"></figure>
+  </div>
+</section>
+
+<section class="formation" id="formation" aria-labelledby="t-form">
+  <div class="wrap">
+    <div class="r">
+      <p class="etiq">Formation</p>
+      <h2 id="t-form">Devenir <em>perchiste</em></h2>
+      <p class="txt">Des cours sur demande, selon les besoins. Chaque cours de perchiste se termine par une attestation délivrée par l'expert formateur.</p>
+      <ul class="cours">
+        <li><b>Perchiste 1 · le matin</b><span>Matériel et accessoires, sécurité et équipement de protection, techniques de positionnement. Dès 4 personnes.</span></li>
+        <li><b>Perchiste 2 · l'après-midi</b><span>Entretien du matériel, exercices avec rallonges, extraction et descente d'un nid depuis le sol. Dès 3 personnes.</span></li>
+        <li><b>Télémétrie</b><span>Recherche et localisation de nids de frelons : retour d'expérience, présentation et utilisation du matériel.</span></li>
+        <li><b>Drone</b><span>Initiation, démonstration et accompagnement pour l'obtention de la licence de pilote.</span></li>
+      </ul>
+    </div>
+    <div class="duo r">
+      <img src="img/formation-perche.webp" width="787" height="1400" loading="lazy" alt="Formateur montrant la manipulation d'une perche à des participants">
+      <img src="img/materiel-table.webp" width="787" height="1400" loading="lazy" alt="Matériel d'intervention étalé sur une table en bois : perches, embouts, pulvérisateurs">
+      <div class="large"><img src="img/formation-tente.webp" width="1400" height="630" loading="lazy" alt="Participants à une formation réunis sous une tente dans un pré"></div>
+    </div>
+  </div>
+</section>
+
+<section class="galerie" aria-labelledby="t-gal">
+  <div class="wrap">
+    <p class="etiq r">Sur le terrain</p>
+    <h2 id="t-gal" class="r">Carnet <em>d'interventions</em></h2>
+    <div class="planche r">
+      <figure><img src="img/nid-perche.webp" width="787" height="1400" loading="lazy" alt="Grand nid de frelons accroché dans un pin, au-dessus d'un quartier"><figcaption>Nid dans un pin, au-dessus des toits</figcaption></figure>
+      <figure><img src="img/nid-gros-plan.webp" width="787" height="1400" loading="lazy" alt="Nid de frelons extrait, posé au sol, vu de près"><figcaption>Nid extrait</figcaption></figure>
+      <figure><img src="img/nid-mesure.webp" width="720" height="1280" loading="lazy" alt="Nid de frelons extrait, à côté d'un mètre pliant"><figcaption>Le nid, mètre à l'appui</figcaption></figure>
+      <figure><img src="img/nid-arbre.webp" width="720" height="1280" loading="lazy" alt="Nid de frelons caché dans le feuillage d'un arbre"><figcaption>Caché dans le feuillage</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="t-contact">
+  <div class="wrap">
+    <div class="r">
+      <p class="etiq">Contact</p>
+      <h2 id="t-contact">Vous avez trouvé <em>un nid&nbsp;?</em></h2>
+      <p style="margin-top:18px;max-width:44ch">N'hésitez pas à nous contacter : nous serons ravis de sécuriser votre extérieur. Le plus rapide est le téléphone ou WhatsApp.</p>
+      <div class="actions">
+        <a class="btn clair" href="tel:+41772360007">Appeler</a>
+        <a class="btn ligne" href="https://wa.me/41772360007" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <dl class="r">
+      <div><dt>Base</dt><dd>Moutier, Jura</dd></div>
+      <div><dt>Secteur</dt><dd>Toute la Suisse</dd></div>
+      <div><dt>Téléphone et WhatsApp</dt><dd><a href="tel:+41772360007">077 236 00 07</a></dd></div>
+      <div><dt>E-mail</dt><dd><a href="mailto:service@freelon.ch">service@freelon.ch</a></dd></div>
+    </dl>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Freelon · Moutier, Jura</p>
+    <p>Aperçu non officiel, imaginé par Nouvelle Ardoise. Textes et photos : freelon.ch.</p>
+  </div>
+</footer>
+
+<script>
+document.body.classList.remove('no-js');
+(function(){
+  var els=document.querySelectorAll('.r');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('vu')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target);}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

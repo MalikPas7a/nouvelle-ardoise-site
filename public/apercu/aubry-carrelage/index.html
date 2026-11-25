@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Aubry Carrelage · Carrelage et rénovation, Jura (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour Aubry Carrelage, pose de carrelage et showroom à Vicques (JU).">
+<meta name="theme-color" content="#f2f0eb">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/sol-angle-gris.webp">
+<style>
+:root{
+  --pierre:#f2f0eb;      /* fond pierre claire */
+  --pierre-2:#e6e3dc;
+  --joint:#cfcbc2;       /* couleur des joints */
+  --anthracite:#202427;
+  --gris:#5b6064;
+  --marine:#13254d;      /* bleu de l'enseigne */
+  --cyan:#2a9fc4;        /* reflet du logo */
+  --sans:"Archivo", system-ui, -apple-system, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, monospace;
+  --g:clamp(16px, 5vw, 64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--pierre);color:var(--anthracite);font:400 17px/1.6 var(--sans);font-stretch:100%;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto}
+
+.apercu{background:var(--anthracite);color:#b9bcbf;font-size:12.5px;line-height:1.4;text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff;font-weight:500}
+
+.top{position:sticky;top:0;z-index:20;background:rgba(242,240,235,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--joint)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px var(--g)}
+@media (min-width:1340px){.top .wrap{padding:10px 0}}
+.marque{display:flex;align-items:center;gap:10px;text-decoration:none}
+.marque i{display:grid;grid-template-columns:repeat(2,9px);gap:2px}
+.marque i b{width:9px;height:9px;background:var(--marine)}
+.marque i b:nth-child(2){background:var(--cyan)}
+.marque span{font:800 19px/1 var(--sans);font-stretch:118%;letter-spacing:.06em;color:var(--marine)}
+.marque small{font:500 11px/1 var(--mono);letter-spacing:.06em;color:var(--gris);margin-left:4px}
+@media (max-width:420px){.marque small{display:none}}
+.top nav{display:flex;align-items:center;gap:26px}
+.top nav a.l{font-size:15px;text-decoration:none;color:var(--gris)}
+.top nav a.l:hover{color:var(--anthracite);text-decoration:underline;text-underline-offset:4px}
+@media (max-width:860px){.top nav a.l{display:none}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;background:var(--marine);color:#fff;font:600 16px/1 var(--sans);text-decoration:none;border-radius:2px;transition:background .2s,transform .15s}
+.btn:hover{background:#0c1a38}
+.btn:active{transform:scale(.98)}
+.btn.sec{background:transparent;color:var(--anthracite);border:1px solid var(--anthracite)}
+.btn.sec:hover{background:var(--pierre-2)}
+.btn.petit{min-height:44px;padding:0 16px;font-size:15px}
+.btn.clair{background:#fff;color:var(--marine)}
+.btn.clair:hover{background:var(--pierre-2)}
+.btn.ligne-claire{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.55)}
+.btn.ligne-claire:hover{background:rgba(255,255,255,.08)}
+
+.mono{font:500 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gris)}
+
+/* hero */
+.hero{padding:32px var(--g) 0}
+.hero .wrap{display:grid;gap:28px}
+h1{font:800 clamp(44px, 11vw, 104px)/.95 var(--sans);font-stretch:112%;letter-spacing:-.035em;margin:16px 0 22px;color:var(--anthracite)}
+h1 span{display:block;font-weight:400;font-stretch:80%;letter-spacing:-.02em;color:var(--marine)}
+.chapo{max-width:46ch;color:var(--gris);font-size:18px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.rdv{margin-top:18px;display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--gris)}
+.rdv b{width:8px;height:8px;background:var(--cyan)}
+.hero figure{position:relative}
+.hero figure img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.hero figcaption{position:absolute;left:0;bottom:0;background:var(--pierre);padding:10px 14px 0 0;font:500 12px/1.4 var(--mono);color:var(--gris);letter-spacing:.04em}
+@media (min-width:920px){
+  .hero{padding:64px var(--g) 0}
+  .hero .wrap{grid-template-columns:1.15fr 1fr;gap:64px;align-items:end}
+  .hero .texte{padding-bottom:72px}
+  .hero figure img{aspect-ratio:3/4;max-height:760px}
+}
+
+/* calepinage : ligne de joints */
+.calepin{height:14px;margin-top:0;background:
+  linear-gradient(90deg,var(--joint) 1px,transparent 1px) 0 0/56px 100%,
+  linear-gradient(var(--joint) 1px,transparent 1px) 0 0/100% 7px}
+
+section{padding:clamp(72px, 10vw, 128px) var(--g)}
+h2{font:800 clamp(34px, 6vw, 64px)/1 var(--sans);font-stretch:108%;letter-spacing:-.03em;color:var(--anthracite);margin-top:12px}
+h2 em{font-style:normal;white-space:nowrap;font-weight:400;font-stretch:80%;color:var(--marine)}
+
+/* services en carreaux */
+.carreaux{display:grid;grid-template-columns:1fr;gap:1px;background:var(--joint);border:1px solid var(--joint);margin-top:44px}
+.carreaux article{background:var(--pierre);padding:26px 22px 28px;display:grid;gap:8px;align-content:start}
+.carreaux .num{font:500 12px/1 var(--mono);color:var(--cyan);letter-spacing:.06em}
+.carreaux h3{font:700 22px/1.15 var(--sans);font-stretch:104%}
+.carreaux p{color:var(--gris);font-size:15.5px}
+.carreaux article.photo{padding:0;min-height:260px;background:#ccc;aspect-ratio:4/3}
+@media (min-width:1000px){.carreaux article.photo{aspect-ratio:auto}}
+.carreaux article.photo{position:relative;overflow:hidden}
+.carreaux article.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+@media (min-width:640px){.carreaux{grid-template-columns:1fr 1fr}}
+@media (min-width:1000px){.carreaux{grid-template-columns:repeat(4,1fr);grid-auto-rows:300px}.carreaux article.photo{min-height:0}}
+.services .entete{display:grid;gap:18px}
+.services .entete p{color:var(--gris);max-width:48ch}
+@media (min-width:920px){.services .entete{grid-template-columns:1fr 1fr;align-items:end}}
+
+/* réalisations */
+.realisations{background:var(--anthracite);color:#e5e6e3}
+.realisations .mono{color:#9da2a6}
+.realisations h2{color:#fff}
+.realisations h2 em{color:#8fd0e6}
+.projet{display:grid;gap:24px;margin-top:64px}
+.projet img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.projet .duo{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.projet .duo img{aspect-ratio:3/4}
+.projet h3{font:700 clamp(24px, 3vw, 34px)/1.1 var(--sans);font-stretch:104%;color:#fff;margin:10px 0 14px}
+.projet p{color:#bfc3c6;max-width:46ch}
+.projet ul{list-style:none;margin-top:18px;display:grid;gap:8px}
+.projet li{display:flex;gap:12px;font-size:15.5px;color:#d7d9d7}
+.projet li::before{content:"";flex:0 0 8px;height:8px;margin-top:8px;background:var(--cyan)}
+@media (min-width:920px){
+  .projet{grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+  .projet.inverse > :first-child{order:2}
+}
+
+/* showroom */
+.showroom .wrap{display:grid;gap:40px}
+.showroom p.txt{color:var(--gris);max-width:50ch;margin-top:18px}
+.showroom ol{list-style:none;margin-top:30px;border-top:1px solid var(--joint)}
+.showroom ol li{display:grid;grid-template-columns:40px 1fr;padding:14px 0;border-bottom:1px solid var(--joint);font-size:16px}
+.showroom ol li span{font:500 12px/1.9 var(--mono);color:var(--cyan)}
+.mosaique{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mosaique img{width:100%;height:100%;object-fit:cover;aspect-ratio:3/4}
+.mosaique .vitrine{grid-column:span 2}
+.mosaique .vitrine img{aspect-ratio:4/3;max-width:420px;width:100%}
+@media (min-width:920px){.showroom .wrap{grid-template-columns:1fr 1.1fr;gap:72px;align-items:start}}
+
+/* galerie */
+.galerie{padding-top:0}
+.grille{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:36px}
+.grille img{width:100%;aspect-ratio:3/4;object-fit:cover}
+@media (min-width:760px){.grille{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:1100px){.grille{grid-template-columns:repeat(6,1fr)}}
+.matieres{margin-top:28px;font:500 12.5px/1.9 var(--mono);letter-spacing:.06em;color:var(--gris)}
+
+/* contact */
+.contact{background:var(--marine);color:#dbe1ee}
+.contact .wrap{display:grid;gap:44px}
+.contact h2{color:#fff}
+.contact h2 em{color:#8fd0e6}
+.contact .mono{color:#9fb0d3}
+.contact dl{display:grid;gap:22px}
+.contact dt{font:500 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#9fb0d3;margin-bottom:6px}
+.contact dd{font:400 22px/1.35 var(--sans);color:#fff}
+.contact dd a{text-decoration:none}
+.contact dd a:hover{text-decoration:underline;text-underline-offset:4px}
+.contact .actions{margin-top:30px}
+@media (min-width:920px){.contact .wrap{grid-template-columns:1.1fr 1fr;gap:80px;align-items:start}}
+
+footer{background:#0c1834;color:#93a0bd;padding:36px var(--g);font-size:13.5px}
+footer .wrap{display:grid;gap:12px}
+@media (min-width:920px){footer .wrap{grid-template-columns:1fr auto}}
+
+.r{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.r.vu{opacity:1;transform:none}
+.no-js .r{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.r{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body class="no-js">
+<div class="apercu" role="note">Aperçu imaginé par Nouvelle Ardoise pour <strong>Aubry Carrelage</strong> · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="marque" href="#"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i><span>AUBRY</span><small>Carrelage · Jura</small></a>
+    <nav aria-label="Navigation principale">
+      <a class="l" href="#services">Services</a>
+      <a class="l" href="#realisations">Réalisations</a>
+      <a class="l" href="#showroom">Showroom</a>
+      <a class="btn petit" href="#contact">Demander un devis</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="titre">
+  <div class="wrap">
+    <div class="texte">
+      <p class="mono">Courroux · Vicques · Jura suisse</p>
+      <h1 id="titre">L'art du carrelage, <span>la passion du détail</span></h1>
+      <p class="chapo">Pose de carrelage et rénovation de sols intérieurs et extérieurs, avec un savoir-faire artisanal, un sens du détail et des finitions impeccables.</p>
+      <div class="actions">
+        <a class="btn" href="tel:+41786959806">Appeler le 078 695 98 06</a>
+        <a class="btn sec" href="#realisations">Voir nos réalisations</a>
+      </div>
+      <p class="rdv"><b aria-hidden="true"></b>Showroom à Vicques, ouvert 7j/7 sur rendez-vous</p>
+    </div>
+    <figure>
+      <img src="img/sol-angle-gris.webp" width="1050" height="1400" alt="Grand carrelage gris anthracite posé en angle autour d'une marche, dans une pièce lumineuse" fetchpriority="high">
+    </figure>
+  </div>
+</section>
+<div class="calepin" aria-hidden="true"></div>
+
+<section class="services" id="services" aria-labelledby="t-services">
+  <div class="wrap">
+    <div class="entete r">
+      <div>
+        <p class="mono">Nos services</p>
+        <h2 id="t-services">Des sols <em>aux murs</em></h2>
+      </div>
+      <p>Des solutions sur mesure pour tous vos projets. Nous vous accompagnons de A à Z, du choix des matériaux à la pose complète.</p>
+    </div>
+    <div class="carreaux r">
+      <article><span class="num">01</span><h3>Pose de carrelage</h3><p>Intérieurs et extérieurs, posés avec précision et soin. Conseil dans le choix des matériaux.</p></article>
+      <article><span class="num">02</span><h3>Faïence</h3><p>Du caractère pour vos murs : cuisines, salles de bain et pièces de vie.</p></article>
+      <article><span class="num">03</span><h3>Mosaïque</h3><p>Des mosaïques uniques, posées avec minutie, pour des ambiances originales et sur mesure.</p></article>
+      <article class="photo"><img src="img/baignoire-mosaique.webp" width="1050" height="1400" loading="lazy" alt="Baignoire habillée de carrelage effet pierre, sol en petite mosaïque rouge et blanche"></article>
+      <article class="photo"><img src="img/sol-pierre-claire.webp" width="480" height="640" loading="lazy" alt="Sol en carrelage effet pierre claire, posé en quinconce"></article>
+      <article><span class="num">04</span><h3>Pierre naturelle</h3><p>Charme et authenticité, en intérieur comme en extérieur, pour des finitions intemporelles.</p></article>
+      <article><span class="num">05</span><h3>Dalle extérieure &amp; chape</h3><p>Terrasses en dalles robustes, et chapes réalisées dans les règles de l'art.</p></article>
+      <article><span class="num">06</span><h3>Parquet &amp; vinyle</h3><p>Des sols esthétiques, résistants et adaptés à vos besoins.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="realisations" id="realisations" aria-labelledby="t-real">
+  <div class="wrap">
+    <div class="r">
+      <p class="mono">Nos réalisations</p>
+      <h2 id="t-real">Des projets uniques, <em>à votre image</em></h2>
+    </div>
+
+    <article class="projet r">
+      <img src="img/sdb-anthracite.webp" width="1050" height="1400" loading="lazy" alt="Salle de bain en carrelage grand format anthracite mat, meuble vasque en bois">
+      <div>
+        <p class="mono">Salle de bain</p>
+        <h3>Offrez une seconde vie à votre salle de bain</h3>
+        <p>Un espace classique transformé en un lieu moderne et élégant, grâce à un carrelage grand format finition mate dans des tons anthracite. Un style sobre et intemporel.</p>
+        <ul><li>Carrelage grand format, finition mate</li><li>Du sol aux murs</li></ul>
+      </div>
+    </article>
+
+    <article class="projet inverse r">
+      <div class="duo">
+        <img src="img/cuisine-zellige-noir.webp" width="905" height="1280" loading="lazy" alt="Cuisine contemporaine avec crédence en faïence effet zellige noir">
+        <img src="img/cuisine-noire.webp" width="1179" height="885" loading="lazy" alt="Plan de travail et crédence noirs sous éclairage chaud">
+      </div>
+      <div>
+        <p class="mono">Cuisine</p>
+        <h3>Une cuisine au style contemporain</h3>
+        <p>Une faïence effet zellige noir à la brillance subtile et aux reflets irréguliers. Loin d'assombrir l'espace, le noir sublime les matériaux et fait ressortir les lignes.</p>
+        <ul><li>Finition soignée, durable et facile à entretenir</li><li>Le noir comme vrai parti pris déco</li></ul>
+      </div>
+    </article>
+
+    <article class="projet r">
+      <img src="img/poele-pierre.webp" width="1050" height="1400" loading="lazy" alt="Poêle à bois devant un mur habillé d'un parement de pierre">
+      <div>
+        <p class="mono">Pierre naturelle</p>
+        <h3>Un coin feu plein de charme</h3>
+        <p>Le mur arrière d'un poêle à bois habillé d'un parement en pierre naturelle, posé avec soin. Relief, authenticité et caractère : parfait pour créer un coin cocooning.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="showroom" id="showroom" aria-labelledby="t-show">
+  <div class="wrap">
+    <div class="r">
+      <p class="mono">Showroom à Vicques</p>
+      <h2 id="t-show">Voir, toucher, <em>choisir</em></h2>
+      <p class="txt">Un espace d'exposition chaleureux pour découvrir des matériaux de qualité et des ambiances inspirantes, et imaginer votre projet en réel. Ouvert 7j/7 sur rendez-vous.</p>
+      <ol>
+        <li><span>01</span>Une entreprise locale, réactive et à taille humaine</li>
+        <li><span>02</span>Un showroom pour mieux visualiser vos choix</li>
+        <li><span>03</span>Une pose soignée, dans le respect des délais et des normes</li>
+        <li><span>04</span>Des matériaux choisis pour leur qualité et leur esthétique</li>
+        <li><span>05</span>Un interlocuteur unique pour un accompagnement personnalisé</li>
+      </ol>
+      <div class="actions"><a class="btn" href="tel:+41786959806">Prendre rendez-vous</a></div>
+    </div>
+    <div class="mosaique r">
+      <img src="img/showroom-interieur.webp" width="1050" height="1400" loading="lazy" alt="Intérieur du showroom avec présentoirs d'échantillons de carrelage">
+      <img src="img/showroom-presentoirs.webp" width="1050" height="1400" loading="lazy" alt="Présentoirs de grandes plaques et de mosaïques dans le showroom">
+      <div class="vitrine"><img src="img/showroom-vitrine.webp" width="640" height="480" loading="lazy" alt="Vitrine du showroom Expo Aubry à Vicques"></div>
+    </div>
+  </div>
+</section>
+
+<section class="galerie" aria-labelledby="t-gal">
+  <div class="wrap">
+    <p class="mono r">Chantiers chez nos clients</p>
+    <h2 id="t-gal" class="r">Notre savoir-faire <em>en images</em></h2>
+    <div class="grille r">
+      <img src="img/sdb-marbre.webp" width="1050" height="1400" loading="lazy" alt="Salle de bain en carrelage effet marbre blanc">
+      <img src="img/parquet-chene.webp" width="1050" height="1400" loading="lazy" alt="Parquet en chêne posé dans un séjour lumineux">
+      <img src="img/douche-carreaux-ciment.webp" width="480" height="640" loading="lazy" alt="Douche avec sol en carreaux à motifs et faïence murale bleu clair">
+      <img src="img/sol-gris-marches.webp" width="1050" height="1400" loading="lazy" alt="Sol en carrelage gris anthracite suivant un décroché">
+      <img src="img/escalier-bois.webp" width="480" height="640" loading="lazy" alt="Escalier habillé de carrelage effet bois">
+      <img src="img/sdb-miroir-rond.webp" width="480" height="640" loading="lazy" alt="Salle de bain en carrelage gris clair avec miroir rond lumineux">
+    </div>
+    <p class="matieres r">Carrelage · Faïence · Parquet · Pierre naturelle · Mosaïque · Dallage extérieur · Chape · Silicone · Rénovation · Vinyle</p>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="t-contact">
+  <div class="wrap">
+    <div class="r">
+      <p class="mono">Contact &amp; devis</p>
+      <h2 id="t-contact">Une question, <em>un projet ?</em></h2>
+      <p style="margin-top:18px;max-width:44ch">Que vous soyez particulier ou professionnel, l'équipe d'Aubry Carrelage est à votre écoute. Contactez-nous ou passez nous voir au showroom.</p>
+      <div class="actions">
+        <a class="btn clair" href="tel:+41786959806">Appeler</a>
+        <a class="btn ligne-claire" href="mailto:aubrycarrelage@gmail.com?subject=Demande%20de%20devis">Demander un devis par e-mail</a>
+      </div>
+    </div>
+    <dl class="r">
+      <div><dt>Showroom</dt><dd>Route de Courroux 23<br>2824 Vicques (JU)</dd></div>
+      <div><dt>Horaires</dt><dd>7j/7 sur rendez-vous</dd></div>
+      <div><dt>Téléphone</dt><dd><a href="tel:+41786959806">078 695 98 06</a></dd></div>
+      <div><dt>E-mail</dt><dd><a href="mailto:aubrycarrelage@gmail.com">aubrycarrelage@gmail.com</a></dd></div>
+      <div><a class="btn ligne-claire petit" href="https://www.google.com/maps/search/?api=1&amp;query=Route+de+Courroux+23+2824+Vicques" rel="noopener">Itinéraire vers le showroom</a></div>
+    </dl>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Aubry Carrelage SARL · Courroux et Vicques, Jura suisse</p>
+    <p>Aperçu non officiel, imaginé par Nouvelle Ardoise. Textes et photos : aubrycarrelage.ch.</p>
+  </div>
+</footer>
+
+<script>
+document.body.classList.remove('no-js');
+(function(){
+  var els=document.querySelectorAll('.r');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('vu')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target);}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
