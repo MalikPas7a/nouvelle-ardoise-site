@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Mômes et Moi · Boutique cadeaux à Martigny (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour Mômes et Moi, boutique de papeterie, déco, bijoux, maroquinerie et articles pour bébés et enfants, rue d'Octodure 7 à Martigny.">
+<meta name="theme-color" content="#faf5ef">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/enfants.webp">
+<style>
+:root{
+  --lambris:#faf5ef;      /* lambris blanc de la boutique */
+  --lin:#f2e8dc;
+  --poudre:#f0dcd3;       /* rose poudré des pochettes */
+  --miel:#c4935a;         /* bois miel des étagères */
+  --terre:#9c4a33;        /* cuir cognac */
+  --encre:#3a2e29;
+  --encre-2:#5f514a;
+  --encre-3:#7c6c63;
+  --ligne:#e3d5c5;
+  --serif:"Instrument Serif", Georgia, serif;
+  --sans:"DM Sans", system-ui, -apple-system, sans-serif;
+  --g:clamp(20px, 5vw, 64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--lambris);color:var(--encre);font:400 17px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-underline-offset:4px}
+:focus-visible{outline:2px solid var(--terre);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1160px;margin:0 auto}
+.sur{font:600 12px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--terre)}
+
+.apercu{background:var(--encre);color:#dccfc4;font-size:12.5px;line-height:1.45;text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff;font-weight:500}
+
+.top{position:sticky;top:0;z-index:20;background:rgba(250,245,239,.93);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px var(--g)}
+@media (min-width:1290px){.top .wrap{padding:10px 0}}
+.marque{font:400 27px/1 var(--serif);text-decoration:none}
+.marque i{color:var(--terre)}
+.top nav{display:flex;align-items:center;gap:26px}
+.top nav a.l{font-size:15px;text-decoration:none;color:var(--encre-2)}
+.top nav a.l:hover{color:var(--terre)}
+@media (max-width:819px){.top nav a.l{display:none}}
+.btn-ligne{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1px solid var(--encre);border-radius:999px;font:500 15px/1 var(--sans);text-decoration:none;white-space:nowrap;transition:background .2s,color .2s}
+.btn-ligne:hover{background:var(--encre);color:var(--lambris)}
+
+/* hero */
+.hero{padding:36px var(--g) 80px;overflow:hidden}
+.hero .wrap{display:grid;gap:44px}
+h1{font:400 clamp(68px, 19vw, 150px)/.88 var(--serif);letter-spacing:-.02em;margin:16px 0 22px}
+h1 i{color:var(--terre)}
+.chapo{font:italic 400 clamp(23px, 2.6vw, 30px)/1.3 var(--serif);max-width:24ch;color:var(--encre-2)}
+.texte{max-width:40ch;margin-top:18px;color:var(--encre-2)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 26px;border-radius:999px;background:var(--encre);color:var(--lambris);font:600 16px/1 var(--sans);text-decoration:none;transition:background .2s,transform .15s}
+.btn:hover{background:var(--terre)}
+.btn:active{transform:scale(.98)}
+.btn.sec{background:transparent;color:var(--encre);border:1px solid var(--encre-3)}
+.btn.sec:hover{background:var(--lin);border-color:var(--encre)}
+@media (max-width:400px){.btn{padding:0 20px;font-size:15px}}
+.ouvert{display:flex;align-items:center;gap:10px;margin-top:20px;font-size:14.5px;color:var(--encre-3)}
+.ouvert i{width:8px;height:8px;border-radius:50%;background:var(--miel);flex:none}
+.ouvert.oui i{background:#6c8a4a}
+
+/* deux photos comme deux cartes posées sur le présentoir */
+.duo{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:560px;width:100%;justify-self:center}
+.duo figure{background:#fff;padding:8px 8px 34px;box-shadow:0 1px 2px rgba(58,46,41,.08),0 10px 30px -18px rgba(58,46,41,.35)}
+.duo figure:first-child{transform:rotate(-2deg);margin-top:36px}
+.duo figure:last-child{transform:rotate(1.6deg)}
+.duo img{width:100%;aspect-ratio:2/3;object-fit:cover}
+.duo figcaption{position:absolute;bottom:9px;left:12px;right:12px;font:italic 400 17px/1 var(--serif);color:var(--encre-2)}
+.duo figure{position:relative}
+@media (min-width:920px){
+  .hero{padding:64px var(--g) 110px}
+  .hero .wrap{grid-template-columns:1.1fr 1fr;align-items:center;gap:56px}
+  h1{font-size:clamp(88px, 8.4vw, 118px);white-space:nowrap}
+}
+
+section{padding:clamp(72px, 10vw, 130px) var(--g)}
+h2{font:400 clamp(42px, 6.6vw, 72px)/1 var(--serif);letter-spacing:-.015em}
+h2 i{color:var(--terre)}
+
+/* univers */
+.univers{background:var(--lin);border-block:1px solid var(--ligne)}
+.liste{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.liste li{padding:10px 18px;border:1px solid var(--encre-3);border-radius:999px;font-size:16px;background:var(--lambris)}
+.trois{display:grid;gap:34px;margin-top:56px}
+.trois div{border-top:1px solid var(--encre);padding-top:16px}
+.trois h3{font:400 30px/1.1 var(--serif);margin-bottom:8px}
+.trois p{color:var(--encre-2);max-width:34ch}
+@media (min-width:860px){.trois{grid-template-columns:repeat(3,1fr);gap:48px}}
+
+/* présentation */
+.presentation .wrap{display:grid;gap:40px;align-items:center}
+.presentation img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:2px}
+.mot{font:italic 400 clamp(28px, 3.4vw, 42px)/1.2 var(--serif);margin:22px 0 22px;max-width:22ch}
+.presentation p{color:var(--encre-2);max-width:44ch}
+.presentation p + p{margin-top:14px}
+.sig{font:italic 400 22px/1.3 var(--serif);color:var(--terre);margin-top:22px}
+@media (min-width:900px){.presentation .wrap{grid-template-columns:1.1fr 1fr;gap:80px}}
+
+/* rayons */
+.rayons .tete{display:grid;gap:14px;margin-bottom:44px}
+.rayons .tete p{max-width:46ch;color:var(--encre-2)}
+.galerie{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 14px}
+.galerie img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:2px}
+.galerie figcaption{margin-top:10px;font:italic 400 21px/1.1 var(--serif)}
+@media (min-width:900px){.galerie{grid-template-columns:repeat(4,1fr);gap:36px 24px}}
+
+/* infos */
+.infos{background:var(--encre);color:#efe5da}
+.infos .sur{color:#e6a890}
+.infos h2 i{color:#e6a890}
+.infos .wrap{display:grid;gap:44px}
+.bloc h3{font:600 12px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#bfae9f;margin-bottom:12px}
+.bloc address,.bloc p{font-style:normal;font-size:18px}
+table{border-collapse:collapse;width:100%;max-width:400px;font-size:16.5px}
+td{padding:9px 0;border-bottom:1px solid rgba(239,229,218,.18);vertical-align:top}
+td:last-child{text-align:right}
+tr.auj td{color:#fff;font-weight:600}
+.infos .btn{background:var(--lambris);color:var(--encre)}
+.infos .btn:hover{background:#fff}
+.infos .btn.sec{background:transparent;color:var(--lambris);border-color:#bfae9f}
+.infos .btn.sec:hover{background:rgba(255,255,255,.08)}
+@media (min-width:900px){.infos .wrap{grid-template-columns:1fr 1fr 1fr;gap:56px;align-items:start}}
+
+footer{padding:52px var(--g) 40px}
+footer .wrap{display:grid;gap:12px;text-align:center}
+footer .nom{font:400 40px/1 var(--serif)}
+footer .nom i{color:var(--terre)}
+footer p{color:var(--encre-2)}
+footer small{font-size:12.5px;color:var(--encre-3);margin-top:12px}
+
+.rv{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}}
+.no-js .rv{opacity:1;transform:none}
+</style>
+</head>
+<body class="no-js">
+<div class="apercu">Aperçu imaginé par <strong>Nouvelle Ardoise</strong> pour Mômes et Moi · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="marque" href="#haut">Mômes <i>et</i> Moi</a>
+    <nav aria-label="Navigation principale">
+      <a class="l" href="#univers">L'univers</a>
+      <a class="l" href="#presentation">Présentation</a>
+      <a class="l" href="#rayons">La boutique</a>
+      <a class="l" href="#infos">Horaires</a>
+      <a class="btn-ligne" href="tel:+41767226809">Appeler</a>
+    </nav>
+  </div>
+</header>
+
+<main id="haut">
+  <section class="hero" aria-labelledby="titre">
+    <div class="wrap">
+      <div>
+        <p class="sur">Boutique · Martigny</p>
+        <h1 id="titre">Mômes <i>et</i> Moi</h1>
+        <p class="chapo">Un univers doux et poétique, un peu de paillettes à saupoudrer dans notre quotidien.</p>
+        <p class="texte">Papeterie, accessoires, objets déco, bijoux, maroquinerie, et toute une pièce dédiée aux bébés et aux enfants. Des idées cadeaux pour petits et grands.</p>
+        <div class="actions">
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Rue+d%27Octodure+7+1920+Martigny" target="_blank" rel="noopener">Venir à la boutique</a>
+          <a class="btn sec" href="tel:+41767226809">076 722 68 09</a>
+        </div>
+        <p class="ouvert" id="ouvert"><i></i><span>Mardi et mercredi 14 h – 18 h 30 · vendredi 9 h – 12 h, 14 h – 18 h 30 · samedi 9 h – 12 h</span></p>
+      </div>
+      <div class="duo">
+        <figure><img src="img/enfants.webp" alt="Coin enfants : poupées sur des étagères suspendues et miroir soleil en rotin" width="667" height="1000" fetchpriority="high"><figcaption>Bébés et enfants</figcaption></figure>
+        <figure><img src="img/maroquinerie.webp" alt="Sacs et pochettes en cuir accrochés au mur lambrissé" width="667" height="1000"><figcaption>Maroquinerie</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="univers" id="univers" aria-labelledby="t-univers">
+    <div class="wrap">
+      <p class="sur rv">L'univers de la boutique</p>
+      <h2 id="t-univers" class="rv">Des jolies pièces <i>dénichées</i></h2>
+      <ul class="liste rv" aria-label="Ce que vous trouverez">
+        <li>Papeterie</li><li>Accessoires</li><li>Objets déco</li><li>Bijoux</li><li>Maroquinerie</li><li>Bébés et enfants</li>
+      </ul>
+      <div class="trois">
+        <div class="rv"><h3>Des créateurs coup de cœur</h3><p>Des pièces choisies auprès de créateurs et de marques coup de cœur.</p></div>
+        <div class="rv"><h3>Une pièce pour les petits</h3><p>Toute une pièce de la boutique est dédiée aux bébés et aux enfants.</p></div>
+        <div class="rv"><h3>Des idées cadeaux</h3><p>Pour petits et grands, à trouver au cœur de Martigny.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="presentation" id="presentation" aria-labelledby="t-pres">
+    <div class="wrap">
+      <figure class="rv"><img src="img/boutique-portrait.webp" alt="La fondatrice de Mômes et Moi devant le mur de cartes de la boutique" width="1600" height="1067" loading="lazy"></figure>
+      <div class="rv">
+        <p class="sur">Présentation</p>
+        <h2 id="t-pres">L'histoire <i>d'un rêve</i></h2>
+        <p class="mot">« Mômes et Moi, c'est l'histoire d'un rêve que j'ai la chance aujourd'hui de pouvoir concrétiser. »</p>
+        <p>Maman de quatre enfants, elle a pris énormément de plaisir à sélectionner les articles pour les bébés et les enfants.</p>
+        <p class="sig">« Je me réjouis de vous accueillir et de vous faire découvrir mon univers. »</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="rayons" id="rayons" aria-labelledby="t-rayons" style="padding-top:0">
+    <div class="wrap">
+      <div class="tete">
+        <p class="sur rv">Un avant-goût de la boutique</p>
+        <h2 id="t-rayons" class="rv">Au fil <i>des rayons</i></h2>
+      </div>
+      <div class="galerie">
+        <figure class="rv"><img src="img/papeterie.webp" alt="Mur de cartes et de papeterie sur des tablettes en bois" width="667" height="1000" loading="lazy"><figcaption>Papeterie</figcaption></figure>
+        <figure class="rv"><img src="img/bijoux.webp" alt="Bijoux présentés sur des supports dorés et en bois" width="667" height="1000" loading="lazy"><figcaption>Bijoux</figcaption></figure>
+        <figure class="rv"><img src="img/accessoires.webp" alt="Présentoir d'accessoires pour cheveux et petits objets" width="667" height="1000" loading="lazy"><figcaption>Accessoires</figcaption></figure>
+        <figure class="rv"><img src="img/doudou.webp" alt="Doudou ours en tricot avec nœud papillon et anneau en bois" width="667" height="1000" loading="lazy"><figcaption>Pour les tout-petits</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="infos" id="infos" aria-labelledby="t-infos">
+    <div class="wrap">
+      <div class="rv">
+        <p class="sur">Infos</p>
+        <h2 id="t-infos">Passez <i>nous voir</i></h2>
+      </div>
+      <div class="bloc rv">
+        <h3>Adresse</h3>
+        <address>Rue d'Octodure 7<br>1920 Martigny</address>
+        <h3 style="margin-top:28px">Contact</h3>
+        <p><a href="tel:+41767226809">076 722 68 09</a><br><a href="mailto:info@momesetmoi.ch">info@momesetmoi.ch</a></p>
+        <div class="actions"><a class="btn" href="tel:+41767226809">Appeler</a><a class="btn sec" href="https://www.google.com/maps/search/?api=1&amp;query=Rue+d%27Octodure+7+1920+Martigny" target="_blank" rel="noopener">Itinéraire</a></div>
+      </div>
+      <div class="bloc rv">
+        <h3>Horaires</h3>
+        <table id="horaires">
+          <tr data-j="1"><td>Lundi</td><td>Fermé</td></tr>
+          <tr data-j="2"><td>Mardi</td><td>14 h – 18 h 30</td></tr>
+          <tr data-j="3"><td>Mercredi</td><td>14 h – 18 h 30</td></tr>
+          <tr data-j="4"><td>Jeudi</td><td>Fermé</td></tr>
+          <tr data-j="5"><td>Vendredi</td><td>9 h – 12 h<br>14 h – 18 h 30</td></tr>
+          <tr data-j="6"><td>Samedi</td><td>9 h – 12 h</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="nom">Mômes <i>et</i> Moi</p>
+    <p>Papeterie, déco, bijoux, maroquinerie, bébés et enfants · Rue d'Octodure 7, 1920 Martigny</p>
+    <small>Aperçu imaginé par Nouvelle Ardoise pour Mômes et Moi · ce n'est pas votre site officiel. Photos et textes : momesetmoi.ch.</small>
+  </div>
+</footer>
+
+<script>
+document.body.classList.remove('no-js');
+(function(){
+  var H={1:null,2:[[14,18.5]],3:[[14,18.5]],4:null,5:[[9,12],[14,18.5]],6:[[9,12]]};
+  var f=function(x){var h=Math.floor(x),m=Math.round((x-h)*60);return h+' h'+(m?' '+m:'');};
+  var d=new Date(),j=d.getDay(),t=d.getHours()+d.getMinutes()/60,p=document.getElementById('ouvert');
+  var tr=document.querySelector('#horaires tr[data-j="'+j+'"]');if(tr)tr.classList.add('auj');
+  var o=H[j];if(!o)return;var s=p.querySelector('span');
+  for(var i=0;i<o.length;i++){
+    if(t>=o[i][0]&&t<o[i][1]){p.classList.add('oui');s.textContent='Ouvert aujourd’hui jusqu’à '+f(o[i][1]);return;}
+    if(t<o[i][0]){s.textContent='Ouvre aujourd’hui à '+f(o[i][0]);return;}
+  }
+})();
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('vu')});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

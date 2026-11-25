@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>La Vouivre · Café-librairie à Saignelégier (aperçu)</title>
+<meta name="description" content="Aperçu imaginé par Nouvelle Ardoise pour le Café-librairie La Vouivre, rue de la Gruère 6 à Saignelégier, Franches-Montagnes.">
+<meta name="theme-color" content="#f3eee4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/salon.webp">
+<style>
+:root{
+  --papier:#f3eee4;
+  --papier-2:#e9e2d3;
+  --encre:#1d2526;
+  --encre-2:#46504f;
+  --encre-3:#6b7270;
+  --ardoise:#5b6670;     /* bandeau gris de la façade */
+  --rouge:#8f2b22;       /* étagères rouges du coin enfants */
+  --ligne:#cfc6b4;
+  --display:"Libre Caslon Display", "Libre Caslon Text", Georgia, serif;
+  --serif:"Libre Caslon Text", Georgia, serif;
+  --mono:"IBM Plex Mono", ui-monospace, monospace;
+  --g:clamp(20px, 5vw, 64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--papier);color:var(--encre);font:400 17px/1.7 var(--serif);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-underline-offset:3px;text-decoration-thickness:1px}
+:focus-visible{outline:2px solid var(--rouge);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto}
+.meta{font:500 12px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--encre-3)}
+
+.apercu{background:var(--encre);color:#c9cfcc;font:400 12.5px/1.45 var(--mono);text-align:center;padding:8px var(--g)}
+.apercu strong{color:#fff;font-weight:500}
+
+/* en-tête courant, comme le haut d'une page de livre */
+.top{position:sticky;top:0;z-index:20;background:rgba(243,238,228,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--encre)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px var(--g)}
+@media (min-width:1310px){.top .wrap{padding:10px 0}}
+.titre-courant{font:400 21px/1 var(--display);text-decoration:none;letter-spacing:.01em}
+.titre-courant small{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--encre-3);margin-left:10px}
+@media (max-width:429px){.titre-courant small{display:none}}
+.top nav{display:flex;align-items:center;gap:26px}
+.top nav a.l{font:500 12.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--encre-2)}
+.top nav a.l:hover{color:var(--rouge)}
+@media (max-width:879px){.top nav a.l{display:none}}
+.btn-ligne{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--encre);font:500 13px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:background .2s,color .2s}
+.btn-ligne:hover{background:var(--encre);color:var(--papier)}
+
+/* page de titre */
+.titre{padding:44px var(--g) 0;text-align:center}
+.titre .meta{color:var(--rouge)}
+h1{font:400 clamp(76px, 22vw, 210px)/.9 var(--display);letter-spacing:-.02em;margin:18px 0 10px}
+.sous{font:italic 400 clamp(19px, 2.2vw, 25px)/1.4 var(--serif);color:var(--encre-2)}
+.filet{width:56px;height:1px;background:var(--encre);margin:28px auto}
+.chapo{max-width:44ch;margin:0 auto;color:var(--encre-2)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:30px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 24px;background:var(--encre);color:var(--papier);font:500 14px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .15s}
+.btn:hover{background:var(--rouge)}
+.btn:active{transform:scale(.98)}
+.btn.sec{background:transparent;color:var(--encre);border:1px solid var(--encre)}
+.btn.sec:hover{background:var(--papier-2)}
+.ouvert{margin-top:20px;font:400 13px/1.5 var(--mono);color:var(--encre-3)}
+.ouvert b{font-weight:500;color:var(--encre)}
+.planche{margin:56px auto 0;max-width:1180px}
+.planche img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.legende{display:flex;justify-content:space-between;gap:16px;padding-top:10px;font:400 12.5px/1.4 var(--mono);color:var(--encre-3);text-align:left}
+@media (max-width:640px){.planche{margin-left:calc(var(--g) * -1);margin-right:calc(var(--g) * -1)}.planche img{aspect-ratio:4/3}.legende{padding:10px var(--g) 0}}
+
+section{padding:clamp(76px, 10vw, 136px) var(--g)}
+.chap{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--encre);padding-bottom:12px;margin-bottom:36px}
+.chap .num{font:400 15px/1 var(--mono);color:var(--rouge)}
+h2{font:400 clamp(36px, 6vw, 64px)/1.05 var(--display);letter-spacing:-.01em}
+h2 em{font-style:italic;color:var(--rouge)}
+
+/* épigraphe */
+.epigraphe{max-width:760px;margin:0 auto;text-align:center}
+.epigraphe blockquote{font:italic 400 clamp(23px, 3vw, 34px)/1.4 var(--serif)}
+.epigraphe cite{display:block;margin-top:18px;font:normal 500 12.5px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--encre-3)}
+
+/* la maison */
+.maison .corps{display:grid;gap:40px}
+.lettrine::first-letter{float:left;font:400 84px/.8 var(--display);color:var(--rouge);padding:8px 10px 0 0}
+.maison p{max-width:52ch}
+.maison p + p{margin-top:16px}
+.faits{list-style:none;border-top:1px solid var(--ligne)}
+.faits li{display:grid;grid-template-columns:7.5em 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--ligne);font-size:16.5px}
+.faits .meta{padding-top:3px}
+@media (min-width:900px){.maison .corps{grid-template-columns:1.2fr 1fr;gap:80px}}
+
+/* programme */
+.programme{background:var(--papier-2);border-block:1px solid var(--ligne)}
+.agenda{list-style:none}
+.agenda li{display:grid;gap:8px;padding:28px 0;border-bottom:1px solid var(--ligne)}
+.agenda li:first-child{padding-top:0}
+.agenda .date{font:500 13px/1.5 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--rouge)}
+.agenda h3{font:400 clamp(24px, 2.8vw, 32px)/1.2 var(--display)}
+.agenda p{color:var(--encre-2);max-width:56ch}
+@media (min-width:860px){.agenda li{grid-template-columns:15em 1fr;gap:40px}}
+.lectures{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px 28px;align-items:baseline}
+.lectures span:not(.meta){font:italic 400 21px/1.4 var(--serif)}
+
+/* commander */
+.commande .wrap{display:grid;gap:40px;align-items:center}
+.commande img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.commande p{max-width:46ch;color:var(--encre-2)}
+.commande p + p{margin-top:14px}
+.commande .actions{justify-content:flex-start}
+@media (min-width:900px){.commande .wrap{grid-template-columns:1fr 1fr;gap:80px}}
+
+/* planches */
+.planches{padding-top:0}
+.grille{display:grid;gap:12px}
+.grille figure img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.grille figcaption{padding-top:8px;font:400 12.5px/1.4 var(--mono);color:var(--encre-3)}
+@media (min-width:700px){.grille{grid-template-columns:repeat(3,1fr);gap:18px}}
+
+/* infos */
+.infos{background:var(--encre);color:#e5e1d8}
+.infos .chap{border-color:#e5e1d8}
+.infos .chap .num{color:#e39a8f}
+.infos h2 em{color:#e39a8f}
+.infos .wrap > .cols{display:grid;gap:40px}
+.infos .meta{color:#a7aeab;margin-bottom:10px}
+.infos address{font-style:normal;font-size:19px;line-height:1.6}
+.infos p{color:#cfd3cf}
+table{border-collapse:collapse;width:100%;max-width:440px;font:400 14px/1.5 var(--mono)}
+td{padding:10px 0;border-bottom:1px solid rgba(229,225,216,.2);vertical-align:top}
+td:last-child{text-align:right}
+tr.auj td{color:#fff;font-weight:500}
+.infos .btn{background:var(--papier);color:var(--encre)}
+.infos .btn:hover{background:#fff}
+.infos .btn.sec{background:transparent;color:var(--papier);border-color:var(--papier)}
+.infos .btn.sec:hover{background:rgba(255,255,255,.08)}
+.infos .actions{justify-content:flex-start}
+.infos figure img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.infos figcaption{padding-top:8px;font:400 12.5px/1.4 var(--mono);color:#a7aeab}
+@media (min-width:900px){.infos .wrap > .cols{grid-template-columns:1fr 1fr 1fr;gap:56px}}
+
+footer{padding:48px var(--g) 40px;border-top:1px solid var(--encre)}
+footer .wrap{display:grid;gap:14px;text-align:center}
+footer .nom{font:400 34px/1 var(--display)}
+footer p{font-style:italic;color:var(--encre-2)}
+footer small{font:400 12px/1.5 var(--mono);color:var(--encre-3);margin-top:12px}
+
+.rv{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}}
+.no-js .rv{opacity:1;transform:none}
+</style>
+</head>
+<body class="no-js">
+<div class="apercu">Aperçu imaginé par <strong>Nouvelle Ardoise</strong> pour La Vouivre · ce n'est pas votre site officiel</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="titre-courant" href="#haut">La Vouivre<small>Café-librairie</small></a>
+    <nav aria-label="Sommaire">
+      <a class="l" href="#maison">La maison</a>
+      <a class="l" href="#programme">Programme</a>
+      <a class="l" href="#commander">Commander</a>
+      <a class="l" href="#infos">Horaires</a>
+      <a class="btn-ligne" href="tel:+41329511830">Appeler</a>
+    </nav>
+  </div>
+</header>
+
+<main id="haut">
+  <section class="titre" aria-labelledby="titre">
+    <p class="meta">Saignelégier · Franches-Montagnes</p>
+    <h1 id="titre">La Vouivre</h1>
+    <p class="sous">Café-librairie au centre du village</p>
+    <div class="filet" aria-hidden="true"></div>
+    <p class="chapo">Une librairie généraliste qui existe depuis plus de trente ans, avec un petit espace café de vingt places, pour le public de la région comme pour celles et ceux de passage.</p>
+    <div class="actions">
+      <a class="btn" href="https://vouivre.ch/index.php/commander-un-livre">Commander un livre</a>
+      <a class="btn sec" href="#programme">Voir le programme</a>
+    </div>
+    <p class="ouvert" id="ouvert">Mardi au vendredi 8 h 30 – 12 h · 13 h 30 – 18 h 30 · samedi 8 h 30 – 17 h</p>
+    <figure class="planche">
+      <img src="img/salon.webp" alt="Le petit salon café et lecture : fauteuils, table basse et fenêtre en arc entourés de rayonnages" width="1600" height="1067" fetchpriority="high">
+      <figcaption class="legende"><span>Petit salon café et lecture</span><span>Rue de la Gruère 6</span></figcaption>
+    </figure>
+  </section>
+
+  <section class="epigraphe-s" aria-label="Citation">
+    <div class="epigraphe rv">
+      <blockquote>« Les trusts ne parviendront jamais à faire disparaître le petit libraire indépendant, comme cela a été le cas pour l'épicier ou le crémier. »</blockquote>
+      <cite>George Orwell, Quand j'étais libraire, 1936</cite>
+    </div>
+  </section>
+
+  <section class="maison" id="maison" aria-labelledby="t-maison" style="padding-top:0">
+    <div class="wrap">
+      <div class="chap rv"><span class="num">I.</span><h2 id="t-maison">Un lieu <em>hybride</em></h2></div>
+      <div class="corps">
+        <div class="rv">
+          <p class="lettrine">La librairie est à la fois un commerce et un lieu de culture. Au-dessus de l'office du tourisme, on y trouve un choix de livres dans de nombreux domaines, des jeux pour tous publics, et un espace café pour s'asseoir un moment.</p>
+          <p>Les rencontres avec les auteurs, les ateliers de réflexion et les soirées jeux sont portés par l'Association La Vouivre, une équipe de bénévoles qui épaule les libraires.</p>
+        </div>
+        <ul class="faits rv">
+          <li><span class="meta">Depuis</span><span>Plus de trente ans à Saignelégier</span></li>
+          <li><span class="meta">Le café</span><span>Vingt places, sans alcool et sans cuisine</span></li>
+          <li><span class="meta">Les livres</span><span>Commandes en français, allemand et anglais</span></li>
+          <li><span class="meta">Les jeux</span><span>Un choix pour tous les publics</span></li>
+          <li><span class="meta">Accès</span><span>Entrée à l'arrière du bâtiment pour les personnes à mobilité réduite</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="programme" id="programme" aria-labelledby="t-prog">
+    <div class="wrap">
+      <div class="chap rv"><span class="num">II.</span><h2 id="t-prog">Au <em>programme</em></h2></div>
+      <ul class="agenda">
+        <li class="rv">
+          <span class="date">Jeudi 26 novembre · 19 h</span>
+          <div><p class="meta">Atelier populaire de philosophie et sociologie</p><h3>Martha Nussbaum, Les émotions démocratiques</h3><p>Synthèse et choix du programme de printemps.</p></div>
+        </li>
+        <li class="rv">
+          <span class="date">Samedi 28 novembre · 19 h</span>
+          <div><p class="meta">Soirée jeux</p><h3>Grand tournoi de « jass au soja »</h3><p>Vous connaissez le « jass au cochon » ? En voici la version végétalienne.</p></div>
+        </li>
+      </ul>
+      <div class="lectures rv"><span class="meta">Nos dernières lectures</span><span>Rose Lamy</span><span>Élisa Shua Dusapin</span><span>Daniel de Roulet</span></div>
+    </div>
+  </section>
+
+  <section class="commande" id="commander" aria-labelledby="t-cmd">
+    <div class="wrap">
+      <figure class="rv"><img src="img/comptoir.webp" alt="Le comptoir et les tables de présentation de livres de la librairie" width="1600" height="901" loading="lazy"></figure>
+      <div class="rv">
+        <div class="chap"><span class="num">III.</span><h2 id="t-cmd">Commander <em>un livre</em></h2></div>
+        <p>Il n'est pas en rayon ? La Vouivre peut obtenir la très grande majorité des ouvrages disponibles sur le marché, en français, en allemand et en anglais.</p>
+        <p>Remplissez le formulaire de commande ou passez par la boutique LivreSuisse, puis venez le chercher au village.</p>
+        <div class="actions">
+          <a class="btn" href="https://vouivre.ch/index.php/commander-un-livre">Formulaire de commande</a>
+          <a class="btn sec" href="tel:+41329511830">032 951 18 30</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="planches" aria-label="La librairie en images">
+    <div class="wrap grille">
+      <figure class="rv"><img src="img/cafe.webp" alt="L'espace café, tables rondes près des fenêtres et présentoirs de livres" width="1600" height="1067" loading="lazy"><figcaption>Le café</figcaption></figure>
+      <figure class="rv"><img src="img/enfants.webp" alt="Rayonnages rouges remplis de livres pour enfants" width="1600" height="901" loading="lazy"><figcaption>Livres pour enfants</figcaption></figure>
+      <figure class="rv"><img src="img/noel.webp" alt="La librairie décorée pour Noël, tables de jeux et de livres" width="1600" height="1067" loading="lazy"><figcaption>Décoration de Noël</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="infos" id="infos" aria-labelledby="t-infos">
+    <div class="wrap">
+      <div class="chap rv"><span class="num">IV.</span><h2 id="t-infos">Nous <em>trouver</em></h2></div>
+      <div class="cols">
+        <div class="rv">
+          <p class="meta">Adresse</p>
+          <address>Café-Librairie La Vouivre<br>Rue de la Gruère 6<br>2350 Saignelégier</address>
+          <p style="margin-top:14px">Au centre du village, au-dessus de l'office du tourisme.</p>
+          <p class="meta" style="margin-top:28px">Contact</p>
+          <p><a href="tel:+41329511830">032 951 18 30</a><br><a href="mailto:cafe.librairie@vouivre.ch">cafe.librairie@vouivre.ch</a></p>
+        </div>
+        <div class="rv">
+          <p class="meta">Horaires</p>
+          <table id="horaires">
+            <tr data-j="1"><td>Lundi</td><td>Fermé</td></tr>
+            <tr data-j="2"><td>Mardi</td><td>8 h 30 – 12 h<br>13 h 30 – 18 h 30</td></tr>
+            <tr data-j="3"><td>Mercredi</td><td>8 h 30 – 12 h<br>13 h 30 – 18 h 30</td></tr>
+            <tr data-j="4"><td>Jeudi</td><td>8 h 30 – 12 h<br>13 h 30 – 18 h 30</td></tr>
+            <tr data-j="5"><td>Vendredi</td><td>8 h 30 – 12 h<br>13 h 30 – 18 h 30</td></tr>
+            <tr data-j="6"><td>Samedi</td><td>8 h 30 – 17 h, non-stop</td></tr>
+          </table>
+          <div class="actions" style="margin-top:28px">
+            <a class="btn" href="tel:+41329511830">Appeler</a>
+            <a class="btn sec" href="https://www.google.com/maps/search/?api=1&amp;query=Rue+de+la+Gru%C3%A8re+6+2350+Saignel%C3%A9gier" target="_blank" rel="noopener">Itinéraire</a>
+          </div>
+        </div>
+        <figure class="rv"><img src="img/batiment.webp" alt="Le bâtiment de la rue de la Gruère 6 avec l'enseigne Café Librairie La Vouivre au premier étage" width="1120" height="821" loading="lazy"><figcaption>L'enseigne au premier étage, au-dessus de Jura Tourisme</figcaption></figure>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="nom">La Vouivre</p>
+    <p>Nous ne sommes pas sur les réseaux sociaux. C'est un choix.</p>
+    <small>Aperçu imaginé par Nouvelle Ardoise pour La Vouivre · ce n'est pas votre site officiel. Photos et textes : vouivre.ch.</small>
+  </div>
+</footer>
+
+<script>
+document.body.classList.remove('no-js');
+(function(){
+  var H={1:null,2:[[8.5,12],[13.5,18.5]],3:[[8.5,12],[13.5,18.5]],4:[[8.5,12],[13.5,18.5]],5:[[8.5,12],[13.5,18.5]],6:[[8.5,17]]};
+  var f=function(x){var h=Math.floor(x),m=Math.round((x-h)*60);return h+' h'+(m?' '+m:'');};
+  var d=new Date(),j=d.getDay(),t=d.getHours()+d.getMinutes()/60,p=document.getElementById('ouvert');
+  var tr=document.querySelector('#horaires tr[data-j="'+j+'"]');if(tr)tr.classList.add('auj');
+  var o=H[j];if(!o)return;
+  for(var i=0;i<o.length;i++){
+    if(t>=o[i][0]&&t<o[i][1]){p.innerHTML='<b>Ouvert</b> aujourd’hui jusqu’à '+f(o[i][1]);return;}
+    if(t<o[i][0]){p.innerHTML='Ouvre aujourd’hui à <b>'+f(o[i][0])+'</b>';return;}
+  }
+})();
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('vu')});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
